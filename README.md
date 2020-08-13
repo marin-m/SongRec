@@ -11,13 +11,15 @@ Features:
 * Usage from both GUI and command line (for the file recognition part).
 * Provide an history of the recognized songs on the GUI, exportable to CSV.
 * Continous song detection from the microphoe, with the ability to choose your input devcie.
-* Generate a lure from a song that, when played, will fool Shazam in thinking that it is the concerned song.
+* Generate a lure from a song that, when played, will fool Shazam into thinking that it is the concerned song.
 
 A (command-line only) Python version, which I made before rewriting in Rust for performance, is also available for demonstration purposes. It supports file recognition only.
 
 ## How it works
 
-For useful information about how audio fingerprinting works, you may want to read [this article](http://coding-geek.com/how-shazam-works/). To be put simply, Shazam generates a spectrogram (a time/frequency 2D graph of the sound, with amplitude at intersections) of the sound, and maps out the frequency peaks from it (which should match key points of the harmonics of voice or of certains instruments). Shazam also downsamples the sound at 16 KHz before processing, and cuts the sound in four bands of 250-520 Hz, 520-1450 Hz, 1450-3500 Hz, 3500-5500 Hz (so that if a band is too much scrambled by noise, recognition from other bands may apply). The frequency peaks are then sent to the servers, which subsequently look up the strongest peaks in a database, in order look for the simultaneous presence of neighboring peaks both in the associated reference fingerprints and in the fingerprint we sent.
+For useful information about how audio fingerprinting works, you may want to read [this article](http://coding-geek.com/how-shazam-works/). To be put simply, Shazam generates a spectrogram (a time/frequency 2D graph of the sound, with amplitude at intersections) of the sound, and maps out the frequency peaks from it (which should match key points of the harmonics of voice or of certains instruments).
+
+Shazam also downsamples the sound at 16 KHz before processing, and cuts the sound in four bands of 250-520 Hz, 520-1450 Hz, 1450-3500 Hz, 3500-5500 Hz (so that if a band is too much scrambled by noise, recognition from other bands may apply). The frequency peaks are then sent to the servers, which subsequently look up the strongest peaks in a database, in order look for the simultaneous presence of neighboring peaks both in the associated reference fingerprints and in the fingerprint we sent.
 
 Hence, the Shazam fingerprinting algorithm, as implemented by the client, is fairly simple, as much of the processing is done server-side. The general functionment of Shazam has been documented in public [research papers](https://www.ee.columbia.edu/~dpwe/papers/Wang03-shazam.pdf) and patents.
 
@@ -80,14 +82,14 @@ The following subcommand will try to recognize audio from the middle of an audio
 
 ```
 ./songrec audio-file-to-recognized-song sound_file.mp3
-``
+```
 
 The following subcommands will do the same with an intermediary step, manipulating data-URI audio fingerprints as used by Shazam internally:
 
 ```
 ./songrec audio-file-to-fingerprint sound_file.mp3
 ./songrec fingerprint-to-recognized-song 'data:audio/vnd.shazam.sig;base64,...'
-``
+```
 
 The following will produce back hearable tones from a given fingerprint, that should be able to fool Shazam into thinking that this is the original song (either to the default audio output device, or to a .WAV file):
 
