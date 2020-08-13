@@ -45,7 +45,7 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh # Type "1"
 source $HOME/.cargo/env
 ```
 
-If you already updated rust, then update it:
+If you already installed rust, then update it:
 
 ```bash
 rustup update
