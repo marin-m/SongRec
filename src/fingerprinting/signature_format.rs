@@ -214,7 +214,7 @@ impl DecodedSignature {
         let mut cursor = Cursor::new(vec![]);
         
         // Please see the RawSignatureHeader structure definition above for
-        // information aboutthe following fields.
+        // information about the following fields.
         
         cursor.write_u32::<LittleEndian>(0xcafe2580)?; // magic1
         cursor.write_u32::<LittleEndian>(0)?; // crc32 - Will write later
