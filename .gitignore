@@ -1,0 +1,8 @@
+*.pyc
+__pycache__/
+config.py
+build/
+.~lock.*
+*~
+target/
+Cargo.lock
