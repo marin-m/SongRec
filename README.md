@@ -10,7 +10,7 @@ Features:
 * Recognize audio from the microphone.
 * Usage from both GUI and command line (for the file recognition part).
 * Provide an history of the recognized songs on the GUI, exportable to CSV.
-* Continous song detection from the microphoe, with the ability to choose your input devcie.
+* Continous song detection from the microphoe, with the ability to choose your input device.
 * Generate a lure from a song that, when played, will fool Shazam into thinking that it is the concerned song.
 
 A (command-line only) Python version, which I made before rewriting in Rust for performance, is also available for demonstration purposes. It supports file recognition only.
