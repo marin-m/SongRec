@@ -299,7 +299,7 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
                             recognition_date: Local::now().format("%c").to_string()
                         });
 
-                        recognized_song_name.set_markup(&format!("<b>{}</b>", song_name.as_ref().unwrap()));
+                        recognized_song_name.set_markup(&format!("<b>{}</b>", glib::markup_escape_text(song_name.as_ref().unwrap())));
                         *youtube_query_borrow = song_name;
                         
                         let mut current_signature_borrow = current_signature.borrow_mut();
