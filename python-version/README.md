@@ -3,6 +3,6 @@ This contains a partial, command-line only Python version of the current project
 Dependencies are:
 
 ```
-sudo apt install python3-pip libportaudio2 ffmpeg
-sudo pip3 install --upgrade numpy sounddevice pydub pytz
+sudo apt install python3.6 python3-pip libportaudio2 ffmpeg
+sudo pip3 install --upgrade numpy sounddevice pydub pytz requests
 ```
