@@ -15,17 +15,17 @@
   </object>
   <object class="GtkListStore" id="history_list_store">
     <columns>
-      <!-- column-name Song name -->
+      <!-- column-name Song -->
       <column type="gchararray"/>
       <!-- column-name Album -->
       <column type="gchararray"/>
-      <!-- column-name Recognition date -->
+      <!-- column-name Recognition -->
       <column type="gchararray"/>
     </columns>
   </object>
   <object class="GtkListStore" id="input_devices_list_store">
     <columns>
-      <!-- column-name Device name -->
+      <!-- column-name Device -->
       <column type="gchararray"/>
     </columns>
   </object>
@@ -307,22 +307,70 @@
                     <property name="can_focus">False</property>
                     <property name="left_padding">12</property>
                     <child>
-                      <object class="GtkComboBox" id="microphone_source_select_box">
+                      <object class="GtkBox">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="margin_left">15</property>
                         <property name="margin_right">15</property>
                         <property name="margin_top">15</property>
                         <property name="margin_bottom">15</property>
-                        <property name="model">input_devices_list_store</property>
-                        <property name="active">0</property>
-                        <property name="id_column">0</property>
+                        <property name="orientation">vertical</property>
+                        <property name="spacing">15</property>
                         <child>
-                          <object class="GtkCellRendererText"/>
-                          <attributes>
-                            <attribute name="markup">0</attribute>
-                            <attribute name="text">0</attribute>
-                          </attributes>
+                          <object class="GtkComboBox" id="microphone_source_select_box">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="model">input_devices_list_store</property>
+                            <property name="active">0</property>
+                            <property name="id_column">0</property>
+                            <child>
+                              <object class="GtkCellRendererText"/>
+                              <attributes>
+                                <attribute name="markup">0</attribute>
+                                <attribute name="text">0</attribute>
+                              </attributes>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkBox" id="current_volume_hbox">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="spacing">15</property>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">Current volume:</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkProgressBar" id="current_volume_bar">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                              </object>
+                              <packing>
+                                <property name="expand">True</property>
+                                <property name="fill">True</property>
+                                <property name="position">1</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">1</property>
+                          </packing>
                         </child>
                       </object>
                     </child>

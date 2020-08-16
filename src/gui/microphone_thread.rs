@@ -23,6 +23,7 @@ pub fn microphone_thread(microphone_rx: mpsc::Receiver<MicrophoneMessage>, proce
             MicrophoneRecordStart(device_name) => {
                 let processing_tx_2 = processing_tx.clone();
                 let gui_tx_2 = gui_tx.clone();
+                let gui_tx_3 = gui_tx.clone();
     
                 let err_fn = move |error| {
                     gui_tx_2.send(GUIMessage::ErrorMessage(format!("Microphone error: {}", error))).unwrap();
@@ -53,14 +54,15 @@ pub fn microphone_thread(microphone_rx: mpsc::Receiver<MicrophoneMessage>, proce
                 let sample_rate = config.sample_rate().0;
                 
                 let mut twelve_seconds_buffer: [i16; 16000 * 12] = [0; 16000 * 12];
-                let mut number_unprocessed_samples: usize = 0;
+                let mut number_unprocessed_samples: usize = 0; // Sample count for the interval of doing Shazam recognition (every 4 seconds)
+                let mut number_unmeasured_samples: usize = 0; // Sample count for doing volume measurement (every 24th of second)
                 
                 let processing_already_ongoing_2 = processing_already_ongoing.clone();
                 
                 stream = Some(match config.sample_format() {
-                    cpal::SampleFormat::F32 => device.build_input_stream(&config.into(), move |data, _: &_| write_data::<f32, f32>(data, &processing_tx_2, channels, sample_rate, &mut twelve_seconds_buffer, &mut number_unprocessed_samples, &processing_already_ongoing_2), err_fn).unwrap(),
-                    cpal::SampleFormat::I16 => device.build_input_stream(&config.into(), move |data, _: &_| write_data::<i16, i16>(data, &processing_tx_2, channels, sample_rate, &mut twelve_seconds_buffer, &mut number_unprocessed_samples, &processing_already_ongoing_2), err_fn).unwrap(),
-                    cpal::SampleFormat::U16 => device.build_input_stream(&config.into(), move |data, _: &_| write_data::<u16, i16>(data, &processing_tx_2, channels, sample_rate, &mut twelve_seconds_buffer, &mut number_unprocessed_samples, &processing_already_ongoing_2), err_fn).unwrap(),
+                    cpal::SampleFormat::F32 => device.build_input_stream(&config.into(), move |data, _: &_| write_data::<f32, f32>(data, &processing_tx_2, gui_tx_3.clone(), channels, sample_rate, &mut twelve_seconds_buffer, &mut number_unprocessed_samples, &mut number_unmeasured_samples, &processing_already_ongoing_2), err_fn).unwrap(),
+                    cpal::SampleFormat::I16 => device.build_input_stream(&config.into(), move |data, _: &_| write_data::<i16, i16>(data, &processing_tx_2, gui_tx_3.clone(), channels, sample_rate, &mut twelve_seconds_buffer, &mut number_unprocessed_samples, &mut number_unmeasured_samples, &processing_already_ongoing_2), err_fn).unwrap(),
+                    cpal::SampleFormat::U16 => device.build_input_stream(&config.into(), move |data, _: &_| write_data::<u16, i16>(data, &processing_tx_2, gui_tx_3.clone(), channels, sample_rate, &mut twelve_seconds_buffer, &mut number_unprocessed_samples, &mut number_unmeasured_samples, &processing_already_ongoing_2), err_fn).unwrap(),
                 });
                 
                 stream.as_ref().unwrap().play().unwrap();
@@ -86,7 +88,7 @@ pub fn microphone_thread(microphone_rx: mpsc::Receiver<MicrophoneMessage>, proce
     
 }
 
-fn write_data<T, U>(input_samples: &[T], processing_tx: &mpsc::Sender<ProcessingMessage>, channels: u16, sample_rate: u32, twelve_seconds_buffer: &mut [i16], number_unprocessed_samples: &mut usize, processing_already_ongoing: &Arc<Mutex<bool>>)
+fn write_data<T, U>(input_samples: &[T], processing_tx: &mpsc::Sender<ProcessingMessage>, gui_tx: glib::Sender<GUIMessage>, channels: u16, sample_rate: u32, twelve_seconds_buffer: &mut [i16], number_unprocessed_samples: &mut usize, number_unmeasured_samples: &mut usize, processing_already_ongoing: &Arc<Mutex<bool>>)
 where
     T: cpal::Sample + rodio::Sample,
     U: cpal::Sample,
@@ -120,6 +122,30 @@ where
         
         *number_unprocessed_samples = 0;
         *processing_already_ongoing_borrow = true;
+    }
+    
+    // Do microphone volume measurement every 24th of second (so that we can
+    // update it at 24 FPS) and over the last two 100th of second (so that we
+    // can be sure to measure volume for at most 100 Hz)
+    
+    *number_unmeasured_samples += raw_pcm_samples.len();
+    
+    if *number_unmeasured_samples >= 16000 / 24 {
+        
+        let mut max_s16le_amplitude = 1;
+        
+        for index in 16000 * 12 - 16000 / 100 * 2 .. 16000 * 12 {
+            if twelve_seconds_buffer[index] > max_s16le_amplitude {
+                max_s16le_amplitude = twelve_seconds_buffer[index];
+            }
+        }
+        
+        let max_s16le_volume_fraction = max_s16le_amplitude as f32 / 32767.0; // 32767 is the maximum value for an i16 (2**15 - 1)
+        
+        gui_tx.send(GUIMessage::MicrophoneVolumePercent(max_s16le_volume_fraction * 100.0)).unwrap();
+        
+        *number_unmeasured_samples = 0;
+        
     }
 }
 

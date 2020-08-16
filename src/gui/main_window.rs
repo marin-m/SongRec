@@ -115,6 +115,9 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
         let combo_box: gtk::ComboBox = builder.get_object("microphone_source_select_box").unwrap();
         let combo_box_model: gtk::ListStore = builder.get_object("input_devices_list_store").unwrap();
         
+        let current_volume_hbox: gtk::Box = builder.get_object("current_volume_hbox").unwrap();
+        let current_volume_bar: gtk::ProgressBar = builder.get_object("current_volume_bar").unwrap();
+        
         let host = cpal::default_host();
         
         // Avoid having alsalib polluting stderr (https://github.com/RustAudio/cpal/issues/384)
@@ -187,22 +190,24 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
         
         }));
         
-        microphone_button.connect_clicked(clone!(@weak microphone_button, @weak microphone_stop_button, @weak combo_box => move |_| {
+        microphone_button.connect_clicked(clone!(@weak microphone_button, @weak microphone_stop_button, @weak current_volume_hbox, @weak combo_box => move |_| {
             
             let device_name = combo_box.get_active_id().unwrap().to_string();
             
             microphone_tx.send(MicrophoneMessage::MicrophoneRecordStart(device_name)).unwrap();
             
-            microphone_button.hide();
             microphone_stop_button.show();
+            current_volume_hbox.show();
+            microphone_button.hide();
             
         }));
         
-        microphone_stop_button.connect_clicked(clone!(@weak microphone_button, @weak microphone_stop_button => move |_| {
+        microphone_stop_button.connect_clicked(clone!(@weak microphone_button, @weak microphone_stop_button, @weak current_volume_hbox => move |_| {
             
             microphone_tx_2.send(MicrophoneMessage::MicrophoneRecordStop).unwrap();
             
             microphone_stop_button.hide();
+            current_volume_hbox.hide();
             microphone_button.show();
             
         }));
@@ -273,6 +278,9 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
                 },
                 WipeSongHistory => {
                     song_history_interface.wipe_and_save();
+                },
+                MicrophoneVolumePercent(percent) => {
+                    current_volume_bar.set_fraction((percent / 100.0) as f64);
                 },
                 SongRecognized(message) => {
                     let mut youtube_query_borrow = youtube_query.borrow_mut();
@@ -350,6 +358,7 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
         spinner.hide();
 
         microphone_stop_button.hide();
+        current_volume_hbox.hide();
 
         if recording {
         
@@ -357,8 +366,9 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
             
             microphone_tx_5.send(MicrophoneMessage::MicrophoneRecordStart(device_name)).unwrap();
             
-            microphone_button.hide();
             microphone_stop_button.show();
+            current_volume_hbox.show();
+            microphone_button.hide();
 
         }
         
