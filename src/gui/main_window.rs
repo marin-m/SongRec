@@ -192,14 +192,14 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
         
         microphone_button.connect_clicked(clone!(@weak microphone_button, @weak microphone_stop_button, @weak current_volume_hbox, @weak combo_box => move |_| {
             
-            let device_name = combo_box.get_active_id().unwrap().to_string();
-            
-            microphone_tx.send(MicrophoneMessage::MicrophoneRecordStart(device_name)).unwrap();
-            
-            microphone_stop_button.show();
-            current_volume_hbox.show();
-            microphone_button.hide();
-            
+            if let Some(device_name) = combo_box.get_active_id() {
+                microphone_tx.send(MicrophoneMessage::MicrophoneRecordStart(device_name.to_owned())).unwrap();
+                
+                microphone_stop_button.show();
+                current_volume_hbox.show();
+                microphone_button.hide();
+            }
+
         }));
         
         microphone_stop_button.connect_clicked(clone!(@weak microphone_button, @weak microphone_stop_button, @weak current_volume_hbox => move |_| {
@@ -362,14 +362,13 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
 
         if recording {
         
-            let device_name = combo_box.get_active_id().unwrap().to_string();
-            
-            microphone_tx_5.send(MicrophoneMessage::MicrophoneRecordStart(device_name)).unwrap();
-            
-            microphone_stop_button.show();
-            current_volume_hbox.show();
-            microphone_button.hide();
-
+            if let Some(device_name) = combo_box.get_active_id() {
+                microphone_tx_5.send(MicrophoneMessage::MicrophoneRecordStart(device_name.to_owned())).unwrap();
+                
+                microphone_stop_button.show();
+                current_volume_hbox.show();
+                microphone_button.hide();
+            }
         }
         
     });
