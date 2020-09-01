@@ -1,6 +1,8 @@
 use gio::prelude::*;
 use glib::clone;
 use gtk::prelude::*;
+use std::fs::File;
+use std::io::{Read, Write};
 use gtk::ResponseType;
 use gdk_pixbuf::Pixbuf;
 use std::error::Error;
@@ -110,6 +112,20 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
         let current_signature: Rc<RefCell<Option<DecodedSignature>>> = Rc::new(RefCell::new(None));
         let current_signature_2 = current_signature.clone();
         
+        // Remember about the saved last-used microphone device, if any
+
+        let device_name_savefile = SongHistoryInterface::obtain_csv_path().unwrap()
+            .replace("song_history.csv", "device_name.txt");
+        
+        let mut old_device_name: Option<String> = None;
+        
+        if let Ok(mut file) = File::open(&device_name_savefile) {
+            let mut old_device_name_string = String::new();
+            file.read_to_string(&mut old_device_name_string).unwrap();
+            
+            old_device_name = Some(old_device_name_string);
+        }
+        
         // List available input microphones devices in the appropriate combo box
         
         let combo_box: gtk::ComboBox = builder.get_object("microphone_source_select_box").unwrap();
@@ -124,21 +140,43 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
         // through disabling stderr temporarily
         
         let print_gag = Gag::stderr().unwrap();
+        let mut old_device_index = 0;
+        let mut current_index = 0;
         
         for device in host.input_devices().unwrap() {
-            combo_box_model.set(&combo_box_model.append(), &[0], &[&device.name().unwrap()]);
+            let device_name = device.name().unwrap();
+            
+            combo_box_model.set(&combo_box_model.append(), &[0], &[&device_name]);
+            
+            if old_device_name == Some(device_name) {
+                old_device_index = current_index;
+            }
+            current_index += 1;
         }
         
         drop(print_gag);
         
-        combo_box.set_active(Some(0));
+        combo_box.set_active(Some(old_device_index));
         
         combo_box.connect_changed(clone!(@weak microphone_stop_button, @weak combo_box => move |_| {
             
+            let device_name = combo_box.get_active_id().unwrap().to_string();
+            
+            // Save the selected microphone device name so that it is
+            // remembered after relaunching the app
+            
+            let mut file = File::create(&device_name_savefile).unwrap();
+            
+            file.write_all(device_name.as_bytes()).unwrap();
+            file.sync_all().unwrap();
+            
+            drop(file);
+            
             if microphone_stop_button.is_visible() {
                 
-                let device_name = combo_box.get_active_id().unwrap().to_string();
-             
+                // Re-launch the microphone recording with the new selected
+                // device
+                
                 microphone_tx_4.send(MicrophoneMessage::MicrophoneRecordStop).unwrap();
                 microphone_tx_4.send(MicrophoneMessage::MicrophoneRecordStart(device_name)).unwrap();
                 
