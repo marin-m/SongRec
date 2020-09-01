@@ -98,7 +98,7 @@ The following will produce back hearable tones from a given fingerprint, that sh
 ./songrec fingerprint-to-lure 'data:audio/vnd.shazam.sig;base64,...' /tmp/output.wav
 ```
 
-When using the application, you may notice that certain information will be savec to `~/.local/share/SongRec` (or an equivalent directory depending on your operating system), including the CSV-format list of the last recognized songs and the last selected microphone input device (so that it is chosen back when restarting the app). You may want to delete this directory in case of persistent issues.
+When using the application, you may notice that certain information will be saved to `~/.local/share/SongRec` (or an equivalent directory depending on your operating system), including the CSV-format list of the last recognized songs and the last selected microphone input device (so that it is chosen back when restarting the app). You may want to delete this directory in case of persistent issues.
 
 ## Legal
 
