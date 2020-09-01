@@ -250,7 +250,7 @@ impl SignatureGenerator {
                         let frequency_hz: f32 = corrected_peak_frequency_bin as f32 * (16000.0 / 2.0 / 1024.0 / 64.0);
                         
                         // Ignore peaks outside the 250 Hz-5.5 KHz range, store them into
-                        // a lookup table that will be used to generate the bnary fingerprint
+                        // a lookup table that will be used to generate the binary fingerprint
                         // otherwise
                         
                         let frequency_band = match frequency_hz as i32 {

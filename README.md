@@ -29,7 +29,7 @@ Hence, the Shazam fingerprinting algorithm, as implemented by the client, is fai
 
 ### Installing Rust
 
-First, you need to [install the Rust compiler and package manager](https://www.rust-lang.org/tools/install). Rust 1.45.2 was using during the development, stable versions should work as well as nightlies.
+First, you need to [install the Rust compiler and package manager](https://www.rust-lang.org/tools/install). Rust 1.45.2 was used during the development, stable versions should work as well as nightlies.
 
 Install dependent libraries (nothing exotic):
 

@@ -191,7 +191,7 @@ impl DecodedSignature {
             
         }
         
-        // Read and check the header
+        // Return the decoded object
         
         Ok(DecodedSignature {
             sample_rate_hz: sample_rate_hz,
