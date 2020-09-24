@@ -37,7 +37,7 @@ Install dependent libraries (nothing exotic):
 sudo apt install build-essentials libasound2-dev libgtk-3-dev libssl-dev
 ```
 
-Install rust (an non-root user):
+Install Rust (as a non-root user):
 
 ```bash
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh # Type "1"
@@ -45,7 +45,7 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh # Type "1"
 source $HOME/.cargo/env
 ```
 
-If you already installed rust, then update it:
+If you already installed Rust, then update it:
 
 ```bash
 rustup update
