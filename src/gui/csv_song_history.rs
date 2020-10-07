@@ -6,7 +6,7 @@ use gtk::prelude::*;
 /// The application uses a simple CSV format in order to store the list of the
 /// songs discovered by the user that are displayed in the multi-column list
 /// view. The CSV columns bear the same name as the GUI list view columns (in
-/// camel case).
+/// snake case).
 ///
 /// A difference is that entries are stored in chronological order in the CSV
 /// file, while antichronological order is used on the GUI list view.
