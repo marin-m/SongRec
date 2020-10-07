@@ -56,6 +56,11 @@ rustup update
 This will compile and run the projet:
 
 ```bash
+# For the stable release:
+cargo install songrec
+songrec
+
+# For the Github tree:
 git clone git@github.com:marin-m/songrec.git
 cd songrec
 cargo run --release
