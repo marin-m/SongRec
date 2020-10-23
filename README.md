@@ -66,7 +66,7 @@ cd songrec
 cargo run --release
 ```
 
-You will then find the project's binary (that you will be able to move or execute directly) at `target/release/songrec`.
+For the latter, you will then find the project's binary (that you will be able to move or execute directly) at `target/release/songrec`.
 
 ## Sample usage
 
