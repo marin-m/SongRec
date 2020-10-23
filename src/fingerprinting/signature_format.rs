@@ -305,7 +305,7 @@ impl DecodedSignature {
     
     pub fn to_lure(self: &Self) -> Result<Vec<i16>, Box<dyn Error>> {
         
-        let mut buffer: Vec<i16> = [0].repeat(self.number_samples as usize);
+        let mut buffer: Vec<i16> = [0].repeat((self.number_samples as f32 / self.sample_rate_hz * 16000.0) as usize);
         
         let samples_per_sine = (1.0 / (16000.0 / 2048.0) * 16000.0 * 0.5) as usize; // Shazam uses buffers of 2048 samples at 16,000 Hz to perform recognition, which are fully renewed every 16 iterations.
 
