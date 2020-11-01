@@ -8,7 +8,7 @@ fi
 # Make errors fatal, print commands
 set -ex
 
-rm -rf /tmp/dist_dir /tmp/songrec_tarball_"$1"_for_flathub_build.tar.xz 
+rm -rf /tmp/dist_dir /tmp/songrec_tarball_"$1"_for_flathub_build.tar.gz
 
 git clone --depth 1 --branch "$1" https://github.com/marin-m/SongRec /tmp/dist_dir
 
@@ -21,4 +21,4 @@ cargo vendor vendor | sed 's/^directory = ".*"/directory = "vendor"/g' > .cargo/
 
 rm -rf .git
 
-tar zcvf ../songrec_tarball_"$1"_for_flathub_build.tar.xz . -C /tmp/dist_dir
+tar zcvf ../songrec_tarball_"$1"_for_flathub_build.tar.gz . -C /tmp/dist_dir
