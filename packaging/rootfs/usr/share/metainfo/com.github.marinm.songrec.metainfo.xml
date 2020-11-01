@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>com.github.marinm.songrec</id>
+  <metadata_license>CC0</metadata_license>
+  <project_license>GPL-3.0+</project_license>
+  <name>SongRec</name>
+  <summary>An open-source, unofficial Shazam client for Linux, written in Rust.</summary>
+  <description>
+    <p>Features:</p>
+    <p>- Recognize audio from an arbitrary audio file.</p>
+    <p>- Recognize audio from the microphone.</p>
+    <p>- Usage from both GUI and command line (for the file recognition part).</p>
+    <p>- Provide an history of the recognized songs on the GUI, exportable to CSV.</p>
+    <p>- Continous song detection from the microphone, with the ability to choose your input device.</p>
+    <p>- Generate a lure from a song that, when played, will fool Shazam into thinking that it is the concerned song.</p>
+  </description>
+  <screenshots>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/marin-m/SongRec/master/Screenshot.png</image>
+      <caption>The GUI</caption>
+    </screenshot>
+  </screenshots>
+  <url type="homepage">https://github.com/marin-m/SongRec</url>
+<!--
+Open Age Rating Service
+https://hughsie.github.io/oars/index.html
+-->
+  <content_rating type="oars-1.0" />
+  <releases>
+    <release version="0.1.0" date="2020-10-07">
+      <description>
+        <p>Initial crates.io release</p>
+      </description>
+    </release>
+  </releases>
+  <kudos>
+    <!--
+    GNOME Software kudos:
+    https://gitlab.gnome.org/GNOME/gnome-software/blob/master/doc/kudos.md
+    -->
+    <kudo>ModernToolkit</kudo>
+    <kudo>HiDpiIcon</kudo>
+    <kudo>Notifications</kudo>
+  </kudos>
+  <developer_name>Marin</developer_name>
+  <update_contact>marin-m@users.noreply.github.com</update_contact>
+
+  <launchable type="desktop-id">com.github.marinm.songrec.desktop</launchable>
+</component>

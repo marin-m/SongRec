@@ -1,0 +1,13 @@
+[Desktop Entry]
+Name=SongRec
+Comment=An open-source Shazam client for Linux, written in Rust
+Type=Application
+# should be the same as the Cargo project name
+Exec=songrec
+Terminal=false
+Categories=Utility;GTK;Audio;AudioVideo;
+Keywords=Rust;GTK;Shazam;Client;Audio;Song;Recognition;Fingerprinting;
+Icon=com.github.marinm.songrec
+StartupNotify=true
+
+# See https://specifications.freedesktop.org/desktop-entry-spec/latest/ar01s06.html

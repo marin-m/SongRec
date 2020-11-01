@@ -34,7 +34,7 @@ fn spawn_big_thread<F, T>(argument: F) -> ()
 
 pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
     
-    let application = gtk::Application::new(Some("com.github.marin-m.songrec"),
+    let application = gtk::Application::new(Some("com.github.marinm.songrec"),
         gio::ApplicationFlags::FLAGS_NONE)
         .expect("Application::new failed");
     

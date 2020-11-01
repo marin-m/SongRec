@@ -1,8 +1,17 @@
+# The following is related to Python or miscellaneous
 *.pyc
 __pycache__/
 config.py
 build/
 .~lock.*
 *~
+
+# The following is related to Rust
 target/
 Cargo.lock
+
+# The following is related to building packages
+vendor/
+repo/
+.flatpak-builder/
+.cargo/

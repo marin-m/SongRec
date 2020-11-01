@@ -1,0 +1,46 @@
+{
+    "app-id": "com.github.marinm.songrec",
+    "runtime": "org.freedesktop.Platform",
+    "runtime-version": "20.08",
+    "sdk": "org.freedesktop.Sdk",
+    "sdk-extensions" : [
+        "org.freedesktop.Sdk.Extension.rust-stable"
+    ],
+    "command": "songrec",
+    "finish-args": [
+        "--share=network",
+        "--share=ipc",
+        "--socket=fallback-x11",
+        "--socket=wayland",
+        "--device=dri",
+        "--filesystem=host:ro",
+        "--filesystem=/tmp:ro",
+        "--filesystem=xdg-config",
+        "--filesystem=xdg-cache",
+        "--socket=pulseaudio"
+    ],
+    "build-options": {
+        "append-path" : "/usr/lib/sdk/rust-stable/bin",
+        "env" : {
+            "CARGO_HOME" : "/run/build/songrec/.cargo"
+        }
+    },
+    "modules": [
+        {
+            "name": "rust-flatpak",
+            "buildsystem": "simple",
+            "build-commands": [
+                "cargo --offline fetch --verbose",
+                "cargo --offline build --release --verbose",
+                "install -Dm755 ./target/release/songrec -t /app/bin/",
+                "cp -ra ./packaging/rootfs/usr/share /app/"
+            ],
+            "sources": [
+                {
+                    "type": "dir",
+                    "path": "../../"
+                }
+            ]
+        }
+    ]
+}

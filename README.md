@@ -34,7 +34,7 @@ First, you need to [install the Rust compiler and package manager](https://www.r
 Install dependent libraries (nothing exotic):
 
 ```bash
-sudo apt install build-essentials libasound2-dev libgtk-3-dev libssl-dev
+sudo apt install build-essential libasound2-dev libgtk-3-dev libssl-dev
 ```
 
 Install Rust (as a non-root user):
