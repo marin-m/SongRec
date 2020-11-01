@@ -26,7 +26,7 @@
     },
     "modules": [
         {
-            "name": "rust-flatpak",
+            "name": "songrec",
             "buildsystem": "simple",
             "build-commands": [
                 "cargo --offline fetch --verbose",
