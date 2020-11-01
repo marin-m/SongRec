@@ -15,8 +15,7 @@
         "--device=dri",
         "--filesystem=host:ro",
         "--filesystem=/tmp:ro",
-        "--filesystem=xdg-config",
-        "--filesystem=xdg-cache",
+        "--filesystem=xdg-data",
         "--socket=pulseaudio"
     ],
     "build-options": {
