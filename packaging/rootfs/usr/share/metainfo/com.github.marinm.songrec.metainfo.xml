@@ -27,6 +27,13 @@ https://hughsie.github.io/oars/index.html
 -->
   <content_rating type="oars-1.0" />
   <releases>
+    <release version="0.1.1" date="2020-11-01">
+      <description>
+        <p>- Add Flatpak packaging scripts and assets.</p>
+        <p>- Ensure that generated song lures don't last too long enough in certain cases.</p>
+        <p>- Remove the dash in the long application ID as it was incompatible with Flatpak.</p>
+      </description>
+    </release>
     <release version="0.1.0" date="2020-10-07">
       <description>
         <p>Initial crates.io release</p>
