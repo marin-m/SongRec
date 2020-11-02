@@ -23,7 +23,27 @@ Shazam also downsamples the sound at 16 KHz before processing, and cuts the soun
 
 Hence, the Shazam fingerprinting algorithm, as implemented by the client, is fairly simple, as much of the processing is done server-side. The general functionment of Shazam has been documented in public [research papers](https://www.ee.columbia.edu/~dpwe/papers/Wang03-shazam.pdf) and patents.
 
-## Compilation
+## Installation
+
+SongRec may be available in the software center of your distribution if it supports Flatpak or Snap.
+
+Here are commands to install and run it through the command line:
+
+Using Snap:
+
+Using Flatpak:
+
+```
+
+```
+
+Using APT:
+
+```
+
+```
+
+## Compilation from sources
 
 (**WARNING**: Remind to compile the code in "--release" mode for correct performance.)
 

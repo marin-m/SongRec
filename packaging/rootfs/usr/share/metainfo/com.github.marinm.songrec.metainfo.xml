@@ -27,6 +27,11 @@ https://hughsie.github.io/oars/index.html
 -->
   <content_rating type="oars-1.0" />
   <releases>
+    <release version="0.1.2" date="2020-11-02">
+      <description>
+        <p>- Use GtkFileChooserNative so that the application is able to graphically pick files through Flatpak without requiring further file system permissions.</p>
+      </description>
+    </release>
     <release version="0.1.1" date="2020-11-01">
       <description>
         <p>- Add Flatpak packaging scripts and assets.</p>

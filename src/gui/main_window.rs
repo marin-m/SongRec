@@ -186,12 +186,16 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
         
         // Handle various controls
         
+        let processing_tx_3 = processing_tx.clone();
+
         recognize_file_button.connect_clicked(clone!(@weak window, @weak spinner, @weak recognize_file_button => move |_| {
             
-            let file_chooser = gtk::FileChooserDialog::new(
+            let file_chooser = gtk::FileChooserNative::new(
                 Some("Select a file to recognize"),
                 Some(&window),
-                gtk::FileChooserAction::Open
+                gtk::FileChooserAction::Open,
+                Some("_Open"),
+                Some("_Cancel")
             );
             
             let file_filter = gtk::FileFilter::new();
@@ -203,28 +207,16 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
             
             file_chooser.set_filter(&file_filter);
             
-            file_chooser.add_buttons(&[
-                ("Open", ResponseType::Ok),
-                ("Cancel", ResponseType::Cancel)
-            ]);
-
-            let processing_tx_3 = processing_tx.clone();
-
-            file_chooser.connect_response(move |file_chooser, response| {
-                if response == ResponseType::Ok {
-                    recognize_file_button.hide();
-                    
-                    spinner.show();
-                    
-                    let input_file_path = file_chooser.get_filename().expect("Couldn't get filename");
-                    let input_file_string = input_file_path.to_str().unwrap().to_string();
-                    
-                    processing_tx_3.send(ProcessingMessage::ProcessAudioFile(input_file_string)).unwrap();
-                }
+            if file_chooser.run() == ResponseType::Accept {
+                recognize_file_button.hide();
                 
-                file_chooser.close();
-            });
-            file_chooser.show_all();
+                spinner.show();
+                
+                let input_file_path = file_chooser.get_filename().expect("Couldn't get filename");
+                let input_file_string = input_file_path.to_str().unwrap().to_string();
+                
+                processing_tx_3.send(ProcessingMessage::ProcessAudioFile(input_file_string)).unwrap();
+            };
         
         }));
         

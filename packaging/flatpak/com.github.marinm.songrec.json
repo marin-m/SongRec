@@ -13,9 +13,7 @@
         "--socket=fallback-x11",
         "--socket=wayland",
         "--device=dri",
-        "--filesystem=host:ro",
-        "--filesystem=/tmp:ro",
-        "--filesystem=xdg-data",
+        "--filesystem=home:ro",
         "--socket=pulseaudio"
     ],
     "build-options": {
