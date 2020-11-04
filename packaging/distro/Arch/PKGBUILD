@@ -1,0 +1,35 @@
+# Maintainer: Name <name@email.com>
+
+pkgname=SongRec.git
+_pkgname=SongRec
+pkgver=r30.a0df9a9
+pkgrel=1
+pkgdesc='song recognition, via microphone or files'
+url='https://github.com/marin-m/SongRec'
+arch=('x86_64')
+license=('GPL3')
+makedepends=('cargo' 'rust' 'git')
+depends=('gtk3')
+source=("$_pkgname::git+https://github.com/marin-m/SongRec.git")
+sha256sums=('SKIP')
+
+pkgver() {
+  cd "$_pkgname"
+  printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+build() {
+  cd "$_pkgname"
+  cargo build --release
+}
+
+package() {
+  cd "$_pkgname"
+  install -Dm755 "target/release/songrec" "$pkgdir/usr/bin/songrec"
+  install -Dm755 "packaging/rootfs/usr/share/applications/com.github.marinm.songrec.desktop" "$pkgdir/usr/share/applications/com.github.marinm.songrec.desktop"
+  install -Dm755 "packaging/rootfs/usr/share/icons/hicolor/scalable/apps/com.github.marinm.songrec.svg" \
+                    "$pkgdir/usr/share/applications/icons/hicolor/scalable/apps/com.github.marinm.songrec.svg"
+  install -Dm755 "packaging/rootfs/usr/share/metainfo/com.github.marinm.songrec.metainfo.xml" \
+                    "$pkgdir/usr/share/applications/metainfo/com.github.marinm.songrec.meteainfo.xml"
+  install -Dm644 "LICENSE" "$pkgdir/usr/share/licenses/$_pkgname/LICENSE"
+}
