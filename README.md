@@ -38,7 +38,7 @@ Using Flatpak (all distributions) (NOTE: with Flatpak, the GUI should work fine 
 
 ```bash
 sudo apt install flatpak -y
-flatpak install --user https://dl.flathub.org/build-repo/30447/com.github.marinm.songrec.flatpakref -y
+flatpak install --user com.github.marinm.songrec -y
 flatpak run com.github.marinm.songrec
 ```
 
