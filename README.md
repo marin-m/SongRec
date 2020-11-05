@@ -23,32 +23,61 @@ Shazam also downsamples the sound at 16 KHz before processing, and cuts the soun
 
 Hence, the Shazam fingerprinting algorithm, as implemented by the client, is fairly simple, as much of the processing is done server-side. The general functionment of Shazam has been documented in public [research papers](https://www.ee.columbia.edu/~dpwe/papers/Wang03-shazam.pdf) and patents.
 
+## Installation
+
+Here are a few ways to install and run the application:
+
+Using yaourt (Archlinux):
+
+```bash
+yaourt -S songrec
+songrec
+```
+
+Using Flatpak (all distributions) (NOTE: with Flatpak, the GUI should work fine but some of the CLI features may not be usable due to filesystem sandboxing restructions):
+
+```bash
+flatpak install --user https://dl.flathub.org/build-repo/30447/com.github.marinm.songrec.flatpakref
+flatpak run com.github.marinm.songrec
+```
+
+Using Cargo (all distributions, dependencies given for Ubuntu/Debian, if your `rustc` version is not recent enough please refer to the instructions below):
+
+```bash
+# If you need to install Cargo:
+sudo apt install cargo rustc
+echo 'export PATH="$HOME/.cargo/bin:$PATH"' | tee -a ~/.profile ~/.bashrc
+source ~/.bashrc
+
+# When Cargo is already installed and in path
+sudo apt install build-essential libasound2-dev libgtk-3-dev libssl-dev
+cargo install songrec
+songrec
+```
+
 ## Compilation
 
 (**WARNING**: Remind to compile the code in "--release" mode for correct performance.)
 
 ### Installing Rust
 
-First, you need to [install the Rust compiler and package manager](https://www.rust-lang.org/tools/install). Rust 1.45.2 was used during the development, stable versions should work as well as nightlies.
+First, you need to [install the Rust compiler and package manager](https://www.rust-lang.org/tools/install). It has been observed to work with `rustc` 1.43.0 to the current rust 1.47.0.
 
-Install dependent libraries (nothing exotic):
-
-```bash
-sudo apt install build-essential libasound2-dev libgtk-3-dev libssl-dev
-```
-
-Install Rust (as a non-root user):
+Install Rust and put it in path, for all distributions:
 
 ```bash
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh # Type "1"
 # Login and reconnect to add Rust to the $PATH, or run:
 source $HOME/.cargo/env
+
+# If you already installed Rust, then update it:
+rustup update
 ```
 
-If you already installed Rust, then update it:
+Install dependent libraries (nothing exotic):
 
 ```bash
-rustup update
+sudo apt install build-essential libasound2-dev libgtk-3-dev libssl-dev
 ```
 
 ### Compiling the project
