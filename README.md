@@ -38,7 +38,8 @@ Using Flatpak (all distributions) (NOTE: with Flatpak, the GUI should work fine 
 
 ```bash
 sudo apt install flatpak -y
-flatpak install --user com.github.marinm.songrec -y
+flatpak remote-add flathub https://flathub.org/repo/flathub.flatpakrepo --if-not-exists
+flatpak install --user flathub com.github.marinm.songrec -y
 flatpak run com.github.marinm.songrec
 ```
 
