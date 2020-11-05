@@ -37,7 +37,7 @@ songrec
 Using Flatpak (all distributions) (NOTE: with Flatpak, the GUI should work fine but some of the CLI features may not be usable due to filesystem sandboxing restructions):
 
 ```bash
-sudo apt install flatpak
+sudo apt install flatpak -y
 flatpak install --user https://dl.flathub.org/build-repo/30447/com.github.marinm.songrec.flatpakref -y
 flatpak run com.github.marinm.songrec
 ```
@@ -45,11 +45,11 @@ flatpak run com.github.marinm.songrec
 Using Cargo (all distributions, dependencies given for Ubuntu/Debian, if your `rustc` version is not recent enough please refer to the instructions below):
 
 ```bash
-sudo apt install cargo rustc
+sudo apt install cargo rustc -y
 echo 'export PATH="$HOME/.cargo/bin:$PATH"' | tee -a ~/.profile ~/.bashrc
 source ~/.bashrc
 
-sudo apt install build-essential libasound2-dev libgtk-3-dev libssl-dev
+sudo apt install build-essential libasound2-dev libgtk-3-dev libssl-dev -y
 cargo install songrec
 songrec
 ```
