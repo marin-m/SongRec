@@ -288,7 +288,7 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
 
             let timestamp = SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_secs();
 
-            gtk::show_uri(None, &format!("file://{}", SongHistoryInterface::obtain_csv_path().unwrap()), timestamp as u32).unwrap();
+            gtk::show_uri(None, &format!("file://{}", SongHistoryInterface::obtain_csv_path().unwrap()), timestamp as u32).ok();
 
         });
         
