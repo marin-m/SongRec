@@ -1,0 +1,136 @@
+marin@marin-VirtualBox-Ubuntu:~/rust-shazam-copy/packaging/snap$ sudo -E gdb -f songrec
+GNU gdb (Ubuntu 9.2-0ubuntu1~20.04) 9.2
+Copyright (C) 2020 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Type "show copying" and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+    <http://www.gnu.org/software/gdb/documentation/>.
+
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from songrec...
+(No debugging symbols found in songrec)
+(gdb) r
+Starting program: /snap/bin/songrec 
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+[New Thread 0x7ffff5b3d700 (LWP 28695)]
+[New Thread 0x7ffff533c700 (LWP 28696)]
+[New Thread 0x7ffff4b3b700 (LWP 28697)]
+[New Thread 0x7fffe7fff700 (LWP 28698)]
+[Detaching after vfork from child process 28699]
+[Thread 0x7fffe7fff700 (LWP 28698) exited]
+[Thread 0x7ffff4b3b700 (LWP 28697) exited]
+[Thread 0x7ffff533c700 (LWP 28696) exited]
+[Thread 0x7ffff5b3d700 (LWP 28695) exited]
+process 28691 is executing new program: /usr/lib/snapd/snap-confine
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+process 28691 is executing new program: /usr/lib/snapd/snap-exec
+[New LWP 28704]
+[New LWP 28705]
+[New LWP 28706]
+[New LWP 28707]
+[LWP 28706 exited]
+[LWP 28705 exited]
+[LWP 28704 exited]
+[LWP 28707 exited]
+process 28691 is executing new program: /snap/songrec/x1/bin/songrec
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+[New Thread 0x7f03e2426700 (LWP 28708)]
+[New Thread 0x7f03e1c25700 (LWP 28709)]
+[New Thread 0x7f03da332700 (LWP 28710)]
+[New Thread 0x7f03cffff700 (LWP 28711)]
+[New Thread 0x7f03cdffe700 (LWP 28712)]
+[New Thread 0x7f03cba8b700 (LWP 28713)]
+[Thread 0x7f03cba8b700 (LWP 28713) exited]
+[New Thread 0x7f03cba8b700 (LWP 28714)]
+[Thread 0x7f03cba8b700 (LWP 28714) exited]
+[New Thread 0x7f03cba0a700 (LWP 28715)]
+[Thread 0x7f03cba0a700 (LWP 28715) exited]
+[New Thread 0x7f03cba0a700 (LWP 28716)]
+[Thread 0x7f03cba0a700 (LWP 28716) exited]
+[New Thread 0x7f03cba8b700 (LWP 28717)]
+[Thread 0x7f03cba8b700 (LWP 28717) exited]
+[New Thread 0x7f03cba8b700 (LWP 28718)]
+[Thread 0x7f03cba8b700 (LWP 28718) exited]
+[New Thread 0x7f03cba0a700 (LWP 28719)]
+[Thread 0x7f03cba0a700 (LWP 28719) exited]
+[New Thread 0x7f03cba0a700 (LWP 28720)]
+[Thread 0x7f03cba0a700 (LWP 28720) exited]
+[New Thread 0x7f03cba0a700 (LWP 28721)]
+--Type <RET> for more, q to quit, c to continue without paging--c
+
+Thread 23 "songrec" received signal SIGSEGV, Segmentation fault.
+[Switching to Thread 0x7f03cba0a700 (LWP 28721)]
+0x00007f03e518f88a in snd_pcm_area_copy () from /snap/songrec/x1/bin/../usr/lib/x86_64-linux-gnu/libasound.so.2
+(gdb) bt
+#0  0x00007f03e518f88a in snd_pcm_area_copy () from /snap/songrec/x1/bin/../usr/lib/x86_64-linux-gnu/libasound.so.2
+#1  0x00007f03e518fc30 in snd_pcm_areas_copy () from /snap/songrec/x1/bin/../usr/lib/x86_64-linux-gnu/libasound.so.2
+#2  0x00007f03d807182a in ?? () from /usr/lib/x86_64-linux-gnu/alsa-lib/libasound_module_pcm_upmix.so
+#3  0x00007f03d8071c65 in ?? () from /usr/lib/x86_64-linux-gnu/alsa-lib/libasound_module_pcm_upmix.so
+#4  0x00007f03d807134c in ?? () from /usr/lib/x86_64-linux-gnu/alsa-lib/libasound_module_pcm_upmix.so
+#5  0x00007f03e51d744e in ?? () from /snap/songrec/x1/bin/../usr/lib/x86_64-linux-gnu/libasound.so.2
+#6  0x00007f03e51a29bf in ?? () from /snap/songrec/x1/bin/../usr/lib/x86_64-linux-gnu/libasound.so.2
+#7  0x00007f03e5194068 in ?? () from /snap/songrec/x1/bin/../usr/lib/x86_64-linux-gnu/libasound.so.2
+#8  0x00007f03e51a33b0 in ?? () from /snap/songrec/x1/bin/../usr/lib/x86_64-linux-gnu/libasound.so.2
+#9  0x000055febfd00779 in cpal::host::alsa::input_stream_worker ()
+#10 0x000055febfc2c63c in std::sys_common::backtrace::__rust_begin_short_backtrace ()
+#11 0x000055febfc455ab in core::ops::function::FnOnce::call_once{{vtable-shim}} ()
+#12 0x000055febfed3a8a in <alloc::boxed::Box<F> as core::ops::function::FnOnce<A>>::call_once ()
+    at /rustc/18bf6b4f01a6feaf7259ba7cdae58031af1b7b39/library/alloc/src/boxed.rs:1042
+#13 <alloc::boxed::Box<F> as core::ops::function::FnOnce<A>>::call_once () at /rustc/18bf6b4f01a6feaf7259ba7cdae58031af1b7b39/library/alloc/src/boxed.rs:1042
+#14 std::sys::unix::thread::Thread::new::thread_start () at library/std/src/sys/unix/thread.rs:87
+#15 0x00007f03e3f4c609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#16 0x00007f03e3e56293 in clone () from /snap/songrec/x1/bin/../lib/x86_64-linux-gnu/libc.so.6
+(gdb) registers
+Undefined command: "registers".  Try "help".
+(gdb) echo $eip
+$eip(gdb) 
+$eip(gdb) info registers
+rax            0x44d               1101
+rbx            0x1eef0d6f          518983023
+rcx            0xc                 12
+rdx            0x6a20abe           111282878
+rsi            0x0                 0
+rdi            0x60                96
+rbp            0x7f03d003851c      0x7f03d003851c
+rsp            0x7f03cb94d8c0      0x7f03cb94d8c0
+r8             0x351055f3          890263027
+r9             0x2                 2
+r10            0x2                 2
+r11            0x1                 1
+r12            0x7f03d005bc10      139654351666192
+r13            0x7f03cb94dba0      139654277159840
+r14            0x44f               1103
+r15            0x10                16
+rip            0x7f03e518f88a      0x7f03e518f88a <snd_pcm_area_copy+410>
+eflags         0x10202             [ IF RF ]
+cs             0x33                51
+ss             0x2b                43
+ds             0x0                 0
+es             0x0                 0
+fs             0x0                 0
+gs             0x0                 0
+(gdb) echo $rip
+$rip(gdb) 
+$rip(gdb) 
+$rip(gdb) echo ip
+ip(gdb) echo rip
+rip(gdb) echo %rip
+%rip(gdb) 
+%rip(gdb) 
+%rip(gdb) x/1i snd_pcm_area_copy
+   0x7f03e518f6f0 <snd_pcm_area_copy>:	endbr64 
+(gdb) x/1i $rip
+=> 0x7f03e518f88a <snd_pcm_area_copy+410>:	mov    %si,(%rbx)
+(gdb) x/1x 0x1eef0d6f
+0x1eef0d6f:	Cannot access memory at address 0x1eef0d6f
+(gdb) 
