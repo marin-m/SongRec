@@ -10,7 +10,7 @@ Features:
 * Recognize audio from the microphone.
 * Usage from both GUI and command line (for the file recognition part).
 * Provide an history of the recognized songs on the GUI, exportable to CSV.
-* Continous song detection from the microphone, with the ability to choose your input device.
+* Continuous song detection from the microphone, with the ability to choose your input device.
 * Generate a lure from a song that, when played, will fool Shazam into thinking that it is the concerned song.
 
 A (command-line only) Python version, which I made before rewriting in Rust for performance, is also available for demonstration purposes. It supports file recognition only.
@@ -34,7 +34,14 @@ yaourt -S songrec
 songrec
 ```
 
-Using Flatpak (all distributions) (NOTE: with Flatpak, the GUI should work fine but some of the CLI features may not be usable due to filesystem sandboxing restructions):
+Using apt with PPA (Ubuntu, supported 18.04, 20.04, 20.10):
+
+```bash
+sudo apt-add-repository ppa:marin-m/songrec -y -u
+sudo apt install songrec -y
+```
+
+Using Flatpak (all distributions) (NOTE: with Flatpak, the GUI should work fine but some of the CLI features may not be usable due to filesystem sandboxing restrictions):
 
 ```bash
 sudo apt install flatpak -y

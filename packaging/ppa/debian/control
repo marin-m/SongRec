@@ -1,0 +1,30 @@
+Source: songrec
+Section: sound
+Priority: optional
+Maintainer: Marin <marin-m@users.noreply.github.com>
+Standards-Version: 4.1.2
+Build-Depends: debhelper (>= 10),
+               libasound2-dev,
+               libgtk-3-dev,
+               libssl-dev,
+               cargo,
+               rsync,
+               rustc (>= 1.43.0)
+Homepage: https://github.com/marin-m/SongRec
+Vcs-Git: https://github.com/marin-m/songrec.git
+Vcs-Browser: https://github.com/marin-m/SongRec
+
+Package: songrec
+Architecture: amd64
+Depends: libasound2,
+         libssl1.1,
+         libc6,
+         libgtk-3-0
+Description: An unofficial Shazam client for Linux, written in Rust
+ Features:
+ - Recognize audio from an arbitrary audio file.
+ - Recognize audio from the microphone.
+ - Usage from both GUI and command line (for the file recognition part).
+ - Provide an history of the recognized songs on the GUI, exportable to CSV.
+ - Continuous song detection from the microphone, with the ability to choose your input device.
+ - Generate a lure from a song that, when played, will fool Shazam into thinking that it is the concerned song.

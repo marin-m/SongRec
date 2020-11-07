@@ -1,0 +1,31 @@
+songrec (0.1.2~3) bionic; urgency=low
+
+  * Correct Debian packaging for upload on Launchpad (make it x86_64-only).
+
+ -- Marin <marin-m@users.noreply.github.com>  Sat, 07 Nov 2020 08:55:00 +0100
+
+songrec (0.1.2~2) bionic; urgency=low
+
+  * Correct Debian packaging for upload on Launchpad.
+
+ -- Marin <marin-m@users.noreply.github.com>  Sat, 07 Nov 2020 08:24:00 +0100
+
+songrec (0.1.2) bionic; urgency=low
+
+  * Use GtkFileChooserNative so that the application is able to graphically pick files through Flatpak without requiring further file system permissions.
+
+ -- Marin <marin-m@users.noreply.github.com>  Mon, 02 Nov 2020 14:20:00 +0100
+
+songrec (0.1.2) bionic; urgency=low
+
+  * Add Flatpak packaging scripts and assets.
+  * Ensure that generated song lures don't last too long enough in certain cases.
+  * Remove the dash in the long application ID as it was incompatible with Flatpak.
+
+ -- Marin <marin-m@users.noreply.github.com>  Sun, 01 Nov 2020 21:21:00 +0100
+
+songrec (0.1.0) bionic; urgency=medium
+
+  * Initial crates.io release
+
+ -- Marin <marin-m@users.noreply.github.com>  Wed, 07 Oct 2020 13:23:00 +0200

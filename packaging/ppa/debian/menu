@@ -1,0 +1,2 @@
+?package(songrec):needs="X11" section="Applications/Sound"\
+  title="songrec" command="/usr/bin/songrec"

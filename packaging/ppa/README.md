@@ -1,0 +1,1 @@
+The `upload_source_package.sh` script located in this directory builds a signed .DEB source package suitable for uploading to Launchpad PPAs, and upload it automatically. Dependencies for the script include `mktenp`, `dput` and `debhelper`.

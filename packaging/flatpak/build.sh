@@ -12,9 +12,9 @@ cargo vendor vendor | sed 's/^directory = ".*"/directory = "vendor"/g' > .cargo/
 
 # Install the required Flatpak runtime and SDK
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-flatpak install flathub org.freedesktop.Sdk//20.08 -y
-flatpak install flathub org.freedesktop.Platform//20.08 -y
-flatpak install flathub org.freedesktop.Sdk.Extension.rust-stable//20.08 -y
+flatpak install flathub --user org.freedesktop.Sdk//20.08 -y
+flatpak install flathub --user org.freedesktop.Platform//20.08 -y
+flatpak install flathub --user org.freedesktop.Sdk.Extension.rust-stable//20.08 -y
 
 # Build the Flathub package
 rm -rf target/ # Don't copy all the planet into the Flatpak build dir

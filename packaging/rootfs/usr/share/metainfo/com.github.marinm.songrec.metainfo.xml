@@ -11,7 +11,7 @@
     <p>- Recognize audio from the microphone.</p>
     <p>- Usage from both GUI and command line (for the file recognition part).</p>
     <p>- Provide an history of the recognized songs on the GUI, exportable to CSV.</p>
-    <p>- Continous song detection from the microphone, with the ability to choose your input device.</p>
+    <p>- Continuous song detection from the microphone, with the ability to choose your input device.</p>
     <p>- Generate a lure from a song that, when played, will fool Shazam into thinking that it is the concerned song.</p>
   </description>
   <screenshots>
