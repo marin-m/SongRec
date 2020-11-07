@@ -15,3 +15,9 @@ vendor/
 repo/
 .flatpak-builder/
 .cargo/
+
+# The following is related to snap packages
+stage/
+parts/
+prime/
+*.snap
