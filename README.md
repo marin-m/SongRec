@@ -39,6 +39,7 @@ Using apt with PPA (Ubuntu, supported 18.04, 20.04, 20.10):
 ```bash
 sudo apt-add-repository ppa:marin-m/songrec -y -u
 sudo apt install songrec -y
+songrec
 ```
 
 Using Flatpak (all distributions) (NOTE: with Flatpak, the GUI should work fine but some of the CLI features may not be usable due to filesystem sandboxing restrictions):
