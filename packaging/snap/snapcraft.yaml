@@ -26,6 +26,7 @@ apps:
       - wayland
       - unity7
       - gsettings
+      - alsa
       - audio-record
       - audio-playback
     slots: [dbus-svc]
@@ -72,7 +73,7 @@ parts:
     plugin: rust
     source: ../..
 
-    after: [desktop-gnome-platform]
+    after: [desktop-gnome-platform, alsa-mixin]
 
   # This part installs the `desktop-launch` script which initialises desktop
   # features such as fonts, themes and the XDG environment.
@@ -92,6 +93,18 @@ parts:
       snapcraftctl build
       mkdir -pv $SNAPCRAFT_PART_INSTALL/gnome-platform
 
+  alsa-mixin:
+    plugin: dump
+    source: https://github.com/diddlesnaps/snapcraft-alsa.git
+    source-subdir: snapcraft-assets
+    build-packages:
+      - libasound2-dev
+    
+    stage-packages:
+      - libasound2
+      - libasound2-plugins
+      - yad
+
   share:
     plugin: dump
     source: ../rootfs/
@@ -102,3 +115,8 @@ parts:
       # Point icon to the correct location
       sed -i -e 's|Icon=com.github.marinm.songrec|Icon=/usr/share/icons/hicolor/scalable/apps/com.github.marinm.songrec.svg|g' usr/share/applications/com.github.marinm.songrec.desktop
 
+layout:
+  /usr/lib/$SNAPCRAFT_ARCH_TRIPLET/alsa-lib:
+    bind: $SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/alsa-lib
+  /usr/share/alsa:
+    bind: $SNAP/usr/share/alsa
