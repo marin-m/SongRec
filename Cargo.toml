@@ -25,6 +25,8 @@ cpal = "0.12.1" # For recording audio
 gag = "0.1.10" # Crate to silence stderr when CPAL produces uncontrolled AlsaLib output
 gtk = { version = "0.9.2", features = ["v3_20"] } # For the GUI
 gio = "0.9.1"
+gdk = "0.13.1"
+cairo-rs = { version = "0.9", features = ["v1_14"] } # For setting gtk::Image from cairo surface
 hound = "3.4.0" # For writing WAV files
 serde_json = "1.0.57" # For decoding and encoding JSON
 uuid = { version = "0.8.1", features = ["v4"] }
