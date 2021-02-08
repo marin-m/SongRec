@@ -85,6 +85,7 @@
             <property name="homogeneous">False</property>
             <property name="min-children-per-line">1</property>
             <property name="max-children-per-line">2</property>
+            <property name="selection-mode">none</property>
             <property name="orientation">horizontal</property>
             <child>
               <object class="GtkFlowBoxChild" id="fbc1">
