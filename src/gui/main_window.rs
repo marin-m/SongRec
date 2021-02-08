@@ -404,6 +404,7 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
                                         
                                         let window = gdk::Window::get_default_root_window();
                                         let surface = pixbuf.create_surface(1, Some(&window)).unwrap();
+                                        surface.set_fallback_resolution(pixbuf.get_width() as _, pixbuf.get_height() as _);
                                         recognized_song_cover.set_from_surface(Some(&surface));
                                         recognized_song_cover.set_size_request(-1, -1);
                                         
