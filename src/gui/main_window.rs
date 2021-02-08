@@ -13,6 +13,7 @@ use chrono::Local;
 use gag::Gag;
 use cpal::traits::*;
 use std::time::{SystemTime, UNIX_EPOCH};
+use gdk::prelude::{GdkPixbufExt, WindowExtManual};
 use percent_encoding::{utf8_percent_encode, NON_ALPHANUMERIC};
 use std::thread;
 
@@ -95,31 +96,39 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
         let recognized_song_name: gtk::Label = builder.get_object("recognized_song_name").unwrap();
         let recognized_song_cover: gtk::Image = builder.get_object("recognized_song_cover").unwrap();
 
-		// Resize the cover image when its container is resized
+        // Resize the cover image when its container is resized
 
         let cover = recognized_song_cover.clone();
         recognized_song_cover.get_parent().unwrap().connect_size_allocate(
-            move |_w: &gtk::Widget, allocation: &gdk::Rectangle| {
+            move |_widget: &gtk::Widget, allocation: &gdk::Rectangle| {
                 // Return early if image surface has not been set
-                if cover.get_storage_type() != gtk::ImageType::Surface { return }
-                let surf = cover.get_property_surface().unwrap();
+                
+                if cover.get_storage_type() != gtk::ImageType::Surface {
+                    return;
+                }
+                let surface = cover.get_property_surface().unwrap();
 
                 let max_width = allocation.width.min(400) as f64;
-                let width_scale = surf.get_fallback_resolution().0 as f64 / max_width;
+                let width_scale = surface.get_fallback_resolution().0 as f64 / max_width;
                 let max_height = allocation.height.min(400) as f64;
-                let height_scale = surf.get_fallback_resolution().1 as f64 / max_height;
+                let height_scale = surface.get_fallback_resolution().1 as f64 / max_height;
 
                 let scale = width_scale.max(height_scale);
+                
                 // Don't resize if unnecessary
-                if surf.get_device_scale() == (scale, scale) { return }
-                surf.set_device_scale(scale, scale);
+                
+                if surface.get_device_scale() == (scale, scale) {
+                    return;
+                }
+                surface.set_device_scale(scale, scale);
 
                 // Defer resizing until after size allocation is done
+                
                 let cover = cover.clone();
-                let surf = surf.clone();
+                let surface = surface.clone();
                 glib::idle_add_local(move || {
-                  cover.set_from_surface(Some(&surf));
-                  return glib::Continue(false);
+                    cover.set_from_surface(Some(&surface));
+                    return glib::Continue(false);
                 });
             }
         );
@@ -381,11 +390,22 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
                                 match Pixbuf::from_stream::<_, gio::Cancellable>(&stream, None) {
                                 
                                     Ok(pixbuf) => {
-                                        use gdk::prelude::{GdkPixbufExt, WindowExtManual};
+                                        // Ensure that the window is large enough so that the cover is
+                                        // displayed without being downsized, if the current setup
+                                        // allows it
+                                        
+                                        let (window_width, window_height) = window.get_size();
+                                        
+                                        if window_height < 768 && !window.is_maximized() {
+                                            window.resize(window_width, 768);
+                                        }
+                                        
+                                        // Display the cover image
+                                        
                                         let window = gdk::Window::get_default_root_window();
-                                        let surf = pixbuf.create_surface(1, Some(&window)).unwrap();
-                                        recognized_song_cover.set_from_surface(Some(&surf));
-                                        recognized_song_cover.set_size_request(-1,-1);
+                                        let surface = pixbuf.create_surface(1, Some(&window)).unwrap();
+                                        recognized_song_cover.set_from_surface(Some(&surface));
+                                        recognized_song_cover.set_size_request(-1, -1);
                                         
                                         match message.album_name {
                                             Some(value) => { recognized_song_cover.set_tooltip_text(Some(&value)) },
