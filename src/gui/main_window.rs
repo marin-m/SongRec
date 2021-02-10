@@ -101,7 +101,7 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
 
         let cover = recognized_song_cover.clone();
         recognized_song_cover.get_parent().unwrap().connect_size_allocate(
-            move |_widget: &gtk::Widget, allocation: &gdk::Rectangle| {
+            move |_widget: &gtk::Widget, allocation| {
                 // Return early if image surface has not been set
                 let pixbuf = match cover_image2.try_borrow() {
                     Ok(x) => x,
