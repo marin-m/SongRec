@@ -13,7 +13,6 @@ use chrono::Local;
 use gag::Gag;
 use cpal::traits::*;
 use std::time::{SystemTime, UNIX_EPOCH};
-use gdk::prelude::GdkPixbufExt;
 use percent_encoding::{utf8_percent_encode, NON_ALPHANUMERIC};
 use std::thread;
 
@@ -95,6 +94,8 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
         
         let recognized_song_name: gtk::Label = builder.get_object("recognized_song_name").unwrap();
         let recognized_song_cover: gtk::Image = builder.get_object("recognized_song_cover").unwrap();
+        let cover_image: Rc<RefCell<Option<Pixbuf>>> = Rc::new(RefCell::new(None));
+        let cover_image2 = cover_image.clone();
 
         // Resize the cover image when its container is resized
 
@@ -102,32 +103,32 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
         recognized_song_cover.get_parent().unwrap().connect_size_allocate(
             move |_widget: &gtk::Widget, allocation: &gdk::Rectangle| {
                 // Return early if image surface has not been set
+                let pixbuf = match cover_image2.try_borrow() {
+                    Ok(x) => x,
+                    _ => return,
+                };
                 
-                if cover.get_storage_type() != gtk::ImageType::Surface {
-                    return;
-                }
-                let surface = cover.get_property_surface().unwrap();
+                let pixbuf = match *pixbuf {
+                    Some(ref p) => p,
+                    None => return,
+                };
 
+                let width = pixbuf.get_width() as f64;
                 let max_width = allocation.width.min(400) as f64;
-                let width_scale = surface.get_fallback_resolution().0 as f64 / max_width;
+                let width_scale = width / max_width;
+                let height = pixbuf.get_height() as f64;
                 let max_height = allocation.height.min(400) as f64;
-                let height_scale = surface.get_fallback_resolution().1 as f64 / max_height;
+                let height_scale = height / max_height;
 
                 let scale = width_scale.max(height_scale);
                 
-                // Don't resize if unnecessary
-                
-                if surface.get_device_scale() == (scale, scale) {
-                    return;
-                }
-                surface.set_device_scale(scale, scale);
+                let pixbuf = pixbuf.scale_simple((width / scale) as i32, (height / scale) as i32, gdk_pixbuf::InterpType::Bilinear);
 
                 // Defer resizing until after size allocation is done
-                
+
                 let cover = cover.clone();
-                let surface = surface.clone();
                 glib::idle_add_local(move || {
-                    cover.set_from_surface(Some(&surface));
+                    cover.set_from_pixbuf(pixbuf.as_ref());
                     return glib::Continue(false);
                 });
             }
@@ -401,12 +402,7 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
                                         }
                                         
                                         // Display the cover image
-                                        pixbuf.add_alpha(false, 0, 0, 0);
-                                        let window = recognized_song_cover.get_window().expect("cover should have a window");
-                                        let surface = pixbuf.create_surface(1, Some(&window)).unwrap();
-                                        surface.set_fallback_resolution(pixbuf.get_width() as _, pixbuf.get_height() as _);
-                                        recognized_song_cover.set_from_surface(Some(&surface));
-                                        recognized_song_cover.set_size_request(-1, -1);
+                                        cover_image.replace(Some(pixbuf));
                                         
                                         match message.album_name {
                                             Some(value) => { recognized_song_cover.set_tooltip_text(Some(&value)) },
