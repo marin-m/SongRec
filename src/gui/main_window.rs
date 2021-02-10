@@ -13,7 +13,7 @@ use chrono::Local;
 use gag::Gag;
 use cpal::traits::*;
 use std::time::{SystemTime, UNIX_EPOCH};
-use gdk::prelude::{GdkPixbufExt, WindowExtManual};
+use gdk::prelude::GdkPixbufExt;
 use percent_encoding::{utf8_percent_encode, NON_ALPHANUMERIC};
 use std::thread;
 
@@ -401,8 +401,8 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
                                         }
                                         
                                         // Display the cover image
-                                        
-                                        let window = gdk::Window::get_default_root_window();
+                                        pixbuf.add_alpha(false, 0, 0, 0);
+                                        let window = recognized_song_cover.get_window().expect("cover should have a window");
                                         let surface = pixbuf.create_surface(1, Some(&window)).unwrap();
                                         surface.set_fallback_resolution(pixbuf.get_width() as _, pixbuf.get_height() as _);
                                         recognized_song_cover.set_from_surface(Some(&surface));
