@@ -21,4 +21,5 @@ cargo vendor vendor | sed 's/^directory = ".*"/directory = "vendor"/g' > .cargo/
 
 rm -rf .git
 
-tar zcvf ../songrec_tarball_"$1"_for_flathub_build.tar.gz . -C /tmp/dist_dir
+cd /tmp/dist_dir
+tar zcvf ../songrec_tarball_"$1"_for_flathub_build.tar.gz .
