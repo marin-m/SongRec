@@ -4,6 +4,7 @@ __pycache__/
 config.py
 build/
 .~lock.*
+*.glade#
 *~
 
 # The following is related to Rust

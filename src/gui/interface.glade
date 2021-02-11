@@ -61,8 +61,8 @@
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">SongRec</property>
     <property name="window_position">center</property>
-    <property name="default_width">420</property>
-    <property name="default_height">1</property>
+    <property name="default_width">977</property>
+    <property name="default_height">460</property>
     <property name="icon_name">audio-x-generic</property>
     <property name="has_resize_grip">True</property>
     <property name="show_menubar">False</property>
@@ -70,478 +70,502 @@
       <placeholder/>
     </child>
     <child>
-      <object class="GtkBox" id="hbox">
-        <property name="name">vbox</property>
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="margin_left">15</property>
-        <property name="margin_right">15</property>
-        <property name="margin_top">15</property>
-        <property name="margin_bottom">15</property>
-        <property name="spacing">15</property>
-        <property name="homogeneous">True</property>
+      <object class="GtkScrolledWindow" id="fbsw">
+        <property name="hscrollbar_policy">never</property>
+        <property name="vscrollbar_policy">automatic</property>
         <child>
-          <object class="GtkBox" id="vbox1">
+          <object class="GtkFlowBox" id="flowbox">
+            <property name="name">flowbox</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="orientation">vertical</property>
-            <property name="spacing">15</property>
+            <property name="margin_left">12</property>
+            <property name="margin_right">12</property>
+            <property name="margin_top">12</property>
+            <property name="margin_bottom">12</property>
+            <property name="homogeneous">False</property>
+            <property name="min-children-per-line">1</property>
+            <property name="max-children-per-line">2</property>
+            <property name="selection-mode">none</property>
+            <property name="orientation">horizontal</property>
             <child>
-              <object class="GtkFrame" id="buttons_frame">
-                <property name="name">buttons_frame</property>
+              <object class="GtkFlowBoxChild" id="fbc1">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label_xalign">0.039999999105930328</property>
-                <property name="shadow_type">in</property>
-                <child>
-                  <object class="GtkAlignment">
+                  <child>
+                  <object class="GtkBox" id="vbox1">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="left_padding">12</property>
+                    <property name="orientation">vertical</property>
+                    <property name="margin_right">9</property>
+                    <property name="spacing">15</property>
                     <child>
-                      <object class="GtkBox">
+                      <object class="GtkFrame" id="buttons_frame">
+                        <property name="name">buttons_frame</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="margin_left">15</property>
-                        <property name="margin_right">15</property>
-                        <property name="margin_top">15</property>
-                        <property name="margin_bottom">15</property>
-                        <property name="orientation">vertical</property>
-                        <property name="spacing">15</property>
+                        <property name="label_xalign">0.039999999105930328</property>
+                        <property name="shadow_type">in</property>
                         <child>
-                          <object class="GtkButton" id="recognize_file_button">
-                            <property name="label" translatable="yes">Recognize from file</property>
-                            <property name="height_request">40</property>
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="receives_default">True</property>
-                            <property name="image">file_icon</property>
-                            <property name="always_show_image">True</property>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">0</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkSpinner" id="spinner">
-                            <property name="name">spinner</property>
-                            <property name="width_request">40</property>
-                            <property name="can_focus">False</property>
-                            <property name="active">True</property>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">1</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkButton" id="microphone_button">
-                            <property name="label" translatable="yes">Turn on microphone recognition</property>
-                            <property name="height_request">40</property>
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="receives_default">True</property>
-                            <property name="image">microphone_icon</property>
-                            <property name="always_show_image">True</property>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">2</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkButton" id="microphone_stop_button">
-                            <property name="label" translatable="yes">Turn off microphone recognition</property>
-                            <property name="height_request">40</property>
-                            <property name="can_focus">True</property>
-                            <property name="receives_default">True</property>
-                            <property name="image">microphone_stop_icon</property>
-                            <property name="always_show_image">True</property>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">3</property>
-                          </packing>
-                        </child>
-                      </object>
-                    </child>
-                  </object>
-                </child>
-                <child type="label">
-                  <object class="GtkLabel">
-                    <property name="name">buttons_frame_label</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Recognize songs</property>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkFrame" id="results_frame">
-                <property name="name">results_frame</property>
-                <property name="can_focus">False</property>
-                <property name="label_xalign">0.039999999105930328</property>
-                <property name="shadow_type">in</property>
-                <child>
-                  <object class="GtkAlignment">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="left_padding">12</property>
-                    <child>
-                      <object class="GtkBox">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="margin_left">15</property>
-                        <property name="margin_right">15</property>
-                        <property name="margin_top">15</property>
-                        <property name="margin_bottom">15</property>
-                        <property name="orientation">vertical</property>
-                        <property name="spacing">15</property>
-                        <child>
-                          <object class="GtkLabel" id="recognized_song_name">
-                            <property name="name">recognized_song_name</property>
+                          <object class="GtkAlignment">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">&lt;b&gt;Artist - Song name&lt;/b&gt;</property>
-                            <property name="use_markup">True</property>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">0</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkImage" id="recognized_song_cover">
-                            <property name="can_focus">False</property>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">1</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkButton" id="youtube_button">
-                            <property name="label" translatable="yes">Search on YouTube</property>
-                            <property name="height_request">0</property>
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="receives_default">True</property>
-                            <property name="image">youtube_icon</property>
-                            <property name="always_show_image">True</property>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">2</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkButton" id="lure_button">
-                            <property name="label" translatable="yes">Play a Shazam lure</property>
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="receives_default">True</property>
-                            <property name="image">lure_icon</property>
-                            <property name="always_show_image">True</property>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">3</property>
-                          </packing>
-                        </child>
-                      </object>
-                    </child>
-                  </object>
-                </child>
-                <child type="label">
-                  <object class="GtkLabel">
-                    <property name="name">results_frame_label</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Recognition results</property>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkBox" id="vbox2">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="orientation">vertical</property>
-            <property name="spacing">15</property>
-            <child>
-              <object class="GtkFrame" id="microphone_source_frame">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label_xalign">0.039999999105930328</property>
-                <property name="shadow_type">in</property>
-                <child>
-                  <object class="GtkAlignment">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="left_padding">12</property>
-                    <child>
-                      <object class="GtkBox">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="margin_left">15</property>
-                        <property name="margin_right">15</property>
-                        <property name="margin_top">15</property>
-                        <property name="margin_bottom">15</property>
-                        <property name="orientation">vertical</property>
-                        <property name="spacing">15</property>
-                        <child>
-                          <object class="GtkComboBox" id="microphone_source_select_box">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="model">input_devices_list_store</property>
-                            <property name="active">0</property>
-                            <property name="id_column">0</property>
+                            <property name="left_padding">12</property>
                             <child>
-                              <object class="GtkCellRendererText"/>
-                              <attributes>
-                                <attribute name="markup">0</attribute>
-                                <attribute name="text">0</attribute>
-                              </attributes>
-                            </child>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">0</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkBox" id="current_volume_hbox">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="spacing">15</property>
-                            <child>
-                              <object class="GtkLabel">
+                              <object class="GtkBox">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="label" translatable="yes">Current volume:</property>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="fill">True</property>
-                                <property name="position">0</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkProgressBar" id="current_volume_bar">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                              </object>
-                              <packing>
-                                <property name="expand">True</property>
-                                <property name="fill">True</property>
-                                <property name="position">1</property>
-                              </packing>
-                            </child>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">1</property>
-                          </packing>
-                        </child>
-                      </object>
-                    </child>
-                  </object>
-                </child>
-                <child type="label">
-                  <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Microphone input</property>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkFrame" id="history_frame">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label_xalign">0.039999999105930328</property>
-                <property name="shadow_type">in</property>
-                <child>
-                  <object class="GtkAlignment">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="left_padding">12</property>
-                    <child>
-                      <object class="GtkBox">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="margin_left">15</property>
-                        <property name="margin_right">15</property>
-                        <property name="margin_top">15</property>
-                        <property name="margin_bottom">15</property>
-                        <property name="orientation">vertical</property>
-                        <property name="spacing">15</property>
-                        <child>
-                          <object class="GtkScrolledWindow">
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="shadow_type">in</property>
-                            <property name="min_content_width">420</property>
-                            <property name="min_content_height">200</property>
-                            <child>
-                              <object class="GtkTreeView" id="history_tree_view">
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="vexpand">True</property>
-                                <property name="model">history_list_store</property>
-                                <property name="enable_grid_lines">vertical</property>
-                                <child internal-child="selection">
-                                  <object class="GtkTreeSelection"/>
+                                <property name="margin_left">15</property>
+                                <property name="margin_right">15</property>
+                                <property name="margin_top">15</property>
+                                <property name="margin_bottom">15</property>
+                                <property name="orientation">vertical</property>
+                                <property name="spacing">15</property>
+                                <child>
+                                  <object class="GtkButton" id="recognize_file_button">
+                                    <property name="label" translatable="yes">Recognize from file</property>
+                                    <property name="height_request">40</property>
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+                                    <property name="receives_default">True</property>
+                                    <property name="image">file_icon</property>
+                                    <property name="always_show_image">True</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">0</property>
+                                  </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkTreeViewColumn">
-                                    <property name="resizable">True</property>
-                                    <property name="sizing">autosize</property>
-                                    <property name="title">Song name</property>
+                                  <object class="GtkSpinner" id="spinner">
+                                    <property name="name">spinner</property>
+                                    <property name="width_request">40</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="active">True</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">1</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkButton" id="microphone_button">
+                                    <property name="label" translatable="yes">Turn on microphone recognition</property>
+                                    <property name="height_request">40</property>
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+                                    <property name="receives_default">True</property>
+                                    <property name="image">microphone_icon</property>
+                                    <property name="always_show_image">True</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">2</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkButton" id="microphone_stop_button">
+                                    <property name="label" translatable="yes">Turn off microphone recognition</property>
+                                    <property name="height_request">40</property>
+                                    <property name="can_focus">True</property>
+                                    <property name="receives_default">True</property>
+                                    <property name="image">microphone_stop_icon</property>
+                                    <property name="always_show_image">True</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">3</property>
+                                  </packing>
+                                </child>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                        <child type="label">
+                          <object class="GtkLabel">
+                            <property name="name">buttons_frame_label</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="label" translatable="yes">Recognize songs</property>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkFrame" id="results_frame">
+                        <property name="name">results_frame</property>
+                        <property name="can_focus">False</property>
+                        <property name="label_xalign">0.039999999105930328</property>
+                        <property name="shadow_type">in</property>
+                        <child>
+                          <object class="GtkAlignment">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="left_padding">12</property>
+                            <child>
+                              <object class="GtkBox">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="margin_left">15</property>
+                                <property name="margin_right">15</property>
+                                <property name="margin_top">15</property>
+                                <property name="margin_bottom">15</property>
+                                <property name="orientation">vertical</property>
+                                <property name="spacing">15</property>
+                                <child>
+                                  <object class="GtkLabel" id="recognized_song_name">
+                                    <property name="name">recognized_song_name</property>
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                        <property name="wrap">True</property>
+                                    <property name="label" translatable="yes">&lt;b&gt;Artist - Song name&lt;/b&gt;</property>
+                                    <property name="use_markup">True</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">0</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkScrolledWindow">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+                                    <property name="shadow_type">in</property>
+                                    <property name="min_content_width">100</property>
+                                    <property name="min_content_height">100</property>
+                                    <property name="hscrollbar-policy">external</property>
+                                    <property name="vscrollbar-policy">external</property>
+                                    <child>
+                                      <object class="GtkImage" id="recognized_song_cover">
+                                        <property name="can_focus">False</property>
+                                      </object>
+                                    </child>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">True</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">1</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkButton" id="youtube_button">
+                                    <property name="label" translatable="yes">Search on YouTube</property>
+                                    <property name="height_request">0</property>
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+                                    <property name="receives_default">True</property>
+                                    <property name="image">youtube_icon</property>
+                                    <property name="always_show_image">True</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">2</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkButton" id="lure_button">
+                                    <property name="label" translatable="yes">Play a Shazam lure</property>
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+                                    <property name="receives_default">True</property>
+                                    <property name="image">lure_icon</property>
+                                    <property name="always_show_image">True</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">3</property>
+                                  </packing>
+                                </child>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                        <child type="label">
+                          <object class="GtkLabel">
+                            <property name="name">results_frame_label</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="label" translatable="yes">Recognition results</property>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">True</property>
+                        <property name="fill">True</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkFlowBoxChild" id="fbc2">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <child>
+                  <object class="GtkBox" id="vbox2">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="orientation">vertical</property>
+                    <property name="spacing">15</property>
+                    <child>
+                      <object class="GtkFrame" id="microphone_source_frame">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label_xalign">0.039999999105930328</property>
+                        <property name="shadow_type">in</property>
+                        <child>
+                          <object class="GtkAlignment">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="left_padding">12</property>
+                            <child>
+                              <object class="GtkBox">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="margin_left">15</property>
+                                <property name="margin_right">15</property>
+                                <property name="margin_top">15</property>
+                                <property name="margin_bottom">15</property>
+                                <property name="orientation">vertical</property>
+                                <property name="spacing">15</property>
+                                <child>
+                                  <object class="GtkComboBox" id="microphone_source_select_box">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="model">input_devices_list_store</property>
+                                    <property name="active">0</property>
+                                    <property name="id_column">0</property>
                                     <child>
                                       <object class="GtkCellRendererText"/>
                                       <attributes>
+                                        <attribute name="markup">0</attribute>
                                         <attribute name="text">0</attribute>
                                       </attributes>
                                     </child>
                                   </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">0</property>
+                                  </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkTreeViewColumn">
-                                    <property name="resizable">True</property>
-                                    <property name="sizing">autosize</property>
-                                    <property name="title" translatable="yes">Album</property>
+                                  <object class="GtkBox" id="current_volume_hbox">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="spacing">15</property>
                                     <child>
-                                      <object class="GtkCellRendererText"/>
-                                      <attributes>
-                                        <attribute name="text">1</attribute>
-                                      </attributes>
+                                      <object class="GtkLabel">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="label" translatable="yes">Current volume:</property>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">0</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkProgressBar" id="current_volume_bar">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">True</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">1</property>
+                                      </packing>
                                     </child>
                                   </object>
-                                </child>
-                                <child>
-                                  <object class="GtkTreeViewColumn">
-                                    <property name="resizable">True</property>
-                                    <property name="sizing">autosize</property>
-                                    <property name="title">Recognition date</property>
-                                    <child>
-                                      <object class="GtkCellRendererText"/>
-                                      <attributes>
-                                        <attribute name="text">2</attribute>
-                                      </attributes>
-                                    </child>
-                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">1</property>
+                                  </packing>
                                 </child>
                               </object>
                             </child>
                           </object>
-                          <packing>
-                            <property name="expand">True</property>
-                            <property name="fill">True</property>
-                            <property name="position">0</property>
-                          </packing>
                         </child>
-                        <child>
-                          <object class="GtkButtonBox">
+                        <child type="label">
+                          <object class="GtkLabel">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="layout_style">end</property>
-                            <child>
-                              <object class="GtkButton" id="wipe_history_button">
-                                <property name="label" translatable="yes">Wipe history</property>
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="receives_default">True</property>
-                                <property name="image">wipe_icon</property>
-                                <property name="always_show_image">True</property>
-                              </object>
-                              <packing>
-                                <property name="expand">True</property>
-                                <property name="fill">True</property>
-                                <property name="position">1</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkButton" id="export_csv_button">
-                                <property name="label" translatable="yes">Export to CSV</property>
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="receives_default">True</property>
-                                <property name="image">csv_icon</property>
-                                <property name="always_show_image">True</property>
-                              </object>
-                              <packing>
-                                <property name="expand">True</property>
-                                <property name="fill">True</property>
-                                <property name="position">2</property>
-                              </packing>
-                            </child>
+                            <property name="label" translatable="yes">Microphone input</property>
                           </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">1</property>
-                          </packing>
                         </child>
                       </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkFrame" id="history_frame">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label_xalign">0.039999999105930328</property>
+                        <property name="shadow_type">in</property>
+                        <child>
+                          <object class="GtkAlignment">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="left_padding">12</property>
+                            <child>
+                              <object class="GtkBox">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="margin_left">15</property>
+                                <property name="margin_right">15</property>
+                                <property name="margin_top">15</property>
+                                <property name="margin_bottom">15</property>
+                                <property name="orientation">vertical</property>
+                                <property name="spacing">15</property>
+                                <child>
+                                  <object class="GtkScrolledWindow">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+                                    <property name="shadow_type">in</property>
+                                    <property name="min_content_width">200</property>
+                                    <property name="min_content_height">200</property>
+                                    <child>
+                                      <object class="GtkTreeView" id="history_tree_view">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="vexpand">True</property>
+                                        <property name="model">history_list_store</property>
+                                        <property name="enable_grid_lines">vertical</property>
+                                        <child internal-child="selection">
+                                          <object class="GtkTreeSelection"/>
+                                        </child>
+                                        <child>
+                                          <object class="GtkTreeViewColumn">
+                                            <property name="resizable">True</property>
+                                            <property name="sizing">autosize</property>
+                                            <property name="title">Song name</property>
+                                            <child>
+                                              <object class="GtkCellRendererText"/>
+                                              <attributes>
+                                                <attribute name="text">0</attribute>
+                                              </attributes>
+                                            </child>
+                                          </object>
+                                        </child>
+                                        <child>
+                                          <object class="GtkTreeViewColumn">
+                                            <property name="resizable">True</property>
+                                            <property name="sizing">autosize</property>
+                                            <property name="title" translatable="yes">Album</property>
+                                            <child>
+                                              <object class="GtkCellRendererText"/>
+                                              <attributes>
+                                                <attribute name="text">1</attribute>
+                                              </attributes>
+                                            </child>
+                                          </object>
+                                        </child>
+                                        <child>
+                                          <object class="GtkTreeViewColumn">
+                                            <property name="resizable">True</property>
+                                            <property name="sizing">autosize</property>
+                                            <property name="title">Recognition date</property>
+                                            <child>
+                                              <object class="GtkCellRendererText"/>
+                                              <attributes>
+                                                <attribute name="text">2</attribute>
+                                              </attributes>
+                                            </child>
+                                          </object>
+                                        </child>
+                                      </object>
+                                    </child>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">True</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">0</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkButtonBox">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="layout_style">end</property>
+                                    <child>
+                                      <object class="GtkButton" id="wipe_history_button">
+                                        <property name="label" translatable="yes">Wipe history</property>
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="receives_default">True</property>
+                                        <property name="image">wipe_icon</property>
+                                        <property name="always_show_image">True</property>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">True</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">1</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkButton" id="export_csv_button">
+                                        <property name="label" translatable="yes">Export to CSV</property>
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="receives_default">True</property>
+                                        <property name="image">csv_icon</property>
+                                        <property name="always_show_image">True</property>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">True</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">2</property>
+                                      </packing>
+                                    </child>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">1</property>
+                                  </packing>
+                                </child>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                        <child type="label">
+                          <object class="GtkLabel">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="label" translatable="yes">Recognition history</property>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">True</property>
+                        <property name="fill">True</property>
+                        <property name="position">1</property>
+                      </packing>
                     </child>
                   </object>
                 </child>
-                <child type="label">
-                  <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Recognition history</property>
-                  </object>
-                </child>
               </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-              </packing>
             </child>
           </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">1</property>
-          </packing>
         </child>
       </object>
     </child>

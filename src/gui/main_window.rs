@@ -94,7 +94,46 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
         
         let recognized_song_name: gtk::Label = builder.get_object("recognized_song_name").unwrap();
         let recognized_song_cover: gtk::Image = builder.get_object("recognized_song_cover").unwrap();
-        
+        let cover_image: Rc<RefCell<Option<Pixbuf>>> = Rc::new(RefCell::new(None));
+        let cover_image2 = cover_image.clone();
+
+        // Resize the cover image when its container is resized
+
+        let cover = recognized_song_cover.clone();
+        recognized_song_cover.get_parent().unwrap().connect_size_allocate(
+            move |_widget: &gtk::Widget, allocation| {
+                // Return early if image surface has not been set
+                let pixbuf = match cover_image2.try_borrow() {
+                    Ok(x) => x,
+                    _ => return,
+                };
+                
+                let pixbuf = match *pixbuf {
+                    Some(ref p) => p,
+                    None => return,
+                };
+
+                let width = pixbuf.get_width() as f64;
+                let max_width = allocation.width.min(400) as f64;
+                let width_scale = width / max_width;
+                let height = pixbuf.get_height() as f64;
+                let max_height = allocation.height.min(400) as f64;
+                let height_scale = height / max_height;
+
+                let scale = width_scale.max(height_scale);
+                
+                let pixbuf = pixbuf.scale_simple((width / scale) as i32, (height / scale) as i32, gdk_pixbuf::InterpType::Bilinear);
+
+                // Defer resizing until after size allocation is done
+
+                let cover = cover.clone();
+                glib::idle_add_local(move || {
+                    cover.set_from_pixbuf(pixbuf.as_ref());
+                    return glib::Continue(false);
+                });
+            }
+        );
+
         let microphone_button: gtk::Button = builder.get_object("microphone_button").unwrap();
         let microphone_stop_button: gtk::Button = builder.get_object("microphone_stop_button").unwrap();
         
@@ -352,7 +391,18 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
                                 match Pixbuf::from_stream::<_, gio::Cancellable>(&stream, None) {
                                 
                                     Ok(pixbuf) => {
-                                        recognized_song_cover.set_from_pixbuf(Some(&pixbuf));
+                                        // Ensure that the window is large enough so that the cover is
+                                        // displayed without being downsized, if the current setup
+                                        // allows it
+                                        
+                                        let (window_width, window_height) = window.get_size();
+                                        
+                                        if window_height < 768 && !window.is_maximized() {
+                                            window.resize(window_width, 768);
+                                        }
+                                        
+                                        // Display the cover image
+                                        cover_image.replace(Some(pixbuf));
                                         
                                         match message.album_name {
                                             Some(value) => { recognized_song_cover.set_tooltip_text(Some(&value)) },
