@@ -1,7 +1,7 @@
 pkgname=songrec-git
 _pkgname=songrec
 pkgver=r61.2e9ce82
-pkgrel=2
+pkgrel=3
 provides=('songrec')
 conflicts=('songrec')
 pkgdesc='An open-source, unofficial Shazam client for Linux, written in Rust.'
