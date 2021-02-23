@@ -36,7 +36,7 @@ for version in bionic focal groovy hirsute; do
     
     sed -ri "s/\) bionic/${version}) ${version}/g" debian/changelog
 
-    debuild -S -sa
+    debuild -S -sa -k7BD68AA06BBE1BB41DB4D98E007F79B1496791FA
 
     rm -f /tmp/songrec*
 
