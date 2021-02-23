@@ -16,7 +16,7 @@ struct PactlItemInfo {
 }
 
 // Structures useful for parsing the TSV output from "pactl"
-// using the BurntSushi "csv" model
+// using the BurntSushi "csv" module
 
 // See here for the TSV format reference:
 // - For "sources": https://gitlab.freedesktop.org/pulseaudio/pulseaudio/-/blob/stable-14.x/src/utils/pactl.c#L419
