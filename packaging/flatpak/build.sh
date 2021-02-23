@@ -11,7 +11,7 @@ mkdir -p .cargo
 cargo vendor vendor | sed 's/^directory = ".*"/directory = "vendor"/g' > .cargo/config
 
 # Install the required Flatpak runtime and SDK
-flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 flatpak install flathub --user org.freedesktop.Sdk//20.08 -y
 flatpak install flathub --user org.freedesktop.Platform//20.08 -y
 flatpak install flathub --user org.freedesktop.Sdk.Extension.rust-stable//20.08 -y
