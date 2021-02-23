@@ -22,6 +22,8 @@ use crate::gui::http_thread::http_thread;
 use crate::gui::csv_song_history::{SongHistoryInterface, SongHistoryRecord};
 use crate::gui::thread_messages::{*, GUIMessage::*};
 
+use crate::gui::pulseaudio_loopback::PulseaudioLoopback;
+
 use crate::fingerprinting::signature_format::DecodedSignature;
 
 fn spawn_big_thread<F, T>(argument: F) -> ()
@@ -170,6 +172,8 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
         let combo_box: gtk::ComboBox = builder.get_object("microphone_source_select_box").unwrap();
         let combo_box_model: gtk::ListStore = builder.get_object("input_devices_list_store").unwrap();
         
+        let recognize_from_my_speakers_checkbox: gtk::CheckButton = builder.get_object("recognize_from_my_speakers_checkbox").unwrap();
+        
         let current_volume_hbox: gtk::Box = builder.get_object("current_volume_hbox").unwrap();
         let current_volume_bar: gtk::ProgressBar = builder.get_object("current_volume_bar").unwrap();
         
@@ -281,6 +285,10 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
             
         }));
         
+        recognize_from_my_speakers_checkbox.connect_toggled(clone!(@weak recognize_from_my_speakers_checkbox => move |_| {
+            PulseaudioLoopback::set_whether_audio_source_is_monitor(recognize_from_my_speakers_checkbox.get_active());
+        }));
+        
         youtube_button.connect_clicked(move |_| {
             
             let timestamp = SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_secs();
@@ -331,7 +339,7 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
 
         });
         
-        gui_rx.attach(None, clone!(@weak application, @weak window, @weak results_frame, @weak spinner, @weak recognize_file_button, @weak microphone_stop_button => @default-return Continue(true), move |gui_message| {
+        gui_rx.attach(None, clone!(@weak application, @weak window, @weak results_frame, @weak spinner, @weak recognize_file_button, @weak microphone_stop_button, @weak recognize_from_my_speakers_checkbox => @default-return Continue(true), move |gui_message| {
             
             match gui_message {
                 ErrorMessage(string) => {
@@ -350,6 +358,27 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
                 },
                 MicrophoneVolumePercent(percent) => {
                     current_volume_bar.set_fraction((percent / 100.0) as f64);
+                },
+                MicrophoneRecording => {
+                    
+                    // Initally show the "Recognize from my speakers instead
+                    // of microphone" checkbox if PulseAudio seems to be
+                    // available, and we can see (supposedly) ourselves through
+                    // PulseAudio
+
+                    if PulseaudioLoopback::check_whether_pactl_is_available() {
+                        
+                        if PulseaudioLoopback::get_whether_audio_source_is_known() == Some(true) {
+                            if let Some(audio_source_is_monitor) = PulseaudioLoopback::get_whether_audio_source_is_monitor() {
+                                
+                                recognize_from_my_speakers_checkbox.show_all();
+                                
+                                if audio_source_is_monitor {
+                                    recognize_from_my_speakers_checkbox.set_active(true);
+                                }
+                            }
+                        }
+                    }
                 },
                 SongRecognized(message) => {
                     let mut youtube_query_borrow = youtube_query.borrow_mut();
@@ -434,6 +463,8 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
         window.show_all();
 
         results_frame.hide();
+        
+        recognize_from_my_speakers_checkbox.hide(); // This will be available only of PulseAudio is up and controllable
 
         spinner.hide();
 

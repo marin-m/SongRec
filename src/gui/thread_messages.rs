@@ -13,6 +13,7 @@ pub struct SongRecognizedMessage {
 pub enum GUIMessage {
     ErrorMessage(String),
     WipeSongHistory,
+    MicrophoneRecording,
     MicrophoneVolumePercent(f32),
     SongRecognized(Box<SongRecognizedMessage>)
 }

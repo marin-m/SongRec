@@ -13,6 +13,7 @@ mod gui {
     mod processing_thread;
     mod http_thread;
     mod thread_messages;
+    mod pulseaudio_loopback;
     mod csv_song_history;
 }
 

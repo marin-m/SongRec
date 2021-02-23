@@ -24,6 +24,7 @@ pub fn microphone_thread(microphone_rx: mpsc::Receiver<MicrophoneMessage>, proce
                 let processing_tx_2 = processing_tx.clone();
                 let gui_tx_2 = gui_tx.clone();
                 let gui_tx_3 = gui_tx.clone();
+                let gui_tx_4 = gui_tx.clone();
     
                 let err_fn = move |error| {
                     gui_tx_2.send(GUIMessage::ErrorMessage(format!("Microphone error: {}", error))).unwrap();
@@ -66,6 +67,8 @@ pub fn microphone_thread(microphone_rx: mpsc::Receiver<MicrophoneMessage>, proce
                 });
                 
                 stream.as_ref().unwrap().play().unwrap();
+                
+                gui_tx_4.send(GUIMessage::MicrophoneRecording).unwrap();
 
             },
             
