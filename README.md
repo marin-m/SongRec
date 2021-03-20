@@ -143,6 +143,12 @@ The following will produce back hearable tones from a given fingerprint, that sh
 
 When using the application, you may notice that certain information will be saved to `~/.local/share/SongRec` (or an equivalent directory depending on your operating system), including the CSV-format list of the last recognized songs and the last selected microphone input device (so that it is chosen back when restarting the app). You may want to delete this directory in case of persistent issues.
 
+## Privacy
+
+SongRec collects no data and contacts no other servers than Shazam's. SongRec does not upload raw audio data anywhere: only fingerprints of the audio are uploaded, which means sequences of frequency peaks encoded in the form of "(frequency, amplitude, time)" tuples.
+
+This does not suffice to represent anything hearable alone (use the "Play a Shazam lure" button to see how much this is different from full sound); that means that no actually hearable sound (e.g voice fragments) is sent to servers, only metadata derived on the characteristics of the sound that may only suffice to recognize a song already known by Shazam is being sent.
+
 ## Legal
 
 This software is released under the [GNU GPL v3](https://www.gnu.org/licenses/gpl-3.0.html) license. It was created with the intent of providing interoperability between the remote Shazam services and Linux-based deskop systems.

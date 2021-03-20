@@ -6,6 +6,7 @@ build/
 .~lock.*
 *.glade#
 *~
+*.swp
 
 # The following is related to Rust
 target/
