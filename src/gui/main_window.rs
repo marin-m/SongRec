@@ -85,6 +85,106 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
         // We initialize the CSV file that will contain song history.
 
         let mut song_history_interface = SongHistoryInterface::new(builder.get_object("history_list_store").unwrap()).unwrap();
+        let history_tree_view: gtk::TreeView = builder.get_object("history_tree_view").unwrap();
+        
+        // Add a context menu to the history tree view, in order to allow
+        // users to copy or search items (see https://stackoverflow.com/a/49720383)
+        
+        let list_view_context_menu: gtk::Menu = builder.get_object("list_view_context_menu").unwrap();
+        
+        history_tree_view.connect_button_press_event(clone!(@strong list_view_context_menu, @strong history_tree_view => move |_, button| {
+            
+            if button.get_event_type() == gdk::EventType::ButtonPress && button.get_button() == 3 { // Is this a single right click?
+                
+                // Display the context menu
+                
+                // For usage examples, see:
+                // https://github.com/search?l=Rust&q=set_property_attach_widget&type=Code
+                
+                list_view_context_menu.set_property_attach_widget(Some(&history_tree_view));
+                
+                list_view_context_menu.show_all();
+                
+                list_view_context_menu.popup_at_pointer(Some(button));
+                
+            }
+            
+            Inhibit(false) // Ensure that focus is given to the clicked item
+            
+        }));
+        
+        // See here for getting the selected menu item: https://stackoverflow.com/a/7938561
+        
+        // Bind the context menu actions for the recognized songs history
+
+        let copy_artist_and_track: gtk::MenuItem = builder.get_object("copy_artist_and_track").unwrap();
+        
+        copy_artist_and_track.connect_activate(clone!(@strong history_tree_view => move |_| {
+            
+            if let Some((tree_model, tree_iter)) = history_tree_view.get_selection().get_selected() {
+                let full_song_name: String = tree_model.get_value(&tree_iter, 0).get().unwrap().unwrap();
+                
+                gtk::Clipboard::get(&gdk::SELECTION_CLIPBOARD).set_text(&full_song_name);
+            }
+            
+        }));
+        
+        let copy_artist: gtk::MenuItem = builder.get_object("copy_artist").unwrap();
+        
+        copy_artist.connect_activate(clone!(@strong history_tree_view => move |_| {
+            
+            if let Some((tree_model, tree_iter)) = history_tree_view.get_selection().get_selected() {
+                let full_song_name: String = tree_model.get_value(&tree_iter, 0).get().unwrap().unwrap();
+                
+                let full_song_name_parts: Vec<&str> = full_song_name.splitn(2, " - ").collect();
+                gtk::Clipboard::get(&gdk::SELECTION_CLIPBOARD).set_text(full_song_name_parts[0]);
+            }
+            
+        }));
+        
+        let copy_track_name: gtk::MenuItem = builder.get_object("copy_track_name").unwrap();
+        
+        copy_track_name.connect_activate(clone!(@strong history_tree_view => move |_| {
+            
+            if let Some((tree_model, tree_iter)) = history_tree_view.get_selection().get_selected() {
+                let full_song_name: String = tree_model.get_value(&tree_iter, 0).get().unwrap().unwrap();
+                
+                let full_song_name_parts: Vec<&str> = full_song_name.splitn(2, " - ").collect();
+                gtk::Clipboard::get(&gdk::SELECTION_CLIPBOARD).set_text(full_song_name_parts[1]);
+            }
+            
+        }));
+        
+        let copy_album: gtk::MenuItem = builder.get_object("copy_album").unwrap();
+        
+        copy_album.connect_activate(clone!(@strong history_tree_view => move |_| {
+            
+            if let Some((tree_model, tree_iter)) = history_tree_view.get_selection().get_selected() {
+                let album_name: String = tree_model.get_value(&tree_iter, 1).get().unwrap().unwrap();
+                
+                gtk::Clipboard::get(&gdk::SELECTION_CLIPBOARD).set_text(&album_name);
+            }
+            
+        }));
+        
+        let search_on_youtube: gtk::MenuItem = builder.get_object("search_on_youtube").unwrap();
+        
+        search_on_youtube.connect_activate(clone!(@strong history_tree_view => move |_| {
+            
+            if let Some((tree_model, tree_iter)) = history_tree_view.get_selection().get_selected() {
+                let full_song_name: String = tree_model.get_value(&tree_iter, 0).get().unwrap().unwrap();
+                
+                let timestamp = SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_secs();
+                
+                let mut encoded_search_term = utf8_percent_encode(&full_song_name, NON_ALPHANUMERIC).to_string();
+                encoded_search_term = encoded_search_term.replace("%20", "+");
+                
+                let search_url = format!("https://www.youtube.com/results?search_query={}", encoded_search_term);
+                
+                gtk::show_uri(None, &search_url, timestamp as u32).unwrap();
+            }
+            
+        }));
         
         // Obtain items from vertical box layout with a file picker button,
         // and places for song recognition information
@@ -99,12 +199,13 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
         let cover_image: Rc<RefCell<Option<Pixbuf>>> = Rc::new(RefCell::new(None));
         let cover_image2 = cover_image.clone();
 
-        // Resize the cover image when its container is resized
+        // Resize the cover image when its container is resized - Ensure responsiveness
 
         let cover = recognized_song_cover.clone();
-        recognized_song_cover.get_parent().unwrap().connect_size_allocate(
-            move |_widget: &gtk::Widget, allocation| {
+        recognized_song_cover.get_parent().unwrap()
+            .connect_size_allocate(move |_widget: &gtk::Widget, allocation| {
                 // Return early if image surface has not been set
+                
                 let pixbuf = match cover_image2.try_borrow() {
                     Ok(x) => x,
                     _ => return,
@@ -201,7 +302,7 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
         
         combo_box.set_active(Some(old_device_index));
         
-        combo_box.connect_changed(clone!(@weak microphone_stop_button, @weak combo_box => move |_| {
+        combo_box.connect_changed(clone!(@strong microphone_stop_button, @strong combo_box => move |_| {
             
             let device_name = combo_box.get_active_id().unwrap().to_string();
             
@@ -231,7 +332,7 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
         
         let processing_tx_3 = processing_tx.clone();
 
-        recognize_file_button.connect_clicked(clone!(@weak window, @weak spinner, @weak recognize_file_button => move |_| {
+        recognize_file_button.connect_clicked(clone!(@strong window, @strong spinner, @strong recognize_file_button => move |_| {
             
             let file_chooser = gtk::FileChooserNative::new(
                 Some("Select a file to recognize"),
@@ -263,7 +364,7 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
         
         }));
         
-        microphone_button.connect_clicked(clone!(@weak microphone_button, @weak microphone_stop_button, @weak current_volume_hbox, @weak combo_box => move |_| {
+        microphone_button.connect_clicked(clone!(@strong microphone_button, @strong microphone_stop_button, @strong current_volume_hbox, @strong combo_box => move |_| {
             
             if let Some(device_name) = combo_box.get_active_id() {
                 microphone_tx.send(MicrophoneMessage::MicrophoneRecordStart(device_name.to_owned())).unwrap();
@@ -275,7 +376,7 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
 
         }));
         
-        microphone_stop_button.connect_clicked(clone!(@weak microphone_button, @weak microphone_stop_button, @weak current_volume_hbox => move |_| {
+        microphone_stop_button.connect_clicked(clone!(@strong microphone_button, @strong microphone_stop_button, @strong current_volume_hbox => move |_| {
             
             microphone_tx_2.send(MicrophoneMessage::MicrophoneRecordStop).unwrap();
             
@@ -285,7 +386,7 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
             
         }));
         
-        recognize_from_my_speakers_checkbox.connect_toggled(clone!(@weak recognize_from_my_speakers_checkbox => move |_| {
+        recognize_from_my_speakers_checkbox.connect_toggled(clone!(@strong recognize_from_my_speakers_checkbox => move |_| {
             PulseaudioLoopback::set_whether_audio_source_is_monitor(recognize_from_my_speakers_checkbox.get_active());
         }));
         
@@ -339,7 +440,7 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
 
         });
         
-        gui_rx.attach(None, clone!(@weak application, @weak window, @weak results_frame, @weak spinner, @weak recognize_file_button, @weak microphone_stop_button, @weak recognize_from_my_speakers_checkbox => @default-return Continue(true), move |gui_message| {
+        gui_rx.attach(None, clone!(@strong application, @strong window, @strong results_frame, @strong spinner, @strong recognize_file_button, @strong microphone_stop_button, @strong recognize_from_my_speakers_checkbox => move |gui_message| {
             
             match gui_message {
                 ErrorMessage(string) => {

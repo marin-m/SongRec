@@ -29,6 +29,59 @@
       <column type="gchararray"/>
     </columns>
   </object>
+  <object class="GtkMenu" id="list_view_context_menu">
+    <property name="can_focus">False</property>
+    <child>
+      <object class="GtkImageMenuItem" id="copy_artist_and_track">
+        <property name="label">Copy artist and track</property>
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="image">copy_icon</property>
+        <property name="use_stock">False</property>
+        <property name="always_show_image">True</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkImageMenuItem" id="copy_artist">
+        <property name="label" translatable="yes">Copy artist</property>
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="image">copy_icon_2</property>
+        <property name="use_stock">False</property>
+        <property name="always_show_image">True</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkImageMenuItem" id="copy_track_name">
+        <property name="label" translatable="yes">Copy track name</property>
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="image">copy_icon_3</property>
+        <property name="use_stock">False</property>
+        <property name="always_show_image">True</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkImageMenuItem" id="copy_album">
+        <property name="label" translatable="yes">Copy album</property>
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="image">copy_icon_4</property>
+        <property name="use_stock">False</property>
+        <property name="always_show_image">True</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkImageMenuItem" id="search_on_youtube">
+        <property name="label">Search on YouTube</property>
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="image">youtube_icon_2</property>
+        <property name="use_stock">False</property>
+        <property name="always_show_image">True</property>
+      </object>
+    </child>
+  </object>
   <object class="GtkImage" id="lure_icon">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -50,7 +103,32 @@
     <property name="can_focus">False</property>
     <property name="icon_name">user-trash-full</property>
   </object>
+  <object class="GtkImage" id="copy_icon">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">edit-copy</property>
+  </object>
+  <object class="GtkImage" id="copy_icon_2">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">edit-copy</property>
+  </object>
+  <object class="GtkImage" id="copy_icon_3">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">edit-copy</property>
+  </object>
+  <object class="GtkImage" id="copy_icon_4">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">edit-copy</property>
+  </object>
   <object class="GtkImage" id="youtube_icon">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">edit-find</property>
+  </object>
+  <object class="GtkImage" id="youtube_icon_2">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="icon_name">edit-find</property>

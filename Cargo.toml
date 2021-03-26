@@ -23,7 +23,8 @@ rodio = "0.12.0" # For reading WAV/MP3/FLAG/OGG files, resampling and playing au
 clap = "2.33.2" # For argument parsing
 cpal = "0.12.1" # For recording audio
 gag = "0.1.10" # Crate to silence stderr when CPAL produces uncontrolled AlsaLib output
-gtk = { version = "0.9.2", features = ["v3_20"] } # For the GUI
+gtk = { version = "0.9.2", features = ["v3_16", "v3_20", "v3_22"] } # For the GUI
+gdk = "0.13.2"
 gio = "0.9.1"
 hound = "3.4.0" # For writing WAV files
 serde_json = "1.0.57" # For decoding and encoding JSON
