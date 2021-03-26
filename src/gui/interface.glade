@@ -305,6 +305,7 @@
                                     <property name="can_focus">False</property>
                                         <property name="wrap">True</property>
                                     <property name="label" translatable="yes">&lt;b&gt;Artist - Song name&lt;/b&gt;</property>
+                                    <property name="selectable">True</property>
                                     <property name="use_markup">True</property>
                                   </object>
                                   <packing>
