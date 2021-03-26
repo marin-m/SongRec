@@ -28,6 +28,12 @@ https://hughsie.github.io/oars/index.html
 -->
   <content_rating type="oars-1.0" />
   <releases>
+    <release version="0.1.5" date="2021-03-26">
+      <description>
+        <p>- The song recognition history now has a right-click context menu that allows to copy the name of the songs, artists, tracks or albums, or to search previously recognized songs on YouTube.</p>
+        <p>- It is now possible to select the name of the last recognized song so that it can be copy-pasted somewhere easily.</p>
+      </description>
+    </release>
     <release version="0.1.4" date="2021-02-23">
       <description>
         <p>- Add the ability to recognize songs from your speakers rather than your microphone, through a checkbox that will be visible when the functionality is available, on compatible PulseAudio setups.</p>

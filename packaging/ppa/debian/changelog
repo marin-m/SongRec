@@ -1,14 +1,21 @@
+songrec (0.1.5) bionic; urgency=low
+
+  * The song recognition history now has a right-click context menu that allows to copy the name of the songs, artists, tracks or albums, or to search previously recognized songs on YouTube.
+  * It is now possible to select the name of the last recognized song so that it can be copy-pasted somewhere easily.
+
+ -- Marin <marin-m@users.noreply.github.com>  Fri, 26 Mar 2021 14:35:00 +0100
+
 songrec (0.1.4) bionic; urgency=low
 
   * Add the ability to recognize songs from your speakers rather than your microphone, through a checkbox that will be visible when the functionality is available, on compatible PulseAudio setups.
 
- -- Marin <marin-m@users.noreply.github.com>  Tue, 23 Feb 2020 18:37:00 +0100
+ -- Marin <marin-m@users.noreply.github.com>  Tue, 23 Feb 2021 18:37:00 +0100
 
 songrec (0.1.3) bionic; urgency=low
 
   * Make the application fully responsive for mobile devices using GtkFlowBox, thanks to @a33k.
 
- -- Marin <marin-m@users.noreply.github.com>  Thu, 11 Feb 2020 04:01:00 +0100
+ -- Marin <marin-m@users.noreply.github.com>  Thu, 11 Feb 2021 04:01:00 +0100
 
 songrec (0.1.2~3) bionic; urgency=low
 
