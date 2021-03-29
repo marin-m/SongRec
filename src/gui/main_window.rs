@@ -1,3 +1,5 @@
+#![windows_subsystem = "windows"]
+
 use gio::prelude::*;
 use glib::clone;
 use gtk::prelude::*;
@@ -10,11 +12,12 @@ use std::sync::mpsc;
 use std::cell::RefCell;
 use std::rc::Rc;
 use chrono::Local;
-use gag::Gag;
-use cpal::traits::*;
 use std::time::{SystemTime, UNIX_EPOCH};
 use percent_encoding::{utf8_percent_encode, NON_ALPHANUMERIC};
 use std::thread;
+
+#[cfg(target_os = "linux")]
+use gag::Gag;
 
 use crate::gui::microphone_thread::microphone_thread;
 use crate::gui::processing_thread::processing_thread;
@@ -268,7 +271,13 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
             old_device_name = Some(old_device_name_string);
         }
         
-        // List available input microphones devices in the appropriate combo box
+        // Handle selecting a microphone input devices in the appropriate combo box
+        // (the combo box will be filed with device names when a "DevicesList"
+        // inter-thread message will be received at the initialization of the
+        // microphone thread, because CPAL which underlies Rodio can't be called
+        // from the same thread as the microphone thread under Windows, see:
+        //  - https://github.com/RustAudio/rodio/issues/270
+        //  - https://github.com/RustAudio/rodio/issues/214 )
         
         let combo_box: gtk::ComboBox = builder.get_object("microphone_source_select_box").unwrap();
         let combo_box_model: gtk::ListStore = builder.get_object("input_devices_list_store").unwrap();
@@ -277,30 +286,6 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
         
         let current_volume_hbox: gtk::Box = builder.get_object("current_volume_hbox").unwrap();
         let current_volume_bar: gtk::ProgressBar = builder.get_object("current_volume_bar").unwrap();
-        
-        let host = cpal::default_host();
-        
-        // Avoid having alsalib polluting stderr (https://github.com/RustAudio/cpal/issues/384)
-        // through disabling stderr temporarily
-        
-        let print_gag = Gag::stderr().unwrap();
-        let mut old_device_index = 0;
-        let mut current_index = 0;
-        
-        for device in host.input_devices().unwrap() {
-            let device_name = device.name().unwrap();
-            
-            combo_box_model.set(&combo_box_model.append(), &[0], &[&device_name]);
-            
-            if old_device_name == Some(device_name) {
-                old_device_index = current_index;
-            }
-            current_index += 1;
-        }
-        
-        drop(print_gag);
-        
-        combo_box.set_active(Some(old_device_index));
         
         combo_box.connect_changed(clone!(@strong microphone_stop_button, @strong combo_box => move |_| {
             
@@ -440,7 +425,7 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
 
         });
         
-        gui_rx.attach(None, clone!(@strong application, @strong window, @strong results_frame, @strong spinner, @strong recognize_file_button, @strong microphone_stop_button, @strong recognize_from_my_speakers_checkbox => move |gui_message| {
+        gui_rx.attach(None, clone!(@strong application, @strong window, @strong results_frame, @strong current_volume_hbox, @strong spinner, @strong recognize_file_button, @strong microphone_stop_button, @strong recognize_from_my_speakers_checkbox => move |gui_message| {
             
             match gui_message {
                 ErrorMessage(string) => {
@@ -452,6 +437,35 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
                             gtk::DialogFlags::MODAL, gtk::MessageType::Error, gtk::ButtonsType::Ok, &string);
                         dialog.connect_response(|dialog, _| dialog.close());
                         dialog.show_all();
+                    }
+                },
+                DevicesList(device_names) => {
+                    let mut old_device_index = 0;
+                    let mut current_index = 0;
+                    
+                    for device_name in device_names.iter() {
+                        combo_box_model.set(&combo_box_model.append(), &[0], &[device_name]);
+                        
+                        if old_device_name == Some(device_name.to_string()) {
+                            old_device_index = current_index;
+                        }
+                        current_index += 1;
+                    }
+                    
+                    combo_box.set_active(Some(old_device_index));
+                    
+                    // Should we start recording yet? (will depend of the possible
+                    // command line flags of the application)
+
+                    if recording {
+                    
+                        if let Some(device_name) = combo_box.get_active_id() {
+                            microphone_tx_5.send(MicrophoneMessage::MicrophoneRecordStart(device_name.to_owned())).unwrap();
+                            
+                            microphone_stop_button.show();
+                            current_volume_hbox.show();
+                            microphone_button.hide();
+                        }
                     }
                 },
                 WipeSongHistory => {
@@ -571,17 +585,6 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
 
         microphone_stop_button.hide();
         current_volume_hbox.hide();
-
-        if recording {
-        
-            if let Some(device_name) = combo_box.get_active_id() {
-                microphone_tx_5.send(MicrophoneMessage::MicrophoneRecordStart(device_name.to_owned())).unwrap();
-                
-                microphone_stop_button.show();
-                current_volume_hbox.show();
-                microphone_button.hide();
-            }
-        }
         
     });
     

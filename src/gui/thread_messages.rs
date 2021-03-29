@@ -12,6 +12,7 @@ pub struct SongRecognizedMessage {
 
 pub enum GUIMessage {
     ErrorMessage(String),
+    DevicesList(Box<Vec<String>>), // A list of audio devices, received from the microphone thread because CPAL can't be called from the same thread as the GUI under Windows
     WipeSongHistory,
     MicrophoneRecording,
     MicrophoneVolumePercent(f32),

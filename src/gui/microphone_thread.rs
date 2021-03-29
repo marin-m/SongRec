@@ -1,6 +1,8 @@
 use std::sync::mpsc;
-use gag::Gag;
 use std::sync::{Arc, Mutex};
+
+#[cfg(target_os = "linux")]
+use gag::Gag;
 
 use cpal::traits::{DeviceTrait, HostTrait, StreamTrait};
 use crate::gui::thread_messages::{*, MicrophoneMessage::*};
@@ -17,6 +19,37 @@ pub fn microphone_thread(microphone_rx: mpsc::Receiver<MicrophoneMessage>, proce
     let mut stream: Option<cpal::Stream> = None;
     
     let processing_already_ongoing: Arc<Mutex<bool>> = Arc::new(Mutex::new(false)); // Whether our data is already being processed in other threads (pointer to a bool shared between this thread and the CPAL thread, hence the Arc<Mutex>)
+
+    // Send a list of the active microphone-alike devices to the GUI thread
+    // (the combo box will be filed with device names when a "DevicesList"
+    // inter-thread message will be received at the initialization of the
+    // microphone thread, because CPAL which underlies Rodio can't be called
+    // from the same thread as the microphone thread under Windows, see:
+    //  - https://github.com/RustAudio/rodio/issues/270
+    //  - https://github.com/RustAudio/rodio/issues/214 )
+
+    // Avoid having alsalib polluting stderr (https://github.com/RustAudio/cpal/issues/384)
+    // through disabling stderr temporarily
+    
+    #[cfg(target_os = "linux")]
+    let print_gag = Gag::stderr().unwrap();
+
+    let mut device_names: Vec<String> = vec![];
+
+    for device in host.input_devices().unwrap() {
+        let device_name = device.name().unwrap();
+        
+        device_names.push(device_name);
+    }
+    
+    gui_tx.send(GUIMessage::DevicesList(Box::new(device_names))).unwrap();
+    
+    #[cfg(target_os = "linux")]
+    drop(print_gag);
+    
+    // Process ingress inter-thread messages (stopping or starting
+    // recording from the microphone, and knowing from which device
+    // in particular)
 
     for message in microphone_rx.iter() {
         match message {
@@ -35,6 +68,7 @@ pub fn microphone_thread(microphone_rx: mpsc::Receiver<MicrophoneMessage>, proce
                 // Avoid having alsalib polluting stderr (https://github.com/RustAudio/cpal/issues/384)
                 // through disabling stderr temporarily
         
+                #[cfg(target_os = "linux")]
                 let print_gag = Gag::stderr().unwrap();
 
                 for possible_device in host.input_devices().unwrap() {
@@ -47,6 +81,7 @@ pub fn microphone_thread(microphone_rx: mpsc::Receiver<MicrophoneMessage>, proce
                     }
                 }
                 
+                #[cfg(target_os = "linux")]
                 drop(print_gag);
                                 
                 let config = device.default_input_config().expect("Failed to get default input config");
