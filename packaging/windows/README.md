@@ -8,7 +8,7 @@ The following references have been used:
 * https://github.com/qarmin/Instrukcje-i-Tutoriale/blob/master/GtkRsCross.md
 * https://stackoverflow.com/questions/45444811/how-to-compiling-c-gtk3-program-in-linux-mint-for-windows
 
-Note: It seems that the currently produced Windows build is mostly working, but decoding a MP3 file produces a crash, for example. Also, these are some command line warnings from the application about missing mime type resources, GSetting folder, etc. Even though the core functionality is working.
+Note: It seems that the currently produced Windows build is mostly working, but selecting a file with the file picker tends to crash the application. Also, these are some command line warnings from the application about missing mime type resources, GSetting folder, etc. Even though the core functionality is working.
 
 ```console-session
 sudo apt install mingw-w64-tools rpm2cpio binutils-mingw-w64-x86-64 wget zip libz-mingw-w64-dev win-iconv-mingw-w64-dev
@@ -48,6 +48,9 @@ export MINGW_PREFIX=/opt/gtkwin/usr/x86_64-w64-mingw32
 export PKG_CONFIG_PATH=/opt/gtkwin/usr/x86_64-w64-mingw32/sys-root/mingw/lib/pkgconfig
 cargo build --target x86_64-pc-windows-gnu --release
 
+wget -nc https://www.gyan.dev/ffmpeg/builds/ffmpeg-release-full.7z -O /opt/gtkwin/ffmpeg-release-full.7z
+7z -y x /opt/gtkwin/ffmpeg-release-full.7z -o/opt/gtkwin -i'r!*ffmpeg.exe'
+
 cd ~/rust-shazam/
 GTK_APP=/tmp/windows_release
 GTK_LIBRARY=/opt/gtkwin/usr/x86_64-w64-mingw32/sys-root/mingw
@@ -60,6 +63,7 @@ cp $GTK_LIBRARY/share/glib-2.0/schemas/* $GTK_APP/share/glib-2.0/schemas
 for theme in Adwaita hicolor gnome Tango; do cp -r /usr/share/icons/${theme} $GTK_APP/share/icons/; done
 cp /usr/x86_64-w64-mingw32/lib/*.dll /usr/x86_64-w64-mingw32/bin/*.dll /usr/lib/gcc/x86_64-w64-mingw32/9.3-win32/*.dll $GTK_APP
 mkdir $GTK_APP/lib
+cp /opt/gtkwin/ffmpeg-*-full_build/bin/ffmpeg.exe $GTK_APP/
 cp -r $GTK_LIBRARY/lib/gdk-pixbuf-2.0 $GTK_APP/lib
 
 cd $GTK_APP

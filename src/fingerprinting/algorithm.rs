@@ -2,6 +2,7 @@
 use chfft::RFft1D;
 use std::error::Error;
 use std::io::BufReader;
+use std::process::Command;
 use std::collections::HashMap;
 
 use crate::fingerprinting::hanning::HANNING_WINDOW_2048_MULTIPLIERS;
@@ -38,12 +39,76 @@ impl SignatureGenerator {
         
         // Decode the .WAV, .MP3, .OGG or .FLAC file
         
-        let decoder = rodio::Decoder::new(BufReader::new(std::fs::File::open(file_path)?))?;
+        let mut decoder = rodio::Decoder::new(BufReader::new(std::fs::File::open(file_path)?));
         
-        let converted_file = rodio::source::UniformSourceIterator::new(decoder, 1, 16000);
+        if let Err(ref _decoding_error) = decoder {
+            
+            // Find the path for FFMpeg, in the case where it is installed
+            
+            let mut possible_ffmpeg_paths: Vec<&str> = vec!["ffmpeg", "ffmpeg.exe"];
+            
+            let mut current_dir_ffmpeg_path = std::env::current_exe()?;
+            current_dir_ffmpeg_path.pop();
+            current_dir_ffmpeg_path.push("ffmpeg.exe");
+            
+            possible_ffmpeg_paths.push(current_dir_ffmpeg_path.to_str().unwrap());
+            
+            let mut actual_ffmpeg_path: Option<&str> = None;
+            
+            for possible_path in possible_ffmpeg_paths {
+                
+                // Use .output() to execute the subprocess testing for FFMpeg
+                // presence and correct execution, so that it does not pollute
+                // the standard or error output in any way
+                
+                if let Ok(process) = Command::new(possible_path).arg("-version").output() {
+                    if process.status.success() {
+                        actual_ffmpeg_path = Some(possible_path);
+                        break;
+                    }
+                }
+                
+            }
+            
+            // If FFMpeg is available, use it to convert the input file
+            // from whichever format to a .WAV (because Rodio has its
+            // decoding support limited to .WAV, .FLAC, .OGG, .MP3, which
+            // makes that .MP4/.AAC, .OPUS or .WMA are not supported, and
+            // Rodio's minimp3 .MP3 decoder seems to crash on Windows anyway)
+            
+            if let Some(ffmpeg_path) = actual_ffmpeg_path {
+                
+                // Create a sink file for FFMpeg
+                
+                let sink_file = tempfile::Builder::new().suffix(".wav").tempfile()?;
+                
+                let sink_file_path = sink_file.into_temp_path();
+                
+                // Try to convert the input video or audio file to a standard
+                // .WAV s16le PCM file using FFMpeg, and pass it to Rodio
+                // later in the case where it succeeded
+                
+                if let Ok(process) = Command::new(ffmpeg_path).args(&["-y", "-i", file_path,
+                    sink_file_path.to_str().unwrap()]).output() {
+                    
+                    if process.status.success() {
+                        decoder = rodio::Decoder::new(
+                            BufReader::new(
+                                std::fs::File::open(
+                                    sink_file_path.to_str().unwrap()
+                                )?
+                            )
+                        );
+                    }
+                }
+                
+            }
+        }
         
-        // Obtain the raw PCM samples, downsample them to 16 KHz, and skip to the middle of the file
+        // Downsample the raw PCM samples to 16 KHz, and skip to the middle of the file
         // in order to increase recognition odds. Take 12 seconds of sample.
+        
+        let converted_file = rodio::source::UniformSourceIterator::new(decoder?, 1, 16000);
         
         let raw_pcm_samples: Vec<i16> = converted_file.collect();
         let mut raw_pcm_samples_slice: &[i16] = &raw_pcm_samples;

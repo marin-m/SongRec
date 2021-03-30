@@ -9,7 +9,7 @@ url='https://github.com/marin-m/SongRec'
 arch=('x86_64')
 license=('GPL3')
 makedepends=('cargo' 'rust' 'git')
-depends=('gtk3' 'alsa-lib' 'openssl')
+depends=('gtk3' 'alsa-lib' 'openssl' 'ffmpeg')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/marin-m/songrec/archive/${pkgver}.tar.gz")
 sha256sums=('e633cfe005c05bf60fc1ddd09576838cfd1cfad7922196713cd42881b852cb4f')
 

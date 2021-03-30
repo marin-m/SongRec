@@ -64,6 +64,8 @@ cargo install songrec
 songrec
 ```
 
+Note: It is not mandatory, but if you want to be able to recognize more formats than WAV, OGG, FLAC and MP3, you should ensure that you have the `ffmpeg` package installed.
+
 ## Compilation
 
 (**WARNING**: Remind to compile the code in "--release" mode for correct performance.)
@@ -121,7 +123,9 @@ Using the `gui-norecording` subcommand will launch the GUI without recognizing a
 ./songrec gui-norecording
 ```
 
-The following subcommand will try to recognize audio from the middle of an audio file, and print the JSON response from Shazam servers (MP3, FLAC, WAV, OGG formats should be accepted):
+The GUI allows you to recognize songs either from your microphone, speakers (on compatible PulseAudio setups), or from an audio file. The MP3, FLAC, WAV and OGG formats should be accepted for audio files if FFMpeg is not installed, and any audio or video formats supported by FFMpeg should be accepted if FFMpeg is installed.
+
+The following subcommand will try to recognize audio from the middle of an audio file, and print the JSON response from Shazam servers:
 
 ```
 ./songrec audio-file-to-recognized-song sound_file.mp3

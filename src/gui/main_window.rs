@@ -16,9 +16,6 @@ use std::time::{SystemTime, UNIX_EPOCH};
 use percent_encoding::{utf8_percent_encode, NON_ALPHANUMERIC};
 use std::thread;
 
-#[cfg(target_os = "linux")]
-use gag::Gag;
-
 use crate::gui::microphone_thread::microphone_thread;
 use crate::gui::processing_thread::processing_thread;
 use crate::gui::http_thread::http_thread;
@@ -326,15 +323,6 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
                 Some("_Open"),
                 Some("_Cancel")
             );
-            
-            let file_filter = gtk::FileFilter::new();
-            
-            file_filter.add_pattern("*.mp3");
-            file_filter.add_pattern("*.wav");
-            file_filter.add_pattern("*.flac");
-            file_filter.add_pattern("*.ogg");
-            
-            file_chooser.set_filter(&file_filter);
             
             if file_chooser.run() == ResponseType::Accept {
                 recognize_file_button.hide();

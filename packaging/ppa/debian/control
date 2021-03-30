@@ -19,6 +19,7 @@ Architecture: amd64
 Depends: libasound2,
          libssl1.1,
          libc6,
+         ffmpeg,
          libgtk-3-0
 Description: An unofficial Shazam client for Linux, written in Rust
  Features:
