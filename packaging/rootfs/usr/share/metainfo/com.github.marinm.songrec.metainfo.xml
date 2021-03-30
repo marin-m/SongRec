@@ -28,6 +28,11 @@ https://hughsie.github.io/oars/index.html
 -->
   <content_rating type="oars-1.0" />
   <releases>
+    <release version="0.1.6" date="2021-03-30">
+      <description>
+        <p>- Try to decode input files with FFMpeg when it is available on the target system, in order to support more audio and video formats when recognizing from a file.</p>
+      </description>
+    </release>
     <release version="0.1.5" date="2021-03-26">
       <description>
         <p>- The song recognition history now has a right-click context menu that allows to copy the name of the songs, artists, tracks or albums, or to search previously recognized songs on YouTube.</p>
