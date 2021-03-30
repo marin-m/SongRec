@@ -22,7 +22,6 @@ Depends: libasound2,
          ffmpeg,
          libgtk-3-0
 Recommends: pulseaudio-utils
-
 Description: An unofficial Shazam client for Linux, written in Rust
  Features:
  - Recognize audio from an arbitrary audio file.
