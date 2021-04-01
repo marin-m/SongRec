@@ -1,4 +1,6 @@
 
+#![windows_subsystem = "windows"]
+
 mod fingerprinting {
     pub mod communication;
     pub mod algorithm;

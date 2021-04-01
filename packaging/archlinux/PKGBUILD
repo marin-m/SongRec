@@ -12,7 +12,7 @@ makedepends=('cargo' 'rust' 'git')
 depends=('gtk3' 'alsa-lib' 'openssl' 'ffmpeg')
 optdepends=('libpulse')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/marin-m/songrec/archive/${pkgver}.tar.gz")
-sha256sums=('e633cfe005c05bf60fc1ddd09576838cfd1cfad7922196713cd42881b852cb4f')
+sha256sums=('5436cb7381cc1b9258e7afa593a9986aca274b010bc244943e1f1dde462228a5')
 
 build() {
   cd "$_pkgname-$pkgver"

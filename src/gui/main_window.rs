@@ -1,5 +1,3 @@
-#![windows_subsystem = "windows"]
-
 use gio::prelude::*;
 use glib::clone;
 use gtk::prelude::*;
