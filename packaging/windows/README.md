@@ -9,16 +9,20 @@ The following references have been used:
 * https://stackoverflow.com/questions/45444811/how-to-compiling-c-gtk3-program-in-linux-mint-for-windows
 
 ```console-session
-sudo apt install mingw-w64-tools rpm2cpio binutils-mingw-w64-x86-64 wget zip libz-mingw-w64-dev win-iconv-mingw-w64-dev libgtk-3-dev
+sudo apt install mingw-w64-tools rpm2cpio binutils-mingw-w64-x86-64 wget zip libz-mingw-w64-dev win-iconv-mingw-w64-dev libgtk-3-dev p7zip-full wine64
 
 sudo mkdir /opt/gtkwin
 cd /opt/gtkwin
 sudo chown -R $USER:$USER .
 rm -rf /opt/gtkwin/*
-for pkg in mingw64-gtk3-3.24.23-1 mingw64-pango-1.44.7-3 mingw64-cairo-1.16.0-4 mingw64-harfbuzz-2.6.8-2 mingw64-glib2-2.64.3-2 mingw64-gdk-pixbuf-2.40.0-3 mingw64-atk-2.36.0-3 mingw64-harfbuzz-2.6.8-2 mingw64-libpng-1.6.37-4 mingw64-pixman-0.40.0-2 mingw64-pcre-8.43-4 mingw64-gettext-0.20.2-3 mingw64-libffi-3.1-10 mingw64-libepoxy-1.5.4-3 mingw64-fribidi-1.0.10-2 mingw64-libjpeg-turbo-2.0.5-2 mingw64-libtiff-4.0.9-7 mingw64-freetype-2.10.2-2 mingw64-fontconfig-2.13.1-4 mingw64-expat-2.2.8-3 mingw64-bzip2-1.0.8-3; do
+for pkg in mingw64-gtk3-3.24.23-1 mingw64-pango-1.44.7-3 mingw64-cairo-1.16.0-4 mingw64-harfbuzz-2.6.8-2 mingw64-glib2-2.64.3-2 mingw64-gdk-pixbuf-2.40.0-3 mingw64-atk-2.36.0-3 mingw64-harfbuzz-2.6.8-2 mingw64-libpng-1.6.37-4 mingw64-pixman-0.40.0-2 mingw64-pcre-8.43-4 mingw64-gettext-0.20.2-3 mingw64-libffi-3.1-10 mingw64-libepoxy-1.5.4-3 mingw64-fribidi-1.0.10-2 mingw64-libjpeg-turbo-2.0.5-2 mingw64-libtiff-4.0.9-7 mingw64-freetype-2.10.2-2 mingw64-fontconfig-2.13.1-4 mingw64-expat-2.2.8-3 mingw64-librsvg2-2.40.19-8 mingw64-bzip2-1.0.8-3; do
     wget https://download-ib01.fedoraproject.org/pub/fedora/linux/releases/33/Everything/x86_64/os/Packages/m/${pkg}.fc33.noarch.rpm
     rpm2cpio ${pkg}.fc33.noarch.rpm | cpio -idmv
 done
+
+cd /opt/gtkwin
+wget -nc http://www.angusj.com/resourcehacker/resource_hacker.zip
+7z x -y -oresource_hacker/ resource_hacker.zip
 
 cd /opt/gtkwin/usr/x86_64-w64-mingw32/sys-root/mingw/
 find -name '*.pc' | while read pc; do sed -e "s@^prefix=.*@prefix=$PWD@" -i "$pc"; done
@@ -67,9 +71,29 @@ cp /opt/gtkwin/ffmpeg-*-full_build/bin/ffmpeg.exe $GTK_APP/
 cp -r $GTK_LIBRARY/lib/gdk-pixbuf-2.0 $GTK_APP/lib
 
 cd $GTK_APP
-RUST_BACKTRACE=full wine songrec.exe
+# RUST_BACKTRACE=full wine songrec.exe
 
-cp -r * ~/win32/windows_release/
+# Create a self-extracting and executing 7-Zip based
+# archive (see https://stackoverflow.com/questions/27904532/how-do-i-make-a-self-extract-and-running-installer
+# + https://github.com/phillipp/SevenZipSharp/blob/master/SevenZip/sfx/Configs.xml)
 
-zip -r /tmp/windows_release.zip $GTK_APP
+rm -rf /tmp/songrec-files.7z
+7z -m0=Copy a /tmp/songrec-files.7z * # -m0=Copy = Do not compress (for self-extraction performance)
+# From http://www.angusj.com/resourcehacker/: use this to add a custom .ICO file to the 7-Zip stub
+wine /opt/gtkwin/resource_hacker/ResourceHacker.exe -open ~/rust-shazam/packaging/windows/7zxSD_LZMA2_x64.sfx -save /tmp/SongRec-standalone.exe -action delete -mask ,101, -log CONSOLE
+wine /opt/gtkwin/resource_hacker/ResourceHacker.exe -open /tmp/SongRec-standalone.exe -save /tmp/SongRec-standalone.exe -action addoverwrite -res ~/rust-shazam/packaging/windows/songrec.ico -mask ICONGROUP,MAINICON,0 -log CONSOLE
+cat << EOF >> /tmp/SongRec-standalone.exe
+;!@Install@!UTF-8!
+ExecuteFile="songrec.exe"
+GUIMode="2"
+;!@InstallEnd@!
+EOF
+cat /tmp/songrec-files.7z >> /tmp/SongRec-standalone.exe
+
+wine /tmp/SongRec-standalone.exe
+
+cp /tmp/SongRec-standalone.exe ~/win32/ # Copy the generated executable to my ViirtualBox shared folder
+
+# cp -r * ~/win32/windows_release/
+# zip -r /tmp/windows_release.zip $GTK_APP
 ```

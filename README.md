@@ -64,6 +64,8 @@ cargo install songrec
 songrec
 ```
 
+On Windows, there is also this port available (no installer, this is a portable executable): https://github.com/marin-m/SongRec/releases/download/0.1.6/SongRec-0.1.6.exe
+
 Note: It is not mandatory, but if you want to be able to recognize more formats than WAV, OGG, FLAC and MP3, you should ensure that you have the `ffmpeg` package installed.
 
 ## Compilation
