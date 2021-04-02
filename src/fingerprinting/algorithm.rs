@@ -8,6 +8,9 @@ use std::collections::HashMap;
 use crate::fingerprinting::hanning::HANNING_WINDOW_2048_MULTIPLIERS;
 use crate::fingerprinting::signature_format::{DecodedSignature, FrequencyBand, FrequencyPeak};
 
+#[cfg(windows)]
+use std::os::windows::process::CommandExt;
+
 
 pub struct SignatureGenerator {
     
@@ -61,7 +64,13 @@ impl SignatureGenerator {
                 // presence and correct execution, so that it does not pollute
                 // the standard or error output in any way
                 
-                if let Ok(process) = Command::new(possible_path).arg("-version").output() {
+                let mut command = Command::new(possible_path);
+                let command = command.arg("-version");
+                
+                #[cfg(windows)]
+                let command = command.creation_flags(0x00000008); // Set "CREATE_NO_WINDOW" on Windows
+                
+                if let Ok(process) = command.output() {
                     if process.status.success() {
                         actual_ffmpeg_path = Some(possible_path);
                         break;
@@ -88,8 +97,17 @@ impl SignatureGenerator {
                 // .WAV s16le PCM file using FFMpeg, and pass it to Rodio
                 // later in the case where it succeeded
                 
-                if let Ok(process) = Command::new(ffmpeg_path).args(&["-y", "-i", file_path,
-                    sink_file_path.to_str().unwrap()]).output() {
+                let mut command = Command::new(ffmpeg_path);
+                
+                let command = command.args(&["-y", "-i", file_path,
+                    sink_file_path.to_str().unwrap()]);
+                
+                // Set "CREATE_NO_WINDOW" on Windows, see
+                // https://stackoverflow.com/a/60958956/662399
+                #[cfg(windows)]
+                let command = command.creation_flags(0x00000008);
+                
+                if let Ok(process) = command.output() {
                     
                     if process.status.success() {
                         decoder = rodio::Decoder::new(

@@ -64,13 +64,15 @@ mkdir $GTK_APP/share/icons
 cp $GTK_LIBRARY/share/glib-2.0/schemas/* $GTK_APP/share/glib-2.0/schemas
 glib-compile-schemas $GTK_APP/share/glib-2.0/schemas/
 for theme in hicolor gnome; do cp -r /usr/share/icons/${theme} $GTK_APP/share/icons/; done
-cp $GTK_LIBRARY/bin/gdbus.exe $GTK_APP
+cp $GTK_LIBRARY/bin/gdbus.exe $GTK_LIBRARY/bin/gspawn*.ewe $GTK_APP
 cp /usr/x86_64-w64-mingw32/lib/*.dll /usr/x86_64-w64-mingw32/bin/*.dll /usr/lib/gcc/x86_64-w64-mingw32/9.3-win32/*.dll $GTK_APP
 mkdir $GTK_APP/lib
 cp /opt/gtkwin/ffmpeg-*-full_build/bin/ffmpeg.exe $GTK_APP/
 cp -r $GTK_LIBRARY/lib/gdk-pixbuf-2.0 $GTK_APP/lib
 
 cd $GTK_APP
+cp -r * ~/win32/windows_release/
+
 # RUST_BACKTRACE=full wine songrec.exe
 
 # Create a self-extracting and executing 7-Zip based
@@ -90,10 +92,9 @@ GUIMode="2"
 EOF
 cat /tmp/songrec-files.7z >> /tmp/SongRec-standalone.exe
 
-wine /tmp/SongRec-standalone.exe
-
 cp /tmp/SongRec-standalone.exe ~/win32/ # Copy the generated executable to my ViirtualBox shared folder
 
-# cp -r * ~/win32/windows_release/
+# wine /tmp/SongRec-standalone.exe
+
 # zip -r /tmp/windows_release.zip $GTK_APP
 ```

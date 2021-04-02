@@ -1,6 +1,7 @@
 use app_dirs::{app_root, AppInfo, AppDataType::*};
 use std::error::Error;
 use serde::{Serialize, Deserialize};
+use std::path::PathBuf;
 use gtk::prelude::*;
 
 /// The application uses a simple CSV format in order to store the list of the
@@ -45,9 +46,11 @@ impl SongHistoryInterface {
             author: "SongRec"
         };
         
-        let app_root = app_root(UserData, &app_info)?.to_str().unwrap().to_string(); // Creates the application's local directory if necessary
+        let mut csv_path: PathBuf = app_root(UserData, &app_info)?; // Creates the application's local directory if necessary
+        csv_path.push("song_history.csv");
         
-        Ok(format!("{}/song_history.csv", app_root))
+        Ok(csv_path.to_str().unwrap().to_string())
+        
     }
     
     /// All the code displaying the initial state of the song recognition

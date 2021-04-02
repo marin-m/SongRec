@@ -22,6 +22,9 @@ use crate::gui::thread_messages::{*, GUIMessage::*};
 
 use crate::gui::pulseaudio_loopback::PulseaudioLoopback;
 
+#[cfg(windows)]
+use std::os::windows::process::CommandExt;
+
 use crate::fingerprinting::signature_format::DecodedSignature;
 
 fn spawn_big_thread<F, T>(argument: F) -> ()
@@ -405,9 +408,17 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
         
         export_csv_button.connect_clicked(move |_| {
 
-            let timestamp = SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_secs();
+            #[cfg(not(windows))] {
+                let timestamp = SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_secs();
 
-            gtk::show_uri(None, &format!("file://{}", SongHistoryInterface::obtain_csv_path().unwrap()), timestamp as u32).ok();
+                gtk::show_uri(None, &format!("file://{}", SongHistoryInterface::obtain_csv_path().unwrap()), timestamp as u32).ok();
+            }
+
+            #[cfg(windows)]
+            std::process::Command::new("cmd")
+                .args(&["/c", &format!("start {}", SongHistoryInterface::obtain_csv_path().unwrap())])
+                .creation_flags(0x00000008) // Set "CREATE_NO_WINDOW" on Windows
+                .output().ok();
 
         });
         
