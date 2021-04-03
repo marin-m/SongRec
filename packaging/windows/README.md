@@ -9,7 +9,7 @@ The following references have been used:
 * https://stackoverflow.com/questions/45444811/how-to-compiling-c-gtk3-program-in-linux-mint-for-windows
 
 ```console-session
-sudo apt install mingw-w64-tools rpm2cpio binutils-mingw-w64-x86-64 wget zip libz-mingw-w64-dev win-iconv-mingw-w64-dev libgtk-3-dev p7zip-full wine64
+sudo apt install mingw-w64-tools rpm2cpio binutils-mingw-w64-x86-64 wget zip libz-mingw-w64-dev win-iconv-mingw-w64-dev libgtk-3-dev p7zip-full wine64 upx-ucl
 
 sudo mkdir /opt/gtkwin
 cd /opt/gtkwin
@@ -63,11 +63,12 @@ mkdir -p $GTK_APP/share/glib-2.0/schemas
 mkdir $GTK_APP/share/icons
 cp $GTK_LIBRARY/share/glib-2.0/schemas/* $GTK_APP/share/glib-2.0/schemas
 glib-compile-schemas $GTK_APP/share/glib-2.0/schemas/
-for theme in hicolor gnome; do cp -r /usr/share/icons/${theme} $GTK_APP/share/icons/; done
+cp -r /usr/share/icons/gnome $GTK_APP/share/icons/
 cp $GTK_LIBRARY/bin/gdbus.exe $GTK_LIBRARY/bin/gspawn*.ewe $GTK_APP
 cp /usr/x86_64-w64-mingw32/lib/*.dll /usr/x86_64-w64-mingw32/bin/*.dll /usr/lib/gcc/x86_64-w64-mingw32/9.3-win32/*.dll $GTK_APP
 mkdir $GTK_APP/lib
 cp /opt/gtkwin/ffmpeg-*-full_build/bin/ffmpeg.exe $GTK_APP/
+upx --force $GTK_APP/songrec.exe $GTK_APP/ffmpeg.exe $GTK_APP/libgtk-3-0.dll
 cp -r $GTK_LIBRARY/lib/gdk-pixbuf-2.0 $GTK_APP/lib
 
 cd $GTK_APP
