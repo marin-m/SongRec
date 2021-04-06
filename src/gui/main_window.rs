@@ -192,6 +192,7 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
         
         let recognize_file_button: gtk::Button = builder.get_object("recognize_file_button").unwrap();
         let spinner: gtk::Spinner = builder.get_object("spinner").unwrap();
+        let network_unreachable: gtk::Label = builder.get_object("network_unreachable").unwrap();
         
         let results_frame: gtk::Frame = builder.get_object("results_frame").unwrap();
         
@@ -422,13 +423,18 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
 
         });
         
-        gui_rx.attach(None, clone!(@strong application, @strong window, @strong results_frame, @strong current_volume_hbox, @strong spinner, @strong recognize_file_button, @strong microphone_stop_button, @strong recognize_from_my_speakers_checkbox => move |gui_message| {
+        gui_rx.attach(None, clone!(@strong application, @strong window, @strong results_frame, @strong current_volume_hbox, @strong spinner, @strong recognize_file_button, @strong network_unreachable, @strong microphone_stop_button, @strong recognize_from_my_speakers_checkbox => move |gui_message| {
+            
+            match gui_message {
+                ErrorMessage(_) | NetworkStatus(_) | SongRecognized(_) => {
+                    recognize_file_button.show();
+                    spinner.hide();
+                },
+                _ =>  { }
+            }
             
             match gui_message {
                 ErrorMessage(string) => {
-                    recognize_file_button.show();
-                    spinner.hide();
-
                     if !(string == "No match for this song" && microphone_stop_button.is_visible()) {
                         let dialog = gtk::MessageDialog::new(Some(&window),
                             gtk::DialogFlags::MODAL, gtk::MessageType::Error, gtk::ButtonsType::Ok, &string);
@@ -436,6 +442,14 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
                         dialog.show_all();
                     }
                 },
+                NetworkStatus(network_is_reachable) => {
+                    if network_is_reachable {
+                        network_unreachable.hide();
+                    }
+                    else {
+                        network_unreachable.show_all();
+                    }
+                }
                 DevicesList(device_names) => {
                     let mut old_device_index = 0;
                     let mut current_index = 0;
@@ -496,9 +510,6 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
                     let mut youtube_query_borrow = youtube_query.borrow_mut();
 
                     let song_name = Some(format!("{} - {}", message.artist_name, message.song_name));
-
-                    recognize_file_button.show();
-                    spinner.hide();
         
                     if *youtube_query_borrow != song_name { // If this is already the last recognized song, don't update the display (if for example we recognized a lure we played, it would update the proposed lure to a lesser quality)
                         
@@ -579,6 +590,7 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
         recognize_from_my_speakers_checkbox.hide(); // This will be available only of PulseAudio is up and controllable
 
         spinner.hide();
+        network_unreachable.hide();
 
         microphone_stop_button.hide();
         current_volume_hbox.hide();

@@ -62,9 +62,18 @@ pub fn http_thread(http_rx: mpsc::Receiver<HTTPMessage>, gui_tx: glib::Sender<GU
                 match try_recognize_song(*signature) {
                     Ok(recognized_song) => {
                         gui_tx.send(GUIMessage::SongRecognized(Box::new(recognized_song))).unwrap();
+                        gui_tx.send(GUIMessage::NetworkStatus(true)).unwrap();
                     },
                     Err(error) => {
-                        gui_tx.send(GUIMessage::ErrorMessage(error.to_string())).unwrap();
+                        match error.to_string().as_str() {
+                            "No match for this song" => {
+                                gui_tx.send(GUIMessage::ErrorMessage(error.to_string())).unwrap();
+                                gui_tx.send(GUIMessage::NetworkStatus(true)).unwrap();
+                            }
+                            _ => {
+                                gui_tx.send(GUIMessage::NetworkStatus(false)).unwrap();
+                            }
+                        }
                     }
                 };
                 

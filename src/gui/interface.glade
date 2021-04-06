@@ -258,6 +258,23 @@
                                     <property name="position">3</property>
                                   </packing>
                                 </child>
+                                <child>
+                                  <object class="GtkLabel" id="network_unreachable">
+                                    <property name="height_request">28</property>
+                                    <property name="visible">False</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="label" translatable="yes">Shazam servers are not reachable, are you connected?</property>
+                                    <attributes>
+                                      <attribute name="weight" value="medium"/>
+                                      <attribute name="foreground" value="#A40000"/>
+                                    </attributes>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">4</property>
+                                  </packing>
+                                </child>
                               </object>
                             </child>
                           </object>
