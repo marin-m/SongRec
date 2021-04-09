@@ -17,13 +17,13 @@ function cleanup_dirs {
 
 trap cleanup_dirs INT TERM
 
-for version in bionic focal groovy hirsute; do
+for version in bionic focal groovy hirsute gorilla; do
 
     rm -rf ../../target/ ../../vendor/ ../../.flatpak-builder ../flatpak/.flatpak-builder ../../repo ../../.cargo
 
-    cp -ra ../../ "${temp_dir}/songrec-0.1.6${version}"
+    cp -ra ../../ "${temp_dir}/songrec-0.1.7${version}"
 
-    cd "${temp_dir}/songrec-0.1.6${version}"
+    cd "${temp_dir}/songrec-0.1.7${version}"
 
     mkdir -p .cargo
     cargo vendor vendor | sed 's/^directory = ".*"/directory = "vendor"/g' > .cargo/config
@@ -49,11 +49,11 @@ for version in bionic focal groovy hirsute; do
 
     # Push to Launchpad
 
-    dput ppa:marin-m/songrec "../../songrec_0.1.6${version}_source.changes"
+    dput ppa:marin-m/songrec "../../songrec_0.1.7${version}_source.changes"
 
     cd "${ORIG_DIR}"
 
-    rm -rf "${temp_dir}/songrec-0.1.6${version}"
+    rm -rf "${temp_dir}/songrec-0.1.7${version}"
 
 done
 

@@ -28,6 +28,12 @@ https://hughsie.github.io/oars/index.html
 -->
   <content_rating type="oars-1.0" />
   <releases>
+    <release version="0.1.7" date="2021-04-09">
+      <description>
+        <p>- Display a clean "Shazam servers are not reachable, are you connected?" message on the GUI when the computer has been offline, rather than showing low-level errors.</p>
+        <p>- Improve cross-platform support.</p>
+      </description>
+    </release>
     <release version="0.1.6" date="2021-03-30">
       <description>
         <p>- Try to decode input files with FFMpeg when it is available on the target system, in order to support more audio and video formats when recognizing from a file.</p>

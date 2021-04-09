@@ -1,3 +1,10 @@
+songrec (0.1.7) bionic; urgency=low
+
+  * Display a clean "Shazam servers are not reachable, are you connected?" message on the GUI when the computer has been offline, rather than showing low-level errors.
+  * Improve cross-platform support.
+
+ -- Marin <marin-m@users.noreply.github.com>  Fri, 09 Apr 2021 07:15:00 +0200
+
 songrec (0.1.6) bionic; urgency=low
 
   * Try to decode input files with FFMpeg when it is available on the target system, in order to support more audio and video formats when recognizing from a file.
