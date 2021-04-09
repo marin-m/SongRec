@@ -31,12 +31,12 @@ pub fn recognize_song_from_signature(signature: &DecodedSignature) -> Result<Val
     let uuid_1 = Uuid::new_v4().to_hyphenated().to_string().to_uppercase();
     let uuid_2 = Uuid::new_v4().to_hyphenated().to_string();
 
-    let url = format!("https://amp.shazam.com/discovery/v5/fr/CH/android/-/tag/{}/{}", uuid_1, uuid_2);
+    let url = format!("https://amp.shazam.com/discovery/v5/en/US/android/-/tag/{}/{}", uuid_1, uuid_2);
 
     let mut headers = HeaderMap::new();
     
     headers.insert("User-Agent", USER_AGENTS.choose(&mut rand::thread_rng()).unwrap().parse()?);
-    headers.insert("Content-Language", "fr_CH".parse()?);
+    headers.insert("Content-Language", "en_US".parse()?);
 
     let client = reqwest::blocking::Client::new();
     let response = client.post(&url)
@@ -63,7 +63,7 @@ pub fn obtain_raw_cover_image(url: &str) -> Result<Vec<u8>, Box<dyn Error>> {
     let mut headers = HeaderMap::new();
     
     headers.insert("User-Agent", USER_AGENTS.choose(&mut rand::thread_rng()).unwrap().parse()?);
-    headers.insert("Content-Language", "fr_CH".parse()?);
+    headers.insert("Content-Language", "en_US".parse()?);
 
     let client = reqwest::blocking::Client::new();
     let response = client.get(url)
