@@ -26,7 +26,7 @@ build() {
 
 package() {
   cd "$_pkgname"
-  install -Dm755 "target/release/songrec" "$pkgdir/usr/bin/songrec"
+  install -Dm755 "${CARGO_TARGET_DIR:-target}/release/songrec" "$pkgdir/usr/bin/songrec"
   install -Dm755 "packaging/rootfs/usr/share/applications/com.github.marinm.songrec.desktop" "$pkgdir/usr/share/applications/com.github.marinm.songrec.desktop"
   install -Dm755 "packaging/rootfs/usr/share/icons/hicolor/scalable/apps/com.github.marinm.songrec.svg" \
                     "$pkgdir/usr/share/icons/hicolor/scalable/apps/com.github.marinm.songrec.svg"
