@@ -63,7 +63,7 @@ mkdir -p $GTK_APP/share/glib-2.0/schemas
 mkdir $GTK_APP/share/icons
 cp $GTK_LIBRARY/share/glib-2.0/schemas/* $GTK_APP/share/glib-2.0/schemas
 glib-compile-schemas $GTK_APP/share/glib-2.0/schemas/
-cp -r /usr/share/icons/gnome $GTK_APP/share/icons/
+cp -r /usr/share/icons/gnome /usr/share/icons/Adwaita $GTK_APP/share/icons/
 cp $GTK_LIBRARY/bin/gdbus.exe $GTK_LIBRARY/bin/gspawn*.exe $GTK_APP
 cp /usr/x86_64-w64-mingw32/lib/*.dll /usr/x86_64-w64-mingw32/bin/*.dll /usr/lib/gcc/x86_64-w64-mingw32/9.3-win32/*.dll $GTK_APP
 mkdir $GTK_APP/lib
