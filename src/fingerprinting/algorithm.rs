@@ -339,7 +339,7 @@ impl SignatureGenerator {
                         let frequency_band = match frequency_hz as i32 {
                             250..=519 => FrequencyBand::_250_520,
                             520..=1449 => FrequencyBand::_520_1450,
-                            1450..=3549 => FrequencyBand::_1450_3500,
+                            1450..=3499 => FrequencyBand::_1450_3500,
                             3500..=5500 => FrequencyBand::_3500_5500,
                             _ => { continue; }
                         };
