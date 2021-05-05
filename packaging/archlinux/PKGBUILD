@@ -16,7 +16,7 @@ sha256sums=('d205e897802ab53c20de306d8eb4d239c43d7274159eaad301d69a00eaeb1b77')
 
 build() {
   cd "$_pkgname-$pkgver"
-  cargo build --release
+  cargo build --locked --release
 }
 
 package() {

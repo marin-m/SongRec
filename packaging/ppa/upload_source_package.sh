@@ -26,7 +26,7 @@ for version in bionic focal groovy hirsute gorilla; do
     cd "${temp_dir}/songrec-0.1.7${version}"
 
     mkdir -p .cargo
-    cargo vendor vendor | sed 's/^directory = ".*"/directory = "vendor"/g' > .cargo/config
+    cargo vendor --locked vendor | sed 's/^directory = ".*"/directory = "vendor"/g' > .cargo/config
 
     # "dpkg-source" will destroy the ".gitignore" files from source archive anyway.
     # Prevent "cargo" to check for their presence.

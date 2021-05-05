@@ -8,7 +8,7 @@ cd "$(dirname "$0")/../.."
 
 # Store offline sources for dependencies (required to build on Flathub)
 mkdir -p .cargo
-cargo vendor vendor | sed 's/^directory = ".*"/directory = "vendor"/g' > .cargo/config
+cargo vendor --locked vendor | sed 's/^directory = ".*"/directory = "vendor"/g' > .cargo/config
 
 # Install the required Flatpak runtime and SDK
 flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
