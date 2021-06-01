@@ -28,6 +28,14 @@ https://hughsie.github.io/oars/index.html
 -->
   <content_rating type="oars-1.0" />
   <releases>
+    <release version="0.1.8" date="2021-06-01">
+      <description>
+        <p>- Include a "Cargo.lock" file in the project so that it can be accepted in certain packaging systems that require freezing Rust dependencies to a known subversion.</p>
+        <p>- Change the locale sent in HTTP requests to avoid to display internationalized song titles, in certain cases.</p>
+        <p>- Fix a minor typo in the algorithm implementation that shouldn't impact recognition.</p>
+        <p>- Improve portability.</p>
+      </description>
+    </release>
     <release version="0.1.7" date="2021-04-09">
       <description>
         <p>- Display a clean "Shazam servers are not reachable, are you connected?" message on the GUI when the computer has been offline, rather than showing low-level errors.</p>
