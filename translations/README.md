@@ -1,9 +1,9 @@
-This directories contains instructions that you may follow if you are willing to help translating SongRec, including its GUI as well as its command line specification.
+This directory contains instructions that you may follow if you are willing to help translating SongRec, including its GUI as well as its command line specification.
 
 ## How to translate the interface?
 
 1. Install `poedit`, available in the repositories of your favorite Linux distribution
-2. Download the [`songrec.pot`](https://github.com/marin-m/SongRec/raw/master/trnslations/songrec.pot) file which is the base for translating the interface
+2. Download and save the [`songrec.pot`](https://github.com/marin-m/SongRec/raw/master/translations/songrec.pot) file which is the base for translating the interface
 3. Import it into `poedit` and translate (see below for advice)
 4. Save it as a `.po` file (`.pot` files being templates for `.po` files, which are the translations) bearing the name of your langage, and submit it as an attachment to a comment in the following Github issue: https://github.com/marin-m/SongRec/issues/55
 
