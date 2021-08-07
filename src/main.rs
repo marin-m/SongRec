@@ -1,6 +1,10 @@
 
 #![windows_subsystem = "windows"]
 
+mod pulseaudio_loopback;
+mod ffmpeg_wrapper;
+mod internationalization;
+
 mod fingerprinting {
     pub mod communication;
     pub mod algorithm;
@@ -15,7 +19,6 @@ mod gui {
     mod processing_thread;
     mod http_thread;
     mod thread_messages;
-    mod pulseaudio_loopback;
     mod csv_song_history;
 }
 
@@ -24,25 +27,33 @@ use crate::fingerprinting::signature_format::DecodedSignature;
 use crate::fingerprinting::communication::recognize_song_from_signature;
 
 use crate::gui::main_window::gui_main;
+use crate::internationalization::setup_internationalization;
 
 use std::error::Error;
+use gettextrs::gettext;
 use clap::{App, Arg};
 
 fn main() -> Result<(), Box<dyn Error>> {
     
+    // Set up the translation/internationalization part
+    
+    setup_internationalization();
+    
+    // Collect the program arguments
+    
     let args = App::new("SongRec")
-        .about("An open-source Shazam client for Linux, written in Rust.")
+        .about(gettext("An open-source Shazam client for Linux, written in Rust.").as_str())
         .subcommand(
             App::new("gui")
-                .about("The default action. Display a GUI.")
+                .about(gettext("The default action. Display a GUI.").as_str())
         )
         .subcommand(
             App::new("gui-norecording")
-                .about("Launch the GUI, but don't recognize audio through the microphone as soon as it is launched (rather than expecting the user to click on a button).")
+                .about(gettext("Launch the GUI, but don't recognize audio through the microphone as soon as it is launched (rather than expecting the user to click on a button).").as_str())
         )
         .subcommand(
             App::new("audio-file-to-recognized-song")
-                .about("Generate a Shazam fingerprint from a sound file, perform song recognition towards Shazam's servers and print obtained information to the standard output.")
+                .about(gettext("Generate a Shazam fingerprint from a sound file, perform song recognition towards Shazam's servers and print obtained information to the standard output.").as_str())
                 .arg(
                     Arg::with_name("input_file")
                         .required(true)
@@ -51,34 +62,34 @@ fn main() -> Result<(), Box<dyn Error>> {
         )
         .subcommand(
             App::new("audio-file-to-fingerprint")
-                .about("Generate a Shazam fingerprint from a sound file, and print it to the standard output.")
+                .about(gettext("Generate a Shazam fingerprint from a sound file, and print it to the standard output.").as_str())
                 .arg(
                     Arg::with_name("input_file")
                         .required(true)
-                        .help("The .WAV or .MP3 file to generate an audio fingerprint for.")
+                        .help(gettext("The .WAV or .MP3 file to generate an audio fingerprint for.").as_str())
                 )
         )
         .subcommand(
             App::new("fingerprint-to-recognized-song")
-                .about("Take a data-URI Shazam fingerprint, perform song recognition towards Shazam's servers and print obtained information to the standard output.")
+                .about(gettext("Take a data-URI Shazam fingerprint, perform song recognition towards Shazam's servers and print obtained information to the standard output.").as_str())
                 .arg(
                     Arg::with_name("fingerprint")
                         .required(true)
-                        .help("The data-URI Shazam fingerprint to recognize.")
+                        .help(gettext("The data-URI Shazam fingerprint to recognize.").as_str())
                 )
         )
         .subcommand(
             App::new("fingerprint-to-lure")
-                .about("Convert a data-URI Shazam fingerprint into readable hearable tones, played back instantly (or written to a file, if a path is provided). Not particularly useful, but gives the simplest output that will trick Shazam into  recognizing a non-song.")
+                .about(gettext("Convert a data-URI Shazam fingerprint into hearable tones, played back instantly (or written to a file, if a path is provided). Not particularly useful, but gives the simplest output that will trick Shazam into recognizing a non-song.").as_str())
                 .arg(
                     Arg::with_name("fingerprint")
                         .required(true)
-                        .help("The data-URI Shazam fingerprint to convert into hearable sound.")
+                        .help(gettext("The data-URI Shazam fingerprint to convert into hearable sound.").as_str())
                 )
                 .arg(
                     Arg::with_name("output_file")
                         .required(false)
-                        .help("File path of the .WAV file to write tones to, or nothing to play black the sound instantly.")
+                        .help(gettext("File path of the .WAV file to write tones to, or nothing to play back the sound instantly.").as_str())
                 )
         )
         .get_matches();

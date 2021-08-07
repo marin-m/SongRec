@@ -5,6 +5,7 @@ use std::sync::{Arc, Mutex};
 use gag::Gag;
 
 use cpal::traits::{DeviceTrait, HostTrait, StreamTrait};
+use gettextrs::gettext;
 use crate::gui::thread_messages::{*, MicrophoneMessage::*};
 
 
@@ -60,7 +61,7 @@ pub fn microphone_thread(microphone_rx: mpsc::Receiver<MicrophoneMessage>, proce
                 let gui_tx_4 = gui_tx.clone();
     
                 let err_fn = move |error| {
-                    gui_tx_2.send(GUIMessage::ErrorMessage(format!("Microphone error: {}", error))).unwrap();
+                    gui_tx_2.send(GUIMessage::ErrorMessage(format!("{} {}", gettext("Microphone error:"), error))).unwrap();
                 };
                 
                 let mut device: cpal::Device = host.default_input_device().unwrap();
@@ -84,7 +85,7 @@ pub fn microphone_thread(microphone_rx: mpsc::Receiver<MicrophoneMessage>, proce
                 #[cfg(target_os = "linux")]
                 drop(print_gag);
                                 
-                let config = device.default_input_config().expect("Failed to get default input config");
+                let config = device.default_input_config().expect(&gettext("Failed to get default input config"));
                 
                 let channels = config.channels();
                 let sample_rate = config.sample_rate().0;

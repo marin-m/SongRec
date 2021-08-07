@@ -4,6 +4,7 @@ use gtk::prelude::*;
 use std::fs::File;
 use std::io::{Read, Write};
 use gtk::ResponseType;
+use gettextrs::gettext;
 use gdk_pixbuf::Pixbuf;
 use std::error::Error;
 use std::sync::mpsc;
@@ -20,7 +21,7 @@ use crate::gui::http_thread::http_thread;
 use crate::gui::csv_song_history::{SongHistoryInterface, SongHistoryRecord};
 use crate::gui::thread_messages::{*, GUIMessage::*};
 
-use crate::gui::pulseaudio_loopback::PulseaudioLoopback;
+use crate::pulseaudio_loopback::PulseaudioLoopback;
 
 #[cfg(windows)]
 use std::os::windows::process::CommandExt;
@@ -39,7 +40,7 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
     
     let application = gtk::Application::new(Some("com.github.marinm.songrec"),
         gio::ApplicationFlags::FLAGS_NONE)
-        .expect("Application::new failed");
+        .expect(&gettext("Application::new failed"));
     
     application.connect_activate(move |application| {
         
@@ -319,11 +320,11 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
         recognize_file_button.connect_clicked(clone!(@strong window, @strong spinner, @strong recognize_file_button => move |_| {
             
             let file_chooser = gtk::FileChooserNative::new(
-                Some("Select a file to recognize"),
+                Some(&gettext("Select a file to recognize")),
                 Some(&window),
                 gtk::FileChooserAction::Open,
-                Some("_Open"),
-                Some("_Cancel")
+                Some(&gettext("_Open")),
+                Some(&gettext("_Cancel"))
             );
             
             if file_chooser.run() == ResponseType::Accept {
@@ -331,7 +332,7 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
                 
                 spinner.show();
                 
-                let input_file_path = file_chooser.get_filename().expect("Couldn't get filename");
+                let input_file_path = file_chooser.get_filename().expect(&gettext("Couldn't get filename"));
                 let input_file_string = input_file_path.to_str().unwrap().to_string();
                 
                 processing_tx_3.send(ProcessingMessage::ProcessAudioFile(input_file_string)).unwrap();
@@ -435,7 +436,7 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
             
             match gui_message {
                 ErrorMessage(string) => {
-                    if !(string == "No match for this song" && microphone_stop_button.is_visible()) {
+                    if !(string == gettext("No match for this song") && microphone_stop_button.is_visible()) {
                         let dialog = gtk::MessageDialog::new(Some(&window),
                             gtk::DialogFlags::MODAL, gtk::MessageType::Error, gtk::ButtonsType::Ok, &string);
                         dialog.connect_response(|dialog, _| dialog.close());
@@ -515,7 +516,7 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
                         
                         if microphone_stop_button.is_visible() {
 
-                            let notification = gio::Notification::new("Song recognized");
+                            let notification = gio::Notification::new(&gettext("Song recognized"));
                             notification.set_body(Some(song_name.as_ref().unwrap()));
 
                             application.send_notification(Some("recognized-song"), &notification);

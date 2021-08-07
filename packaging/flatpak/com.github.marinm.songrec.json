@@ -30,7 +30,9 @@
                 "cargo --offline fetch --verbose",
                 "cargo --offline build --release --verbose",
                 "install -Dm755 ./target/release/songrec -t /app/bin/",
-                "cp -ra ./packaging/rootfs/usr/share /app/"
+                "cp -ra ./packaging/rootfs/usr/share /app/",
+                "mkdir -p /app/share/songrec",
+                "cp -ra ./translations /app/share/songrec"
             ],
             "sources": [
                 {

@@ -2,14 +2,11 @@
 use chfft::RFft1D;
 use std::error::Error;
 use std::io::BufReader;
-use std::process::Command;
 use std::collections::HashMap;
 
+use crate::ffmpeg_wrapper::decode_with_ffmpeg;
 use crate::fingerprinting::hanning::HANNING_WINDOW_2048_MULTIPLIERS;
 use crate::fingerprinting::signature_format::{DecodedSignature, FrequencyBand, FrequencyPeak};
-
-#[cfg(windows)]
-use std::os::windows::process::CommandExt;
 
 
 pub struct SignatureGenerator {
@@ -46,80 +43,12 @@ impl SignatureGenerator {
         
         if let Err(ref _decoding_error) = decoder {
             
-            // Find the path for FFMpeg, in the case where it is installed
+            // Try to decode with FFMpeg, if available, in case of failure with
+            // Rodio (most likely due to the use of a format unsupported by
+            // Rodio, such as .WMA or .MP4/.AAC)
             
-            let mut possible_ffmpeg_paths: Vec<&str> = vec!["ffmpeg", "ffmpeg.exe"];
-            
-            let mut current_dir_ffmpeg_path = std::env::current_exe()?;
-            current_dir_ffmpeg_path.pop();
-            current_dir_ffmpeg_path.push("ffmpeg.exe");
-            
-            possible_ffmpeg_paths.push(current_dir_ffmpeg_path.to_str().unwrap());
-            
-            let mut actual_ffmpeg_path: Option<&str> = None;
-            
-            for possible_path in possible_ffmpeg_paths {
-                
-                // Use .output() to execute the subprocess testing for FFMpeg
-                // presence and correct execution, so that it does not pollute
-                // the standard or error output in any way
-                
-                let mut command = Command::new(possible_path);
-                let command = command.arg("-version");
-                
-                #[cfg(windows)]
-                let command = command.creation_flags(0x00000008); // Set "CREATE_NO_WINDOW" on Windows
-                
-                if let Ok(process) = command.output() {
-                    if process.status.success() {
-                        actual_ffmpeg_path = Some(possible_path);
-                        break;
-                    }
-                }
-                
-            }
-            
-            // If FFMpeg is available, use it to convert the input file
-            // from whichever format to a .WAV (because Rodio has its
-            // decoding support limited to .WAV, .FLAC, .OGG, .MP3, which
-            // makes that .MP4/.AAC, .OPUS or .WMA are not supported, and
-            // Rodio's minimp3 .MP3 decoder seems to crash on Windows anyway)
-            
-            if let Some(ffmpeg_path) = actual_ffmpeg_path {
-                
-                // Create a sink file for FFMpeg
-                
-                let sink_file = tempfile::Builder::new().suffix(".wav").tempfile()?;
-                
-                let sink_file_path = sink_file.into_temp_path();
-                
-                // Try to convert the input video or audio file to a standard
-                // .WAV s16le PCM file using FFMpeg, and pass it to Rodio
-                // later in the case where it succeeded
-                
-                let mut command = Command::new(ffmpeg_path);
-                
-                let command = command.args(&["-y", "-i", file_path,
-                    sink_file_path.to_str().unwrap()]);
-                
-                // Set "CREATE_NO_WINDOW" on Windows, see
-                // https://stackoverflow.com/a/60958956/662399
-                #[cfg(windows)]
-                let command = command.creation_flags(0x00000008);
-                
-                if let Ok(process) = command.output() {
-                    
-                    if process.status.success() {
-                        decoder = rodio::Decoder::new(
-                            BufReader::new(
-                                std::fs::File::open(
-                                    sink_file_path.to_str().unwrap()
-                                )?
-                            )
-                        );
-                    }
-                }
-                
+            if let Some(new_decoder) = decode_with_ffmpeg(file_path) {
+                decoder = Ok(new_decoder);
             }
         }
         

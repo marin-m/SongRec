@@ -3,6 +3,7 @@ use std::error::Error;
 use std::io::{Cursor, Seek, SeekFrom, Write};
 use byteorder::{LittleEndian, ReadBytesExt, WriteBytesExt};
 use std::cmp::Ordering;
+use gettextrs::gettext;
 use crc32fast::Hasher;
 
 const DATA_URI_PREFIX: &str = "data:audio/vnd.shazam.sig;base64,";
@@ -121,7 +122,7 @@ impl DecodedSignature {
             4 => 32000,
             5 => 44100,
             6 => 48000,
-            _ => { panic!("Invalid sample rate in decoded Shazam packet"); }
+            _ => { panic!("{}", gettext("Invalid sample rate in decoded Shazam packet")); }
         };
         
         let number_samples: u32 = header.number_samples_plus_divided_sample_rate - (sample_rate_hz as f32 * 0.24) as u32;
@@ -154,7 +155,7 @@ impl DecodedSignature {
                 1 => FrequencyBand::_520_1450,
                 2 => FrequencyBand::_1450_3500,
                 3 => FrequencyBand::_3500_5500,
-                _ => { panic!("Invalid frequency band in decoded Shazam packet"); }
+                _ => { panic!("{}", gettext("Invalid frequency band in decoded Shazam packet")); }
             };
             
             let mut fft_pass_number: u32 = 0;
@@ -230,7 +231,7 @@ impl DecodedSignature {
             32000 => 4,
             44100 => 5,
             48000 => 6,
-            _ => { panic!("Invalid sample rate passed when encoding Shazam packet"); }
+            _ => { panic!("{}", gettext("Invalid sample rate passed when encoding Shazam packet")); }
         } << 27)?; // shifted_sample_rate_id
         cursor.write_u32::<LittleEndian>(0)?; // void2
         cursor.write_u32::<LittleEndian>(0)?;
