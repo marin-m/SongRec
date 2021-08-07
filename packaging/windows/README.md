@@ -15,9 +15,14 @@ sudo mkdir /opt/gtkwin
 cd /opt/gtkwin
 sudo chown -R $USER:$USER .
 rm -rf /opt/gtkwin/*
-for pkg in mingw64-gtk3-3.24.23-1 mingw64-pango-1.44.7-3 mingw64-cairo-1.16.0-4 mingw64-harfbuzz-2.6.8-2 mingw64-glib2-2.64.3-2 mingw64-gdk-pixbuf-2.40.0-3 mingw64-atk-2.36.0-3 mingw64-harfbuzz-2.6.8-2 mingw64-libpng-1.6.37-4 mingw64-pixman-0.40.0-2 mingw64-pcre-8.43-4 mingw64-gettext-0.20.2-3 mingw64-libffi-3.1-10 mingw64-libepoxy-1.5.4-3 mingw64-fribidi-1.0.10-2 mingw64-libjpeg-turbo-2.0.5-2 mingw64-libtiff-4.0.9-7 mingw64-freetype-2.10.2-2 mingw64-fontconfig-2.13.1-4 mingw64-expat-2.2.8-3 mingw64-librsvg2-2.40.19-8 mingw64-gtk-update-icon-cache-3.24.23-1 mingw64-adwaita-icon-theme-3.36.1-2 mingw64-hicolor-icon-theme-0.17-3 mingw64-bzip2-1.0.8-3; do
+for pkg in mingw64-gtk3-3.24.23-1 mingw64-pango-1.44.7-3 mingw64-cairo-1.16.0-4 mingw64-harfbuzz-2.6.8-2 mingw64-glib2-2.64.3-2 mingw64-gdk-pixbuf-2.40.0-3 mingw64-atk-2.36.0-3 mingw64-harfbuzz-2.6.8-2 mingw64-libpng-1.6.37-4 mingw64-pixman-0.40.0-2 mingw64-pcre-8.43-4 mingw64-libffi-3.1-10 mingw64-libepoxy-1.5.4-3 mingw64-fribidi-1.0.10-2 mingw64-libjpeg-turbo-2.0.5-2 mingw64-libtiff-4.0.9-7 mingw64-freetype-2.10.2-2 mingw64-fontconfig-2.13.1-4 mingw64-expat-2.2.8-3 mingw64-librsvg2-2.40.19-8 mingw64-gtk-update-icon-cache-3.24.23-1 mingw64-adwaita-icon-theme-3.36.1-2 mingw64-hicolor-icon-theme-0.17-3 mingw64-bzip2-1.0.8-3; do
     wget https://download-ib01.fedoraproject.org/pub/fedora/linux/releases/33/Everything/x86_64/os/Packages/m/${pkg}.fc33.noarch.rpm
     rpm2cpio ${pkg}.fc33.noarch.rpm | cpio -idmv
+done
+
+for pkg in mingw64-gettext-0.21-2; do
+    wget https://download-ib01.fedoraproject.org/pub/fedora/linux/releases/34/Everything/x86_64/os/Packages/m/${pkg}.fc34.noarch.rpm
+    rpm2cpio ${pkg}.fc34.noarch.rpm | cpio -idmv
 done
 
 cd /opt/gtkwin
@@ -48,8 +53,9 @@ wget -nc https://www.gyan.dev/ffmpeg/builds/ffmpeg-release-full.7z -O /opt/gtkwi
 
 cd ~/rust-shazam/
 export PKG_CONFIG_ALLOW_CROSS=1
+export GETTEXT_SYSTEM=1
 export RUSTFLAGS="-L /opt/gtkwin/usr/x86_64-w64-mingw32/sys-root/mingw/lib"
-export MINGW_PREFIX=/opt/gtkwin/usr/x86_64-w64-mingw32
+export MINGW_PREFIX=/opt/gtkwin/usr/x86_64-w64-mingw32/sys-root/mingw
 export PKG_CONFIG_PATH=/opt/gtkwin/usr/x86_64-w64-mingw32/sys-root/mingw/lib/pkgconfig
 cargo build --target x86_64-pc-windows-gnu --release
 
@@ -57,6 +63,7 @@ cd ~/rust-shazam/
 GTK_APP=/tmp/windows_release
 GTK_LIBRARY=/opt/gtkwin/usr/x86_64-w64-mingw32/sys-root/mingw
 mkdir $GTK_APP
+cp -r translations $GTK_APP
 cp target/x86_64-pc-windows-gnu/release/songrec.exe $GTK_APP
 cp $GTK_LIBRARY/bin/*.dll $GTK_APP
 mkdir -p $GTK_APP/share/glib-2.0/schemas

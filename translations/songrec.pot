@@ -1,0 +1,214 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-08-07 18:45+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../src/main.rs:45
+msgid "An open-source Shazam client for Linux, written in Rust."
+msgstr ""
+
+#: ../src/main.rs:48
+msgid "The default action. Display a GUI."
+msgstr ""
+
+#: ../src/main.rs:52
+msgid ""
+"Launch the GUI, but don't recognize audio through the microphone as soon as "
+"it is launched (rather than expecting the user to click on a button)."
+msgstr ""
+
+#: ../src/main.rs:56
+msgid ""
+"Generate a Shazam fingerprint from a sound file, perform song recognition "
+"towards Shazam's servers and print obtained information to the standard "
+"output."
+msgstr ""
+
+#: ../src/main.rs:65
+msgid ""
+"Generate a Shazam fingerprint from a sound file, and print it to the "
+"standard output."
+msgstr ""
+
+#: ../src/main.rs:69
+msgid "The .WAV or .MP3 file to generate an audio fingerprint for."
+msgstr ""
+
+#: ../src/main.rs:74
+msgid ""
+"Take a data-URI Shazam fingerprint, perform song recognition towards "
+"Shazam's servers and print obtained information to the standard output."
+msgstr ""
+
+#: ../src/main.rs:78
+msgid "The data-URI Shazam fingerprint to recognize."
+msgstr ""
+
+#: ../src/main.rs:83
+msgid ""
+"Convert a data-URI Shazam fingerprint into hearable tones, played back "
+"instantly (or written to a file, if a path is provided). Not particularly "
+"useful, but gives the simplest output that will trick Shazam into "
+"recognizing a non-song."
+msgstr ""
+
+#: ../src/main.rs:87
+msgid "The data-URI Shazam fingerprint to convert into hearable sound."
+msgstr ""
+
+#: ../src/main.rs:92
+msgid ""
+"File path of the .WAV file to write tones to, or nothing to play back the "
+"sound instantly."
+msgstr ""
+
+#: ../src/pulseaudio_loopback.rs:119 ../src/pulseaudio_loopback.rs:157
+msgid "Note: Could not parse TSV output from"
+msgstr ""
+
+#: ../src/fingerprinting/signature_format.rs:125
+msgid "Invalid sample rate in decoded Shazam packet"
+msgstr ""
+
+#: ../src/fingerprinting/signature_format.rs:158
+msgid "Invalid frequency band in decoded Shazam packet"
+msgstr ""
+
+#: ../src/fingerprinting/signature_format.rs:234
+msgid "Invalid sample rate passed when encoding Shazam packet"
+msgstr ""
+
+#: ../src/gui/http_thread.rs:43 ../src/gui/http_thread.rs:48
+#: ../src/gui/http_thread.rs:70 ../src/gui/main_window.rs:439
+msgid "No match for this song"
+msgstr ""
+
+#: ../src/gui/main_window.rs:43
+msgid "Application::new failed"
+msgstr ""
+
+#: ../src/gui/main_window.rs:323
+msgid "Select a file to recognize"
+msgstr ""
+
+#: ../src/gui/main_window.rs:326
+msgid "_Open"
+msgstr ""
+
+#: ../src/gui/main_window.rs:327
+msgid "_Cancel"
+msgstr ""
+
+#: ../src/gui/main_window.rs:335
+msgid "Couldn't get filename"
+msgstr ""
+
+#: ../src/gui/main_window.rs:519
+msgid "Song recognized"
+msgstr ""
+
+#: ../src/gui/microphone_thread.rs:64
+msgid "Microphone error:"
+msgstr ""
+
+#: ../src/gui/microphone_thread.rs:88
+msgid "Failed to get default input config"
+msgstr ""
+
+#: interface.glade.h:1
+msgid "Copy artist and track"
+msgstr ""
+
+#: interface.glade.h:2
+msgid "Copy artist"
+msgstr ""
+
+#: interface.glade.h:3
+msgid "Copy track name"
+msgstr ""
+
+#: interface.glade.h:4
+msgid "Copy album"
+msgstr ""
+
+#: interface.glade.h:5
+msgid "Search on YouTube"
+msgstr ""
+
+#: interface.glade.h:6
+msgid "Recognize from file"
+msgstr ""
+
+#: interface.glade.h:7
+msgid "Turn on microphone recognition"
+msgstr ""
+
+#: interface.glade.h:8
+msgid "Turn off microphone recognition"
+msgstr ""
+
+#: interface.glade.h:9
+msgid "Shazam servers are not reachable, are you connected?"
+msgstr ""
+
+#: interface.glade.h:10
+msgid "Recognize songs"
+msgstr ""
+
+#: interface.glade.h:11
+msgid "Play a Shazam lure"
+msgstr ""
+
+#: interface.glade.h:12
+msgid "Recognition results"
+msgstr ""
+
+#: interface.glade.h:13
+msgid "Recognize from my speakers instead of microphone"
+msgstr ""
+
+#: interface.glade.h:14
+msgid "Current volume:"
+msgstr ""
+
+#: interface.glade.h:15
+msgid "Audio input"
+msgstr ""
+
+#: interface.glade.h:16
+msgid "Song name"
+msgstr ""
+
+#: interface.glade.h:17
+msgid "Album"
+msgstr ""
+
+#: interface.glade.h:18
+msgid "Recognition date"
+msgstr ""
+
+#: interface.glade.h:19
+msgid "Wipe history"
+msgstr ""
+
+#: interface.glade.h:20
+msgid "Export to CSV"
+msgstr ""
+
+#: interface.glade.h:21
+msgid "Recognition history"
+msgstr ""

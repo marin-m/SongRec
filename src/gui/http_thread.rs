@@ -1,5 +1,6 @@
 use std::sync::mpsc;
 use std::error::Error;
+use gettextrs::gettext;
 use serde_json::Value;
 
 use crate::gui::thread_messages::*;
@@ -39,12 +40,12 @@ fn try_recognize_song(signature: DecodedSignature) -> Result<SongRecognizedMessa
     Ok(SongRecognizedMessage {
         artist_name: match &json_object["track"]["subtitle"] {
             Value::String(string) => string.to_string(),
-            _ => { return Err(Box::new(std::io::Error::new(std::io::ErrorKind::Other, "No match for this song"))) }
+            _ => { return Err(Box::new(std::io::Error::new(std::io::ErrorKind::Other, gettext("No match for this song").as_str()))) }
         },
         album_name: album_name,
         song_name: match &json_object["track"]["title"] {
             Value::String(string) => string.to_string(),
-            _ => { return Err(Box::new(std::io::Error::new(std::io::ErrorKind::Other, "No match for this song"))) }
+            _ => { return Err(Box::new(std::io::Error::new(std::io::ErrorKind::Other, gettext("No match for this song").as_str()))) }
         },
         cover_image: match &json_object["track"]["images"]["coverart"] {
             Value::String(string) => Some(obtain_raw_cover_image(string)?),
@@ -66,7 +67,7 @@ pub fn http_thread(http_rx: mpsc::Receiver<HTTPMessage>, gui_tx: glib::Sender<GU
                     },
                     Err(error) => {
                         match error.to_string().as_str() {
-                            "No match for this song" => {
+                            a if a == gettext("No match for this song") => {
                                 gui_tx.send(GUIMessage::ErrorMessage(error.to_string())).unwrap();
                                 gui_tx.send(GUIMessage::NetworkStatus(true)).unwrap();
                             }

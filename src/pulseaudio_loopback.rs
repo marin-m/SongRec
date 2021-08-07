@@ -1,4 +1,5 @@
 use std::process::Command;
+use gettextrs::gettext;
 use serde::Deserialize;
 
 // Structures useful for passing arguments to the functions below
@@ -23,6 +24,7 @@ struct PactlItemInfo {
 // - For "clients": https://gitlab.freedesktop.org/pulseaudio/pulseaudio/-/blob/stable-14.x/src/utils/pactl.c#L558
 // - For "source-outputs": https://gitlab.freedesktop.org/pulseaudio/pulseaudio/-/blob/stable-14.x/src/utils/pactl.c#L755
 
+#[allow(dead_code)]
 #[derive(Deserialize)] // Parses the TSV output from "pactl list short sources"
 struct PactlSourceTSVInfo {
     pub index: u64,
@@ -32,6 +34,7 @@ struct PactlSourceTSVInfo {
     pub state: String
 }
 
+#[allow(dead_code)]
 #[derive(Deserialize)]
 struct PactlClientTSVInfo { // Parses the TSV output from "pactl list short clients"
     pub index: u64,
@@ -39,6 +42,7 @@ struct PactlClientTSVInfo { // Parses the TSV output from "pactl list short clie
     pub binary_process_name: String
 }
 
+#[allow(dead_code)]
 #[derive(Deserialize)]
 struct PactlSourceOutputTSVInfo { // Parses the TSV output from "pactl list short source-outputs"
     pub index: u64,
@@ -112,7 +116,7 @@ impl PulseaudioLoopback {
             let record: PactlClientTSVInfo = match result {
                 Ok(data) => data,
                 Err(error) => {
-                    eprintln!("Note: Could not parse TSV output from \"pactl list short clients\": {:?}", error);
+                    eprintln!("{} \"pactl list short clients\": {:?}", gettext("Note: Could not parse TSV output from"), error);
                     return None
                 }
             };
@@ -150,7 +154,7 @@ impl PulseaudioLoopback {
                     let record: PactlSourceOutputTSVInfo = match result {
                         Ok(data) => data,
                         Err(error) => {
-                            eprintln!("Note: Could not parse TSV output from \"pactl list short {}\": {:?}", source_type, error);
+                            eprintln!("{} \"pactl list short {}\": {:?}", gettext("Note: Could not parse TSV output from"), source_type, error);
                             return None
                         }
                     };

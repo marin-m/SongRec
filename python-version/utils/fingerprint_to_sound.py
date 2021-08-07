@@ -33,7 +33,7 @@ if __name__ == '__main__':
         'to convert into hearable sound.')
     
     args.add_argument('output_file', nargs = '?', help = 'File path of the ' +
-        '.WAV or .MP3 file to write tones to, or nothing to play black the ' +
+        '.WAV or .MP3 file to write tones to, or nothing to play back the ' +
         'sound instantly.')
     
     args = args.parse_args()

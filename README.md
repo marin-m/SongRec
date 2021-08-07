@@ -35,7 +35,7 @@ yay -S songrec
 songrec
 ```
 
-Using apt with PPA (Ubuntu, supported 18.04, 20.04, 20.10, 21.04):
+Using apt with PPA (Ubuntu, supported 18.04, 20.04, 20.10, 21.04, 21.10):
 
 ```bash
 sudo apt-add-repository ppa:marin-m/songrec -y -u
