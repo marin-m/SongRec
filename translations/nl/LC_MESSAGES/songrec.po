@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-07 18:45+0200\n"
-"PO-Revision-Date: 2021-08-08 20:01+0200\n"
+"PO-Revision-Date: 2021-08-08 20:04+0200\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -183,7 +183,7 @@ msgstr ""
 
 #: interface.glade.h:10
 msgid "Recognize songs"
-msgstr "Nummers herkennen"
+msgstr "Nummerherkenning"
 
 #: interface.glade.h:11
 msgid "Play a Shazam lure"
@@ -195,8 +195,7 @@ msgstr "Resultaten"
 
 #: interface.glade.h:13
 msgid "Recognize from my speakers instead of microphone"
-msgstr ""
-"Luidsprekers gebruiken om nummers te herkennen in plaats van microfoon"
+msgstr "Luidsprekers gebruiken om nummers te herkennen"
 
 #: interface.glade.h:14
 msgid "Current volume:"
