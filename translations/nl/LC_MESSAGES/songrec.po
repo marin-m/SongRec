@@ -195,7 +195,7 @@ msgstr "Resultaten"
 
 #: interface.glade.h:13
 msgid "Recognize from my speakers instead of microphone"
-msgstr "Luidsprekers gebruiken om nummers te herkennen"
+msgstr "Luidsprekers gebruiken te herkennen in plaats van microfoon"
 
 #: interface.glade.h:14
 msgid "Current volume:"
