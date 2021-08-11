@@ -4,7 +4,7 @@ use std::error::Error;
 use std::io::BufReader;
 use std::collections::HashMap;
 
-use crate::ffmpeg_wrapper::decode_with_ffmpeg;
+use crate::utils::ffmpeg_wrapper::decode_with_ffmpeg;
 use crate::fingerprinting::hanning::HANNING_WINDOW_2048_MULTIPLIERS;
 use crate::fingerprinting::signature_format::{DecodedSignature, FrequencyBand, FrequencyPeak};
 

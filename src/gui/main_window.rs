@@ -21,7 +21,7 @@ use crate::gui::http_thread::http_thread;
 use crate::gui::csv_song_history::{SongHistoryInterface, SongHistoryRecord};
 use crate::gui::thread_messages::{*, GUIMessage::*};
 
-use crate::pulseaudio_loopback::PulseaudioLoopback;
+use crate::utils::pulseaudio_loopback::PulseaudioLoopback;
 
 #[cfg(windows)]
 use std::os::windows::process::CommandExt;

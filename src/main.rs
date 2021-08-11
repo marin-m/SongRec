@@ -1,10 +1,6 @@
 
 #![windows_subsystem = "windows"]
 
-mod pulseaudio_loopback;
-mod ffmpeg_wrapper;
-mod internationalization;
-
 mod fingerprinting {
     pub mod communication;
     pub mod algorithm;
@@ -22,12 +18,18 @@ mod gui {
     mod csv_song_history;
 }
 
+mod utils {
+    pub mod pulseaudio_loopback;
+    pub mod ffmpeg_wrapper;
+    pub mod internationalization;
+}
+
 use crate::fingerprinting::algorithm::SignatureGenerator;
 use crate::fingerprinting::signature_format::DecodedSignature;
 use crate::fingerprinting::communication::recognize_song_from_signature;
 
+use crate::utils::internationalization::setup_internationalization;
 use crate::gui::main_window::gui_main;
-use crate::internationalization::setup_internationalization;
 
 use std::error::Error;
 use gettextrs::gettext;
