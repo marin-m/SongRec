@@ -602,7 +602,7 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
         // Raise the existing window to the top whenever a second
         // GUI instance is attempted to be launched
         
-        application.get_windows().present();
+        application.get_windows()[0].present();
     });
     
     application.run(&[]);
