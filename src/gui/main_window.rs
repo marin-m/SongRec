@@ -42,15 +42,15 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
         gio::ApplicationFlags::FLAGS_NONE)
         .expect(&gettext("Application::new failed"));
     
-    application.connect_activate(move |application| {
+    application.connect_startup(move |application| {
         
         let glade_src = include_str!("interface.glade");
         let builder = gtk::Builder::from_string(glade_src);
         
-        
         // We create the main window.
-        
+    
         let window: gtk::ApplicationWindow = builder.get_object("window").unwrap();
+        
         window.set_application(Some(application));
 
         // We spawn required background threads, and create the
@@ -596,6 +596,13 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
         microphone_stop_button.hide();
         current_volume_hbox.hide();
         
+    });
+    
+    application.connect_activate(move |application| {
+        // Raise the existing window to the top whenever a second
+        // GUI instance is attempted to be launched
+        
+        application.get_windows().present();
     });
     
     application.run(&[]);
