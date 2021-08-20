@@ -1,3 +1,11 @@
+songrec (0.1.9) bionic; urgency=low
+
+  * Add French and Dutch translations.
+  * Ensure that one window of SongRec is present.
+  * Avoid to display "No match for this song" when multiple instances of SongRec would be display and one would be closed.
+
+ -- Marin <marin-m@users.noreply.github.com>  Fri, 20 Aug 2021 07:17:00 +0200
+ 
 songrec (0.1.8) bionic; urgency=low
 
   * Include a "Cargo.lock" file in the project so that it can be accepted in certain packaging systems that require freezing Rust dependencies to a known subversion.

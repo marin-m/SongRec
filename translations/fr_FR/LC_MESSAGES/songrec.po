@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-07 18:45+0200\n"
+"POT-Creation-Date: 2021-08-20 06:57+0200\n"
 "PO-Revision-Date: 2021-08-05 11:48+0200\n"
 "Last-Translator: marin <marin@marin-thinkpad-t460s>\n"
 "Language-Team: French\n"
@@ -19,15 +19,15 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 3.0\n"
 
-#: ../src/main.rs:45
+#: ../src/main.rs:47
 msgid "An open-source Shazam client for Linux, written in Rust."
 msgstr "Un client Shazam open-source pour Linux, écrit en Rust."
 
-#: ../src/main.rs:48
+#: ../src/main.rs:50
 msgid "The default action. Display a GUI."
 msgstr "L'action par défaut. Affiche l'interface graphique."
 
-#: ../src/main.rs:52
+#: ../src/main.rs:54
 msgid ""
 "Launch the GUI, but don't recognize audio through the microphone as soon as "
 "it is launched (rather than expecting the user to click on a button)."
@@ -36,7 +36,7 @@ msgstr ""
 "microphone dès que celle-ci est lancée (au lieu de cela, attendre que "
 "l'utilisateur clique sur un bouton)."
 
-#: ../src/main.rs:56
+#: ../src/main.rs:58
 msgid ""
 "Generate a Shazam fingerprint from a sound file, perform song recognition "
 "towards Shazam's servers and print obtained information to the standard "
@@ -46,7 +46,7 @@ msgstr ""
 "détection de la chanson auprès des serveurs de Shazam puis envoie les "
 "informations obtenues vers la sortie standard."
 
-#: ../src/main.rs:65
+#: ../src/main.rs:67
 msgid ""
 "Generate a Shazam fingerprint from a sound file, and print it to the "
 "standard output."
@@ -54,11 +54,11 @@ msgstr ""
 "Génère une empreinte Shazam à partir d'un fichier audio, avant de l'envoyer "
 "vers la sortie standard."
 
-#: ../src/main.rs:69
+#: ../src/main.rs:71
 msgid "The .WAV or .MP3 file to generate an audio fingerprint for."
 msgstr "Le fichier .WAV ou .MP3 pour lequel générer une empreinte sonore."
 
-#: ../src/main.rs:74
+#: ../src/main.rs:76
 msgid ""
 "Take a data-URI Shazam fingerprint, perform song recognition towards "
 "Shazam's servers and print obtained information to the standard output."
@@ -67,11 +67,11 @@ msgstr ""
 "morceau auprès des serveurs de Shazam puis envoie les informations obtenues "
 "vers la sortie standard."
 
-#: ../src/main.rs:78
+#: ../src/main.rs:80
 msgid "The data-URI Shazam fingerprint to recognize."
 msgstr "L'empreinte Shazam au format data-URI à reconnaître."
 
-#: ../src/main.rs:83
+#: ../src/main.rs:85
 msgid ""
 "Convert a data-URI Shazam fingerprint into hearable tones, played back "
 "instantly (or written to a file, if a path is provided). Not particularly "
@@ -83,21 +83,17 @@ msgstr ""
 "son, si le chemin a été fourni). Pas particulièrement utile, mais fournit la "
 "sortie la plus simple qui mènera Shazam à détecter une non-chanson."
 
-#: ../src/main.rs:87
+#: ../src/main.rs:89
 msgid "The data-URI Shazam fingerprint to convert into hearable sound."
 msgstr "L'empreinte Shazam au format data-URI à convertir en son audible."
 
-#: ../src/main.rs:92
+#: ../src/main.rs:94
 msgid ""
 "File path of the .WAV file to write tones to, or nothing to play back the "
 "sound instantly."
 msgstr ""
 "Le chemin du fichier .WAV dans lequel écrire les tonalités, ou rien pour "
 "jouer le son immédiatement par les hauts-parleurs."
-
-#: ../src/pulseaudio_loopback.rs:119 ../src/pulseaudio_loopback.rs:157
-msgid "Note: Could not parse TSV output from"
-msgstr "Note : Impossible de traiter la sortie TSV pour la commande"
 
 #: ../src/fingerprinting/signature_format.rs:125
 msgid "Invalid sample rate in decoded Shazam packet"
@@ -149,6 +145,11 @@ msgstr "Erreur du microphone :"
 #: ../src/gui/microphone_thread.rs:88
 msgid "Failed to get default input config"
 msgstr "Impossible d'obtenir la configuration par défaut pour l'entrée audio"
+
+#: ../src/utils/pulseaudio_loopback.rs:119
+#: ../src/utils/pulseaudio_loopback.rs:157
+msgid "Note: Could not parse TSV output from"
+msgstr "Note : Impossible de traiter la sortie TSV pour la commande"
 
 #: interface.glade.h:1
 msgid "Copy artist and track"

@@ -1,6 +1,6 @@
 pkgname=songrec-git
 _pkgname=songrec
-pkgver=r92.b9695dc
+pkgver=r118.0362f71
 pkgrel=1
 provides=('songrec')
 conflicts=('songrec')

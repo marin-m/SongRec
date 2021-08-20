@@ -17,9 +17,9 @@ trap cleanup_dirs INT TERM
 
 rm -rf ../../target/ ../../vendor/ ../../.flatpak-builder ../flatpak/.flatpak-builder ../../repo
 
-cp -ra ../../ "${temp_dir}/songrec-0.1.8"
+cp -ra ../../ "${temp_dir}/songrec-0.1.9"
 
-cd "${temp_dir}/songrec-0.1.8"
+cd "${temp_dir}/songrec-0.1.9"
 
 mkdir -p .cargo
 cargo vendor --locked vendor | sed 's/^directory = ".*"/directory = "vendor"/g' > .cargo/config

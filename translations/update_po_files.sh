@@ -18,9 +18,9 @@ mv ../src/gui/interface.glade.h .
 
 # Regenerate the base ".pot" (translation template) file
 
-xgettext -kgettext -kN_ --c++ --from-code utf-8  -o songrec.pot ../src/*.rs ../src/fingerprinting/*.rs ../src/gui/*.rs interface.glade.h
+xgettext -kgettext -kN_ --c++ --from-code utf-8  -o songrec.pot ../src/*.rs ../src/fingerprinting/*.rs ../src/gui/*.rs ../src/utils/*.rs interface.glade.h
 
-for locale in fr_FR; do
+for locale in fr_FR nl; do
     msgmerge -U ${locale}/LC_MESSAGES/songrec.po songrec.pot
 done
 

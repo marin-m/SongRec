@@ -7,32 +7,32 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-07 18:45+0200\n"
+"POT-Creation-Date: 2021-08-20 06:57+0200\n"
 "PO-Revision-Date: 2021-08-08 20:04+0200\n"
+"Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: \n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.0\n"
-"Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"Language: nl\n"
 
-#: ../src/main.rs:45
+#: ../src/main.rs:47
 msgid "An open-source Shazam client for Linux, written in Rust."
 msgstr "Een open source Shazam-app voor Linux, geschreven in Rust."
 
-#: ../src/main.rs:48
+#: ../src/main.rs:50
 msgid "The default action. Display a GUI."
 msgstr "De standaardactie: toon het venster."
 
-#: ../src/main.rs:52
+#: ../src/main.rs:54
 msgid ""
 "Launch the GUI, but don't recognize audio through the microphone as soon as "
 "it is launched (rather than expecting the user to click on a button)."
 msgstr "Toon het venster, maar wacht met het starten van de muziekherkenning."
 
-#: ../src/main.rs:56
+#: ../src/main.rs:58
 msgid ""
 "Generate a Shazam fingerprint from a sound file, perform song recognition "
 "towards Shazam's servers and print obtained information to the standard "
@@ -41,7 +41,7 @@ msgstr ""
 "Genereer een Shazam-vingerafdruk op basis van een geluidsbestand, voer "
 "muziekherkenning uit en schrijf de verkregen informatie weg."
 
-#: ../src/main.rs:65
+#: ../src/main.rs:67
 msgid ""
 "Generate a Shazam fingerprint from a sound file, and print it to the "
 "standard output."
@@ -49,12 +49,12 @@ msgstr ""
 "Genereer een Shazam-vingerafdruk op basis van een geluidsbestand en schrijf "
 "de verkregen informatie weg."
 
-#: ../src/main.rs:69
+#: ../src/main.rs:71
 msgid "The .WAV or .MP3 file to generate an audio fingerprint for."
 msgstr ""
 "Het wav- of mp3-bestand waarvoor een vingerafdruk moet worden gegenereerd."
 
-#: ../src/main.rs:74
+#: ../src/main.rs:76
 msgid ""
 "Take a data-URI Shazam fingerprint, perform song recognition towards "
 "Shazam's servers and print obtained information to the standard output."
@@ -62,11 +62,11 @@ msgstr ""
 "Gebruik een gegevensuri met Shazam-vingerafdruk, voer muziekherkenning uit "
 "en schrijf de verkregen informatie weg."
 
-#: ../src/main.rs:78
+#: ../src/main.rs:80
 msgid "The data-URI Shazam fingerprint to recognize."
 msgstr "De te herkennen gegevensuri met Shazam-vingerafdruk."
 
-#: ../src/main.rs:83
+#: ../src/main.rs:85
 msgid ""
 "Convert a data-URI Shazam fingerprint into hearable tones, played back "
 "instantly (or written to a file, if a path is provided). Not particularly "
@@ -75,24 +75,20 @@ msgid ""
 msgstr ""
 "Converteer een gegevensuri met Shazam-vingerafdruk naar hoorbaar geluid en "
 "speel het direct af (of geef een locatie op om weg te schrijven naar een "
-"bestand). Niet heel erg nuttig, maar geeft de eenvoudigste uitvoer om "
-"Shazam een nummer te laten herkennen."
+"bestand). Niet heel erg nuttig, maar geeft de eenvoudigste uitvoer om Shazam "
+"een nummer te laten herkennen."
 
-#: ../src/main.rs:87
+#: ../src/main.rs:89
 msgid "The data-URI Shazam fingerprint to convert into hearable sound."
 msgstr "De te converteren gegevensuri met Shazam-vingerafdruk."
 
-#: ../src/main.rs:92
+#: ../src/main.rs:94
 msgid ""
 "File path of the .WAV file to write tones to, or nothing to play back the "
 "sound instantly."
 msgstr ""
 "De bestandslocatie van het wav-bestand waarnaar tonen moeten worden "
 "weggeschreven. Laat leeg om direct af te spelen."
-
-#: ../src/pulseaudio_loopback.rs:119 ../src/pulseaudio_loopback.rs:157
-msgid "Note: Could not parse TSV output from"
-msgstr "Let op: geen verwerking mogelijk van de tsv-uitvoer van"
 
 #: ../src/fingerprinting/signature_format.rs:125
 msgid "Invalid sample rate in decoded Shazam packet"
@@ -143,6 +139,11 @@ msgstr "Microfoonfout:"
 #: ../src/gui/microphone_thread.rs:88
 msgid "Failed to get default input config"
 msgstr "De standaard invoerconfiguratie kan niet worden uitgelezen"
+
+#: ../src/utils/pulseaudio_loopback.rs:119
+#: ../src/utils/pulseaudio_loopback.rs:157
+msgid "Note: Could not parse TSV output from"
+msgstr "Let op: geen verwerking mogelijk van de tsv-uitvoer van"
 
 #: interface.glade.h:1
 msgid "Copy artist and track"
