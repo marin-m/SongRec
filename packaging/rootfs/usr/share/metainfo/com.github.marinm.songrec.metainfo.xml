@@ -31,8 +31,8 @@ https://hughsie.github.io/oars/index.html
     <release version="0.1.9" date="2021-08-20">
       <description>
         <p>- Add French and Dutch translations.</p>
-        <p>- Ensure that one window of SongRec is present.</p>
-        <p>- Avoid to display "No match for this song" when multiple instances of SongRec would be display and one would be closed.</p>
+        <p>- Ensure that only one window of SongRec is present.</p>
+        <p>- Avoid to display "No match for this song" when multiple instances of SongRec would be displayed and one would be closed.</p>
       </description>
     </release>
     <release version="0.1.8" date="2021-06-01">

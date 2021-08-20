@@ -1,8 +1,8 @@
 songrec (0.1.9) bionic; urgency=low
 
   * Add French and Dutch translations.
-  * Ensure that one window of SongRec is present.
-  * Avoid to display "No match for this song" when multiple instances of SongRec would be display and one would be closed.
+  * Ensure that only one window of SongRec is present.
+  * Avoid to display "No match for this song" when multiple instances of SongRec would be displayed and one would be closed.
 
  -- Marin <marin-m@users.noreply.github.com>  Fri, 20 Aug 2021 07:17:00 +0200
  
