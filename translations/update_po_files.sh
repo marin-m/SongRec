@@ -20,7 +20,7 @@ mv ../src/gui/interface.glade.h .
 
 xgettext -kgettext -kN_ --c++ --from-code utf-8  -o songrec.pot ../src/*.rs ../src/fingerprinting/*.rs ../src/gui/*.rs ../src/utils/*.rs interface.glade.h
 
-for locale in fr_FR nl; do
+for locale in fr_FR nl it; do
     msgmerge -U ${locale}/LC_MESSAGES/songrec.po songrec.pot
 done
 
@@ -28,6 +28,6 @@ done
 # as needed, if a tool like "poedit" didn't already
 # do it automatically
 
-for locale in fr_FR nl; do
+for locale in fr_FR nl it; do
     msgfmt ${locale}/LC_MESSAGES/songrec.po -o ${locale}/LC_MESSAGES/songrec.mo
 done

@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-20 06:57+0200\n"
+"POT-Creation-Date: 2021-08-20 23:15+0200\n"
 "PO-Revision-Date: 2021-08-20 21:19+0200\n"
+"Last-Translator: Albano Battistella <albano_battistella@hotmail.com>\n"
+"Language-Team: Albano Battistella  <albano_battistella@hotmail.com>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"Last-Translator: Albano Battistella <albano_battistella@hotmail.com>\n"
-"Language-Team: Albano Battistella  <albano_battistella@hotmail.com>\n"
 "X-Generator: Poedit 3.0\n"
 
 #: ../src/main.rs:47
@@ -77,10 +77,10 @@ msgid ""
 "useful, but gives the simplest output that will trick Shazam into "
 "recognizing a non-song."
 msgstr ""
-"Converti un'impronta digitale Shazam di dati-URI in toni udibili, "
-"riprodotti istantaneamente (o scritti su un file, se viene fornito un "
-"percorso). Non particolarmente utile, ma fornisce l'output più semplice che "
-"indurrà Shazam a riconoscere una non canzone."
+"Converti un'impronta digitale Shazam di dati-URI in toni udibili, riprodotti "
+"istantaneamente (o scritti su un file, se viene fornito un percorso). Non "
+"particolarmente utile, ma fornisce l'output più semplice che indurrà Shazam "
+"a riconoscere una non canzone."
 
 #: ../src/main.rs:89
 msgid "The data-URI Shazam fingerprint to convert into hearable sound."
@@ -116,7 +116,7 @@ msgstr "Nessuna corrispondenza per questa canzone"
 
 #: ../src/gui/main_window.rs:43
 msgid "Application::new failed"
-msgstr "Applicazione::nuova fallita"
+msgstr "Application::new fallita"
 
 #: ../src/gui/main_window.rs:323
 msgid "Select a file to recognize"
