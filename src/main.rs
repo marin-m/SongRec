@@ -48,10 +48,20 @@ fn main() -> Result<(), Box<dyn Error>> {
         .subcommand(
             App::new("gui")
                 .about(gettext("The default action. Display a GUI.").as_str())
+                .arg(
+                    Arg::with_name("input_file")
+                        .required(false)
+                        .help(gettext("An optional audio file to recognize on the launch of the application.").as_str())
+                )
         )
         .subcommand(
             App::new("gui-norecording")
                 .about(gettext("Launch the GUI, but don't recognize audio through the microphone as soon as it is launched (rather than expecting the user to click on a button).").as_str())
+                .arg(
+                    Arg::with_name("input_file")
+                        .required(false)
+                        .help(gettext("An optional audio file to recognize on the launch of the application.").as_str())
+                )
         )
         .subcommand(
             App::new("audio-file-to-recognized-song")
@@ -59,7 +69,7 @@ fn main() -> Result<(), Box<dyn Error>> {
                 .arg(
                     Arg::with_name("input_file")
                         .required(true)
-                        .help("The .WAV or .MP3 file to recognize.")
+                        .help(gettext("The audio file to recognize.").as_str())
                 )
         )
         .subcommand(
@@ -157,10 +167,17 @@ fn main() -> Result<(), Box<dyn Error>> {
             
         },
         Some("gui-norecording") => {
-            gui_main(false)?;
+            let subcommand_args = args.subcommand_matches("gui-norecording").unwrap();
+
+            gui_main(false, subcommand_args.value_of("input_file"))?;
         },
         Some("gui") | None => {
-            gui_main(true)?;
+            if let Some(subcommand_args) = args.subcommand_matches("gui") {
+                gui_main(true, subcommand_args.value_of("input_file"))?;
+            }
+            else {
+                gui_main(true, None)?;
+            }
         },
         _ => unreachable!()
     }

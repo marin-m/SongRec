@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-20 06:57+0200\n"
+"POT-Creation-Date: 2021-08-21 15:26+0200\n"
 "PO-Revision-Date: 2021-08-08 20:04+0200\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: \n"
@@ -26,13 +26,17 @@ msgstr "Een open source Shazam-app voor Linux, geschreven in Rust."
 msgid "The default action. Display a GUI."
 msgstr "De standaardactie: toon het venster."
 
-#: ../src/main.rs:54
+#: ../src/main.rs:54 ../src/main.rs:63
+msgid "An optional audio file to recognize on the launch of the application."
+msgstr ""
+
+#: ../src/main.rs:59
 msgid ""
 "Launch the GUI, but don't recognize audio through the microphone as soon as "
 "it is launched (rather than expecting the user to click on a button)."
 msgstr "Toon het venster, maar wacht met het starten van de muziekherkenning."
 
-#: ../src/main.rs:58
+#: ../src/main.rs:68
 msgid ""
 "Generate a Shazam fingerprint from a sound file, perform song recognition "
 "towards Shazam's servers and print obtained information to the standard "
@@ -41,7 +45,12 @@ msgstr ""
 "Genereer een Shazam-vingerafdruk op basis van een geluidsbestand, voer "
 "muziekherkenning uit en schrijf de verkregen informatie weg."
 
-#: ../src/main.rs:67
+#: ../src/main.rs:72
+#, fuzzy
+msgid "The audio file to recognize."
+msgstr "Kies een te herkennen bestand"
+
+#: ../src/main.rs:77
 msgid ""
 "Generate a Shazam fingerprint from a sound file, and print it to the "
 "standard output."
@@ -49,12 +58,12 @@ msgstr ""
 "Genereer een Shazam-vingerafdruk op basis van een geluidsbestand en schrijf "
 "de verkregen informatie weg."
 
-#: ../src/main.rs:71
+#: ../src/main.rs:81
 msgid "The .WAV or .MP3 file to generate an audio fingerprint for."
 msgstr ""
 "Het wav- of mp3-bestand waarvoor een vingerafdruk moet worden gegenereerd."
 
-#: ../src/main.rs:76
+#: ../src/main.rs:86
 msgid ""
 "Take a data-URI Shazam fingerprint, perform song recognition towards "
 "Shazam's servers and print obtained information to the standard output."
@@ -62,11 +71,11 @@ msgstr ""
 "Gebruik een gegevensuri met Shazam-vingerafdruk, voer muziekherkenning uit "
 "en schrijf de verkregen informatie weg."
 
-#: ../src/main.rs:80
+#: ../src/main.rs:90
 msgid "The data-URI Shazam fingerprint to recognize."
 msgstr "De te herkennen gegevensuri met Shazam-vingerafdruk."
 
-#: ../src/main.rs:85
+#: ../src/main.rs:95
 msgid ""
 "Convert a data-URI Shazam fingerprint into hearable tones, played back "
 "instantly (or written to a file, if a path is provided). Not particularly "
@@ -78,11 +87,11 @@ msgstr ""
 "bestand). Niet heel erg nuttig, maar geeft de eenvoudigste uitvoer om Shazam "
 "een nummer te laten herkennen."
 
-#: ../src/main.rs:89
+#: ../src/main.rs:99
 msgid "The data-URI Shazam fingerprint to convert into hearable sound."
 msgstr "De te converteren gegevensuri met Shazam-vingerafdruk."
 
-#: ../src/main.rs:94
+#: ../src/main.rs:104
 msgid ""
 "File path of the .WAV file to write tones to, or nothing to play back the "
 "sound instantly."
@@ -104,7 +113,7 @@ msgstr ""
 "Ongeldige samplesnelheid doorgegeven tijdens encoderen van Shazam-pakket"
 
 #: ../src/gui/http_thread.rs:43 ../src/gui/http_thread.rs:48
-#: ../src/gui/http_thread.rs:70 ../src/gui/main_window.rs:439
+#: ../src/gui/http_thread.rs:70 ../src/gui/main_window.rs:453
 msgid "No match for this song"
 msgstr "Er is geen overeenkomst gevonden"
 
@@ -112,23 +121,23 @@ msgstr "Er is geen overeenkomst gevonden"
 msgid "Application::new failed"
 msgstr "Application::new is mislukt"
 
-#: ../src/gui/main_window.rs:323
+#: ../src/gui/main_window.rs:337
 msgid "Select a file to recognize"
 msgstr "Kies een te herkennen bestand"
 
-#: ../src/gui/main_window.rs:326
+#: ../src/gui/main_window.rs:340
 msgid "_Open"
 msgstr "_Openen"
 
-#: ../src/gui/main_window.rs:327
+#: ../src/gui/main_window.rs:341
 msgid "_Cancel"
 msgstr "_Annuleren"
 
-#: ../src/gui/main_window.rs:335
+#: ../src/gui/main_window.rs:349
 msgid "Couldn't get filename"
 msgstr "De bestandsnaam kan niet worden bepaald"
 
-#: ../src/gui/main_window.rs:519
+#: ../src/gui/main_window.rs:533
 msgid "Song recognized"
 msgstr "Het nummer is herkend"
 

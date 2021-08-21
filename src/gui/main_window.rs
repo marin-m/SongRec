@@ -36,10 +36,10 @@ fn spawn_big_thread<F, T>(argument: F) -> ()
     thread::Builder::new().stack_size(32 * 1024 * 1024).spawn(argument).unwrap();
 }
 
-pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
+pub fn gui_main(recording: bool, input_file: Option<&str>) -> Result<(), Box<dyn Error>> {
     
     let application = gtk::Application::new(Some("com.github.marinm.songrec"),
-        gio::ApplicationFlags::FLAGS_NONE)
+        gio::ApplicationFlags::HANDLES_OPEN)
         .expect(&gettext("Application::new failed"));
     
     application.connect_startup(move |application| {
@@ -71,6 +71,7 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
         let microphone_tx_4 = microphone_tx.clone();
         let microphone_tx_5 = microphone_tx.clone();
         let processing_tx_2 = processing_tx.clone();
+        let processing_tx_4 = processing_tx.clone();
         
         spawn_big_thread(clone!(@strong gui_tx => move || { // microphone_rx, processing_tx
             microphone_thread(microphone_rx, processing_tx_2, gui_tx);
@@ -83,6 +84,19 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
         spawn_big_thread(clone!(@strong gui_tx => move || { // http_rx
             http_thread(http_rx, gui_tx, microphone_tx_3);
         }));
+        
+        // We create a callback for handling files to recognize opened
+        // from the command line or through "xdg-open".
+        
+        application.connect_open(move |_application, files, _hint| {
+            if files.len() >= 1 {
+                if let Some(file_path) = files[0].get_path() {
+                    let file_path_string = file_path.into_os_string().into_string().unwrap();
+                    
+                    processing_tx_4.send(ProcessingMessage::ProcessAudioFile(file_path_string)).unwrap();
+                }
+            }
+        });
         
         // We initialize the CSV file that will contain song history.
 
@@ -605,7 +619,12 @@ pub fn gui_main(recording: bool) -> Result<(), Box<dyn Error>> {
         application.get_windows()[0].present();
     });
     
-    application.run(&[]);
+    if let Some(input_file_string) = input_file {
+        application.run(&["songrec".to_string(), input_file_string.to_string()]);
+    }
+    else {
+        application.run(&[]);
+    }
     
     Ok(())
 }

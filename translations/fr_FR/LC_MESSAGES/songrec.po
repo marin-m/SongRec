@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-20 06:57+0200\n"
+"POT-Creation-Date: 2021-08-21 15:26+0200\n"
 "PO-Revision-Date: 2021-08-05 11:48+0200\n"
 "Last-Translator: marin <marin@marin-thinkpad-t460s>\n"
 "Language-Team: French\n"
@@ -27,7 +27,11 @@ msgstr "Un client Shazam open-source pour Linux, écrit en Rust."
 msgid "The default action. Display a GUI."
 msgstr "L'action par défaut. Affiche l'interface graphique."
 
-#: ../src/main.rs:54
+#: ../src/main.rs:54 ../src/main.rs:63
+msgid "An optional audio file to recognize on the launch of the application."
+msgstr "Un éventuel fichier audio à reconnaître au lancement de l'application."
+
+#: ../src/main.rs:59
 msgid ""
 "Launch the GUI, but don't recognize audio through the microphone as soon as "
 "it is launched (rather than expecting the user to click on a button)."
@@ -36,7 +40,7 @@ msgstr ""
 "microphone dès que celle-ci est lancée (au lieu de cela, attendre que "
 "l'utilisateur clique sur un bouton)."
 
-#: ../src/main.rs:58
+#: ../src/main.rs:68
 msgid ""
 "Generate a Shazam fingerprint from a sound file, perform song recognition "
 "towards Shazam's servers and print obtained information to the standard "
@@ -46,7 +50,11 @@ msgstr ""
 "détection de la chanson auprès des serveurs de Shazam puis envoie les "
 "informations obtenues vers la sortie standard."
 
-#: ../src/main.rs:67
+#: ../src/main.rs:72
+msgid "The audio file to recognize."
+msgstr "Le fichier audio à reconnaître."
+
+#: ../src/main.rs:77
 msgid ""
 "Generate a Shazam fingerprint from a sound file, and print it to the "
 "standard output."
@@ -54,11 +62,11 @@ msgstr ""
 "Génère une empreinte Shazam à partir d'un fichier audio, avant de l'envoyer "
 "vers la sortie standard."
 
-#: ../src/main.rs:71
+#: ../src/main.rs:81
 msgid "The .WAV or .MP3 file to generate an audio fingerprint for."
 msgstr "Le fichier .WAV ou .MP3 pour lequel générer une empreinte sonore."
 
-#: ../src/main.rs:76
+#: ../src/main.rs:86
 msgid ""
 "Take a data-URI Shazam fingerprint, perform song recognition towards "
 "Shazam's servers and print obtained information to the standard output."
@@ -67,11 +75,11 @@ msgstr ""
 "morceau auprès des serveurs de Shazam puis envoie les informations obtenues "
 "vers la sortie standard."
 
-#: ../src/main.rs:80
+#: ../src/main.rs:90
 msgid "The data-URI Shazam fingerprint to recognize."
 msgstr "L'empreinte Shazam au format data-URI à reconnaître."
 
-#: ../src/main.rs:85
+#: ../src/main.rs:95
 msgid ""
 "Convert a data-URI Shazam fingerprint into hearable tones, played back "
 "instantly (or written to a file, if a path is provided). Not particularly "
@@ -83,11 +91,11 @@ msgstr ""
 "son, si le chemin a été fourni). Pas particulièrement utile, mais fournit la "
 "sortie la plus simple qui mènera Shazam à détecter une non-chanson."
 
-#: ../src/main.rs:89
+#: ../src/main.rs:99
 msgid "The data-URI Shazam fingerprint to convert into hearable sound."
 msgstr "L'empreinte Shazam au format data-URI à convertir en son audible."
 
-#: ../src/main.rs:94
+#: ../src/main.rs:104
 msgid ""
 "File path of the .WAV file to write tones to, or nothing to play back the "
 "sound instantly."
@@ -110,7 +118,7 @@ msgstr ""
 "Shazam"
 
 #: ../src/gui/http_thread.rs:43 ../src/gui/http_thread.rs:48
-#: ../src/gui/http_thread.rs:70 ../src/gui/main_window.rs:439
+#: ../src/gui/http_thread.rs:70 ../src/gui/main_window.rs:453
 msgid "No match for this song"
 msgstr "Chanson non reconnue"
 
@@ -118,23 +126,23 @@ msgstr "Chanson non reconnue"
 msgid "Application::new failed"
 msgstr "Application::new n'a pas fonctionné"
 
-#: ../src/gui/main_window.rs:323
+#: ../src/gui/main_window.rs:337
 msgid "Select a file to recognize"
 msgstr "Sélectionner un fichier à reconnaître"
 
-#: ../src/gui/main_window.rs:326
+#: ../src/gui/main_window.rs:340
 msgid "_Open"
 msgstr "_Ouvrir"
 
-#: ../src/gui/main_window.rs:327
+#: ../src/gui/main_window.rs:341
 msgid "_Cancel"
 msgstr "_Annuler"
 
-#: ../src/gui/main_window.rs:335
+#: ../src/gui/main_window.rs:349
 msgid "Couldn't get filename"
 msgstr "Impossible d'obtenir le nom du fichier"
 
-#: ../src/gui/main_window.rs:519
+#: ../src/gui/main_window.rs:533
 msgid "Song recognized"
 msgstr "Chanson identifiée"
 

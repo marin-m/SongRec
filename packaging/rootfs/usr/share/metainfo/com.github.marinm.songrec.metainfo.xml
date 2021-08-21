@@ -101,4 +101,10 @@ https://hughsie.github.io/oars/index.html
   <update_contact>marin-m@users.noreply.github.com</update_contact>
 
   <launchable type="desktop-id">com.github.marinm.songrec.desktop</launchable>
+  <provides>
+    <mediatype>audio/mpeg</mediatype>
+    <mediatype>audio/x-wav</mediatype>
+    <mediatype>audio/x-vorbis+ogg</mediatype>
+    <mediatype>audio/flac</mediatype>
+  </provides>
 </component>
