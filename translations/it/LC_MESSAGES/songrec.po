@@ -28,7 +28,7 @@ msgstr "L'azione predefinita. Visualizza una GUI."
 
 #: ../src/main.rs:54 ../src/main.rs:63
 msgid "An optional audio file to recognize on the launch of the application."
-msgstr ""
+msgstr "Un file audio opzionale da riconoscere all'avvio dell'applicazione."
 
 #: ../src/main.rs:59
 msgid ""
