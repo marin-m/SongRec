@@ -50,9 +50,8 @@ msgstr ""
 "ottenute sullo standard output."
 
 #: ../src/main.rs:72
-#, fuzzy
 msgid "The audio file to recognize."
-msgstr "Seleziona un file da riconoscere"
+msgstr "Il file audio da riconoscere."
 
 #: ../src/main.rs:77
 msgid ""
