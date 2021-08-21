@@ -230,6 +230,23 @@ impl PulseaudioLoopback {
 
     }
     
+    fn get_audio_monitor_source_name() -> Option<String>
+    {
+        let sources = match Self::get_pactl_devices_info(PactlDevicesType::Sources) {
+            Some(result) => result,
+            _ => { return None }
+        };
+        
+        for source in sources.iter() {
+            if source.is_monitor {
+                return Some(source.name.clone());
+            }
+        }
+        
+        None
+
+    }
+    
     fn get_audio_non_monitor_source_index() -> Option<u64> {
         let sources = match Self::get_pactl_devices_info(PactlDevicesType::Sources) {
             Some(result) => result,
@@ -239,6 +256,21 @@ impl PulseaudioLoopback {
         for source in sources.iter() {
             if !source.is_monitor {
                 return Some(source.index);
+            }
+        }
+        
+        None
+    }
+    
+    fn get_audio_non_monitor_source_name() -> Option<String> {
+        let sources = match Self::get_pactl_devices_info(PactlDevicesType::Sources) {
+            Some(result) => result,
+            _ => { return None }
+        };
+        
+        for source in sources.iter() {
+            if !source.is_monitor {
+                return Some(source.name.clone());
             }
         }
         
@@ -297,19 +329,19 @@ impl PulseaudioLoopback {
     pub fn set_whether_audio_source_is_monitor(is_monitor: bool) {
         
         let pulseaudio_source = match is_monitor {
-            true => Self::get_audio_monitor_source_index(),
-            false => Self::get_audio_non_monitor_source_index()
+            true => Self::get_audio_monitor_source_name(),
+            false => Self::get_audio_non_monitor_source_name()
         };
         
         if let Some(songrec_index) = Self::get_songrec_source_output_index() {
             
-            if let Some(pulseaudio_source_index) = pulseaudio_source {
+            if let Some(pulseaudio_source_name) = pulseaudio_source {
             
                 Command::new("pactl")
                     .args(&[
                         "move-source-output",
                         &format!("{}", songrec_index),
-                        &format!("{}", pulseaudio_source_index)
+                        &pulseaudio_source_name
                     ]).status().unwrap();
             }
         }
