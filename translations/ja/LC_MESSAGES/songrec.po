@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-23 18:21+0200\n"
-"PO-Revision-Date: 2021-08-23 11:50+0900\n"
+"PO-Revision-Date: 2021-08-23 21:02+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja_JP\n"
@@ -166,11 +166,11 @@ msgstr "ファイルから認識"
 
 #: interface.glade.h:7
 msgid "Turn on microphone recognition"
-msgstr "マイク入力を無効化"
+msgstr "音声の入力を有効化"
 
 #: interface.glade.h:8
 msgid "Turn off microphone recognition"
-msgstr "マイク入力を有効化"
+msgstr "音声の入力を無効化"
 
 #: interface.glade.h:9
 msgid "Shazam servers are not reachable, are you connected?"
