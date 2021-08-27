@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-21 15:26+0200\n"
-"PO-Revision-Date: 2021-08-08 20:04+0200\n"
+"POT-Creation-Date: 2021-08-23 18:21+0200\n"
+"PO-Revision-Date: 2021-08-27 12:30+0200\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -29,6 +29,7 @@ msgstr "De standaardactie: toon het venster."
 #: ../src/main.rs:54 ../src/main.rs:63
 msgid "An optional audio file to recognize on the launch of the application."
 msgstr ""
+"Een optioneel audiobestand dat na het opstarten dient te worden herkend."
 
 #: ../src/main.rs:59
 msgid ""
@@ -46,9 +47,8 @@ msgstr ""
 "muziekherkenning uit en schrijf de verkregen informatie weg."
 
 #: ../src/main.rs:72
-#, fuzzy
 msgid "The audio file to recognize."
-msgstr "Kies een te herkennen bestand"
+msgstr "Het te herkennen bestand."
 
 #: ../src/main.rs:77
 msgid ""
