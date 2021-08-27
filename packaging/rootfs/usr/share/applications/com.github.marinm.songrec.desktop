@@ -1,4 +1,5 @@
 [Desktop Entry]
+Version=1.0
 Name=SongRec
 Comment=An open-source Shazam client for Linux, written in Rust
 Type=Application

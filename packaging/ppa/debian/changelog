@@ -1,3 +1,11 @@
+songrec (0.2.0) bionic; urgency=low
+
+  * Add Japanese and Italian translations.
+  * Fix PipeWire compatibility.
+  * Add support for a possible XDG action for recognizing from a file.
+
+ -- Marin <marin-m@users.noreply.github.com>  Fri, 27 Aug 2021 09:37:00 +0200
+ 
 songrec (0.1.9) bionic; urgency=low
 
   * Add French and Dutch translations.
