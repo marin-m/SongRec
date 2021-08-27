@@ -17,7 +17,7 @@ function cleanup_dirs {
 
 trap cleanup_dirs INT TERM
 
-for version in bionic focal groovy hirsute impish; do
+for version in bionic focal hirsute impish; do
 
     rm -rf ../../target/ ../../vendor/ ../../.flatpak-builder ../flatpak/.flatpak-builder ../../repo ../../.cargo
 
