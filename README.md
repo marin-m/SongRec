@@ -28,10 +28,10 @@ Hence, the Shazam fingerprinting algorithm, as implemented by the client, is fai
 
 Here are a few ways to install and run the application:
 
-Using AUR (Archlinux):
+Using pacman (Arch Linux):
 
 ```bash
-yay -S songrec
+sudo pacman -S songrec
 songrec
 ```
 
