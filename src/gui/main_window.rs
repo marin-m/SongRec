@@ -303,26 +303,29 @@ pub fn gui_main(recording: bool, input_file: Option<&str>) -> Result<(), Box<dyn
         
         combo_box.connect_changed(clone!(@strong microphone_stop_button, @strong combo_box => move |_| {
             
-            let device_name = combo_box.get_active_id().unwrap().to_string();
+            if let Some(device_name_str) = combo_box.get_active_id() {
             
-            // Save the selected microphone device name so that it is
-            // remembered after relaunching the app
-            
-            let mut file = File::create(&device_name_savefile).unwrap();
-            
-            file.write_all(device_name.as_bytes()).unwrap();
-            file.sync_all().unwrap();
-            
-            drop(file);
-            
-            if microphone_stop_button.is_visible() {
+                let device_name = device_name_str.to_string();
+
+                // Save the selected microphone device name so that it is
+                // remembered after relaunching the app
                 
-                // Re-launch the microphone recording with the new selected
-                // device
+                let mut file = File::create(&device_name_savefile).unwrap();
                 
-                microphone_tx_4.send(MicrophoneMessage::MicrophoneRecordStop).unwrap();
-                microphone_tx_4.send(MicrophoneMessage::MicrophoneRecordStart(device_name)).unwrap();
+                file.write_all(device_name.as_bytes()).unwrap();
+                file.sync_all().unwrap();
                 
+                drop(file);
+                
+                if microphone_stop_button.is_visible() {
+                    
+                    // Re-launch the microphone recording with the new selected
+                    // device
+                    
+                    microphone_tx_4.send(MicrophoneMessage::MicrophoneRecordStop).unwrap();
+                    microphone_tx_4.send(MicrophoneMessage::MicrophoneRecordStart(device_name)).unwrap();
+                    
+                }
             }
 
         }));
