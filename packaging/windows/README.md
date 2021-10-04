@@ -101,7 +101,7 @@ GUIMode="2"
 EOF
 cat /tmp/songrec-files.7z >> /tmp/SongRec-standalone.exe
 
-cp /tmp/SongRec-standalone.exe ~/win32/ # Copy the generated executable to my ViirtualBox shared folder
+cp /tmp/SongRec-standalone.exe ~/win32/ # Copy the generated executable to my VirtualBox shared folder
 
 # wine /tmp/SongRec-standalone.exe
 

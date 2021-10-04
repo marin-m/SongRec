@@ -1,3 +1,10 @@
+songrec (0.2.1) bionic; urgency=low
+
+  * Don't crash when there is no input device available on the host machine.
+  * Update the Dutch translation.
+
+ -- Marin <marin-m@users.noreply.github.com>  Mon, 04 Oct 2021 07:12:00 +0200
+
 songrec (0.2.0) bionic; urgency=low
 
   * Add Japanese and Italian translations.
