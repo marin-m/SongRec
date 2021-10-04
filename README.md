@@ -72,7 +72,7 @@ Note: It is not mandatory, but if you want to be able to recognize more formats 
 
 ### Installing Rust
 
-First, you need to [install the Rust compiler and package manager](https://www.rust-lang.org/tools/install). It has been observed to work with `rustc` 1.43.0 to the current rust 1.47.0.
+First, you need to [install the Rust compiler and package manager](https://www.rust-lang.org/tools/install). It has been observed to work with `rustc` 1.43.0 to the current rustc 1.47.0.
 
 Install Rust and put it in path, for all distributions:
 
