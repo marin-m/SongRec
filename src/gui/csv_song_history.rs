@@ -16,7 +16,8 @@ use gtk::prelude::*;
 pub struct SongHistoryRecord {
     pub song_name: String,
     pub album: String,
-    pub recognition_date: String
+    pub recognition_date: String,
+    pub track_key: String
 }
 
 pub struct SongHistoryInterface {

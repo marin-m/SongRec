@@ -7,7 +7,8 @@ pub struct SongRecognizedMessage {
     pub album_name: Option<String>,
     pub song_name: String,
     pub cover_image: Option<Vec<u8>>,
-    pub signature: Box<DecodedSignature>
+    pub signature: Box<DecodedSignature>,
+    pub track_key: String
 }
 
 pub enum GUIMessage {
