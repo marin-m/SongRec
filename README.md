@@ -93,10 +93,16 @@ Debian:
 sudo apt install build-essential libasound2-dev libgtk-3-dev libssl-dev
 ```
 
-Void Linux:
+Void Linux (libressl):
 
 ```shell
 sudo xbps-install base-devel alsa-lib-devel gtk+3-devel libressl-devel
+```
+
+Void Linux (openssl):
+
+```shell
+sudo xbps-install base-devel alsa-lib-devel gtk+3-devel openssl-devel
 ```
 
 ### Compiling the project
