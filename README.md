@@ -85,10 +85,24 @@ source $HOME/.cargo/env
 rustup update
 ```
 
-Install dependent libraries (nothing exotic):
+### Install dependent libraries (nothing exotic)
+
+Debian:
 
 ```bash
 sudo apt install build-essential libasound2-dev libgtk-3-dev libssl-dev
+```
+
+Void Linux (libressl):
+
+```shell
+sudo xbps-install base-devel alsa-lib-devel gtk+3-devel libressl-devel
+```
+
+Void Linux (openssl):
+
+```shell
+sudo xbps-install base-devel alsa-lib-devel gtk+3-devel openssl-devel
 ```
 
 ### Compiling the project
