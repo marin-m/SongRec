@@ -85,7 +85,7 @@ source $HOME/.cargo/env
 rustup update
 ```
 
-### Install dependent libraries (nothing exotic):
+### Install dependent libraries (nothing exotic)
 
 Debian:
 
