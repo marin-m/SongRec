@@ -17,6 +17,7 @@ pub struct SongHistoryRecord {
     pub song_name: String,
     pub album: String,
     pub recognition_date: String,
+    #[serde(default)]
     pub track_key: String
 }
 
@@ -58,7 +59,9 @@ impl SongHistoryInterface {
     /// history is stored here.
     
     fn load(self: &mut Self) -> Result<(), Box<dyn Error>> {
-        match csv::Reader::from_path(&self.csv_path) {
+        match csv::ReaderBuilder::new()
+        .flexible(true)
+        .from_path(&self.csv_path) {
             Ok(mut reader) => {
                     
                 for result in reader.deserialize() {
