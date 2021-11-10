@@ -44,6 +44,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     // Collect the program arguments
     
     let args = App::new("SongRec")
+        .version("0.2.1")
         .about(gettext("An open-source Shazam client for Linux, written in Rust.").as_str())
         .subcommand(
             App::new("gui")
