@@ -544,7 +544,9 @@ pub fn gui_main(recording: bool, input_file: Option<&str>) -> Result<(), Box<dyn
                             song_name: song_name.as_ref().unwrap().to_string(),
                             album: message.album_name.as_ref().unwrap_or(&"".to_string()).to_string(),
                             recognition_date: Local::now().format("%c").to_string(),
-                            track_key: message.track_key
+                            track_key: message.track_key,
+                            release_year: message.release_year.as_ref().unwrap_or(&"".to_string()).to_string(),
+                            genre: message.genre.as_ref().unwrap_or(&"".to_string()).to_string(),
                         });
 
                         recognized_song_name.set_markup(&format!("<b>{}</b>", glib::markup_escape_text(song_name.as_ref().unwrap())));

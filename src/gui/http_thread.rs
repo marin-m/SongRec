@@ -12,6 +12,7 @@ fn try_recognize_song(signature: DecodedSignature) -> Result<SongRecognizedMessa
     let json_object = recognize_song_from_signature(&signature)?;
     
     let mut album_name: Option<String> = None;
+    let mut release_year: Option<String> = None;
     
     // Sometimes the idea of trying to write functional poetry hurts
     
@@ -25,7 +26,11 @@ fn try_recognize_song(signature: DecodedSignature) -> Result<SongRecognizedMessa
                                 if title == "Album" {
                                     if let Value::String(text) = &metadatum["text"] {
                                         album_name = Some(text.to_string());
-                                        break;
+                                    }
+                                }
+                                else if title == "Released" {
+                                    if let Value::String(text) = &metadatum["text"] {
+                                        release_year = Some(text.to_string());
                                     }
                                 }
                             }
@@ -56,6 +61,11 @@ fn try_recognize_song(signature: DecodedSignature) -> Result<SongRecognizedMessa
             Value::String(string) => string.to_string(),
             _ => { return Err(Box::new(std::io::Error::new(std::io::ErrorKind::Other, gettext("No match for this song").as_str()))) }
         },
+        release_year: release_year,
+        genre: match &json_object["track"]["genres"]["primary"] {
+            Value::String(string) => Some(string.to_string()),
+            _ => None
+        }
     })
 }
 

@@ -8,12 +8,20 @@ pub struct SongRecognizedMessage {
     pub song_name: String,
     pub cover_image: Option<Vec<u8>>,
     pub signature: Box<DecodedSignature>,
-    pub track_key: String
+    
+    // Used only in the CSV export for now:
+    pub track_key: String,
+    pub release_year: Option<String>,
+    pub genre: Option<String>
 }
 
 pub enum GUIMessage {
     ErrorMessage(String),
-    DevicesList(Box<Vec<String>>), // A list of audio devices, received from the microphone thread because CPAL can't be called from the same thread as the GUI under Windows
+    // A list of audio devices, received from the microphone thread
+    // because CPAL can't be called from the same thread as the GUI
+    // under Windows
+    DevicesList(Box<Vec<String>>),
+    
     NetworkStatus(bool), // Is the network reachable?
     WipeSongHistory,
     MicrophoneRecording,

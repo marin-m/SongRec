@@ -17,8 +17,14 @@ pub struct SongHistoryRecord {
     pub song_name: String,
     pub album: String,
     pub recognition_date: String,
+    
+    // The following fields have been added in version 0.2.2
     #[serde(default)]
-    pub track_key: String
+    pub track_key: String,
+    #[serde(default)]
+    pub release_year: String,
+    #[serde(default)]
+    pub genre: String
 }
 
 pub struct SongHistoryInterface {
