@@ -60,6 +60,11 @@ fn main() -> Result<(), Box<dyn Error>> {
                         .required(false)
                         .help(gettext("An optional audio file to recognize on the launch of the application.").as_str())
                 )
+                .arg(
+                    Arg::with_name("disable-mpris")
+                        .long("disable-mpris")
+                        .help(gettext("Disable MPRIS support").as_str())
+                )
         )
         .subcommand(
             App::new("gui-norecording")
@@ -69,14 +74,19 @@ fn main() -> Result<(), Box<dyn Error>> {
                         .required(false)
                         .help(gettext("An optional audio file to recognize on the launch of the application.").as_str())
                 )
+                .arg(
+                    Arg::with_name("disable-mpris")
+                        .long("disable-mpris")
+                        .help(gettext("Disable MPRIS support").as_str())
+                )
         )
         .subcommand(
             App::new("mpris-daemon")
                 .about(gettext("Run as a daemon exposing the currently playing song via the MPRIS DBus interface.").as_str())
                 .arg(
                     Arg::with_name("audio-device")
+                        .short("d")
                         .long("audio-device")
-                        .takes_value(true)
                         .help(gettext("Specify the audio device to use").as_str())
                 )
         )
@@ -192,14 +202,20 @@ fn main() -> Result<(), Box<dyn Error>> {
         Some("gui-norecording") => {
             let subcommand_args = args.subcommand_matches("gui-norecording").unwrap();
 
-            gui_main(false, subcommand_args.value_of("input_file"))?;
+            gui_main(false,
+                 subcommand_args.value_of("input_file"),
+                 !subcommand_args.is_present("disable-mpris"),
+            )?;
         },
         Some("gui") | None => {
             if let Some(subcommand_args) = args.subcommand_matches("gui") {
-                gui_main(true, subcommand_args.value_of("input_file"))?;
+                gui_main(true,
+                     subcommand_args.value_of("input_file"),
+                     !subcommand_args.is_present("disable-mpris"),
+                )?;
             }
             else {
-                gui_main(true, None)?;
+                gui_main(true, None, true)?;
             }
         },
         _ => unreachable!()

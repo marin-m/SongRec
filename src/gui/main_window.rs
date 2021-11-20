@@ -38,7 +38,7 @@ pub fn spawn_big_thread<F, T>(argument: F) -> ()
     thread::Builder::new().stack_size(32 * 1024 * 1024).spawn(argument).unwrap();
 }
 
-pub fn gui_main(recording: bool, input_file: Option<&str>) -> Result<(), Box<dyn Error>> {
+pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -> Result<(), Box<dyn Error>> {
     
     let application = gtk::Application::new(Some("com.github.marinm.songrec"),
         gio::ApplicationFlags::HANDLES_OPEN)
@@ -265,8 +265,8 @@ pub fn gui_main(recording: bool, input_file: Option<&str>) -> Result<(), Box<dyn
         let wipe_history_button: gtk::Button = builder.get_object("wipe_history_button").unwrap();
         let export_csv_button: gtk::Button = builder.get_object("export_csv_button").unwrap();
 
-        let mpris_player = get_player();
-        if mpris_player.is_none() {
+        let mpris_player = if enable_mpris { get_player() } else { None };
+        if enable_mpris && mpris_player.is_none() {
             println!("Unable to enable MPRIS support")
         }
         
