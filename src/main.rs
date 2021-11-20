@@ -118,6 +118,11 @@ fn main() -> Result<(), Box<dyn Error>> {
                         .long("audio-device")
                         .help(gettext("Specify the audio device to use").as_str())
                 )
+                .arg(
+                    Arg::with_name("input_file")
+                        .required(false)
+                        .help(gettext("Recognize a file instead of using mic input").as_str())
+                )
         )
         .subcommand(
             App::new("audio-file-to-recognized-song")
@@ -226,24 +231,21 @@ fn main() -> Result<(), Box<dyn Error>> {
             let subcommand_args = args.subcommand_matches("mpris-daemon").unwrap();
             let audio_device = subcommand_args.value_of("audio-device");
 
-            cli_main(true, false, false, audio_device)?;
+            cli_main(true, false, false, audio_device, None)?;
         },
         Some("cli") => {
             let subcommand_args = args.subcommand_matches("cli").unwrap();
             let audio_device = subcommand_args.value_of("audio-device");
+            let enable_mpris = subcommand_args.is_present("enable-mpris");
 
-            cli_main(
-                subcommand_args.is_present("enable-mpris"),
-                true,
-                false,
-                audio_device
-            )?;
+            cli_main(enable_mpris, true, false, audio_device, None)?;
         },
         Some("recognize") => {
             let subcommand_args = args.subcommand_matches("recognize").unwrap();
             let audio_device = subcommand_args.value_of("audio-device");
+            let input_file = subcommand_args.value_of("input_file");
 
-            cli_main(false, true, true, audio_device)?;
+            cli_main(false, true, true, audio_device, input_file)?;
         },
         Some("gui-norecording") => {
             let subcommand_args = args.subcommand_matches("gui-norecording").unwrap();
