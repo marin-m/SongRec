@@ -17,7 +17,7 @@ use crate::gui::thread_messages::{GUIMessage, MicrophoneMessage};
 
 use crate::gui::main_window::spawn_big_thread;
 
-pub fn mpris_main(audio_device: Option<&str>) -> Result<(), Box<dyn Error>> {
+pub fn cli_main(audio_device: Option<&str>) -> Result<(), Box<dyn Error>> {
     glib::MainContext::default().acquire();
     let main_loop = Arc::new(glib::MainLoop::new(None, false));
 

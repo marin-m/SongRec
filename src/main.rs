@@ -18,8 +18,8 @@ mod gui {
     mod csv_song_history;
 }
 
-mod mpris {
-    pub mod mpris_main;
+mod cli {
+    pub mod cli_main;
 }
 
 mod utils {
@@ -35,7 +35,7 @@ use crate::fingerprinting::communication::recognize_song_from_signature;
 
 use crate::utils::internationalization::setup_internationalization;
 use crate::gui::main_window::gui_main;
-use crate::mpris::mpris_main::mpris_main;
+use crate::cli::cli_main::cli_main;
 
 use std::error::Error;
 use gettextrs::gettext;
@@ -197,7 +197,7 @@ fn main() -> Result<(), Box<dyn Error>> {
             let subcommand_args = args.subcommand_matches("mpris-daemon").unwrap();
             let audio_device = subcommand_args.value_of("audio-device");
 
-            mpris_main(audio_device)?;
+            cli_main(audio_device)?;
         },
         Some("gui-norecording") => {
             let subcommand_args = args.subcommand_matches("gui-norecording").unwrap();
