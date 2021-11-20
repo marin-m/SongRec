@@ -73,6 +73,12 @@ fn main() -> Result<(), Box<dyn Error>> {
         .subcommand(
             App::new("mpris-daemon")
                 .about(gettext("Run as a daemon exposing the currently playing song via the MPRIS DBus interface.").as_str())
+                .arg(
+                    Arg::with_name("audio-device")
+                        .long("audio-device")
+                        .takes_value(true)
+                        .help(gettext("Specify the audio device to use").as_str())
+                )
         )
         .subcommand(
             App::new("audio-file-to-recognized-song")
@@ -178,7 +184,10 @@ fn main() -> Result<(), Box<dyn Error>> {
             
         },
         Some("mpris-daemon") => {
-            mpris_main()?;
+            let subcommand_args = args.subcommand_matches("mpris-daemon").unwrap();
+            let audio_device = subcommand_args.value_of("audio-device");
+
+            mpris_main(audio_device)?;
         },
         Some("gui-norecording") => {
             let subcommand_args = args.subcommand_matches("gui-norecording").unwrap();

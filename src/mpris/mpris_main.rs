@@ -17,7 +17,7 @@ use crate::gui::thread_messages::{GUIMessage, MicrophoneMessage};
 
 use crate::gui::main_window::spawn_big_thread;
 
-pub fn mpris_main() -> Result<(), Box<dyn Error>> {
+pub fn mpris_main(audio_device: Option<&str>) -> Result<(), Box<dyn Error>> {
     glib::MainContext::default().acquire();
     let main_loop = Arc::new(glib::MainLoop::new(None, false));
 
@@ -45,16 +45,28 @@ pub fn mpris_main() -> Result<(), Box<dyn Error>> {
 
     let main_loop_gui = main_loop.clone();
 
+    let audio_dev_name = audio_device.as_ref().map(|dev| dev.to_string());
+
     gui_rx.attach(None, move |gui_message| {
         match gui_message {
             GUIMessage::DevicesList(device_names) => {
-                if device_names.is_empty() {
-                    println!("Exiting: no audio devices found!");
-                    main_loop_gui.quit();
-                    return glib::Continue(false);
-                }
-                println!("Using device {}", device_names[0]);
-                microphone_tx.send(MicrophoneMessage::MicrophoneRecordStart(device_names[0].to_owned())).unwrap();
+                let dev_name = if let Some(dev) = &audio_dev_name {
+                    if !device_names.contains(dev) {
+                        println!("Exiting: audio device not found");
+                        main_loop_gui.quit();
+                        return glib::Continue(false);
+                    }
+                    dev
+                } else {
+                    if device_names.is_empty() {
+                        println!("Exiting: no audio devices found!");
+                        main_loop_gui.quit();
+                        return glib::Continue(false);
+                    }
+                    &device_names[0]
+                };
+                println!("Using device {}", dev_name);
+                microphone_tx.send(MicrophoneMessage::MicrophoneRecordStart(dev_name.to_owned())).unwrap();
             },
             GUIMessage::NetworkStatus(reachable) => {
                 let mpris_status = if reachable { PlaybackStatus::Playing } else { PlaybackStatus::Paused };
