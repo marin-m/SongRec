@@ -26,6 +26,7 @@ mod utils {
     pub mod pulseaudio_loopback;
     pub mod ffmpeg_wrapper;
     pub mod internationalization;
+    pub mod mpris_player;
 }
 
 use crate::fingerprinting::algorithm::SignatureGenerator;

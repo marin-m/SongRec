@@ -14,6 +14,7 @@ use chrono::Local;
 use std::time::{SystemTime, UNIX_EPOCH};
 use percent_encoding::{utf8_percent_encode, NON_ALPHANUMERIC};
 use std::thread;
+use mpris_player::PlaybackStatus;
 
 use crate::gui::microphone_thread::microphone_thread;
 use crate::gui::processing_thread::processing_thread;
@@ -22,6 +23,7 @@ use crate::gui::csv_song_history::{SongHistoryInterface, SongHistoryRecord};
 use crate::gui::thread_messages::{*, GUIMessage::*};
 
 use crate::utils::pulseaudio_loopback::PulseaudioLoopback;
+use crate::utils::mpris_player::{get_player, update_song};
 
 #[cfg(windows)]
 use std::os::windows::process::CommandExt;
@@ -84,7 +86,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>) -> Result<(), Box<dyn
         spawn_big_thread(clone!(@strong gui_tx => move || { // http_rx
             http_thread(http_rx, gui_tx, microphone_tx_3);
         }));
-        
+
         // We create a callback for handling files to recognize opened
         // from the command line or through "xdg-open".
         
@@ -262,6 +264,8 @@ pub fn gui_main(recording: bool, input_file: Option<&str>) -> Result<(), Box<dyn
         
         let wipe_history_button: gtk::Button = builder.get_object("wipe_history_button").unwrap();
         let export_csv_button: gtk::Button = builder.get_object("export_csv_button").unwrap();
+
+        let mpris_player = get_player();
         
         // Thread-local variables to be passed across callbacks.
         
@@ -450,7 +454,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>) -> Result<(), Box<dyn
                 },
                 _ =>  { }
             }
-            
+
             match gui_message {
                 ErrorMessage(string) => {
                     if !(string == gettext("No match for this song") && microphone_stop_button.is_visible()) {
@@ -467,6 +471,8 @@ pub fn gui_main(recording: bool, input_file: Option<&str>) -> Result<(), Box<dyn
                     else {
                         network_unreachable.show_all();
                     }
+                    let mpris_status = if network_is_reachable { PlaybackStatus::Playing } else { PlaybackStatus::Paused };
+                    mpris_player.set_playback_status(mpris_status);
                 }
                 DevicesList(device_names) => {
                     let mut old_device_index = 0;
@@ -530,6 +536,8 @@ pub fn gui_main(recording: bool, input_file: Option<&str>) -> Result<(), Box<dyn
                     let song_name = Some(format!("{} - {}", message.artist_name, message.song_name));
         
                     if *youtube_query_borrow != song_name { // If this is already the last recognized song, don't update the display (if for example we recognized a lure we played, it would update the proposed lure to a lesser quality)
+
+                        update_song(&mpris_player, &message);
                         
                         if microphone_stop_button.is_visible() {
 
