@@ -16,7 +16,15 @@ use gtk::prelude::*;
 pub struct SongHistoryRecord {
     pub song_name: String,
     pub album: String,
-    pub recognition_date: String
+    pub recognition_date: String,
+    
+    // The following fields have been added in version 0.2.2
+    #[serde(default)]
+    pub track_key: String,
+    #[serde(default)]
+    pub release_year: String,
+    #[serde(default)]
+    pub genre: String
 }
 
 pub struct SongHistoryInterface {
@@ -57,7 +65,9 @@ impl SongHistoryInterface {
     /// history is stored here.
     
     fn load(self: &mut Self) -> Result<(), Box<dyn Error>> {
-        match csv::Reader::from_path(&self.csv_path) {
+        match csv::ReaderBuilder::new()
+        .flexible(true)
+        .from_path(&self.csv_path) {
             Ok(mut reader) => {
                     
                 for result in reader.deserialize() {
