@@ -16,14 +16,15 @@ use percent_encoding::{utf8_percent_encode, NON_ALPHANUMERIC};
 use std::thread;
 use mpris_player::PlaybackStatus;
 
-use crate::gui::microphone_thread::microphone_thread;
-use crate::gui::processing_thread::processing_thread;
-use crate::gui::http_thread::http_thread;
-use crate::gui::csv_song_history::{SongHistoryInterface, SongHistoryRecord};
-use crate::gui::thread_messages::{*, GUIMessage::*};
+use crate::core::microphone_thread::microphone_thread;
+use crate::core::processing_thread::processing_thread;
+use crate::core::http_thread::http_thread;
+use crate::core::thread_messages::{*, GUIMessage::*};
 
 use crate::utils::pulseaudio_loopback::PulseaudioLoopback;
 use crate::utils::mpris_player::{get_player, update_song};
+
+use crate::gui::csv_song_history::{SongHistoryInterface, SongHistoryRecord};
 
 #[cfg(windows)]
 use std::os::windows::process::CommandExt;

@@ -3,7 +3,7 @@ use std::error::Error;
 use gettextrs::gettext;
 use serde_json::Value;
 
-use crate::gui::thread_messages::*;
+use crate::core::thread_messages::*;
 
 use crate::fingerprinting::signature_format::DecodedSignature;
 use crate::fingerprinting::communication::{recognize_song_from_signature, obtain_raw_cover_image};

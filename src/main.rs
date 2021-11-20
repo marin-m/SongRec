@@ -9,12 +9,15 @@ mod fingerprinting {
     mod hanning;
 }
 
-mod gui {
-    pub mod main_window;
+mod core {
     pub mod microphone_thread;
     pub mod processing_thread;
     pub mod http_thread;
     pub mod thread_messages;
+}
+
+mod gui {
+    pub mod main_window;
     mod csv_song_history;
 }
 

@@ -3,7 +3,7 @@ use std::sync::Arc;
 
 use mpris_player::{MprisPlayer, PlaybackStatus, Metadata};
 
-use crate::gui::thread_messages::SongRecognizedMessage;
+use crate::core::thread_messages::SongRecognizedMessage;
 
 fn init_player(p: Arc<MprisPlayer>) -> Arc<MprisPlayer> {
     p.set_can_quit(false);

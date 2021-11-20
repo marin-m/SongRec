@@ -6,7 +6,7 @@ use gag::Gag;
 
 use cpal::traits::{DeviceTrait, HostTrait, StreamTrait};
 use gettextrs::gettext;
-use crate::gui::thread_messages::{*, MicrophoneMessage::*};
+use crate::core::thread_messages::{*, MicrophoneMessage::*};
 
 
 pub fn microphone_thread(microphone_rx: mpsc::Receiver<MicrophoneMessage>, processing_tx: mpsc::Sender<ProcessingMessage>, gui_tx: glib::Sender<GUIMessage>) {

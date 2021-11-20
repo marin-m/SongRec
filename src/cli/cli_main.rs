@@ -8,12 +8,12 @@ use glib::clone;
 
 use mpris_player::PlaybackStatus;
 
-use crate::gui::microphone_thread::microphone_thread;
-use crate::gui::processing_thread::processing_thread;
-use crate::gui::http_thread::http_thread;
+use crate::core::microphone_thread::microphone_thread;
+use crate::core::processing_thread::processing_thread;
+use crate::core::http_thread::http_thread;
 use crate::utils::mpris_player::{get_player, update_song};
 
-use crate::gui::thread_messages::{GUIMessage, MicrophoneMessage};
+use crate::core::thread_messages::{GUIMessage, MicrophoneMessage};
 
 use crate::gui::main_window::spawn_big_thread;
 
