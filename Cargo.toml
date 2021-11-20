@@ -41,6 +41,7 @@ gettext-sys = { version = "0.19.9", features = ["gettext-system"] }
 gettext-rs = { version = "0.5.0" }
 tempfile = "3.2.0"
 gdk-pixbuf = "0.9.0"
+mpris-player = "0.6.1"
 
 [target.'cfg(target_os = "linux")'.dependencies]
 gag = "0.1.10" # Crate to silence stderr when CPAL produces uncontrolled AlsaLib output

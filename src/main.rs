@@ -11,11 +11,15 @@ mod fingerprinting {
 
 mod gui {
     pub mod main_window;
-    mod microphone_thread;
-    mod processing_thread;
-    mod http_thread;
-    mod thread_messages;
+    pub mod microphone_thread;
+    pub mod processing_thread;
+    pub mod http_thread;
+    pub mod thread_messages;
     mod csv_song_history;
+}
+
+mod mpris {
+    pub mod mpris_main;
 }
 
 mod utils {
@@ -30,6 +34,7 @@ use crate::fingerprinting::communication::recognize_song_from_signature;
 
 use crate::utils::internationalization::setup_internationalization;
 use crate::gui::main_window::gui_main;
+use crate::mpris::mpris_main::mpris_main;
 
 use std::error::Error;
 use gettextrs::gettext;
@@ -63,6 +68,10 @@ fn main() -> Result<(), Box<dyn Error>> {
                         .required(false)
                         .help(gettext("An optional audio file to recognize on the launch of the application.").as_str())
                 )
+        )
+        .subcommand(
+            App::new("mpris-daemon")
+                .about(gettext("Run as a daemon exposing the currently playing song via the MPRIS DBus interface.").as_str())
         )
         .subcommand(
             App::new("audio-file-to-recognized-song")
@@ -166,6 +175,9 @@ fn main() -> Result<(), Box<dyn Error>> {
                 }
             };
             
+        },
+        Some("mpris-daemon") => {
+            mpris_main()?;
         },
         Some("gui-norecording") => {
             let subcommand_args = args.subcommand_matches("gui-norecording").unwrap();
