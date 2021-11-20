@@ -95,6 +95,31 @@ fn main() -> Result<(), Box<dyn Error>> {
                 )
         )
         .subcommand(
+            App::new("cli")
+                .about(gettext("Run as a command-line program printing recognized songs to stdout").as_str())
+                .arg(
+                    Arg::with_name("audio-device")
+                        .short("d")
+                        .long("audio-device")
+                        .help(gettext("Specify the audio device to use").as_str())
+                )
+                .arg(
+                    Arg::with_name("enable-mpris")
+                        .long("enable-mpris")
+                        .help(gettext("Expose the current song via MPRIS").as_str())
+                )
+        )
+        .subcommand(
+            App::new("recognize")
+                .about(gettext("Recognize a song and print its name").as_str())
+                .arg(
+                    Arg::with_name("audio-device")
+                        .short("d")
+                        .long("audio-device")
+                        .help(gettext("Specify the audio device to use").as_str())
+                )
+        )
+        .subcommand(
             App::new("audio-file-to-recognized-song")
                 .about(gettext("Generate a Shazam fingerprint from a sound file, perform song recognition towards Shazam's servers and print obtained information to the standard output.").as_str())
                 .arg(
@@ -201,7 +226,24 @@ fn main() -> Result<(), Box<dyn Error>> {
             let subcommand_args = args.subcommand_matches("mpris-daemon").unwrap();
             let audio_device = subcommand_args.value_of("audio-device");
 
-            cli_main(audio_device)?;
+            cli_main(true, false, false, audio_device)?;
+        },
+        Some("cli") => {
+            let subcommand_args = args.subcommand_matches("cli").unwrap();
+            let audio_device = subcommand_args.value_of("audio-device");
+
+            cli_main(
+                subcommand_args.is_present("enable-mpris"),
+                true,
+                false,
+                audio_device
+            )?;
+        },
+        Some("recognize") => {
+            let subcommand_args = args.subcommand_matches("recognize").unwrap();
+            let audio_device = subcommand_args.value_of("audio-device");
+
+            cli_main(false, true, true, audio_device)?;
         },
         Some("gui-norecording") => {
             let subcommand_args = args.subcommand_matches("gui-norecording").unwrap();

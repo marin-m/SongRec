@@ -17,7 +17,7 @@ use crate::utils::mpris_player::{get_player, update_song};
 use crate::utils::thread::spawn_big_thread;
 
 
-pub fn cli_main(audio_device: Option<&str>) -> Result<(), Box<dyn Error>> {
+pub fn cli_main(enable_mpris: bool, enable_print: bool, recognize_once: bool, audio_device: Option<&str>) -> Result<(), Box<dyn Error>> {
     glib::MainContext::default().acquire();
     let main_loop = Arc::new(glib::MainLoop::new(None, false));
 
@@ -40,7 +40,7 @@ pub fn cli_main(audio_device: Option<&str>) -> Result<(), Box<dyn Error>> {
         http_thread(http_rx, gui_tx, microphone_http_tx);
     }));
 
-    let mpris_player = get_player();
+    let mpris_player = if enable_mpris { get_player() } else { None };
     let last_track: Rc<RefCell<Option<String>>> = Rc::new(RefCell::new(None));
 
     let main_loop_gui = main_loop.clone();
@@ -52,20 +52,20 @@ pub fn cli_main(audio_device: Option<&str>) -> Result<(), Box<dyn Error>> {
             GUIMessage::DevicesList(device_names) => {
                 let dev_name = if let Some(dev) = &audio_dev_name {
                     if !device_names.contains(dev) {
-                        println!("Exiting: audio device not found");
+                        eprintln!("Exiting: audio device not found");
                         main_loop_gui.quit();
                         return glib::Continue(false);
                     }
                     dev
                 } else {
                     if device_names.is_empty() {
-                        println!("Exiting: no audio devices found!");
+                        eprintln!("Exiting: no audio devices found!");
                         main_loop_gui.quit();
                         return glib::Continue(false);
                     }
                     &device_names[0]
                 };
-                println!("Using device {}", dev_name);
+                eprintln!("Using device {}", dev_name);
                 microphone_tx.send(MicrophoneMessage::MicrophoneRecordStart(dev_name.to_owned())).unwrap();
             },
             GUIMessage::NetworkStatus(reachable) => {
@@ -73,7 +73,9 @@ pub fn cli_main(audio_device: Option<&str>) -> Result<(), Box<dyn Error>> {
                 mpris_player.as_ref().map(|p| p.set_playback_status(mpris_status));
             },
             GUIMessage::MicrophoneRecording => {
-                println!("Recording started!");
+                if !recognize_once {
+                    eprintln!("Recording started!");
+                }
             },
             GUIMessage::SongRecognized(message) => {
                 let mut last_track_borrow = last_track.borrow_mut();
@@ -81,6 +83,13 @@ pub fn cli_main(audio_device: Option<&str>) -> Result<(), Box<dyn Error>> {
                 if *last_track_borrow != track_key {
                     mpris_player.as_ref().map(|p| update_song(p, &message));
                     *last_track_borrow = track_key;
+                    if enable_print {
+                        println!("{} - {}", message.song_name, message.artist_name);
+                    }
+                }
+                if recognize_once {
+                    main_loop_gui.quit();
+                    return glib::Continue(false);
                 }
             },
             _ => { }
