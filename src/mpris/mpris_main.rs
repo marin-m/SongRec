@@ -70,7 +70,7 @@ pub fn mpris_main(audio_device: Option<&str>) -> Result<(), Box<dyn Error>> {
             },
             GUIMessage::NetworkStatus(reachable) => {
                 let mpris_status = if reachable { PlaybackStatus::Playing } else { PlaybackStatus::Paused };
-                mpris_player.set_playback_status(mpris_status);
+                mpris_player.as_ref().map(|p| p.set_playback_status(mpris_status));
             },
             GUIMessage::MicrophoneRecording => {
                 println!("Recording started!");
@@ -79,7 +79,7 @@ pub fn mpris_main(audio_device: Option<&str>) -> Result<(), Box<dyn Error>> {
                 let mut last_track_borrow = last_track.borrow_mut();
                 let track_key = Some(message.track_key.clone());
                 if *last_track_borrow != track_key {
-                    update_song(&mpris_player, &message);
+                    mpris_player.as_ref().map(|p| update_song(p, &message));
                     *last_track_borrow = track_key;
                 }
             },

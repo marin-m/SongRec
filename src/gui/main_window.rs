@@ -266,6 +266,9 @@ pub fn gui_main(recording: bool, input_file: Option<&str>) -> Result<(), Box<dyn
         let export_csv_button: gtk::Button = builder.get_object("export_csv_button").unwrap();
 
         let mpris_player = get_player();
+        if mpris_player.is_none() {
+            println!("Unable to enable MPRIS support")
+        }
         
         // Thread-local variables to be passed across callbacks.
         
@@ -472,7 +475,8 @@ pub fn gui_main(recording: bool, input_file: Option<&str>) -> Result<(), Box<dyn
                         network_unreachable.show_all();
                     }
                     let mpris_status = if network_is_reachable { PlaybackStatus::Playing } else { PlaybackStatus::Paused };
-                    mpris_player.set_playback_status(mpris_status);
+
+                    mpris_player.as_ref().map(|p| p.set_playback_status(mpris_status));
                 }
                 DevicesList(device_names) => {
                     let mut old_device_index = 0;
@@ -537,7 +541,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>) -> Result<(), Box<dyn
         
                     if *youtube_query_borrow != song_name { // If this is already the last recognized song, don't update the display (if for example we recognized a lure we played, it would update the proposed lure to a lesser quality)
 
-                        update_song(&mpris_player, &message);
+                        mpris_player.as_ref().map(|p| update_song(p, &message));
                         
                         if microphone_stop_button.is_visible() {
 
