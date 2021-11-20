@@ -28,7 +28,6 @@ pub fn get_player() -> Arc<MprisPlayer> {
 
 pub fn update_song(p: &MprisPlayer, m: &SongRecognizedMessage) {
     let mut metadata = Metadata::new();
-    println!("{}", m.track_key);
     metadata.title = Some(m.song_name.clone());
     metadata.artist = Some(vec![m.artist_name.clone()]);
     metadata.album = m.album_name.clone();
