@@ -103,7 +103,7 @@ pub fn cli_main(
                     mpris_player.as_ref().map(|p| update_song(p, &message));
                     *last_track_borrow = track_key;
                     if enable_print {
-                        println!("{} - {}", message.song_name, message.artist_name);
+                        println!("{} - {}", message.artist_name, message.song_name);
                     }
                 }
                 if do_recognize_once {
