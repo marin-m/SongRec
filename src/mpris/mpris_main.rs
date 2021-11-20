@@ -1,7 +1,7 @@
 use std::error::Error;
 use std::cell::RefCell;
 use std::rc::Rc;
-use std::sync::mpsc;
+use std::sync::{Arc, mpsc};
 
 use glib;
 use glib::clone;
@@ -19,6 +19,7 @@ use crate::gui::main_window::spawn_big_thread;
 
 pub fn mpris_main() -> Result<(), Box<dyn Error>> {
     glib::MainContext::default().acquire();
+    let main_loop = Arc::new(glib::MainLoop::new(None, false));
 
     let (gui_tx, gui_rx) = glib::MainContext::channel(glib::PRIORITY_DEFAULT);
     let (microphone_tx, microphone_rx) = mpsc::channel();
@@ -42,9 +43,16 @@ pub fn mpris_main() -> Result<(), Box<dyn Error>> {
     let mpris_player = get_player();
     let last_track: Rc<RefCell<Option<String>>> = Rc::new(RefCell::new(None));
 
+    let main_loop_gui = main_loop.clone();
+
     gui_rx.attach(None, move |gui_message| {
         match gui_message {
             GUIMessage::DevicesList(device_names) => {
+                if device_names.is_empty() {
+                    println!("Exiting: no audio devices found!");
+                    main_loop_gui.quit();
+                    return glib::Continue(false);
+                }
                 println!("Using device {}", device_names[0]);
                 microphone_tx.send(MicrophoneMessage::MicrophoneRecordStart(device_names[0].to_owned())).unwrap();
             },
@@ -53,7 +61,7 @@ pub fn mpris_main() -> Result<(), Box<dyn Error>> {
                 mpris_player.set_playback_status(mpris_status);
             },
             GUIMessage::MicrophoneRecording => {
-                println!("Recording started!!!");
+                println!("Recording started!");
             },
             GUIMessage::SongRecognized(message) => {
                 let mut last_track_borrow = last_track.borrow_mut();
@@ -68,6 +76,6 @@ pub fn mpris_main() -> Result<(), Box<dyn Error>> {
         glib::Continue(true)
     });
 
-    glib::MainLoop::new(None, false).run();
+    main_loop.run();
     Ok(())
 }
