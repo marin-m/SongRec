@@ -21,7 +21,7 @@ base64 = "0.12.3"
 reqwest = { version = "0.10.7", features = ["blocking", "json"] }
 rodio = "0.13.1" # For reading WAV/MP3/FLAG/OGG files, resampling and playing audio.
 clap = "2.33.2" # For argument parsing
-cpal = "0.13.3" # For recording audio
+cpal = "=0.13.3" # For recording audio
 gtk = { version = "0.9.2", features = ["v3_16", "v3_20", "v3_22"] } # For the GUI
 gdk = "0.13.2"
 gio = "0.9.1"
