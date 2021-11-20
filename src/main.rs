@@ -30,6 +30,7 @@ mod utils {
     pub mod ffmpeg_wrapper;
     pub mod internationalization;
     pub mod mpris_player;
+    pub mod thread;
 }
 
 use crate::fingerprinting::algorithm::SignatureGenerator;

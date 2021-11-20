@@ -13,7 +13,6 @@ use std::rc::Rc;
 use chrono::Local;
 use std::time::{SystemTime, UNIX_EPOCH};
 use percent_encoding::{utf8_percent_encode, NON_ALPHANUMERIC};
-use std::thread;
 use mpris_player::PlaybackStatus;
 
 use crate::core::microphone_thread::microphone_thread;
@@ -21,6 +20,7 @@ use crate::core::processing_thread::processing_thread;
 use crate::core::http_thread::http_thread;
 use crate::core::thread_messages::{*, GUIMessage::*};
 
+use crate::utils::thread::spawn_big_thread;
 use crate::utils::pulseaudio_loopback::PulseaudioLoopback;
 use crate::utils::mpris_player::{get_player, update_song};
 
@@ -30,14 +30,6 @@ use crate::gui::csv_song_history::{SongHistoryInterface, SongHistoryRecord};
 use std::os::windows::process::CommandExt;
 
 use crate::fingerprinting::signature_format::DecodedSignature;
-
-pub fn spawn_big_thread<F, T>(argument: F) -> ()
-    where
-        F: std::ops::FnOnce() -> T,
-        F: std::marker::Send + 'static,
-        T: std::marker::Send + 'static {
-    thread::Builder::new().stack_size(32 * 1024 * 1024).spawn(argument).unwrap();
-}
 
 pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -> Result<(), Box<dyn Error>> {
     
