@@ -270,7 +270,7 @@ fn main() -> Result<(), Box<dyn Error>> {
             let enable_mpris = !subcommand_args.is_present("disable-mpris");
             let enable_json = subcommand_args.is_present("json");
 
-            cli_main(enable_mpris, true, false, audio_device, None, enable_json)?;
+            cli_main(enable_mpris, false, audio_device, None, enable_json)?;
         },
         Some("recognize") => {
             let subcommand_args = args.subcommand_matches("recognize").unwrap();
@@ -278,14 +278,14 @@ fn main() -> Result<(), Box<dyn Error>> {
             let input_file = subcommand_args.value_of("input_file");
             let enable_json = subcommand_args.is_present("json");
 
-            cli_main(false, true, true, audio_device, input_file, enable_json)?;
+            cli_main(false, true, audio_device, input_file, enable_json)?;
         },
         Some("microphone-to-recognized-song") => {
             let subcommand_args = args.subcommand_matches("microphone-to-recognized-song").unwrap();
             let audio_device = subcommand_args.value_of("audio-device");
             let enable_json = true;
 
-            cli_main(false, true, true, audio_device, None, enable_json)?;
+            cli_main(false, true, audio_device, None, enable_json)?;
         },
         #[cfg(feature="gui")]
         Some("gui-norecording") => {
@@ -310,7 +310,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         },
         #[cfg(not(feature="gui"))]
         None => {
-            cli_main(true, true, false, None, None, false)?;
+            cli_main(true, false, None, None, false)?;
         },
         _ => unreachable!()
     }

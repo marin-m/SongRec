@@ -18,7 +18,7 @@ use crate::utils::thread::spawn_big_thread;
 
 
 pub fn cli_main(
-    enable_mpris: bool, enable_print: bool, recognize_once: bool,
+    enable_mpris: bool, recognize_once: bool,
     audio_device: Option<&str>, input_file: Option<&str>,
     json_print: bool,
 ) -> Result<(), Box<dyn Error>> {
@@ -103,12 +103,10 @@ pub fn cli_main(
                 if *last_track_borrow != track_key {
                     mpris_player.as_ref().map(|p| update_song(p, &message));
                     *last_track_borrow = track_key;
-                    if enable_print {
-                        if json_print {
-                            println!("{}", message.shazam_json);
-                        } else{
-                            println!("{} - {}", message.artist_name, message.song_name);
-                        }
+                    if json_print {
+                        println!("{}", message.shazam_json);
+                    } else{
+                        println!("{} - {}", message.artist_name, message.song_name);
                     }
                 }
                 if do_recognize_once {
