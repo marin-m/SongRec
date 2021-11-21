@@ -104,6 +104,12 @@ fn main() -> Result<(), Box<dyn Error>> {
                         .help(gettext("Specify the audio device to use").as_str())
                 )
                 .arg(
+                    Arg::with_name("json")
+                        .short("j")
+                        .long("json")
+                        .help(gettext("Enable printing full song info in JSON").as_str())
+                )
+                .arg(
                     Arg::with_name("enable-mpris")
                         .long("enable-mpris")
                         .help(gettext("Expose the current song via MPRIS").as_str())
@@ -117,6 +123,12 @@ fn main() -> Result<(), Box<dyn Error>> {
                         .short("d")
                         .long("audio-device")
                         .help(gettext("Specify the audio device to use").as_str())
+                )
+                .arg(
+                    Arg::with_name("json")
+                        .short("j")
+                        .long("json")
+                        .help(gettext("Enable printing full song info in JSON").as_str())
                 )
                 .arg(
                     Arg::with_name("input_file")
@@ -231,21 +243,23 @@ fn main() -> Result<(), Box<dyn Error>> {
             let subcommand_args = args.subcommand_matches("mpris-daemon").unwrap();
             let audio_device = subcommand_args.value_of("audio-device");
 
-            cli_main(true, false, false, audio_device, None)?;
+            cli_main(true, false, false, audio_device, None, false)?;
         },
         Some("cli") => {
             let subcommand_args = args.subcommand_matches("cli").unwrap();
             let audio_device = subcommand_args.value_of("audio-device");
             let enable_mpris = subcommand_args.is_present("enable-mpris");
+            let enable_json = subcommand_args.is_present("json");
 
-            cli_main(enable_mpris, true, false, audio_device, None)?;
+            cli_main(enable_mpris, true, false, audio_device, None, enable_json)?;
         },
         Some("recognize") => {
             let subcommand_args = args.subcommand_matches("recognize").unwrap();
             let audio_device = subcommand_args.value_of("audio-device");
             let input_file = subcommand_args.value_of("input_file");
+            let enable_json = subcommand_args.is_present("json");
 
-            cli_main(false, true, true, audio_device, input_file)?;
+            cli_main(false, true, true, audio_device, input_file, enable_json)?;
         },
         Some("gui-norecording") => {
             let subcommand_args = args.subcommand_matches("gui-norecording").unwrap();
