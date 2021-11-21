@@ -16,6 +16,7 @@ mod core {
     pub mod thread_messages;
 }
 
+#[cfg(feature = "gui")]
 mod gui {
     pub mod main_window;
     mod csv_song_history;
@@ -26,6 +27,7 @@ mod cli {
 }
 
 mod utils {
+    #[cfg(feature = "gui")]
     pub mod pulseaudio_loopback;
     pub mod ffmpeg_wrapper;
     pub mod internationalization;
@@ -38,6 +40,7 @@ use crate::fingerprinting::signature_format::DecodedSignature;
 use crate::fingerprinting::communication::recognize_song_from_signature;
 
 use crate::utils::internationalization::setup_internationalization;
+#[cfg(feature = "gui")]
 use crate::gui::main_window::gui_main;
 use crate::cli::cli_main::cli_main;
 
@@ -45,45 +48,11 @@ use std::error::Error;
 use gettextrs::gettext;
 use clap::{App, Arg};
 
-fn main() -> Result<(), Box<dyn Error>> {
-    
-    // Set up the translation/internationalization part
-    
-    setup_internationalization();
-    
-    // Collect the program arguments
-    
-    let args = App::new("SongRec")
+macro_rules! base_app {
+    () => {
+    App::new("SongRec")
         .version("0.2.1")
         .about(gettext("An open-source Shazam client for Linux, written in Rust.").as_str())
-        .subcommand(
-            App::new("gui")
-                .about(gettext("The default action. Display a GUI.").as_str())
-                .arg(
-                    Arg::with_name("input_file")
-                        .required(false)
-                        .help(gettext("An optional audio file to recognize on the launch of the application.").as_str())
-                )
-                .arg(
-                    Arg::with_name("disable-mpris")
-                        .long("disable-mpris")
-                        .help(gettext("Disable MPRIS support").as_str())
-                )
-        )
-        .subcommand(
-            App::new("gui-norecording")
-                .about(gettext("Launch the GUI, but don't recognize audio through the microphone as soon as it is launched (rather than expecting the user to click on a button).").as_str())
-                .arg(
-                    Arg::with_name("input_file")
-                        .required(false)
-                        .help(gettext("An optional audio file to recognize on the launch of the application.").as_str())
-                )
-                .arg(
-                    Arg::with_name("disable-mpris")
-                        .long("disable-mpris")
-                        .help(gettext("Disable MPRIS support").as_str())
-                )
-        )
         .subcommand(
             App::new("mpris-daemon")
                 .about(gettext("Run as a daemon exposing the currently playing song via the MPRIS DBus interface.").as_str())
@@ -177,7 +146,62 @@ fn main() -> Result<(), Box<dyn Error>> {
                         .help(gettext("File path of the .WAV file to write tones to, or nothing to play back the sound instantly.").as_str())
                 )
         )
-        .get_matches();
+    };
+}
+
+#[cfg(feature="gui")]
+macro_rules! gui_app {
+    () => {
+        base_app!()
+        .subcommand(
+            App::new("gui")
+                .about(gettext("The default action. Display a GUI.").as_str())
+                .arg(
+                    Arg::with_name("input_file")
+                        .required(false)
+                        .help(gettext("An optional audio file to recognize on the launch of the application.").as_str())
+                )
+                .arg(
+                    Arg::with_name("disable-mpris")
+                        .long("disable-mpris")
+                        .help(gettext("Disable MPRIS support").as_str())
+                )
+        )
+        .subcommand(
+            App::new("gui-norecording")
+                .about(gettext("Launch the GUI, but don't recognize audio through the microphone as soon as it is launched (rather than expecting the user to click on a button).").as_str())
+                .arg(
+                    Arg::with_name("input_file")
+                        .required(false)
+                        .help(gettext("An optional audio file to recognize on the launch of the application.").as_str())
+                )
+                .arg(
+                    Arg::with_name("disable-mpris")
+                        .long("disable-mpris")
+                        .help(gettext("Disable MPRIS support").as_str())
+                )
+        )
+    };
+}
+
+#[cfg(feature="gui")]
+macro_rules! app {
+    () => { gui_app!() };
+}
+
+#[cfg(not(feature="gui"))]
+macro_rules! app {
+    () => { base_app!() };
+}
+
+fn main() -> Result<(), Box<dyn Error>> {
+
+    // Set up the translation/internationalization part
+
+    setup_internationalization();
+
+    // Collect the program arguments
+    let args = app!().get_matches();
     
     match args.subcommand_name() {
         Some("audio-file-to-recognized-song") => {            
@@ -261,6 +285,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 
             cli_main(false, true, true, audio_device, input_file, enable_json)?;
         },
+        #[cfg(feature="gui")]
         Some("gui-norecording") => {
             let subcommand_args = args.subcommand_matches("gui-norecording").unwrap();
 
@@ -269,6 +294,7 @@ fn main() -> Result<(), Box<dyn Error>> {
                  !subcommand_args.is_present("disable-mpris"),
             )?;
         },
+        #[cfg(feature="gui")]
         Some("gui") | None => {
             if let Some(subcommand_args) = args.subcommand_matches("gui") {
                 gui_main(true,
@@ -279,6 +305,10 @@ fn main() -> Result<(), Box<dyn Error>> {
             else {
                 gui_main(true, None, true)?;
             }
+        },
+        #[cfg(not(feature="gui"))]
+        None => {
+            cli_main(true, true, false, None, None, false)?;
         },
         _ => unreachable!()
     }
