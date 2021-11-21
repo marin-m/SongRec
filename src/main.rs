@@ -54,18 +54,8 @@ macro_rules! base_app {
         .version("0.2.1")
         .about(gettext("An open-source Shazam client for Linux, written in Rust.").as_str())
         .subcommand(
-            App::new("mpris-daemon")
-                .about(gettext("Run as a daemon exposing the currently playing song via the MPRIS DBus interface.").as_str())
-                .arg(
-                    Arg::with_name("audio-device")
-                        .short("d")
-                        .long("audio-device")
-                        .help(gettext("Specify the audio device to use").as_str())
-                )
-        )
-        .subcommand(
             App::new("listen")
-                .about(gettext("Run as a command-line program listening the microphone and printing recognized songs to stdout").as_str())
+                .about(gettext("Run as a command-line program listening the microphone and printing recognized songs to stdout, exposing current song info via MPRIS").as_str())
                 .arg(
                     Arg::with_name("audio-device")
                         .short("d")
@@ -79,14 +69,14 @@ macro_rules! base_app {
                         .help(gettext("Enable printing full song info in JSON").as_str())
                 )
                 .arg(
-                    Arg::with_name("enable-mpris")
-                        .long("enable-mpris")
-                        .help(gettext("Expose the current song via MPRIS").as_str())
+                    Arg::with_name("disable-mpris")
+                        .long("disable-mpris")
+                        .help(gettext("Disable MPRIS support").as_str())
                 )
         )
         .subcommand(
             App::new("recognize")
-                .about(gettext("Recognize a song and print its name").as_str())
+                .about(gettext("Recognize one song from a sound file or microphone and print its info.").as_str())
                 .arg(
                     Arg::with_name("audio-device")
                         .short("d")
@@ -104,6 +94,7 @@ macro_rules! base_app {
                         .required(false)
                         .help(gettext("Recognize a file instead of using mic input").as_str())
                 )
+                .alias("foo")
         )
         .subcommand(
             App::new("audio-file-to-recognized-song")
@@ -112,6 +103,16 @@ macro_rules! base_app {
                     Arg::with_name("input_file")
                         .required(true)
                         .help(gettext("The audio file to recognize.").as_str())
+                )
+        )
+        .subcommand(
+            App::new("microphone-to-recognized-song")
+                .about(gettext("Recognize a currently playing song using the microphone and print obtain information to the standard output").as_str())
+                .arg(
+                    Arg::with_name("audio-device")
+                        .short("d")
+                        .long("audio-device")
+                        .help(gettext("Specify the audio device to use").as_str())
                 )
         )
         .subcommand(
@@ -263,16 +264,10 @@ fn main() -> Result<(), Box<dyn Error>> {
             };
             
         },
-        Some("mpris-daemon") => {
-            let subcommand_args = args.subcommand_matches("mpris-daemon").unwrap();
-            let audio_device = subcommand_args.value_of("audio-device");
-
-            cli_main(true, false, false, audio_device, None, false)?;
-        },
         Some("listen") => {
             let subcommand_args = args.subcommand_matches("listen").unwrap();
             let audio_device = subcommand_args.value_of("audio-device");
-            let enable_mpris = subcommand_args.is_present("enable-mpris");
+            let enable_mpris = !subcommand_args.is_present("disable-mpris");
             let enable_json = subcommand_args.is_present("json");
 
             cli_main(enable_mpris, true, false, audio_device, None, enable_json)?;
@@ -284,6 +279,13 @@ fn main() -> Result<(), Box<dyn Error>> {
             let enable_json = subcommand_args.is_present("json");
 
             cli_main(false, true, true, audio_device, input_file, enable_json)?;
+        },
+        Some("microphone-to-recognized-song") => {
+            let subcommand_args = args.subcommand_matches("microphone-to-recognized-song").unwrap();
+            let audio_device = subcommand_args.value_of("audio-device");
+            let enable_json = true;
+
+            cli_main(false, true, true, audio_device, None, enable_json)?;
         },
         #[cfg(feature="gui")]
         Some("gui-norecording") => {
