@@ -95,8 +95,8 @@ fn main() -> Result<(), Box<dyn Error>> {
                 )
         )
         .subcommand(
-            App::new("cli")
-                .about(gettext("Run as a command-line program printing recognized songs to stdout").as_str())
+            App::new("listen")
+                .about(gettext("Run as a command-line program listening the microphone and printing recognized songs to stdout").as_str())
                 .arg(
                     Arg::with_name("audio-device")
                         .short("d")
@@ -245,8 +245,8 @@ fn main() -> Result<(), Box<dyn Error>> {
 
             cli_main(true, false, false, audio_device, None, false)?;
         },
-        Some("cli") => {
-            let subcommand_args = args.subcommand_matches("cli").unwrap();
+        Some("listen") => {
+            let subcommand_args = args.subcommand_matches("listen").unwrap();
             let audio_device = subcommand_args.value_of("audio-device");
             let enable_mpris = subcommand_args.is_present("enable-mpris");
             let enable_json = subcommand_args.is_present("json");
