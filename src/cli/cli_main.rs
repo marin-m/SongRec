@@ -8,8 +8,6 @@ use glib::clone;
 
 use mpris_player::PlaybackStatus;
 
-use serde_json;
-
 use crate::core::microphone_thread::microphone_thread;
 use crate::core::processing_thread::processing_thread;
 use crate::core::http_thread::http_thread;
@@ -107,7 +105,7 @@ pub fn cli_main(
                     *last_track_borrow = track_key;
                     if enable_print {
                         if json_print {
-                            println!("{}", serde_json::to_string(&message).unwrap());
+                            println!("{}", message.shazam_json);
                         } else{
                             println!("{} - {}", message.artist_name, message.song_name);
                         }

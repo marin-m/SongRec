@@ -1,7 +1,7 @@
 use std::sync::mpsc;
 use std::error::Error;
 use gettextrs::gettext;
-use serde_json::Value;
+use serde_json::{Value, to_string};
 
 use crate::core::thread_messages::*;
 
@@ -65,7 +65,8 @@ fn try_recognize_song(signature: DecodedSignature) -> Result<SongRecognizedMessa
         genre: match &json_object["track"]["genres"]["primary"] {
             Value::String(string) => Some(string.to_string()),
             _ => None
-        }
+        },
+        shazam_json: to_string(&json_object).unwrap(),
     })
 }
 
