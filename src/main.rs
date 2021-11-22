@@ -42,7 +42,7 @@ use crate::fingerprinting::communication::recognize_song_from_signature;
 use crate::utils::internationalization::setup_internationalization;
 #[cfg(feature = "gui")]
 use crate::gui::main_window::gui_main;
-use crate::cli::cli_main::cli_main;
+use crate::cli::cli_main::{cli_main, CLIParameters};
 
 use std::error::Error;
 use gettextrs::gettext;
@@ -268,26 +268,44 @@ fn main() -> Result<(), Box<dyn Error>> {
         },
         Some("listen") => {
             let subcommand_args = args.subcommand_matches("listen").unwrap();
-            let audio_device = subcommand_args.value_of("audio-device");
+            let audio_device = subcommand_args.value_of("audio-device").map(str::to_string);
             let enable_mpris = !subcommand_args.is_present("disable-mpris");
             let enable_json = subcommand_args.is_present("json");
 
-            cli_main(enable_mpris, false, audio_device, None, enable_json)?;
+            cli_main(CLIParameters {
+                enable_mpris,
+                recognize_once: false,
+                audio_device,
+                input_file: None,
+                json_print: enable_json
+            })?;
         },
         Some("recognize") => {
             let subcommand_args = args.subcommand_matches("recognize").unwrap();
-            let audio_device = subcommand_args.value_of("audio-device");
-            let input_file = subcommand_args.value_of("input_file");
+            let audio_device = subcommand_args.value_of("audio-device").map(str::to_string);
+            let input_file = subcommand_args.value_of("input_file").map(str::to_string);
             let enable_json = subcommand_args.is_present("json");
 
-            cli_main(false, true, audio_device, input_file, enable_json)?;
+            cli_main(CLIParameters {
+                enable_mpris: false,
+                recognize_once: true,
+                audio_device,
+                input_file,
+                json_print: enable_json
+            })?;
         },
         Some("microphone-to-recognized-song") => {
             let subcommand_args = args.subcommand_matches("microphone-to-recognized-song").unwrap();
-            let audio_device = subcommand_args.value_of("audio-device");
+            let audio_device = subcommand_args.value_of("audio-device").map(str::to_string);
             let enable_json = true;
 
-            cli_main(false, true, audio_device, None, enable_json)?;
+            cli_main(CLIParameters {
+                enable_mpris: false,
+                recognize_once: true,
+                audio_device,
+                input_file: None,
+                json_print: enable_json
+            })?;
         },
         #[cfg(feature="gui")]
         Some("gui-norecording") => {
@@ -312,7 +330,13 @@ fn main() -> Result<(), Box<dyn Error>> {
         },
         #[cfg(not(feature="gui"))]
         None => {
-            cli_main(true, false, None, None, false)?;
+            cli_main(CLIParameters {
+                enable_mpris: true,
+                recognize_once: false,
+                audio_device: None,
+                input_file: None,
+                enable_json: false
+            })?;
         },
         _ => unreachable!()
     }

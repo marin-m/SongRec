@@ -16,12 +16,15 @@ use crate::core::thread_messages::{GUIMessage, MicrophoneMessage, ProcessingMess
 use crate::utils::mpris_player::{get_player, update_song};
 use crate::utils::thread::spawn_big_thread;
 
+pub struct CLIParameters {
+    pub enable_mpris: bool,
+    pub recognize_once: bool,
+    pub audio_device: Option<String>,
+    pub input_file: Option<String>,
+    pub json_print: bool
+}
 
-pub fn cli_main(
-    enable_mpris: bool, recognize_once: bool,
-    audio_device: Option<&str>, input_file: Option<&str>,
-    json_print: bool,
-) -> Result<(), Box<dyn Error>> {
+pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
     glib::MainContext::default().acquire();
     let main_loop = Arc::new(glib::MainLoop::new(None, false));
 
@@ -46,20 +49,20 @@ pub fn cli_main(
     }));
 
     // recognize once if an input file is provided
-    let do_recognize_once = recognize_once || input_file.is_some();
+    let do_recognize_once = parameters.recognize_once || parameters.input_file.is_some();
 
     // do not enable mpris if recognizing one song
-    let do_enable_mpris = enable_mpris && !do_recognize_once;
+    let do_enable_mpris = parameters.enable_mpris && !do_recognize_once;
 
     let mpris_player = if do_enable_mpris { get_player() } else { None };
     let last_track: Rc<RefCell<Option<String>>> = Rc::new(RefCell::new(None));
 
     let main_loop_gui = main_loop.clone();
 
-    let audio_dev_name = audio_device.as_ref().map(|dev| dev.to_string());
-    let input_file_name = input_file.as_ref().map(|dev| dev.to_string());
+    let audio_dev_name = parameters.audio_device.as_ref().map(|dev| dev.to_string());
+    let input_file_name = parameters.input_file.as_ref().map(|dev| dev.to_string());
 
-    if let Some(filename) = input_file {
+    if let Some(ref filename) = parameters.input_file {
         processing_tx.send(ProcessingMessage::ProcessAudioFile(filename.to_string())).unwrap();
     }
 
@@ -103,7 +106,7 @@ pub fn cli_main(
                 if *last_track_borrow != track_key {
                     mpris_player.as_ref().map(|p| update_song(p, &message));
                     *last_track_borrow = track_key;
-                    if json_print {
+                    if parameters.json_print {
                         println!("{}", message.shazam_json);
                     } else{
                         println!("{} - {}", message.artist_name, message.song_name);
