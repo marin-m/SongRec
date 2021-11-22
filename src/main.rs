@@ -94,7 +94,6 @@ macro_rules! base_app {
                         .required(false)
                         .help(gettext("Recognize a file instead of using mic input").as_str())
                 )
-                .alias("foo")
         )
         .subcommand(
             App::new("audio-file-to-recognized-song")
