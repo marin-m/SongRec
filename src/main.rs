@@ -60,6 +60,7 @@ macro_rules! base_app {
                     Arg::with_name("audio-device")
                         .short("d")
                         .long("audio-device")
+                        .takes_value(true)
                         .help(gettext("Specify the audio device to use").as_str())
                 )
                 .arg(
@@ -81,6 +82,7 @@ macro_rules! base_app {
                     Arg::with_name("audio-device")
                         .short("d")
                         .long("audio-device")
+                        .takes_value(true)
                         .help(gettext("Specify the audio device to use").as_str())
                 )
                 .arg(
@@ -111,6 +113,7 @@ macro_rules! base_app {
                     Arg::with_name("audio-device")
                         .short("d")
                         .long("audio-device")
+                        .takes_value(true)
                         .help(gettext("Specify the audio device to use").as_str())
                 )
         )
