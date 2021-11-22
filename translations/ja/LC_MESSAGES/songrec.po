@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-23 18:21+0200\n"
+"POT-Creation-Date: 2021-11-23 00:00+0100\n"
 "PO-Revision-Date: 2021-08-23 21:02+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -18,57 +18,76 @@ msgstr ""
 "X-Generator: Poedit 2.3\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ../src/main.rs:47
+#: ../src/main.rs:55
 msgid "An open-source Shazam client for Linux, written in Rust."
 msgstr "Rustで記述されたLinux用のオープンソースShazamクライアント"
 
-#: ../src/main.rs:50
-msgid "The default action. Display a GUI."
-msgstr ""
-
-#: ../src/main.rs:54 ../src/main.rs:63
-msgid "An optional audio file to recognize on the launch of the application."
-msgstr ""
-
-#: ../src/main.rs:59
+#: ../src/main.rs:58
 msgid ""
-"Launch the GUI, but don't recognize audio through the microphone as soon as "
-"it is launched (rather than expecting the user to click on a button)."
+"Run as a command-line program listening the microphone and printing "
+"recognized songs to stdout, exposing current song info via MPRIS"
 msgstr ""
 
-#: ../src/main.rs:68
+#: ../src/main.rs:64 ../src/main.rs:86 ../src/main.rs:117
+msgid "Specify the audio device to use"
+msgstr ""
+
+#: ../src/main.rs:70 ../src/main.rs:92
+msgid "Enable printing full song info in JSON"
+msgstr ""
+
+#: ../src/main.rs:75 ../src/main.rs:170 ../src/main.rs:184
+msgid "Disable MPRIS support"
+msgstr ""
+
+#: ../src/main.rs:80
+msgid "Recognize one song from a sound file or microphone and print its info."
+msgstr ""
+
+#: ../src/main.rs:97
+#, fuzzy
+msgid "Recognize a file instead of using mic input"
+msgstr "デバイスの内部音声から認識する"
+
+#: ../src/main.rs:102
 msgid ""
 "Generate a Shazam fingerprint from a sound file, perform song recognition "
 "towards Shazam's servers and print obtained information to the standard "
 "output."
 msgstr ""
 
-#: ../src/main.rs:72
+#: ../src/main.rs:106
 #, fuzzy
 msgid "The audio file to recognize."
 msgstr "認識するファイルを選択"
 
-#: ../src/main.rs:77
+#: ../src/main.rs:111
+msgid ""
+"Recognize a currently playing song using the microphone and print obtain "
+"information to the standard output"
+msgstr ""
+
+#: ../src/main.rs:122
 msgid ""
 "Generate a Shazam fingerprint from a sound file, and print it to the "
 "standard output."
 msgstr ""
 
-#: ../src/main.rs:81
+#: ../src/main.rs:126
 msgid "The .WAV or .MP3 file to generate an audio fingerprint for."
 msgstr ""
 
-#: ../src/main.rs:86
+#: ../src/main.rs:131
 msgid ""
 "Take a data-URI Shazam fingerprint, perform song recognition towards "
 "Shazam's servers and print obtained information to the standard output."
 msgstr ""
 
-#: ../src/main.rs:90
+#: ../src/main.rs:135
 msgid "The data-URI Shazam fingerprint to recognize."
 msgstr ""
 
-#: ../src/main.rs:95
+#: ../src/main.rs:140
 msgid ""
 "Convert a data-URI Shazam fingerprint into hearable tones, played back "
 "instantly (or written to a file, if a path is provided). Not particularly "
@@ -76,15 +95,43 @@ msgid ""
 "recognizing a non-song."
 msgstr ""
 
-#: ../src/main.rs:99
+#: ../src/main.rs:144
 msgid "The data-URI Shazam fingerprint to convert into hearable sound."
 msgstr ""
 
-#: ../src/main.rs:104
+#: ../src/main.rs:149
 msgid ""
 "File path of the .WAV file to write tones to, or nothing to play back the "
 "sound instantly."
 msgstr ""
+
+#: ../src/main.rs:161
+msgid "The default action. Display a GUI."
+msgstr ""
+
+#: ../src/main.rs:165 ../src/main.rs:179
+msgid "An optional audio file to recognize on the launch of the application."
+msgstr ""
+
+#: ../src/main.rs:175
+msgid ""
+"Launch the GUI, but don't recognize audio through the microphone as soon as "
+"it is launched (rather than expecting the user to click on a button)."
+msgstr ""
+
+#: ../src/core/http_thread.rs:48 ../src/core/http_thread.rs:53
+#: ../src/core/http_thread.rs:62 ../src/core/http_thread.rs:85
+#: ../src/gui/main_window.rs:456
+msgid "No match for this song"
+msgstr "曲が認識されませんでした"
+
+#: ../src/core/microphone_thread.rs:64
+msgid "Microphone error:"
+msgstr "マイクエラー:"
+
+#: ../src/core/microphone_thread.rs:88
+msgid "Failed to get default input config"
+msgstr "オーディオデバイスが利用できませんでした"
 
 #: ../src/fingerprinting/signature_format.rs:125
 msgid "Invalid sample rate in decoded Shazam packet"
@@ -98,42 +145,29 @@ msgstr ""
 msgid "Invalid sample rate passed when encoding Shazam packet"
 msgstr ""
 
-#: ../src/gui/http_thread.rs:43 ../src/gui/http_thread.rs:48
-#: ../src/gui/http_thread.rs:70 ../src/gui/main_window.rs:453
-msgid "No match for this song"
-msgstr "曲が認識されませんでした"
-
-#: ../src/gui/main_window.rs:43
+#: ../src/gui/main_window.rs:38
 msgid "Application::new failed"
 msgstr ""
 
-#: ../src/gui/main_window.rs:337
+#: ../src/gui/main_window.rs:340
 msgid "Select a file to recognize"
 msgstr "認識するファイルを選択"
 
-#: ../src/gui/main_window.rs:340
+#: ../src/gui/main_window.rs:343
 msgid "_Open"
 msgstr "_開く"
 
-#: ../src/gui/main_window.rs:341
+#: ../src/gui/main_window.rs:344
 msgid "_Cancel"
 msgstr "_キャンセル"
 
-#: ../src/gui/main_window.rs:349
+#: ../src/gui/main_window.rs:352
 msgid "Couldn't get filename"
 msgstr "ファイル名を取得できませんでした"
 
-#: ../src/gui/main_window.rs:533
+#: ../src/gui/main_window.rs:541
 msgid "Song recognized"
 msgstr "曲が認識されました"
-
-#: ../src/gui/microphone_thread.rs:64
-msgid "Microphone error:"
-msgstr "マイクエラー:"
-
-#: ../src/gui/microphone_thread.rs:88
-msgid "Failed to get default input config"
-msgstr "オーディオデバイスが利用できませんでした"
 
 #: ../src/utils/pulseaudio_loopback.rs:119
 #: ../src/utils/pulseaudio_loopback.rs:157

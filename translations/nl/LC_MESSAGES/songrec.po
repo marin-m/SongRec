@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-23 18:21+0200\n"
+"POT-Creation-Date: 2021-11-23 00:00+0100\n"
 "PO-Revision-Date: 2021-08-27 12:30+0200\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: \n"
@@ -18,26 +18,38 @@ msgstr ""
 "X-Generator: Poedit 3.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../src/main.rs:47
+#: ../src/main.rs:55
 msgid "An open-source Shazam client for Linux, written in Rust."
 msgstr "Een open source Shazam-app voor Linux, geschreven in Rust."
 
-#: ../src/main.rs:50
-msgid "The default action. Display a GUI."
-msgstr "De standaardactie: toon het venster."
-
-#: ../src/main.rs:54 ../src/main.rs:63
-msgid "An optional audio file to recognize on the launch of the application."
-msgstr ""
-"Een optioneel audiobestand dat na het opstarten dient te worden herkend."
-
-#: ../src/main.rs:59
+#: ../src/main.rs:58
 msgid ""
-"Launch the GUI, but don't recognize audio through the microphone as soon as "
-"it is launched (rather than expecting the user to click on a button)."
-msgstr "Toon het venster, maar wacht met het starten van de muziekherkenning."
+"Run as a command-line program listening the microphone and printing "
+"recognized songs to stdout, exposing current song info via MPRIS"
+msgstr ""
 
-#: ../src/main.rs:68
+#: ../src/main.rs:64 ../src/main.rs:86 ../src/main.rs:117
+msgid "Specify the audio device to use"
+msgstr ""
+
+#: ../src/main.rs:70 ../src/main.rs:92
+msgid "Enable printing full song info in JSON"
+msgstr ""
+
+#: ../src/main.rs:75 ../src/main.rs:170 ../src/main.rs:184
+msgid "Disable MPRIS support"
+msgstr ""
+
+#: ../src/main.rs:80
+msgid "Recognize one song from a sound file or microphone and print its info."
+msgstr ""
+
+#: ../src/main.rs:97
+#, fuzzy
+msgid "Recognize a file instead of using mic input"
+msgstr "Luidsprekers gebruiken te herkennen in plaats van microfoon"
+
+#: ../src/main.rs:102
 msgid ""
 "Generate a Shazam fingerprint from a sound file, perform song recognition "
 "towards Shazam's servers and print obtained information to the standard "
@@ -46,11 +58,20 @@ msgstr ""
 "Genereer een Shazam-vingerafdruk op basis van een geluidsbestand, voer "
 "muziekherkenning uit en schrijf de verkregen informatie weg."
 
-#: ../src/main.rs:72
+#: ../src/main.rs:106
 msgid "The audio file to recognize."
 msgstr "Het te herkennen bestand."
 
-#: ../src/main.rs:77
+#: ../src/main.rs:111
+#, fuzzy
+msgid ""
+"Recognize a currently playing song using the microphone and print obtain "
+"information to the standard output"
+msgstr ""
+"Gebruik een gegevensuri met Shazam-vingerafdruk, voer muziekherkenning uit "
+"en schrijf de verkregen informatie weg."
+
+#: ../src/main.rs:122
 msgid ""
 "Generate a Shazam fingerprint from a sound file, and print it to the "
 "standard output."
@@ -58,12 +79,12 @@ msgstr ""
 "Genereer een Shazam-vingerafdruk op basis van een geluidsbestand en schrijf "
 "de verkregen informatie weg."
 
-#: ../src/main.rs:81
+#: ../src/main.rs:126
 msgid "The .WAV or .MP3 file to generate an audio fingerprint for."
 msgstr ""
 "Het wav- of mp3-bestand waarvoor een vingerafdruk moet worden gegenereerd."
 
-#: ../src/main.rs:86
+#: ../src/main.rs:131
 msgid ""
 "Take a data-URI Shazam fingerprint, perform song recognition towards "
 "Shazam's servers and print obtained information to the standard output."
@@ -71,11 +92,11 @@ msgstr ""
 "Gebruik een gegevensuri met Shazam-vingerafdruk, voer muziekherkenning uit "
 "en schrijf de verkregen informatie weg."
 
-#: ../src/main.rs:90
+#: ../src/main.rs:135
 msgid "The data-URI Shazam fingerprint to recognize."
 msgstr "De te herkennen gegevensuri met Shazam-vingerafdruk."
 
-#: ../src/main.rs:95
+#: ../src/main.rs:140
 msgid ""
 "Convert a data-URI Shazam fingerprint into hearable tones, played back "
 "instantly (or written to a file, if a path is provided). Not particularly "
@@ -87,17 +108,46 @@ msgstr ""
 "bestand). Niet heel erg nuttig, maar geeft de eenvoudigste uitvoer om Shazam "
 "een nummer te laten herkennen."
 
-#: ../src/main.rs:99
+#: ../src/main.rs:144
 msgid "The data-URI Shazam fingerprint to convert into hearable sound."
 msgstr "De te converteren gegevensuri met Shazam-vingerafdruk."
 
-#: ../src/main.rs:104
+#: ../src/main.rs:149
 msgid ""
 "File path of the .WAV file to write tones to, or nothing to play back the "
 "sound instantly."
 msgstr ""
 "De bestandslocatie van het wav-bestand waarnaar tonen moeten worden "
 "weggeschreven. Laat leeg om direct af te spelen."
+
+#: ../src/main.rs:161
+msgid "The default action. Display a GUI."
+msgstr "De standaardactie: toon het venster."
+
+#: ../src/main.rs:165 ../src/main.rs:179
+msgid "An optional audio file to recognize on the launch of the application."
+msgstr ""
+"Een optioneel audiobestand dat na het opstarten dient te worden herkend."
+
+#: ../src/main.rs:175
+msgid ""
+"Launch the GUI, but don't recognize audio through the microphone as soon as "
+"it is launched (rather than expecting the user to click on a button)."
+msgstr "Toon het venster, maar wacht met het starten van de muziekherkenning."
+
+#: ../src/core/http_thread.rs:48 ../src/core/http_thread.rs:53
+#: ../src/core/http_thread.rs:62 ../src/core/http_thread.rs:85
+#: ../src/gui/main_window.rs:456
+msgid "No match for this song"
+msgstr "Er is geen overeenkomst gevonden"
+
+#: ../src/core/microphone_thread.rs:64
+msgid "Microphone error:"
+msgstr "Microfoonfout:"
+
+#: ../src/core/microphone_thread.rs:88
+msgid "Failed to get default input config"
+msgstr "De standaard invoerconfiguratie kan niet worden uitgelezen"
 
 #: ../src/fingerprinting/signature_format.rs:125
 msgid "Invalid sample rate in decoded Shazam packet"
@@ -112,42 +162,29 @@ msgid "Invalid sample rate passed when encoding Shazam packet"
 msgstr ""
 "Ongeldige samplesnelheid doorgegeven tijdens encoderen van Shazam-pakket"
 
-#: ../src/gui/http_thread.rs:43 ../src/gui/http_thread.rs:48
-#: ../src/gui/http_thread.rs:70 ../src/gui/main_window.rs:453
-msgid "No match for this song"
-msgstr "Er is geen overeenkomst gevonden"
-
-#: ../src/gui/main_window.rs:43
+#: ../src/gui/main_window.rs:38
 msgid "Application::new failed"
 msgstr "Application::new is mislukt"
 
-#: ../src/gui/main_window.rs:337
+#: ../src/gui/main_window.rs:340
 msgid "Select a file to recognize"
 msgstr "Kies een te herkennen bestand"
 
-#: ../src/gui/main_window.rs:340
+#: ../src/gui/main_window.rs:343
 msgid "_Open"
 msgstr "_Openen"
 
-#: ../src/gui/main_window.rs:341
+#: ../src/gui/main_window.rs:344
 msgid "_Cancel"
 msgstr "_Annuleren"
 
-#: ../src/gui/main_window.rs:349
+#: ../src/gui/main_window.rs:352
 msgid "Couldn't get filename"
 msgstr "De bestandsnaam kan niet worden bepaald"
 
-#: ../src/gui/main_window.rs:533
+#: ../src/gui/main_window.rs:541
 msgid "Song recognized"
 msgstr "Het nummer is herkend"
-
-#: ../src/gui/microphone_thread.rs:64
-msgid "Microphone error:"
-msgstr "Microfoonfout:"
-
-#: ../src/gui/microphone_thread.rs:88
-msgid "Failed to get default input config"
-msgstr "De standaard invoerconfiguratie kan niet worden uitgelezen"
 
 #: ../src/utils/pulseaudio_loopback.rs:119
 #: ../src/utils/pulseaudio_loopback.rs:157
