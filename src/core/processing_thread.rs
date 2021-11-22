@@ -1,6 +1,6 @@
 use std::sync::mpsc;
 
-use crate::gui::thread_messages::{*, ProcessingMessage::*};
+use crate::core::thread_messages::{*, ProcessingMessage::*};
 
 use crate::fingerprinting::algorithm::SignatureGenerator;
 

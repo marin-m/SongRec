@@ -12,7 +12,9 @@ pub struct SongRecognizedMessage {
     // Used only in the CSV export for now:
     pub track_key: String,
     pub release_year: Option<String>,
-    pub genre: Option<String>
+    pub genre: Option<String>,
+
+    pub shazam_json: String
 }
 
 pub enum GUIMessage {
