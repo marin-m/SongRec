@@ -2190,6 +2190,7 @@ dependencies = [
  "mpris-player",
  "percent-encoding",
  "rand 0.7.3",
+ "regex",
  "reqwest",
  "rodio",
  "serde",

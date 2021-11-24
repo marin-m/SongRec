@@ -1,7 +1,8 @@
 use std::sync::mpsc;
 use std::error::Error;
 use gettextrs::gettext;
-use serde_json::{Value, to_string};
+use regex::Regex;
+use serde_json::{Value, to_string_pretty};
 
 use crate::core::thread_messages::*;
 
@@ -66,7 +67,10 @@ fn try_recognize_song(signature: DecodedSignature) -> Result<SongRecognizedMessa
             Value::String(string) => Some(string.to_string()),
             _ => None
         },
-        shazam_json: to_string(&json_object).unwrap(),
+        shazam_json: Regex::new("\n *").unwrap().replace_all(&
+            Regex::new("([,:])\n *").unwrap().replace_all(&
+                to_string_pretty(&json_object).unwrap(), "$1 ").into_owned(),
+            "").into_owned()
     })
 }
 
