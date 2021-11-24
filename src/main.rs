@@ -123,7 +123,7 @@ macro_rules! base_app {
         )
         .subcommand(
             App::new("microphone-to-recognized-song")
-                .about(gettext("Recognize a currently playing song using the microphone and print obtain information to the standard output").as_str())
+                .about(gettext("Recognize a currently playing song using the microphone and print obtained information to the standard output").as_str())
                 .arg(
                     Arg::with_name("audio-device")
                         .short("d")

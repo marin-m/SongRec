@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-23 00:00+0100\n"
+"POT-Creation-Date: 2021-11-24 21:51+0100\n"
 "PO-Revision-Date: 2021-08-05 11:48+0200\n"
 "Last-Translator: marin <marin@marin-thinkpad-t460s>\n"
 "Language-Team: French\n"
@@ -19,38 +19,49 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 3.0\n"
 
-#: ../src/main.rs:55
+#: ../src/main.rs:56
 msgid "An open-source Shazam client for Linux, written in Rust."
 msgstr "Un client Shazam open-source pour Linux, écrit en Rust."
 
-#: ../src/main.rs:58
+#: ../src/main.rs:59
 msgid ""
 "Run as a command-line program listening the microphone and printing "
 "recognized songs to stdout, exposing current song info via MPRIS"
 msgstr ""
+"Exécute le programme en mode ligne de commande, en utilisant "
+"l'entrée son et en affichant les chansons reconnues par le biais "
+"de la sortie standard, en diffusant également les informations "
+"concernant la dernière chanson détectée par MPRIS"
 
-#: ../src/main.rs:64 ../src/main.rs:86 ../src/main.rs:117
+#: ../src/main.rs:65 ../src/main.rs:94 ../src/main.rs:132
 msgid "Specify the audio device to use"
-msgstr ""
+msgstr "Choisir l'entrée audio à utiliser"
 
-#: ../src/main.rs:70 ../src/main.rs:92
+#: ../src/main.rs:72 ../src/main.rs:101
 msgid "Enable printing full song info in JSON"
-msgstr ""
+msgstr "Utiliser le format JSON pour afficher des informations "
+"exhaustives à propos de la chanson actuelle"
 
-#: ../src/main.rs:75 ../src/main.rs:170 ../src/main.rs:184
+#: ../src/main.rs:78 ../src/main.rs:107
+msgid "Enable printing full song info in the CSV format"
+msgstr "Utiliser le format CSV pour afficher des informations "
+"à propos de la chanson"
+
+#: ../src/main.rs:83 ../src/main.rs:185 ../src/main.rs:199
 msgid "Disable MPRIS support"
-msgstr ""
+msgstr "Désactiver le support de MPRIS"
 
-#: ../src/main.rs:80
+#: ../src/main.rs:88
 msgid "Recognize one song from a sound file or microphone and print its info."
 msgstr ""
+"Reconnaît une seule chanson depuis un fichier son ou depuis l'entrée "
+"audio, et afficher les informations la concernant."
 
-#: ../src/main.rs:97
-#, fuzzy
+#: ../src/main.rs:112
 msgid "Recognize a file instead of using mic input"
-msgstr "Identifier depuis mes hauts-parleurs plutôt que mon microphone"
+msgstr "Identifier le morceau à partir d'un fichier plutôt que de l'entrée son"
 
-#: ../src/main.rs:102
+#: ../src/main.rs:117
 msgid ""
 "Generate a Shazam fingerprint from a sound file, perform song recognition "
 "towards Shazam's servers and print obtained information to the standard "
@@ -60,21 +71,19 @@ msgstr ""
 "détection de la chanson auprès des serveurs de Shazam puis envoie les "
 "informations obtenues vers la sortie standard."
 
-#: ../src/main.rs:106
+#: ../src/main.rs:121
 msgid "The audio file to recognize."
 msgstr "Le fichier audio à reconnaître."
 
-#: ../src/main.rs:111
-#, fuzzy
+#: ../src/main.rs:126
 msgid ""
-"Recognize a currently playing song using the microphone and print obtain "
+"Recognize a currently playing song using the microphone and print obtained "
 "information to the standard output"
 msgstr ""
-"Prend une empreinte Shazam au format data-URI, effectue la détection du "
-"morceau auprès des serveurs de Shazam puis envoie les informations obtenues "
-"vers la sortie standard."
+"Reconnaît un morceau en train d'être joué à partir de l'entrée son et affiche "
+"les informations correspondantes par la sortie standard"
 
-#: ../src/main.rs:122
+#: ../src/main.rs:137
 msgid ""
 "Generate a Shazam fingerprint from a sound file, and print it to the "
 "standard output."
@@ -82,11 +91,11 @@ msgstr ""
 "Génère une empreinte Shazam à partir d'un fichier audio, avant de l'envoyer "
 "vers la sortie standard."
 
-#: ../src/main.rs:126
+#: ../src/main.rs:141
 msgid "The .WAV or .MP3 file to generate an audio fingerprint for."
 msgstr "Le fichier .WAV ou .MP3 pour lequel générer une empreinte sonore."
 
-#: ../src/main.rs:131
+#: ../src/main.rs:146
 msgid ""
 "Take a data-URI Shazam fingerprint, perform song recognition towards "
 "Shazam's servers and print obtained information to the standard output."
@@ -95,11 +104,11 @@ msgstr ""
 "morceau auprès des serveurs de Shazam puis envoie les informations obtenues "
 "vers la sortie standard."
 
-#: ../src/main.rs:135
+#: ../src/main.rs:150
 msgid "The data-URI Shazam fingerprint to recognize."
 msgstr "L'empreinte Shazam au format data-URI à reconnaître."
 
-#: ../src/main.rs:140
+#: ../src/main.rs:155
 msgid ""
 "Convert a data-URI Shazam fingerprint into hearable tones, played back "
 "instantly (or written to a file, if a path is provided). Not particularly "
@@ -111,11 +120,11 @@ msgstr ""
 "son, si le chemin a été fourni). Pas particulièrement utile, mais fournit la "
 "sortie la plus simple qui mènera Shazam à détecter une non-chanson."
 
-#: ../src/main.rs:144
+#: ../src/main.rs:159
 msgid "The data-URI Shazam fingerprint to convert into hearable sound."
 msgstr "L'empreinte Shazam au format data-URI à convertir en son audible."
 
-#: ../src/main.rs:149
+#: ../src/main.rs:164
 msgid ""
 "File path of the .WAV file to write tones to, or nothing to play back the "
 "sound instantly."
@@ -123,15 +132,15 @@ msgstr ""
 "Le chemin du fichier .WAV dans lequel écrire les tonalités, ou rien pour "
 "jouer le son immédiatement par les hauts-parleurs."
 
-#: ../src/main.rs:161
+#: ../src/main.rs:176
 msgid "The default action. Display a GUI."
 msgstr "L'action par défaut. Affiche l'interface graphique."
 
-#: ../src/main.rs:165 ../src/main.rs:179
+#: ../src/main.rs:180 ../src/main.rs:194
 msgid "An optional audio file to recognize on the launch of the application."
 msgstr "Un éventuel fichier audio à reconnaître au lancement de l'application."
 
-#: ../src/main.rs:175
+#: ../src/main.rs:190
 msgid ""
 "Launch the GUI, but don't recognize audio through the microphone as soon as "
 "it is launched (rather than expecting the user to click on a button)."
@@ -140,9 +149,9 @@ msgstr ""
 "microphone dès que celle-ci est lancée (au lieu de cela, attendre que "
 "l'utilisateur clique sur un bouton)."
 
-#: ../src/core/http_thread.rs:48 ../src/core/http_thread.rs:53
-#: ../src/core/http_thread.rs:62 ../src/core/http_thread.rs:85
-#: ../src/gui/main_window.rs:456
+#: ../src/core/http_thread.rs:49 ../src/core/http_thread.rs:54
+#: ../src/core/http_thread.rs:63 ../src/core/http_thread.rs:89
+#: ../src/gui/main_window.rs:457
 msgid "No match for this song"
 msgstr "Chanson non reconnue"
 
@@ -168,27 +177,27 @@ msgstr ""
 "Fréquence d'échantillonnage invalide passée lors de l'encodage du paquet "
 "Shazam"
 
-#: ../src/gui/main_window.rs:38
+#: ../src/gui/main_window.rs:39
 msgid "Application::new failed"
 msgstr "Application::new n'a pas fonctionné"
 
-#: ../src/gui/main_window.rs:340
+#: ../src/gui/main_window.rs:341
 msgid "Select a file to recognize"
 msgstr "Sélectionner un fichier à reconnaître"
 
-#: ../src/gui/main_window.rs:343
+#: ../src/gui/main_window.rs:344
 msgid "_Open"
 msgstr "_Ouvrir"
 
-#: ../src/gui/main_window.rs:344
+#: ../src/gui/main_window.rs:345
 msgid "_Cancel"
 msgstr "_Annuler"
 
-#: ../src/gui/main_window.rs:352
+#: ../src/gui/main_window.rs:353
 msgid "Couldn't get filename"
 msgstr "Impossible d'obtenir le nom du fichier"
 
-#: ../src/gui/main_window.rs:541
+#: ../src/gui/main_window.rs:542
 msgid "Song recognized"
 msgstr "Chanson identifiée"
 
