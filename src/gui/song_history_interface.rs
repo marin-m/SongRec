@@ -1,31 +1,13 @@
 use app_dirs::{app_root, AppInfo, AppDataType::*};
 use std::error::Error;
-use serde::{Serialize, Deserialize};
 use std::path::PathBuf;
 use gtk::prelude::*;
 
-/// The application uses a simple CSV format in order to store the list of the
-/// songs discovered by the user that are displayed in the multi-column list
-/// view. The CSV columns bear the same name as the GUI list view columns (in
-/// snake case).
-///
-/// A difference is that entries are stored in chronological order in the CSV
-/// file, while antichronological order is used on the GUI list view.
+use crate::utils::csv_song_history::SongHistoryRecord;
 
-#[derive(Debug, Serialize, Deserialize)]
-pub struct SongHistoryRecord {
-    pub song_name: String,
-    pub album: String,
-    pub recognition_date: String,
-    
-    // The following fields have been added in version 0.2.2
-    #[serde(default)]
-    pub track_key: String,
-    #[serde(default)]
-    pub release_year: String,
-    #[serde(default)]
-    pub genre: String
-}
+/// This file contains code for interfacing between the CSV Song history
+/// format defined within the "src/utils/csv_song_history.rs" file, the
+/// GTK-rs GUI of SongRec and the filesystem while using the GUI.
 
 pub struct SongHistoryInterface {
     csv_path: String,

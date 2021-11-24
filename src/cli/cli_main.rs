@@ -5,6 +5,7 @@ use std::sync::{Arc, mpsc};
 
 use glib;
 use glib::clone;
+use chrono::Local;
 
 use mpris_player::PlaybackStatus;
 
@@ -13,15 +14,22 @@ use crate::core::processing_thread::processing_thread;
 use crate::core::http_thread::http_thread;
 use crate::core::thread_messages::{GUIMessage, MicrophoneMessage, ProcessingMessage};
 
+use crate::utils::csv_song_history::SongHistoryRecord;
 use crate::utils::mpris_player::{get_player, update_song};
 use crate::utils::thread::spawn_big_thread;
+
+pub enum CLIOutputType {
+    SongName,
+    JSON,
+    CSV
+}
 
 pub struct CLIParameters {
     pub enable_mpris: bool,
     pub recognize_once: bool,
     pub audio_device: Option<String>,
     pub input_file: Option<String>,
-    pub json_print: bool
+    pub output_type: CLIOutputType
 }
 
 pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
@@ -65,6 +73,8 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
     if let Some(ref filename) = parameters.input_file {
         processing_tx.send(ProcessingMessage::ProcessAudioFile(filename.to_string())).unwrap();
     }
+    
+    let mut csv_writer = csv::Writer::from_writer(std::io::stdout());
 
     gui_rx.attach(None, move |gui_message| {
         match gui_message {
@@ -103,14 +113,30 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
             GUIMessage::SongRecognized(message) => {
                 let mut last_track_borrow = last_track.borrow_mut();
                 let track_key = Some(message.track_key.clone());
+                let song_name = format!("{} - {}", message.artist_name, message.song_name);
+
                 if *last_track_borrow != track_key {
                     mpris_player.as_ref().map(|p| update_song(p, &message));
                     *last_track_borrow = track_key;
-                    if parameters.json_print {
-                        println!("{}", message.shazam_json);
-                    } else{
-                        println!("{} - {}", message.artist_name, message.song_name);
-                    }
+                    match parameters.output_type {
+                        CLIOutputType::JSON => {
+                            println!("{}", message.shazam_json);
+                        },
+                        CLIOutputType::CSV => {
+                            csv_writer.serialize(SongHistoryRecord {
+                                song_name: song_name,
+                                album: message.album_name.as_ref().unwrap_or(&"".to_string()).to_string(),
+                                recognition_date: Local::now().format("%c").to_string(),
+                                track_key: message.track_key,
+                                release_year: message.release_year.as_ref().unwrap_or(&"".to_string()).to_string(),
+                                genre: message.genre.as_ref().unwrap_or(&"".to_string()).to_string(),
+                            }).unwrap();
+                            csv_writer.flush().unwrap();
+                        },
+                        CLIOutputType::SongName => {
+                            println!("{}", song_name);
+                        }
+                    };
                 }
                 if do_recognize_once {
                     main_loop_gui.quit();

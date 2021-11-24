@@ -19,7 +19,7 @@ mod core {
 #[cfg(feature = "gui")]
 mod gui {
     pub mod main_window;
-    mod csv_song_history;
+    mod song_history_interface;
 }
 
 mod cli {
@@ -30,6 +30,7 @@ mod utils {
     #[cfg(feature = "gui")]
     pub mod pulseaudio_loopback;
     pub mod ffmpeg_wrapper;
+    pub mod csv_song_history;
     pub mod internationalization;
     pub mod mpris_player;
     pub mod thread;
@@ -42,7 +43,7 @@ use crate::fingerprinting::communication::recognize_song_from_signature;
 use crate::utils::internationalization::setup_internationalization;
 #[cfg(feature = "gui")]
 use crate::gui::main_window::gui_main;
-use crate::cli::cli_main::{cli_main, CLIParameters};
+use crate::cli::cli_main::{cli_main, CLIParameters, CLIOutputType};
 
 use std::error::Error;
 use gettextrs::gettext;
@@ -67,7 +68,14 @@ macro_rules! base_app {
                     Arg::with_name("json")
                         .short("j")
                         .long("json")
+                        .conflicts_with("csv")
                         .help(gettext("Enable printing full song info in JSON").as_str())
+                )
+                .arg(
+                    Arg::with_name("csv")
+                        .short("c")
+                        .long("csv")
+                        .help(gettext("Enable printing full song info in the CSV format").as_str())
                 )
                 .arg(
                     Arg::with_name("disable-mpris")
@@ -89,7 +97,14 @@ macro_rules! base_app {
                     Arg::with_name("json")
                         .short("j")
                         .long("json")
+                        .conflicts_with("csv")
                         .help(gettext("Enable printing full song info in JSON").as_str())
+                )
+                .arg(
+                    Arg::with_name("csv")
+                        .short("c")
+                        .long("csv")
+                        .help(gettext("Enable printing full song info in the CSV format").as_str())
                 )
                 .arg(
                     Arg::with_name("input_file")
@@ -271,13 +286,22 @@ fn main() -> Result<(), Box<dyn Error>> {
             let audio_device = subcommand_args.value_of("audio-device").map(str::to_string);
             let enable_mpris = !subcommand_args.is_present("disable-mpris");
             let enable_json = subcommand_args.is_present("json");
+            let enable_csv = subcommand_args.is_present("csv");
 
             cli_main(CLIParameters {
                 enable_mpris,
                 recognize_once: false,
                 audio_device,
                 input_file: None,
-                json_print: enable_json
+                output_type: if enable_json {
+                    CLIOutputType::JSON
+                }
+                else if enable_csv {
+                    CLIOutputType::CSV
+                }
+                else {
+                    CLIOutputType::SongName
+                }
             })?;
         },
         Some("recognize") => {
@@ -285,26 +309,35 @@ fn main() -> Result<(), Box<dyn Error>> {
             let audio_device = subcommand_args.value_of("audio-device").map(str::to_string);
             let input_file = subcommand_args.value_of("input_file").map(str::to_string);
             let enable_json = subcommand_args.is_present("json");
+            let enable_csv = subcommand_args.is_present("csv");
 
             cli_main(CLIParameters {
                 enable_mpris: false,
                 recognize_once: true,
                 audio_device,
                 input_file,
-                json_print: enable_json
+
+                output_type: if enable_json {
+                    CLIOutputType::JSON
+                }
+                else if enable_csv {
+                    CLIOutputType::CSV
+                }
+                else {
+                    CLIOutputType::SongName
+                }
             })?;
         },
         Some("microphone-to-recognized-song") => {
             let subcommand_args = args.subcommand_matches("microphone-to-recognized-song").unwrap();
             let audio_device = subcommand_args.value_of("audio-device").map(str::to_string);
-            let enable_json = true;
 
             cli_main(CLIParameters {
                 enable_mpris: false,
                 recognize_once: true,
                 audio_device,
                 input_file: None,
-                json_print: enable_json
+                output_type: CLIOutputType::JSON
             })?;
         },
         #[cfg(feature="gui")]
@@ -335,7 +368,7 @@ fn main() -> Result<(), Box<dyn Error>> {
                 recognize_once: false,
                 audio_device: None,
                 input_file: None,
-                enable_json: false
+                output_type: CLIOutputType::SongName
             })?;
         },
         _ => unreachable!()

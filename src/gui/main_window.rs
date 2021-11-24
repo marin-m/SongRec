@@ -24,7 +24,8 @@ use crate::utils::thread::spawn_big_thread;
 use crate::utils::pulseaudio_loopback::PulseaudioLoopback;
 use crate::utils::mpris_player::{get_player, update_song};
 
-use crate::gui::csv_song_history::{SongHistoryInterface, SongHistoryRecord};
+use crate::gui::song_history_interface::SongHistoryInterface;
+use crate::utils::csv_song_history::SongHistoryRecord;
 
 #[cfg(windows)]
 use std::os::windows::process::CommandExt;
