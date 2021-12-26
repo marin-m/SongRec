@@ -1,3 +1,16 @@
+songrec (0.3.0) bionic; urgency=low
+
+  * Introduce a new command-line interface allowing to use microphone recognition from the command line, with the `recognize` and `listen` commands (thanks to @Humer12007), keeping older command retrocompatibility.
+  * Update the CSV export format in order to introduce new "`track_key`", "`release_year`" and "`genre`" columns (thanks to @tyd), where `track_key` is an identifier internal to the Shazam database.
+  * Allow exposing song metadata through the standard DBus MPRIS interface (thanks to @Humer12007).
+  * Improve source code structure in order to split the dual CLI/GUI parts from the core thread communication and fingerprinting parts and from other platform-dependant utility code.
+  * Update certain dependent crates to more recent minor versions, among other possible things in order to accept a higher LibreSSL version.
+  * Add the program version without the program help output (see the `-h` or `-V', `--version` options).
+  * Add a Polish translation (thanks to @qarmin).
+  * Update the French translation according to recent changes.
+
+ -- Marin <marin-m@users.noreply.github.com>  Sun, 26 Dec 2021 16:26:00 +0100
+
 songrec (0.2.1) bionic; urgency=low
 
   * Don't crash when there is no input device available on the host machine.

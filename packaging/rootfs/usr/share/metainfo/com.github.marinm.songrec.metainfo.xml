@@ -28,6 +28,18 @@ https://hughsie.github.io/oars/index.html
 -->
   <content_rating type="oars-1.0" />
   <releases>
+    <release version="0.3.0" date="2021-12-26">
+      <description>
+        <p>- Introduce a new command-line interface allowing to use microphone recognition from the command line, with the "recognize" and "listen" commands (thanks to @Hummer12007), keeping older command retrocompatibility.</p>
+        <p>- Update the CSV export format in order to introduce new "track_key", "release_year" and "genre" columns (thanks to @tyd), where "track_key" is an identifier internal to the Shazam database.</p>
+        <p>- Allow exposing song metadata through the standard DBus MPRIS interface (thanks to @Hummer12007).</p>
+        <p>- Improve source code structure in order to split the dual CLI/GUI parts from the core thread communication and fingerprinting parts and from other platform-dependant utility code.</p>
+        <p>- Update certain dependent crates to more recent minor versions, among other possible things in order to accept a higher LibreSSL version.</p>
+        <p>- Add the program version without the program help output (see the "-h" or "-V", "--version" options).</p>
+        <p>- Add a Polish translation (thanks to @qarmin).</p>
+        <p>- Update the French translation according to recent changes.</p>
+      </description>
+    </release>
     <release version="0.2.1" date="2021-10-04">
       <description>
         <p>- Don't crash when there is no input device available on the host machine.</p>

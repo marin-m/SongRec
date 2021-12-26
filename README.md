@@ -139,6 +139,17 @@ Using the `gui-norecording` subcommand will launch the GUI without recognizing a
 
 The GUI allows you to recognize songs either from your microphone, speakers (on compatible PulseAudio setups), or from an audio file. The MP3, FLAC, WAV and OGG formats should be accepted for audio files if FFMpeg is not installed, and any audio or video formats supported by FFMpeg should be accepted if FFMpeg is installed.
 
+The following commands allow to recognize sound from your microphone or from a file using the command line (`listen` runs while the microphone is usable while `recognize` recognizes only one song), use the `-h` flag in order to see all the available options:
+
+```
+./songrec listen -h
+./songrec recognize -h
+```
+
+By default, only the artist and track name of the concerned song are displayed to the standard output, and other information may be displayed to the error output. The `--csv` and `--json` options allow to display more programmatically usable information to the standard output.
+
+The above decribes the newer CLI interface of SongRec, but an older interface, operating only on audio files or raw audio fingerprints, is also available and described below.
+
 The following subcommand will try to recognize audio from the middle of an audio file, and print the JSON response from Shazam servers:
 
 ```
