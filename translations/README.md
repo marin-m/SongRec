@@ -11,7 +11,7 @@ This directory contains instructions that you may follow if you are willing to h
 
 1. Download the SongRec source code, either cloning the repository (using for example the `git clone git@github.com:marin-m/SongRec.git` command in your terminal, or directly [downloading the Zipball](https://github.com/marin-m/SongRec/archive/refs/heads/master.zip) from Github and extracting it to your hard disk).
 2. Save your `.po` file under the `translations/fr_FR/LC_MESSAGES/songrec.po` file of the repository, replacing `fr_FR` with the locale code of your language (type `echo $LANG` in a terminal in order to know about it, dismissing the final `.UTF8`), and creating the intermediary directories as needed.
-3. Run the `./translations/update_po_files.sh` script that should generate a binary `.mo` file from the text `.po` file that you coped at the previous steps. Before that, you should install the dependencies of the concerned script (through the `sudo apt install intltool gettext` command).
+3. Run the `./translations/update_po_files.sh` script that should generate a binary `.mo` file from the text `.po` file that you coped at the previous steps. Before that, you should install the dependencies of the concerned script (through the `sudo apt install intltool gettext` command), and edit the script to include the locale code of your language within the lines starting with `for locale in` [...].
 4. Follow the [compilation instructions](https://github.com/marin-m/SongRec#compilation), until the `cargo run` command which should launch SongRec while taking in account your translation.
 
 ## How to make a good translation?
