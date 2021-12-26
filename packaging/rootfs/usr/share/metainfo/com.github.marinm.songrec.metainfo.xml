@@ -30,7 +30,7 @@ https://hughsie.github.io/oars/index.html
   <releases>
     <release version="0.3.0" date="2021-12-26">
       <description>
-        <p>- Introduce a new command-line interface allowing to use microphone recognition from the command line, with the "recognize" and "listen" commands (thanks to @Hummer12007), keeping older command retrocompatibility.</p>
+        <p>- Introduce a new command-line interface allowing to use microphone recognition from the command line, with the "recognize" and "listen" commands (thanks to @Hummer12007), keeping older command backwards compatibility.</p>
         <p>- Update the CSV export format in order to introduce new "track_key", "release_year" and "genre" columns (thanks to @tyd), where "track_key" is an identifier internal to the Shazam database.</p>
         <p>- Allow exposing song metadata through the standard DBus MPRIS interface (thanks to @Hummer12007).</p>
         <p>- Improve source code structure in order to split the dual CLI/GUI parts from the core thread communication and fingerprinting parts and from other platform-dependant utility code.</p>
