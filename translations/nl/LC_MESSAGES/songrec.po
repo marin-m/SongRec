@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-24 22:01+0100\n"
-"PO-Revision-Date: 2021-08-27 12:30+0200\n"
+"POT-Creation-Date: 2021-12-26 14:36+0100\n"
+"PO-Revision-Date: 2021-12-28 14:34+0100\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -27,30 +27,34 @@ msgid ""
 "Run as a command-line program listening the microphone and printing "
 "recognized songs to stdout, exposing current song info via MPRIS"
 msgstr ""
+"Voer uit als een opdrachtregeltoepassing om de herkende nummers te tonen via "
+"stdout en de nummerinformatie via MPRIS"
 
 #: ../src/main.rs:65 ../src/main.rs:94 ../src/main.rs:132
 msgid "Specify the audio device to use"
-msgstr ""
+msgstr "Kies het te gebruiken audio-apparaat"
 
 #: ../src/main.rs:72 ../src/main.rs:101
 msgid "Enable printing full song info in JSON"
-msgstr ""
+msgstr "Nummerinformatie vastleggen in json-bestand"
 
 #: ../src/main.rs:78 ../src/main.rs:107
 msgid "Enable printing full song info in the CSV format"
-msgstr ""
+msgstr "Nummerinformatie vastleggen in csv-bestand"
 
 #: ../src/main.rs:83 ../src/main.rs:185 ../src/main.rs:199
 msgid "Disable MPRIS support"
-msgstr ""
+msgstr "MPRIS-ondersteuning uitschakelen"
 
 #: ../src/main.rs:88
 msgid "Recognize one song from a sound file or microphone and print its info."
 msgstr ""
+"Herken één nummer uit een geluidsbestand of via de microfoon en toon "
+"informatie."
 
 #: ../src/main.rs:112
 msgid "Recognize a file instead of using mic input"
-msgstr ""
+msgstr "Bestand gebruiken in plaats van microfoon"
 
 #: ../src/main.rs:117
 msgid ""
@@ -70,6 +74,8 @@ msgid ""
 "Recognize a currently playing song using the microphone and print obtained "
 "information to the standard output"
 msgstr ""
+"Herkent een nummer via de microfoon en toont de informatie via de "
+"standaarduitvoer"
 
 #: ../src/main.rs:137
 msgid ""
