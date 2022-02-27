@@ -252,6 +252,8 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
 
         let microphone_button: gtk::Button = builder.get_object("microphone_button").unwrap();
         let microphone_stop_button: gtk::Button = builder.get_object("microphone_stop_button").unwrap();
+
+        let notification_enable_checkbox: gtk::CheckButton = builder.get_object("notification_enable_button").unwrap();
         
         let youtube_button: gtk::Button = builder.get_object("youtube_button").unwrap();
         let lure_button: gtk::Button = builder.get_object("lure_button").unwrap();
