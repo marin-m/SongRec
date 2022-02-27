@@ -536,15 +536,9 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
                     if *youtube_query_borrow != song_name { // If this is already the last recognized song, don't update the display (if for example we recognized a lure we played, it would update the proposed lure to a lesser quality)
 
                         mpris_player.as_ref().map(|p| update_song(p, &message));
-                        
-                        if microphone_stop_button.is_visible() {
 
-                            let notification = gio::Notification::new(&gettext("Song recognized"));
-                            notification.set_body(Some(song_name.as_ref().unwrap()));
-
-                            application.send_notification(Some("recognized-song"), &notification);
-                            
-                        }
+                        let notification = gio::Notification::new(&gettext("Song recognized"));
+                        notification.set_body(Some(song_name.as_ref().unwrap()));
 
                         song_history_interface.add_column_and_save(SongHistoryRecord {
                             song_name: song_name.as_ref().unwrap().to_string(),
@@ -579,10 +573,11 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
                                         if window_height < 768 && !window.is_maximized() {
                                             window.resize(window_width, 768);
                                         }
-                                        
+
+                                        notification.set_icon(&pixbuf);
                                         // Display the cover image
                                         cover_image.replace(Some(pixbuf));
-                                        
+
                                         match message.album_name {
                                             Some(value) => { recognized_song_cover.set_tooltip_text(Some(&value)) },
                                             None => { recognized_song_cover.set_tooltip_text(None) }
@@ -599,6 +594,10 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
                                 recognized_song_cover.hide();
                             }
                         };
+
+                        if microphone_stop_button.is_visible() {
+                            application.send_notification(Some("recognized-song"), &notification);
+                        }
                         
                     }
                 }
