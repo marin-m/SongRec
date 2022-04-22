@@ -2167,7 +2167,7 @@ dependencies = [
 
 [[package]]
 name = "songrec"
-version = "0.3.0"
+version = "0.3.1"
 dependencies = [
  "app_dirs",
  "base64 0.12.3",

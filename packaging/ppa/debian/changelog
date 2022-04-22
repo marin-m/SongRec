@@ -1,3 +1,11 @@
+songrec (0.3.1) bionic; urgency=low
+
+  * Fix the behavior of the new `recognize` command, when recognizing from a file.
+  * Add album artwork, if it exists, to the desktop notification when a song is recognized (thanks to @damonhayhurst).
+  * Update the Dutch translation (thanks to @Vistaus).
+
+ -- Marin <marin-m@users.noreply.github.com>  Fri, 22 Apr 2022 09:02:00 +0200
+
 songrec (0.3.0) bionic; urgency=low
 
   * Introduce a new command-line interface allowing to use microphone recognition from the command line, with the `recognize` and `listen` commands (thanks to @Hummer12007), keeping older command backwards compatibility.
@@ -5,7 +13,7 @@ songrec (0.3.0) bionic; urgency=low
   * Allow exposing song metadata through the standard DBus MPRIS interface (thanks to @Hummer12007).
   * Improve source code structure in order to split the dual CLI/GUI parts from the core thread communication and fingerprinting parts and from other platform-dependant utility code.
   * Update certain dependent crates to more recent minor versions, among other possible things in order to accept a higher LibreSSL version.
-  * Add the program version without the program help output (see the `-h` or `-V', `--version` options).
+  * Add the program version without the program help output (see the `-h` or `-V`, `--version` options).
   * Add a Polish translation (thanks to @qarmin).
   * Update the French translation according to recent changes.
 

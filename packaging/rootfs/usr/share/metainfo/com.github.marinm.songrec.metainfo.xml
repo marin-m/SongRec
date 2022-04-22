@@ -28,6 +28,13 @@ https://hughsie.github.io/oars/index.html
 -->
   <content_rating type="oars-1.0" />
   <releases>
+    <release version="0.3.1" date="2022-04-22">
+      <description>
+        <p>- Fix the behavior of the new "recognize" command, when recognizing from a file.</p>
+        <p>- Add album artwork, if it exists, to the desktop notification when a song is recognized (thanks to @damonhayhurst).</p>
+        <p>- Update the Dutch translation (thanks to @Vistaus).</p>
+      </description>
+    </release>
     <release version="0.3.0" date="2021-12-26">
       <description>
         <p>- Introduce a new command-line interface allowing to use microphone recognition from the command line, with the "recognize" and "listen" commands (thanks to @Hummer12007), keeping older command backwards compatibility.</p>
