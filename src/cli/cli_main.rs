@@ -5,6 +5,7 @@ use std::sync::{Arc, mpsc};
 
 use glib;
 use glib::clone;
+use gettextrs::gettext;
 use chrono::Local;
 
 use mpris_player::PlaybackStatus;
@@ -65,7 +66,7 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
     let mpris_player = if do_enable_mpris { get_player() } else { None };
     let last_track: Rc<RefCell<Option<String>>> = Rc::new(RefCell::new(None));
 
-    let main_loop_gui = main_loop.clone();
+    let main_loop_cli = main_loop.clone();
 
     let audio_dev_name = parameters.audio_device.as_ref().map(|dev| dev.to_string());
     let input_file_name = parameters.input_file.as_ref().map(|dev| dev.to_string());
@@ -86,14 +87,14 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
                 let dev_name = if let Some(dev) = &audio_dev_name {
                     if !device_names.contains(dev) {
                         eprintln!("Exiting: audio device not found");
-                        main_loop_gui.quit();
+                        main_loop_cli.quit();
                         return glib::Continue(false);
                     }
                     dev
                 } else {
                     if device_names.is_empty() {
                         eprintln!("Exiting: no audio devices found!");
-                        main_loop_gui.quit();
+                        main_loop_cli.quit();
                         return glib::Continue(false);
                     }
                     &device_names[0]
@@ -104,6 +105,26 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
             GUIMessage::NetworkStatus(reachable) => {
                 let mpris_status = if reachable { PlaybackStatus::Playing } else { PlaybackStatus::Paused };
                 mpris_player.as_ref().map(|p| p.set_playback_status(mpris_status));
+
+                if !reachable {
+                    if input_file_name.is_some() {
+                        eprintln!("Error: Network unreachable");
+                        main_loop_cli.quit();
+                        return glib::Continue(false);
+                    }
+                    else {
+                        eprintln!("Warning: Network unreachable");
+                    }
+                }
+            },
+            GUIMessage::ErrorMessage(string) => {
+                if !(string == gettext("No match for this song") && !input_file_name.is_some()) {
+                    eprintln!("Error: {}", string);
+                }
+                if input_file_name.is_some() {
+                    main_loop_cli.quit();
+                    return glib::Continue(false);
+                }
             },
             GUIMessage::MicrophoneRecording => {
                 if !do_recognize_once {
@@ -139,7 +160,7 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
                     };
                 }
                 if do_recognize_once {
-                    main_loop_gui.quit();
+                    main_loop_cli.quit();
                     return glib::Continue(false);
                 }
             },
