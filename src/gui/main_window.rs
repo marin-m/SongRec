@@ -253,8 +253,8 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
         let microphone_button: gtk::Button = builder.get_object("microphone_button").unwrap();
         let microphone_stop_button: gtk::Button = builder.get_object("microphone_stop_button").unwrap();
 
-        let notification_enable_checkbox: gtk::CheckButton = builder.get_object("notification_enable_button").unwrap();
-        
+        let notification_enable_checkbox: gtk::CheckButton = builder.get_object("notification_enable_checkbox").unwrap();
+
         let youtube_button: gtk::Button = builder.get_object("youtube_button").unwrap();
         let lure_button: gtk::Button = builder.get_object("lure_button").unwrap();
         
@@ -428,6 +428,10 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
 
         }));
         
+        recognize_from_my_speakers_checkbox.connect_toggled(clone!(@strong recognize_from_my_speakers_checkbox => move |_| {
+            PulseaudioLoopback::set_whether_audio_source_is_monitor(recognize_from_my_speakers_checkbox.get_active());
+        }));
+
         export_csv_button.connect_clicked(move |_| {
 
             #[cfg(not(windows))] {
@@ -444,7 +448,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
 
         });
         
-        gui_rx.attach(None, clone!(@strong application, @strong window, @strong results_frame, @strong current_volume_hbox, @strong spinner, @strong recognize_file_button, @strong network_unreachable, @strong microphone_stop_button, @strong recognize_from_my_speakers_checkbox => move |gui_message| {
+        gui_rx.attach(None, clone!(@strong application, @strong window, @strong results_frame, @strong current_volume_hbox, @strong spinner, @strong recognize_file_button, @strong network_unreachable, @strong microphone_stop_button, @strong recognize_from_my_speakers_checkbox, @strong notification_enable_checkbox => move |gui_message| {
             
             match gui_message {
                 ErrorMessage(_) | NetworkStatus(_) | SongRecognized(_) => {
@@ -597,7 +601,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
                             }
                         };
 
-                        if microphone_stop_button.is_visible() {
+                        if microphone_stop_button.is_visible() && notification_enable_checkbox.get_active() {
                             application.send_notification(Some("recognized-song"), &notification);
                         }
                         
