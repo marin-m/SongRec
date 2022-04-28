@@ -428,10 +428,6 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
 
         }));
         
-        recognize_from_my_speakers_checkbox.connect_toggled(clone!(@strong recognize_from_my_speakers_checkbox => move |_| {
-            PulseaudioLoopback::set_whether_audio_source_is_monitor(recognize_from_my_speakers_checkbox.get_active());
-        }));
-
         export_csv_button.connect_clicked(move |_| {
 
             #[cfg(not(windows))] {
