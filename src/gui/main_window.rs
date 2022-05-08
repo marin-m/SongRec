@@ -25,7 +25,10 @@ use crate::utils::pulseaudio_loopback::PulseaudioLoopback;
 use crate::utils::mpris_player::{get_player, update_song};
 
 use crate::gui::song_history_interface::SongHistoryInterface;
+use crate::gui::preferences_interface::PreferencesInterface;
 use crate::utils::csv_song_history::SongHistoryRecord;
+use crate::utils::filesystem_reader::obtain_csv_path;
+
 
 #[cfg(windows)]
 use std::os::windows::process::CommandExt;
@@ -276,7 +279,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
         
         // Remember about the saved last-used microphone device, if any
 
-        let device_name_savefile = SongHistoryInterface::obtain_csv_path().unwrap()
+        let device_name_savefile = obtain_csv_path().unwrap()
             .replace("song_history.csv", "device_name.txt");
         
         let mut old_device_name: Option<String> = None;
@@ -287,6 +290,9 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
             
             old_device_name = Some(old_device_name_string);
         }
+
+        let preferences_interface = PreferencesInterface::new().unwrap();
+        let preferences = preferences_interface.preferences;
         
         // Handle selecting a microphone input devices in the appropriate combo box
         // (the combo box will be filed with device names when a "DevicesList"
@@ -433,7 +439,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
             #[cfg(not(windows))] {
                 let timestamp = SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_secs();
 
-                gtk::show_uri(None, &format!("file://{}", SongHistoryInterface::obtain_csv_path().unwrap()), timestamp as u32).ok();
+                gtk::show_uri(None, &format!("file://{}", obtain_csv_path().unwrap()), timestamp as u32).ok();
             }
 
             #[cfg(windows)]

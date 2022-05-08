@@ -20,6 +20,7 @@ mod core {
 mod gui {
     pub mod main_window;
     mod song_history_interface;
+    mod preferences_interface;
 }
 
 mod cli {
@@ -34,6 +35,7 @@ mod utils {
     pub mod internationalization;
     pub mod mpris_player;
     pub mod thread;
+    pub mod filesystem_reader;
 }
 
 use crate::fingerprinting::algorithm::SignatureGenerator;

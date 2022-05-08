@@ -4,7 +4,7 @@ use std::path::PathBuf;
 use gtk::prelude::*;
 
 use crate::utils::csv_song_history::SongHistoryRecord;
-
+use crate::utils::filesystem_reader::obtain_csv_path;
 /// This file contains code for interfacing between the CSV Song history
 /// format defined within the "src/utils/csv_song_history.rs" file, the
 /// GTK-rs GUI of SongRec and the filesystem while using the GUI.
@@ -20,7 +20,7 @@ impl SongHistoryInterface {
     pub fn new(gtk_list_store: gtk::ListStore) -> Result<Self, Box<dyn Error>> {
 
         let mut interface = SongHistoryInterface {
-            csv_path: SongHistoryInterface::obtain_csv_path()?,
+            csv_path: obtain_csv_path()?,
             gtk_list_store: gtk_list_store,
             chronological_records: vec![]
         };
@@ -30,18 +30,6 @@ impl SongHistoryInterface {
         Ok(interface)
     }
     
-    pub fn obtain_csv_path() -> Result<String, Box<dyn Error>> {
-        let app_info = AppInfo {
-            name: "SongRec",
-            author: "SongRec"
-        };
-        
-        let mut csv_path: PathBuf = app_root(UserData, &app_info)?; // Creates the application's local directory if necessary
-        csv_path.push("song_history.csv");
-        
-        Ok(csv_path.to_str().unwrap().to_string())
-        
-    }
     
     /// All the code displaying the initial state of the song recognition
     /// history is stored here.
