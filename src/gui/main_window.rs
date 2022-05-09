@@ -25,7 +25,7 @@ use crate::utils::pulseaudio_loopback::PulseaudioLoopback;
 use crate::utils::mpris_player::{get_player, update_song};
 
 use crate::gui::song_history_interface::SongHistoryInterface;
-use crate::gui::preferences_interface::PreferencesInterface;
+use crate::gui::preferences::{PreferencesInterface, Preferences};
 use crate::utils::csv_song_history::SongHistoryRecord;
 use crate::utils::filesystem_reader::obtain_csv_path;
 
@@ -40,7 +40,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
     let application = gtk::Application::new(Some("com.github.marinm.songrec"),
         gio::ApplicationFlags::HANDLES_OPEN)
         .expect(&gettext("Application::new failed"));
-    
+
     application.connect_startup(move |application| {
         
         let glade_src = include_str!("interface.glade");
@@ -54,7 +54,11 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
 
         // We spawn required background threads, and create the
         // associated communication channels.
-        
+
+        let mut preferences_interface = PreferencesInterface::new();
+
+        // Load preferences file.
+
         // We use the GLib communication channel in order for
         // communication with the main GTK+ loop and the standard
         // Rust channels for other threads. An alternative would be
@@ -279,20 +283,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
         
         // Remember about the saved last-used microphone device, if any
 
-        let device_name_savefile = obtain_csv_path().unwrap()
-            .replace("song_history.csv", "device_name.txt");
-        
-        let mut old_device_name: Option<String> = None;
-        
-        if let Ok(mut file) = File::open(&device_name_savefile) {
-            let mut old_device_name_string = String::new();
-            file.read_to_string(&mut old_device_name_string).unwrap();
-            
-            old_device_name = Some(old_device_name_string);
-        }
-
-        let preferences_interface = PreferencesInterface::new().unwrap();
-        let preferences = preferences_interface.preferences;
+        let old_device_name = preferences_interface.preferences.device_name;
         
         // Handle selecting a microphone input devices in the appropriate combo box
         // (the combo box will be filed with device names when a "DevicesList"
@@ -313,18 +304,14 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
         combo_box.connect_changed(clone!(@strong microphone_stop_button, @strong combo_box => move |_| {
             
             if let Some(device_name_str) = combo_box.get_active_id() {
-            
-                let device_name = device_name_str.to_string();
 
                 // Save the selected microphone device name so that it is
                 // remembered after relaunching the app
                 
-                let mut file = File::create(&device_name_savefile).unwrap();
-                
-                file.write_all(device_name.as_bytes()).unwrap();
-                file.sync_all().unwrap();
-                
-                drop(file);
+                let mut preferences_interface = PreferencesInterface::new();
+                let mut new_preferences = preferences_interface.preferences.clone();
+                new_preferences.device_name = Some(device_name_str.to_string());
+                preferences_interface.update(new_preferences);
                 
                 if microphone_stop_button.is_visible() {
                     
@@ -332,7 +319,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
                     // device
                     
                     microphone_tx_4.send(MicrophoneMessage::MicrophoneRecordStop).unwrap();
-                    microphone_tx_4.send(MicrophoneMessage::MicrophoneRecordStart(device_name)).unwrap();
+                    microphone_tx_4.send(MicrophoneMessage::MicrophoneRecordStart(device_name_str.to_string())).unwrap();
                     
                 }
             }

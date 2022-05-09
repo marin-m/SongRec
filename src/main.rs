@@ -20,7 +20,7 @@ mod core {
 mod gui {
     pub mod main_window;
     mod song_history_interface;
-    mod preferences_interface;
+    mod preferences;
 }
 
 mod cli {
