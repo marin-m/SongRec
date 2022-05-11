@@ -286,7 +286,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
         if let Some(old_enable_notifications) = old_preferences.enable_notifications {
             notification_enable_checkbox.set_active(old_enable_notifications);
         }
-        let old_device_name = old_preferences.device_name;
+        let old_device_name = old_preferences.current_device_name;
 
         // Handle selecting a microphone input devices in the appropriate combo box
         // (the combo box will be filed with device names when a "DevicesList"
@@ -313,7 +313,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
                 
                 let mut preferences_interface = PreferencesInterface::new();
                 let mut new_preferences = preferences_interface.preferences.clone();
-                new_preferences.device_name = Some(device_name_str.to_string());
+                new_preferences.current_device_name = Some(device_name_str.to_string());
                 preferences_interface.update(new_preferences);
                 
                 if microphone_stop_button.is_visible() {

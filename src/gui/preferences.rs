@@ -8,7 +8,7 @@ use crate::utils::filesystem_reader::obtain_preferences_file_path;
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct Preferences{
     pub enable_notifications: Option<bool>,
-    pub device_name: Option<String>
+    pub current_device_name: Option<String>
 }
 
 
@@ -16,7 +16,7 @@ impl Preferences {
     pub fn default() -> Self {
         Preferences {
             enable_notifications: Some(true),
-            device_name: None
+            current_device_name: None
         }
     }
 }
