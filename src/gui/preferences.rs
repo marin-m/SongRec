@@ -7,19 +7,21 @@ use std::io::{Read, Write};
 use crate::utils::filesystem_reader::obtain_preferences_file_path;
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct Preferences{
-    pub enable_notifications: bool,
+    pub enable_notifications: Option<bool>,
     pub device_name: Option<String>
 }
+
 
 impl Preferences {
     pub fn default() -> Self {
         Preferences {
-            enable_notifications: true,
+            enable_notifications: Some(true),
             device_name: None
         }
     }
 }
 
+#[derive(Clone, Debug)]
 pub struct PreferencesInterface{
     preferences_file_path: Option<String>,
     pub preferences: Preferences
@@ -33,6 +35,7 @@ impl PreferencesInterface {
                 return preferences_interface
             },
             Err(e) => {
+                println!("{}", e);
                 return PreferencesInterface {
                     preferences_file_path: None,
                     preferences: Preferences::default()
@@ -65,9 +68,11 @@ impl PreferencesInterface {
     }
 
     fn write(self: &mut Self) -> Result<(), Box<dyn Error>> {
+        println!("{:?}", &self);
         if let Some(preferences_file_path) = &self.preferences_file_path {
             let mut file: File = File::options().write(true).read(true).create(true).open(preferences_file_path.as_str())?;
             let contents: String = toml::to_string(&self.preferences)?;
+            println!("{}", contents);
             file.write_all(contents.as_bytes())?;
         }
         Ok(())

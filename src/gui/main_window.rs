@@ -55,7 +55,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
         // We spawn required background threads, and create the
         // associated communication channels.
 
-        let mut preferences_interface = PreferencesInterface::new();
+        let old_preferences: Preferences = PreferencesInterface::new().preferences;
 
         // Load preferences file.
 
@@ -283,8 +283,11 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
         
         // Remember about the saved last-used microphone device, if any
 
-        let old_device_name = preferences_interface.preferences.device_name;
-        
+        if let Some(old_enable_notifications) = old_preferences.enable_notifications {
+            notification_enable_checkbox.set_active(old_enable_notifications);
+        }
+        let old_device_name = old_preferences.device_name;
+
         // Handle selecting a microphone input devices in the appropriate combo box
         // (the combo box will be filed with device names when a "DevicesList"
         // inter-thread message will be received at the initialization of the
@@ -437,6 +440,13 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
 
         });
         
+        notification_enable_checkbox.connect_toggled(clone!(@strong notification_enable_checkbox => move |_| {
+            let mut preferences_interface = PreferencesInterface::new();
+            let mut new_preferences = preferences_interface.preferences.clone();
+            new_preferences.enable_notifications = Some(notification_enable_checkbox.get_active());
+            preferences_interface.update(new_preferences);
+        }));
+
         gui_rx.attach(None, clone!(@strong application, @strong window, @strong results_frame, @strong current_volume_hbox, @strong spinner, @strong recognize_file_button, @strong network_unreachable, @strong microphone_stop_button, @strong recognize_from_my_speakers_checkbox, @strong notification_enable_checkbox => move |gui_message| {
             
             match gui_message {
