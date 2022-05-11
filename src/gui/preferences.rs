@@ -68,11 +68,9 @@ impl PreferencesInterface {
     }
 
     fn write(self: &mut Self) -> Result<(), Box<dyn Error>> {
-        println!("{:?}", &self);
         if let Some(preferences_file_path) = &self.preferences_file_path {
             let mut file: File = File::options().write(true).read(true).create(true).open(preferences_file_path.as_str())?;
             let contents: String = toml::to_string(&self.preferences)?;
-            println!("{}", contents);
             file.write_all(contents.as_bytes())?;
         }
         Ok(())

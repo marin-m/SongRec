@@ -1,6 +1,4 @@
-use app_dirs::{app_root, AppInfo, AppDataType::*};
 use std::error::Error;
-use std::path::PathBuf;
 use gtk::prelude::*;
 
 use crate::utils::csv_song_history::SongHistoryRecord;

@@ -1,8 +1,6 @@
 use gio::prelude::*;
 use glib::clone;
 use gtk::prelude::*;
-use std::fs::File;
-use std::io::{Read, Write};
 use gtk::ResponseType;
 use gettextrs::gettext;
 use gdk_pixbuf::Pixbuf;
