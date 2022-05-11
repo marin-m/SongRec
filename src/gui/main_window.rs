@@ -434,7 +434,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
 
             #[cfg(windows)]
             std::process::Command::new("cmd")
-                .args(&["/c", &format!("start {}", SongHistoryInterface::obtain_csv_path().unwrap())])
+                .args(&["/c", &format!("start {}", obtain_csv_path().unwrap())])
                 .creation_flags(0x00000008) // Set "CREATE_NO_WINDOW" on Windows
                 .output().ok();
 
