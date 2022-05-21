@@ -35,7 +35,7 @@ mod utils {
     pub mod internationalization;
     pub mod mpris_player;
     pub mod thread;
-    pub mod filesystem_reader;
+    pub mod filesystem_operations;
 }
 
 use crate::fingerprinting::algorithm::SignatureGenerator;

@@ -4,7 +4,8 @@ use std::fs::File;
 use std::error::Error;
 use std::io::{Read, Write};
 
-use crate::utils::filesystem_reader::obtain_preferences_file_path;
+use crate::utils::filesystem_operations::obtain_preferences_file_path;
+
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct Preferences{
     pub enable_notifications: Option<bool>,

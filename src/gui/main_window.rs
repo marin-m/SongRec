@@ -25,7 +25,7 @@ use crate::utils::mpris_player::{get_player, update_song};
 use crate::gui::song_history_interface::SongHistoryInterface;
 use crate::gui::preferences::{PreferencesInterface, Preferences};
 use crate::utils::csv_song_history::SongHistoryRecord;
-use crate::utils::filesystem_reader::obtain_csv_path;
+use crate::utils::filesystem_operations::obtain_song_history_csv_path;
 
 
 #[cfg(windows)]
@@ -52,7 +52,6 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
 
         // We spawn required background threads, and create the
         // associated communication channels.
-
         let old_preferences: Preferences = PreferencesInterface::new().preferences;
 
         // Load preferences file.
@@ -427,7 +426,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
             #[cfg(not(windows))] {
                 let timestamp = SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_secs();
 
-                gtk::show_uri(None, &format!("file://{}", obtain_csv_path().unwrap()), timestamp as u32).ok();
+                gtk::show_uri(None, &format!("file://{}", obtain_song_history_csv_path().unwrap()), timestamp as u32).ok();
             }
 
             #[cfg(windows)]
