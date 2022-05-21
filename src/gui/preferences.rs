@@ -1,6 +1,6 @@
 use serde::Serialize;
 use serde::Deserialize;
-use std::fs::File;
+use std::fs::OpenOptions;
 use std::error::Error;
 use std::io::{Read, Write};
 
@@ -48,7 +48,7 @@ impl PreferencesInterface {
 
     fn load() -> Result<PreferencesInterface, Box<dyn Error>> {
         let preferences_file_path: String = obtain_preferences_file_path()?;
-        let mut file: File = File::options().write(true).read(true).create(true).open(&preferences_file_path)?;
+        let mut file = OpenOptions::new().write(true).read(true).create(true).open(&preferences_file_path)?;
         let mut contents: String = String::new();
         file.read_to_string(&mut contents)?;
         let preferences: Preferences = toml::from_str(&contents)?;
@@ -70,7 +70,7 @@ impl PreferencesInterface {
 
     fn write(self: &mut Self) -> Result<(), Box<dyn Error>> {
         if let Some(preferences_file_path) = &self.preferences_file_path {
-            let mut file: File = File::options().write(true).read(true).create(true).open(preferences_file_path.as_str())?;
+            let mut file = OpenOptions::new().write(true).read(true).create(true).open(preferences_file_path.as_str())?;
             let contents: String = toml::to_string(&self.preferences)?;
             file.write_all(contents.as_bytes())?;
         }
