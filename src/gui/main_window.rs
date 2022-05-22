@@ -1,8 +1,6 @@
 use gio::prelude::*;
 use glib::clone;
 use gtk::prelude::*;
-use std::fs::File;
-use std::io::{Read, Write};
 use gtk::ResponseType;
 use gettextrs::gettext;
 use gdk_pixbuf::Pixbuf;
@@ -25,7 +23,10 @@ use crate::utils::pulseaudio_loopback::PulseaudioLoopback;
 use crate::utils::mpris_player::{get_player, update_song};
 
 use crate::gui::song_history_interface::SongHistoryInterface;
+use crate::gui::preferences::{PreferencesInterface, Preferences};
 use crate::utils::csv_song_history::SongHistoryRecord;
+use crate::utils::filesystem_operations::obtain_song_history_csv_path;
+
 
 #[cfg(windows)]
 use std::os::windows::process::CommandExt;
@@ -37,7 +38,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
     let application = gtk::Application::new(Some("com.github.marinm.songrec"),
         gio::ApplicationFlags::HANDLES_OPEN)
         .expect(&gettext("Application::new failed"));
-    
+
     application.connect_startup(move |application| {
         
         let glade_src = include_str!("interface.glade");
@@ -51,7 +52,10 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
 
         // We spawn required background threads, and create the
         // associated communication channels.
-        
+        let old_preferences: Preferences = PreferencesInterface::new().preferences;
+
+        // Load preferences file.
+
         // We use the GLib communication channel in order for
         // communication with the main GTK+ loop and the standard
         // Rust channels for other threads. An alternative would be
@@ -252,7 +256,9 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
 
         let microphone_button: gtk::Button = builder.get_object("microphone_button").unwrap();
         let microphone_stop_button: gtk::Button = builder.get_object("microphone_stop_button").unwrap();
-        
+
+        let notification_enable_checkbox: gtk::CheckButton = builder.get_object("notification_enable_checkbox").unwrap();
+
         let youtube_button: gtk::Button = builder.get_object("youtube_button").unwrap();
         let lure_button: gtk::Button = builder.get_object("lure_button").unwrap();
         
@@ -274,18 +280,11 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
         
         // Remember about the saved last-used microphone device, if any
 
-        let device_name_savefile = SongHistoryInterface::obtain_csv_path().unwrap()
-            .replace("song_history.csv", "device_name.txt");
-        
-        let mut old_device_name: Option<String> = None;
-        
-        if let Ok(mut file) = File::open(&device_name_savefile) {
-            let mut old_device_name_string = String::new();
-            file.read_to_string(&mut old_device_name_string).unwrap();
-            
-            old_device_name = Some(old_device_name_string);
+        if let Some(old_enable_notifications) = old_preferences.enable_notifications {
+            notification_enable_checkbox.set_active(old_enable_notifications);
         }
-        
+        let old_device_name = old_preferences.current_device_name;
+
         // Handle selecting a microphone input devices in the appropriate combo box
         // (the combo box will be filed with device names when a "DevicesList"
         // inter-thread message will be received at the initialization of the
@@ -305,18 +304,14 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
         combo_box.connect_changed(clone!(@strong microphone_stop_button, @strong combo_box => move |_| {
             
             if let Some(device_name_str) = combo_box.get_active_id() {
-            
-                let device_name = device_name_str.to_string();
 
                 // Save the selected microphone device name so that it is
                 // remembered after relaunching the app
                 
-                let mut file = File::create(&device_name_savefile).unwrap();
-                
-                file.write_all(device_name.as_bytes()).unwrap();
-                file.sync_all().unwrap();
-                
-                drop(file);
+                let mut preferences_interface = PreferencesInterface::new();
+                let mut new_preferences = preferences_interface.preferences.clone();
+                new_preferences.current_device_name = Some(device_name_str.to_string());
+                preferences_interface.update(new_preferences);
                 
                 if microphone_stop_button.is_visible() {
                     
@@ -324,7 +319,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
                     // device
                     
                     microphone_tx_4.send(MicrophoneMessage::MicrophoneRecordStop).unwrap();
-                    microphone_tx_4.send(MicrophoneMessage::MicrophoneRecordStart(device_name)).unwrap();
+                    microphone_tx_4.send(MicrophoneMessage::MicrophoneRecordStart(device_name_str.to_string())).unwrap();
                     
                 }
             }
@@ -431,18 +426,25 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
             #[cfg(not(windows))] {
                 let timestamp = SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_secs();
 
-                gtk::show_uri(None, &format!("file://{}", SongHistoryInterface::obtain_csv_path().unwrap()), timestamp as u32).ok();
+                gtk::show_uri(None, &format!("file://{}", obtain_song_history_csv_path().unwrap()), timestamp as u32).ok();
             }
 
             #[cfg(windows)]
             std::process::Command::new("cmd")
-                .args(&["/c", &format!("start {}", SongHistoryInterface::obtain_csv_path().unwrap())])
+                .args(&["/c", &format!("start {}", obtain_csv_path().unwrap())])
                 .creation_flags(0x00000008) // Set "CREATE_NO_WINDOW" on Windows
                 .output().ok();
 
         });
         
-        gui_rx.attach(None, clone!(@strong application, @strong window, @strong results_frame, @strong current_volume_hbox, @strong spinner, @strong recognize_file_button, @strong network_unreachable, @strong microphone_stop_button, @strong recognize_from_my_speakers_checkbox => move |gui_message| {
+        notification_enable_checkbox.connect_toggled(clone!(@strong notification_enable_checkbox => move |_| {
+            let mut preferences_interface = PreferencesInterface::new();
+            let mut new_preferences = preferences_interface.preferences.clone();
+            new_preferences.enable_notifications = Some(notification_enable_checkbox.get_active());
+            preferences_interface.update(new_preferences);
+        }));
+
+        gui_rx.attach(None, clone!(@strong application, @strong window, @strong results_frame, @strong current_volume_hbox, @strong spinner, @strong recognize_file_button, @strong network_unreachable, @strong microphone_stop_button, @strong recognize_from_my_speakers_checkbox, @strong notification_enable_checkbox => move |gui_message| {
             
             match gui_message {
                 ErrorMessage(_) | NetworkStatus(_) | SongRecognized(_) => {
@@ -595,7 +597,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
                             }
                         };
 
-                        if microphone_stop_button.is_visible() {
+                        if microphone_stop_button.is_visible() && notification_enable_checkbox.get_active() {
                             application.send_notification(Some("recognized-song"), &notification);
                         }
                         
