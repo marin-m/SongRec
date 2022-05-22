@@ -267,7 +267,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
 
         let mpris_player = if enable_mpris { get_player() } else { None };
         if enable_mpris && mpris_player.is_none() {
-            println!("Unable to enable MPRIS support")
+            println!("{}", gettext("Unable to enable MPRIS support"))
         }
         
         // Thread-local variables to be passed across callbacks.

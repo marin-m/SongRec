@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-26 14:36+0100\n"
+"POT-Creation-Date: 2022-05-22 10:59+0200\n"
 "PO-Revision-Date: 2021-12-28 14:34+0100\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: \n"
@@ -18,11 +18,11 @@ msgstr ""
 "X-Generator: Poedit 3.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../src/main.rs:56
+#: ../src/main.rs:58
 msgid "An open-source Shazam client for Linux, written in Rust."
 msgstr "Een open source Shazam-app voor Linux, geschreven in Rust."
 
-#: ../src/main.rs:59
+#: ../src/main.rs:61
 msgid ""
 "Run as a command-line program listening the microphone and printing "
 "recognized songs to stdout, exposing current song info via MPRIS"
@@ -30,33 +30,33 @@ msgstr ""
 "Voer uit als een opdrachtregeltoepassing om de herkende nummers te tonen via "
 "stdout en de nummerinformatie via MPRIS"
 
-#: ../src/main.rs:65 ../src/main.rs:94 ../src/main.rs:132
+#: ../src/main.rs:67 ../src/main.rs:96 ../src/main.rs:134
 msgid "Specify the audio device to use"
 msgstr "Kies het te gebruiken audio-apparaat"
 
-#: ../src/main.rs:72 ../src/main.rs:101
+#: ../src/main.rs:74 ../src/main.rs:103
 msgid "Enable printing full song info in JSON"
 msgstr "Nummerinformatie vastleggen in json-bestand"
 
-#: ../src/main.rs:78 ../src/main.rs:107
+#: ../src/main.rs:80 ../src/main.rs:109
 msgid "Enable printing full song info in the CSV format"
 msgstr "Nummerinformatie vastleggen in csv-bestand"
 
-#: ../src/main.rs:83 ../src/main.rs:185 ../src/main.rs:199
+#: ../src/main.rs:85 ../src/main.rs:187 ../src/main.rs:201
 msgid "Disable MPRIS support"
 msgstr "MPRIS-ondersteuning uitschakelen"
 
-#: ../src/main.rs:88
+#: ../src/main.rs:90
 msgid "Recognize one song from a sound file or microphone and print its info."
 msgstr ""
 "Herken één nummer uit een geluidsbestand of via de microfoon en toon "
 "informatie."
 
-#: ../src/main.rs:112
+#: ../src/main.rs:114
 msgid "Recognize a file instead of using mic input"
 msgstr "Bestand gebruiken in plaats van microfoon"
 
-#: ../src/main.rs:117
+#: ../src/main.rs:119
 msgid ""
 "Generate a Shazam fingerprint from a sound file, perform song recognition "
 "towards Shazam's servers and print obtained information to the standard "
@@ -65,11 +65,11 @@ msgstr ""
 "Genereer een Shazam-vingerafdruk op basis van een geluidsbestand, voer "
 "muziekherkenning uit en schrijf de verkregen informatie weg."
 
-#: ../src/main.rs:121
+#: ../src/main.rs:123
 msgid "The audio file to recognize."
 msgstr "Het te herkennen bestand."
 
-#: ../src/main.rs:126
+#: ../src/main.rs:128
 msgid ""
 "Recognize a currently playing song using the microphone and print obtained "
 "information to the standard output"
@@ -77,7 +77,7 @@ msgstr ""
 "Herkent een nummer via de microfoon en toont de informatie via de "
 "standaarduitvoer"
 
-#: ../src/main.rs:137
+#: ../src/main.rs:139
 msgid ""
 "Generate a Shazam fingerprint from a sound file, and print it to the "
 "standard output."
@@ -85,12 +85,12 @@ msgstr ""
 "Genereer een Shazam-vingerafdruk op basis van een geluidsbestand en schrijf "
 "de verkregen informatie weg."
 
-#: ../src/main.rs:141
+#: ../src/main.rs:143
 msgid "The .WAV or .MP3 file to generate an audio fingerprint for."
 msgstr ""
 "Het wav- of mp3-bestand waarvoor een vingerafdruk moet worden gegenereerd."
 
-#: ../src/main.rs:146
+#: ../src/main.rs:148
 msgid ""
 "Take a data-URI Shazam fingerprint, perform song recognition towards "
 "Shazam's servers and print obtained information to the standard output."
@@ -98,11 +98,11 @@ msgstr ""
 "Gebruik een gegevensuri met Shazam-vingerafdruk, voer muziekherkenning uit "
 "en schrijf de verkregen informatie weg."
 
-#: ../src/main.rs:150
+#: ../src/main.rs:152
 msgid "The data-URI Shazam fingerprint to recognize."
 msgstr "De te herkennen gegevensuri met Shazam-vingerafdruk."
 
-#: ../src/main.rs:155
+#: ../src/main.rs:157
 msgid ""
 "Convert a data-URI Shazam fingerprint into hearable tones, played back "
 "instantly (or written to a file, if a path is provided). Not particularly "
@@ -114,11 +114,11 @@ msgstr ""
 "bestand). Niet heel erg nuttig, maar geeft de eenvoudigste uitvoer om Shazam "
 "een nummer te laten herkennen."
 
-#: ../src/main.rs:159
+#: ../src/main.rs:161
 msgid "The data-URI Shazam fingerprint to convert into hearable sound."
 msgstr "De te converteren gegevensuri met Shazam-vingerafdruk."
 
-#: ../src/main.rs:164
+#: ../src/main.rs:166
 msgid ""
 "File path of the .WAV file to write tones to, or nothing to play back the "
 "sound instantly."
@@ -126,26 +126,46 @@ msgstr ""
 "De bestandslocatie van het wav-bestand waarnaar tonen moeten worden "
 "weggeschreven. Laat leeg om direct af te spelen."
 
-#: ../src/main.rs:176
+#: ../src/main.rs:178
 msgid "The default action. Display a GUI."
 msgstr "De standaardactie: toon het venster."
 
-#: ../src/main.rs:180 ../src/main.rs:194
+#: ../src/main.rs:182 ../src/main.rs:196
 msgid "An optional audio file to recognize on the launch of the application."
 msgstr ""
 "Een optioneel audiobestand dat na het opstarten dient te worden herkend."
 
-#: ../src/main.rs:190
+#: ../src/main.rs:192
 msgid ""
 "Launch the GUI, but don't recognize audio through the microphone as soon as "
 "it is launched (rather than expecting the user to click on a button)."
 msgstr "Toon het venster, maar wacht met het starten van de muziekherkenning."
 
-#: ../src/core/http_thread.rs:49 ../src/core/http_thread.rs:54
-#: ../src/core/http_thread.rs:63 ../src/core/http_thread.rs:89
-#: ../src/gui/main_window.rs:457
+#: ../src/cli/cli_main.rs:89
+msgid "Exiting: audio device not found"
+msgstr ""
+
+#: ../src/cli/cli_main.rs:96
+msgid "Exiting: no audio devices found!"
+msgstr ""
+
+#: ../src/cli/cli_main.rs:111
+msgid "Error: Network unreachable"
+msgstr ""
+
+#: ../src/cli/cli_main.rs:116
+msgid "Warning: Network unreachable"
+msgstr ""
+
+#: ../src/cli/cli_main.rs:121 ../src/core/http_thread.rs:49
+#: ../src/core/http_thread.rs:54 ../src/core/http_thread.rs:63
+#: ../src/core/http_thread.rs:89 ../src/gui/main_window.rs:459
 msgid "No match for this song"
 msgstr "Er is geen overeenkomst gevonden"
+
+#: ../src/cli/cli_main.rs:131
+msgid "Recording started!"
+msgstr ""
 
 #: ../src/core/microphone_thread.rs:64
 msgid "Microphone error:"
@@ -168,23 +188,27 @@ msgid "Invalid sample rate passed when encoding Shazam packet"
 msgstr ""
 "Ongeldige samplesnelheid doorgegeven tijdens encoderen van Shazam-pakket"
 
-#: ../src/gui/main_window.rs:39
+#: ../src/gui/main_window.rs:40
 msgid "Application::new failed"
 msgstr "Application::new is mislukt"
 
-#: ../src/gui/main_window.rs:341
+#: ../src/gui/main_window.rs:270
+msgid "Unable to enable MPRIS support"
+msgstr ""
+
+#: ../src/gui/main_window.rs:336
 msgid "Select a file to recognize"
 msgstr "Kies een te herkennen bestand"
 
-#: ../src/gui/main_window.rs:344
+#: ../src/gui/main_window.rs:339
 msgid "_Open"
 msgstr "_Openen"
 
-#: ../src/gui/main_window.rs:345
+#: ../src/gui/main_window.rs:340
 msgid "_Cancel"
 msgstr "_Annuleren"
 
-#: ../src/gui/main_window.rs:353
+#: ../src/gui/main_window.rs:348
 msgid "Couldn't get filename"
 msgstr "De bestandsnaam kan niet worden bepaald"
 
@@ -230,54 +254,58 @@ msgid "Turn off microphone recognition"
 msgstr "Microfoonherkenning uitzetten"
 
 #: interface.glade.h:9
+msgid "Enable notifications"
+msgstr ""
+
+#: interface.glade.h:10
 msgid "Shazam servers are not reachable, are you connected?"
 msgstr ""
 "De Shazam-servers zijn onbereikbaar. Ben je verbonden met het internet?"
 
-#: interface.glade.h:10
+#: interface.glade.h:11
 msgid "Recognize songs"
 msgstr "Nummerherkenning"
 
-#: interface.glade.h:11
+#: interface.glade.h:12
 msgid "Play a Shazam lure"
 msgstr "Shazam-testbestand afspelen"
 
-#: interface.glade.h:12
+#: interface.glade.h:13
 msgid "Recognition results"
 msgstr "Resultaten"
 
-#: interface.glade.h:13
+#: interface.glade.h:14
 msgid "Recognize from my speakers instead of microphone"
 msgstr "Luidsprekers gebruiken te herkennen in plaats van microfoon"
 
-#: interface.glade.h:14
+#: interface.glade.h:15
 msgid "Current volume:"
 msgstr "Huidig volumeniveau:"
 
-#: interface.glade.h:15
+#: interface.glade.h:16
 msgid "Audio input"
 msgstr "Audio-invoer"
 
-#: interface.glade.h:16
+#: interface.glade.h:17
 msgid "Song name"
 msgstr "Nummernaam"
 
-#: interface.glade.h:17
+#: interface.glade.h:18
 msgid "Album"
 msgstr "Albumnaam"
 
-#: interface.glade.h:18
+#: interface.glade.h:19
 msgid "Recognition date"
 msgstr "Herkend op"
 
-#: interface.glade.h:19
+#: interface.glade.h:20
 msgid "Wipe history"
 msgstr "Geschiedenis wissen"
 
-#: interface.glade.h:20
+#: interface.glade.h:21
 msgid "Export to CSV"
 msgstr "Exporteren naar csv-bestand"
 
-#: interface.glade.h:21
+#: interface.glade.h:22
 msgid "Recognition history"
 msgstr "Geschiedenis"

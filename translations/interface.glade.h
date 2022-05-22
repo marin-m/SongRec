@@ -6,6 +6,7 @@ char *s = N_("Search on YouTube");
 char *s = N_("Recognize from file");
 char *s = N_("Turn on microphone recognition");
 char *s = N_("Turn off microphone recognition");
+char *s = N_("Enable notifications");
 char *s = N_("Shazam servers are not reachable, are you connected?");
 char *s = N_("Recognize songs");
 char *s = N_("Play a Shazam lure");

@@ -86,14 +86,14 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
                 }
                 let dev_name = if let Some(dev) = &audio_dev_name {
                     if !device_names.contains(dev) {
-                        eprintln!("Exiting: audio device not found");
+                        eprintln!("{}", gettext("Exiting: audio device not found"));
                         main_loop_cli.quit();
                         return glib::Continue(false);
                     }
                     dev
                 } else {
                     if device_names.is_empty() {
-                        eprintln!("Exiting: no audio devices found!");
+                        eprintln!("{}", gettext("Exiting: no audio devices found!"));
                         main_loop_cli.quit();
                         return glib::Continue(false);
                     }
@@ -108,12 +108,12 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
 
                 if !reachable {
                     if input_file_name.is_some() {
-                        eprintln!("Error: Network unreachable");
+                        eprintln!("{}", gettext("Error: Network unreachable"));
                         main_loop_cli.quit();
                         return glib::Continue(false);
                     }
                     else {
-                        eprintln!("Warning: Network unreachable");
+                        eprintln!("{}", gettext("Warning: Network unreachable"));
                     }
                 }
             },
@@ -128,7 +128,7 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
             },
             GUIMessage::MicrophoneRecording => {
                 if !do_recognize_once {
-                    eprintln!("Recording started!");
+                    eprintln!("{}", gettext("Recording started!"));
                 }
             },
             GUIMessage::SongRecognized(message) => {
