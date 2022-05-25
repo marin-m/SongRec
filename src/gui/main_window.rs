@@ -9,7 +9,6 @@ use std::sync::mpsc;
 use std::cell::RefCell;
 use std::rc::Rc;
 use chrono::Local;
-use std::time::{SystemTime, UNIX_EPOCH};
 use percent_encoding::{utf8_percent_encode, NON_ALPHANUMERIC};
 use mpris_player::PlaybackStatus;
 
@@ -188,16 +187,15 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
         search_on_youtube.connect_activate(clone!(@strong history_tree_view => move |_| {
             
             if let Some((tree_model, tree_iter)) = history_tree_view.get_selection().get_selected() {
+            
                 let full_song_name: String = tree_model.get_value(&tree_iter, 0).get().unwrap().unwrap();
-                
-                let timestamp = SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_secs();
                 
                 let mut encoded_search_term = utf8_percent_encode(&full_song_name, NON_ALPHANUMERIC).to_string();
                 encoded_search_term = encoded_search_term.replace("%20", "+");
                 
                 let search_url = format!("https://www.youtube.com/results?search_query={}", encoded_search_term);
                 
-                gtk::show_uri(None, &search_url, timestamp as u32).unwrap();
+                gtk::show_uri(None, &search_url, gtk::get_current_event_time()).unwrap();
             }
             
         }));
@@ -381,8 +379,6 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
         
         youtube_button.connect_clicked(move |_| {
             
-            let timestamp = SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_secs();
-            
             let youtube_query_borrow = youtube_query_2.borrow();
             
             let mut encoded_search_term: String = youtube_query_borrow.as_ref().unwrap().to_string();
@@ -391,7 +387,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
             
             let search_url = format!("https://www.youtube.com/results?search_query={}", encoded_search_term);
             
-            gtk::show_uri(None, &search_url, timestamp as u32).unwrap();
+            gtk::show_uri(None, &search_url, gtk::get_current_event_time()).unwrap();
             
         });
         
@@ -424,9 +420,8 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
         export_csv_button.connect_clicked(move |_| {
 
             #[cfg(not(windows))] {
-                let timestamp = SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_secs();
 
-                gtk::show_uri(None, &format!("file://{}", obtain_song_history_csv_path().unwrap()), timestamp as u32).ok();
+                gtk::show_uri(None, &format!("file://{}", obtain_song_history_csv_path().unwrap()), gtk::get_current_event_time()).ok();
             }
 
             #[cfg(windows)]
