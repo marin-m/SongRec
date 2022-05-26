@@ -8,14 +8,15 @@ use std::io::{Read, Write};
 use crate::utils::filesystem_operations::obtain_preferences_file_path;
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct Preferences{
+#[serde(default)]
+pub struct Preferences {
     pub enable_notifications: Option<bool>,
     pub current_device_name: Option<String>
 }
 
 
-impl Preferences {
-    pub fn default() -> Self {
+impl Default for Preferences {
+    fn default() -> Self {
         Preferences {
             enable_notifications: Some(true),
             current_device_name: None
@@ -24,7 +25,7 @@ impl Preferences {
 }
 
 #[derive(Clone, Debug)]
-pub struct PreferencesInterface{
+pub struct PreferencesInterface {
     preferences_file_path: Option<String>,
     pub preferences: Preferences
 }
