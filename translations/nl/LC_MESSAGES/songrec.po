@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-26 09:42+0200\n"
-"PO-Revision-Date: 2021-12-28 14:34+0100\n"
+"POT-Creation-Date: 2022-05-26 09:44+0200\n"
+"PO-Revision-Date: 2022-05-26 14:13+0200\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: \n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: ../src/main.rs:58
 msgid "An open-source Shazam client for Linux, written in Rust."
@@ -143,23 +143,23 @@ msgstr "Toon het venster, maar wacht met het starten van de muziekherkenning."
 
 #: ../src/cli/cli_main.rs:89
 msgid "Exiting: audio device not found"
-msgstr ""
+msgstr "Geen audio-apparaat aangetroffen"
 
 #: ../src/cli/cli_main.rs:96
 msgid "Exiting: no audio devices found!"
-msgstr ""
+msgstr "Geen audio-apparaten aangetroffen"
 
 #: ../src/cli/cli_main.rs:102
 msgid "Using device"
-msgstr ""
+msgstr "Gebruikmakend van"
 
 #: ../src/cli/cli_main.rs:111
 msgid "Error: Network unreachable"
-msgstr ""
+msgstr "Foutmelding: geen internetverbinding"
 
 #: ../src/cli/cli_main.rs:116
 msgid "Warning: Network unreachable"
-msgstr ""
+msgstr "Waarschuwing: geen internetverbinding"
 
 #: ../src/cli/cli_main.rs:121 ../src/core/http_thread.rs:49
 #: ../src/core/http_thread.rs:54 ../src/core/http_thread.rs:63
@@ -169,11 +169,11 @@ msgstr "Er is geen overeenkomst gevonden"
 
 #: ../src/cli/cli_main.rs:122
 msgid "Error:"
-msgstr ""
+msgstr "Foutmelding:"
 
 #: ../src/cli/cli_main.rs:131
 msgid "Recording started!"
-msgstr ""
+msgstr "De opname is gestart!"
 
 #: ../src/core/microphone_thread.rs:72
 msgid "Microphone error:"
@@ -202,7 +202,7 @@ msgstr "Application::new is mislukt"
 
 #: ../src/gui/main_window.rs:268
 msgid "Unable to enable MPRIS support"
-msgstr ""
+msgstr "De MPRIS-ondersteuning kan niet worden ingeschakeld"
 
 #: ../src/gui/main_window.rs:334
 msgid "Select a file to recognize"
@@ -226,15 +226,15 @@ msgstr "Het nummer is herkend"
 
 #: ../src/gui/preferences.rs:41
 msgid "When parsing the preferences file:"
-msgstr ""
+msgstr "Tijdens verwerken van instellingenbestand:"
 
 #: ../src/gui/preferences.rs:68
 msgid "When saving the preferences file:"
-msgstr ""
+msgstr "Tijdens opslaan van instellingenbestand:"
 
 #: ../src/gui/song_history_interface.rs:28
 msgid "Error when reading the song history on the disk:"
-msgstr ""
+msgstr "De nummergeschiedenis op de schijf kan niet worden uitgelezen:"
 
 #: ../src/utils/pulseaudio_loopback.rs:119
 #: ../src/utils/pulseaudio_loopback.rs:157
@@ -275,7 +275,7 @@ msgstr "Microfoonherkenning uitzetten"
 
 #: interface.glade.h:9
 msgid "Enable notifications"
-msgstr ""
+msgstr "Meldingen tonen"
 
 #: interface.glade.h:10
 msgid "Shazam servers are not reachable, are you connected?"
