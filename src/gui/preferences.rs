@@ -36,7 +36,7 @@ impl PreferencesInterface {
                 return preferences_interface
             },
             Err(e) => {
-                println!("{}", e);
+                eprintln!("{}", e);
                 return PreferencesInterface {
                     preferences_file_path: None,
                     preferences: Preferences::default()
@@ -63,14 +63,14 @@ impl PreferencesInterface {
         match self.write() {
             Ok(_) => {},
             Err(e) => {
-                println!("{}", e);
+                eprintln!("{}", e);
             }
         }
     }
 
     fn write(self: &mut Self) -> Result<(), Box<dyn Error>> {
         if let Some(preferences_file_path) = &self.preferences_file_path {
-            let mut file = OpenOptions::new().write(true).read(true).create(true).open(preferences_file_path.as_str())?;
+            let mut file = OpenOptions::new().write(true).truncate(true).create(true).open(preferences_file_path.as_str())?;
             let contents: String = toml::to_string(&self.preferences)?;
             file.write_all(contents.as_bytes())?;
         }
