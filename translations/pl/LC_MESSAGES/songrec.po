@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-22 10:59+0200\n"
+"POT-Creation-Date: 2022-05-26 07:46+0200\n"
 "PO-Revision-Date: 2021-12-26 11:36+0100\n"
 "Last-Translator: Rafał Mikrut <qarminkrut@gmail.com>\n"
 "Language-Team: \n"
@@ -158,7 +158,7 @@ msgstr ""
 
 #: ../src/cli/cli_main.rs:121 ../src/core/http_thread.rs:49
 #: ../src/core/http_thread.rs:54 ../src/core/http_thread.rs:63
-#: ../src/core/http_thread.rs:89 ../src/gui/main_window.rs:459
+#: ../src/core/http_thread.rs:89 ../src/gui/main_window.rs:454
 msgid "No match for this song"
 msgstr "Nie znaleziono piosenki"
 
@@ -188,33 +188,41 @@ msgstr ""
 "Nieprawidłowa częstotliwość próbkowania przekazana podczas kodowania pakietu "
 "Shazam"
 
-#: ../src/gui/main_window.rs:40
+#: ../src/gui/main_window.rs:39
 msgid "Application::new failed"
 msgstr "Nie udało się uruchomić funkcji Application::new"
 
-#: ../src/gui/main_window.rs:270
+#: ../src/gui/main_window.rs:268
 msgid "Unable to enable MPRIS support"
 msgstr ""
 
-#: ../src/gui/main_window.rs:336
+#: ../src/gui/main_window.rs:334
 msgid "Select a file to recognize"
 msgstr "Wybierz plik do rozpoznania"
 
-#: ../src/gui/main_window.rs:339
+#: ../src/gui/main_window.rs:337
 msgid "_Open"
 msgstr "_Otwórz"
 
-#: ../src/gui/main_window.rs:340
+#: ../src/gui/main_window.rs:338
 msgid "_Cancel"
 msgstr "_Wyjdź"
 
-#: ../src/gui/main_window.rs:348
+#: ../src/gui/main_window.rs:346
 msgid "Couldn't get filename"
 msgstr "Nie można uzyskać nazwy pliku"
 
-#: ../src/gui/main_window.rs:542
+#: ../src/gui/main_window.rs:537
 msgid "Song recognized"
 msgstr "Utwór rozpoznany"
+
+#: ../src/gui/preferences.rs:40
+msgid "When parsing the preferences file:"
+msgstr ""
+
+#: ../src/gui/preferences.rs:67
+msgid "When saving the preferences file:"
+msgstr ""
 
 #: ../src/utils/pulseaudio_loopback.rs:119
 #: ../src/utils/pulseaudio_loopback.rs:157

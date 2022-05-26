@@ -2,6 +2,7 @@ use serde::Serialize;
 use serde::Deserialize;
 use std::fs::OpenOptions;
 use std::error::Error;
+use gettextrs::gettext;
 use std::io::{Read, Write};
 
 use crate::utils::filesystem_operations::obtain_preferences_file_path;
@@ -36,9 +37,9 @@ impl PreferencesInterface {
                 return preferences_interface
             },
             Err(e) => {
-                eprintln!("{}", e);
+                eprintln!("{} {}", gettext("When parsing the preferences file:"), e);
                 return PreferencesInterface {
-                    preferences_file_path: None,
+                    preferences_file_path: obtain_preferences_file_path().ok(),
                     preferences: Preferences::default()
                 }
             }
@@ -63,7 +64,7 @@ impl PreferencesInterface {
         match self.write() {
             Ok(_) => {},
             Err(e) => {
-                eprintln!("{}", e);
+                eprintln!("{} {}", gettext("When saving the preferences file:"), e);
             }
         }
     }
@@ -73,6 +74,7 @@ impl PreferencesInterface {
             let mut file = OpenOptions::new().write(true).truncate(true).create(true).open(preferences_file_path.as_str())?;
             let contents: String = toml::to_string(&self.preferences)?;
             file.write_all(contents.as_bytes())?;
+            file.flush()?;
         }
         Ok(())
     }

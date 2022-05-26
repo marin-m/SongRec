@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-22 10:59+0200\n"
+"POT-Creation-Date: 2022-05-26 07:46+0200\n"
 "PO-Revision-Date: 2021-08-23 21:02+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -139,7 +139,7 @@ msgstr ""
 
 #: ../src/cli/cli_main.rs:121 ../src/core/http_thread.rs:49
 #: ../src/core/http_thread.rs:54 ../src/core/http_thread.rs:63
-#: ../src/core/http_thread.rs:89 ../src/gui/main_window.rs:459
+#: ../src/core/http_thread.rs:89 ../src/gui/main_window.rs:454
 msgid "No match for this song"
 msgstr "曲が認識されませんでした"
 
@@ -167,33 +167,41 @@ msgstr ""
 msgid "Invalid sample rate passed when encoding Shazam packet"
 msgstr ""
 
-#: ../src/gui/main_window.rs:40
+#: ../src/gui/main_window.rs:39
 msgid "Application::new failed"
 msgstr ""
 
-#: ../src/gui/main_window.rs:270
+#: ../src/gui/main_window.rs:268
 msgid "Unable to enable MPRIS support"
 msgstr ""
 
-#: ../src/gui/main_window.rs:336
+#: ../src/gui/main_window.rs:334
 msgid "Select a file to recognize"
 msgstr "認識するファイルを選択"
 
-#: ../src/gui/main_window.rs:339
+#: ../src/gui/main_window.rs:337
 msgid "_Open"
 msgstr "_開く"
 
-#: ../src/gui/main_window.rs:340
+#: ../src/gui/main_window.rs:338
 msgid "_Cancel"
 msgstr "_キャンセル"
 
-#: ../src/gui/main_window.rs:348
+#: ../src/gui/main_window.rs:346
 msgid "Couldn't get filename"
 msgstr "ファイル名を取得できませんでした"
 
-#: ../src/gui/main_window.rs:542
+#: ../src/gui/main_window.rs:537
 msgid "Song recognized"
 msgstr "曲が認識されました"
+
+#: ../src/gui/preferences.rs:40
+msgid "When parsing the preferences file:"
+msgstr ""
+
+#: ../src/gui/preferences.rs:67
+msgid "When saving the preferences file:"
+msgstr ""
 
 #: ../src/utils/pulseaudio_loopback.rs:119
 #: ../src/utils/pulseaudio_loopback.rs:157
