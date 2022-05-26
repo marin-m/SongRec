@@ -1,3 +1,13 @@
+songrec (0.3.2) bionic; urgency=low
+
+  * Add a checkbox into the graphical interface in order to disable or enable system notifications whenever recognizing a song (thanks to @damonhayhurst).
+  * Fix the bug that previously caused the Firefox user interface menus to blink on Linux after the "Search on YouTube" feature has been used (thanks to @ducaton).
+  * Update the French translation.
+  * Add safety checks in order to prevent potential crashes when handling corrupt configuration files or invalid audio devices.
+  * Change the path of the files saving user interface-related preferences in order to update a deprecated Rust crate (this may create a symbolic link from `~/.local/share/songrec` towards an preexisting `~/.local/share/SongRec` directory under Linux).
+
+ -- Marin <marin-m@users.noreply.github.com>  Tue, 26 May 2022 12:17:00 +0200
+
 songrec (0.3.1) bionic; urgency=low
 
   * Fix the behavior of the new `recognize` command, when recognizing from a file.
