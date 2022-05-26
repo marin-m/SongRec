@@ -40,6 +40,14 @@ pub fn microphone_thread(microphone_rx: mpsc::Receiver<MicrophoneMessage>, proce
     for device in host.input_devices().unwrap() {
         let device_name = device.name().unwrap();
         
+        // Selecting the "upmix" or "vdownmix" input
+        // source on an ALSA-based configuration may
+        // crash our underlying sound library.
+        
+        if device_name.contains("upmix") || device_name.contains("downmix") {
+            continue;
+        }
+
         device_names.push(device_name);
     }
     
