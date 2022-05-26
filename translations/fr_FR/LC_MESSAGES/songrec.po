@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-26 08:48+0200\n"
+"POT-Creation-Date: 2022-05-26 09:42+0200\n"
 "PO-Revision-Date: 2021-08-05 11:48+0200\n"
 "Last-Translator: marin <marin@marin-thinkpad-t460s>\n"
 "Language-Team: French\n"
@@ -158,6 +158,10 @@ msgstr "Fin de l'exécution : périphérique audio introvable"
 msgid "Exiting: no audio devices found!"
 msgstr "Fin de l'exécution : aucun périphérique audio disponible !"
 
+#: ../src/cli/cli_main.rs:102
+msgid "Using device"
+msgstr "Utilisation du périphérique"
+
 #: ../src/cli/cli_main.rs:111
 msgid "Error: Network unreachable"
 msgstr "Erreur : Pas de connexion réseau"
@@ -172,15 +176,19 @@ msgstr "Avertissement : Pas de connexion réseau"
 msgid "No match for this song"
 msgstr "Chanson non reconnue"
 
+#: ../src/cli/cli_main.rs:122
+msgid "Error:"
+msgstr "Erreur :"
+
 #: ../src/cli/cli_main.rs:131
 msgid "Recording started!"
 msgstr "Enregistrement en cours..."
 
-#: ../src/core/microphone_thread.rs:64
+#: ../src/core/microphone_thread.rs:72
 msgid "Microphone error:"
 msgstr "Erreur du microphone :"
 
-#: ../src/core/microphone_thread.rs:88
+#: ../src/core/microphone_thread.rs:96
 msgid "Failed to get default input config"
 msgstr "Impossible d'obtenir la configuration par défaut pour l'entrée audio"
 
@@ -236,7 +244,9 @@ msgstr "Lors de la sauvegarde du fichier de préférences :"
 
 #: ../src/gui/song_history_interface.rs:28
 msgid "Error when reading the song history on the disk:"
-msgstr "Erreur lors de la lecture de l'historique des chansons reconnues sur le disque :"
+msgstr ""
+"Erreur lors de la lecture de l'historique des chansons reconnues sur le "
+"disque :"
 
 #: ../src/utils/pulseaudio_loopback.rs:119
 #: ../src/utils/pulseaudio_loopback.rs:157

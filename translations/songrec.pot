@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-26 08:50+0200\n"
+"POT-Creation-Date: 2022-05-26 09:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -128,6 +128,10 @@ msgstr ""
 msgid "Exiting: no audio devices found!"
 msgstr ""
 
+#: ../src/cli/cli_main.rs:102
+msgid "Using device"
+msgstr ""
+
 #: ../src/cli/cli_main.rs:111
 msgid "Error: Network unreachable"
 msgstr ""
@@ -142,15 +146,19 @@ msgstr ""
 msgid "No match for this song"
 msgstr ""
 
+#: ../src/cli/cli_main.rs:122
+msgid "Error:"
+msgstr ""
+
 #: ../src/cli/cli_main.rs:131
 msgid "Recording started!"
 msgstr ""
 
-#: ../src/core/microphone_thread.rs:64
+#: ../src/core/microphone_thread.rs:72
 msgid "Microphone error:"
 msgstr ""
 
-#: ../src/core/microphone_thread.rs:88
+#: ../src/core/microphone_thread.rs:96
 msgid "Failed to get default input config"
 msgstr ""
 

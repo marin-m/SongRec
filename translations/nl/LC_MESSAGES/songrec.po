@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-26 08:48+0200\n"
+"POT-Creation-Date: 2022-05-26 09:42+0200\n"
 "PO-Revision-Date: 2021-12-28 14:34+0100\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: \n"
@@ -149,6 +149,10 @@ msgstr ""
 msgid "Exiting: no audio devices found!"
 msgstr ""
 
+#: ../src/cli/cli_main.rs:102
+msgid "Using device"
+msgstr ""
+
 #: ../src/cli/cli_main.rs:111
 msgid "Error: Network unreachable"
 msgstr ""
@@ -163,15 +167,19 @@ msgstr ""
 msgid "No match for this song"
 msgstr "Er is geen overeenkomst gevonden"
 
+#: ../src/cli/cli_main.rs:122
+msgid "Error:"
+msgstr ""
+
 #: ../src/cli/cli_main.rs:131
 msgid "Recording started!"
 msgstr ""
 
-#: ../src/core/microphone_thread.rs:64
+#: ../src/core/microphone_thread.rs:72
 msgid "Microphone error:"
 msgstr "Microfoonfout:"
 
-#: ../src/core/microphone_thread.rs:88
+#: ../src/core/microphone_thread.rs:96
 msgid "Failed to get default input config"
 msgstr "De standaard invoerconfiguratie kan niet worden uitgelezen"
 

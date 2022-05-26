@@ -99,7 +99,7 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
                     }
                     &device_names[0]
                 };
-                eprintln!("Using device {}", dev_name);
+                eprintln!("{} {}", gettext("Using device"), dev_name);
                 microphone_tx.send(MicrophoneMessage::MicrophoneRecordStart(dev_name.to_owned())).unwrap();
             },
             GUIMessage::NetworkStatus(reachable) => {
@@ -119,7 +119,7 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
             },
             GUIMessage::ErrorMessage(string) => {
                 if !(string == gettext("No match for this song") && !input_file_name.is_some()) {
-                    eprintln!("Error: {}", string);
+                    eprintln!("{} {}", gettext("Error:"), string);
                 }
                 if input_file_name.is_some() {
                     main_loop_cli.quit();
