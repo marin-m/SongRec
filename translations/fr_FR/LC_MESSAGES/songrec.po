@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-26 07:46+0200\n"
+"POT-Creation-Date: 2022-05-26 08:48+0200\n"
 "PO-Revision-Date: 2021-08-05 11:48+0200\n"
 "Last-Translator: marin <marin@marin-thinkpad-t460s>\n"
 "Language-Team: French\n"
@@ -226,13 +226,17 @@ msgstr "Impossible d'obtenir le nom du fichier"
 msgid "Song recognized"
 msgstr "Chanson identifiée"
 
-#: ../src/gui/preferences.rs:40
+#: ../src/gui/preferences.rs:41
 msgid "When parsing the preferences file:"
 msgstr "Lors de la lecture du fichier de préférences :"
 
-#: ../src/gui/preferences.rs:67
+#: ../src/gui/preferences.rs:68
 msgid "When saving the preferences file:"
 msgstr "Lors de la sauvegarde du fichier de préférences :"
+
+#: ../src/gui/song_history_interface.rs:28
+msgid "Error when reading the song history on the disk:"
+msgstr "Erreur lors de la lecture de l'historique des chansons reconnues sur le disque :"
 
 #: ../src/utils/pulseaudio_loopback.rs:119
 #: ../src/utils/pulseaudio_loopback.rs:157

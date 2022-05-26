@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-26 07:46+0200\n"
+"POT-Creation-Date: 2022-05-26 08:48+0200\n"
 "PO-Revision-Date: 2021-12-26 11:36+0100\n"
 "Last-Translator: Rafał Mikrut <qarminkrut@gmail.com>\n"
 "Language-Team: \n"
@@ -216,12 +216,16 @@ msgstr "Nie można uzyskać nazwy pliku"
 msgid "Song recognized"
 msgstr "Utwór rozpoznany"
 
-#: ../src/gui/preferences.rs:40
+#: ../src/gui/preferences.rs:41
 msgid "When parsing the preferences file:"
 msgstr ""
 
-#: ../src/gui/preferences.rs:67
+#: ../src/gui/preferences.rs:68
 msgid "When saving the preferences file:"
+msgstr ""
+
+#: ../src/gui/song_history_interface.rs:28
+msgid "Error when reading the song history on the disk:"
 msgstr ""
 
 #: ../src/utils/pulseaudio_loopback.rs:119

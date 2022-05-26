@@ -1,4 +1,5 @@
 use std::error::Error;
+use gettextrs::gettext;
 use gtk::prelude::*;
 
 use crate::utils::csv_song_history::SongHistoryRecord;
@@ -23,7 +24,9 @@ impl SongHistoryInterface {
             chronological_records: vec![]
         };
         
-        interface.load()?;
+        if let Err(error_info) = interface.load() {
+            eprintln!("{} {}", gettext("Error when reading the song history on the disk:"), error_info);
+        }
         
         Ok(interface)
     }
