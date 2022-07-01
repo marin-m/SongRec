@@ -17,7 +17,7 @@ Vcs-Browser: https://github.com/marin-m/SongRec
 Package: songrec
 Architecture: amd64
 Depends: libasound2,
-         libssl1.1,
+         libssl1.1 | libssl3,
          libc6,
          ffmpeg,
          libgtk-3-0

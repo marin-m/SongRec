@@ -1,3 +1,9 @@
+songrec (0.3.2+1) bionic; urgency=low
+
+  * Accept depending of the `libssl3` package instead of `libssl1.1`, in order to ensure packaging compatibility with Ubuntu 22.04 LTS and above.
+
+ -- Marin <marin-m@users.noreply.github.com>  Fri, 1 Jul 2022 19:57:00 +0200
+
 songrec (0.3.2) bionic; urgency=low
 
   * Add a checkbox into the graphical interface in order to disable or enable system notifications whenever recognizing a song (thanks to @damonhayhurst).
