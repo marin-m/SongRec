@@ -15,11 +15,11 @@ Vcs-Git: https://github.com/marin-m/songrec.git
 Vcs-Browser: https://github.com/marin-m/SongRec
 
 Package: songrec
-Architecture: amd64 arm64
+Architecture: any
 Depends: libasound2,
          libssl1.1 | libssl3,
-         libc6,
          ffmpeg,
+         ${misc:Depends},
          libgtk-3-0
 Recommends: pulseaudio-utils
 Description: An unofficial Shazam client for Linux, written in Rust

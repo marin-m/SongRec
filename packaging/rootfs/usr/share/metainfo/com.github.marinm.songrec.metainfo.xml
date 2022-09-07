@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
   <id>com.github.marinm.songrec</id>
-  <metadata_license>CC0</metadata_license>
+  <metadata_license>GPL-3.0+</metadata_license>
   <project_license>GPL-3.0+</project_license>
   <name>SongRec</name>
   <summary>An open-source, unofficial Shazam client for Linux, written in Rust.</summary>
