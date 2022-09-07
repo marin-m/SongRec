@@ -105,6 +105,15 @@ Void Linux (openssl):
 sudo xbps-install base-devel alsa-lib-devel gtk+3-devel openssl-devel
 ```
 
+### Installing all requirements from repositories
+
+Fedora Linux:
+
+```shell
+sudo dnf groupinstall "Development Tools"
+sudo dnf install rustc cargo alsa-lib-devel openssl-devel dbus-devel pkgconf-pkg-config glib gtk3-devel
+```
+
 ### Compiling the project
 
 This will compile and run the projet:
