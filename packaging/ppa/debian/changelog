@@ -1,3 +1,9 @@
+songrec (0.3.2+2) bionic; urgency=low
+
+  * Additionally build the package for the AMD64/AArch64 architecture.
+
+ -- Marin <marin-m@users.noreply.github.com>  Wed, 7 Sep 2022 09:22:00 +0200
+
 songrec (0.3.2+1) bionic; urgency=low
 
   * Accept depending of the `libssl3` package instead of `libssl1.1`, in order to ensure packaging compatibility with Ubuntu 22.04 LTS and above.

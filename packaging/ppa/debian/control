@@ -15,7 +15,7 @@ Vcs-Git: https://github.com/marin-m/songrec.git
 Vcs-Browser: https://github.com/marin-m/SongRec
 
 Package: songrec
-Architecture: amd64
+Architecture: amd64 arm64
 Depends: libasound2,
          libssl1.1 | libssl3,
          libc6,
