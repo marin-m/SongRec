@@ -72,9 +72,21 @@ Note: It is not mandatory, but if you want to be able to recognize more formats 
 
 ### Installing Rust
 
-First, you need to [install the Rust compiler and package manager](https://www.rust-lang.org/tools/install). It has been observed to work with `rustc` 1.43.0 to the current rustc 1.47.0.
+First, you need to [install the Rust compiler and package manager](https://www.rust-lang.org/tools/install). It has been observed to work with `rustc` since version 1.43.0.
 
-Install Rust and put it in path, for all distributions:
+You can either install Rust from the repositories, for example using Ubuntu/Debian:
+
+```bash
+sudo apt install rustc cargo
+```
+
+Or under Fedora Linux:
+
+```bash
+sudo dnf install rustc cargo
+```
+
+Or, using any distribution:
 
 ```bash
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh # Type "1"
@@ -105,13 +117,11 @@ Void Linux (openssl):
 sudo xbps-install base-devel alsa-lib-devel gtk+3-devel openssl-devel
 ```
 
-### Installing all requirements from repositories
-
 Fedora Linux:
 
 ```shell
 sudo dnf groupinstall "Development Tools"
-sudo dnf install rustc cargo alsa-lib-devel openssl-devel dbus-devel pkgconf-pkg-config glib gtk3-devel
+sudo dnf install alsa-lib-devel openssl-devel dbus-devel pkgconf-pkg-config glib gtk3-devel
 ```
 
 ### Compiling the project
