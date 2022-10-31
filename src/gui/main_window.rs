@@ -565,11 +565,11 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
                                         // displayed without being downsized, if the current setup
                                         // allows it
                                         
-                                        let (window_width, window_height) = window.get_size();
+                                        // let (window_width, window_height) = window.get_size();
                                         
-                                        if window_height < 768 && !window.is_maximized() {
-                                            window.resize(window_width, 768);
-                                        }
+                                        // if window_height < 768 && !window.is_maximized() {
+                                        //     window.resize(window_width, 768);
+                                        // }
 
                                         notification.set_icon(&pixbuf);
                                         // Display the cover image
