@@ -21,6 +21,7 @@
       <column type="gchararray"/>
       <!-- column-name Recognition -->
       <column type="gchararray"/>
+      <column type="gboolean"/>
     </columns>
   </object>
   <object class="GtkListStore" id="input_devices_list_store">
@@ -565,8 +566,6 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="shadow_type">in</property>
-                                    <property name="min_content_width">200</property>
-                                    <property name="min_content_height">200</property>
                                     <child>
                                       <object class="GtkTreeView" id="history_tree_view">
                                         <property name="visible">True</property>
@@ -574,6 +573,7 @@
                                         <property name="vexpand">True</property>
                                         <property name="model">history_list_store</property>
                                         <property name="enable_grid_lines">vertical</property>
+                                        
                                         <child internal-child="selection">
                                           <object class="GtkTreeSelection"/>
                                         </child>
@@ -612,6 +612,22 @@
                                               <object class="GtkCellRendererText"/>
                                               <attributes>
                                                 <attribute name="text">2</attribute>
+                                              </attributes>
+                                            </child>
+                                          </object>
+                                        </child>
+                                        <child>
+                                          <object class="GtkTreeViewColumn">
+                                            <property name="resizable">True</property>
+                                            <property name="sizing">autosize</property>
+                                            <property name="title" translatable="yes">Favourite</property>
+                                            <child>
+                                              <object class="GtkCellRendererToggle" id="favourite_toggle">
+                                                <signal name="toggled" handler="on_favourite_toggled" swapped="no"/>
+                                                <property name="activatable">True</property>
+                                              </object>
+                                              <attributes>
+                                                <attribute name="active">3</attribute>
                                               </attributes>
                                             </child>
                                           </object>

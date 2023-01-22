@@ -127,7 +127,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
             Inhibit(false) // Ensure that focus is given to the clicked item
             
         }));
-        
+
         // See here for getting the selected menu item: https://stackoverflow.com/a/7938561
         
         // Bind the context menu actions for the recognized songs history
@@ -170,6 +170,15 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
             
         }));
         
+        fn on_favourite_toggled(path: &[glib::Value]) -> Option<glib::Value> {
+            for p in path.iter() {
+                if let Ok(Some(p)) = p.get::<String>() {
+                    println!("{:#?}", p);
+                }
+            }
+            None
+        }
+
         let copy_album: gtk::MenuItem = builder.get_object("copy_album").unwrap();
         
         copy_album.connect_activate(clone!(@strong history_tree_view => move |_| {
@@ -618,8 +627,14 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
         microphone_stop_button.hide();
         current_volume_hbox.hide();
         
+        builder.connect_signals(|builder, handler_name| {
+            match handler_name {
+                "on_favourite_toggled" => Box::new(on_favourite_toggled),
+                _ => Box::new(|_| {None})
+            }
+        })
     });
-    
+
     application.connect_activate(move |application| {
         // Raise the existing window to the top whenever a second
         // GUI instance is attempted to be launched
