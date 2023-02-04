@@ -166,36 +166,34 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
                 
                 let full_song_name_parts: Vec<&str> = full_song_name.splitn(2, " - ").collect();
                 gtk::Clipboard::get(&gdk::SELECTION_CLIPBOARD).set_text(full_song_name_parts[1]);
-            }
+            }  
             
         }));
         
-        let on_favourite_toggled = |params: &[glib::Value]| -> Option<glib::Value> {
-            for param in params.iter() {
-                if let Ok(Some(path)) = param.get::<String>() {
-                    println!("{:#?}", path);
-                    let history_tree_view: gtk::TreeView = builder.get_object("history_tree_view").unwrap();
-                    let tree_model  = history_tree_view.get_model().unwrap();
-                    if let Some(iter) = tree_model.get_iter_from_string(&path) {
-                        let value = tree_model.get_value(&iter, 3);
-                        println!("{:#?}", value);
-                        // list_store.set(&iter, 3, value.);
-                    }
-                }
-                else if let Ok(Some(cell_renderer_toggle)) = param.get::<gtk::CellRendererToggle>() {
-                    println!("{:#?}", cell_renderer_toggle);
-                }
-                
-            }
-            None
-        };
 
-        builder.connect_signals(|_builder, handler_name| {
+        builder.connect_signals(clone!(@strong history_tree_view => move |_builder, handler_name| {
             match handler_name {
-                "_on_favourite_toggled" => Box::new(on_favourite_toggled),
+                "_on_favourite_toggled" => Box::new(clone!(@strong history_tree_view => move |params: &[glib::Value]| {
+                    for param in params.iter() {
+                        if let Ok(Some(path)) = param.get::<String>() {
+                            println!("{:#?}", path);
+                            let tree_model  = history_tree_view.get_model().unwrap();
+                            if let Some(iter) = tree_model.get_iter_from_string(&path) {
+                                let value = tree_model.get_value(&iter, 3);
+                                println!("{:#?}", value);
+                                // list_store.set(&iter, 3, value.);
+                            }
+                        }
+                        else if let Ok(Some(cell_renderer_toggle)) = param.get::<gtk::CellRendererToggle>() {
+                            println!("{:#?}", cell_renderer_toggle);
+                        }
+                        
+                    }
+                    None
+                })),
                 _ => Box::new(|_| {None})
             }
-        });
+        }));
 
         let copy_album: gtk::MenuItem = builder.get_object("copy_album").unwrap();
         
