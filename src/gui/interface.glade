@@ -623,7 +623,7 @@
                                             <property name="title" translatable="yes">Favourite</property>
                                             <child>
                                               <object class="GtkCellRendererToggle" id="favourite_toggle">
-                                                <signal name="toggled" handler="on_favourite_toggled" swapped="no"/>
+                                                <signal name="toggled" handler="_on_favourite_toggled" swapped="no"/>
                                                 <property name="activatable">True</property>
                                               </object>
                                               <attributes>

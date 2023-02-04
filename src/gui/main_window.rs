@@ -98,10 +98,10 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
         });
         
         // We initialize the CSV file that will contain song history.
-
-        let mut song_history_interface = SongHistoryInterface::new(builder.get_object("history_list_store").unwrap()).unwrap();
+        let list_store = builder.get_object("history_list_store").unwrap();
+        let mut song_history_interface = SongHistoryInterface::new(list_store).unwrap();
         let history_tree_view: gtk::TreeView = builder.get_object("history_tree_view").unwrap();
-        
+
         // Add a context menu to the history tree view, in order to allow
         // users to copy or search items (see https://stackoverflow.com/a/49720383)
         
@@ -170,14 +170,32 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
             
         }));
         
-        fn on_favourite_toggled(path: &[glib::Value]) -> Option<glib::Value> {
-            for p in path.iter() {
-                if let Ok(Some(p)) = p.get::<String>() {
-                    println!("{:#?}", p);
+        let on_favourite_toggled = |params: &[glib::Value]| -> Option<glib::Value> {
+            for param in params.iter() {
+                if let Ok(Some(path)) = param.get::<String>() {
+                    println!("{:#?}", path);
+                    let history_tree_view: gtk::TreeView = builder.get_object("history_tree_view").unwrap();
+                    let tree_model  = history_tree_view.get_model().unwrap();
+                    if let Some(iter) = tree_model.get_iter_from_string(&path) {
+                        let value = tree_model.get_value(&iter, 3);
+                        println!("{:#?}", value);
+                        // list_store.set(&iter, 3, value.);
+                    }
                 }
+                else if let Ok(Some(cell_renderer_toggle)) = param.get::<gtk::CellRendererToggle>() {
+                    println!("{:#?}", cell_renderer_toggle);
+                }
+                
             }
             None
-        }
+        };
+
+        builder.connect_signals(|_builder, handler_name| {
+            match handler_name {
+                "_on_favourite_toggled" => Box::new(on_favourite_toggled),
+                _ => Box::new(|_| {None})
+            }
+        });
 
         let copy_album: gtk::MenuItem = builder.get_object("copy_album").unwrap();
         
@@ -627,12 +645,6 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
         microphone_stop_button.hide();
         current_volume_hbox.hide();
         
-        builder.connect_signals(|builder, handler_name| {
-            match handler_name {
-                "on_favourite_toggled" => Box::new(on_favourite_toggled),
-                _ => Box::new(|_| {None})
-            }
-        })
     });
 
     application.connect_activate(move |application| {
