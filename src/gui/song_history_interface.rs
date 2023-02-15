@@ -1,7 +1,7 @@
 use std::error::Error;
 use gettextrs::gettext;
 use gtk::prelude::*;
-
+use std::rc::Rc;
 use crate::utils::csv_song_history::SongHistoryRecord;
 use crate::utils::filesystem_operations::obtain_song_history_csv_path;
 /// This file contains code for interfacing between the CSV Song history
@@ -10,13 +10,13 @@ use crate::utils::filesystem_operations::obtain_song_history_csv_path;
 
 pub struct SongHistoryInterface {
     csv_path: String,
-    gtk_list_store: gtk::ListStore,
+    gtk_list_store: Rc<gtk::ListStore>,
     chronological_records: Vec<SongHistoryRecord>
 }
 
 impl SongHistoryInterface {
     
-    pub fn new(gtk_list_store: gtk::ListStore) -> Result<Self, Box<dyn Error>> {
+    pub fn new(gtk_list_store: Rc<gtk::ListStore>) -> Result<Self, Box<dyn Error>> {
 
         let mut interface = SongHistoryInterface {
             csv_path: obtain_song_history_csv_path()?,

@@ -98,8 +98,8 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
         });
         
         // We initialize the CSV file that will contain song history.
-        let list_store = builder.get_object("history_list_store").unwrap();
-        let mut song_history_interface = SongHistoryInterface::new(list_store).unwrap();
+        let list_store = Rc::new(builder.get_object("history_list_store").unwrap());
+        let mut song_history_interface = SongHistoryInterface::new(Rc::clone(&list_store)).unwrap();
         let history_tree_view: gtk::TreeView = builder.get_object("history_tree_view").unwrap();
 
         // Add a context menu to the history tree view, in order to allow
@@ -171,17 +171,17 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
         }));
         
 
-        builder.connect_signals(clone!(@strong history_tree_view => move |_builder, handler_name| {
+        builder.connect_signals(clone!(@strong history_tree_view, @strong list_store => move |_builder, handler_name| {
             match handler_name {
-                "_on_favourite_toggled" => Box::new(clone!(@strong history_tree_view => move |params: &[glib::Value]| {
+                "_on_favourite_toggled" => Box::new(clone!(@strong history_tree_view, @strong list_store => move |params: &[glib::Value]| {
                     for param in params.iter() {
                         if let Ok(Some(path)) = param.get::<String>() {
                             println!("{:#?}", path);
                             let tree_model  = history_tree_view.get_model().unwrap();
                             if let Some(iter) = tree_model.get_iter_from_string(&path) {
-                                let value = tree_model.get_value(&iter, 3);
-                                println!("{:#?}", value);
-                                // list_store.set(&iter, 3, value.);
+                                if let Ok(value) = tree_model.get_value(&iter, 3).get_some::<bool>() {
+                                    list_store.set(&iter, &[3], &[&!value]);
+                                }
                             }
                         }
                         else if let Ok(Some(cell_renderer_toggle)) = param.get::<gtk::CellRendererToggle>() {
