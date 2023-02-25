@@ -24,7 +24,7 @@ use crate::utils::mpris_player::{get_player, update_song};
 use crate::gui::song_history_interface::SongHistoryInterface;
 use crate::gui::preferences::{PreferencesInterface, Preferences};
 use crate::utils::csv_song_history::SongHistoryRecord;
-use crate::utils::filesystem_operations::obtain_song_history_csv_path;
+use crate::utils::filesystem_operations::obtain_recognition_history_csv_path;
 
 
 #[cfg(windows)]
@@ -46,6 +46,8 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
         // We create the main window.
     
         let window: gtk::ApplicationWindow = builder.get_object("window").unwrap();
+
+        let favourites_window: gtk::Window = builder.get_object("favourites_window").unwrap();
         
         window.set_application(Some(application));
 
@@ -287,6 +289,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
         
         let wipe_history_button: gtk::Button = builder.get_object("wipe_history_button").unwrap();
         let export_csv_button: gtk::Button = builder.get_object("export_csv_button").unwrap();
+        let favourites_button: gtk::Button = builder.get_object("favourites_list_button").unwrap();
 
         let mpris_player = if enable_mpris { get_player() } else { None };
         if enable_mpris && mpris_player.is_none() {
@@ -442,11 +445,17 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
 
         }));
         
+        favourites_button.connect_clicked(clone!(@strong gui_tx => move |_| {
+
+            gui_tx.send(GUIMessage::ShowFavourites).unwrap();
+
+        }));
+
         export_csv_button.connect_clicked(move |_| {
 
             #[cfg(not(windows))] {
 
-                gtk::show_uri(None, &format!("file://{}", obtain_song_history_csv_path().unwrap()), gtk::get_current_event_time()).ok();
+                gtk::show_uri(None, &format!("file://{}", obtain_recognition_history_csv_path().unwrap()), gtk::get_current_event_time()).ok();
             }
 
             #[cfg(windows)]
@@ -464,7 +473,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
             preferences_interface.update(new_preferences);
         }));
 
-        gui_rx.attach(None, clone!(@strong application, @strong window, @strong results_frame, @strong current_volume_hbox, @strong spinner, @strong recognize_file_button, @strong network_unreachable, @strong microphone_stop_button, @strong recognize_from_my_speakers_checkbox, @strong notification_enable_checkbox => move |gui_message| {
+        gui_rx.attach(None, clone!(@strong application, @strong window, @strong results_frame, @strong current_volume_hbox, @strong spinner, @strong recognize_file_button, @strong network_unreachable, @strong microphone_stop_button, @strong recognize_from_my_speakers_checkbox, @strong notification_enable_checkbox, @strong favourites_window => move |gui_message| {
             
             match gui_message {
                 ErrorMessage(_) | NetworkStatus(_) | SongRecognized(_) => {
@@ -475,6 +484,9 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
             }
 
             match gui_message {
+                ShowFavourites => {
+                    favourites_window.show_all();
+                }
                 ErrorMessage(string) => {
                     if !(string == gettext("No match for this song") && microphone_stop_button.is_visible()) {
                         let dialog = gtk::MessageDialog::new(Some(&window),
@@ -562,7 +574,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
                         let notification = gio::Notification::new(&gettext("Song recognized"));
                         notification.set_body(Some(song_name.as_ref().unwrap()));
 
-                        song_history_interface.add_column_and_save(SongHistoryRecord {
+                        song_history_interface.add_row_and_save(SongHistoryRecord {
                             song_name: song_name.as_ref().unwrap().to_string(),
                             album: message.album_name.as_ref().unwrap_or(&"".to_string()).to_string(),
                             recognition_date: Local::now().format("%c").to_string(),

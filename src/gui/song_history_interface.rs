@@ -3,7 +3,7 @@ use gettextrs::gettext;
 use gtk::prelude::*;
 use std::rc::Rc;
 use crate::utils::csv_song_history::SongHistoryRecord;
-use crate::utils::filesystem_operations::obtain_song_history_csv_path;
+use crate::utils::filesystem_operations::{obtain_recognition_history_csv_path};
 /// This file contains code for interfacing between the CSV Song history
 /// format defined within the "src/utils/csv_song_history.rs" file, the
 /// GTK-rs GUI of SongRec and the filesystem while using the GUI.
@@ -19,7 +19,7 @@ impl SongHistoryInterface {
     pub fn new(gtk_list_store: Rc<gtk::ListStore>) -> Result<Self, Box<dyn Error>> {
 
         let mut interface = SongHistoryInterface {
-            csv_path: obtain_song_history_csv_path()?,
+            csv_path: obtain_recognition_history_csv_path()?,
             gtk_list_store: gtk_list_store,
             chronological_records: vec![]
         };

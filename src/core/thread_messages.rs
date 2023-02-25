@@ -23,7 +23,7 @@ pub enum GUIMessage {
     // because CPAL can't be called from the same thread as the GUI
     // under Windows
     DevicesList(Box<Vec<String>>),
-    
+    ShowFavourites,
     NetworkStatus(bool), // Is the network reachable?
     WipeSongHistory,
     MicrophoneRecording,
