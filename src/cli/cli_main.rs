@@ -148,9 +148,9 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
                                 song_name: song_name,
                                 album: message.album_name.as_ref().unwrap_or(&"".to_string()).to_string(),
                                 recognition_date: Local::now().format("%c").to_string(),
-                                track_key: message.track_key,
-                                release_year: message.release_year.as_ref().unwrap_or(&"".to_string()).to_string(),
-                                genre: message.genre.as_ref().unwrap_or(&"".to_string()).to_string(),
+                                track_key: Some(message.track_key),
+                                release_year: Some(message.release_year.as_ref().unwrap_or(&"".to_string()).to_string()),
+                                genre: Some(message.genre.as_ref().unwrap_or(&"".to_string()).to_string()),
                             }).unwrap();
                             csv_writer.flush().unwrap();
                         },

@@ -16,10 +16,10 @@ pub struct SongHistoryRecord {
     
     // The following fields have been added in version 0.3.0
     #[serde(default)]
-    pub track_key: String,
+    pub track_key: Option<String>,
     #[serde(default)]
-    pub release_year: String,
+    pub release_year: Option<String>,
     #[serde(default)]
-    pub genre: String
+    pub genre: Option<String>
 }
 

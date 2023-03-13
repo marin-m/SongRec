@@ -16,10 +16,10 @@ pub fn obtain_recognition_history_csv_path() -> Result<String, Box<dyn Error>> {
     Ok(csv_path.to_str().unwrap().to_string())
 }
 
-pub fn obtain_favourites_csv_path() -> Result<String, Box<dyn Error>> {
+pub fn obtain_favorites_csv_path() -> Result<String, Box<dyn Error>> {
     let project_dir = ProjectDirs::from(QUALIFIER, ORGANIZATION, APPLICATION).ok_or("No valid path")?;
     let mut csv_path: PathBuf = obtain_data_directory(project_dir)?;
-    csv_path.push("favourites.csv");
+    csv_path.push("favorites.csv");
     Ok(csv_path.to_str().unwrap().to_string())
 }
 

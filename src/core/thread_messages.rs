@@ -1,5 +1,6 @@
 use crate::fingerprinting::signature_format::DecodedSignature;
-
+use crate::gui::preferences::Preferences;
+use crate::utils::csv_song_history::SongHistoryRecord;
 /// This module contains code used from message-based communication between threads.
 
 pub struct SongRecognizedMessage {
@@ -23,7 +24,10 @@ pub enum GUIMessage {
     // because CPAL can't be called from the same thread as the GUI
     // under Windows
     DevicesList(Box<Vec<String>>),
-    ShowFavourites,
+    UpdatePreference(Preferences),
+    AddFavorite(SongHistoryRecord),
+    RemoveFavorite(SongHistoryRecord),
+    ShowFavorites,
     NetworkStatus(bool), // Is the network reachable?
     WipeSongHistory,
     MicrophoneRecording,
