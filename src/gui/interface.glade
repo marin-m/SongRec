@@ -555,7 +555,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkFrame" id="history_frame">
+                      <object class="GtkFrame">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="label_xalign">0.039999999105930328</property>
@@ -576,7 +576,7 @@
                                 <property name="orientation">vertical</property>
                                 <property name="spacing">15</property>
                                 <child>
-                                  <object class="GtkScrolledWindow">
+                                  <object class="GtkScrolledWindow" id="buttons">
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="shadow_type">in</property>
@@ -640,10 +640,12 @@
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkButtonBox">
+                                  <object class="GtkFlowBox" id="buttonbox">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="layout_style">end</property>
+                                    <property name="homogeneous">False</property>
+                                    <property name="max_children_per_line">3</property>
+                                    <!-- <property name="layout_style">end</property> -->
                                     <child>
                                       <object class="GtkButton" id="favorites_list_button">
                                         <property name="label" translatable="yes">Favorites</property>
