@@ -71,16 +71,6 @@
       </object>
     </child>
     <child>
-      <object class="GtkImageMenuItem" id="add_to_favorites">
-        <property name="label" translatable="yes">Add to Favorites</property>
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="image">youtube_icon_2</property>
-        <property name="use_stock">False</property>
-        <property name="always_show_image">True</property>
-      </object>
-    </child>
-    <child>
       <object class="GtkImageMenuItem" id="remove_from_favorites">
         <property name="label" translatable="yes">Remove from Favorites</property>
         <property name="visible">True</property>
