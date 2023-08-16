@@ -16,11 +16,17 @@
   <object class="GtkListStore" id="history_list_store">
     <columns>
       <!-- column-name Song -->
-      <column type="gchararray"/>
+      <column type="gchararray" name="song_name"/>
       <!-- column-name Album -->
-      <column type="gchararray"/>
+      <column type="gchararray" name="album"/>
       <!-- column-name Recognition -->
-      <column type="gchararray"/>
+      <column type="gchararray" name="recognition_date"/>
+      <!-- column-name Track Key -->
+      <column type="gchararray" name="track_key"/>
+      <!-- column-name Release Year -->
+      <column type="gchararray" name="release_year"/>
+      <!-- column-name Genre -->
+      <column type="gchararray" name="genre"/>
     </columns>
   </object>
   <object class="GtkListStore" id="input_devices_list_store">

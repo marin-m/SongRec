@@ -19,12 +19,14 @@ use crate::core::processing_thread::processing_thread;
 use crate::core::http_thread::http_thread;
 use crate::core::thread_messages::{*, GUIMessage::*};
 
+use crate::gui::song_history_interface::FavoritesInterface;
+use crate::gui::song_history_interface::{SongRecordInterface, RecognitionHistoryInterface};
+use crate::utils::csv_song_history::Song;
 use crate::utils::filesystem_operations::obtain_favorites_csv_path;
 use crate::utils::thread::spawn_big_thread;
 use crate::utils::pulseaudio_loopback::PulseaudioLoopback;
 use crate::utils::mpris_player::{get_player, update_song};
 
-use crate::gui::song_history_interface::SongHistoryInterface;
 use crate::gui::preferences::{PreferencesInterface, Preferences};
 use crate::utils::csv_song_history::SongHistoryRecord;
 use crate::utils::filesystem_operations::obtain_recognition_history_csv_path;
@@ -110,11 +112,11 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
 
         // We initialize the CSV file that will contain song history.
         let history_list_store = main_builder.get_object("history_list_store").unwrap();
-        let mut song_history_interface = SongHistoryInterface::new(history_list_store, obtain_recognition_history_csv_path).unwrap();
+        let mut song_history_interface = RecognitionHistoryInterface::new(history_list_store, obtain_recognition_history_csv_path).unwrap();
         let history_tree_view: gtk::TreeView = main_builder.get_object("history_tree_view").unwrap();
 
         let favorites_list_store = favorites_builder.get_object("favorites_list_store").unwrap();
-        let mut favorites_interface = SongHistoryInterface::new(favorites_list_store, obtain_favorites_csv_path).unwrap();
+        let mut favorites_interface = FavoritesInterface::new(favorites_list_store, obtain_favorites_csv_path).unwrap();
         let favorites_tree_view: gtk::TreeView = favorites_builder.get_object("favorites_tree_view").unwrap();
 
         // Add a context menu to the history tree view, in order to allow
@@ -153,12 +155,15 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
             fn get_selected_song_record(&self) -> Option<SongHistoryRecord> {
                 if let Some((tree_model, tree_iter)) = &self.get_selection().get_selected() {
                     Some(SongHistoryRecord {
-                        song_name: tree_model.get_value(&tree_iter, 0).get().unwrap().unwrap(),
-                        album: tree_model.get_value(&tree_iter, 1).get().unwrap().unwrap(),
+                        song: Song {
+                            song_name: tree_model.get_value(&tree_iter, 0).get().unwrap().unwrap(),
+                            album: tree_model.get_value(&tree_iter, 1).get().unwrap().unwrap(),
+                            track_key: None, 
+                            release_year: None, 
+                            genre: None 
+                        },
                         recognition_date: tree_model.get_value(&tree_iter, 2).get().unwrap().unwrap(),
-                        track_key: None, 
-                        release_year: None, 
-                        genre: None 
+                        
                     })
                 } else {
                     None
@@ -220,7 +225,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
         let copy_artist_and_track_fn = move |menu_item: &gtk::MenuItem| {
             let tree_view = menu_item.get_tree_view();
             if let Some(song_record) = tree_view.get_selected_song_record() {
-                gtk::Clipboard::get(&gdk::SELECTION_CLIPBOARD).set_text(&song_record.song_name);
+                gtk::Clipboard::get(&gdk::SELECTION_CLIPBOARD).set_text(&song_record.song.song_name);
             }
         };
         main_builder.connect_activate_menu_item("copy_artist_and_track", copy_artist_and_track_fn);
@@ -230,7 +235,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
             let tree_view = menu_item.get_tree_view();
 
             if let Some(song_record) = tree_view.get_selected_song_record() {
-                let full_song_name_parts: Vec<&str> = song_record.song_name.splitn(2, " - ").collect();
+                let full_song_name_parts: Vec<&str> = song_record.song.song_name.splitn(2, " - ").collect();
                 gtk::Clipboard::get(&gdk::SELECTION_CLIPBOARD).set_text(full_song_name_parts[0]);
             }
 
@@ -241,7 +246,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
         let copy_track_name_fn = move |menu_item: &gtk::MenuItem| {
             let tree_view = menu_item.get_tree_view();
             if let Some(song_record) = tree_view.get_selected_song_record() {
-                let full_song_name_parts: Vec<&str> = song_record.song_name.splitn(2, " - ").collect();
+                let full_song_name_parts: Vec<&str> = song_record.song.song_name.splitn(2, " - ").collect();
                 gtk::Clipboard::get(&gdk::SELECTION_CLIPBOARD).set_text(full_song_name_parts[1]);
             }
         };
@@ -251,7 +256,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
         let copy_album_fn = move |menu_item: &gtk::MenuItem| {
             let tree_view = menu_item.get_tree_view();
             if let Some(song_record) = tree_view.get_selected_song_record() {
-                gtk::Clipboard::get(&gdk::SELECTION_CLIPBOARD).set_text(&song_record.album);
+                gtk::Clipboard::get(&gdk::SELECTION_CLIPBOARD).set_text(&song_record.song.album);
             }
         };
         main_builder.connect_activate_menu_item("copy_album", copy_album_fn);
@@ -261,7 +266,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
             let tree_view = menu_item.get_tree_view();
             if let Some(song_record) = tree_view.get_selected_song_record() {
                 
-                let mut encoded_search_term = utf8_percent_encode(&song_record.song_name, NON_ALPHANUMERIC).to_string();
+                let mut encoded_search_term = utf8_percent_encode(&song_record.song.song_name, NON_ALPHANUMERIC).to_string();
                 encoded_search_term = encoded_search_term.replace("%20", "+");
                 
                 let search_url = format!("https://www.youtube.com/results?search_query={}", encoded_search_term);
@@ -671,12 +676,15 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
                         notification.set_body(Some(song_name.as_ref().unwrap()));
 
                         song_history_interface.add_row_and_save(SongHistoryRecord {
-                            song_name: song_name.as_ref().unwrap().to_string(),
-                            album: message.album_name.as_ref().unwrap_or(&"".to_string()).to_string(),
+                            song: Song {
+                                song_name: song_name.as_ref().unwrap().to_string(),
+                                album: message.album_name.as_ref().unwrap_or(&"".to_string()).to_string(),
+                                track_key: Some(message.track_key),
+                                release_year: Some(message.release_year.as_ref().unwrap_or(&"".to_string()).to_string()),
+                                genre: Some(message.genre.as_ref().unwrap_or(&"".to_string()).to_string()),
+                            },
                             recognition_date: Local::now().format("%c").to_string(),
-                            track_key: Some(message.track_key),
-                            release_year: Some(message.release_year.as_ref().unwrap_or(&"".to_string()).to_string()),
-                            genre: Some(message.genre.as_ref().unwrap_or(&"".to_string()).to_string()),
+                            
                         });
 
                         recognized_song_name.set_markup(&format!("<b>{}</b>", glib::markup_escape_text(song_name.as_ref().unwrap())));

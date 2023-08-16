@@ -5,21 +5,25 @@
 ///
 /// A difference is that entries are stored in chronological order in the CSV
 /// file, while antichronological order is used on the GUI list view.
+use serde::{Deserialize, Serialize};
 
-use serde::{Serialize, Deserialize};
-
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Hash, PartialEq, Eq)]
 pub struct SongHistoryRecord {
+    #[serde(flatten)]
+    pub song: Song,
+    pub recognition_date: String,
+}
+
+#[derive(Debug, Serialize, Deserialize, Hash, PartialEq, Eq)]
+pub struct Song {
     pub song_name: String,
     pub album: String,
-    pub recognition_date: String,
-    
+
     // The following fields have been added in version 0.3.0
     #[serde(default)]
     pub track_key: Option<String>,
     #[serde(default)]
     pub release_year: Option<String>,
     #[serde(default)]
-    pub genre: Option<String>
+    pub genre: Option<String>,
 }
-
