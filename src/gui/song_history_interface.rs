@@ -1,4 +1,4 @@
-use crate::utils::csv_song_history::{Song, SongHistoryRecord};
+use crate::utils::csv_song_history::{IsSong, Song, SongHistoryRecord};
 use gettextrs::gettext;
 use gtk::prelude::*;
 use std::collections::HashSet;
@@ -8,38 +8,37 @@ use std::error::Error;
 /// GTK-rs GUI of SongRec and the filesystem while using the GUI.
 
 trait SongHistoryRecordListStore {
-    fn remove_song_history_record(self: &mut Self, song_record: SongHistoryRecord);
-    fn add_song_history_record(self: &mut Self, song_record: SongHistoryRecord);
-    fn add_song_history_records(self: &mut Self, song_record: Vec<SongHistoryRecord>);
-    fn get_song_history_record(self: Self, iter: &gtk::TreeIter) -> Option<SongHistoryRecord>;
+    fn remove_song_history_record(self: &mut Self, to_remove: SongHistoryRecord);
+    fn add_song_history_record(self: &mut Self, to_add: &SongHistoryRecord);
+    fn add_song_history_records(self: &mut Self, to_add: &Vec<SongHistoryRecord>);
+    fn get_song_history_record(self: &mut Self, iter: &gtk::TreeIter) -> Option<SongHistoryRecord>;
 }
 
 impl SongHistoryRecordListStore for gtk::ListStore {
-    fn get_song_history_record(self: Self, iter: &gtk::TreeIter) -> Option<SongHistoryRecord> {
+    fn get_song_history_record(self: &mut Self, iter: &gtk::TreeIter) -> Option<SongHistoryRecord> {
         let song_name = self.get_value(&iter, 0).get::<String>().ok()??;
-        let album = self.get_value(&iter, 1).get::<String>().ok()??;
+        let album = self.get_value(&iter, 1).get::<String>().ok()?;
         let recognition_date = self.get_value(&iter, 2).get::<String>().ok()??;
         let track_key = self.get_value(&iter, 3).get::<String>().ok()?;
         let release_year = self.get_value(&iter, 4).get::<String>().ok()?;
         let genre = self.get_value(&iter, 5).get::<String>().ok()?;
 
         Some(SongHistoryRecord {
-            song: Song {
-                song_name,
-                album,
-                track_key,
-                release_year,
-                genre,
-            },
+            song_name,
+            album,
+            track_key,
+            release_year,
+            genre,
             recognition_date,
         })
     }
 
     fn remove_song_history_record(self: &mut Self, to_remove: SongHistoryRecord) {
+        let song_to_remove: Song = to_remove.get_song();
         if let Some(iter) = self.get_iter_first() {
             loop {
                 if let Some(song_history_record) = self.get_song_history_record(&iter) {
-                    if song_history_record.song == to_remove.song {
+                    if song_history_record.get_song() == song_to_remove {
                         self.remove(&iter);
                     }
                 }
@@ -50,50 +49,26 @@ impl SongHistoryRecordListStore for gtk::ListStore {
         }
     }
 
-    fn add_song_history_record(self: &mut Self, to_add: SongHistoryRecord) {
+    fn add_song_history_record(self: &mut Self, to_add: &SongHistoryRecord) {
         self.set(
             &self.insert(0),
             &[0, 1, 2, 3, 4, 5],
             &[
-                &to_add.song.song_name,
-                &to_add.song.album,
+                &to_add.song_name,
+                &to_add.album,
                 &to_add.recognition_date,
-                &to_add.song.track_key,
-                &to_add.song.release_year,
-                &to_add.song.genre,
+                &to_add.track_key,
+                &to_add.release_year,
+                &to_add.genre,
             ],
         )
     }
 
-    fn add_song_history_records(self: &mut Self, to_add: Vec<SongHistoryRecord>) {
+    fn add_song_history_records(self: &mut Self, to_add: &Vec<SongHistoryRecord>) {
         for record in to_add {
             self.add_song_history_record(record)
         }
     }
-}
-
-trait Save {
-    fn wipe_and_save(self: &mut Self);
-    fn add_row_and_save(self: &mut Self, record: SongHistoryRecord);
-    fn save(self: &mut Self);
-}
-
-trait Remove {
-    fn remove(self: &mut Self, song_record: SongHistoryRecord);
-    fn remove_from_list_store(self: &mut Self, song_record: SongHistoryRecord);
-}
-
-trait New {
-    fn new(
-        gtk_list_store: gtk::ListStore,
-        get_csv_path: fn() -> Result<String, Box<dyn Error>>,
-    ) -> Result<Self, Box<dyn Error>>
-    where
-        Self: Sized;
-}
-
-trait Load {
-    fn load(self: &mut Self) -> Result<(), Box<dyn Error>>;
 }
 
 pub struct RecognitionHistoryInterface {
@@ -104,7 +79,7 @@ pub struct RecognitionHistoryInterface {
 pub struct FavoritesInterface {
     csv_path: String,
     gtk_list_store: gtk::ListStore,
-    is_favorite: HashSet<Song>,
+    is_favorite: HashSet<SongHistoryRecord>,
 }
 
 pub trait SongRecordInterface {
@@ -145,14 +120,13 @@ impl SongRecordInterface for RecognitionHistoryInterface {
     }
 
     fn load(self: &mut Self) -> Result<(), Box<dyn Error>> {
-        let mut records: Vec<SongHistoryRecord> = vec![];
         match csv::ReaderBuilder::new()
             .flexible(true)
             .from_path(&self.csv_path)
         {
             Ok(mut reader) => {
                 for result in reader.deserialize() {
-                    self.gtk_list_store.add_song_history_record(result?)
+                    self.gtk_list_store.add_song_history_record(&result?)
                 }
             }
             _ => {} // File does not exists, ignore
@@ -169,7 +143,7 @@ impl SongRecordInterface for RecognitionHistoryInterface {
     }
 
     fn add_row_and_save(self: &mut Self, record: SongHistoryRecord) {
-        self.gtk_list_store.add_song_history_record(record);
+        self.gtk_list_store.add_song_history_record(&record);
 
         self.save();
     }
@@ -206,7 +180,7 @@ impl SongRecordInterface for FavoritesInterface {
         let mut interface = FavoritesInterface {
             csv_path: get_csv_path()?,
             gtk_list_store: gtk_list_store,
-            is_favorite: HashSet::<Song>::new(),
+            is_favorite: HashSet::<SongHistoryRecord>::new(),
         };
 
         if let Err(error_info) = interface.load() {
@@ -221,7 +195,6 @@ impl SongRecordInterface for FavoritesInterface {
     }
 
     fn load(self: &mut Self) -> Result<(), Box<dyn Error>> {
-        let mut records: Vec<SongHistoryRecord> = vec![];
         match csv::ReaderBuilder::new()
             .flexible(true)
             .from_path(&self.csv_path)
@@ -229,8 +202,8 @@ impl SongRecordInterface for FavoritesInterface {
             Ok(mut reader) => {
                 for result in reader.deserialize() {
                     let record = result?;
-                    self.gtk_list_store.add_song_history_record(result?);
-                    self.is_favorite.insert(record.song);
+                    self.gtk_list_store.add_song_history_record(&record);
+                    self.is_favorite.insert(record);
                 }
             }
             _ => {} // File does not exists, ignore
@@ -247,8 +220,8 @@ impl SongRecordInterface for FavoritesInterface {
     }
 
     fn add_row_and_save(self: &mut Self, record: SongHistoryRecord) {
-        self.gtk_list_store.add_song_history_record(record);
-        self.is_favorite.insert(record.song);
+        self.gtk_list_store.add_song_history_record(&record);
+        self.is_favorite.insert(record);
         self.save();
     }
 
@@ -271,8 +244,8 @@ impl SongRecordInterface for FavoritesInterface {
     }
 
     fn remove(self: &mut Self, song_record: SongHistoryRecord) {
+        self.is_favorite.remove(&song_record);
         self.gtk_list_store.remove_song_history_record(song_record);
-        self.is_favorite.remove(&song_record.song);
         self.save()
     }
 }

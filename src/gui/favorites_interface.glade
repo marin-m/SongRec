@@ -16,6 +16,12 @@
       <column type="gchararray"/>
       <!-- column-name Recognition -->
       <column type="gchararray"/>
+      <!-- column-name Track Key -->
+      <column type="gchararray"/>
+      <!-- column-name Release Year -->
+      <column type="gchararray"/>
+      <!-- column-name Genre -->
+      <column type="gchararray"/>
     </columns>
   </object>
   <object class="GtkMenu" id="list_view_context_menu">

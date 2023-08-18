@@ -160,12 +160,13 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
                             csv_writer
                                 .serialize(SongHistoryRecord {
                                     song_name: song_name,
-                                    album: message
-                                        .album_name
-                                        .as_ref()
-                                        .unwrap_or(&"".to_string())
-                                        .to_string(),
-                                    recognition_date: Local::now().format("%c").to_string(),
+                                    album: Some(
+                                        message
+                                            .album_name
+                                            .as_ref()
+                                            .unwrap_or(&"".to_string())
+                                            .to_string(),
+                                    ),
                                     track_key: Some(message.track_key),
                                     release_year: Some(
                                         message
@@ -181,6 +182,7 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
                                             .unwrap_or(&"".to_string())
                                             .to_string(),
                                     ),
+                                    recognition_date: Local::now().format("%c").to_string(),
                                 })
                                 .unwrap();
                             csv_writer.flush().unwrap();
