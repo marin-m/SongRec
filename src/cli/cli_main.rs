@@ -1,18 +1,18 @@
-use std::error::Error;
 use std::cell::RefCell;
+use std::error::Error;
 use std::rc::Rc;
-use std::sync::{Arc, mpsc};
+use std::sync::{mpsc, Arc};
 
+use chrono::Local;
+use gettextrs::gettext;
 use glib;
 use glib::clone;
-use gettextrs::gettext;
-use chrono::Local;
 
 use mpris_player::PlaybackStatus;
 
+use crate::core::http_thread::http_thread;
 use crate::core::microphone_thread::microphone_thread;
 use crate::core::processing_thread::processing_thread;
-use crate::core::http_thread::http_thread;
 use crate::core::thread_messages::{GUIMessage, MicrophoneMessage, ProcessingMessage};
 
 use crate::utils::csv_song_history::SongHistoryRecord;
@@ -22,7 +22,7 @@ use crate::utils::thread::spawn_big_thread;
 pub enum CLIOutputType {
     SongName,
     JSON,
-    CSV
+    CSV,
 }
 
 pub struct CLIParameters {
@@ -30,7 +30,7 @@ pub struct CLIParameters {
     pub recognize_once: bool,
     pub audio_device: Option<String>,
     pub input_file: Option<String>,
-    pub output_type: CLIOutputType
+    pub output_type: CLIOutputType,
 }
 
 pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
@@ -45,14 +45,16 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
     let processing_microphone_tx = processing_tx.clone();
     let microphone_http_tx = microphone_tx.clone();
 
-    spawn_big_thread(clone!(@strong gui_tx => move || { // microphone_rx, processing_tx
-        microphone_thread(microphone_rx, processing_microphone_tx, gui_tx);
-    }));
-    
+    spawn_big_thread(
+        clone!(@strong gui_tx => move || { // microphone_rx, processing_tx
+            microphone_thread(microphone_rx, processing_microphone_tx, gui_tx);
+        }),
+    );
+
     spawn_big_thread(clone!(@strong gui_tx => move || { // processing_rx, http_tx
         processing_thread(processing_rx, http_tx, gui_tx);
     }));
-    
+
     spawn_big_thread(clone!(@strong gui_tx => move || { // http_rx
         http_thread(http_rx, gui_tx, microphone_http_tx);
     }));
@@ -72,9 +74,11 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
     let input_file_name = parameters.input_file.as_ref().map(|dev| dev.to_string());
 
     if let Some(ref filename) = parameters.input_file {
-        processing_tx.send(ProcessingMessage::ProcessAudioFile(filename.to_string())).unwrap();
+        processing_tx
+            .send(ProcessingMessage::ProcessAudioFile(filename.to_string()))
+            .unwrap();
     }
-    
+
     let mut csv_writer = csv::Writer::from_writer(std::io::stdout());
 
     gui_rx.attach(None, move |gui_message| {
@@ -100,23 +104,32 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
                     &device_names[0]
                 };
                 eprintln!("{} {}", gettext("Using device"), dev_name);
-                microphone_tx.send(MicrophoneMessage::MicrophoneRecordStart(dev_name.to_owned())).unwrap();
-            },
+                microphone_tx
+                    .send(MicrophoneMessage::MicrophoneRecordStart(
+                        dev_name.to_owned(),
+                    ))
+                    .unwrap();
+            }
             GUIMessage::NetworkStatus(reachable) => {
-                let mpris_status = if reachable { PlaybackStatus::Playing } else { PlaybackStatus::Paused };
-                mpris_player.as_ref().map(|p| p.set_playback_status(mpris_status));
+                let mpris_status = if reachable {
+                    PlaybackStatus::Playing
+                } else {
+                    PlaybackStatus::Paused
+                };
+                mpris_player
+                    .as_ref()
+                    .map(|p| p.set_playback_status(mpris_status));
 
                 if !reachable {
                     if input_file_name.is_some() {
                         eprintln!("{}", gettext("Error: Network unreachable"));
                         main_loop_cli.quit();
                         return glib::Continue(false);
-                    }
-                    else {
+                    } else {
                         eprintln!("{}", gettext("Warning: Network unreachable"));
                     }
                 }
-            },
+            }
             GUIMessage::ErrorMessage(string) => {
                 if !(string == gettext("No match for this song") && !input_file_name.is_some()) {
                     eprintln!("{} {}", gettext("Error:"), string);
@@ -125,12 +138,12 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
                     main_loop_cli.quit();
                     return glib::Continue(false);
                 }
-            },
+            }
             GUIMessage::MicrophoneRecording => {
                 if !do_recognize_once {
                     eprintln!("{}", gettext("Recording started!"));
                 }
-            },
+            }
             GUIMessage::SongRecognized(message) => {
                 let mut last_track_borrow = last_track.borrow_mut();
                 let track_key = Some(message.track_key.clone());
@@ -142,18 +155,36 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
                     match parameters.output_type {
                         CLIOutputType::JSON => {
                             println!("{}", message.shazam_json);
-                        },
+                        }
                         CLIOutputType::CSV => {
-                            csv_writer.serialize(SongHistoryRecord {
-                                song_name: song_name,
-                                album: message.album_name.as_ref().unwrap_or(&"".to_string()).to_string(),
-                                recognition_date: Local::now().format("%c").to_string(),
-                                track_key: Some(message.track_key),
-                                release_year: Some(message.release_year.as_ref().unwrap_or(&"".to_string()).to_string()),
-                                genre: Some(message.genre.as_ref().unwrap_or(&"".to_string()).to_string()),
-                            }).unwrap();
+                            csv_writer
+                                .serialize(SongHistoryRecord {
+                                    song_name: song_name,
+                                    album: message
+                                        .album_name
+                                        .as_ref()
+                                        .unwrap_or(&"".to_string())
+                                        .to_string(),
+                                    recognition_date: Local::now().format("%c").to_string(),
+                                    track_key: Some(message.track_key),
+                                    release_year: Some(
+                                        message
+                                            .release_year
+                                            .as_ref()
+                                            .unwrap_or(&"".to_string())
+                                            .to_string(),
+                                    ),
+                                    genre: Some(
+                                        message
+                                            .genre
+                                            .as_ref()
+                                            .unwrap_or(&"".to_string())
+                                            .to_string(),
+                                    ),
+                                })
+                                .unwrap();
                             csv_writer.flush().unwrap();
-                        },
+                        }
                         CLIOutputType::SongName => {
                             println!("{}", song_name);
                         }
@@ -163,8 +194,8 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
                     main_loop_cli.quit();
                     return glib::Continue(false);
                 }
-            },
-            _ => { }
+            }
+            _ => {}
         }
         glib::Continue(true)
     });
