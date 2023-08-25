@@ -5,6 +5,7 @@ use gtk::prelude::*;
 use gtk::ResponseType;
 use gettextrs::gettext;
 use gdk_pixbuf::Pixbuf;
+use std::collections::HashSet;
 use std::error::Error;
 
 use std::sync::mpsc;
@@ -21,6 +22,8 @@ use crate::core::thread_messages::{*, GUIMessage::*};
 
 use crate::gui::song_history_interface::FavoritesInterface;
 use crate::gui::song_history_interface::{SongRecordInterface, RecognitionHistoryInterface};
+use crate::utils::csv_song_history::IsSong;
+use crate::utils::csv_song_history::Song;
 use crate::utils::filesystem_operations::obtain_favorites_csv_path;
 use crate::utils::thread::spawn_big_thread;
 use crate::utils::pulseaudio_loopback::PulseaudioLoopback;
@@ -122,9 +125,71 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
         // users to copy or search items (see https://stackoverflow.com/a/49720383)
         
         let history_context_menu: gtk::Menu = main_builder.get_list_view_context_menu();
-        history_tree_view.connect_right_click(history_context_menu);
+        history_tree_view.connect_right_click(clone!(@strong history_context_menu, @strong favorites_interface => move |history_tree_view, button| {
+            if button.get_event_type() == gdk::EventType::ButtonPress && button.get_button() == 3 { // Is this a single right click?
+                
+                // Display the context menu
+                
+                // For usage examples, see:
+                // https://github.com/search?l=Rust&q=set_property_attach_widget&type=Code
+                
+                history_context_menu.set_property_attach_widget(Some(history_tree_view));
+                let is_favorite: HashSet<Song> = favorites_interface.get_is_favorite();
+                if let Some(song_record) = history_tree_view.get_selected_song_record() {
+                    if is_favorite.contains(&song_record.get_song()) {
+                        let remove_from_favorites: gtk::MenuItem = gtk::MenuItem::new();
+                        remove_from_favorites.set_label("Remove from favorites");
+                        history_context_menu.append(&remove_from_favorites);
+                    } else {
+                        let add_to_favorites: gtk::MenuItem = gtk::MenuItem::new();
+                        add_to_favorites.set_label("Add to favorites");
+                        history_context_menu.append(&add_to_favorites);
+                    }
+                }
+
+
+
+                
+                
+                
+                history_context_menu.popup_at_pointer(Some(button));
+                
+            }
+        }));
         let favorites_context_menu: gtk::Menu = favorites_builder.get_list_view_context_menu();
-        favorites_tree_view.connect_right_click(favorites_context_menu);
+        favorites_tree_view.connect_right_click(clone!(@strong history_context_menu, @strong favorites_interface => move |history_tree_view, button| {
+            if button.get_event_type() == gdk::EventType::ButtonPress && button.get_button() == 3 { // Is this a single right click?
+                
+                // Display the context menu
+                
+                // For usage examples, see:
+                // https://github.com/search?l=Rust&q=set_property_attach_widget&type=Code
+                
+                history_context_menu.set_property_attach_widget(Some(history_tree_view));
+
+                history_context_menu.set_property_attach_widget(Some(history_tree_view));
+                let is_favorite: HashSet<Song> = favorites_interface.get_is_favorite();
+                if let Some(song_record) = history_tree_view.get_selected_song_record() {
+                    if is_favorite.contains(&song_record.get_song()) {
+                        let remove_from_favorites: gtk::MenuItem = gtk::MenuItem::new();
+                        remove_from_favorites.set_label("Remove from favorites");
+                        history_context_menu.append(&remove_from_favorites);
+                    } else {
+                        let add_to_favorites: gtk::MenuItem = gtk::MenuItem::new();
+                        add_to_favorites.set_label("Add to favorites");
+                        history_context_menu.append(&add_to_favorites);
+                    }
+                }
+
+
+
+                
+                
+                
+                history_context_menu.popup_at_pointer(Some(button));
+                
+            }
+        }));
 
         trait ContextMenu {
             fn get_list_view_context_menu(&self) -> gtk::Menu;
@@ -147,7 +212,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
         }
 
         trait RightClick {
-            fn connect_right_click(&self, context_menu: gtk::Menu);
+            fn connect_right_click<F: Fn(&Self, &gdk::EventButton) + 'static>(&self, f: F);
         }
 
         impl SongRecords for gtk::TreeView {
@@ -168,25 +233,10 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
         }
 
         impl RightClick for gtk::TreeView {
-            fn connect_right_click(&self, list_view_context_menu: gtk::Menu) {
-                let tree_view: gtk::TreeView = self.clone();
-                let list_view_context_menu: gtk::Menu = list_view_context_menu.clone();
-                self.connect_button_press_event(move |_, button| {
+            fn connect_right_click<F: Fn(&Self, &gdk::EventButton) + 'static>(&self, f: F) {
+                self.connect_button_press_event(move |tree_view, button| {
                     if button.get_event_type() == gdk::EventType::ButtonPress && button.get_button() == 3 { // Is this a single right click?
-                
-                        // Display the context menu
-                        
-                        // For usage examples, see:
-                        // https://github.com/search?l=Rust&q=set_property_attach_widget&type=Code
-                        
-
-
-                        list_view_context_menu.set_property_attach_widget(Some(&tree_view));
-                        
-                        list_view_context_menu.show_all();
-                        
-                        list_view_context_menu.popup_at_pointer(Some(button));
-                        
+                        f;
                     }
                     
                     Inhibit(false) // Ensure that focus is given to the clicked item

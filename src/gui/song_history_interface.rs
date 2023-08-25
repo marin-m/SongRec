@@ -9,6 +9,7 @@ use std::error::Error;
 
 trait SongHistoryRecordListStore {
     fn remove_song_history_record(self: &mut Self, to_remove: SongHistoryRecord);
+    fn remove_song(self: &mut Self, to_remove: Song);
     fn add_song_history_record(self: &mut Self, to_add: &SongHistoryRecord);
     fn add_song_history_records(self: &mut Self, to_add: &Vec<SongHistoryRecord>);
     fn get_song_history_record(self: &mut Self, iter: &gtk::TreeIter) -> Option<SongHistoryRecord>;
@@ -31,6 +32,21 @@ impl SongHistoryRecordListStore for gtk::ListStore {
             genre,
             recognition_date,
         })
+    }
+
+    fn remove_song(self: &mut Self, to_remove: Song) {
+        if let Some(iter) = self.get_iter_first() {
+            loop {
+                if let Some(song_history_record) = self.get_song_history_record(&iter) {
+                    if song_history_record.get_song() == to_remove {
+                        self.remove(&iter);
+                    }
+                }
+                if !self.iter_next(&iter) {
+                    break;
+                }
+            }
+        }
     }
 
     fn remove_song_history_record(self: &mut Self, to_remove: SongHistoryRecord) {
@@ -71,15 +87,16 @@ impl SongHistoryRecordListStore for gtk::ListStore {
     }
 }
 
+#[derive(Debug, Clone)]
 pub struct RecognitionHistoryInterface {
     csv_path: String,
     gtk_list_store: gtk::ListStore,
 }
-
+#[derive(Debug, Clone)]
 pub struct FavoritesInterface {
     csv_path: String,
     gtk_list_store: gtk::ListStore,
-    is_favorite: HashSet<SongHistoryRecord>,
+    is_favorite: HashSet<Song>,
 }
 
 pub trait SongRecordInterface {
@@ -180,7 +197,7 @@ impl SongRecordInterface for FavoritesInterface {
         let mut interface = FavoritesInterface {
             csv_path: get_csv_path()?,
             gtk_list_store: gtk_list_store,
-            is_favorite: HashSet::<SongHistoryRecord>::new(),
+            is_favorite: HashSet::<Song>::new(),
         };
 
         if let Err(error_info) = interface.load() {
@@ -203,7 +220,7 @@ impl SongRecordInterface for FavoritesInterface {
                 for result in reader.deserialize() {
                     let record = result?;
                     self.gtk_list_store.add_song_history_record(&record);
-                    self.is_favorite.insert(record);
+                    self.is_favorite.insert(record.get_song());
                 }
             }
             _ => {} // File does not exists, ignore
@@ -221,7 +238,7 @@ impl SongRecordInterface for FavoritesInterface {
 
     fn add_row_and_save(self: &mut Self, record: SongHistoryRecord) {
         self.gtk_list_store.add_song_history_record(&record);
-        self.is_favorite.insert(record);
+        self.is_favorite.insert(record.get_song());
         self.save();
     }
 
@@ -244,8 +261,15 @@ impl SongRecordInterface for FavoritesInterface {
     }
 
     fn remove(self: &mut Self, song_record: SongHistoryRecord) {
-        self.is_favorite.remove(&song_record);
-        self.gtk_list_store.remove_song_history_record(song_record);
+        let song = song_record.get_song();
+        self.is_favorite.remove(&song);
+        self.gtk_list_store.remove_song(song);
         self.save()
+    }
+}
+
+impl FavoritesInterface {
+    pub fn get_is_favorite(self: Self) -> HashSet<Song> {
+        self.is_favorite
     }
 }

@@ -23,7 +23,7 @@ pub struct SongHistoryRecord {
     pub recognition_date: String,
 }
 
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, Hash)]
 pub struct Song {
     pub song_name: String,
     pub album: Option<String>,
