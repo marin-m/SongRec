@@ -134,7 +134,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
                 // https://github.com/search?l=Rust&q=set_property_attach_widget&type=Code
                 
                 history_context_menu.set_property_attach_widget(Some(history_tree_view));
-                let is_favorite: HashSet<Song> = favorites_interface.get_is_favorite();
+                let is_favorite: &HashSet<Song> = favorites_interface.get_is_favorite();
                 if let Some(song_record) = history_tree_view.get_selected_song_record() {
                     if is_favorite.contains(&song_record.get_song()) {
                         let remove_from_favorites: gtk::MenuItem = gtk::MenuItem::new();
@@ -168,7 +168,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
                 history_context_menu.set_property_attach_widget(Some(history_tree_view));
 
                 history_context_menu.set_property_attach_widget(Some(history_tree_view));
-                let is_favorite: HashSet<Song> = favorites_interface.get_is_favorite();
+                let is_favorite: &HashSet<Song> = favorites_interface.get_is_favorite();
                 if let Some(song_record) = history_tree_view.get_selected_song_record() {
                     if is_favorite.contains(&song_record.get_song()) {
                         let remove_from_favorites: gtk::MenuItem = gtk::MenuItem::new();
@@ -233,10 +233,10 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
         }
 
         impl RightClick for gtk::TreeView {
-            fn connect_right_click<F: Fn(&Self, &gdk::EventButton) + 'static>(&self, f: F) {
+            fn connect_right_click<F: FnOnce(&Self, &gdk::EventButton) + 'static>(&self, f: F) {
                 self.connect_button_press_event(move |tree_view, button| {
                     if button.get_event_type() == gdk::EventType::ButtonPress && button.get_button() == 3 { // Is this a single right click?
-                        f;
+                        f(tree_view, button);
                     }
                     
                     Inhibit(false) // Ensure that focus is given to the clicked item
