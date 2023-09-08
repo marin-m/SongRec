@@ -1,22 +1,24 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# ALBANO BATTISTELLA <albano_battistella@hotmail.com>, 2021.
+# Copyright (C) 2023
+# This file is distributed under the same license as the SongRec package.
+# Albano Battistella <albano_battistella@hotmail.com>, 2021.
+# Gianluca Boiano <morf3089@gmail.com>, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-05-26 09:42+0200\n"
-"PO-Revision-Date: 2021-08-20 21:19+0200\n"
-"Last-Translator: Albano Battistella <albano_battistella@hotmail.com>\n"
+"PO-Revision-Date: 2023-09-08 16:03+0200\n"
+"Last-Translator: Gianluca Boiano <morf3089@gmail.com>\n"
 "Language-Team: Albano Battistella  <albano_battistella@hotmail.com>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.0\n"
+"Translator: Albano Battistella <albano_battistella@hotmail.com>\n"
+"X-Generator: Poedit 3.3.2\n"
 
 #: ../src/main.rs:58
 msgid "An open-source Shazam client for Linux, written in Rust."
@@ -27,30 +29,35 @@ msgid ""
 "Run as a command-line program listening the microphone and printing "
 "recognized songs to stdout, exposing current song info via MPRIS"
 msgstr ""
+"Esegui come programma da riga di comando ascoltando il microfono e stampando "
+"i brani riconosciuti su stdout, esponendo le informazioni sul brano corrente "
+"tramite MPRIS"
 
 #: ../src/main.rs:67 ../src/main.rs:96 ../src/main.rs:134
 msgid "Specify the audio device to use"
-msgstr ""
+msgstr "Specifica il dispositivo audio da utilizzare"
 
 #: ../src/main.rs:74 ../src/main.rs:103
 msgid "Enable printing full song info in JSON"
-msgstr ""
+msgstr "Abilita informazioni complete sul brano in JSON"
 
 #: ../src/main.rs:80 ../src/main.rs:109
 msgid "Enable printing full song info in the CSV format"
-msgstr ""
+msgstr "Abilita informazioni complete sul brano in CSV"
 
 #: ../src/main.rs:85 ../src/main.rs:187 ../src/main.rs:201
 msgid "Disable MPRIS support"
-msgstr ""
+msgstr "Disabilita supporto MPRIS"
 
 #: ../src/main.rs:90
 msgid "Recognize one song from a sound file or microphone and print its info."
 msgstr ""
+"Riconosci brano da un file audio o da un microfono e mostrane le "
+"informazioni."
 
 #: ../src/main.rs:114
 msgid "Recognize a file instead of using mic input"
-msgstr ""
+msgstr "Riconosci un file invece di utilizzare l'input del microfono"
 
 #: ../src/main.rs:119
 msgid ""
@@ -71,6 +78,8 @@ msgid ""
 "Recognize a currently playing song using the microphone and print obtained "
 "information to the standard output"
 msgstr ""
+"Riconosci brano attualmente in riproduzione utilizzando il microfono e "
+"mostra le informazioni ottenute sull'output standard"
 
 #: ../src/main.rs:139
 msgid ""
@@ -107,7 +116,7 @@ msgstr ""
 "Converti un'impronta digitale Shazam di dati-URI in toni udibili, riprodotti "
 "istantaneamente (o scritti su un file, se viene fornito un percorso). Non "
 "particolarmente utile, ma fornisce l'output più semplice che indurrà Shazam "
-"a riconoscere una non canzone."
+"a riconoscere un non-brano."
 
 #: ../src/main.rs:161
 msgid "The data-URI Shazam fingerprint to convert into hearable sound."
@@ -140,37 +149,37 @@ msgstr ""
 
 #: ../src/cli/cli_main.rs:89
 msgid "Exiting: audio device not found"
-msgstr ""
+msgstr "In uscita: dispositivo audio non trovato"
 
 #: ../src/cli/cli_main.rs:96
 msgid "Exiting: no audio devices found!"
-msgstr ""
+msgstr "In uscita: nessun dispositivo audio trovato!"
 
 #: ../src/cli/cli_main.rs:102
 msgid "Using device"
-msgstr ""
+msgstr "Dispositivo in uso"
 
 #: ../src/cli/cli_main.rs:111
 msgid "Error: Network unreachable"
-msgstr ""
+msgstr "Errore: rete irraggiungibile"
 
 #: ../src/cli/cli_main.rs:116
 msgid "Warning: Network unreachable"
-msgstr ""
+msgstr "Avviso: rete irraggiungibile"
 
 #: ../src/cli/cli_main.rs:121 ../src/core/http_thread.rs:49
 #: ../src/core/http_thread.rs:54 ../src/core/http_thread.rs:63
 #: ../src/core/http_thread.rs:89 ../src/gui/main_window.rs:454
 msgid "No match for this song"
-msgstr "Nessuna corrispondenza per questa canzone"
+msgstr "Nessuna corrispondenza per questo brano"
 
 #: ../src/cli/cli_main.rs:122
 msgid "Error:"
-msgstr ""
+msgstr "Errore:"
 
 #: ../src/cli/cli_main.rs:131
 msgid "Recording started!"
-msgstr ""
+msgstr "Registrazione iniziata!"
 
 #: ../src/core/microphone_thread.rs:72
 msgid "Microphone error:"
@@ -201,7 +210,7 @@ msgstr "Application::new fallita"
 
 #: ../src/gui/main_window.rs:268
 msgid "Unable to enable MPRIS support"
-msgstr ""
+msgstr "Impossibile abilitare il supporto MPRIS"
 
 #: ../src/gui/main_window.rs:334
 msgid "Select a file to recognize"
@@ -213,7 +222,7 @@ msgstr "_Apri"
 
 #: ../src/gui/main_window.rs:338
 msgid "_Cancel"
-msgstr "_Cancella"
+msgstr "A_nnulla"
 
 #: ../src/gui/main_window.rs:346
 msgid "Couldn't get filename"
@@ -221,19 +230,19 @@ msgstr "Impossibile ottenere il nome del file"
 
 #: ../src/gui/main_window.rs:537
 msgid "Song recognized"
-msgstr "Canzone riconosciuta"
+msgstr "Brano riconosciuto"
 
 #: ../src/gui/preferences.rs:41
 msgid "When parsing the preferences file:"
-msgstr ""
+msgstr "Quando si apre il file delle preferenze:"
 
 #: ../src/gui/preferences.rs:68
 msgid "When saving the preferences file:"
-msgstr ""
+msgstr "Quando si salva il file delle preferenze:"
 
 #: ../src/gui/song_history_interface.rs:28
 msgid "Error when reading the song history on the disk:"
-msgstr ""
+msgstr "Errore durante la lettura della cronologia dei brani sul disco:"
 
 #: ../src/utils/pulseaudio_loopback.rs:119
 #: ../src/utils/pulseaudio_loopback.rs:157
@@ -266,15 +275,15 @@ msgstr "Riconosci da file"
 
 #: interface.glade.h:7
 msgid "Turn on microphone recognition"
-msgstr "Attiva il riconoscimento microfono"
+msgstr "Attiva microfono"
 
 #: interface.glade.h:8
 msgid "Turn off microphone recognition"
-msgstr "Disattiva il riconoscimento microfono"
+msgstr "Disattiva microfono"
 
 #: interface.glade.h:9
 msgid "Enable notifications"
-msgstr ""
+msgstr "Abilita notifiche"
 
 #: interface.glade.h:10
 msgid "Shazam servers are not reachable, are you connected?"
@@ -282,7 +291,7 @@ msgstr "I server Shazam non sono raggiungibili, sei connesso?"
 
 #: interface.glade.h:11
 msgid "Recognize songs"
-msgstr "Riconosci le canzoni"
+msgstr "Riconosci brani"
 
 #: interface.glade.h:12
 msgid "Play a Shazam lure"
@@ -302,11 +311,11 @@ msgstr "Volume attuale:"
 
 #: interface.glade.h:16
 msgid "Audio input"
-msgstr "Audio input"
+msgstr "Ingresso audio"
 
 #: interface.glade.h:17
 msgid "Song name"
-msgstr "Nome della canzone"
+msgstr "Nome del brano"
 
 #: interface.glade.h:18
 msgid "Album"
