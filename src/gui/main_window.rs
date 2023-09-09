@@ -1,5 +1,5 @@
+use gdk::EventButton;
 use gio::prelude::*;
-use glib::SignalHandlerId;
 use glib::clone;
 use gtk::prelude::*;
 use gtk::ResponseType;
@@ -55,11 +55,11 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
 
         // We create the main window.
     
-        let window: gtk::ApplicationWindow = main_builder.get_object("window").unwrap();
+        let main_window: gtk::ApplicationWindow = main_builder.get_object("window").unwrap();
 
         let favorites_window: gtk::Window = favorites_builder.get_object("favorites_window").unwrap();
         
-        window.set_application(Some(application));
+        main_window.set_application(Some(application));
 
         // We spawn required background threads, and create the
         // associated communication channels.
@@ -123,96 +123,58 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
 
         // Add a context menu to the history tree view, in order to allow
         // users to copy or search items (see https://stackoverflow.com/a/49720383)
-        
-        let history_context_menu: gtk::Menu = main_builder.get_list_view_context_menu();
-        history_tree_view.connect_right_click(clone!(@strong history_context_menu, @strong favorites_interface => move |history_tree_view, button| {
-            if button.get_event_type() == gdk::EventType::ButtonPress && button.get_button() == 3 { // Is this a single right click?
-                
-                // Display the context menu
-                
-                // For usage examples, see:
-                // https://github.com/search?l=Rust&q=set_property_attach_widget&type=Code
-                
-                history_context_menu.set_property_attach_widget(Some(history_tree_view));
-                let is_favorite: &HashSet<Song> = favorites_interface.get_is_favorite();
-                if let Some(song_record) = history_tree_view.get_selected_song_record() {
-                    if is_favorite.contains(&song_record.get_song()) {
-                        let remove_from_favorites: gtk::MenuItem = gtk::MenuItem::new();
-                        remove_from_favorites.set_label("Remove from favorites");
-                        history_context_menu.append(&remove_from_favorites);
-                    } else {
-                        let add_to_favorites: gtk::MenuItem = gtk::MenuItem::new();
-                        add_to_favorites.set_label("Add to favorites");
-                        history_context_menu.append(&add_to_favorites);
-                    }
-                }
+        // add and remove favorites
+        let history_context_menu: gtk::Menu = main_builder.get_object("list_view_context_menu").unwrap();
+        history_tree_view.connect_right_click(&history_context_menu, &favorites_interface);
 
-
-
-                
-                
-                
-                history_context_menu.popup_at_pointer(Some(button));
-                
-            }
-        }));
-        let favorites_context_menu: gtk::Menu = favorites_builder.get_list_view_context_menu();
-        favorites_tree_view.connect_right_click(clone!(@strong history_context_menu, @strong favorites_interface => move |history_tree_view, button| {
-            if button.get_event_type() == gdk::EventType::ButtonPress && button.get_button() == 3 { // Is this a single right click?
-                
-                // Display the context menu
-                
-                // For usage examples, see:
-                // https://github.com/search?l=Rust&q=set_property_attach_widget&type=Code
-                
-                history_context_menu.set_property_attach_widget(Some(history_tree_view));
-
-                history_context_menu.set_property_attach_widget(Some(history_tree_view));
-                let is_favorite: &HashSet<Song> = favorites_interface.get_is_favorite();
-                if let Some(song_record) = history_tree_view.get_selected_song_record() {
-                    if is_favorite.contains(&song_record.get_song()) {
-                        let remove_from_favorites: gtk::MenuItem = gtk::MenuItem::new();
-                        remove_from_favorites.set_label("Remove from favorites");
-                        history_context_menu.append(&remove_from_favorites);
-                    } else {
-                        let add_to_favorites: gtk::MenuItem = gtk::MenuItem::new();
-                        add_to_favorites.set_label("Add to favorites");
-                        history_context_menu.append(&add_to_favorites);
-                    }
-                }
-
-
-
-                
-                
-                
-                history_context_menu.popup_at_pointer(Some(button));
-                
-            }
-        }));
+        let favorites_context_menu: gtk::Menu = favorites_builder.get_object("list_view_context_menu").unwrap();
+        favorites_tree_view.connect_right_click(&favorites_context_menu, &favorites_interface);
 
         trait ContextMenu {
-            fn get_list_view_context_menu(&self) -> gtk::Menu;
-            fn connect_activate_menu_item<F: Fn(&gtk::MenuItem) + 'static>(&self, name: &str, f: F) -> SignalHandlerId;
+            fn connect_activate_menu_item<F: Fn(&gtk::MenuItem) + 'static>(&self, name: &str, f: F) -> ();
+            fn get_menu_item(&self, name: &str) -> Option<gtk::MenuItem>;
+            fn show_menu_item(&self, name: &str) -> Option<()>;
+            fn hide_menu_item(&self, name: &str) -> Option<()>;
         }
 
-        impl ContextMenu for gtk::Builder {
-            fn get_list_view_context_menu(&self) -> gtk::Menu {
-                self.get_object::<gtk::Menu>("list_view_context_menu").unwrap()
+        impl ContextMenu for gtk::Menu {
+            fn get_menu_item(&self, name: &str) -> Option<gtk::MenuItem> {
+                for child in self.get_children() {
+                    if let Ok(menu_item) = child.downcast::<gtk::MenuItem>() {
+                        if menu_item.get_buildable_name().unwrap() == name {
+                            return Some(menu_item);
+                        }
+                    }
+                }
+                return None;
             }
 
-            fn connect_activate_menu_item<F: Fn(&gtk::MenuItem) + 'static>(&self, name: &str, f: F) -> SignalHandlerId {
-                let menu_item: gtk::MenuItem = self.get_object::<gtk::MenuItem>(name).unwrap();
-                menu_item.connect_activate(f)
+            fn connect_activate_menu_item<F: Fn(&gtk::MenuItem) + 'static>(&self, name: &str, f: F) -> () {
+                if let Some(menu_item) = self.get_menu_item(name) {
+                    menu_item.connect_activate(f);
+                }
+            }
+
+            fn show_menu_item(&self, name: &str) -> Option<()> {
+                if let Some(menu_item) = self.get_menu_item(name) {
+                    menu_item.set_visible(true);
+                    return Some(());
+                }
+                None
+            }
+
+            fn hide_menu_item(&self, name: &str) -> Option<()> {
+                if let Some(menu_item) = self.get_menu_item(name) {
+                    menu_item.set_visible(false);
+                    return Some(());
+                }
+                None
             }
         }
 
         trait SongRecords {
             fn get_selected_song_record(&self) -> Option<SongHistoryRecord>;
-        }
-
-        trait RightClick {
-            fn connect_right_click<F: Fn(&Self, &gdk::EventButton) + 'static>(&self, f: F);
+            fn get_song_record_at_mouse(&self, mouse_button: &EventButton) -> Option<SongHistoryRecord>;
         }
 
         impl SongRecords for gtk::TreeView {
@@ -230,17 +192,55 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
                     None
                 }
             }
+
+            fn get_song_record_at_mouse(&self, mouse_button: &EventButton) -> Option<SongHistoryRecord> {
+                let (x, y) = mouse_button.get_position();
+                if let Some((Some(path), _, _, _)) = self.get_path_at_pos(x as i32, y as i32) {
+                    let model = self.get_model().unwrap();
+                    if let Some(iter) = model.get_iter(&path) {
+                        return Some(SongHistoryRecord {
+                            song_name: model.get_value(&iter, 0).get().unwrap().unwrap(),
+                            album: model.get_value(&iter, 1).get().unwrap(),
+                            track_key: None, 
+                            release_year: None, 
+                            genre: None,
+                            recognition_date: model.get_value(&iter, 2).get().unwrap().unwrap(),
+                        });
+                    }
+                }
+                None
+            }
+        }
+
+        trait RightClick {
+            fn connect_right_click(&self, builder: &gtk::Menu, favorites_interface: &FavoritesInterface);
         }
 
         impl RightClick for gtk::TreeView {
-            fn connect_right_click<F: FnOnce(&Self, &gdk::EventButton) + 'static>(&self, f: F) {
-                self.connect_button_press_event(move |tree_view, button| {
+            fn connect_right_click(&self, context_menu: &gtk::Menu, favorites_interface: &FavoritesInterface) {
+                self.connect_button_press_event(clone!(@strong context_menu, @strong favorites_interface => move |tree_view, button| {
                     if button.get_event_type() == gdk::EventType::ButtonPress && button.get_button() == 3 { // Is this a single right click?
-                        f(tree_view, button);
+                        // Display the context menu
+            
+                        // For usage examples, see:
+                        // https://github.com/search?l=Rust&q=set_property_attach_widget&type=Code
+                        context_menu.set_property_attach_widget(Some(tree_view));
+                        let is_favorite: &HashSet<Song> = favorites_interface.get_is_favorite();
+                        if let Some(song_record) = tree_view.get_song_record_at_mouse(button) {
+                            dbg!(&song_record);
+                            if is_favorite.contains(&song_record.get_song()) {
+                                context_menu.hide_menu_item("add_to_favorites");
+                                context_menu.show_menu_item("remove_from_favorites");
+                            } else {
+                                context_menu.show_menu_item("add_to_favorites");
+                                context_menu.hide_menu_item("remove_from_favorites");
+                            }
+                        }
+                        context_menu.popup_at_pointer(Some(button));
                     }
                     
                     Inhibit(false) // Ensure that focus is given to the clicked item
-                });
+                }));
             }
         }
 
@@ -274,8 +274,8 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
                 gtk::Clipboard::get(&gdk::SELECTION_CLIPBOARD).set_text(&song_record.song_name);
             }
         };
-        main_builder.connect_activate_menu_item("copy_artist_and_track", copy_artist_and_track_fn);
-        favorites_builder.connect_activate_menu_item("copy_artist_and_track", copy_artist_and_track_fn);
+        history_context_menu.connect_activate_menu_item("copy_artist_and_track", copy_artist_and_track_fn);
+        favorites_context_menu.connect_activate_menu_item("copy_artist_and_track", copy_artist_and_track_fn);
 
         let copy_artist_fn = move |menu_item: &gtk::MenuItem| {
             let tree_view = menu_item.get_tree_view();
@@ -286,8 +286,8 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
             }
 
         };
-        main_builder.connect_activate_menu_item("copy_artist", copy_artist_fn);
-        favorites_builder.connect_activate_menu_item("copy_artist", copy_artist_fn);
+        history_context_menu.connect_activate_menu_item("copy_artist", copy_artist_fn);
+        favorites_context_menu.connect_activate_menu_item("copy_artist", copy_artist_fn);
         
         let copy_track_name_fn = move |menu_item: &gtk::MenuItem| {
             let tree_view = menu_item.get_tree_view();
@@ -296,8 +296,8 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
                 gtk::Clipboard::get(&gdk::SELECTION_CLIPBOARD).set_text(full_song_name_parts[1]);
             }
         };
-        main_builder.connect_activate_menu_item("copy_track_name", copy_track_name_fn);
-        favorites_builder.connect_activate_menu_item("copy_track_name", copy_track_name_fn);
+        history_context_menu.connect_activate_menu_item("copy_track_name", copy_track_name_fn);
+        favorites_context_menu.connect_activate_menu_item("copy_track_name", copy_track_name_fn);
 
         let copy_album_fn = move |menu_item: &gtk::MenuItem| {
             let tree_view = menu_item.get_tree_view();
@@ -305,8 +305,8 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
                 gtk::Clipboard::get(&gdk::SELECTION_CLIPBOARD).set_text(&song_record.album.unwrap_or(String::new()));
             }
         };
-        main_builder.connect_activate_menu_item("copy_album", copy_album_fn);
-        favorites_builder.connect_activate_menu_item("copy_album", copy_album_fn);
+        history_context_menu.connect_activate_menu_item("copy_album", copy_album_fn);
+        favorites_context_menu.connect_activate_menu_item("copy_album", copy_album_fn);
 
         let search_on_youtube_fn = move |menu_item: &gtk::MenuItem| {
             let tree_view = menu_item.get_tree_view();
@@ -321,8 +321,8 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
             }
             
         };
-        main_builder.connect_activate_menu_item("search_on_youtube", search_on_youtube_fn);
-        favorites_builder.connect_activate_menu_item("search_on_youtube", search_on_youtube_fn);
+        history_context_menu.connect_activate_menu_item("search_on_youtube", search_on_youtube_fn);
+        favorites_context_menu.connect_activate_menu_item("search_on_youtube", search_on_youtube_fn);
 
         let add_to_favorites_fn = clone!(@strong gui_tx => move |menu_item: &gtk::MenuItem| {
             let tree_view = menu_item.get_tree_view();
@@ -330,7 +330,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
                 gui_tx.send(GUIMessage::AddFavorite(song_record)).unwrap();
             }
         });
-        main_builder.connect_activate_menu_item("add_to_favorites",add_to_favorites_fn);
+        history_context_menu.connect_activate_menu_item("add_to_favorites",add_to_favorites_fn);
 
         let remove_from_favorites_fn = clone!(@strong gui_tx => move |menu_item: &gtk::MenuItem| {
             let tree_view = menu_item.get_tree_view();
@@ -338,7 +338,8 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
                 gui_tx.send(GUIMessage::RemoveFavorite(song_record)).unwrap();
             }
         });
-        favorites_builder.connect_activate_menu_item("remove_from_favorites",remove_from_favorites_fn);
+        history_context_menu.connect_activate_menu_item("remove_from_favorites",remove_from_favorites_fn.clone());
+        favorites_context_menu.connect_activate_menu_item("remove_from_favorites",remove_from_favorites_fn);
 
         favorites_builder.connect_signals(clone!(@strong favorites_window => move |_builder, handler_name| {
             match handler_name {
@@ -480,11 +481,11 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
         
         let processing_tx_3 = processing_tx.clone();
 
-        recognize_file_button.connect_clicked(clone!(@strong window, @strong spinner, @strong recognize_file_button => move |_| {
+        recognize_file_button.connect_clicked(clone!(@strong main_window, @strong spinner, @strong recognize_file_button => move |_| {
             
             let file_chooser = gtk::FileChooserNative::new(
                 Some(&gettext("Select a file to recognize")),
-                Some(&window),
+                Some(&main_window),
                 gtk::FileChooserAction::Open,
                 Some(&gettext("_Open")),
                 Some(&gettext("_Cancel"))
@@ -611,7 +612,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
             gui_tx.send(GUIMessage::UpdatePreference(new_preference)).unwrap();
         }));
 
-        gui_rx.attach(None, clone!(@strong application, @strong window, @strong results_frame, @strong current_volume_hbox, @strong spinner, @strong recognize_file_button, @strong network_unreachable, @strong microphone_stop_button, @strong recognize_from_my_speakers_checkbox, @strong notification_enable_checkbox, @strong favorites_window => move |gui_message| {
+        gui_rx.attach(None, clone!(@strong application, @strong main_window, @strong results_frame, @strong current_volume_hbox, @strong spinner, @strong recognize_file_button, @strong network_unreachable, @strong microphone_stop_button, @strong recognize_from_my_speakers_checkbox, @strong notification_enable_checkbox, @strong favorites_window => move |gui_message| {
             
             match gui_message {
                 ErrorMessage(_) | NetworkStatus(_) | SongRecognized(_) => {
@@ -636,7 +637,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
                 },
                 ErrorMessage(string) => {
                     if !(string == gettext("No match for this song") && microphone_stop_button.is_visible()) {
-                        let dialog = gtk::MessageDialog::new(Some(&window),
+                        let dialog = gtk::MessageDialog::new(Some(&main_window),
                             gtk::DialogFlags::MODAL, gtk::MessageType::Error, gtk::ButtonsType::Ok, &string);
                         dialog.connect_response(|dialog, _| dialog.close());
                         dialog.show_all();
@@ -791,7 +792,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
 
         // Don't forget to make all widgets visible.
         
-        window.show_all();
+        main_window.show_all();
 
         results_frame.hide();
         
@@ -802,14 +803,27 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
 
         microphone_stop_button.hide();
         current_volume_hbox.hide();
-        
+
     });
 
+    
+
     application.connect_activate(move |application| {
+        let main_window = &application.get_windows()[0];
+
         // Raise the existing window to the top whenever a second
         // GUI instance is attempted to be launched
+        main_window.present();
         
-        application.get_windows()[0].present();
+        //Close all windows when main window is closed
+        main_window.connect_delete_event(|_, _| {
+            for window in gtk::Window::list_toplevels() {
+                if let Ok(window) = window.downcast::<gtk::Window>() {
+                    window.close();
+                }
+            }
+            gtk::Inhibit(false) // Do not inhibit the default delete event behavior
+        });
     });
     
     if let Some(input_file_string) = input_file {

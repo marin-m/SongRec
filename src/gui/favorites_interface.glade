@@ -81,7 +81,7 @@
         <property name="label" translatable="yes">Remove from Favorites</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="image">favorite</property>
+        <property name="image">favorite_icon</property>
         <property name="use_stock">False</property>
         <property name="always_show_image">True</property>
       </object>
@@ -117,7 +117,7 @@
     <property name="can_focus">False</property>
     <property name="icon_name">edit-find</property>
   </object>
-  <object class="GtkImage" id="favorite">
+  <object class="GtkImage" id="favorite_icon">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="icon_name">emblem-favorite</property>
