@@ -183,9 +183,9 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
                     Some(SongHistoryRecord {
                         song_name: tree_model.get_value(&tree_iter, 0).get().unwrap().unwrap(),
                         album: tree_model.get_value(&tree_iter, 1).get().unwrap(),
-                        track_key: None, 
-                        release_year: None, 
-                        genre: None,
+                        track_key: tree_model.get_value(&tree_iter, 3).get().unwrap(), 
+                        release_year: tree_model.get_value(&tree_iter, 4).get().unwrap(), 
+                        genre: tree_model.get_value(&tree_iter, 5).get().unwrap(),
                         recognition_date: tree_model.get_value(&tree_iter, 2).get().unwrap().unwrap(),
                     })
                 } else {
@@ -196,15 +196,15 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
             fn get_song_record_at_mouse(&self, mouse_button: &EventButton) -> Option<SongHistoryRecord> {
                 let (x, y) = mouse_button.get_position();
                 if let Some((Some(path), _, _, _)) = self.get_path_at_pos(x as i32, y as i32) {
-                    let model = self.get_model().unwrap();
-                    if let Some(iter) = model.get_iter(&path) {
+                    let tree_model = self.get_model().unwrap();
+                    if let Some(tree_iter) = tree_model.get_iter(&path) {
                         return Some(SongHistoryRecord {
-                            song_name: model.get_value(&iter, 0).get().unwrap().unwrap(),
-                            album: model.get_value(&iter, 1).get().unwrap(),
-                            track_key: None, 
-                            release_year: None, 
-                            genre: None,
-                            recognition_date: model.get_value(&iter, 2).get().unwrap().unwrap(),
+                            song_name: tree_model.get_value(&tree_iter, 0).get().unwrap().unwrap(),
+                            album: tree_model.get_value(&tree_iter, 1).get().unwrap(),
+                            track_key: tree_model.get_value(&tree_iter, 3).get().unwrap(), 
+                            release_year: tree_model.get_value(&tree_iter, 4).get().unwrap(), 
+                            genre: tree_model.get_value(&tree_iter, 5).get().unwrap(),
+                            recognition_date: tree_model.get_value(&tree_iter, 2).get().unwrap().unwrap(),
                         });
                     }
                 }
@@ -227,7 +227,6 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
                         context_menu.set_property_attach_widget(Some(tree_view));
                         let is_favorite: &HashSet<Song> = favorites_interface.get_is_favorite();
                         if let Some(song_record) = tree_view.get_song_record_at_mouse(button) {
-                            dbg!(&song_record);
                             if is_favorite.contains(&song_record.get_song()) {
                                 context_menu.hide_menu_item("add_to_favorites");
                                 context_menu.show_menu_item("remove_from_favorites");
