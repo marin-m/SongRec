@@ -17,13 +17,13 @@ function cleanup_dirs {
 
 trap cleanup_dirs INT TERM
 
-for version in bionic focal jammy kinetic; do
+for version in bionic focal jammy lunar mantic; do
 
     rm -rf ../../target/ ../../vendor/ ../../.flatpak-builder ../flatpak/.flatpak-builder ../../repo ../../.cargo
 
-    cp -ra ../../ "${temp_dir}/songrec-0.3.2+4${version}"
+    cp -ra ../../ "${temp_dir}/songrec-0.3.3${version}"
 
-    cd "${temp_dir}/songrec-0.3.2+4${version}"
+    cd "${temp_dir}/songrec-0.3.3${version}"
 
     mkdir -p .cargo
     cargo vendor --locked vendor | sed 's/^directory = ".*"/directory = "vendor"/g' > .cargo/config
@@ -49,11 +49,11 @@ for version in bionic focal jammy kinetic; do
 
     # Push to Launchpad
 
-    dput ppa:marin-m/songrec "../../songrec_0.3.2+4${version}_source.changes"
+    dput ppa:marin-m/songrec "../../songrec_0.3.3${version}_source.changes"
 
     cd "${ORIG_DIR}"
 
-    rm -rf "${temp_dir}/songrec-0.3.2+4${version}"
+    rm -rf "${temp_dir}/songrec-0.3.3${version}"
 
 done
 

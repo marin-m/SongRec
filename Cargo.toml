@@ -7,7 +7,7 @@ repository = "https://github.com/marin-m/SongRec"
 readme = "README.md"
 keywords = ["shazam", "audio", "audio-fingerprinting"]
 categories = ["multimedia::audio", "command-line-utilities"]
-version = "0.3.2"
+version = "0.3.3"
 authors = ["marin-m"]
 edition = "2018"
 

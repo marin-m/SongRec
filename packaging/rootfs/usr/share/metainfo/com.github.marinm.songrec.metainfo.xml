@@ -28,6 +28,14 @@ https://hughsie.github.io/oars/index.html
 -->
   <content_rating type="oars-1.0" />
   <releases>
+    <release version="0.3.3" date="2023-10-15">
+      <description>
+        <p>Add a Favourite songs list in the interface (thanks to pull request #123 from @damonhayhurst)</p>
+        <p>Add a Spanish UI translation (as submitted by @Swyter in issue #23)</p>
+        <p>Add a German UI translation (as submitted in issue #23)</p>
+        <p>Update the Italian UI translation (thanks to pull request #133 from @M0Rf30)</p>
+      </description>
+    </release>
     <release version="0.3.2" date="2022-05-26">
       <description>
         <p>Add a checkbox into the graphical interface in order to disable or enable system notifications whenever recognizing a song (thanks to @damonhayhurst).</p>
