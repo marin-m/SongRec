@@ -8,6 +8,7 @@ build/
 *~
 *.swp
 .vscode
+.DS_Store
 
 # The following is related to Rust
 target/

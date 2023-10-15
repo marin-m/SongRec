@@ -21,6 +21,12 @@
       <column type="gchararray"/>
       <!-- column-name Recognition -->
       <column type="gchararray"/>
+      <!-- column-name Track Key -->
+      <column type="gchararray"/>
+      <!-- column-name Release Year -->
+      <column type="gchararray"/>
+      <!-- column-name Genre -->
+      <column type="gchararray"/>
     </columns>
   </object>
   <object class="GtkListStore" id="input_devices_list_store">
@@ -81,6 +87,26 @@
         <property name="always_show_image">True</property>
       </object>
     </child>
+    <child>
+    <object class="GtkImageMenuItem" id="add_to_favorites">
+      <property name="label" translatable="yes">Add to Favorites</property>
+      <property name="visible">True</property>
+      <property name="can_focus">False</property>
+      <property name="image">favorite_icon_2</property>
+      <property name="use_stock">False</property>
+      <property name="always_show_image">True</property>
+    </object>
+    </child>
+    <child>
+      <object class="GtkImageMenuItem" id="remove_from_favorites">
+        <property name="label" translatable="yes">Remove from Favorites</property>
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="image">favorite_icon_3</property>
+        <property name="use_stock">False</property>
+        <property name="always_show_image">True</property>
+      </object>
+    </child>
   </object>
   <object class="GtkImage" id="lure_icon">
     <property name="visible">True</property>
@@ -132,6 +158,21 @@
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="icon_name">edit-find</property>
+  </object>
+  <object class="GtkImage" id="favorite_icon">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">emblem-favorite</property>
+  </object>
+  <object class="GtkImage" id="favorite_icon_2">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">emblem-favorite</property>
+  </object>
+  <object class="GtkImage" id="favorite_icon_3">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">emblem-favorite</property>
   </object>
   <object class="GtkApplicationWindow" id="window">
     <property name="name">window</property>
@@ -540,7 +581,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkFrame" id="history_frame">
+                      <object class="GtkFrame">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="label_xalign">0.039999999105930328</property>
@@ -561,12 +602,10 @@
                                 <property name="orientation">vertical</property>
                                 <property name="spacing">15</property>
                                 <child>
-                                  <object class="GtkScrolledWindow">
+                                  <object class="GtkScrolledWindow" id="buttons">
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="shadow_type">in</property>
-                                    <property name="min_content_width">200</property>
-                                    <property name="min_content_height">200</property>
                                     <child>
                                       <object class="GtkTreeView" id="history_tree_view">
                                         <property name="visible">True</property>
@@ -574,6 +613,7 @@
                                         <property name="vexpand">True</property>
                                         <property name="model">history_list_store</property>
                                         <property name="enable_grid_lines">vertical</property>
+                                        
                                         <child internal-child="selection">
                                           <object class="GtkTreeSelection"/>
                                         </child>
@@ -626,10 +666,27 @@
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkButtonBox">
+                                  <object class="GtkFlowBox" id="buttonbox">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="layout_style">end</property>
+                                    <property name="homogeneous">False</property>
+                                    <property name="max_children_per_line">3</property>
+                                    <!-- <property name="layout_style">end</property> -->
+                                    <child>
+                                      <object class="GtkButton" id="favorites_list_button">
+                                        <property name="label" translatable="yes">Favorites</property>
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="receives_default">True</property>
+                                        <property name="image">favorite_icon</property>
+                                        <property name="always_show_image">True</property>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">True</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">1</property>
+                                      </packing>
+                                    </child>
                                     <child>
                                       <object class="GtkButton" id="wipe_history_button">
                                         <property name="label" translatable="yes">Wipe history</property>
@@ -646,7 +703,7 @@
                                       </packing>
                                     </child>
                                     <child>
-                                      <object class="GtkButton" id="export_csv_button">
+                                      <object class="GtkButton" id="export_history_csv_button">
                                         <property name="label" translatable="yes">Export to CSV</property>
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>

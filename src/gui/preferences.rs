@@ -14,6 +14,14 @@ pub struct Preferences {
     pub current_device_name: Option<String>
 }
 
+impl Preferences {
+    pub fn new() -> Self {
+        Preferences { 
+            enable_notifications: None, 
+            current_device_name: None 
+        }
+    }
+}
 
 impl Default for Preferences {
     fn default() -> Self {
@@ -60,8 +68,12 @@ impl PreferencesInterface {
         })
     }
 
-    pub fn update(self: &mut Self, preferences: Preferences) {
-        self.preferences = preferences;
+    pub fn update(self: &mut Self, update_preferences: Preferences) {
+        let current_preferences = self.preferences.clone();
+        self.preferences = Preferences {
+            enable_notifications: update_preferences.enable_notifications.or(current_preferences.enable_notifications),
+            current_device_name: update_preferences.current_device_name.or(current_preferences.current_device_name)
+        };
         match self.write() {
             Ok(_) => {},
             Err(e) => {
