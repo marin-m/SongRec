@@ -1,3 +1,12 @@
+songrec (0.3.3) bionic; urgency=low
+
+  * Add a Favourite songs list in the interface (thanks to pull request #123 from @damonhayhurst)
+  * Add a Spanish UI translation (as submitted by @Swyter in issue #23)
+  * Add a German UI translation (as submitted in issue #23)
+  * Update the Italian UI translation (thanks to pull request #133 from @M0Rf30)
+
+ -- Marin <marin-m@users.noreply.github.com>  Sun, 15 Oct 2023 14:41:23 +0200
+
 songrec (0.3.2+4) bionic; urgency=low
 
   * Additionally build the package for the any architecture supported by recent Ubuntu releases (try to build for all supported architectures on Launchpad PPA).
