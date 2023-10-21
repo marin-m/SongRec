@@ -68,7 +68,7 @@ if __name__ == '__main__':
         else:
             
             stderr.write(('[ Note: No matching songs for the first %g seconds, ' +
-                'typing to recognize more input... ]\n') % (signature_generator.samples_processed / 16000))
+                'trying to recognize more input... ]\n') % (signature_generator.samples_processed / 16000))
             stderr.flush()
             
             # signature_generator.MAX_TIME_SECONDS = 12 # min(12, signature_generator.MAX_TIME_SECONDS + 3) # DEBUG
