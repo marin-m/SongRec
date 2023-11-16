@@ -178,14 +178,14 @@ The following subcommand will try to recognize audio from the middle of an audio
 
 The following subcommands will do the same with an intermediary step, manipulating data-URI audio fingerprints as used by Shazam internally:
 
-```
+```bash
 ./songrec audio-file-to-fingerprint sound_file.mp3
 ./songrec fingerprint-to-recognized-song 'data:audio/vnd.shazam.sig;base64,...'
 ```
 
 The following will produce back hearable tones from a given fingerprint, that should be able to fool Shazam into thinking that this is the original song (either to the default audio output device, or to a .WAV file):
 
-```
+```bash
 ./songrec fingerprint-to-lure 'data:audio/vnd.shazam.sig;base64,...'
 ./songrec fingerprint-to-lure 'data:audio/vnd.shazam.sig;base64,...' /tmp/output.wav
 ```
