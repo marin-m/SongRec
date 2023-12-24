@@ -1,6 +1,9 @@
 use directories::ProjectDirs;
 use std::fs::create_dir_all;
+#[cfg(not(windows))]
 use std::os::unix::fs::symlink;
+#[cfg(windows)]
+use std::os::windows::fs::symlink_dir;
 use std::path::{PathBuf, Path};
 use std::error::Error;
 use app_dirs::{get_app_root, AppInfo, AppDataType::*};
@@ -36,7 +39,10 @@ fn obtain_data_directory(project_directory: ProjectDirs) -> Result<PathBuf, Box<
     if !data_dir.exists() {
         let old_dir = get_old_data_dir_path()?;
         if old_dir.exists() {
+            #[cfg(not(windows))]
             symlink(old_dir, data_dir)?;
+            #[cfg(windows)]
+            symlink_dir(old_dir, data_dir)?;
         } else {
             create_dir_all(data_dir)?;
         }

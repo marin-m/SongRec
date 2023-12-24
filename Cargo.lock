@@ -648,16 +648,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "gag"
-version = "0.1.10"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8cc0b9f53275dc5fada808f1d2f82e3688a6c14d735633d1590b7be8eb2307b5"
-dependencies = [
- "libc",
- "tempfile",
-]
-
-[[package]]
 name = "gdk"
 version = "0.13.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1198,6 +1188,33 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "afe203d669ec979b7128619bae5a63b7b42e9203c1b29146079ee05e2f604b52"
 dependencies = [
  "cfg-if 1.0.0",
+ "winapi 0.3.9",
+]
+
+[[package]]
+name = "libpulse-binding"
+version = "2.26.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "17be42160017e0ae993c03bfdab4ecb6f82ce3f8d515bd8da8fdf18d10703663"
+dependencies = [
+ "bitflags",
+ "libc",
+ "libpulse-sys",
+ "num-derive",
+ "num-traits",
+ "winapi 0.3.9",
+]
+
+[[package]]
+name = "libpulse-sys"
+version = "1.19.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f12950b69c1b66233a900414befde36c8d4ea49deec1e1f34e4cd2f586e00c7d"
+dependencies = [
+ "libc",
+ "num-derive",
+ "num-traits",
+ "pkg-config",
  "winapi 0.3.9",
 ]
 
@@ -1832,6 +1849,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "pulsectl-rs"
+version = "0.3.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "06a988bceed1981b2c5fc4a3da0e4e073fdaff8e6bd022b089f54bc573dc3cfc"
+dependencies = [
+ "libpulse-binding",
+]
+
+[[package]]
 name = "quote"
 version = "1.0.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2188,7 +2214,6 @@ dependencies = [
  "crc32fast",
  "csv",
  "directories",
- "gag",
  "gdk",
  "gdk-pixbuf",
  "gettext-rs",
@@ -2197,8 +2222,10 @@ dependencies = [
  "glib",
  "gtk",
  "hound",
+ "libpulse-binding",
  "mpris-player",
  "percent-encoding",
+ "pulsectl-rs",
  "rand 0.7.3",
  "regex",
  "reqwest",

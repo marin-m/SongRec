@@ -8,16 +8,17 @@ use gettextrs::gettext;
 use glib;
 use glib::clone;
 
+#[cfg(feature = "mpris")]
 use mpris_player::PlaybackStatus;
 
 use crate::core::http_thread::http_thread;
 use crate::core::microphone_thread::microphone_thread;
 use crate::core::processing_thread::processing_thread;
-use crate::core::thread_messages::{GUIMessage, MicrophoneMessage, ProcessingMessage};
+use crate::core::thread_messages::{GUIMessage, MicrophoneMessage, ProcessingMessage, spawn_big_thread};
 
 use crate::utils::csv_song_history::SongHistoryRecord;
+#[cfg(feature = "mpris")]
 use crate::utils::mpris_player::{get_player, update_song};
-use crate::utils::thread::spawn_big_thread;
 
 pub enum CLIOutputType {
     SongName,
@@ -63,9 +64,12 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
     let do_recognize_once = parameters.recognize_once || parameters.input_file.is_some();
 
     // do not enable mpris if recognizing one song
-    let do_enable_mpris = parameters.enable_mpris && !do_recognize_once;
-
-    let mpris_player = if do_enable_mpris { get_player() } else { None };
+    
+    #[cfg(feature = "mpris")]
+    let mpris_obj = {
+        let do_enable_mpris = parameters.enable_mpris && !do_recognize_once;
+        if do_enable_mpris { get_player() } else { None }
+    };
     let last_track: Rc<RefCell<Option<String>>> = Rc::new(RefCell::new(None));
 
     let main_loop_cli = main_loop.clone();
@@ -89,19 +93,26 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
                     return glib::Continue(true);
                 }
                 let dev_name = if let Some(dev) = &audio_dev_name {
-                    if !device_names.contains(dev) {
+                    let mut found: bool = false;
+                    for device in device_names.iter() {
+                        if &device.inner_name == dev || &device.display_name == dev {
+                            found = true;
+                            break;
+                        }
+                    }
+                    if !found {
                         eprintln!("{}", gettext("Exiting: audio device not found"));
                         main_loop_cli.quit();
                         return glib::Continue(false);
                     }
-                    dev
+                dev
                 } else {
                     if device_names.is_empty() {
                         eprintln!("{}", gettext("Exiting: no audio devices found!"));
                         main_loop_cli.quit();
                         return glib::Continue(false);
                     }
-                    &device_names[0]
+                    &device_names[0].inner_name
                 };
                 eprintln!("{} {}", gettext("Using device"), dev_name);
                 microphone_tx
@@ -111,14 +122,16 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
                     .unwrap();
             }
             GUIMessage::NetworkStatus(reachable) => {
-                let mpris_status = if reachable {
-                    PlaybackStatus::Playing
-                } else {
-                    PlaybackStatus::Paused
-                };
-                mpris_player
-                    .as_ref()
-                    .map(|p| p.set_playback_status(mpris_status));
+                #[cfg(feature = "mpris")] {
+                    let mpris_status = if reachable {
+                        PlaybackStatus::Playing
+                    } else {
+                        PlaybackStatus::Paused
+                    };
+                    mpris_obj
+                        .as_ref()
+                        .map(|p| p.set_playback_status(mpris_status));
+                }
 
                 if !reachable {
                     if input_file_name.is_some() {
@@ -150,7 +163,8 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
                 let song_name = format!("{} - {}", message.artist_name, message.song_name);
 
                 if *last_track_borrow != track_key {
-                    mpris_player.as_ref().map(|p| update_song(p, &message));
+                    #[cfg(feature = "mpris")]
+                    mpris_obj.as_ref().map(|p| update_song(p, &message));
                     *last_track_borrow = track_key;
                     match parameters.output_type {
                         CLIOutputType::JSON => {
