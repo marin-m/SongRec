@@ -1,3 +1,12 @@
+songrec (0.4.0) bionic; urgency=log
+
+  * Use `libpulse` (when available) for displaying the list of selectable audio input devices by default, instead of `alsalib` for listing audio inputs and `pactl` for switching to a monitor mode device, so that the list of devices displays correct values on PipeWire/PulseAudio-based systems.
+  * Make the dependencies over `libpulse` and DBus MPRIS fully optional, through Cargo features.
+  * Disable MPRIS signalling in default builds, as it may interfer inopportunely with media keys control from other media players (as submitted in issue #89)
+  * Fix build issues on non-Linux platforms (thanks to pull request #144 from @dotX12)
+
+ -- Marin <marin-m@users.noreply.github.com>  Sun, 24 Dec 2023 08:24:00 +0100
+
 songrec (0.3.3) bionic; urgency=low
 
   * Add a Favourite songs list in the interface (thanks to pull request #123 from @damonhayhurst)

@@ -105,26 +105,26 @@ rustup update
 Debian:
 
 ```bash
-sudo apt install build-essential libasound2-dev libgtk-3-dev libssl-dev
+sudo apt install build-essential libasound2-dev libpulse-dev libgtk-3-dev libssl-dev
 ```
 
 Void Linux (libressl):
 
 ```shell
-sudo xbps-install base-devel alsa-lib-devel gtk+3-devel libressl-devel
+sudo xbps-install base-devel alsa-lib-devel pulseaudio-devel gtk+3-devel libressl-devel
 ```
 
 Void Linux (openssl):
 
 ```shell
-sudo xbps-install base-devel alsa-lib-devel gtk+3-devel openssl-devel
+sudo xbps-install base-devel alsa-lib-devel pulseaudio-devel gtk+3-devel openssl-devel
 ```
 
 Fedora Linux:
 
 ```shell
 sudo dnf groupinstall "Development Tools"
-sudo dnf install alsa-lib-devel openssl-devel dbus-devel pkgconf-pkg-config glib gtk3-devel
+sudo dnf install alsa-lib-devel pulseaudio-libs-devel openssl-devel dbus-devel pkgconf-pkg-config glib gtk3-devel
 ```
 
 ### Compiling the project
