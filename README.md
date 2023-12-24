@@ -61,11 +61,13 @@ echo 'export PATH="$HOME/.cargo/bin:$PATH"' | tee -a ~/.profile ~/.bashrc
 source ~/.bashrc
 
 sudo apt install build-essential libasound2-dev libgtk-3-dev libssl-dev -y
-cargo install songrec
+cargo install songrec --no-default-features -F gui,ffmpeg,pulse,mpris
 songrec
 ```
 
 Note: It is not mandatory, but if you want to be able to recognize more formats than WAV, OGG, FLAC and MP3, you should ensure that you have the `ffmpeg` package installed.
+
+Note: You may remove dependencies over GTK+, Pulseaudio/PipeWire's libpulse or DBus MPRIS through editing the `-F` flag passed to `cargo`.
 
 ## Compilation
 
