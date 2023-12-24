@@ -3,9 +3,10 @@ use std::error::Error;
 use std::io::BufReader;
 use std::collections::HashMap;
 
-use crate::utils::ffmpeg_wrapper::decode_with_ffmpeg;
 use crate::fingerprinting::hanning::HANNING_WINDOW_2048_MULTIPLIERS;
 use crate::fingerprinting::signature_format::{DecodedSignature, FrequencyBand, FrequencyPeak};
+#[cfg(feature = "ffmpeg")]
+use crate::utils::ffmpeg_wrapper::decode_with_ffmpeg;
 
 
 pub struct SignatureGenerator {
@@ -38,20 +39,28 @@ impl SignatureGenerator {
     pub fn make_signature_from_file(file_path: &str) -> Result<DecodedSignature, Box<dyn Error>> {
 
         // Decode the .WAV, .MP3, .OGG or .FLAC file
+        
+        #[cfg(not(feature = "ffmpeg"))]
+        let decoder = rodio::Decoder::new(BufReader::new(std::fs::File::open(file_path)?));
 
-        let mut decoder = rodio::Decoder::new(BufReader::new(std::fs::File::open(file_path)?));
+        #[cfg(feature = "ffmpeg")]
+        let decoder = {
+            let mut decoder = rodio::Decoder::new(BufReader::new(std::fs::File::open(file_path)?));
 
-        if let Err(ref _decoding_error) = decoder {
-
-            // Try to decode with FFMpeg, if available, in case of failure with
-            // Rodio (most likely due to the use of a format unsupported by
-            // Rodio, such as .WMA or .MP4/.AAC)
-
-            if let Some(new_decoder) = decode_with_ffmpeg(file_path) {
-                decoder = Ok(new_decoder);
+            if let Err(ref _decoding_error) = decoder {
+                
+                // Try to decode with FFMpeg, if available, in case of failure with
+                // Rodio (most likely due to the use of a format unsupported by
+                // Rodio, such as .WMA or .MP4/.AAC)
+                
+                if let Some(new_decoder) = decode_with_ffmpeg(file_path) {
+                    decoder = Ok(new_decoder);
+                }
             }
-        }
 
+            decoder
+        };
+        
         // Downsample the raw PCM samples to 16 KHz, and skip to the middle of the file
         // in order to increase recognition odds. Take 12 seconds of sample.
 

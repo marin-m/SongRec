@@ -35,7 +35,6 @@ rand = "0.7.3"
 gettext-sys = { version = "0.19.9", features = ["gettext-system"] }
 gettext-rs = { version = "0.5.0" }
 tempfile = "3.2.0"
-mpris-player = "0.6.1"
 # GUI deps
 gtk = { version = "0.9.2", features = ["v3_16", "v3_20", "v3_22"], optional = true } # For the GUI
 gdk = { version = "0.13.2", optional = true }
@@ -48,9 +47,14 @@ toml = "0.4.2"
 app_dirs = { version = "1.2.1", optional = true } # For obtaining and creating either the %APPDATA%, the dotfile path or similar
 
 [features]
-default = ["gui"]
+default = ["gui", "ffmpeg", "pulse", "mpris"]
 gui = ["gtk", "gdk", "gio", "percent-encoding", "directories", "app_dirs", "gdk-pixbuf"]
+pulse = [ "pulsectl-rs", "libpulse-binding" ]
+mpris = [ "mpris-player" ]
+ffmpeg = []
 
 [target.'cfg(target_os = "linux")'.dependencies]
-gag = "0.1.10" # Crate to silence stderr when CPAL produces uncontrolled AlsaLib output
+pulsectl-rs = { version = "0.3.2", optional = true }
+libpulse-binding = { version = "2.24.0", optional = true }
+mpris-player = { version = "0.6.1", optional = true }
 

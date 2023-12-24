@@ -31,8 +31,12 @@
   </object>
   <object class="GtkListStore" id="input_devices_list_store">
     <columns>
-      <!-- column-name Device -->
+      <!-- column-name Inner name -->
       <column type="gchararray"/>
+      <!-- column-name Display name -->
+      <column type="gchararray"/>
+      <!-- column-name Is monitor -->
+      <column type="gboolean"/>
     </columns>
   </object>
   <object class="GtkMenu" id="list_view_context_menu">

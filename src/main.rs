@@ -1,6 +1,8 @@
 
 #![windows_subsystem = "windows"]
 
+pub mod cli_main;
+
 mod fingerprinting {
     pub mod communication;
     pub mod algorithm;
@@ -16,6 +18,13 @@ mod core {
     pub mod thread_messages;
 }
 
+mod audio_controllers {
+    pub mod audio_backend;
+    pub mod cpal;
+    #[cfg(feature = "pulse")]
+    pub mod pulseaudio;
+}
+
 #[cfg(feature = "gui")]
 mod gui {
     pub mod main_window;
@@ -23,19 +32,18 @@ mod gui {
     pub mod preferences;
 }
 
-mod cli {
-    pub mod cli_main;
-}
-
 mod utils {
-    #[cfg(feature = "gui")]
-    pub mod pulseaudio_loopback;
-    pub mod ffmpeg_wrapper;
     pub mod csv_song_history;
     pub mod internationalization;
-    pub mod mpris_player;
-    pub mod thread;
+
+    #[cfg(feature = "gui")]
     pub mod filesystem_operations;
+
+    #[cfg(feature = "ffmpeg")]
+    pub mod ffmpeg_wrapper;
+
+    #[cfg(feature = "mpris")]
+    pub mod mpris_player;
 }
 
 use crate::fingerprinting::algorithm::SignatureGenerator;
@@ -45,7 +53,7 @@ use crate::fingerprinting::communication::recognize_song_from_signature;
 use crate::utils::internationalization::setup_internationalization;
 #[cfg(feature = "gui")]
 use crate::gui::main_window::gui_main;
-use crate::cli::cli_main::{cli_main, CLIParameters, CLIOutputType};
+use crate::cli_main::{cli_main, CLIParameters, CLIOutputType};
 
 use std::error::Error;
 use gettextrs::gettext;

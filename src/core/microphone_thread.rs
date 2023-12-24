@@ -1,19 +1,20 @@
 use std::sync::mpsc;
 use std::sync::{Arc, Mutex};
 
-#[cfg(target_os = "linux")]
-use gag::Gag;
-
-use cpal::traits::{DeviceTrait, HostTrait, StreamTrait};
+use cpal::traits::{DeviceTrait, StreamTrait};
+use cpal::platform::Device;
 use gettextrs::gettext;
 use crate::core::thread_messages::{*, MicrophoneMessage::*};
 
+use crate::audio_controllers::audio_backend::get_any_backend;
 
 pub fn microphone_thread(microphone_rx: mpsc::Receiver<MicrophoneMessage>, processing_tx: mpsc::Sender<ProcessingMessage>, gui_tx: glib::Sender<GUIMessage>) {
 
     // Use the default host for working with audio devices.
     
     let host = cpal::default_host();
+
+    let mut backend = get_any_backend();
 
     // Run the input stream on a separate thread.
     
@@ -29,32 +30,9 @@ pub fn microphone_thread(microphone_rx: mpsc::Receiver<MicrophoneMessage>, proce
     //  - https://github.com/RustAudio/rodio/issues/270
     //  - https://github.com/RustAudio/rodio/issues/214 )
 
-    // Avoid having alsalib polluting stderr (https://github.com/RustAudio/cpal/issues/384)
-    // through disabling stderr temporarily
-    
-    #[cfg(target_os = "linux")]
-    let print_gag = Gag::stderr().unwrap();
-
-    let mut device_names: Vec<String> = vec![];
-
-    for device in host.input_devices().unwrap() {
-        let device_name = device.name().unwrap();
-        
-        // Selecting the "upmix" or "vdownmix" input
-        // source on an ALSA-based configuration may
-        // crash our underlying sound library.
-        
-        if device_name.contains("upmix") || device_name.contains("downmix") {
-            continue;
-        }
-
-        device_names.push(device_name);
-    }
+    let device_names: Vec<DeviceListItem> = backend.list_devices(&host);
     
     gui_tx.send(GUIMessage::DevicesList(Box::new(device_names))).unwrap();
-    
-    #[cfg(target_os = "linux")]
-    drop(print_gag);
     
     // Process ingress inter-thread messages (stopping or starting
     // recording from the microphone, and knowing from which device
@@ -72,27 +50,8 @@ pub fn microphone_thread(microphone_rx: mpsc::Receiver<MicrophoneMessage>, proce
                     gui_tx_2.send(GUIMessage::ErrorMessage(format!("{} {}", gettext("Microphone error:"), error))).unwrap();
                 };
                 
-                let mut device: cpal::Device = host.default_input_device().unwrap();
+                let device: Device = backend.set_device(&host, &device_name);
                 
-                // Avoid having alsalib polluting stderr (https://github.com/RustAudio/cpal/issues/384)
-                // through disabling stderr temporarily
-        
-                #[cfg(target_os = "linux")]
-                let print_gag = Gag::stderr().unwrap();
-
-                for possible_device in host.input_devices().unwrap() {
-                    
-                    if possible_device.name().unwrap() == device_name {
-                        
-                        device = possible_device;
-                        break;
-                        
-                    }
-                }
-                
-                #[cfg(target_os = "linux")]
-                drop(print_gag);
-                                
                 let config = device.default_input_config().expect(&gettext("Failed to get default input config"));
                 
                 let channels = config.channels();
@@ -111,6 +70,11 @@ pub fn microphone_thread(microphone_rx: mpsc::Receiver<MicrophoneMessage>, proce
                 });
                 
                 stream.as_ref().unwrap().play().unwrap();
+
+                // Re-call the function in the case the backend is PulseBackend,
+                // because we may be have appeared in the list of PulseAudio's
+                // source outputs now
+                backend.set_device(&host, &device_name);
                 
                 gui_tx_4.send(GUIMessage::MicrophoneRecording).unwrap();
 

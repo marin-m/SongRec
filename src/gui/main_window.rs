@@ -13,6 +13,7 @@ use std::cell::RefCell;
 use std::rc::Rc;
 use chrono::Local;
 use percent_encoding::{utf8_percent_encode, NON_ALPHANUMERIC};
+#[cfg(feature = "mpris")]
 use mpris_player::PlaybackStatus;
 
 use crate::core::microphone_thread::microphone_thread;
@@ -22,11 +23,9 @@ use crate::core::thread_messages::{*, GUIMessage::*};
 
 use crate::gui::song_history_interface::FavoritesInterface;
 use crate::gui::song_history_interface::{SongRecordInterface, RecognitionHistoryInterface};
-use crate::utils::csv_song_history::IsSong;
-use crate::utils::csv_song_history::Song;
+use crate::utils::csv_song_history::{IsSong, Song};
 use crate::utils::filesystem_operations::obtain_favorites_csv_path;
-use crate::utils::thread::spawn_big_thread;
-use crate::utils::pulseaudio_loopback::PulseaudioLoopback;
+#[cfg(feature = "mpris")]
 use crate::utils::mpris_player::{get_player, update_song};
 
 use crate::gui::preferences::{PreferencesInterface, Preferences};
@@ -39,7 +38,7 @@ use std::os::windows::process::CommandExt;
 
 use crate::fingerprinting::signature_format::DecodedSignature;
 
-pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -> Result<(), Box<dyn Error>> {
+pub fn gui_main(recording: bool, input_file: Option<&str>, _enable_mpris: bool) -> Result<(), Box<dyn Error>> {
     
     let application = gtk::Application::new(Some("com.github.marinm.songrec"),
         gio::ApplicationFlags::HANDLES_OPEN)
@@ -416,10 +415,14 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
 
         let export_favorites_csv_button: gtk::Button = favorites_builder.get_object("export_favorites_csv_button").unwrap();
 
-        let mpris_player = if enable_mpris { get_player() } else { None };
-        if enable_mpris && mpris_player.is_none() {
-            println!("{}", gettext("Unable to enable MPRIS support"))
-        }
+        #[cfg(feature = "mpris")]
+        let mpris_obj = {
+            let player = if _enable_mpris { get_player() } else { None };
+            if _enable_mpris && player.is_none() {
+                println!("{}", gettext("Unable to enable MPRIS support"))
+            }
+            player
+        };
         
         // Thread-local variables to be passed across callbacks.
         
@@ -452,9 +455,12 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
         let current_volume_hbox: gtk::Box = main_builder.get_object("current_volume_hbox").unwrap();
         let current_volume_bar: gtk::ProgressBar = main_builder.get_object("current_volume_bar").unwrap();
         
-        combo_box.connect_changed(clone!(@strong microphone_stop_button, @strong combo_box, @strong gui_tx => move |_| {
+        combo_box.connect_changed(clone!(@strong microphone_stop_button, @strong combo_box,
+            @strong combo_box_model, @strong recognize_from_my_speakers_checkbox, @strong gui_tx => move |_| {
             
-            if let Some(device_name_str) = combo_box.get_active_id() {
+            if let Some(active_item) = combo_box.get_active_iter() {
+                let device_name_str: String = combo_box_model.get_value(&active_item, 1).get().unwrap().unwrap();
+                let is_monitor: bool = combo_box_model.get_value(&active_item, 2).get().unwrap().unwrap();
 
                 // Save the selected microphone device name so that it is
                 // remembered after relaunching the app
@@ -462,14 +468,21 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
                 let mut new_preference = Preferences::new();
                 new_preference.current_device_name = Some(device_name_str.to_string());
                 gui_tx.send(GUIMessage::UpdatePreference(new_preference)).unwrap();
-                
+
+                // Sync the monitor check box
+                if recognize_from_my_speakers_checkbox.is_visible() {
+                    recognize_from_my_speakers_checkbox.set_active(is_monitor);
+                }
+
                 if microphone_stop_button.is_visible() {
                     
                     // Re-launch the microphone recording with the new selected
                     // device
                     
                     microphone_tx_4.send(MicrophoneMessage::MicrophoneRecordStop).unwrap();
-                    microphone_tx_4.send(MicrophoneMessage::MicrophoneRecordStart(device_name_str.to_string())).unwrap();
+                    microphone_tx_4.send(MicrophoneMessage::MicrophoneRecordStart(
+                        device_name_str.to_string()
+                    )).unwrap();
                     
                 }
             }
@@ -503,10 +516,14 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
         
         }));
         
-        microphone_button.connect_clicked(clone!(@strong microphone_button, @strong microphone_stop_button, @strong current_volume_hbox, @strong combo_box => move |_| {
+        microphone_button.connect_clicked(clone!(@strong microphone_button, @strong microphone_stop_button,
+            @strong combo_box_model, @strong current_volume_hbox, @strong combo_box => move |_| {
             
-            if let Some(device_name) = combo_box.get_active_id() {
-                microphone_tx.send(MicrophoneMessage::MicrophoneRecordStart(device_name.to_owned())).unwrap();
+            if let Some(active_item) = combo_box.get_active_iter() {
+                let device_name: String = combo_box_model.get_value(&active_item, 1).get().unwrap().unwrap();
+                microphone_tx.send(MicrophoneMessage::MicrophoneRecordStart(
+                    device_name.to_owned()
+                )).unwrap();
                 
                 microphone_stop_button.show();
                 current_volume_hbox.show();
@@ -525,8 +542,30 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
             
         }));
         
-        recognize_from_my_speakers_checkbox.connect_toggled(clone!(@strong recognize_from_my_speakers_checkbox => move |_| {
-            PulseaudioLoopback::set_whether_audio_source_is_monitor(recognize_from_my_speakers_checkbox.get_active());
+        recognize_from_my_speakers_checkbox.connect_toggled(clone!(@strong recognize_from_my_speakers_checkbox,
+                @strong combo_box_model, @strong combo_box => move |_| {
+
+            if let Some(active_item) = combo_box.get_active_iter() {
+                let is_currently_monitor: bool = combo_box_model.get_value(&active_item, 2).get().unwrap().unwrap();
+
+                if is_currently_monitor != recognize_from_my_speakers_checkbox.get_active() {
+
+                    if let Some(iter) = combo_box_model.get_iter_first() {
+                        loop {
+                            let is_other_monitor: bool = combo_box_model.get_value(&iter, 2).get().unwrap().unwrap();
+
+                            if is_other_monitor == recognize_from_my_speakers_checkbox.get_active() {
+                                combo_box.set_active_iter(Some(&iter));
+                                break;
+                            }
+                            if !combo_box_model.iter_next(&iter) {
+                                break;
+                            }
+                        }
+                    }
+
+                }
+            }
         }));
         
         youtube_button.connect_clicked(move |_| {
@@ -584,7 +623,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
 
             #[cfg(windows)]
             std::process::Command::new("cmd")
-                .args(&["/c", &format!("start {}", obtain_csv_path().unwrap())])
+                .args(&["/c", &format!("start {}", obtain_favorites_csv_path().unwrap())])
                 .creation_flags(0x00000008) // Set "CREATE_NO_WINDOW" on Windows
                 .output().ok();
 
@@ -599,7 +638,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
 
             #[cfg(windows)]
             std::process::Command::new("cmd")
-                .args(&["/c", &format!("start {}", obtain_csv_path().unwrap())])
+                .args(&["/c", &format!("start {}", obtain_favorites_csv_path().unwrap())])
                 .creation_flags(0x00000008) // Set "CREATE_NO_WINDOW" on Windows
                 .output().ok();
 
@@ -611,7 +650,11 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
             gui_tx.send(GUIMessage::UpdatePreference(new_preference)).unwrap();
         }));
 
-        gui_rx.attach(None, clone!(@strong application, @strong main_window, @strong results_frame, @strong current_volume_hbox, @strong spinner, @strong recognize_file_button, @strong network_unreachable, @strong microphone_stop_button, @strong recognize_from_my_speakers_checkbox, @strong notification_enable_checkbox, @strong favorites_window => move |gui_message| {
+        gui_rx.attach(None, clone!(@strong application, @strong main_window, @strong results_frame,
+                @strong current_volume_hbox, @strong spinner, @strong recognize_file_button,
+                @strong network_unreachable, @strong microphone_stop_button, @strong combo_box,
+                @strong recognize_from_my_speakers_checkbox, @strong notification_enable_checkbox,
+                @strong favorites_window => move |gui_message| {
             
             match gui_message {
                 ErrorMessage(_) | NetworkStatus(_) | SongRecognized(_) => {
@@ -649,32 +692,61 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
                     else {
                         network_unreachable.show_all();
                     }
-                    let mpris_status = if network_is_reachable { PlaybackStatus::Playing } else { PlaybackStatus::Paused };
+                    #[cfg(feature = "mpris")] {
+                        let mpris_status = if network_is_reachable { PlaybackStatus::Playing } else { PlaybackStatus::Paused };
 
-                    mpris_player.as_ref().map(|p| p.set_playback_status(mpris_status));
+                        mpris_obj.as_ref().map(|p| p.set_playback_status(mpris_status));
+                    }
                 }
-                DevicesList(device_names) => {
-                    let mut old_device_index = 0;
-                    let mut current_index = 0;
+                // This message is sent once in the program execution for
+                // the moment (maybe it should be updated automatically
+                // later?):
+                DevicesList(devices) => {
+                    let mut old_device_index: u32 = 0;
+                    let mut has_monitor_device = false;
+                    let mut current_index: u32 = 0;
+
+                    // Fill in the list of available devices, and
+                    // set back the old device if it was recorded
                     
-                    for device_name in device_names.iter() {
-                        combo_box_model.set(&combo_box_model.append(), &[0], &[device_name]);
+                    for device in devices.iter() {
+                        combo_box_model.set(&combo_box_model.append(), &[0, 1, 2], &[
+                            &device.display_name, &device.inner_name,
+                            &device.is_monitor]);
                         
-                        if old_device_name == Some(device_name.to_string()) {
+                        if device.is_monitor {
+                            has_monitor_device = true;
+                        }
+                        
+                        if old_device_name == Some(device.inner_name.to_string()) {
                             old_device_index = current_index;
                         }
                         current_index += 1;
                     }
                     
                     combo_box.set_active(Some(old_device_index));
+
+                    if has_monitor_device {
+                        recognize_from_my_speakers_checkbox.show_all();
+                        recognize_from_my_speakers_checkbox.set_active(
+                            devices[old_device_index as usize].is_monitor
+                        );
+                    }
+                    else {
+                        recognize_from_my_speakers_checkbox.hide();
+                    }
                     
                     // Should we start recording yet? (will depend of the possible
                     // command line flags of the application)
 
                     if recording {
                     
-                        if let Some(device_name) = combo_box.get_active_id() {
-                            microphone_tx_5.send(MicrophoneMessage::MicrophoneRecordStart(device_name.to_owned())).unwrap();
+                        if let Some(active_item) = combo_box.get_active_iter() {
+                            let device_name: String = combo_box_model.get_value(&active_item, 1).get().unwrap().unwrap();
+
+                            microphone_tx_5.send(MicrophoneMessage::MicrophoneRecordStart(
+                                device_name.to_owned()
+                            )).unwrap();
                             
                             microphone_stop_button.show();
                             current_volume_hbox.show();
@@ -685,29 +757,9 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
                 WipeSongHistory => {
                     song_history_interface.wipe_and_save();
                 },
+                MicrophoneRecording => { },
                 MicrophoneVolumePercent(percent) => {
                     current_volume_bar.set_fraction((percent / 100.0) as f64);
-                },
-                MicrophoneRecording => {
-                    
-                    // Initally show the "Recognize from my speakers instead
-                    // of microphone" checkbox if PulseAudio seems to be
-                    // available, and we can see (supposedly) ourselves through
-                    // PulseAudio
-
-                    if PulseaudioLoopback::check_whether_pactl_is_available() {
-                        
-                        if PulseaudioLoopback::get_whether_audio_source_is_known() == Some(true) {
-                            if let Some(audio_source_is_monitor) = PulseaudioLoopback::get_whether_audio_source_is_monitor() {
-                                
-                                recognize_from_my_speakers_checkbox.show_all();
-                                
-                                if audio_source_is_monitor {
-                                    recognize_from_my_speakers_checkbox.set_active(true);
-                                }
-                            }
-                        }
-                    }
                 },
                 SongRecognized(message) => {
                     let mut youtube_query_borrow = youtube_query.borrow_mut();
@@ -716,7 +768,8 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
         
                     if *youtube_query_borrow != song_name { // If this is already the last recognized song, don't update the display (if for example we recognized a lure we played, it would update the proposed lure to a lesser quality)
 
-                        mpris_player.as_ref().map(|p| update_song(p, &message));
+                        #[cfg(feature = "mpris")]
+                        mpris_obj.as_ref().map(|p| update_song(p, &message));
 
                         let notification = gio::Notification::new(&gettext("Song recognized"));
                         notification.set_body(Some(song_name.as_ref().unwrap()));
@@ -804,7 +857,6 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris: bool) -
         current_volume_hbox.hide();
 
     });
-
     
 
     application.connect_activate(move |application| {
