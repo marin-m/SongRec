@@ -1,3 +1,9 @@
+songrec (0.4.0+1) bionic; urgency=low
+
+  * Add the missing `libpulse` dependency in the Debian package specificaiton.
+
+ -- Marin <marin-m@users.noreply.github.com>  Sun, 24 Dec 2023 09:30:00 +0100
+
 songrec (0.4.0) bionic; urgency=low
 
   * Use `libpulse` (when available) for displaying the list of selectable audio input devices by default, instead of `alsalib` for listing audio inputs and `pactl` for switching to a monitor mode device, so that the list of devices displays correct values on PipeWire/PulseAudio-based systems.

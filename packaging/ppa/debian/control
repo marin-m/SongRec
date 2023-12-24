@@ -5,6 +5,7 @@ Maintainer: Marin <marin-m@users.noreply.github.com>
 Standards-Version: 4.1.2
 Build-Depends: debhelper (>= 10),
                libasound2-dev,
+               libpulse-dev,
                libgtk-3-dev,
                libssl-dev,
                cargo,
@@ -17,6 +18,7 @@ Vcs-Browser: https://github.com/marin-m/SongRec
 Package: songrec
 Architecture: any
 Depends: libasound2,
+         libpulse,
          libssl1.1 | libssl3,
          ffmpeg,
          ${misc:Depends},
