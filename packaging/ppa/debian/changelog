@@ -1,3 +1,9 @@
+songrec (0.4.0+2) bionic; urgency=low
+
+  * Fix the `libpulse` dependency into `libpulse0` in the Debian package specification.
+
+ -- Marin <marin-m@users.noreply.github.com>  Sun, 24 Dec 2023 18:21:00 +0100
+
 songrec (0.4.0+1) bionic; urgency=low
 
   * Add the missing `libpulse` dependency in the Debian package specificaiton.

@@ -18,7 +18,7 @@ Vcs-Browser: https://github.com/marin-m/SongRec
 Package: songrec
 Architecture: any
 Depends: libasound2,
-         libpulse,
+         libpulse0,
          libssl1.1 | libssl3,
          ffmpeg,
          ${misc:Depends},
