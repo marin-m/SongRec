@@ -1,4 +1,4 @@
-songrec (0.4.0) bionic; urgency=log
+songrec (0.4.0) bionic; urgency=low
 
   * Use `libpulse` (when available) for displaying the list of selectable audio input devices by default, instead of `alsalib` for listing audio inputs and `pactl` for switching to a monitor mode device, so that the list of devices displays correct values on PipeWire/PulseAudio-based systems.
   * Make the dependencies over `libpulse` and DBus MPRIS fully optional, through Cargo features.
