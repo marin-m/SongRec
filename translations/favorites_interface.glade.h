@@ -1,0 +1,10 @@
+char *s = N_("Song name");
+char *s = N_("Album");
+char *s = N_("Export to CSV");
+char *s = N_("Favorites");
+char *s = N_("Copy artist and track");
+char *s = N_("Copy artist");
+char *s = N_("Copy track name");
+char *s = N_("Copy album");
+char *s = N_("Search on YouTube");
+char *s = N_("Remove from Favorites");
