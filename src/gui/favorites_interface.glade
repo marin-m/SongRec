@@ -1,12 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.22.1 -->
+<!-- Generated with glade 3.40.0 -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
+  <object class="GtkImage" id="copy_icon">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="icon-name">edit-copy</property>
+  </object>
+  <object class="GtkImage" id="copy_icon_2">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="icon-name">edit-copy</property>
+  </object>
+  <object class="GtkImage" id="copy_icon_3">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="icon-name">edit-copy</property>
+  </object>
+  <object class="GtkImage" id="copy_icon_4">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="icon-name">edit-copy</property>
+  </object>
   <object class="GtkImage" id="csv_icon">
     <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="pixel_size">20</property>
-    <property name="icon_name">media-floppy</property>
+    <property name="can-focus">False</property>
+    <property name="pixel-size">20</property>
+    <property name="icon-name">media-floppy</property>
+  </object>
+  <object class="GtkImage" id="favorite_icon">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="icon-name">emblem-favorite</property>
   </object>
   <object class="GtkListStore" id="favorites_list_store">
     <columns>
@@ -16,174 +41,74 @@
       <column type="gchararray"/>
       <!-- column-name Recognition -->
       <column type="gchararray"/>
-      <!-- column-name Track Key -->
+      <!-- column-name Track -->
       <column type="gchararray"/>
-      <!-- column-name Release Year -->
+      <!-- column-name Release -->
       <column type="gchararray"/>
       <!-- column-name Genre -->
       <column type="gchararray"/>
     </columns>
   </object>
-  <object class="GtkMenu" id="list_view_context_menu">
-    <property name="can_focus">False</property>
-    <child>
-      <object class="GtkImageMenuItem" id="copy_artist_and_track">
-        <property name="label" translatable="yes">Copy artist and track</property>
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="image">copy_icon</property>
-        <property name="use_stock">False</property>
-        <property name="always_show_image">True</property>
-      </object>
-    </child>
-    <child>
-      <object class="GtkImageMenuItem" id="copy_artist">
-        <property name="label" translatable="yes">Copy artist</property>
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="image">copy_icon_2</property>
-        <property name="use_stock">False</property>
-        <property name="always_show_image">True</property>
-      </object>
-    </child>
-    <child>
-      <object class="GtkImageMenuItem" id="copy_track_name">
-        <property name="label" translatable="yes">Copy track name</property>
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="image">copy_icon_3</property>
-        <property name="use_stock">False</property>
-        <property name="always_show_image">True</property>
-      </object>
-    </child>
-    <child>
-      <object class="GtkImageMenuItem" id="copy_album">
-        <property name="label" translatable="yes">Copy album</property>
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="image">copy_icon_4</property>
-        <property name="use_stock">False</property>
-        <property name="always_show_image">True</property>
-      </object>
-    </child>
-    <child>
-      <object class="GtkImageMenuItem" id="search_on_youtube">
-        <property name="label" translatable="yes">Search on YouTube</property>
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="image">youtube_icon_2</property>
-        <property name="use_stock">False</property>
-        <property name="always_show_image">True</property>
-      </object>
-    </child>
-    <child>
-      <object class="GtkImageMenuItem" id="remove_from_favorites">
-        <property name="label" translatable="yes">Remove from Favorites</property>
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="image">favorite_icon</property>
-        <property name="use_stock">False</property>
-        <property name="always_show_image">True</property>
-      </object>
-    </child>
-  </object>
-  <object class="GtkImage" id="copy_icon">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="icon_name">edit-copy</property>
-  </object>
-  <object class="GtkImage" id="copy_icon_2">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="icon_name">edit-copy</property>
-  </object>
-  <object class="GtkImage" id="copy_icon_3">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="icon_name">edit-copy</property>
-  </object>
-  <object class="GtkImage" id="copy_icon_4">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="icon_name">edit-copy</property>
-  </object>
-  <object class="GtkImage" id="youtube_icon">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="icon_name">edit-find</property>
-  </object>
-  <object class="GtkImage" id="youtube_icon_2">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="icon_name">edit-find</property>
-  </object>
-  <object class="GtkImage" id="favorite_icon">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="icon_name">emblem-favorite</property>
-  </object>
-  <object class="GTKWindow" id="favorites_window">
+  <object class="GtkWindow" id="favorites_window">
     <property name="name">favorites</property>
+    <property name="can-focus">False</property>
     <property name="title">SongRec</property>
-    <property name="visible">False</property>
-    <property name="default_width">700</property>
-    <property name="default_height">497</property>
-    <property name="icon_name">audio-x-generic</property>
-    <property name="has_resize_grip">True</property>
+    <property name="default-width">700</property>
+    <property name="default-height">497</property>
+    <property name="icon-name">audio-x-generic</property>
+    <property name="has-resize-grip">True</property>
     <signal name="delete-event" handler="__hide_window" swapped="no"/>
     <child>
       <object class="GtkScrolledWindow">
         <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="shadow_type">in</property>
+        <property name="can-focus">True</property>
+        <property name="shadow-type">in</property>
         <child>
-          <object class="GtkFlowBoxChild" id="fbf2">
+          <object class="GtkViewport">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
+            <property name="can-focus">False</property>
             <child>
               <object class="GtkBox" id="vboxf">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="orientation">vertical</property>
-                <property name="spacing">15</property>
+                <property name="can-focus">False</property>
                 <property name="margin-left">10</property>
                 <property name="margin-right">15</property>
                 <property name="margin-top">15</property>
                 <property name="margin-bottom">15</property>
+                <property name="orientation">vertical</property>
+                <property name="spacing">15</property>
                 <child>
                   <object class="GtkFrame" id="favorites_frame">
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label_xalign">0.039999999105930328</property>
-                    <property name="shadow_type">in</property>
+                    <property name="can-focus">False</property>
+                    <property name="label-xalign">0.039999999105930328</property>
+                    <property name="shadow-type">in</property>
                     <child>
                       <object class="GtkAlignment">
                         <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <!-- <property name="left_padding">12</property> -->
+                        <property name="can-focus">False</property>
                         <child>
                           <object class="GtkBox">
                             <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="margin_left">15</property>
-                            <property name="margin_right">15</property>
-                            <property name="margin_top">15</property>
-                            <property name="margin_bottom">15</property>
+                            <property name="can-focus">False</property>
+                            <property name="margin-left">15</property>
+                            <property name="margin-right">15</property>
+                            <property name="margin-top">15</property>
+                            <property name="margin-bottom">15</property>
                             <property name="orientation">vertical</property>
                             <property name="spacing">15</property>
                             <child>
                               <object class="GtkScrolledWindow">
                                 <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="shadow_type">in</property>
+                                <property name="can-focus">True</property>
+                                <property name="shadow-type">in</property>
                                 <child>
                                   <object class="GtkTreeView" id="favorites_tree_view">
                                     <property name="visible">True</property>
-                                    <property name="can_focus">True</property>
+                                    <property name="can-focus">True</property>
                                     <property name="vexpand">True</property>
                                     <property name="model">favorites_list_store</property>
-                                    <property name="enable_grid_lines">vertical</property>
-                                    
+                                    <property name="enable-grid-lines">vertical</property>
                                     <child internal-child="selection">
                                       <object class="GtkTreeSelection"/>
                                     </child>
@@ -225,16 +150,16 @@
                             <child>
                               <object class="GtkButtonBox">
                                 <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="layout_style">end</property>
+                                <property name="can-focus">False</property>
+                                <property name="layout-style">end</property>
                                 <child>
                                   <object class="GtkButton" id="export_favorites_csv_button">
                                     <property name="label" translatable="yes">Export to CSV</property>
                                     <property name="visible">True</property>
-                                    <property name="can_focus">True</property>
-                                    <property name="receives_default">True</property>
+                                    <property name="can-focus">True</property>
+                                    <property name="receives-default">True</property>
                                     <property name="image">csv_icon</property>
-                                    <property name="always_show_image">True</property>
+                                    <property name="always-show-image">True</property>
                                   </object>
                                   <packing>
                                     <property name="expand">True</property>
@@ -256,7 +181,7 @@
                     <child type="label">
                       <object class="GtkLabel">
                         <property name="visible">True</property>
-                        <property name="can_focus">False</property>
+                        <property name="can-focus">False</property>
                         <property name="label" translatable="yes">Favorites</property>
                       </object>
                     </child>
@@ -271,7 +196,80 @@
             </child>
           </object>
         </child>
-        </object>
+      </object>
+    </child>
+  </object>
+  <object class="GtkImage" id="youtube_icon">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="icon-name">edit-find</property>
+  </object>
+  <object class="GtkImage" id="youtube_icon_2">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="icon-name">edit-find</property>
+  </object>
+  <object class="GtkMenu" id="list_view_context_menu">
+    <property name="can-focus">False</property>
+    <child>
+      <object class="GtkImageMenuItem" id="copy_artist_and_track">
+        <property name="label" translatable="yes">Copy artist and track</property>
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="image">copy_icon</property>
+        <property name="use-stock">False</property>
+        <property name="always-show-image">True</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkImageMenuItem" id="copy_artist">
+        <property name="label" translatable="yes">Copy artist</property>
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="image">copy_icon_2</property>
+        <property name="use-stock">False</property>
+        <property name="always-show-image">True</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkImageMenuItem" id="copy_track_name">
+        <property name="label" translatable="yes">Copy track name</property>
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="image">copy_icon_3</property>
+        <property name="use-stock">False</property>
+        <property name="always-show-image">True</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkImageMenuItem" id="copy_album">
+        <property name="label" translatable="yes">Copy album</property>
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="image">copy_icon_4</property>
+        <property name="use-stock">False</property>
+        <property name="always-show-image">True</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkImageMenuItem" id="search_on_youtube">
+        <property name="label" translatable="yes">Search on YouTube</property>
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="image">youtube_icon_2</property>
+        <property name="use-stock">False</property>
+        <property name="always-show-image">True</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkImageMenuItem" id="remove_from_favorites">
+        <property name="label" translatable="yes">Remove from Favorites</property>
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="image">favorite_icon</property>
+        <property name="use-stock">False</property>
+        <property name="always-show-image">True</property>
+      </object>
     </child>
   </object>
 </interface>
