@@ -50,17 +50,17 @@
   </object>
   <object class="GtkListStore" id="history_list_store">
     <columns>
-      <!-- column-name Song -->
+      <!-- column-name song_name -->
       <column type="gchararray"/>
-      <!-- column-name Album -->
+      <!-- column-name album -->
       <column type="gchararray"/>
-      <!-- column-name Recognition -->
+      <!-- column-name recognition_date -->
       <column type="gchararray"/>
-      <!-- column-name Track -->
+      <!-- column-name track_key -->
       <column type="gchararray"/>
-      <!-- column-name Release -->
+      <!-- column-name release_year -->
       <column type="gchararray"/>
-      <!-- column-name Genre -->
+      <!-- column-name genre -->
       <column type="gchararray"/>
     </columns>
   </object>
