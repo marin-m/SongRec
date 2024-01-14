@@ -90,6 +90,51 @@
     <property name="can-focus">False</property>
     <property name="stock">gtk-media-stop</property>
   </object>
+  <object class="GtkWindow" id="preferences_window">
+    <property name="can-focus">False</property>
+    <property name="title" translatable="yes">Preferences</property>
+    <property name="modal">True</property>
+    <property name="default-width">720</property>
+    <property name="default-height">480</property>
+    <property name="destroy-with-parent">True</property>
+    <property name="has-resize-grip">True</property>
+    <child>
+      <object class="GtkBox">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="margin-start">25</property>
+        <property name="margin-end">25</property>
+        <property name="margin-top">25</property>
+        <property name="margin-bottom">25</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">12</property>
+        <child>
+          <object class="GtkCheckButton" id="enable_mpris_box">
+            <property name="label" translatable="yes">Enable MPRIS (display playing song information in the GNOME control panel)</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">False</property>
+            <property name="draw-indicator">True</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkAction" id="show_about_dialog">
+    <property name="label" translatable="yes">About</property>
+    <signal name="activate" handler="about_dialog.show" swapped="no"/>
+  </object>
   <object class="GtkImage" id="wipe_icon">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
@@ -100,11 +145,179 @@
     <property name="can-focus">False</property>
     <property name="icon-name">edit-find</property>
   </object>
+  <object class="GtkImage" id="youtube_icon_2">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="icon-name">edit-find</property>
+  </object>
+  <object class="GtkMenu" id="list_view_context_menu">
+    <property name="can-focus">False</property>
+    <child>
+      <object class="GtkImageMenuItem" id="copy_artist_and_track">
+        <property name="label" translatable="yes">Copy artist and track</property>
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="image">copy_icon</property>
+        <property name="use-stock">False</property>
+        <property name="always-show-image">True</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkImageMenuItem" id="copy_artist">
+        <property name="label" translatable="yes">Copy artist</property>
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="image">copy_icon_2</property>
+        <property name="use-stock">False</property>
+        <property name="always-show-image">True</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkImageMenuItem" id="copy_track_name">
+        <property name="label" translatable="yes">Copy track name</property>
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="image">copy_icon_3</property>
+        <property name="use-stock">False</property>
+        <property name="always-show-image">True</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkImageMenuItem" id="copy_album">
+        <property name="label" translatable="yes">Copy album</property>
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="image">copy_icon_4</property>
+        <property name="use-stock">False</property>
+        <property name="always-show-image">True</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkImageMenuItem" id="search_on_youtube">
+        <property name="label" translatable="yes">Search on YouTube</property>
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="image">youtube_icon_2</property>
+        <property name="use-stock">False</property>
+        <property name="always-show-image">True</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkImageMenuItem" id="add_to_favorites">
+        <property name="label" translatable="yes">Add to Favorites</property>
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="image">favorite_icon_2</property>
+        <property name="use-stock">False</property>
+        <property name="always-show-image">True</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkImageMenuItem" id="remove_from_favorites">
+        <property name="label" translatable="yes">Remove from Favorites</property>
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="image">favorite_icon_3</property>
+        <property name="use-stock">False</property>
+        <property name="always-show-image">True</property>
+      </object>
+    </child>
+  </object>
+  <object class="GtkAboutDialog" id="about_dialog">
+    <property name="can-focus">False</property>
+    <property name="modal">True</property>
+    <property name="destroy-with-parent">True</property>
+    <property name="type-hint">dialog</property>
+    <property name="transient-for">window</property>
+    <property name="program-name">SongRec</property>
+    <property name="version">0.4.0</property>
+    <property name="website">https://github.com/marin-m/SongRec</property>
+    <property name="authors">© Marin Moulinier
+Contributors https://github.com/marin-m/SongRec/graphs/contributors</property>
+    <property name="translator-credits" translatable="yes">Help translating https://github.com/marin-m/SongRec/tree/master/translations#readme</property>
+    <property name="logo-icon-name">audio-x-generic</property>
+    <property name="license-type">gpl-3-0</property>
+    <child internal-child="vbox">
+      <object class="GtkBox">
+        <property name="can-focus">False</property>
+        <child internal-child="action_area">
+          <object class="GtkButtonBox">
+            <property name="can-focus">False</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkPopoverMenu" id="main_menu">
+    <property name="can-focus">False</property>
+    <property name="relative-to">menu_button</property>
+    <child>
+      <object class="GtkBox">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="margin-start">10</property>
+        <property name="margin-end">10</property>
+        <property name="margin-top">10</property>
+        <property name="margin-bottom">10</property>
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="GtkModelButton" id="preferences_menu_button">
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+            <property name="text" translatable="yes">Preferences</property>
+            <signal name="activate" handler="about_dialog.show" swapped="no"/>
+            <signal name="clicked" handler="about_dialog.show" swapped="no"/>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkSeparator" id="main_menu_separator">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkModelButton" id="about_menu_button">
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+            <property name="text" translatable="yes">About...</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+      </object>
+      <packing>
+        <property name="submenu">main</property>
+        <property name="position">1</property>
+      </packing>
+    </child>
+  </object>
   <object class="GtkApplicationWindow" id="window">
     <property name="name">window</property>
     <property name="visible">True</property>
     <property name="can-focus">False</property>
-    <property name="title">SongRec</property>
     <property name="window-position">center</property>
     <property name="default-width">977</property>
     <property name="default-height">497</property>
@@ -679,82 +892,28 @@
         </child>
       </object>
     </child>
-  </object>
-  <object class="GtkImage" id="youtube_icon_2">
-    <property name="visible">True</property>
-    <property name="can-focus">False</property>
-    <property name="icon-name">edit-find</property>
-  </object>
-  <object class="GtkMenu" id="list_view_context_menu">
-    <property name="can-focus">False</property>
-    <child>
-      <object class="GtkImageMenuItem" id="copy_artist_and_track">
-        <property name="label" translatable="yes">Copy artist and track</property>
+    <child type="titlebar">
+      <object class="GtkHeaderBar">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
-        <property name="image">copy_icon</property>
-        <property name="use-stock">False</property>
-        <property name="always-show-image">True</property>
-      </object>
-    </child>
-    <child>
-      <object class="GtkImageMenuItem" id="copy_artist">
-        <property name="label" translatable="yes">Copy artist</property>
-        <property name="visible">True</property>
-        <property name="can-focus">False</property>
-        <property name="image">copy_icon_2</property>
-        <property name="use-stock">False</property>
-        <property name="always-show-image">True</property>
-      </object>
-    </child>
-    <child>
-      <object class="GtkImageMenuItem" id="copy_track_name">
-        <property name="label" translatable="yes">Copy track name</property>
-        <property name="visible">True</property>
-        <property name="can-focus">False</property>
-        <property name="image">copy_icon_3</property>
-        <property name="use-stock">False</property>
-        <property name="always-show-image">True</property>
-      </object>
-    </child>
-    <child>
-      <object class="GtkImageMenuItem" id="copy_album">
-        <property name="label" translatable="yes">Copy album</property>
-        <property name="visible">True</property>
-        <property name="can-focus">False</property>
-        <property name="image">copy_icon_4</property>
-        <property name="use-stock">False</property>
-        <property name="always-show-image">True</property>
-      </object>
-    </child>
-    <child>
-      <object class="GtkImageMenuItem" id="search_on_youtube">
-        <property name="label" translatable="yes">Search on YouTube</property>
-        <property name="visible">True</property>
-        <property name="can-focus">False</property>
-        <property name="image">youtube_icon_2</property>
-        <property name="use-stock">False</property>
-        <property name="always-show-image">True</property>
-      </object>
-    </child>
-    <child>
-      <object class="GtkImageMenuItem" id="add_to_favorites">
-        <property name="label" translatable="yes">Add to Favorites</property>
-        <property name="visible">True</property>
-        <property name="can-focus">False</property>
-        <property name="image">favorite_icon_2</property>
-        <property name="use-stock">False</property>
-        <property name="always-show-image">True</property>
-      </object>
-    </child>
-    <child>
-      <object class="GtkImageMenuItem" id="remove_from_favorites">
-        <property name="label" translatable="yes">Remove from Favorites</property>
-        <property name="visible">True</property>
-        <property name="can-focus">False</property>
-        <property name="image">favorite_icon_3</property>
-        <property name="use-stock">False</property>
-        <property name="always-show-image">True</property>
+        <property name="title" translatable="yes">SongRec</property>
+        <property name="show-close-button">True</property>
+        <child>
+          <object class="GtkMenuButton" id="menu_button">
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="focus-on-click">False</property>
+            <property name="receives-default">True</property>
+            <property name="direction">none</property>
+            <property name="popover">main_menu</property>
+            <child>
+              <placeholder/>
+            </child>
+          </object>
+          <packing>
+            <property name="pack-type">end</property>
+          </packing>
+        </child>
       </object>
     </child>
   </object>

@@ -38,7 +38,7 @@ use std::os::windows::process::CommandExt;
 
 use crate::fingerprinting::signature_format::DecodedSignature;
 
-pub fn gui_main(recording: bool, input_file: Option<&str>, _enable_mpris: bool) -> Result<(), Box<dyn Error>> {
+pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: bool) -> Result<(), Box<dyn Error>> {
     
     let application = gtk::Application::new(Some("com.github.marinm.songrec"),
         gio::ApplicationFlags::HANDLES_OPEN)
@@ -55,6 +55,41 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, _enable_mpris: bool) 
         // We create the main window.
     
         let main_window: gtk::ApplicationWindow = main_builder.get_object("window").unwrap();
+
+        let prefs_menu_item: gtk::ModelButton = main_builder.get_object("preferences_menu_button").unwrap();
+        let main_menu_separator: gtk::Separator = main_builder.get_object("main_menu_separator").unwrap();
+        let prefs_window: gtk::Window = main_builder.get_object("preferences_window").unwrap();
+        let enable_mpris_box: gtk::CheckButton = main_builder.get_object("enable_mpris_box").unwrap();
+
+        #[cfg(not(feature = "mpris"))]
+        {
+            prefs_menu_item.hide();
+            main_menu_separator.hide();
+            enable_mpris_box.hide();
+        }
+
+        if !enable_mpris_cli {
+            prefs_menu_item.hide();
+            main_menu_separator.hide();
+            enable_mpris_box.hide();
+        }
+
+        prefs_window.connect_delete_event(move |item, _event| {
+            item.hide_on_delete()
+        });
+        prefs_menu_item.connect_clicked(move |_menu_item: &gtk::ModelButton| {
+            prefs_window.show_all();
+        });
+
+        let about_menu_item: gtk::ModelButton = main_builder.get_object("about_menu_button").unwrap();
+        let about_dialog: gtk::AboutDialog = main_builder.get_object("about_dialog").unwrap();
+
+        about_dialog.connect_delete_event(move |item, _event| {
+            item.hide_on_delete()
+        });
+        about_menu_item.connect_clicked(move |_menu_item: &gtk::ModelButton| {
+            about_dialog.show_all();
+        });
 
         let favorites_window: gtk::Window = favorites_builder.get_object("favorites_window").unwrap();
         
@@ -106,10 +141,14 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, _enable_mpris: bool) 
             }
         });
         
-        //Load files
+        // Load files
 
         let mut preferences_interface: PreferencesInterface = PreferencesInterface::new();
         let old_preferences: Preferences = preferences_interface.preferences.clone();
+
+        if let Some(old_enable_mpris) = old_preferences.enable_mpris {
+            enable_mpris_box.set_active(old_enable_mpris);
+        }
 
         // We initialize the CSV file that will contain song history.
         let history_list_store = main_builder.get_object("history_list_store").unwrap();
@@ -416,9 +455,13 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, _enable_mpris: bool) 
         let export_favorites_csv_button: gtk::Button = favorites_builder.get_object("export_favorites_csv_button").unwrap();
 
         #[cfg(feature = "mpris")]
-        let mpris_obj = {
-            let player = if _enable_mpris { get_player() } else { None };
-            if _enable_mpris && player.is_none() {
+        let mut mpris_obj = {
+            let player = if enable_mpris_cli && enable_mpris_box.get_active() {
+                get_player()
+            } else {
+                None
+            };
+            if enable_mpris_cli && enable_mpris_box.get_active() && player.is_none() {
                 println!("{}", gettext("Unable to enable MPRIS support"))
             }
             player
@@ -644,6 +687,12 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, _enable_mpris: bool) 
 
         });
 
+        enable_mpris_box.connect_toggled(clone!(@strong enable_mpris_box, @strong gui_tx => move |_| {
+            let mut new_preference: Preferences = Preferences::new();
+            new_preference.enable_mpris = Some(enable_mpris_box.get_active());
+            gui_tx.send(GUIMessage::UpdatePreference(new_preference)).unwrap();
+        }));
+
         notification_enable_checkbox.connect_toggled(clone!(@strong notification_enable_checkbox, @strong gui_tx => move |_| {
             let mut new_preference: Preferences = Preferences::new();
             new_preference.enable_notifications = Some(notification_enable_checkbox.get_active());
@@ -653,8 +702,8 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, _enable_mpris: bool) 
         gui_rx.attach(None, clone!(@strong application, @strong main_window, @strong results_frame,
                 @strong current_volume_hbox, @strong spinner, @strong recognize_file_button,
                 @strong network_unreachable, @strong microphone_stop_button, @strong combo_box,
-                @strong recognize_from_my_speakers_checkbox, @strong notification_enable_checkbox,
-                @strong favorites_window => move |gui_message| {
+                @strong recognize_from_my_speakers_checkbox, @strong enable_mpris_box,
+                @strong notification_enable_checkbox, @strong favorites_window => move |gui_message| {
             
             match gui_message {
                 ErrorMessage(_) | NetworkStatus(_) | SongRecognized(_) => {
@@ -666,7 +715,21 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, _enable_mpris: bool) 
 
             match gui_message {
                 UpdatePreference(new_preference) => {
-                    preferences_interface.update(new_preference)
+                    preferences_interface.update(new_preference);
+                    #[cfg(feature = "mpris")]
+                    if mpris_obj.is_none() {
+                        mpris_obj = {
+                            let player = if enable_mpris_cli && enable_mpris_box.get_active() {
+                                get_player()
+                            } else {
+                                None
+                            };
+                            if enable_mpris_cli && enable_mpris_box.get_active() && player.is_none() {
+                                println!("{}", gettext("Unable to enable MPRIS support"))
+                            }
+                            player
+                        };
+                    }  
                 },
                 AddFavorite(song_record) => {
                     favorites_interface.add_row_and_save(song_record);
@@ -692,7 +755,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, _enable_mpris: bool) 
                     else {
                         network_unreachable.show_all();
                     }
-                    #[cfg(feature = "mpris")] {
+                    #[cfg(feature = "mpris")] if enable_mpris_box.get_active() {
                         let mpris_status = if network_is_reachable { PlaybackStatus::Playing } else { PlaybackStatus::Paused };
 
                         mpris_obj.as_ref().map(|p| p.set_playback_status(mpris_status));

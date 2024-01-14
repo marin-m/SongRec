@@ -47,7 +47,7 @@ toml = "0.4.2"
 app_dirs = { version = "1.2.1", optional = true } # For obtaining and creating either the %APPDATA%, the dotfile path or similar
 
 [features]
-default = ["gui", "ffmpeg", "pulse"]
+default = ["gui", "ffmpeg", "pulse", "mpris"]
 gui = ["gtk", "gdk", "gio", "percent-encoding", "directories", "app_dirs", "gdk-pixbuf"]
 pulse = [ "pulsectl-rs", "libpulse-binding" ]
 mpris = [ "mpris-player" ]

@@ -11,13 +11,15 @@ use crate::utils::filesystem_operations::obtain_preferences_file_path;
 #[serde(default)]
 pub struct Preferences {
     pub enable_notifications: Option<bool>,
+    pub enable_mpris: Option<bool>,
     pub current_device_name: Option<String>
 }
 
 impl Preferences {
     pub fn new() -> Self {
         Preferences { 
-            enable_notifications: None, 
+            enable_notifications: None,
+            enable_mpris: None,
             current_device_name: None 
         }
     }
@@ -27,6 +29,7 @@ impl Default for Preferences {
     fn default() -> Self {
         Preferences {
             enable_notifications: Some(true),
+            enable_mpris: Some(false),
             current_device_name: None
         }
     }
@@ -72,6 +75,7 @@ impl PreferencesInterface {
         let current_preferences = self.preferences.clone();
         self.preferences = Preferences {
             enable_notifications: update_preferences.enable_notifications.or(current_preferences.enable_notifications),
+            enable_mpris: update_preferences.enable_mpris.or(current_preferences.enable_mpris),
             current_device_name: update_preferences.current_device_name.or(current_preferences.current_device_name)
         };
         match self.write() {
