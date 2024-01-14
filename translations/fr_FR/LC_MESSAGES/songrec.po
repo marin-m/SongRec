@@ -257,16 +257,18 @@ msgstr ""
 
 #: interface.glade.h:1
 msgid "Preferences"
-msgstr ""
+msgstr "Préférences"
 
 #: interface.glade.h:2
 msgid ""
 "Enable MPRIS (display playing song information in the GNOME control panel)"
 msgstr ""
+"Activer MPRIS (affiche des informations sur la chanson jouée dans le panneau "
+"de contrôle de GNOME"
 
 #: interface.glade.h:3
 msgid "About"
-msgstr ""
+msgstr "À propos"
 
 #: interface.glade.h:4 favorites_interface.glade.h:5
 msgid "Copy artist and track"
@@ -290,7 +292,7 @@ msgstr "Rechercher sur YouTube"
 
 #: interface.glade.h:9
 msgid "Add to Favorites"
-msgstr ""
+msgstr "Ajouter aux favoris"
 
 #: interface.glade.h:10 favorites_interface.glade.h:10
 #, fuzzy
@@ -302,10 +304,12 @@ msgid ""
 "Help translating https://github.com/marin-m/SongRec/tree/master/"
 "translations#readme"
 msgstr ""
+"Aider à la traduction https://github.com/marin-m/SongRec/tree/master/"
+"translations#readme"
 
 #: interface.glade.h:12
 msgid "About..."
-msgstr ""
+msgstr "À propos..."
 
 #: interface.glade.h:13
 msgid "Recognize from file"
@@ -365,7 +369,7 @@ msgstr "Date de reconnaissance"
 
 #: interface.glade.h:27 favorites_interface.glade.h:4
 msgid "Favorites"
-msgstr ""
+msgstr "Mes favoris"
 
 #: interface.glade.h:28
 msgid "Wipe history"
