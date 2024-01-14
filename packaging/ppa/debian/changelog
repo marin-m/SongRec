@@ -1,3 +1,11 @@
+songrec (0.4.1) bionic; urgency=low
+
+  * Add a Korean translation (thanks to @MarongHappy in PR #146)
+  * Re-integrate MPRIS compatibility code in the default builds, with an opt-in GUI option
+  * Add a simple preference window and an about dialog
+
+ -- Marin <marin-m@users.noreply.github.com>  Sun, 14 Jan 2024 14:32:00 +0100
+
 songrec (0.4.0+2) bionic; urgency=low
 
   * Fix the `libpulse` dependency into `libpulse0` in the Debian package specification.

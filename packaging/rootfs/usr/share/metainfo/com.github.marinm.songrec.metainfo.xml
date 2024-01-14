@@ -28,6 +28,13 @@ https://hughsie.github.io/oars/index.html
 -->
   <content_rating type="oars-1.0" />
   <releases>
+    <release version="0.4.1" date="2024-01-14">
+      <description>
+        <p>Add a Korean translation (thanks to @MarongHappy in PR #146)</p>
+        <p>Re-integrate MPRIS compatibility code in the default builds, with an opt-in GUI option</p>
+        <p>Add a simple preference window and an about dialog</p>
+      </description>
+    </release>
     <release version="0.4.0" date="2023-12-24">
       <description>
         <p>Use libpulse (when available) for displaying the list of selectable audio input devices by default, instead of alsalib for listing audio inputs and pactl for switching to a monitor mode device, so that the list of devices displays correct values on PipeWire/PulseAudio-based systems.</p>
