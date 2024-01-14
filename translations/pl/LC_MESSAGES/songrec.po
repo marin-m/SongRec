@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-30 17:37+0100\n"
+"POT-Creation-Date: 2024-01-14 14:22+0100\n"
 "PO-Revision-Date: 2021-12-26 11:36+0100\n"
 "Last-Translator: Rafał Mikrut <qarminkrut@gmail.com>\n"
 "Language-Team: \n"
@@ -41,7 +41,7 @@ msgstr ""
 
 #: ../src/cli_main.rs:147 ../src/core/http_thread.rs:49
 #: ../src/core/http_thread.rs:54 ../src/core/http_thread.rs:63
-#: ../src/core/http_thread.rs:89 ../src/gui/main_window.rs:681
+#: ../src/core/http_thread.rs:89 ../src/gui/main_window.rs:744
 msgid "No match for this song"
 msgstr "Nie znaleziono piosenki"
 
@@ -200,35 +200,35 @@ msgstr ""
 msgid "Application::new failed"
 msgstr "Nie udało się uruchomić funkcji Application::new"
 
-#: ../src/gui/main_window.rs:422
+#: ../src/gui/main_window.rs:465 ../src/gui/main_window.rs:728
 msgid "Unable to enable MPRIS support"
 msgstr ""
 
-#: ../src/gui/main_window.rs:499
+#: ../src/gui/main_window.rs:542
 msgid "Select a file to recognize"
 msgstr "Wybierz plik do rozpoznania"
 
-#: ../src/gui/main_window.rs:502
+#: ../src/gui/main_window.rs:545
 msgid "_Open"
 msgstr "_Otwórz"
 
-#: ../src/gui/main_window.rs:503
+#: ../src/gui/main_window.rs:546
 msgid "_Cancel"
 msgstr "_Wyjdź"
 
-#: ../src/gui/main_window.rs:511
+#: ../src/gui/main_window.rs:554
 msgid "Couldn't get filename"
 msgstr "Nie można uzyskać nazwy pliku"
 
-#: ../src/gui/main_window.rs:774
+#: ../src/gui/main_window.rs:837
 msgid "Song recognized"
 msgstr "Utwór rozpoznany"
 
-#: ../src/gui/preferences.rs:49
+#: ../src/gui/preferences.rs:52
 msgid "When parsing the preferences file:"
 msgstr ""
 
-#: ../src/gui/preferences.rs:80
+#: ../src/gui/preferences.rs:84
 msgid "When saving the preferences file:"
 msgstr ""
 
@@ -241,105 +241,133 @@ msgid "Error when reading the favorites on the disk:"
 msgstr ""
 
 #: interface.glade.h:1
-msgid "Recognize from file"
-msgstr "Rozpoznaj z pliku"
+msgid "Preferences"
+msgstr ""
 
 #: interface.glade.h:2
-msgid "Turn on microphone recognition"
-msgstr "Włącz rozpoznawania z mikrofonu"
+msgid ""
+"Enable MPRIS (display playing song information in the GNOME control panel)"
+msgstr ""
 
 #: interface.glade.h:3
-msgid "Turn off microphone recognition"
-msgstr "Wyłącz rozpoznawania z mikrofonu"
-
-#: interface.glade.h:4
-msgid "Enable notifications"
+msgid "About"
 msgstr ""
 
-#: interface.glade.h:5
-msgid "Shazam servers are not reachable, are you connected?"
-msgstr "Serwery Shazam nie są osiągalne, czy jesteś połączony do internetu?"
-
-#: interface.glade.h:6
-msgid "Recognize songs"
-msgstr "Rozpoznaj utwory muzyczne"
-
-#: interface.glade.h:7 favorites_interface.glade.h:9
-msgid "Search on YouTube"
-msgstr "Wyszukaj na YouTube"
-
-#: interface.glade.h:8
-msgid "Play a Shazam lure"
-msgstr "Odtwórz w Shazam"
-
-#: interface.glade.h:9
-msgid "Recognition results"
-msgstr "Wyniki sprawdzania"
-
-#: interface.glade.h:10
-msgid "Recognize from my speakers instead of microphone"
-msgstr "Rozpoznaj z głośników zamiast mikrofonu"
-
-#: interface.glade.h:11
-msgid "Current volume:"
-msgstr "Aktualna głośność:"
-
-#: interface.glade.h:12
-msgid "Audio input"
-msgstr "Wejście audio"
-
-#: interface.glade.h:13 favorites_interface.glade.h:1
-msgid "Song name"
-msgstr "Nazwa piosenki"
-
-#: interface.glade.h:14 favorites_interface.glade.h:2
-msgid "Album"
-msgstr "Album"
-
-#: interface.glade.h:15
-msgid "Recognition date"
-msgstr "Data rozpoznania"
-
-#: interface.glade.h:16 favorites_interface.glade.h:4
-msgid "Favorites"
-msgstr ""
-
-#: interface.glade.h:17
-msgid "Wipe history"
-msgstr "Wyczyść historię"
-
-#: interface.glade.h:18 favorites_interface.glade.h:3
-msgid "Export to CSV"
-msgstr "Wyeksportuj do CSV"
-
-#: interface.glade.h:19
-msgid "Recognition history"
-msgstr "Historia rozpoznawania"
-
-#: interface.glade.h:20 favorites_interface.glade.h:5
+#: interface.glade.h:4 favorites_interface.glade.h:5
 msgid "Copy artist and track"
 msgstr "Skopiuj wykonawcę i utwór"
 
-#: interface.glade.h:21 favorites_interface.glade.h:6
+#: interface.glade.h:5 favorites_interface.glade.h:6
 msgid "Copy artist"
 msgstr "Skopiuj wykonawcę"
 
-#: interface.glade.h:22 favorites_interface.glade.h:7
+#: interface.glade.h:6 favorites_interface.glade.h:7
 msgid "Copy track name"
 msgstr "Skopiuj nazwę utworu"
 
-#: interface.glade.h:23 favorites_interface.glade.h:8
+#: interface.glade.h:7 favorites_interface.glade.h:8
 msgid "Copy album"
 msgstr "Skopiuj nazwę albumu"
 
-#: interface.glade.h:24
+#: interface.glade.h:8 favorites_interface.glade.h:9
+msgid "Search on YouTube"
+msgstr "Wyszukaj na YouTube"
+
+#: interface.glade.h:9
 msgid "Add to Favorites"
 msgstr ""
 
-#: interface.glade.h:25 favorites_interface.glade.h:10
+#: interface.glade.h:10 favorites_interface.glade.h:10
 #, fuzzy
 msgid "Remove from Favorites"
 msgstr "Rozpoznaj z pliku"
+
+#: interface.glade.h:11
+msgid ""
+"Help translating https://github.com/marin-m/SongRec/tree/master/"
+"translations#readme"
+msgstr ""
+
+#: interface.glade.h:12
+msgid "About..."
+msgstr ""
+
+#: interface.glade.h:13
+msgid "Recognize from file"
+msgstr "Rozpoznaj z pliku"
+
+#: interface.glade.h:14
+msgid "Turn on microphone recognition"
+msgstr "Włącz rozpoznawania z mikrofonu"
+
+#: interface.glade.h:15
+msgid "Turn off microphone recognition"
+msgstr "Wyłącz rozpoznawania z mikrofonu"
+
+#: interface.glade.h:16
+msgid "Enable notifications"
+msgstr ""
+
+#: interface.glade.h:17
+msgid "Shazam servers are not reachable, are you connected?"
+msgstr "Serwery Shazam nie są osiągalne, czy jesteś połączony do internetu?"
+
+#: interface.glade.h:18
+msgid "Recognize songs"
+msgstr "Rozpoznaj utwory muzyczne"
+
+#: interface.glade.h:19
+msgid "Play a Shazam lure"
+msgstr "Odtwórz w Shazam"
+
+#: interface.glade.h:20
+msgid "Recognition results"
+msgstr "Wyniki sprawdzania"
+
+#: interface.glade.h:21
+msgid "Recognize from my speakers instead of microphone"
+msgstr "Rozpoznaj z głośników zamiast mikrofonu"
+
+#: interface.glade.h:22
+msgid "Current volume:"
+msgstr "Aktualna głośność:"
+
+#: interface.glade.h:23
+msgid "Audio input"
+msgstr "Wejście audio"
+
+#: interface.glade.h:24 favorites_interface.glade.h:1
+msgid "Song name"
+msgstr "Nazwa piosenki"
+
+#: interface.glade.h:25 favorites_interface.glade.h:2
+msgid "Album"
+msgstr "Album"
+
+#: interface.glade.h:26
+msgid "Recognition date"
+msgstr "Data rozpoznania"
+
+#: interface.glade.h:27 favorites_interface.glade.h:4
+msgid "Favorites"
+msgstr ""
+
+#: interface.glade.h:28
+msgid "Wipe history"
+msgstr "Wyczyść historię"
+
+#: interface.glade.h:29 favorites_interface.glade.h:3
+msgid "Export to CSV"
+msgstr "Wyeksportuj do CSV"
+
+#: interface.glade.h:30
+msgid "Recognition history"
+msgstr "Historia rozpoznawania"
+
+#: interface.glade.h:31
+#, fuzzy
+msgid "SongRec"
+msgstr "Nazwa piosenki"
 
 #~ msgid "Note: Could not parse TSV output from"
 #~ msgstr "Uwaga: Nie można przetworzyć danych wyjściowych TSV z"

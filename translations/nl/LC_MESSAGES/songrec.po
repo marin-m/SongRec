@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-30 17:37+0100\n"
+"POT-Creation-Date: 2024-01-14 14:22+0100\n"
 "PO-Revision-Date: 2022-05-26 14:13+0200\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: \n"
@@ -40,7 +40,7 @@ msgstr "Waarschuwing: geen internetverbinding"
 
 #: ../src/cli_main.rs:147 ../src/core/http_thread.rs:49
 #: ../src/core/http_thread.rs:54 ../src/core/http_thread.rs:63
-#: ../src/core/http_thread.rs:89 ../src/gui/main_window.rs:681
+#: ../src/core/http_thread.rs:89 ../src/gui/main_window.rs:744
 msgid "No match for this song"
 msgstr "Er is geen overeenkomst gevonden"
 
@@ -200,35 +200,35 @@ msgstr ""
 msgid "Application::new failed"
 msgstr "Application::new is mislukt"
 
-#: ../src/gui/main_window.rs:422
+#: ../src/gui/main_window.rs:465 ../src/gui/main_window.rs:728
 msgid "Unable to enable MPRIS support"
 msgstr "De MPRIS-ondersteuning kan niet worden ingeschakeld"
 
-#: ../src/gui/main_window.rs:499
+#: ../src/gui/main_window.rs:542
 msgid "Select a file to recognize"
 msgstr "Kies een te herkennen bestand"
 
-#: ../src/gui/main_window.rs:502
+#: ../src/gui/main_window.rs:545
 msgid "_Open"
 msgstr "_Openen"
 
-#: ../src/gui/main_window.rs:503
+#: ../src/gui/main_window.rs:546
 msgid "_Cancel"
 msgstr "_Annuleren"
 
-#: ../src/gui/main_window.rs:511
+#: ../src/gui/main_window.rs:554
 msgid "Couldn't get filename"
 msgstr "De bestandsnaam kan niet worden bepaald"
 
-#: ../src/gui/main_window.rs:774
+#: ../src/gui/main_window.rs:837
 msgid "Song recognized"
 msgstr "Het nummer is herkend"
 
-#: ../src/gui/preferences.rs:49
+#: ../src/gui/preferences.rs:52
 msgid "When parsing the preferences file:"
 msgstr "Tijdens verwerken van instellingenbestand:"
 
-#: ../src/gui/preferences.rs:80
+#: ../src/gui/preferences.rs:84
 msgid "When saving the preferences file:"
 msgstr "Tijdens opslaan van instellingenbestand:"
 
@@ -242,106 +242,134 @@ msgid "Error when reading the favorites on the disk:"
 msgstr "De nummergeschiedenis op de schijf kan niet worden uitgelezen:"
 
 #: interface.glade.h:1
+msgid "Preferences"
+msgstr ""
+
+#: interface.glade.h:2
+msgid ""
+"Enable MPRIS (display playing song information in the GNOME control panel)"
+msgstr ""
+
+#: interface.glade.h:3
+msgid "About"
+msgstr ""
+
+#: interface.glade.h:4 favorites_interface.glade.h:5
+msgid "Copy artist and track"
+msgstr "Artiest- en nummernaam kopiëren"
+
+#: interface.glade.h:5 favorites_interface.glade.h:6
+msgid "Copy artist"
+msgstr "Artiestnaam kopiëren"
+
+#: interface.glade.h:6 favorites_interface.glade.h:7
+msgid "Copy track name"
+msgstr "Nummernaam kopiëren"
+
+#: interface.glade.h:7 favorites_interface.glade.h:8
+msgid "Copy album"
+msgstr "Albumnaam kopiëren"
+
+#: interface.glade.h:8 favorites_interface.glade.h:9
+msgid "Search on YouTube"
+msgstr "Opzoeken op YouTube"
+
+#: interface.glade.h:9
+msgid "Add to Favorites"
+msgstr ""
+
+#: interface.glade.h:10 favorites_interface.glade.h:10
+#, fuzzy
+msgid "Remove from Favorites"
+msgstr "Herkennen uit bestand"
+
+#: interface.glade.h:11
+msgid ""
+"Help translating https://github.com/marin-m/SongRec/tree/master/"
+"translations#readme"
+msgstr ""
+
+#: interface.glade.h:12
+msgid "About..."
+msgstr ""
+
+#: interface.glade.h:13
 msgid "Recognize from file"
 msgstr "Herkennen uit bestand"
 
-#: interface.glade.h:2
+#: interface.glade.h:14
 msgid "Turn on microphone recognition"
 msgstr "Microfoonherkenning aanzetten"
 
-#: interface.glade.h:3
+#: interface.glade.h:15
 msgid "Turn off microphone recognition"
 msgstr "Microfoonherkenning uitzetten"
 
-#: interface.glade.h:4
+#: interface.glade.h:16
 msgid "Enable notifications"
 msgstr "Meldingen tonen"
 
-#: interface.glade.h:5
+#: interface.glade.h:17
 msgid "Shazam servers are not reachable, are you connected?"
 msgstr ""
 "De Shazam-servers zijn onbereikbaar. Ben je verbonden met het internet?"
 
-#: interface.glade.h:6
+#: interface.glade.h:18
 msgid "Recognize songs"
 msgstr "Nummerherkenning"
 
-#: interface.glade.h:7 favorites_interface.glade.h:9
-msgid "Search on YouTube"
-msgstr "Opzoeken op YouTube"
-
-#: interface.glade.h:8
+#: interface.glade.h:19
 msgid "Play a Shazam lure"
 msgstr "Shazam-testbestand afspelen"
 
-#: interface.glade.h:9
+#: interface.glade.h:20
 msgid "Recognition results"
 msgstr "Resultaten"
 
-#: interface.glade.h:10
+#: interface.glade.h:21
 msgid "Recognize from my speakers instead of microphone"
 msgstr "Luidsprekers gebruiken te herkennen in plaats van microfoon"
 
-#: interface.glade.h:11
+#: interface.glade.h:22
 msgid "Current volume:"
 msgstr "Huidig volumeniveau:"
 
-#: interface.glade.h:12
+#: interface.glade.h:23
 msgid "Audio input"
 msgstr "Audio-invoer"
 
-#: interface.glade.h:13 favorites_interface.glade.h:1
+#: interface.glade.h:24 favorites_interface.glade.h:1
 msgid "Song name"
 msgstr "Nummernaam"
 
-#: interface.glade.h:14 favorites_interface.glade.h:2
+#: interface.glade.h:25 favorites_interface.glade.h:2
 msgid "Album"
 msgstr "Albumnaam"
 
-#: interface.glade.h:15
+#: interface.glade.h:26
 msgid "Recognition date"
 msgstr "Herkend op"
 
-#: interface.glade.h:16 favorites_interface.glade.h:4
+#: interface.glade.h:27 favorites_interface.glade.h:4
 msgid "Favorites"
 msgstr ""
 
-#: interface.glade.h:17
+#: interface.glade.h:28
 msgid "Wipe history"
 msgstr "Geschiedenis wissen"
 
-#: interface.glade.h:18 favorites_interface.glade.h:3
+#: interface.glade.h:29 favorites_interface.glade.h:3
 msgid "Export to CSV"
 msgstr "Exporteren naar csv-bestand"
 
-#: interface.glade.h:19
+#: interface.glade.h:30
 msgid "Recognition history"
 msgstr "Geschiedenis"
 
-#: interface.glade.h:20 favorites_interface.glade.h:5
-msgid "Copy artist and track"
-msgstr "Artiest- en nummernaam kopiëren"
-
-#: interface.glade.h:21 favorites_interface.glade.h:6
-msgid "Copy artist"
-msgstr "Artiestnaam kopiëren"
-
-#: interface.glade.h:22 favorites_interface.glade.h:7
-msgid "Copy track name"
-msgstr "Nummernaam kopiëren"
-
-#: interface.glade.h:23 favorites_interface.glade.h:8
-msgid "Copy album"
-msgstr "Albumnaam kopiëren"
-
-#: interface.glade.h:24
-msgid "Add to Favorites"
-msgstr ""
-
-#: interface.glade.h:25 favorites_interface.glade.h:10
+#: interface.glade.h:31
 #, fuzzy
-msgid "Remove from Favorites"
-msgstr "Herkennen uit bestand"
+msgid "SongRec"
+msgstr "Nummernaam"
 
 #~ msgid "Note: Could not parse TSV output from"
 #~ msgstr "Let op: geen verwerking mogelijk van de tsv-uitvoer van"
