@@ -249,11 +249,8 @@ msgstr ""
 "disque :"
 
 #: ../src/gui/song_history_interface.rs:206
-#, fuzzy
 msgid "Error when reading the favorites on the disk:"
-msgstr ""
-"Erreur lors de la lecture de l'historique des chansons reconnues sur le "
-"disque :"
+msgstr "Erreur lors de la lecture des favoris sur le disque :"
 
 #: interface.glade.h:1
 msgid "Preferences"
@@ -295,9 +292,8 @@ msgid "Add to Favorites"
 msgstr "Ajouter aux favoris"
 
 #: interface.glade.h:10 favorites_interface.glade.h:10
-#, fuzzy
 msgid "Remove from Favorites"
-msgstr "Reconnaître depuis un fichier"
+msgstr "Supprimer des favoris"
 
 #: interface.glade.h:11
 msgid ""
@@ -384,9 +380,8 @@ msgid "Recognition history"
 msgstr "Historique de la reconnaissance"
 
 #: interface.glade.h:31
-#, fuzzy
 msgid "SongRec"
-msgstr "Nom de la chanson"
+msgstr "SongRec"
 
 #~ msgid "Note: Could not parse TSV output from"
 #~ msgstr "Note : Impossible de traiter la sortie TSV pour la commande"

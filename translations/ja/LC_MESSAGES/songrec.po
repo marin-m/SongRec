@@ -257,9 +257,8 @@ msgid "Add to Favorites"
 msgstr ""
 
 #: interface.glade.h:10 favorites_interface.glade.h:10
-#, fuzzy
 msgid "Remove from Favorites"
-msgstr "ファイルから認識"
+msgstr ""
 
 #: interface.glade.h:11
 msgid ""
@@ -345,6 +344,5 @@ msgid "Recognition history"
 msgstr "認識履歴"
 
 #: interface.glade.h:31
-#, fuzzy
 msgid "SongRec"
-msgstr "曲名"
+msgstr "SongRec"

@@ -286,7 +286,7 @@ msgid ""
 "Help translating https://github.com/marin-m/SongRec/tree/master/"
 "translations#readme"
 msgstr ""
-"Helpen met vertalen: https://github.com/marin-m/SongRec/tree/master/"
+"Helpen met vertalen https://github.com/marin-m/SongRec/tree/master/"
 "translations#readme"
 
 #: interface.glade.h:12

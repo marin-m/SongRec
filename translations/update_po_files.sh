@@ -23,7 +23,7 @@ mv ../src/gui/favorites_interface.glade.h .
 xgettext -kgettext -kN_ --c++ --from-code utf-8  -o songrec.pot ../src/*.rs ../src/audio_controllers/*.rs ../src/core/*.rs ../src/fingerprinting/*.rs ../src/gui/*.rs ../src/utils/*.rs interface.glade.h favorites_interface.glade.h
 
 for locale in fr_FR nl it pl es ja de_DE ko_KR; do
-    msgmerge -U ${locale}/LC_MESSAGES/songrec.po songrec.pot
+    msgmerge --no-fuzzy-matching --update ${locale}/LC_MESSAGES/songrec.po songrec.pot
 done
 
 # Keep binary ".mo" files synched with the ".po" files,

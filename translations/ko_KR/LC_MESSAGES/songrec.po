@@ -229,9 +229,8 @@ msgid "Error when reading the song history on the disk:"
 msgstr "디스크에서 노래 기록을 읽는 동안 오류 발생:"
 
 #: ../src/gui/song_history_interface.rs:206
-#, fuzzy
 msgid "Error when reading the favorites on the disk:"
-msgstr "디스크에서 노래 기록을 읽는 동안 오류 발생:"
+msgstr ""
 
 #: interface.glade.h:1
 msgid "Preferences"
@@ -271,9 +270,8 @@ msgid "Add to Favorites"
 msgstr ""
 
 #: interface.glade.h:10 favorites_interface.glade.h:10
-#, fuzzy
 msgid "Remove from Favorites"
-msgstr "파일에서 인식하기"
+msgstr ""
 
 #: interface.glade.h:11
 msgid ""
@@ -358,9 +356,8 @@ msgid "Recognition history"
 msgstr "인식 히스토리"
 
 #: interface.glade.h:31
-#, fuzzy
 msgid "SongRec"
-msgstr "노래 이름"
+msgstr "SongRec"
 
 #~ msgid "Note: Could not parse TSV output from"
 #~ msgstr "참고: TSV 출력을 구문 분석할 수 없음"

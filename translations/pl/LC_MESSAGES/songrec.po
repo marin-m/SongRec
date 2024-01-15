@@ -278,9 +278,8 @@ msgid "Add to Favorites"
 msgstr ""
 
 #: interface.glade.h:10 favorites_interface.glade.h:10
-#, fuzzy
 msgid "Remove from Favorites"
-msgstr "Rozpoznaj z pliku"
+msgstr ""
 
 #: interface.glade.h:11
 msgid ""
@@ -365,9 +364,8 @@ msgid "Recognition history"
 msgstr "Historia rozpoznawania"
 
 #: interface.glade.h:31
-#, fuzzy
 msgid "SongRec"
-msgstr "Nazwa piosenki"
+msgstr "SongRec"
 
 #~ msgid "Note: Could not parse TSV output from"
 #~ msgstr "Uwaga: Nie można przetworzyć danych wyjściowych TSV z"

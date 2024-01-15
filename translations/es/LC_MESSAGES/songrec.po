@@ -252,9 +252,8 @@ msgid "Error when reading the song history on the disk:"
 msgstr "Hubo un error al cargar el historial de canciones guardadas:"
 
 #: ../src/gui/song_history_interface.rs:206
-#, fuzzy
 msgid "Error when reading the favorites on the disk:"
-msgstr "Hubo un error al cargar el historial de canciones guardadas:"
+msgstr "Hubo un error al leer las favoritas guardadas:"
 
 #: interface.glade.h:1
 msgid "Preferences"
@@ -294,9 +293,8 @@ msgid "Add to Favorites"
 msgstr ""
 
 #: interface.glade.h:10 favorites_interface.glade.h:10
-#, fuzzy
 msgid "Remove from Favorites"
-msgstr "Reconocer a partir de un archivo"
+msgstr "Quitar de favoritos"
 
 #: interface.glade.h:11
 msgid ""
@@ -381,9 +379,8 @@ msgid "Recognition history"
 msgstr "Historial de reconocimiento"
 
 #: interface.glade.h:31
-#, fuzzy
 msgid "SongRec"
-msgstr "Nombre de la canción"
+msgstr "SongRec"
 
 #~ msgid "Note: Could not parse TSV output from"
 #~ msgstr "Nota: No se ha podido procesar la salida TSV de"
