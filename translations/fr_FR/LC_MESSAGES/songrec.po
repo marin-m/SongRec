@@ -261,7 +261,7 @@ msgid ""
 "Enable MPRIS (display playing song information in the GNOME control panel)"
 msgstr ""
 "Activer MPRIS (affiche des informations sur la chanson jouée dans le panneau "
-"de contrôle de GNOME"
+"de contrôle de GNOME)"
 
 #: interface.glade.h:3
 msgid "About"
