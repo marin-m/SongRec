@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-14 14:22+0100\n"
-"PO-Revision-Date: 2022-05-26 14:13+0200\n"
+"POT-Creation-Date: 2024-01-14 14:26+0100\n"
+"PO-Revision-Date: 2024-01-15 14:26+0100\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #: ../src/cli_main.rs:104
 msgid "Exiting: audio device not found"
@@ -237,22 +237,21 @@ msgid "Error when reading the song history on the disk:"
 msgstr "De nummergeschiedenis op de schijf kan niet worden uitgelezen:"
 
 #: ../src/gui/song_history_interface.rs:206
-#, fuzzy
 msgid "Error when reading the favorites on the disk:"
-msgstr "De nummergeschiedenis op de schijf kan niet worden uitgelezen:"
+msgstr "De favorieten op de schijf kunnen niet worden uitgelezen:"
 
 #: interface.glade.h:1
 msgid "Preferences"
-msgstr ""
+msgstr "Voorkeuren"
 
 #: interface.glade.h:2
 msgid ""
 "Enable MPRIS (display playing song information in the GNOME control panel)"
-msgstr ""
+msgstr "MPRIS inschakelen (nummerinformatie tonen op de GNOME-bovenbalk)"
 
 #: interface.glade.h:3
 msgid "About"
-msgstr ""
+msgstr "Over"
 
 #: interface.glade.h:4 favorites_interface.glade.h:5
 msgid "Copy artist and track"
@@ -276,22 +275,23 @@ msgstr "Opzoeken op YouTube"
 
 #: interface.glade.h:9
 msgid "Add to Favorites"
-msgstr ""
+msgstr "Toevoegen aan favorieten"
 
 #: interface.glade.h:10 favorites_interface.glade.h:10
-#, fuzzy
 msgid "Remove from Favorites"
-msgstr "Herkennen uit bestand"
+msgstr "Verwijderen uit favorieten"
 
 #: interface.glade.h:11
 msgid ""
 "Help translating https://github.com/marin-m/SongRec/tree/master/"
 "translations#readme"
 msgstr ""
+"Helpen met vertalen: https://github.com/marin-m/SongRec/tree/master/"
+"translations#readme"
 
 #: interface.glade.h:12
 msgid "About..."
-msgstr ""
+msgstr "Over…"
 
 #: interface.glade.h:13
 msgid "Recognize from file"
@@ -352,7 +352,7 @@ msgstr "Herkend op"
 
 #: interface.glade.h:27 favorites_interface.glade.h:4
 msgid "Favorites"
-msgstr ""
+msgstr "Favorieten"
 
 #: interface.glade.h:28
 msgid "Wipe history"
@@ -367,9 +367,8 @@ msgid "Recognition history"
 msgstr "Geschiedenis"
 
 #: interface.glade.h:31
-#, fuzzy
 msgid "SongRec"
-msgstr "Nummernaam"
+msgstr "SongRec"
 
 #~ msgid "Note: Could not parse TSV output from"
 #~ msgstr "Let op: geen verwerking mogelijk van de tsv-uitvoer van"
