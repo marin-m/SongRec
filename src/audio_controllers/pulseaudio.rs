@@ -36,9 +36,18 @@ impl PulseBackend {
 
         let applications = self.handler.list_applications().unwrap();
 
-        for app in applications.clone() {
-            if app.proplist.to_string().unwrap().to_lowercase().contains("songrec") {
-                return Some(app.index);
+        let criteria: Vec<String> = vec![
+            format!("process.id = \"{}\"", std::process::id()),
+            "alsa plug-in [songrec]".to_string(),
+            "songrec".to_string(),
+            format!("{}", std::process::id())
+        ];
+
+        for criterion in criteria {
+            for app in applications.clone() {
+                if app.proplist.to_string().unwrap().to_lowercase().contains(&criterion) {
+                    return Some(app.index);
+                }
             }
         }
         None
