@@ -1,3 +1,15 @@
+songrec (0.4.2) bionic; urgency=low
+
+  * Add a Catalan translation (thanks to @pgiuli in issue #23)
+  * Make the UI more clear so that it is visible that we are toggling the recognition from the speakers rather than the microphone when the monitor mode is on (see issue #149)
+  * Fix a bug that had certain strings to be mistakenly copied at the bad places in the internationalized versions of the application, due to the fuzzy mode of msgmerge/gettext
+  * Update the Dutch translation (thanks to @Vistaus in PR #150)
+  * Update compilation instructions in the README.md file
+  * Allow to compile the app with the libpulse and MPRIS module enabled on non-Linux UNIX systems such as BSD (see issue #152)
+  * Possibly improve the compatibility of the recognize-from-speakers feature
+
+ -- Marin <marin-m@users.noreply.github.com>  Mon, 22 Jan 2024 13:52:00 +0100
+
 songrec (0.4.1) bionic; urgency=low
 
   * Add a Korean translation (thanks to @MarongHappy in PR #146)

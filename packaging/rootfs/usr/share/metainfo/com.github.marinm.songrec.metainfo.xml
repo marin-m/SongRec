@@ -28,6 +28,17 @@ https://hughsie.github.io/oars/index.html
 -->
   <content_rating type="oars-1.0" />
   <releases>
+    <release version="0.4.2" date="2024-01-22">
+      <description>
+        <p>Add a Catalan translation (thanks to @pgiuli in issue #23)</p>
+        <p>Make the UI more clear so that it is visible that we are toggling the recognition from the speakers rather than the microphone when the monitor mode is on (see issue #149)</p>
+        <p>Fix a bug that had certain strings to be mistakenly copied at the bad places in the internationalized versions of the application, due to the fuzzy mode of msgmerge/gettext</p>
+        <p>Update the Dutch translation (thanks to @Vistaus in PR #150)</p>
+        <p>Update compilation instructions in the README.md file</p>
+        <p>Allow to compile the app with the libpulse and MPRIS module enabled on non-Linux UNIX systems such as BSD (see issue #152)</p>
+        <p>Possibly improve the compatibility of the recognize-from-speakers feature</p>
+      </description>
+    </release>
     <release version="0.4.1" date="2024-01-14">
       <description>
         <p>Add a Korean translation (thanks to @MarongHappy in PR #146)</p>

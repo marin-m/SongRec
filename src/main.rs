@@ -62,7 +62,7 @@ use clap::{App, Arg};
 macro_rules! base_app {
     () => {
     App::new("SongRec")
-        .version("0.4.1")
+        .version("0.4.2")
         .about(gettext("An open-source Shazam client for Linux, written in Rust.").as_str())
         .subcommand(
             App::new("listen")

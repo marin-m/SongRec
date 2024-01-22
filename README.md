@@ -133,16 +133,18 @@ This will compile and run the projet:
 
 ```bash
 # For the stable release:
-cargo install songrec
+cargo install songrec --no-default-features -F gui,ffmpeg,pulse,mpris
 songrec
 
 # For the Github tree:
-git clone git@github.com:marin-m/songrec.git
+git clone https://github.com/marin-m/songrec
 cd songrec
-cargo run --release
+cargo run --release --no-default-features -F gui,ffmpeg,pulse,mpris
 ```
 
 For the latter, you will then find the project's binary (that you will be able to move or execute directly) at `target/release/songrec`.
+
+Note: You may remove dependencies over GTK+, Pulseaudio/PipeWire's libpulse or DBus MPRIS through editing the `-F` flag passed to `cargo`.
 
 ## Sample usage
 
