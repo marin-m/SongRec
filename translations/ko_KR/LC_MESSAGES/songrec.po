@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-14 14:22+0100\n"
+"POT-Creation-Date: 2024-01-22 13:09+0100\n"
 "PO-Revision-Date: 2023-12-30 23:42+0900\n"
 "Last-Translator: 이정희 <daemul72@gmail.com>\n"
 "Language-Team: \n"
@@ -39,7 +39,7 @@ msgstr "경고: 네트워크에 연결할 수 없음"
 
 #: ../src/cli_main.rs:147 ../src/core/http_thread.rs:49
 #: ../src/core/http_thread.rs:54 ../src/core/http_thread.rs:63
-#: ../src/core/http_thread.rs:89 ../src/gui/main_window.rs:744
+#: ../src/core/http_thread.rs:89 ../src/gui/main_window.rs:763
 msgid "No match for this song"
 msgstr "이 노래와 일치하는 항목이 없습니다"
 
@@ -192,27 +192,47 @@ msgstr "Shazam 패킷을 인코딩할 때 잘못된 샘플 속도가 전달되�
 msgid "Application::new failed"
 msgstr "Application::새로 만들기 실패"
 
-#: ../src/gui/main_window.rs:465 ../src/gui/main_window.rs:728
+#: ../src/gui/main_window.rs:465 ../src/gui/main_window.rs:747
 msgid "Unable to enable MPRIS support"
 msgstr "MPRIS 지원을 활성화할 수 없습니다"
 
-#: ../src/gui/main_window.rs:542
+#: ../src/gui/main_window.rs:520 ../src/gui/main_window.rs:605
+#: ../src/gui/main_window.rs:818
+msgid "Turn on speakers recognition"
+msgstr ""
+
+#: ../src/gui/main_window.rs:521 ../src/gui/main_window.rs:606
+#: ../src/gui/main_window.rs:819
+msgid "Turn off speakers recognition"
+msgstr ""
+
+#: ../src/gui/main_window.rs:524 ../src/gui/main_window.rs:609
+#: ../src/gui/main_window.rs:822 interface.glade.h:14
+msgid "Turn on microphone recognition"
+msgstr "마이크 인식 켜기"
+
+#: ../src/gui/main_window.rs:525 ../src/gui/main_window.rs:610
+#: ../src/gui/main_window.rs:823 interface.glade.h:15
+msgid "Turn off microphone recognition"
+msgstr "마이크 인식 끄기"
+
+#: ../src/gui/main_window.rs:551
 msgid "Select a file to recognize"
 msgstr "인식할 파일을 선택합니다"
 
-#: ../src/gui/main_window.rs:545
+#: ../src/gui/main_window.rs:554
 msgid "_Open"
 msgstr "열기(_O)"
 
-#: ../src/gui/main_window.rs:546
+#: ../src/gui/main_window.rs:555
 msgid "_Cancel"
 msgstr "취소하기(_C)"
 
-#: ../src/gui/main_window.rs:554
+#: ../src/gui/main_window.rs:563
 msgid "Couldn't get filename"
 msgstr "파일 이름을 가져올 수 없습니다"
 
-#: ../src/gui/main_window.rs:837
+#: ../src/gui/main_window.rs:865
 msgid "Song recognized"
 msgstr "인식된 노래"
 
@@ -286,14 +306,6 @@ msgstr ""
 #: interface.glade.h:13
 msgid "Recognize from file"
 msgstr "파일에서 인식하기"
-
-#: interface.glade.h:14
-msgid "Turn on microphone recognition"
-msgstr "마이크 인식 켜기"
-
-#: interface.glade.h:15
-msgid "Turn off microphone recognition"
-msgstr "마이크 인식 끄기"
 
 #: interface.glade.h:16
 msgid "Enable notifications"

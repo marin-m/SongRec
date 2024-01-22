@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-14 14:22+0100\n"
+"POT-Creation-Date: 2024-01-22 13:09+0100\n"
 "PO-Revision-Date: 2021-08-23 21:02+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -40,7 +40,7 @@ msgstr ""
 
 #: ../src/cli_main.rs:147 ../src/core/http_thread.rs:49
 #: ../src/core/http_thread.rs:54 ../src/core/http_thread.rs:63
-#: ../src/core/http_thread.rs:89 ../src/gui/main_window.rs:744
+#: ../src/core/http_thread.rs:89 ../src/gui/main_window.rs:763
 msgid "No match for this song"
 msgstr "曲が認識されませんでした"
 
@@ -179,27 +179,47 @@ msgstr ""
 msgid "Application::new failed"
 msgstr ""
 
-#: ../src/gui/main_window.rs:465 ../src/gui/main_window.rs:728
+#: ../src/gui/main_window.rs:465 ../src/gui/main_window.rs:747
 msgid "Unable to enable MPRIS support"
 msgstr ""
 
-#: ../src/gui/main_window.rs:542
+#: ../src/gui/main_window.rs:520 ../src/gui/main_window.rs:605
+#: ../src/gui/main_window.rs:818
+msgid "Turn on speakers recognition"
+msgstr "音声の入力を有効化"
+
+#: ../src/gui/main_window.rs:521 ../src/gui/main_window.rs:606
+#: ../src/gui/main_window.rs:819
+msgid "Turn off speakers recognition"
+msgstr "音声の入力を無効化"
+
+#: ../src/gui/main_window.rs:524 ../src/gui/main_window.rs:609
+#: ../src/gui/main_window.rs:822 interface.glade.h:14
+msgid "Turn on microphone recognition"
+msgstr "音声の入力を有効化"
+
+#: ../src/gui/main_window.rs:525 ../src/gui/main_window.rs:610
+#: ../src/gui/main_window.rs:823 interface.glade.h:15
+msgid "Turn off microphone recognition"
+msgstr "音声の入力を無効化"
+
+#: ../src/gui/main_window.rs:551
 msgid "Select a file to recognize"
 msgstr "認識するファイルを選択"
 
-#: ../src/gui/main_window.rs:545
+#: ../src/gui/main_window.rs:554
 msgid "_Open"
 msgstr "_開く"
 
-#: ../src/gui/main_window.rs:546
+#: ../src/gui/main_window.rs:555
 msgid "_Cancel"
 msgstr "_キャンセル"
 
-#: ../src/gui/main_window.rs:554
+#: ../src/gui/main_window.rs:563
 msgid "Couldn't get filename"
 msgstr "ファイル名を取得できませんでした"
 
-#: ../src/gui/main_window.rs:837
+#: ../src/gui/main_window.rs:865
 msgid "Song recognized"
 msgstr "曲が認識されました"
 
@@ -273,14 +293,6 @@ msgstr ""
 #: interface.glade.h:13
 msgid "Recognize from file"
 msgstr "ファイルから認識"
-
-#: interface.glade.h:14
-msgid "Turn on microphone recognition"
-msgstr "音声の入力を有効化"
-
-#: interface.glade.h:15
-msgid "Turn off microphone recognition"
-msgstr "音声の入力を無効化"
 
 #: interface.glade.h:16
 msgid "Enable notifications"

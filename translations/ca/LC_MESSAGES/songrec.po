@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-15 22:55+0100\n"
+"POT-Creation-Date: 2024-01-22 13:09+0100\n"
 "PO-Revision-Date: 2024-01-21 20:01+0100\n"
 "Last-Translator: Pau Giuli <pau@giuli.cat>\n"
 "Language-Team: \n"
@@ -40,7 +40,7 @@ msgstr "Avís: Xarxa no connectada"
 
 #: ../src/cli_main.rs:147 ../src/core/http_thread.rs:49
 #: ../src/core/http_thread.rs:54 ../src/core/http_thread.rs:63
-#: ../src/core/http_thread.rs:89 ../src/gui/main_window.rs:744
+#: ../src/core/http_thread.rs:89 ../src/gui/main_window.rs:763
 msgid "No match for this song"
 msgstr "No hi ha coincidències per aquesta cançó"
 
@@ -61,8 +61,8 @@ msgid ""
 "Run as a command-line program listening the microphone and printing "
 "recognized songs to stdout, exposing current song info via MPRIS"
 msgstr ""
-"Executar com a programa de terminal enregistrant el micròfon i retornant "
-"les cançons reconegudes a stdout, mostrant la cançó actual per MPRIS"
+"Executar com a programa de terminal enregistrant el micròfon i retornant les "
+"cançons reconegudes a stdout, mostrant la cançó actual per MPRIS"
 
 #: ../src/main.rs:75 ../src/main.rs:104 ../src/main.rs:142
 msgid "Specify the audio device to use"
@@ -83,8 +83,7 @@ msgstr "Desactivar suport per a MPRIS"
 #: ../src/main.rs:98
 msgid "Recognize one song from a sound file or microphone and print its info."
 msgstr ""
-"Reconèixer una cançó des d'un arxiu de so o micròfon i mostrar la "
-"informació."
+"Reconèixer una cançó des d'un arxiu de so o micròfon i mostrar la informació."
 
 #: ../src/main.rs:122
 msgid "Recognize a file instead of using mic input"
@@ -117,8 +116,8 @@ msgid ""
 "Generate a Shazam fingerprint from a sound file, and print it to the "
 "standard output."
 msgstr ""
-"Genereu una empremta digital de Shazam a partir d'un fitxer de so i "
-"retornar-la a la sortida estàndard."
+"Genereu una empremta digital de Shazam a partir d'un fitxer de so i retornar-"
+"la a la sortida estàndard."
 
 #: ../src/main.rs:151
 msgid "The .WAV or .MP3 file to generate an audio fingerprint for."
@@ -202,27 +201,47 @@ msgstr "Freqüència de mostreig invàlida en codificar el paquet Shazam"
 msgid "Application::new failed"
 msgstr "Application::new ha fallat inesperadament"
 
-#: ../src/gui/main_window.rs:465 ../src/gui/main_window.rs:728
+#: ../src/gui/main_window.rs:465 ../src/gui/main_window.rs:747
 msgid "Unable to enable MPRIS support"
 msgstr "No s'ha pogut activar el suport per MPRIS"
 
-#: ../src/gui/main_window.rs:542
+#: ../src/gui/main_window.rs:520 ../src/gui/main_window.rs:605
+#: ../src/gui/main_window.rs:818
+msgid "Turn on speakers recognition"
+msgstr "Activar reconeixement de altaveus"
+
+#: ../src/gui/main_window.rs:521 ../src/gui/main_window.rs:606
+#: ../src/gui/main_window.rs:819
+msgid "Turn off speakers recognition"
+msgstr "Desactivar reconeixement de altaveus"
+
+#: ../src/gui/main_window.rs:524 ../src/gui/main_window.rs:609
+#: ../src/gui/main_window.rs:822 interface.glade.h:14
+msgid "Turn on microphone recognition"
+msgstr "Activar reconeixement de micròfon"
+
+#: ../src/gui/main_window.rs:525 ../src/gui/main_window.rs:610
+#: ../src/gui/main_window.rs:823 interface.glade.h:15
+msgid "Turn off microphone recognition"
+msgstr "Desactivar reconeixement de micròfon"
+
+#: ../src/gui/main_window.rs:551
 msgid "Select a file to recognize"
 msgstr "Escull un arxiu a reconèixer"
 
-#: ../src/gui/main_window.rs:545
+#: ../src/gui/main_window.rs:554
 msgid "_Open"
 msgstr "_Obrir"
 
-#: ../src/gui/main_window.rs:546
+#: ../src/gui/main_window.rs:555
 msgid "_Cancel"
 msgstr "_Cancel·lar"
 
-#: ../src/gui/main_window.rs:554
+#: ../src/gui/main_window.rs:563
 msgid "Couldn't get filename"
 msgstr "No s'ha trobat el nom d'arxiu"
 
-#: ../src/gui/main_window.rs:837
+#: ../src/gui/main_window.rs:865
 msgid "Song recognized"
 msgstr "Cançó reconeguda"
 
@@ -250,8 +269,8 @@ msgstr "Ajustaments"
 msgid ""
 "Enable MPRIS (display playing song information in the GNOME control panel)"
 msgstr ""
-"Activar MPRIS (mostrar informació de la cançó actual al panell de control "
-"de GNOME)"
+"Activar MPRIS (mostrar informació de la cançó actual al panell de control de "
+"GNOME)"
 
 #: interface.glade.h:3
 msgid "About"
@@ -300,14 +319,6 @@ msgstr "Quant a..."
 #: interface.glade.h:13
 msgid "Recognize from file"
 msgstr "Reconèixer des d'arxiu"
-
-#: interface.glade.h:14
-msgid "Turn on microphone recognition"
-msgstr "Activar reconeixement de micròfon"
-
-#: interface.glade.h:15
-msgid "Turn off microphone recognition"
-msgstr "Desactivar reconeixement de micròfon"
 
 #: interface.glade.h:16
 msgid "Enable notifications"

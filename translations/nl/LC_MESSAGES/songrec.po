@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-14 14:26+0100\n"
+"POT-Creation-Date: 2024-01-22 13:09+0100\n"
 "PO-Revision-Date: 2024-01-15 14:26+0100\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: \n"
@@ -40,7 +40,7 @@ msgstr "Waarschuwing: geen internetverbinding"
 
 #: ../src/cli_main.rs:147 ../src/core/http_thread.rs:49
 #: ../src/core/http_thread.rs:54 ../src/core/http_thread.rs:63
-#: ../src/core/http_thread.rs:89 ../src/gui/main_window.rs:744
+#: ../src/core/http_thread.rs:89 ../src/gui/main_window.rs:763
 msgid "No match for this song"
 msgstr "Er is geen overeenkomst gevonden"
 
@@ -200,27 +200,47 @@ msgstr ""
 msgid "Application::new failed"
 msgstr "Application::new is mislukt"
 
-#: ../src/gui/main_window.rs:465 ../src/gui/main_window.rs:728
+#: ../src/gui/main_window.rs:465 ../src/gui/main_window.rs:747
 msgid "Unable to enable MPRIS support"
 msgstr "De MPRIS-ondersteuning kan niet worden ingeschakeld"
 
-#: ../src/gui/main_window.rs:542
+#: ../src/gui/main_window.rs:520 ../src/gui/main_window.rs:605
+#: ../src/gui/main_window.rs:818
+msgid "Turn on speakers recognition"
+msgstr "Microfoonherkenning aanzetten"
+
+#: ../src/gui/main_window.rs:521 ../src/gui/main_window.rs:606
+#: ../src/gui/main_window.rs:819
+msgid "Turn off speakers recognition"
+msgstr "Microfoonherkenning uitzetten"
+
+#: ../src/gui/main_window.rs:524 ../src/gui/main_window.rs:609
+#: ../src/gui/main_window.rs:822 interface.glade.h:14
+msgid "Turn on microphone recognition"
+msgstr "Microfoonherkenning aanzetten"
+
+#: ../src/gui/main_window.rs:525 ../src/gui/main_window.rs:610
+#: ../src/gui/main_window.rs:823 interface.glade.h:15
+msgid "Turn off microphone recognition"
+msgstr "Microfoonherkenning uitzetten"
+
+#: ../src/gui/main_window.rs:551
 msgid "Select a file to recognize"
 msgstr "Kies een te herkennen bestand"
 
-#: ../src/gui/main_window.rs:545
+#: ../src/gui/main_window.rs:554
 msgid "_Open"
 msgstr "_Openen"
 
-#: ../src/gui/main_window.rs:546
+#: ../src/gui/main_window.rs:555
 msgid "_Cancel"
 msgstr "_Annuleren"
 
-#: ../src/gui/main_window.rs:554
+#: ../src/gui/main_window.rs:563
 msgid "Couldn't get filename"
 msgstr "De bestandsnaam kan niet worden bepaald"
 
-#: ../src/gui/main_window.rs:837
+#: ../src/gui/main_window.rs:865
 msgid "Song recognized"
 msgstr "Het nummer is herkend"
 
@@ -296,14 +316,6 @@ msgstr "Over…"
 #: interface.glade.h:13
 msgid "Recognize from file"
 msgstr "Herkennen uit bestand"
-
-#: interface.glade.h:14
-msgid "Turn on microphone recognition"
-msgstr "Microfoonherkenning aanzetten"
-
-#: interface.glade.h:15
-msgid "Turn off microphone recognition"
-msgstr "Microfoonherkenning uitzetten"
 
 #: interface.glade.h:16
 msgid "Enable notifications"

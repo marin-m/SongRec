@@ -498,7 +498,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
         let current_volume_hbox: gtk::Box = main_builder.get_object("current_volume_hbox").unwrap();
         let current_volume_bar: gtk::ProgressBar = main_builder.get_object("current_volume_bar").unwrap();
         
-        combo_box.connect_changed(clone!(@strong microphone_stop_button, @strong combo_box,
+        combo_box.connect_changed(clone!(@strong microphone_button, @strong microphone_stop_button, @strong combo_box,
             @strong combo_box_model, @strong recognize_from_my_speakers_checkbox, @strong gui_tx => move |_| {
             
             if let Some(active_item) = combo_box.get_active_iter() {
@@ -515,6 +515,15 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
                 // Sync the monitor check box
                 if recognize_from_my_speakers_checkbox.is_visible() {
                     recognize_from_my_speakers_checkbox.set_active(is_monitor);
+
+                    if is_monitor {
+                        microphone_button.set_label(gettext("Turn on speakers recognition").as_str());
+                        microphone_stop_button.set_label(gettext("Turn off speakers recognition").as_str());
+                    }
+                    else {
+                        microphone_button.set_label(gettext("Turn on microphone recognition").as_str());
+                        microphone_stop_button.set_label(gettext("Turn off microphone recognition").as_str());
+                    }
                 }
 
                 if microphone_stop_button.is_visible() {
@@ -586,10 +595,20 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
         }));
         
         recognize_from_my_speakers_checkbox.connect_toggled(clone!(@strong recognize_from_my_speakers_checkbox,
+                @strong microphone_button, @strong microphone_stop_button,
                 @strong combo_box_model, @strong combo_box => move |_| {
 
             if let Some(active_item) = combo_box.get_active_iter() {
                 let is_currently_monitor: bool = combo_box_model.get_value(&active_item, 2).get().unwrap().unwrap();
+
+                if is_currently_monitor {
+                    microphone_button.set_label(gettext("Turn on speakers recognition").as_str());
+                    microphone_stop_button.set_label(gettext("Turn off speakers recognition").as_str());
+                }
+                else {
+                    microphone_button.set_label(gettext("Turn on microphone recognition").as_str());
+                    microphone_stop_button.set_label(gettext("Turn off microphone recognition").as_str());
+                }
 
                 if is_currently_monitor != recognize_from_my_speakers_checkbox.get_active() {
 
@@ -794,6 +813,15 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
                         recognize_from_my_speakers_checkbox.set_active(
                             devices[old_device_index as usize].is_monitor
                         );
+
+                        if devices[old_device_index as usize].is_monitor {
+                            microphone_button.set_label(gettext("Turn on speakers recognition").as_str());
+                            microphone_stop_button.set_label(gettext("Turn off speakers recognition").as_str());
+                        }
+                        else {
+                            microphone_button.set_label(gettext("Turn on microphone recognition").as_str());
+                            microphone_stop_button.set_label(gettext("Turn off microphone recognition").as_str());
+                        }
                     }
                     else {
                         recognize_from_my_speakers_checkbox.hide();

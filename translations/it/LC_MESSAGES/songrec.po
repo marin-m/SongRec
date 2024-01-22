@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-14 14:22+0100\n"
+"POT-Creation-Date: 2024-01-22 13:09+0100\n"
 "PO-Revision-Date: 2023-09-08 16:03+0200\n"
 "Last-Translator: Gianluca Boiano <morf3089@gmail.com>\n"
 "Language-Team: Albano Battistella  <albano_battistella@hotmail.com>\n"
@@ -42,7 +42,7 @@ msgstr "Avviso: rete irraggiungibile"
 
 #: ../src/cli_main.rs:147 ../src/core/http_thread.rs:49
 #: ../src/core/http_thread.rs:54 ../src/core/http_thread.rs:63
-#: ../src/core/http_thread.rs:89 ../src/gui/main_window.rs:744
+#: ../src/core/http_thread.rs:89 ../src/gui/main_window.rs:763
 msgid "No match for this song"
 msgstr "Nessuna corrispondenza per questo brano"
 
@@ -208,27 +208,47 @@ msgstr ""
 msgid "Application::new failed"
 msgstr "Application::new fallita"
 
-#: ../src/gui/main_window.rs:465 ../src/gui/main_window.rs:728
+#: ../src/gui/main_window.rs:465 ../src/gui/main_window.rs:747
 msgid "Unable to enable MPRIS support"
 msgstr "Impossibile abilitare il supporto MPRIS"
 
-#: ../src/gui/main_window.rs:542
+#: ../src/gui/main_window.rs:520 ../src/gui/main_window.rs:605
+#: ../src/gui/main_window.rs:818
+msgid "Turn on speakers recognition"
+msgstr "Attiva microfono"
+
+#: ../src/gui/main_window.rs:521 ../src/gui/main_window.rs:606
+#: ../src/gui/main_window.rs:819
+msgid "Turn off speakers recognition"
+msgstr "Disattiva microfono"
+
+#: ../src/gui/main_window.rs:524 ../src/gui/main_window.rs:609
+#: ../src/gui/main_window.rs:822 interface.glade.h:14
+msgid "Turn on microphone recognition"
+msgstr "Attiva microfono"
+
+#: ../src/gui/main_window.rs:525 ../src/gui/main_window.rs:610
+#: ../src/gui/main_window.rs:823 interface.glade.h:15
+msgid "Turn off microphone recognition"
+msgstr "Disattiva microfono"
+
+#: ../src/gui/main_window.rs:551
 msgid "Select a file to recognize"
 msgstr "Seleziona un file da riconoscere"
 
-#: ../src/gui/main_window.rs:545
+#: ../src/gui/main_window.rs:554
 msgid "_Open"
 msgstr "_Apri"
 
-#: ../src/gui/main_window.rs:546
+#: ../src/gui/main_window.rs:555
 msgid "_Cancel"
 msgstr "A_nnulla"
 
-#: ../src/gui/main_window.rs:554
+#: ../src/gui/main_window.rs:563
 msgid "Couldn't get filename"
 msgstr "Impossibile ottenere il nome del file"
 
-#: ../src/gui/main_window.rs:837
+#: ../src/gui/main_window.rs:865
 msgid "Song recognized"
 msgstr "Brano riconosciuto"
 
@@ -302,14 +322,6 @@ msgstr ""
 #: interface.glade.h:13
 msgid "Recognize from file"
 msgstr "Riconosci da file"
-
-#: interface.glade.h:14
-msgid "Turn on microphone recognition"
-msgstr "Attiva microfono"
-
-#: interface.glade.h:15
-msgid "Turn off microphone recognition"
-msgstr "Disattiva microfono"
 
 #: interface.glade.h:16
 msgid "Enable notifications"

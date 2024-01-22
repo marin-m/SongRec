@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Songrec\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-14 14:22+0100\n"
+"POT-Creation-Date: 2024-01-22 13:09+0100\n"
 "PO-Revision-Date: 2022-07-24 13:29+0200\n"
 "Last-Translator: Ismael Ferreras Morezuelas <swyterzone+songrec@gmail.com>\n"
 "Language-Team: Swyter <swyterzone@gmail.com>\n"
@@ -40,7 +40,7 @@ msgstr "Advertencia: No parece haber conexión a Internet"
 
 #: ../src/cli_main.rs:147 ../src/core/http_thread.rs:49
 #: ../src/core/http_thread.rs:54 ../src/core/http_thread.rs:63
-#: ../src/core/http_thread.rs:89 ../src/gui/main_window.rs:744
+#: ../src/core/http_thread.rs:89 ../src/gui/main_window.rs:763
 msgid "No match for this song"
 msgstr "No se ha podido detectar la canción"
 
@@ -215,27 +215,47 @@ msgstr ""
 msgid "Application::new failed"
 msgstr "Parece que «Application::new» ha fallado"
 
-#: ../src/gui/main_window.rs:465 ../src/gui/main_window.rs:728
+#: ../src/gui/main_window.rs:465 ../src/gui/main_window.rs:747
 msgid "Unable to enable MPRIS support"
 msgstr "No se ha podido activar la funcionalidad MPRIS"
 
-#: ../src/gui/main_window.rs:542
+#: ../src/gui/main_window.rs:520 ../src/gui/main_window.rs:605
+#: ../src/gui/main_window.rs:818
+msgid "Turn on speakers recognition"
+msgstr "Activar reconocimiento por altavoces"
+
+#: ../src/gui/main_window.rs:521 ../src/gui/main_window.rs:606
+#: ../src/gui/main_window.rs:819
+msgid "Turn off speakers recognition"
+msgstr "Desactivar reconocimiento por altavoces"
+
+#: ../src/gui/main_window.rs:524 ../src/gui/main_window.rs:609
+#: ../src/gui/main_window.rs:822 interface.glade.h:14
+msgid "Turn on microphone recognition"
+msgstr "Activar reconocimiento por micrófono"
+
+#: ../src/gui/main_window.rs:525 ../src/gui/main_window.rs:610
+#: ../src/gui/main_window.rs:823 interface.glade.h:15
+msgid "Turn off microphone recognition"
+msgstr "Desactivar reconocimiento por micrófono"
+
+#: ../src/gui/main_window.rs:551
 msgid "Select a file to recognize"
 msgstr "Elige el archivo que quieres reconocer"
 
-#: ../src/gui/main_window.rs:545
+#: ../src/gui/main_window.rs:554
 msgid "_Open"
 msgstr "_Abrir"
 
-#: ../src/gui/main_window.rs:546
+#: ../src/gui/main_window.rs:555
 msgid "_Cancel"
 msgstr "_Cancelar"
 
-#: ../src/gui/main_window.rs:554
+#: ../src/gui/main_window.rs:563
 msgid "Couldn't get filename"
 msgstr "No se pudo obtener el nombre del archivo"
 
-#: ../src/gui/main_window.rs:837
+#: ../src/gui/main_window.rs:865
 msgid "Song recognized"
 msgstr "Canción encontrada"
 
@@ -309,14 +329,6 @@ msgstr ""
 #: interface.glade.h:13
 msgid "Recognize from file"
 msgstr "Reconocer a partir de un archivo"
-
-#: interface.glade.h:14
-msgid "Turn on microphone recognition"
-msgstr "Activar reconocimiento por micrófono"
-
-#: interface.glade.h:15
-msgid "Turn off microphone recognition"
-msgstr "Desactivar reconocimiento por micrófono"
 
 #: interface.glade.h:16
 msgid "Enable notifications"
