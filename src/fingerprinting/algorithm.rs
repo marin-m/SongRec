@@ -262,7 +262,7 @@ impl SignatureGenerator {
                         // which avoids a double search of the key in the hash map.
                         self.signature.frequency_band_to_sound_peaks
                             .entry(frequency_band)
-                            .or_insert_with(Vec::new);
+                            .or_default();
 
                         self.signature.frequency_band_to_sound_peaks.get_mut(&frequency_band).unwrap().push(
                             FrequencyPeak {
