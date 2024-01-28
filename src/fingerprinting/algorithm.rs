@@ -121,7 +121,7 @@ impl SignatureGenerator {
 
         // Reorder the items (put the latest data at end) and apply Hanning window
 
-        for index in 0..=2047 {
+        for (index, _) in HANNING_WINDOW_2048_MULTIPLIERS.iter().enumerate() {
             self.reordered_ring_buffer_of_samples[index] =
                 self.ring_buffer_of_samples[(index + self.ring_buffer_of_samples_index) & 2047] as f32 *
                     HANNING_WINDOW_2048_MULTIPLIERS[index];
@@ -256,15 +256,19 @@ impl SignatureGenerator {
                             _ => { continue; }
                         };
 
-                        if !self.signature.frequency_band_to_sound_peaks.contains_key(&frequency_band) {
-                            self.signature.frequency_band_to_sound_peaks.insert(frequency_band, vec![]);
-                        }
+                        // In Rust, the entry method returns an Entry object,
+                        // which represents a cell in a HashMap that is either occupied or vacant.
+                        // You can use or_default to insert a value if the key is missing,
+                        // which avoids a double search of the key in the hash map.
+                        self.signature.frequency_band_to_sound_peaks
+                            .entry(frequency_band)
+                            .or_insert_with(Vec::new);
 
                         self.signature.frequency_band_to_sound_peaks.get_mut(&frequency_band).unwrap().push(
                             FrequencyPeak {
-                                fft_pass_number: fft_pass_number,
+                                fft_pass_number,
                                 peak_magnitude: peak_magnitude as u16,
-                                corrected_peak_frequency_bin: corrected_peak_frequency_bin,
+                                corrected_peak_frequency_bin,
                                 sample_rate_hz: 16000,
                             }
                         );
