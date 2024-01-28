@@ -269,7 +269,7 @@ impl SongRecordInterface for FavoritesInterface {
 }
 
 impl FavoritesInterface {
-    pub fn get_is_favorite(self: &Self) -> &HashSet<Song> {
+    pub fn get_is_favorite(&self) -> &HashSet<Song> {
         &self.is_favorite
     }
 }

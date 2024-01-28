@@ -110,7 +110,7 @@ impl SignatureGenerator {
         this.signature
     }
 
-    fn do_fft(self: &mut Self, s16_mono_16khz_buffer: &[i16]) {
+    fn do_fft(&mut self, s16_mono_16khz_buffer: &[i16]) {
 
         // Copy the 128 input s16le samples to the local ring buffer
 
@@ -150,7 +150,7 @@ impl SignatureGenerator {
         self.fft_outputs_index &= 255;
     }
 
-    fn do_peak_spreading(self: &mut Self) {
+    fn do_peak_spreading(&mut self) {
         let real_fft_results = &self.fft_outputs[((self.fft_outputs_index as i32 - 1) & 255) as usize];
 
         let spread_fft_results = &mut self.spread_fft_outputs[self.spread_fft_outputs_index];
@@ -182,7 +182,7 @@ impl SignatureGenerator {
         self.spread_fft_outputs_index &= 255;
     }
 
-    fn do_peak_recognition(self: &mut Self) {
+    fn do_peak_recognition(&mut self) {
 
         // Note: when substracting an array index, casting to signed is needed
         // to avoid underflow panics at runtime.
