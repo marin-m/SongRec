@@ -21,7 +21,7 @@ impl FrequencyPeak {
     /// rate, 1024 useful bins and the multiplication by 64 made before
     /// storing the information
     
-    pub fn get_frequency_hz(self: &Self) -> f32 {
+    pub fn get_frequency_hz(&self) -> f32 {
         
         self.corrected_peak_frequency_bin as f32 * (self.sample_rate_hz as f32 / 2.0 / 1024.0 / 64.0)
         
@@ -29,7 +29,7 @@ impl FrequencyPeak {
     
     /// Not sure about this calculation but gives small enough numbers
     
-    pub fn get_amplitude_pcm(self: &Self) -> f32 {
+    pub fn get_amplitude_pcm(&self) -> f32 {
         
         (((self.peak_magnitude as f32 - 6144.0) / 1477.3).exp() * ((1 << 17) as f32) / 2.0).sqrt() / 1024.0
         
@@ -38,7 +38,7 @@ impl FrequencyPeak {
     /// Assume that new FFT bins are emitted every 128 samples, on a
     /// standard 16 KHz sample rate basis.
     
-    pub fn get_seconds(self: &Self) -> f32 {
+    pub fn get_seconds(&self) -> f32 {
         
         (self.fft_pass_number as f32 * 128.0) / self.sample_rate_hz as f32
         
@@ -174,13 +174,13 @@ impl DecodedSignature {
                         if !frequency_band_to_sound_peaks.contains_key(&frequency_band) {
                             frequency_band_to_sound_peaks.insert(frequency_band, vec![]);
                         }
-                                                
+
                         frequency_band_to_sound_peaks.get_mut(&frequency_band).unwrap().push(
                             FrequencyPeak {
-                                fft_pass_number: fft_pass_number,
+                                fft_pass_number,
                                 peak_magnitude: frequency_peaks_cursor.read_u16::<LittleEndian>()?,
                                 corrected_peak_frequency_bin: frequency_peaks_cursor.read_u16::<LittleEndian>()?,
-                                sample_rate_hz: sample_rate_hz
+                                sample_rate_hz
                             }
                         );
                     }
@@ -210,7 +210,7 @@ impl DecodedSignature {
         
     }
     
-    pub fn encode_to_binary(self: &Self) -> Result<Vec<u8>, Box<dyn Error>> {
+    pub fn encode_to_binary(&self) -> Result<Vec<u8>, Box<dyn Error>> {
         
         let mut cursor = Cursor::new(vec![]);
         
@@ -242,7 +242,7 @@ impl DecodedSignature {
         cursor.write_u32::<LittleEndian>(0)?; // size_minus_header - Will write later
         
         let mut sorted_iterator: Vec<_> = self.frequency_band_to_sound_peaks.iter().collect();
-        sorted_iterator.sort_by(|x,y| x.0.cmp(&y.0));
+        sorted_iterator.sort_by(|x, y| x.0.cmp(y.0));
         
         for (frequency_band, frequency_peaks) in sorted_iterator {
             
@@ -275,7 +275,7 @@ impl DecodedSignature {
             
             cursor.write_u32::<LittleEndian>(0x60030040 + *frequency_band as u32)?;
             cursor.write_u32::<LittleEndian>(peaks_buffer.len() as u32)?;
-            cursor.write(&peaks_buffer)?;
+            cursor.write_all(&peaks_buffer)?;
             for _padding_index in 0..((4 - peaks_buffer.len() as u32 % 4) % 4) {
                 cursor.write_u8(0)?;
             }
@@ -298,13 +298,13 @@ impl DecodedSignature {
         Ok(cursor.into_inner())
     }
     
-    pub fn encode_to_uri(self: &Self) -> Result<String, Box<dyn Error>> {
+    pub fn encode_to_uri(&self) -> Result<String, Box<dyn Error>> {
         
         Ok(format!("{}{}", DATA_URI_PREFIX, base64::encode(self.encode_to_binary()?)))
         
     }
     
-    pub fn to_lure(self: &Self) -> Result<Vec<i16>, Box<dyn Error>> {
+    pub fn to_lure(&self) -> Result<Vec<i16>, Box<dyn Error>> {
         
         let mut buffer: Vec<i16> = [0].repeat((self.number_samples as f32 / self.sample_rate_hz as f32 * 16000.0) as usize);
         

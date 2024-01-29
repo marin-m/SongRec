@@ -119,7 +119,7 @@ impl SignatureGenerator {
         this.signature
     }
 
-    fn do_fft(self: &mut Self, s16_mono_16khz_buffer: &[i16]) {
+    fn do_fft(&mut self, s16_mono_16khz_buffer: &[i16]) {
 
         // Copy the 128 input s16le samples to the local ring buffer
 
@@ -130,10 +130,10 @@ impl SignatureGenerator {
 
         // Reorder the items (put the latest data at end) and apply Hanning window
 
-        for index in 0..=2047 {
+        for (index, multiplier) in HANNING_WINDOW_2048_MULTIPLIERS.iter().enumerate() {
             self.reordered_ring_buffer_of_samples[index] =
                 self.ring_buffer_of_samples[(index + self.ring_buffer_of_samples_index) & 2047] as f32 *
-                    HANNING_WINDOW_2048_MULTIPLIERS[index];
+                    multiplier;
         }
 
         // Perform Fast Fourier transform
@@ -159,7 +159,7 @@ impl SignatureGenerator {
         self.fft_outputs_index &= 255;
     }
 
-    fn do_peak_spreading(self: &mut Self) {
+    fn do_peak_spreading(&mut self) {
         let real_fft_results = &self.fft_outputs[((self.fft_outputs_index as i32 - 1) & 255) as usize];
 
         let spread_fft_results = &mut self.spread_fft_outputs[self.spread_fft_outputs_index];
@@ -191,7 +191,7 @@ impl SignatureGenerator {
         self.spread_fft_outputs_index &= 255;
     }
 
-    fn do_peak_recognition(self: &mut Self) {
+    fn do_peak_recognition(&mut self) {
 
         // Note: when substracting an array index, casting to signed is needed
         // to avoid underflow panics at runtime.
@@ -265,15 +265,19 @@ impl SignatureGenerator {
                             _ => { continue; }
                         };
 
-                        if !self.signature.frequency_band_to_sound_peaks.contains_key(&frequency_band) {
-                            self.signature.frequency_band_to_sound_peaks.insert(frequency_band, vec![]);
-                        }
+                        // In Rust, the entry method returns an Entry object,
+                        // which represents a cell in a HashMap that is either occupied or vacant.
+                        // You can use or_default to insert a value if the key is missing,
+                        // which avoids a double search of the key in the hash map.
+                        self.signature.frequency_band_to_sound_peaks
+                            .entry(frequency_band)
+                            .or_default();
 
                         self.signature.frequency_band_to_sound_peaks.get_mut(&frequency_band).unwrap().push(
                             FrequencyPeak {
-                                fft_pass_number: fft_pass_number,
+                                fft_pass_number,
                                 peak_magnitude: peak_magnitude as u16,
-                                corrected_peak_frequency_bin: corrected_peak_frequency_bin,
+                                corrected_peak_frequency_bin,
                                 sample_rate_hz: 16000,
                             }
                         );

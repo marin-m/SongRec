@@ -35,11 +35,11 @@ pub struct Song {
 }
 
 pub trait IsSong {
-    fn get_song(self: Self) -> Song;
+    fn get_song(self) -> Song;
 }
 
 impl IsSong for SongHistoryRecord {
-    fn get_song(self: Self) -> Song {
+    fn get_song(self) -> Song {
         return Song {
             song_name: self.song_name,
             album: self.album,
