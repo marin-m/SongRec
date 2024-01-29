@@ -36,7 +36,7 @@ for version in bionic focal jammy lunar mantic noble; do
     
     sed -ri "s/\) bionic/${version}) ${version}/g" debian/changelog
 
-    debuild -S -sa -k7BD68AA06BBE1BB41DB4D98E007F79B1496791FA
+    debuild --no-lintian -S -sa -k7BD68AA06BBE1BB41DB4D98E007F79B1496791FA
 
     rm -f /tmp/songrec*
 
