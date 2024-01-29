@@ -121,10 +121,10 @@ impl SignatureGenerator {
 
         // Reorder the items (put the latest data at end) and apply Hanning window
 
-        for (index, _) in HANNING_WINDOW_2048_MULTIPLIERS.iter().enumerate() {
+        for (index, multiplier) in HANNING_WINDOW_2048_MULTIPLIERS.iter().enumerate() {
             self.reordered_ring_buffer_of_samples[index] =
                 self.ring_buffer_of_samples[(index + self.ring_buffer_of_samples_index) & 2047] as f32 *
-                    HANNING_WINDOW_2048_MULTIPLIERS[index];
+                    multiplier;
         }
 
         // Perform Fast Fourier transform
