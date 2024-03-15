@@ -3,6 +3,7 @@ use crate::fingerprinting::signature_format::DecodedSignature;
 use crate::gui::preferences::Preferences;
 #[cfg(feature = "gui")]
 use crate::utils::csv_song_history::SongHistoryRecord;
+use crate::fingerprinting::lyrics::LyricSearchInfo;
 
 use std::thread;
 
@@ -59,6 +60,7 @@ pub enum GUIMessage {
     MicrophoneRecording,
     MicrophoneVolumePercent(f32),
     SongRecognized(Box<SongRecognizedMessage>),
+    LyricsRecognized(String),
 }
 
 pub enum MicrophoneMessage {
@@ -74,4 +76,5 @@ pub enum ProcessingMessage {
 
 pub enum HTTPMessage {
     RecognizeSignature(Box<DecodedSignature>),
+    FetchLyrics(LyricSearchInfo),
 }

@@ -527,7 +527,6 @@ Contributors https://github.com/marin-m/SongRec/graphs/contributors</property>
                                         <property name="visible">True</property>
                                         <property name="can-focus">True</property>
                                         <property name="hscrollbar-policy">external</property>
-                                        <property name="vscrollbar-policy">external</property>
                                         <property name="min-content-width">100</property>
                                         <property name="min-content-height">100</property>
                                         <child>
@@ -535,8 +534,34 @@ Contributors https://github.com/marin-m/SongRec/graphs/contributors</property>
                                             <property name="visible">True</property>
                                             <property name="can-focus">False</property>
                                             <child>
-                                              <object class="GtkImage" id="recognized_song_cover">
+                                              <object class="GtkBox">
+                                                <property name="visible">True</property>
                                                 <property name="can-focus">False</property>
+                                                <property name="orientation">vertical</property>
+                                                <child>
+                                                  <object class="GtkImage" id="recognized_song_cover">
+                                                    <property name="can-focus">False</property>
+                                                  </object>
+                                                  <packing>
+                                                    <property name="expand">False</property>
+                                                    <property name="fill">True</property>
+                                                    <property name="position">0</property>
+                                                  </packing>
+                                                </child>
+                                                <child>
+                                                  <object class="GtkLabel" id="recognized_song_lyrics">
+                                                    <property name="visible">True</property>
+                                                    <property name="can-focus">False</property>
+                                                    <property name="ypad">20</property>
+                                                    <property name="wrap">True</property>
+                                                    <property name="selectable">True</property>
+                                                  </object>
+                                                  <packing>
+                                                    <property name="expand">False</property>
+                                                    <property name="fill">True</property>
+                                                    <property name="position">1</property>
+                                                  </packing>
+                                                </child>
                                               </object>
                                             </child>
                                           </object>
