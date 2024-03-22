@@ -3,11 +3,10 @@ use reqwest::header::HeaderMap;
 use std::time::SystemTime;
 use std::error::Error;
 use std::time::Duration;
-use rand::seq::SliceRandom;
 use uuid::Uuid;
 
 use crate::fingerprinting::signature_format::DecodedSignature;
-use crate::fingerprinting::user_agent::USER_AGENTS;
+use crate::fingerprinting::user_agent;
 
 pub fn recognize_song_from_signature(signature: &DecodedSignature) -> Result<Value, Box<dyn Error>>  {
     
@@ -35,7 +34,7 @@ pub fn recognize_song_from_signature(signature: &DecodedSignature) -> Result<Val
 
     let mut headers = HeaderMap::new();
     
-    headers.insert("User-Agent", USER_AGENTS.choose(&mut rand::thread_rng()).unwrap().parse()?);
+    headers.insert("User-Agent", user_agent::random().parse()?);
     headers.insert("Content-Language", "en_US".parse()?);
 
     let client = reqwest::blocking::Client::new();
@@ -62,7 +61,7 @@ pub fn obtain_raw_cover_image(url: &str) -> Result<Vec<u8>, Box<dyn Error>> {
 
     let mut headers = HeaderMap::new();
     
-    headers.insert("User-Agent", USER_AGENTS.choose(&mut rand::thread_rng()).unwrap().parse()?);
+    headers.insert("User-Agent", user_agent::random().parse()?);
     headers.insert("Content-Language", "en_US".parse()?);
 
     let client = reqwest::blocking::Client::new();

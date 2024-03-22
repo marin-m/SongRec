@@ -7,6 +7,7 @@ mod fingerprinting {
     pub mod communication;
     pub mod algorithm;
     pub mod signature_format;
+    pub mod lyrics;
     mod user_agent;
     mod hanning;
 }

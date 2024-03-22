@@ -32,10 +32,9 @@ use crate::gui::preferences::{PreferencesInterface, Preferences};
 use crate::utils::csv_song_history::SongHistoryRecord;
 use crate::utils::filesystem_operations::obtain_recognition_history_csv_path;
 
-
 #[cfg(windows)]
 use std::os::windows::process::CommandExt;
-
+use crate::fingerprinting::lyrics::LyricSearchInfo;
 use crate::fingerprinting::signature_format::DecodedSignature;
 
 pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: bool) -> Result<(), Box<dyn Error>> {
@@ -115,6 +114,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
         let microphone_tx_5 = microphone_tx.clone();
         let processing_tx_2 = processing_tx.clone();
         let processing_tx_4 = processing_tx.clone();
+        let http_tx_2 = http_tx.clone();
         
         spawn_big_thread(clone!(@strong gui_tx => move || { // microphone_rx, processing_tx
             microphone_thread(microphone_rx, processing_tx_2, gui_tx);
@@ -405,7 +405,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
         // Resize the cover image when its container is resized - Ensure responsiveness
 
         let cover = recognized_song_cover.clone();
-        recognized_song_cover.get_parent().unwrap()
+        recognized_song_cover.get_parent().unwrap().get_parent().unwrap()
             .connect_size_allocate(move |_widget: &gtk::Widget, allocation| {
                 // Return early if image surface has not been set
                 
@@ -439,6 +439,8 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
                 });
             }
         );
+
+        let recognized_song_lyrics: gtk::Label = main_builder.get_object("recognized_song_lyrics").unwrap();
 
         let microphone_button: gtk::Button = main_builder.get_object("microphone_button").unwrap();
         let microphone_stop_button: gtk::Button = main_builder.get_object("microphone_stop_button").unwrap();
@@ -856,8 +858,14 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
                     let mut youtube_query_borrow = youtube_query.borrow_mut();
 
                     let song_name = Some(format!("{} - {}", message.artist_name, message.song_name));
-        
+
                     if *youtube_query_borrow != song_name { // If this is already the last recognized song, don't update the display (if for example we recognized a lure we played, it would update the proposed lure to a lesser quality)
+
+                        recognized_song_lyrics.set_text("");
+                        http_tx_2.send(HTTPMessage::FetchLyrics(LyricSearchInfo {
+                            song_name: message.song_name.clone(),
+                            artist_name: message.artist_name.clone(),
+                        })).unwrap();
 
                         #[cfg(feature = "mpris")]
                         mpris_obj.as_ref().map(|p| update_song(p, &message));
@@ -927,9 +935,10 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
                         
                     }
                 }
-                
+                LyricsRecognized(lyrics) => {
+                    recognized_song_lyrics.set_text(&lyrics);
+                }
             }
-            
             Continue(true)
         }));
 
