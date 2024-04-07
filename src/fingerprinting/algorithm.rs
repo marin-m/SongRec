@@ -243,7 +243,7 @@ impl SignatureGenerator {
                         let peak_variation_1: f32 = peak_magnitude * 2.0 - peak_magnitude_before - peak_magnitude_after;
                         let peak_variation_2: f32 = (peak_magnitude_after - peak_magnitude_before) * 32.0 / peak_variation_1;
 
-                        let corrected_peak_frequency_bin: u16 = bin_position as u16 * 64 + (peak_variation_2 as i16) as u16;
+                        let corrected_peak_frequency_bin: u16 = ((bin_position as i32 * 64) + (peak_variation_2 as i32)) as u16;
 
                         assert!(peak_variation_1 >= 0.0);
 
