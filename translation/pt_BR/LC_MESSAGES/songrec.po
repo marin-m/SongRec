@@ -1,0 +1,414 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Volunteer Brazilian Portuguese Translators
+# Tradutores Voluntários do idioma Português do Brasil
+# marcelocripe <marcelocripe@gmail.com>, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Songrec\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-06-03 13:09+0100\n"
+"PO-Revision-Date: 2024-06-03 13:29+0200\n"
+"Last-Translator: marcelocripe@gmail.com <marcelocripe@gmail.com>\n"
+"Language-Team: Brazilian Portuguese\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../src/cli_main.rs:104
+msgid "Exiting: audio device not found"
+msgstr "Saindo do programa: O dispositivo de áudio selecionado "
+"não foi encontrado"
+
+#: ../src/cli_main.rs:111
+msgid "Exiting: no audio devices found!"
+msgstr "Saindo do programa: Nenhum dispositivo de áudio foi "
+"encontrado!"
+
+#: ../src/cli_main.rs:117
+msgid "Using device"
+msgstr "Utilizando o dispositivo"
+
+#: ../src/cli_main.rs:138
+msgid "Error: Network unreachable"
+msgstr "Ocorreu um erro: Não há conexão com a internet"
+
+#: ../src/cli_main.rs:142
+msgid "Warning: Network unreachable"
+msgstr "Aviso: Não há conexão com a internet"
+
+#: ../src/cli_main.rs:147 ../src/core/http_thread.rs:49
+#: ../src/core/http_thread.rs:54 ../src/core/http_thread.rs:63
+#: ../src/core/http_thread.rs:89 ../src/gui/main_window.rs:763
+msgid "No match for this song"
+msgstr "A música não pôde ser identificada"
+
+#: ../src/cli_main.rs:148
+msgid "Error:"
+msgstr "Ocorreu um erro:"
+
+#: ../src/cli_main.rs:157
+msgid "Recording started!"
+msgstr "A gravação foi iniciada!"
+
+#: ../src/main.rs:66
+msgid "An open-source Shazam client for Linux, written in Rust."
+msgstr "O ‘SongRec’ é um identificador de músicas de código "
+"aberto para o GNU/Linux, semelhante ao ‘Shazam’, que foi "
+"escrito com a linguagem de programação ‘Rust’."
+
+#: ../src/main.rs:69
+msgid ""
+"Run as a command-line program listening the microphone and printing "
+"recognized songs to stdout, exposing current song info via MPRIS"
+msgstr ""
+"É executado como um programa de linha de comando que captura os "
+"sons do microfone e os envia para o canal de saída padrão (stdout) "
+"para a música ser identificada. As informações sobre a música "
+"identificada são fornecidas pelo ‘MPRIS’ (Media Player Remote "
+"Interfacing Specification ou Interface Remota de Especificação do "
+"Reprodutor de Mídia)"
+
+#: ../src/main.rs:75 ../src/main.rs:104 ../src/main.rs:142
+msgid "Specify the audio device to use"
+msgstr "Especificar o dispositivo de áudio a ser utilizado"
+
+#: ../src/main.rs:82 ../src/main.rs:111
+msgid "Enable printing full song info in JSON"
+msgstr "Ativar a saída das informações completas da música com o "
+"formato ‘JSON’ (JavaScript Object Notation ou Notação de Objetos "
+"do JavaScript)"
+
+#: ../src/main.rs:88 ../src/main.rs:117
+msgid "Enable printing full song info in the CSV format"
+msgstr "Ativar a saída das informações completas da música com o "
+"formato ‘CSV’ (comma-separated values ou valores separados por "
+"vírgulas)"
+
+
+#: ../src/main.rs:93 ../src/main.rs:195 ../src/main.rs:209
+msgid "Disable MPRIS support"
+msgstr "Desativar a funcionalidade do ‘MPRIS’"
+
+#: ../src/main.rs:98
+msgid "Recognize one song from a sound file or microphone and print its info."
+msgstr "Identificar a música a partir de um arquivo de áudio ou de um "
+"microfone e exibir as suas informações."
+
+#: ../src/main.rs:122
+msgid "Recognize a file instead of using mic input"
+msgstr "Identificar a música a partir de um arquivo de áudio em vez de "
+"utilizar o microfone"
+
+#: ../src/main.rs:127
+msgid ""
+"Generate a Shazam fingerprint from a sound file, perform song recognition "
+"towards Shazam's servers and print obtained information to the standard "
+"output."
+msgstr ""
+"Criar uma impressão digital do padrão do ‘Shazam’ a partir de um arquivo "
+"de áudio, realizar a identificação das músicas utilizando os servidores "
+"do ‘Shazam’ e enviar as informações obtidas para a saída padrão."
+
+#: ../src/main.rs:131
+msgid "The audio file to recognize."
+msgstr "O arquivo de áudio a ser identificado."
+
+#: ../src/main.rs:136
+msgid ""
+"Recognize a currently playing song using the microphone and print obtained "
+"information to the standard output"
+msgstr ""
+"Identificar a música que esteja sendo reproduzida por meio do microfone e "
+"enviar as informações recebidas para a saída padrão"
+
+#: ../src/main.rs:147
+msgid ""
+"Generate a Shazam fingerprint from a sound file, and print it to the "
+"standard output."
+msgstr ""
+"Criar uma impressão digital do padrão do ‘Shazam’ a partir de um arquivo "
+"de áudio e a enviar para a saída padrão."
+
+#: ../src/main.rs:151
+msgid "The .WAV or .MP3 file to generate an audio fingerprint for."
+msgstr "O arquivo com o formato ‘.WAV’ ou ‘.MP3’ para criar a impressão "
+"digital de áudio."
+
+#: ../src/main.rs:156
+msgid ""
+"Take a data-URI Shazam fingerprint, perform song recognition towards "
+"Shazam's servers and print obtained information to the standard output."
+msgstr ""
+"Carregar um URI (Uniform Resource Identifier ou Identificador Uniforme "
+"de Recursos) de dados para criar a impressão digital do padrão do "
+"‘Shazam’, realizar a identificação das músicas utilizando os servidores "
+"do ‘Shazam’ e enviar as informações obtidas para a saída padrão."
+
+#: ../src/main.rs:160
+msgid "The data-URI Shazam fingerprint to recognize."
+msgstr "O URI de dados do padrão do ‘Shazam’ a ser identificado."
+
+#: ../src/main.rs:165
+msgid ""
+"Convert a data-URI Shazam fingerprint into hearable tones, played back "
+"instantly (or written to a file, if a path is provided). Not particularly "
+"useful, but gives the simplest output that will trick Shazam into "
+"recognizing a non-song."
+msgstr ""
+"Converter uma impressão digital do URI de dados do padrão do ‘Shazam’ em "
+"sons audíveis que podem ser reproduzidos imediatamente ou gravados/salvos "
+"em um arquivo se um caminho for especificado. Não é particularmente útil, "
+"mas é uma maneira mais simples que enganará o ‘Shazam’ e o fará "
+"identificar algo que não seja uma música."
+
+#: ../src/main.rs:169
+msgid "The data-URI Shazam fingerprint to convert into hearable sound."
+msgstr "O URI de dados da impressão digital do padrão do ‘Shazam’ que "
+"será convertido em som audível."
+
+#: ../src/main.rs:174
+msgid ""
+"File path of the .WAV file to write tones to, or nothing to play back the "
+"sound instantly."
+msgstr ""
+"Indicar o caminho do arquivo com o formato ‘.WAV’ para gravar os sons ou "
+"deixe o campo em branco ou vazio para reproduzi-los instantaneamente."
+
+#: ../src/main.rs:186
+msgid "The default action. Display a GUI."
+msgstr "A ação padrão é de exibir uma interface gráfica do usuário."
+
+#: ../src/main.rs:190 ../src/main.rs:204
+msgid "An optional audio file to recognize on the launch of the application."
+msgstr "Um arquivo de áudio opcional que será identificado quando você "
+"iniciar o programa."
+
+#: ../src/main.rs:200
+msgid ""
+"Launch the GUI, but don't recognize audio through the microphone as soon as "
+"it is launched (rather than expecting the user to click on a button)."
+msgstr ""
+"Iniciar a interface gráfica do usuário, mas não identificar o áudio "
+"detectado por meio do microfone, em vez de esperar que o usuário "
+"clique em um botão."
+
+#: ../src/core/microphone_thread.rs:50
+msgid "Microphone error:"
+msgstr "Ocorreu um problema com o microfone:"
+
+#: ../src/core/microphone_thread.rs:55
+msgid "Failed to get default input config"
+msgstr "Não foi possível obter as configurações padrão do dispositivo de "
+"entrada"
+
+#: ../src/fingerprinting/signature_format.rs:125
+msgid "Invalid sample rate in decoded Shazam packet"
+msgstr "A taxa de amostragem ao decodificar o pacote do ‘Shazam’ não é válida"
+
+#: ../src/fingerprinting/signature_format.rs:158
+msgid "Invalid frequency band in decoded Shazam packet"
+msgstr "A banda da frequência ao decodificar o pacote do ‘Shazam’ não é válida"
+
+#: ../src/fingerprinting/signature_format.rs:234
+msgid "Invalid sample rate passed when encoding Shazam packet"
+msgstr "A taxa de amostragem passada ao codificar o pacote do ‘Shazam’ não "
+"é válida"
+
+#: ../src/gui/main_window.rs:45
+msgid "Application::new failed"
+msgstr "Ao que parece, ‘Application::new’ falhou"
+
+#: ../src/gui/main_window.rs:465 ../src/gui/main_window.rs:747
+msgid "Unable to enable MPRIS support"
+msgstr "A funcionalidade do ‘MPRIS’ não pôde ser ativada"
+
+#: ../src/gui/main_window.rs:520 ../src/gui/main_window.rs:605
+#: ../src/gui/main_window.rs:818
+msgid "Turn on speakers recognition"
+msgstr "Ativar a identificação por meio do alto-falante"
+
+#: ../src/gui/main_window.rs:521 ../src/gui/main_window.rs:606
+#: ../src/gui/main_window.rs:819
+msgid "Turn off speakers recognition"
+msgstr "Desativar a identificação por meio do alto-falante"
+
+#: ../src/gui/main_window.rs:524 ../src/gui/main_window.rs:609
+#: ../src/gui/main_window.rs:822 interface.glade.h:14
+msgid "Turn on microphone recognition"
+msgstr "Ativar a identificação por meio do microfone"
+
+#: ../src/gui/main_window.rs:525 ../src/gui/main_window.rs:610
+#: ../src/gui/main_window.rs:823 interface.glade.h:15
+msgid "Turn off microphone recognition"
+msgstr "Desativar a identificação por meio do microfone"
+
+#: ../src/gui/main_window.rs:551
+msgid "Select a file to recognize"
+msgstr "Escolha um arquivo de áudio que você quer identificar"
+
+#: ../src/gui/main_window.rs:554
+msgid "_Open"
+msgstr "_Abrir"
+
+#: ../src/gui/main_window.rs:555
+msgid "_Cancel"
+msgstr "_Cancelar"
+
+#: ../src/gui/main_window.rs:563
+msgid "Couldn't get filename"
+msgstr "Não foi possível obter o nome do arquivo"
+
+#: ../src/gui/main_window.rs:865
+msgid "Song recognized"
+msgstr "A música foi identificada"
+
+#: ../src/gui/preferences.rs:52
+msgid "When parsing the preferences file:"
+msgstr "Ao analisar o arquivo de configurações:"
+
+#: ../src/gui/preferences.rs:84
+msgid "When saving the preferences file:"
+msgstr "Ao salvar o arquivo de configurações:"
+
+#: ../src/gui/song_history_interface.rs:131
+msgid "Error when reading the song history on the disk:"
+msgstr "Ocorreu um erro ao ler o histórico das músicas salvas:"
+
+#: ../src/gui/song_history_interface.rs:206
+msgid "Error when reading the favorites on the disk:"
+msgstr "Ocorreu um erro ao ler os favoritos salvos:"
+
+#: interface.glade.h:1
+msgid "Preferences"
+msgstr "Preferências"
+
+#: interface.glade.h:2
+msgid ""
+"Enable MPRIS (display playing song information in the GNOME control panel)"
+msgstr "Ativar a funcionalidade do ‘MPRIS’ (exibir as informações sobre a "
+"música reproduzida no painel de controle do GNOME)"
+
+#: interface.glade.h:3
+msgid "About"
+msgstr "Sobre"
+
+#: interface.glade.h:4 favorites_interface.glade.h:5
+msgid "Copy artist and track"
+msgstr "Copiar o nome do artista e o título da música"
+
+#: interface.glade.h:5 favorites_interface.glade.h:6
+msgid "Copy artist"
+msgstr "Copiar o nome do artista"
+
+#: interface.glade.h:6 favorites_interface.glade.h:7
+msgid "Copy track name"
+msgstr "Copiar o título da música"
+
+#: interface.glade.h:7 favorites_interface.glade.h:8
+msgid "Copy album"
+msgstr "Copiar o nome do álbum"
+
+#: interface.glade.h:8 favorites_interface.glade.h:9
+msgid "Search on YouTube"
+msgstr "Pesquisar no YouTube"
+
+#: interface.glade.h:9
+msgid "Add to Favorites"
+msgstr "Adicionar aos favoritos"
+
+#: interface.glade.h:10 favorites_interface.glade.h:10
+msgid "Remove from Favorites"
+msgstr "Remover dos favoritos"
+
+#: interface.glade.h:11
+msgid ""
+"Help translating https://github.com/marin-m/SongRec/tree/master/"
+"translations#readme"
+msgstr ""
+"(Tradutores voluntários do idioma Português do Brasil)\n"
+"marcelocripe <marcelocripe@gmail.com>, 2024.\n"
+"Ajude a traduzir o programa ‘SongRec’ na página eletrônica\n"
+"https://github.com/marin-m/SongRec/tree/master/"
+"translations#readme"
+
+#: interface.glade.h:12
+msgid "About..."
+msgstr "Sobre..."
+
+#: interface.glade.h:13
+msgid "Recognize from file"
+msgstr "Identificar a partir de um arquivo"
+
+#: interface.glade.h:16
+msgid "Enable notifications"
+msgstr "Ativar as notificações"
+
+#: interface.glade.h:17
+msgid "Shazam servers are not reachable, are you connected?"
+msgstr "Os servidores do ‘Shazam’ não estão respondendo, você tem certeza "
+"de que possui conexão com a internet?"
+
+#: interface.glade.h:18
+msgid "Recognize songs"
+msgstr "Identificar as músicas"
+
+#: interface.glade.h:19
+msgid "Play a Shazam lure"
+msgstr "Reproduzir com um padrão audível do ‘Shazam’"
+
+#: interface.glade.h:20
+msgid "Recognition results"
+msgstr "Resultados das músicas identificadas"
+
+#: interface.glade.h:21
+msgid "Recognize from my speakers instead of microphone"
+msgstr "Identificar a partir dos meus alto-falantes em vez do microfone"
+       
+#: interface.glade.h:22
+msgid "Current volume:"
+msgstr "Volume atual:"
+
+#: interface.glade.h:23
+msgid "Audio input"
+msgstr "Entrada do áudio"
+
+#: interface.glade.h:24 favorites_interface.glade.h:1
+msgid "Song name"
+msgstr "Nome da música"
+
+#: interface.glade.h:25 favorites_interface.glade.h:2
+msgid "Album"
+msgstr "Álbum"
+
+#: interface.glade.h:26
+msgid "Recognition date"
+msgstr "Data da identificação"
+
+#: interface.glade.h:27 favorites_interface.glade.h:4
+msgid "Favorites"
+msgstr "Favoritos"
+
+#: interface.glade.h:28
+msgid "Wipe history"
+msgstr "Limpar o histórico"
+
+#: interface.glade.h:29 favorites_interface.glade.h:3
+msgid "Export to CSV"
+msgstr "Exportar para o formato ‘CSV’"
+
+#: interface.glade.h:30
+msgid "Recognition history"
+msgstr "Histórico das identificações"
+
+#: interface.glade.h:31
+msgid "SongRec"
+msgstr "Identificador de Músicas SongRec"
+
+#~ msgid "Note: Could not parse TSV output from"
+#~ msgstr "Observação: Não foi possível processar a saída com o formato "
+#~"‘TSV’ (valores separados por tabulação) para o comando"
