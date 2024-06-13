@@ -1,17 +1,23 @@
 [Desktop Entry]
-Version=1.0
-Name=SongRec
-Comment=An open-source Shazam client for Linux, written in Rust
-Type=Application
+Categories=Utility;GTK;Audio;AudioVideo;
 Exec=songrec gui %f
+Icon=com.github.marinm.songrec
 # See https://github.com/lemenkov/shared-mime-info/blob/master/freedesktop.org.xml.in
 # regarding the applicable mime types
 MimeType=audio/mpeg;audio/x-wav;audio/x-vorbis+ogg;audio/flac;
-Terminal=false
-Categories=Utility;GTK;Audio;AudioVideo;
-Keywords=Rust;GTK;Shazam;Client;Audio;Song;Recognition;Fingerprinting;
-Icon=com.github.marinm.songrec
 StartupNotify=true
+Terminal=false
+Type=Application
+Version=1.0
+
+Name=SongRec
+Name[pt_BR]=Identificador de Músicas SongRec
+
+Comment=An open-source Shazam client for Linux, written in Rust
+Comment[pt_BR]=O ‘SongRec’ é um identificador de músicas de código aberto para o GNU/Linux, semelhante ao ‘Shazam’, que foi escrito com a linguagem de programação ‘Rust’.
+
+Keywords=Rust;GTK;Shazam;Client;Audio;Song;Recognition;Fingerprinting;
+Keywords[pt_BR]=Rust;GTK;Shazam;Cliente;Áudio;Som;Música;Trilha;Faixa;Identificador;Identificação;Reconhecimento;Detecção;Detectar;Descoberta;Descobrir;Impressão Digital;Qual é a Música;
 
 # See https://specifications.freedesktop.org/desktop-entry-spec/latest/ar01s06.html
 # regarding the general layout of the current file
