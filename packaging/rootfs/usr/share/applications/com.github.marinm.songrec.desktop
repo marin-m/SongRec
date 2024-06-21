@@ -6,6 +6,7 @@ Icon=com.github.marinm.songrec
 # regarding the applicable mime types
 MimeType=audio/mpeg;audio/x-wav;audio/x-vorbis+ogg;audio/flac;
 StartupNotify=true
+StartupWMClass=songrec
 Terminal=false
 Type=Application
 Version=1.0
