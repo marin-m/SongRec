@@ -18,7 +18,7 @@ A (command-line only) Python version, which I made before rewriting in Rust for 
 
 ## How it works
 
-For useful information about how audio fingerprinting works, you may want to read [this article](http://coding-geek.com/how-shazam-works/). To be put simply, Shazam generates a spectrogram (a time/frequency 2D graph of the sound, with amplitude at intersections) of the sound, and maps out the frequency peaks from it (which should match key points of the harmonics of voice or of certains instruments).
+For useful information about how audio fingerprinting works, you may want to read [this article](http://coding-geek.com/how-shazam-works/) ([archive.org mirror](https://web.archive.org/web/20230215010310/http://coding-geek.com/how-shazam-works/)). To be put simply, Shazam generates a spectrogram (a time/frequency 2D graph of the sound, with amplitude at intersections) of the sound, and maps out the frequency peaks from it (which should match key points of the harmonics of voice or of certains instruments).
 
 Shazam also downsamples the sound at 16 KHz before processing, and cuts the sound in four bands of 250-520 Hz, 520-1450 Hz, 1450-3500 Hz, 3500-5500 Hz (so that if a band is too much scrambled by noise, recognition from other bands may apply). The frequency peaks are then sent to the servers, which subsequently look up the strongest peaks in a database, in order look for the simultaneous presence of neighboring peaks both in the associated reference fingerprints and in the fingerprint we sent.
 
