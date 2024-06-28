@@ -8,6 +8,7 @@ use crate::core::thread_messages::*;
 
 use crate::fingerprinting::signature_format::DecodedSignature;
 use crate::fingerprinting::communication::{recognize_song_from_signature, obtain_raw_cover_image};
+use crate::fingerprinting::lyrics::fetch_genius_lyrics;
 
 fn try_recognize_song(signature: DecodedSignature) -> Result<SongRecognizedMessage, Box<dyn Error>> {
     let json_object = recognize_song_from_signature(&signature)?;
@@ -98,6 +99,17 @@ pub fn http_thread(http_rx: mpsc::Receiver<HTTPMessage>, gui_tx: glib::Sender<GU
                 };
                 
                 microphone_tx.send(MicrophoneMessage::ProcessingDone).unwrap();
+            }
+            HTTPMessage::FetchLyrics(info) => {
+                match fetch_genius_lyrics(&info) {
+                    Ok(lyrics) => {
+                        gui_tx.send(GUIMessage::LyricsRecognized(lyrics)).unwrap();
+                    }
+                    Err(_) => {
+                        // Clear lyrics if not found or on error.
+                        gui_tx.send(GUIMessage::LyricsRecognized(String::new())).unwrap();
+                    }
+                }
             }
         }
     }
