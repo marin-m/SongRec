@@ -34,11 +34,17 @@ pub struct Song {
     pub genre: Option<String>,
 }
 
-pub trait IsSong {
+pub trait HasSong {
     fn get_song(self) -> Song;
 }
 
-impl IsSong for SongHistoryRecord {
+impl HasSong for Song {
+    fn get_song(self) -> Song {
+        return self;
+    }
+}
+
+impl HasSong for SongHistoryRecord {
     fn get_song(self) -> Song {
         return Song {
             song_name: self.song_name,

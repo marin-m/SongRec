@@ -1,4 +1,4 @@
-use crate::utils::csv_song_history::{IsSong, Song, SongHistoryRecord};
+use crate::utils::csv_song_history::{HasSong, Song, SongHistoryRecord};
 use gettextrs::gettext;
 use gtk::prelude::*;
 use std::collections::HashSet;
@@ -269,7 +269,7 @@ impl SongRecordInterface for FavoritesInterface {
 }
 
 impl FavoritesInterface {
-    pub fn get_is_favorite(&self) -> &HashSet<Song> {
-        &self.is_favorite
+    pub fn is_favorite<T: HasSong>(&self, has_song: T) -> bool {
+        self.is_favorite.contains(&has_song.get_song())
     }
 }
