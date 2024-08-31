@@ -756,10 +756,18 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
                     }  
                 },
                 AddFavorite(song_record) => {
-                    favorites_interface.write().unwrap().add_row_and_save(song_record);
-                }
+                    if let Ok(mut favorites) = favorites_interface.write() {
+                        favorites.add_row_and_save(song_record);
+                    } else {
+                        eprintln!("Failed to acquire write lock on favorites_interface");
+                    }
+                },
                 RemoveFavorite(song_record) => {
-                    favorites_interface.write().unwrap().remove(song_record);
+                    if let Ok(mut favorites) = favorites_interface.write() {
+                        favorites.remove(song_record);
+                    } else {
+                        eprintln!("Failed to acquire write lock on favorites_interface");
+                    }
                 },
                 ShowFavorites => {
                     favorites_window.show_all();
