@@ -5,13 +5,13 @@ use gtk::prelude::*;
 use gtk::ResponseType;
 use gettextrs::gettext;
 use gdk_pixbuf::Pixbuf;
-use std::collections::HashSet;
 use std::error::Error;
-
 use std::sync::mpsc;
 use std::cell::RefCell;
 use std::rc::Rc;
 use chrono::Local;
+use std::sync::RwLock;
+use std::sync::Arc;
 use percent_encoding::{utf8_percent_encode, NON_ALPHANUMERIC};
 #[cfg(feature = "mpris")]
 use mpris_player::PlaybackStatus;
@@ -23,7 +23,6 @@ use crate::core::thread_messages::{*, GUIMessage::*};
 
 use crate::gui::song_history_interface::FavoritesInterface;
 use crate::gui::song_history_interface::{SongRecordInterface, RecognitionHistoryInterface};
-use crate::utils::csv_song_history::{IsSong, Song};
 use crate::utils::filesystem_operations::obtain_favorites_csv_path;
 #[cfg(feature = "mpris")]
 use crate::utils::mpris_player::{get_player, update_song};
@@ -156,9 +155,8 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
         let history_tree_view: gtk::TreeView = main_builder.get_object("history_tree_view").unwrap();
 
         let favorites_list_store = favorites_builder.get_object("favorites_list_store").unwrap();
-        let mut favorites_interface = FavoritesInterface::new(favorites_list_store, obtain_favorites_csv_path).unwrap();
+        let favorites_interface = Arc::new(RwLock::new(FavoritesInterface::new(favorites_list_store, obtain_favorites_csv_path).unwrap()));
         let favorites_tree_view: gtk::TreeView = favorites_builder.get_object("favorites_tree_view").unwrap();
-
         // Add a context menu to the history tree view, in order to allow
         // users to copy or search items (see https://stackoverflow.com/a/49720383)
         // add and remove favorites
@@ -168,14 +166,15 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
         let favorites_context_menu: gtk::Menu = favorites_builder.get_object("list_view_context_menu").unwrap();
         favorites_tree_view.connect_right_click(&favorites_context_menu, &favorites_interface);
 
-        trait ContextMenu {
+        trait ContextMenuItemsExt {
             fn connect_activate_menu_item<F: Fn(&gtk::MenuItem) + 'static>(&self, name: &str, f: F) -> ();
             fn get_menu_item(&self, name: &str) -> Option<gtk::MenuItem>;
             fn show_menu_item(&self, name: &str) -> Option<()>;
             fn hide_menu_item(&self, name: &str) -> Option<()>;
+            fn toggle_menu_items_for_favorite(&self, is_favorite: bool);
         }
 
-        impl ContextMenu for gtk::Menu {
+        impl ContextMenuItemsExt for gtk::Menu {
             fn get_menu_item(&self, name: &str) -> Option<gtk::MenuItem> {
                 for child in self.get_children() {
                     if let Ok(menu_item) = child.downcast::<gtk::MenuItem>() {
@@ -208,14 +207,24 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
                 }
                 None
             }
+
+            fn toggle_menu_items_for_favorite(&self, is_favorite: bool) {
+                if is_favorite {
+                    self.show_menu_item("remove_from_favorites");
+                    self.hide_menu_item("add_to_favorites");
+                } else {
+                    self.show_menu_item("add_to_favorites");
+                    self.hide_menu_item("remove_from_favorites");
+                }
+            }
         }
 
-        trait SongRecords {
+        trait SongRecordsExt {
             fn get_selected_song_record(&self) -> Option<SongHistoryRecord>;
             fn get_song_record_at_mouse(&self, mouse_button: &EventButton) -> Option<SongHistoryRecord>;
         }
 
-        impl SongRecords for gtk::TreeView {
+        impl SongRecordsExt for gtk::TreeView {
             fn get_selected_song_record(&self) -> Option<SongHistoryRecord> {
                 if let Some((tree_model, tree_iter)) = &self.get_selection().get_selected() {
                     Some(SongHistoryRecord {
@@ -250,12 +259,12 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
             }
         }
 
-        trait RightClick {
-            fn connect_right_click(&self, builder: &gtk::Menu, favorites_interface: &FavoritesInterface);
+        trait RightClickExt {
+            fn connect_right_click(&self, builder: &gtk::Menu, favorites_interface: &Arc<RwLock<FavoritesInterface>>);
         }
 
-        impl RightClick for gtk::TreeView {
-            fn connect_right_click(&self, context_menu: &gtk::Menu, favorites_interface: &FavoritesInterface) {
+        impl RightClickExt for gtk::TreeView {
+            fn connect_right_click(&self, context_menu: &gtk::Menu, favorites_interface: &Arc<RwLock<FavoritesInterface>>) {
                 self.connect_button_press_event(clone!(@strong context_menu, @strong favorites_interface => move |tree_view, button| {
                     if button.get_event_type() == gdk::EventType::ButtonPress && button.get_button() == 3 { // Is this a single right click?
                         // Display the context menu
@@ -263,15 +272,11 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
                         // For usage examples, see:
                         // https://github.com/search?l=Rust&q=set_property_attach_widget&type=Code
                         context_menu.set_property_attach_widget(Some(tree_view));
-                        let is_favorite: &HashSet<Song> = favorites_interface.get_is_favorite();
                         if let Some(song_record) = tree_view.get_song_record_at_mouse(button) {
-                            if is_favorite.contains(&song_record.get_song()) {
-                                context_menu.hide_menu_item("add_to_favorites");
-                                context_menu.show_menu_item("remove_from_favorites");
-                            } else {
-                                context_menu.show_menu_item("add_to_favorites");
-                                context_menu.hide_menu_item("remove_from_favorites");
-                            }
+                            let favorites_interface = favorites_interface.read().unwrap();
+                            let is_favorite: bool = favorites_interface.is_favorite(song_record);
+                            context_menu.toggle_menu_items_for_favorite(is_favorite);
+                            
                         }
                         context_menu.popup_at_pointer(Some(button));
                     }
@@ -281,11 +286,11 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
             }
         }
 
-        trait TreeView {
+        trait TreeViewExt {
             fn get_tree_view(&self) -> gtk::TreeView;
         }
 
-        impl TreeView for gtk::Menu {
+        impl TreeViewExt for gtk::Menu {
             fn get_tree_view(&self) -> gtk::TreeView{
                 let widget: gtk::Widget= self.get_attach_widget().unwrap();
                 let tree_view: gtk::TreeView = widget.downcast::<gtk::TreeView>().unwrap();
@@ -293,7 +298,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
             }
         }
 
-        impl TreeView for gtk::MenuItem {
+        impl TreeViewExt for gtk::MenuItem {
             fn get_tree_view(&self) -> gtk::TreeView {
                 let widget: gtk::Widget = self.get_parent().unwrap();
                 let menu: gtk::Menu = widget.downcast::<gtk::Menu>().unwrap();
@@ -751,10 +756,10 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
                     }  
                 },
                 AddFavorite(song_record) => {
-                    favorites_interface.add_row_and_save(song_record);
+                    favorites_interface.write().unwrap().add_row_and_save(song_record);
                 }
                 RemoveFavorite(song_record) => {
-                    favorites_interface.remove(song_record);
+                    favorites_interface.write().unwrap().remove(song_record);
                 },
                 ShowFavorites => {
                     favorites_window.show_all();
