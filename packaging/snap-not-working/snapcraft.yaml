@@ -9,7 +9,6 @@ description: |
   - Usage from both GUI and command line (for the file recognition part).
   - Provide an history of the recognized songs on the GUI, exportable to CSV.
   - Continuous song detection from the microphone, with the ability to choose your input device.
-  - Generate a lure from a song that, when played, will fool Shazam into thinking that it is the concerned song.
 
 grade: stable # must be 'stable' to release into candidate/stable channels
 confinement: strict # use 'strict' once you have the right plugs and slots

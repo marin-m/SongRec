@@ -35,8 +35,6 @@ use crate::utils::filesystem_operations::obtain_recognition_history_csv_path;
 #[cfg(windows)]
 use std::os::windows::process::CommandExt;
 
-use crate::fingerprinting::signature_format::DecodedSignature;
-
 pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: bool) -> Result<(), Box<dyn Error>> {
     
     let application = gtk::Application::new(Some("com.github.marinm.songrec"),
@@ -451,7 +449,6 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
         let notification_enable_checkbox: gtk::CheckButton = main_builder.get_object("notification_enable_checkbox").unwrap();
 
         let youtube_button: gtk::Button = main_builder.get_object("youtube_button").unwrap();
-        let lure_button: gtk::Button = main_builder.get_object("lure_button").unwrap();
         
         let wipe_history_button: gtk::Button = main_builder.get_object("wipe_history_button").unwrap();
         let export_history_csv_button: gtk::Button = main_builder.get_object("export_history_csv_button").unwrap();
@@ -476,9 +473,6 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
         
         let youtube_query: Rc<RefCell<Option<String>>> = Rc::new(RefCell::new(None));
         let youtube_query_2 = youtube_query.clone();
-        
-        let current_signature: Rc<RefCell<Option<DecodedSignature>>> = Rc::new(RefCell::new(None));
-        let current_signature_2 = current_signature.clone();
         
         // Remember about the saved last-used microphone device, if any
 
@@ -647,26 +641,6 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
             
             gtk::show_uri(None, &search_url, gtk::get_current_event_time()).unwrap();
             
-        });
-        
-        lure_button.connect_clicked(move |_| {
-            
-            let current_signature_borrow = current_signature_2.borrow();
-    
-            let mixed_source = rodio::buffer::SamplesBuffer::new::<Vec<i16>>(1, 16000, current_signature_borrow.as_ref().unwrap().to_lure().unwrap());
-    
-            std::thread::Builder::new().spawn(move || {
-                        
-                let (_stream, handle) = rodio::OutputStream::try_default().unwrap();
-                let sink = rodio::Sink::try_new(&handle).unwrap();
-                    
-                sink.append(mixed_source);
-                
-                sink.sleep_until_end();
-                
-            }).unwrap();
-
-        
         });
         
         wipe_history_button.connect_clicked(clone!(@strong gui_tx => move |_| {
@@ -870,7 +844,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
 
                     let song_name = Some(format!("{} - {}", message.artist_name, message.song_name));
         
-                    if *youtube_query_borrow != song_name { // If this is already the last recognized song, don't update the display (if for example we recognized a lure we played, it would update the proposed lure to a lesser quality)
+                    if *youtube_query_borrow != song_name { // If this is already the last recognized song, don't update the display
 
                         #[cfg(feature = "mpris")]
                         mpris_obj.as_ref().map(|p| update_song(p, &message));
@@ -890,9 +864,6 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
 
                         recognized_song_name.set_markup(&format!("<b>{}</b>", glib::markup_escape_text(song_name.as_ref().unwrap())));
                         *youtube_query_borrow = song_name;
-                        
-                        let mut current_signature_borrow = current_signature.borrow_mut();
-                        *current_signature_borrow = Some(*message.signature);
                         
                         results_frame.show_all();
                         

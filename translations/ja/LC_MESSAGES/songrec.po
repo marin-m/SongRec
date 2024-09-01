@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-22 13:09+0100\n"
+"POT-Creation-Date: 2024-09-01 10:17+0200\n"
 "PO-Revision-Date: 2021-08-23 21:02+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -40,7 +40,7 @@ msgstr ""
 
 #: ../src/cli_main.rs:147 ../src/core/http_thread.rs:49
 #: ../src/core/http_thread.rs:54 ../src/core/http_thread.rs:63
-#: ../src/core/http_thread.rs:89 ../src/gui/main_window.rs:763
+#: ../src/core/http_thread.rs:89 ../src/gui/main_window.rs:750
 msgid "No match for this song"
 msgstr "曲が認識されませんでした"
 
@@ -74,7 +74,7 @@ msgstr ""
 msgid "Enable printing full song info in the CSV format"
 msgstr ""
 
-#: ../src/main.rs:93 ../src/main.rs:195 ../src/main.rs:209
+#: ../src/main.rs:93 ../src/main.rs:181 ../src/main.rs:195
 msgid "Disable MPRIS support"
 msgstr ""
 
@@ -123,33 +123,15 @@ msgstr ""
 msgid "The data-URI Shazam fingerprint to recognize."
 msgstr ""
 
-#: ../src/main.rs:165
-msgid ""
-"Convert a data-URI Shazam fingerprint into hearable tones, played back "
-"instantly (or written to a file, if a path is provided). Not particularly "
-"useful, but gives the simplest output that will trick Shazam into "
-"recognizing a non-song."
-msgstr ""
-
-#: ../src/main.rs:169
-msgid "The data-URI Shazam fingerprint to convert into hearable sound."
-msgstr ""
-
-#: ../src/main.rs:174
-msgid ""
-"File path of the .WAV file to write tones to, or nothing to play back the "
-"sound instantly."
-msgstr ""
-
-#: ../src/main.rs:186
+#: ../src/main.rs:172
 msgid "The default action. Display a GUI."
 msgstr ""
 
-#: ../src/main.rs:190 ../src/main.rs:204
+#: ../src/main.rs:176 ../src/main.rs:190
 msgid "An optional audio file to recognize on the launch of the application."
 msgstr ""
 
-#: ../src/main.rs:200
+#: ../src/main.rs:186
 msgid ""
 "Launch the GUI, but don't recognize audio through the microphone as soon as "
 "it is launched (rather than expecting the user to click on a button)."
@@ -163,63 +145,63 @@ msgstr "マイクエラー:"
 msgid "Failed to get default input config"
 msgstr "オーディオデバイスが利用できませんでした"
 
-#: ../src/fingerprinting/signature_format.rs:125
+#: ../src/fingerprinting/signature_format.rs:94
 msgid "Invalid sample rate in decoded Shazam packet"
 msgstr ""
 
-#: ../src/fingerprinting/signature_format.rs:158
+#: ../src/fingerprinting/signature_format.rs:127
 msgid "Invalid frequency band in decoded Shazam packet"
 msgstr ""
 
-#: ../src/fingerprinting/signature_format.rs:234
+#: ../src/fingerprinting/signature_format.rs:203
 msgid "Invalid sample rate passed when encoding Shazam packet"
 msgstr ""
 
-#: ../src/gui/main_window.rs:45
+#: ../src/gui/main_window.rs:42
 msgid "Application::new failed"
 msgstr ""
 
-#: ../src/gui/main_window.rs:465 ../src/gui/main_window.rs:747
+#: ../src/gui/main_window.rs:467 ../src/gui/main_window.rs:726
 msgid "Unable to enable MPRIS support"
 msgstr ""
 
-#: ../src/gui/main_window.rs:520 ../src/gui/main_window.rs:605
-#: ../src/gui/main_window.rs:818
+#: ../src/gui/main_window.rs:519 ../src/gui/main_window.rs:604
+#: ../src/gui/main_window.rs:805
 msgid "Turn on speakers recognition"
 msgstr "音声の入力を有効化"
 
-#: ../src/gui/main_window.rs:521 ../src/gui/main_window.rs:606
-#: ../src/gui/main_window.rs:819
+#: ../src/gui/main_window.rs:520 ../src/gui/main_window.rs:605
+#: ../src/gui/main_window.rs:806
 msgid "Turn off speakers recognition"
 msgstr "音声の入力を無効化"
 
-#: ../src/gui/main_window.rs:524 ../src/gui/main_window.rs:609
-#: ../src/gui/main_window.rs:822 interface.glade.h:14
+#: ../src/gui/main_window.rs:523 ../src/gui/main_window.rs:608
+#: ../src/gui/main_window.rs:809 interface.glade.h:14
 msgid "Turn on microphone recognition"
 msgstr "音声の入力を有効化"
 
-#: ../src/gui/main_window.rs:525 ../src/gui/main_window.rs:610
-#: ../src/gui/main_window.rs:823 interface.glade.h:15
+#: ../src/gui/main_window.rs:524 ../src/gui/main_window.rs:609
+#: ../src/gui/main_window.rs:810 interface.glade.h:15
 msgid "Turn off microphone recognition"
 msgstr "音声の入力を無効化"
 
-#: ../src/gui/main_window.rs:551
+#: ../src/gui/main_window.rs:550
 msgid "Select a file to recognize"
 msgstr "認識するファイルを選択"
 
-#: ../src/gui/main_window.rs:554
+#: ../src/gui/main_window.rs:553
 msgid "_Open"
 msgstr "_開く"
 
-#: ../src/gui/main_window.rs:555
+#: ../src/gui/main_window.rs:554
 msgid "_Cancel"
 msgstr "_キャンセル"
 
-#: ../src/gui/main_window.rs:563
+#: ../src/gui/main_window.rs:562
 msgid "Couldn't get filename"
 msgstr "ファイル名を取得できませんでした"
 
-#: ../src/gui/main_window.rs:865
+#: ../src/gui/main_window.rs:852
 msgid "Song recognized"
 msgstr "曲が認識されました"
 
@@ -308,53 +290,52 @@ msgid "Recognize songs"
 msgstr "曲の認識"
 
 #: interface.glade.h:19
-msgid "Play a Shazam lure"
-msgstr "Shazam lureを再生"
-
-#: interface.glade.h:20
 msgid "Recognition results"
 msgstr "認識結果"
 
-#: interface.glade.h:21
+#: interface.glade.h:20
 msgid "Recognize from my speakers instead of microphone"
 msgstr "デバイスの内部音声から認識する"
 
-#: interface.glade.h:22
+#: interface.glade.h:21
 msgid "Current volume:"
 msgstr "現在のボリューム:"
 
-#: interface.glade.h:23
+#: interface.glade.h:22
 msgid "Audio input"
 msgstr "音声の入力"
 
-#: interface.glade.h:24 favorites_interface.glade.h:1
+#: interface.glade.h:23 favorites_interface.glade.h:1
 msgid "Song name"
 msgstr "曲名"
 
-#: interface.glade.h:25 favorites_interface.glade.h:2
+#: interface.glade.h:24 favorites_interface.glade.h:2
 msgid "Album"
 msgstr "アルバム"
 
-#: interface.glade.h:26
+#: interface.glade.h:25
 msgid "Recognition date"
 msgstr "認識日時"
 
-#: interface.glade.h:27 favorites_interface.glade.h:4
+#: interface.glade.h:26 favorites_interface.glade.h:4
 msgid "Favorites"
 msgstr ""
 
-#: interface.glade.h:28
+#: interface.glade.h:27
 msgid "Wipe history"
 msgstr "履歴を消去"
 
-#: interface.glade.h:29 favorites_interface.glade.h:3
+#: interface.glade.h:28 favorites_interface.glade.h:3
 msgid "Export to CSV"
 msgstr "CSVにエクスポート"
 
-#: interface.glade.h:30
+#: interface.glade.h:29
 msgid "Recognition history"
 msgstr "認識履歴"
 
-#: interface.glade.h:31
+#: interface.glade.h:30
 msgid "SongRec"
 msgstr "SongRec"
+
+#~ msgid "Play a Shazam lure"
+#~ msgstr "Shazam lureを再生"

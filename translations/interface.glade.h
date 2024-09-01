@@ -16,7 +16,6 @@ char *s = N_("Turn off microphone recognition");
 char *s = N_("Enable notifications");
 char *s = N_("Shazam servers are not reachable, are you connected?");
 char *s = N_("Recognize songs");
-char *s = N_("Play a Shazam lure");
 char *s = N_("Recognition results");
 char *s = N_("Recognize from my speakers instead of microphone");
 char *s = N_("Current volume:");

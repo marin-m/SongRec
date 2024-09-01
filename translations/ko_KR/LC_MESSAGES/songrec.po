@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-22 13:09+0100\n"
+"POT-Creation-Date: 2024-09-01 10:17+0200\n"
 "PO-Revision-Date: 2023-12-30 23:42+0900\n"
 "Last-Translator: 이정희 <daemul72@gmail.com>\n"
 "Language-Team: \n"
@@ -39,7 +39,7 @@ msgstr "경고: 네트워크에 연결할 수 없음"
 
 #: ../src/cli_main.rs:147 ../src/core/http_thread.rs:49
 #: ../src/core/http_thread.rs:54 ../src/core/http_thread.rs:63
-#: ../src/core/http_thread.rs:89 ../src/gui/main_window.rs:763
+#: ../src/core/http_thread.rs:89 ../src/gui/main_window.rs:750
 msgid "No match for this song"
 msgstr "이 노래와 일치하는 항목이 없습니다"
 
@@ -75,7 +75,7 @@ msgstr "JSON으로 전체 노래 정보 인쇄 활성화"
 msgid "Enable printing full song info in the CSV format"
 msgstr "CSV 형식으로 전체 노래 정보 인쇄 활성화"
 
-#: ../src/main.rs:93 ../src/main.rs:195 ../src/main.rs:209
+#: ../src/main.rs:93 ../src/main.rs:181 ../src/main.rs:195
 msgid "Disable MPRIS support"
 msgstr "MPRIS 지원 비활성화"
 
@@ -129,38 +129,15 @@ msgstr ""
 msgid "The data-URI Shazam fingerprint to recognize."
 msgstr "인식할 데이터 URI Shazam 지문입니다."
 
-#: ../src/main.rs:165
-msgid ""
-"Convert a data-URI Shazam fingerprint into hearable tones, played back "
-"instantly (or written to a file, if a path is provided). Not particularly "
-"useful, but gives the simplest output that will trick Shazam into "
-"recognizing a non-song."
-msgstr ""
-"데이터-URI Shazam 지문을 들을 수 있는 신호음으로 변환하고 즉시 재생합니다(또"
-"는 경로가 제공되는 경우 파일에 기록). 특별히 유용하지는 않지만 Shazam이 노래"
-"가 아닌 노래를 인식하도록 속일 수 있는 가장 간단한 출력을 제공합니다."
-
-#: ../src/main.rs:169
-msgid "The data-URI Shazam fingerprint to convert into hearable sound."
-msgstr "data-URI Shazam 지문을 들을 수 있는 소리로 변환합니다."
-
-#: ../src/main.rs:174
-msgid ""
-"File path of the .WAV file to write tones to, or nothing to play back the "
-"sound instantly."
-msgstr ""
-"톤을 기록할 .WAV 파일의 파일 경로 또는 사운드를 즉시 재생할 수 있는 항목이 없"
-"습니다."
-
-#: ../src/main.rs:186
+#: ../src/main.rs:172
 msgid "The default action. Display a GUI."
 msgstr "기본 동작입니다. GUI를 표시합니다."
 
-#: ../src/main.rs:190 ../src/main.rs:204
+#: ../src/main.rs:176 ../src/main.rs:190
 msgid "An optional audio file to recognize on the launch of the application."
 msgstr "애플리케이션 실행 시 인식할 선택적 오디오 파일입니다."
 
-#: ../src/main.rs:200
+#: ../src/main.rs:186
 msgid ""
 "Launch the GUI, but don't recognize audio through the microphone as soon as "
 "it is launched (rather than expecting the user to click on a button)."
@@ -176,63 +153,63 @@ msgstr "마이크 오류:"
 msgid "Failed to get default input config"
 msgstr "기본 입력 구성을 가져오지 못했습니다"
 
-#: ../src/fingerprinting/signature_format.rs:125
+#: ../src/fingerprinting/signature_format.rs:94
 msgid "Invalid sample rate in decoded Shazam packet"
 msgstr "디코딩된 Shazam 패킷의 샘플 속도가 잘못되었습니다"
 
-#: ../src/fingerprinting/signature_format.rs:158
+#: ../src/fingerprinting/signature_format.rs:127
 msgid "Invalid frequency band in decoded Shazam packet"
 msgstr "디코딩된 Shazam 패킷의 주파수 대역이 잘못되었습니다"
 
-#: ../src/fingerprinting/signature_format.rs:234
+#: ../src/fingerprinting/signature_format.rs:203
 msgid "Invalid sample rate passed when encoding Shazam packet"
 msgstr "Shazam 패킷을 인코딩할 때 잘못된 샘플 속도가 전달되었습니다"
 
-#: ../src/gui/main_window.rs:45
+#: ../src/gui/main_window.rs:42
 msgid "Application::new failed"
 msgstr "Application::새로 만들기 실패"
 
-#: ../src/gui/main_window.rs:465 ../src/gui/main_window.rs:747
+#: ../src/gui/main_window.rs:467 ../src/gui/main_window.rs:726
 msgid "Unable to enable MPRIS support"
 msgstr "MPRIS 지원을 활성화할 수 없습니다"
 
-#: ../src/gui/main_window.rs:520 ../src/gui/main_window.rs:605
-#: ../src/gui/main_window.rs:818
+#: ../src/gui/main_window.rs:519 ../src/gui/main_window.rs:604
+#: ../src/gui/main_window.rs:805
 msgid "Turn on speakers recognition"
 msgstr ""
 
-#: ../src/gui/main_window.rs:521 ../src/gui/main_window.rs:606
-#: ../src/gui/main_window.rs:819
+#: ../src/gui/main_window.rs:520 ../src/gui/main_window.rs:605
+#: ../src/gui/main_window.rs:806
 msgid "Turn off speakers recognition"
 msgstr ""
 
-#: ../src/gui/main_window.rs:524 ../src/gui/main_window.rs:609
-#: ../src/gui/main_window.rs:822 interface.glade.h:14
+#: ../src/gui/main_window.rs:523 ../src/gui/main_window.rs:608
+#: ../src/gui/main_window.rs:809 interface.glade.h:14
 msgid "Turn on microphone recognition"
 msgstr "마이크 인식 켜기"
 
-#: ../src/gui/main_window.rs:525 ../src/gui/main_window.rs:610
-#: ../src/gui/main_window.rs:823 interface.glade.h:15
+#: ../src/gui/main_window.rs:524 ../src/gui/main_window.rs:609
+#: ../src/gui/main_window.rs:810 interface.glade.h:15
 msgid "Turn off microphone recognition"
 msgstr "마이크 인식 끄기"
 
-#: ../src/gui/main_window.rs:551
+#: ../src/gui/main_window.rs:550
 msgid "Select a file to recognize"
 msgstr "인식할 파일을 선택합니다"
 
-#: ../src/gui/main_window.rs:554
+#: ../src/gui/main_window.rs:553
 msgid "_Open"
 msgstr "열기(_O)"
 
-#: ../src/gui/main_window.rs:555
+#: ../src/gui/main_window.rs:554
 msgid "_Cancel"
 msgstr "취소하기(_C)"
 
-#: ../src/gui/main_window.rs:563
+#: ../src/gui/main_window.rs:562
 msgid "Couldn't get filename"
 msgstr "파일 이름을 가져올 수 없습니다"
 
-#: ../src/gui/main_window.rs:865
+#: ../src/gui/main_window.rs:852
 msgid "Song recognized"
 msgstr "인식된 노래"
 
@@ -320,56 +297,76 @@ msgid "Recognize songs"
 msgstr "노래 인식하기"
 
 #: interface.glade.h:19
-msgid "Play a Shazam lure"
-msgstr "Shazam lure 재생하기"
-
-#: interface.glade.h:20
 msgid "Recognition results"
 msgstr "인식 결과"
 
-#: interface.glade.h:21
+#: interface.glade.h:20
 msgid "Recognize from my speakers instead of microphone"
 msgstr "마이크 대신 내 스피커로 인식하기"
 
-#: interface.glade.h:22
+#: interface.glade.h:21
 msgid "Current volume:"
 msgstr "현재 볼륨:"
 
-#: interface.glade.h:23
+#: interface.glade.h:22
 msgid "Audio input"
 msgstr "오디오 입력"
 
-#: interface.glade.h:24 favorites_interface.glade.h:1
+#: interface.glade.h:23 favorites_interface.glade.h:1
 msgid "Song name"
 msgstr "노래 이름"
 
-#: interface.glade.h:25 favorites_interface.glade.h:2
+#: interface.glade.h:24 favorites_interface.glade.h:2
 msgid "Album"
 msgstr "앨범"
 
-#: interface.glade.h:26
+#: interface.glade.h:25
 msgid "Recognition date"
 msgstr "인식 날짜"
 
-#: interface.glade.h:27 favorites_interface.glade.h:4
+#: interface.glade.h:26 favorites_interface.glade.h:4
 msgid "Favorites"
 msgstr ""
 
-#: interface.glade.h:28
+#: interface.glade.h:27
 msgid "Wipe history"
 msgstr "히스토리 지우기"
 
-#: interface.glade.h:29 favorites_interface.glade.h:3
+#: interface.glade.h:28 favorites_interface.glade.h:3
 msgid "Export to CSV"
 msgstr "CSV로 내보내기"
 
-#: interface.glade.h:30
+#: interface.glade.h:29
 msgid "Recognition history"
 msgstr "인식 히스토리"
 
-#: interface.glade.h:31
+#: interface.glade.h:30
 msgid "SongRec"
 msgstr "SongRec"
+
+#~ msgid ""
+#~ "Convert a data-URI Shazam fingerprint into hearable tones, played back "
+#~ "instantly (or written to a file, if a path is provided). Not particularly "
+#~ "useful, but gives the simplest output that will trick Shazam into "
+#~ "recognizing a non-song."
+#~ msgstr ""
+#~ "데이터-URI Shazam 지문을 들을 수 있는 신호음으로 변환하고 즉시 재생합니다"
+#~ "(또는 경로가 제공되는 경우 파일에 기록). 특별히 유용하지는 않지만 Shazam"
+#~ "이 노래가 아닌 노래를 인식하도록 속일 수 있는 가장 간단한 출력을 제공합니"
+#~ "다."
+
+#~ msgid "The data-URI Shazam fingerprint to convert into hearable sound."
+#~ msgstr "data-URI Shazam 지문을 들을 수 있는 소리로 변환합니다."
+
+#~ msgid ""
+#~ "File path of the .WAV file to write tones to, or nothing to play back the "
+#~ "sound instantly."
+#~ msgstr ""
+#~ "톤을 기록할 .WAV 파일의 파일 경로 또는 사운드를 즉시 재생할 수 있는 항목"
+#~ "이 없습니다."
+
+#~ msgid "Play a Shazam lure"
+#~ msgstr "Shazam lure 재생하기"
 
 #~ msgid "Note: Could not parse TSV output from"
 #~ msgstr "참고: TSV 출력을 구문 분석할 수 없음"

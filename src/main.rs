@@ -160,20 +160,6 @@ macro_rules! base_app {
                         .help(gettext("The data-URI Shazam fingerprint to recognize.").as_str())
                 )
         )
-        .subcommand(
-            App::new("fingerprint-to-lure")
-                .about(gettext("Convert a data-URI Shazam fingerprint into hearable tones, played back instantly (or written to a file, if a path is provided). Not particularly useful, but gives the simplest output that will trick Shazam into recognizing a non-song.").as_str())
-                .arg(
-                    Arg::with_name("fingerprint")
-                        .required(true)
-                        .help(gettext("The data-URI Shazam fingerprint to convert into hearable sound.").as_str())
-                )
-                .arg(
-                    Arg::with_name("output_file")
-                        .required(false)
-                        .help(gettext("File path of the .WAV file to write tones to, or nothing to play back the sound instantly.").as_str())
-                )
-        )
     };
 }
 
@@ -252,44 +238,6 @@ fn main() -> Result<(), Box<dyn Error>> {
             let fingerprint_string = subcommand_args.value_of("fingerprint").unwrap();
             
             println!("{}", serde_json::to_string_pretty(&recognize_song_from_signature(&DecodedSignature::decode_from_uri(fingerprint_string)?)?)?);
-        },
-        Some("fingerprint-to-lure") => {
-            let subcommand_args = args.subcommand_matches("fingerprint-to-lure").unwrap();
-            
-            let fingerprint_string = subcommand_args.value_of("fingerprint").unwrap();
-            
-            let samples: Vec<i16> = DecodedSignature::decode_from_uri(fingerprint_string)?.to_lure()?;
-            
-            match subcommand_args.value_of("output_file") {
-                Some(output_file_string) => {
-                    let spec = hound::WavSpec {
-                        channels: 1,
-                        sample_rate: 16000,
-                        bits_per_sample: 16,
-                        sample_format: hound::SampleFormat::Int,
-                    };
-                    
-                    let mut writer = hound::WavWriter::create(output_file_string, spec)?;
-                    
-                    for sample in samples {
-                        writer.write_sample(sample)?;
-                    }
-                    
-                    writer.finalize()?;
-                },
-                None => {
-                    let mixed_source = rodio::buffer::SamplesBuffer::new::<Vec<i16>>(1, 16000, samples);
-                            
-                    let (_stream, handle) = rodio::OutputStream::try_default()?;
-                    let sink = rodio::Sink::try_new(&handle).unwrap();
-                        
-                    sink.append(mixed_source);
-
-                    sink.sleep_until_end();
-
-                }
-            };
-            
         },
         Some("listen") => {
             let subcommand_args = args.subcommand_matches("listen").unwrap();

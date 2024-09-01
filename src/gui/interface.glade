@@ -74,12 +74,6 @@
       <column type="gboolean"/>
     </columns>
   </object>
-  <object class="GtkImage" id="lure_icon">
-    <property name="visible">True</property>
-    <property name="can-focus">False</property>
-    <property name="pixel-size">20</property>
-    <property name="icon-name">audio-card</property>
-  </object>
   <object class="GtkImage" id="microphone_icon">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
@@ -562,21 +556,6 @@ Contributors https://github.com/marin-m/SongRec/graphs/contributors</property>
                                         <property name="expand">False</property>
                                         <property name="fill">True</property>
                                         <property name="position">2</property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <object class="GtkButton" id="lure_button">
-                                        <property name="label" translatable="yes">Play a Shazam lure</property>
-                                        <property name="visible">True</property>
-                                        <property name="can-focus">True</property>
-                                        <property name="receives-default">True</property>
-                                        <property name="image">lure_icon</property>
-                                        <property name="always-show-image">True</property>
-                                      </object>
-                                      <packing>
-                                        <property name="expand">False</property>
-                                        <property name="fill">True</property>
-                                        <property name="position">3</property>
                                       </packing>
                                     </child>
                                   </object>

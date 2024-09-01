@@ -13,7 +13,6 @@
     <p>- Provide an history of the recognized songs on the GUI, exportable to CSV.</p>
     <p>- Continuous song detection from the microphone, with the ability to choose your input device.</p>
     <p>- Ability to recognize songs from your speakers rather than your microphone (on compatible PulseAudio setups).</p>
-    <p>- Generate a lure from a song that, when played, will fool Shazam into thinking that it is the concerned song.</p>
   </description>
   <screenshots>
     <screenshot type="default">

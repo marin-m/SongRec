@@ -15,37 +15,6 @@ pub struct FrequencyPeak {
     pub sample_rate_hz: u32
 }
 
-impl FrequencyPeak {
-       
-    /// Convert back a FFT bin to a frequency, given a 16 KHz sample
-    /// rate, 1024 useful bins and the multiplication by 64 made before
-    /// storing the information
-    
-    pub fn get_frequency_hz(&self) -> f32 {
-        
-        self.corrected_peak_frequency_bin as f32 * (self.sample_rate_hz as f32 / 2.0 / 1024.0 / 64.0)
-        
-    }
-    
-    /// Not sure about this calculation but gives small enough numbers
-    
-    pub fn get_amplitude_pcm(&self) -> f32 {
-        
-        (((self.peak_magnitude as f32 - 6144.0) / 1477.3).exp() * ((1 << 17) as f32) / 2.0).sqrt() / 1024.0
-        
-    }
-    
-    /// Assume that new FFT bins are emitted every 128 samples, on a
-    /// standard 16 KHz sample rate basis.
-    
-    pub fn get_seconds(&self) -> f32 {
-        
-        (self.fft_pass_number as f32 * 128.0) / self.sample_rate_hz as f32
-        
-    }
-    
-}
-
 #[derive(Hash, Eq, PartialEq, Debug, Clone, Copy)]
 pub enum FrequencyBand {
     _250_520 = 0,
@@ -301,68 +270,6 @@ impl DecodedSignature {
     pub fn encode_to_uri(&self) -> Result<String, Box<dyn Error>> {
         
         Ok(format!("{}{}", DATA_URI_PREFIX, base64::encode(self.encode_to_binary()?)))
-        
-    }
-    
-    pub fn to_lure(&self) -> Result<Vec<i16>, Box<dyn Error>> {
-        
-        let mut buffer: Vec<i16> = [0].repeat((self.number_samples as f32 / self.sample_rate_hz as f32 * 16000.0) as usize);
-        
-        let samples_per_sine = (1.0 / (16000.0 / 2048.0) * 16000.0 * 0.5) as usize; // Shazam uses buffers of 2048 samples at 16,000 Hz to perform recognition, which are fully renewed every 16 iterations.
-
-        for frequency_peaks in self.frequency_band_to_sound_peaks.values() {
-            
-            for frequency_peak in frequency_peaks {
-                
-                let start_offset_of_sine = (frequency_peak.get_seconds() * 16000.0) as usize;
-                let end_offset_of_sine = start_offset_of_sine + samples_per_sine;
-                let amplitude = frequency_peak.get_amplitude_pcm() as f32;
-                let base_frequency = frequency_peak.get_frequency_hz() as f32;
-                
-                if end_offset_of_sine < self.number_samples as usize {
-                    
-                    // Create harmonics to make it sound less though
-                    
-                    let frequencies: Vec<f32> = vec![base_frequency];
-                    
-                    /*let mut next_frequency = base_frequency / 2.0;
-                    while next_frequency > 80.0 {
-                        frequencies.insert(0, next_frequency);
-                        
-                        next_frequency /= 2.0;
-                    }
-                    next_frequency = base_frequency * 2.0;
-                    while next_frequency < 5500.0 {
-                        frequencies.push(next_frequency);
-                        
-                        next_frequency *= 2.0;
-                    }*/
-                    
-                    for frequency in frequencies {
-                    
-                        for num_sample in start_offset_of_sine..end_offset_of_sine {
-                    
-                            let soften_factor = match frequency == base_frequency {
-                                true => 1.0,
-                                false => 1.0 / 3.0
-                            };
-
-                            // let middle_sample = start_offset_of_sine + (end_offset_of_sine - start_offset_of_sine) / 2;
-                            // soften_factor *= (samples_per_sine as i32 - (middle_sample as i32 - num_sample as i32).abs()) as f32 / samples_per_sine as f32;
-                    
-                            buffer[num_sample] += ((2.0 * 3.14159265 * frequency * num_sample as f32 / 16000.0).sin() * amplitude * soften_factor) as i16;
-                        
-                        }
-                        
-                    }
-                    
-                }
-                
-            }
-            
-        }
-                
-        Ok(buffer)
         
     }
     

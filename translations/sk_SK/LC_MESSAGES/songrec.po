@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-22 13:19+0100\n"
+"POT-Creation-Date: 2024-09-01 10:17+0200\n"
 "PO-Revision-Date: 2024-05-16 00:36+0200\n"
 "Last-Translator: Jozef Gaal <preklady@mayday.sk>\n"
 "Language-Team: \n"
@@ -40,7 +40,7 @@ msgstr "Upozornenie: Sieť nedostupná"
 
 #: ../src/cli_main.rs:147 ../src/core/http_thread.rs:49
 #: ../src/core/http_thread.rs:54 ../src/core/http_thread.rs:63
-#: ../src/core/http_thread.rs:89 ../src/gui/main_window.rs:763
+#: ../src/core/http_thread.rs:89 ../src/gui/main_window.rs:750
 msgid "No match for this song"
 msgstr "Žiadna zhoda pre túto skladbu"
 
@@ -63,8 +63,8 @@ msgid ""
 "recognized songs to stdout, exposing current song info via MPRIS"
 msgstr ""
 "Spustiť ako program príkazového riadku, ktorý počúva mikrofón a vypisuje "
-"rozpoznané skladby na stdout, pričom zobrazuje aktuálne informácie o "
-"skladbe prostredníctvom MPRIS"
+"rozpoznané skladby na stdout, pričom zobrazuje aktuálne informácie o skladbe "
+"prostredníctvom MPRIS"
 
 #: ../src/main.rs:75 ../src/main.rs:104 ../src/main.rs:142
 msgid "Specify the audio device to use"
@@ -78,7 +78,7 @@ msgstr "Zapnúť tlač úplných informácií o skladbe v JSON"
 msgid "Enable printing full song info in the CSV format"
 msgstr "Zapnúť tlač úplných informácií o skladbe v CSV formáte"
 
-#: ../src/main.rs:93 ../src/main.rs:195 ../src/main.rs:209
+#: ../src/main.rs:93 ../src/main.rs:181 ../src/main.rs:195
 msgid "Disable MPRIS support"
 msgstr "Vypnúť podporu MPRIS"
 
@@ -130,46 +130,22 @@ msgid ""
 "Take a data-URI Shazam fingerprint, perform song recognition towards "
 "Shazam's servers and print obtained information to the standard output."
 msgstr ""
-"Prevziať data-URI odtlačok Shazam, vykonať rozpoznanie skladby voči "
-"serverom Shazam a vypísať získané informácie na štandardný výstup."
+"Prevziať data-URI odtlačok Shazam, vykonať rozpoznanie skladby voči serverom "
+"Shazam a vypísať získané informácie na štandardný výstup."
 
 #: ../src/main.rs:160
 msgid "The data-URI Shazam fingerprint to recognize."
 msgstr "Data-URI odtlačok Shazam na rozpoznanie."
 
-#: ../src/main.rs:165
-msgid ""
-"Convert a data-URI Shazam fingerprint into hearable tones, played back "
-"instantly (or written to a file, if a path is provided). Not particularly "
-"useful, but gives the simplest output that will trick Shazam into "
-"recognizing a non-song."
-msgstr ""
-"Konvertovať data-URI odtlačok Shazam na počuteľné tóny, ktoré sa okamžite "
-"prehrávajú (alebo zapíšu do súboru, ak je zadaná cesta). Nie je obzvlášť "
-"užitočné, ale poskytuje najjednoduchší výstup, ktorý oklame Shazam, aby "
-"rozpoznal niečo iné ako skladbu."
-
-#: ../src/main.rs:169
-msgid "The data-URI Shazam fingerprint to convert into hearable sound."
-msgstr "Data-URI odtlačok Shazam na konverziu na počuteľný zvuk."
-
-#: ../src/main.rs:174
-msgid ""
-"File path of the .WAV file to write tones to, or nothing to play back the "
-"sound instantly."
-msgstr ""
-"Cesta k súboru .WAV, do ktorého sa majú zapisovať tóny, alebo nič, ak "
-"chcete zvuk prehrať okamžite."
-
-#: ../src/main.rs:186
+#: ../src/main.rs:172
 msgid "The default action. Display a GUI."
 msgstr "Predvolená akcia. Zobrazenie grafického rozhrania."
 
-#: ../src/main.rs:190 ../src/main.rs:204
+#: ../src/main.rs:176 ../src/main.rs:190
 msgid "An optional audio file to recognize on the launch of the application."
 msgstr "Voliteľný zvukový súbor, ktorý sa rozpozná pri spustení aplikácie."
 
-#: ../src/main.rs:200
+#: ../src/main.rs:186
 msgid ""
 "Launch the GUI, but don't recognize audio through the microphone as soon as "
 "it is launched (rather than expecting the user to click on a button)."
@@ -186,64 +162,64 @@ msgstr "Chyba mikrofónu:"
 msgid "Failed to get default input config"
 msgstr "Nepodarilo sa získať predvolenú konfiguráciu vstupu"
 
-#: ../src/fingerprinting/signature_format.rs:125
+#: ../src/fingerprinting/signature_format.rs:94
 msgid "Invalid sample rate in decoded Shazam packet"
 msgstr "Neplatná vzorkovacia frekvencia v dekódovanom pakete Shazam"
 
-#: ../src/fingerprinting/signature_format.rs:158
+#: ../src/fingerprinting/signature_format.rs:127
 msgid "Invalid frequency band in decoded Shazam packet"
 msgstr "Neplatné frekvenčné pásmo v dekódovanom pakete Shazam"
 
-#: ../src/fingerprinting/signature_format.rs:234
+#: ../src/fingerprinting/signature_format.rs:203
 msgid "Invalid sample rate passed when encoding Shazam packet"
 msgstr ""
 "Pri kódovaní paketu Shazam bola odovzdaná nesprávna vzorkovacia frekvencia"
 
-#: ../src/gui/main_window.rs:45
+#: ../src/gui/main_window.rs:42
 msgid "Application::new failed"
 msgstr "Aplikácia::nová zlyhala"
 
-#: ../src/gui/main_window.rs:465 ../src/gui/main_window.rs:747
+#: ../src/gui/main_window.rs:467 ../src/gui/main_window.rs:726
 msgid "Unable to enable MPRIS support"
 msgstr "Nie je možné zapnúť podporu MPRIS"
 
-#: ../src/gui/main_window.rs:520 ../src/gui/main_window.rs:605
-#: ../src/gui/main_window.rs:818
+#: ../src/gui/main_window.rs:519 ../src/gui/main_window.rs:604
+#: ../src/gui/main_window.rs:805
 msgid "Turn on speakers recognition"
 msgstr "Zapnúť rozpoznávanie z reproduktorov"
 
-#: ../src/gui/main_window.rs:521 ../src/gui/main_window.rs:606
-#: ../src/gui/main_window.rs:819
+#: ../src/gui/main_window.rs:520 ../src/gui/main_window.rs:605
+#: ../src/gui/main_window.rs:806
 msgid "Turn off speakers recognition"
 msgstr "Vypnúť rozpoznávanie z reproduktorov"
 
-#: ../src/gui/main_window.rs:524 ../src/gui/main_window.rs:609
-#: ../src/gui/main_window.rs:822 interface.glade.h:14
+#: ../src/gui/main_window.rs:523 ../src/gui/main_window.rs:608
+#: ../src/gui/main_window.rs:809 interface.glade.h:14
 msgid "Turn on microphone recognition"
 msgstr "Zapnúť rozpoznávanie z mikrofónu"
 
-#: ../src/gui/main_window.rs:525 ../src/gui/main_window.rs:610
-#: ../src/gui/main_window.rs:823 interface.glade.h:15
+#: ../src/gui/main_window.rs:524 ../src/gui/main_window.rs:609
+#: ../src/gui/main_window.rs:810 interface.glade.h:15
 msgid "Turn off microphone recognition"
 msgstr "Vypnúť rozpoznávanie z mikrofónu"
 
-#: ../src/gui/main_window.rs:551
+#: ../src/gui/main_window.rs:550
 msgid "Select a file to recognize"
 msgstr "Vyberte súbor na rozpoznanie"
 
-#: ../src/gui/main_window.rs:554
+#: ../src/gui/main_window.rs:553
 msgid "_Open"
 msgstr "_Otvoriť"
 
-#: ../src/gui/main_window.rs:555
+#: ../src/gui/main_window.rs:554
 msgid "_Cancel"
 msgstr "_Zrušiť"
 
-#: ../src/gui/main_window.rs:563
+#: ../src/gui/main_window.rs:562
 msgid "Couldn't get filename"
 msgstr "Nepodarilo sa získať názov súboru"
 
-#: ../src/gui/main_window.rs:865
+#: ../src/gui/main_window.rs:852
 msgid "Song recognized"
 msgstr "Skladba rozpoznaná"
 
@@ -336,53 +312,73 @@ msgid "Recognize songs"
 msgstr "Rozpoznať skladby"
 
 #: interface.glade.h:19
-msgid "Play a Shazam lure"
-msgstr "Prehrať návnadu Shazam"
-
-#: interface.glade.h:20
 msgid "Recognition results"
 msgstr "Výsledky rozpoznania"
 
-#: interface.glade.h:21
+#: interface.glade.h:20
 msgid "Recognize from my speakers instead of microphone"
 msgstr "Rozpoznať z mojich reproduktorov namiesto mikrofónu"
 
-#: interface.glade.h:22
+#: interface.glade.h:21
 msgid "Current volume:"
 msgstr "Aktuálna hlasitosť:"
 
-#: interface.glade.h:23
+#: interface.glade.h:22
 msgid "Audio input"
 msgstr "Zvukový vstup"
 
-#: interface.glade.h:24 favorites_interface.glade.h:1
+#: interface.glade.h:23 favorites_interface.glade.h:1
 msgid "Song name"
 msgstr "Názov skladby"
 
-#: interface.glade.h:25 favorites_interface.glade.h:2
+#: interface.glade.h:24 favorites_interface.glade.h:2
 msgid "Album"
 msgstr "Album"
 
-#: interface.glade.h:26
+#: interface.glade.h:25
 msgid "Recognition date"
 msgstr "Dátum rozpoznania"
 
-#: interface.glade.h:27 favorites_interface.glade.h:4
+#: interface.glade.h:26 favorites_interface.glade.h:4
 msgid "Favorites"
 msgstr "Obľúbené"
 
-#: interface.glade.h:28
+#: interface.glade.h:27
 msgid "Wipe history"
 msgstr "Vymazať históriu"
 
-#: interface.glade.h:29 favorites_interface.glade.h:3
+#: interface.glade.h:28 favorites_interface.glade.h:3
 msgid "Export to CSV"
 msgstr "Exportovať do CSV"
 
-#: interface.glade.h:30
+#: interface.glade.h:29
 msgid "Recognition history"
 msgstr "História rozpoznania"
 
-#: interface.glade.h:31
+#: interface.glade.h:30
 msgid "SongRec"
 msgstr "SongRec"
+
+#~ msgid ""
+#~ "Convert a data-URI Shazam fingerprint into hearable tones, played back "
+#~ "instantly (or written to a file, if a path is provided). Not particularly "
+#~ "useful, but gives the simplest output that will trick Shazam into "
+#~ "recognizing a non-song."
+#~ msgstr ""
+#~ "Konvertovať data-URI odtlačok Shazam na počuteľné tóny, ktoré sa okamžite "
+#~ "prehrávajú (alebo zapíšu do súboru, ak je zadaná cesta). Nie je obzvlášť "
+#~ "užitočné, ale poskytuje najjednoduchší výstup, ktorý oklame Shazam, aby "
+#~ "rozpoznal niečo iné ako skladbu."
+
+#~ msgid "The data-URI Shazam fingerprint to convert into hearable sound."
+#~ msgstr "Data-URI odtlačok Shazam na konverziu na počuteľný zvuk."
+
+#~ msgid ""
+#~ "File path of the .WAV file to write tones to, or nothing to play back the "
+#~ "sound instantly."
+#~ msgstr ""
+#~ "Cesta k súboru .WAV, do ktorého sa majú zapisovať tóny, alebo nič, ak "
+#~ "chcete zvuk prehrať okamžite."
+
+#~ msgid "Play a Shazam lure"
+#~ msgstr "Prehrať návnadu Shazam"

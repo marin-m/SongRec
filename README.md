@@ -12,7 +12,6 @@ Features:
 * Provide an history of the recognized songs on the GUI, exportable to CSV.
 * Continuous song detection from the microphone, with the ability to choose your input device.
 * Ability to recognize songs from your speakers rather than your microphone (on compatible PulseAudio setups).
-* Generate a lure from a song that, when played, will fool Shazam into thinking that it is the concerned song.
 
 A (command-line only) Python version, which I made before rewriting in Rust for performance, is also available for demonstration purposes. It supports file recognition only.
 
@@ -185,13 +184,6 @@ The following subcommands will do the same with an intermediary step, manipulati
 ```
 ./songrec audio-file-to-fingerprint sound_file.mp3
 ./songrec fingerprint-to-recognized-song 'data:audio/vnd.shazam.sig;base64,...'
-```
-
-The following will produce back hearable tones from a given fingerprint, that should be able to fool Shazam into thinking that this is the original song (either to the default audio output device, or to a .WAV file):
-
-```
-./songrec fingerprint-to-lure 'data:audio/vnd.shazam.sig;base64,...'
-./songrec fingerprint-to-lure 'data:audio/vnd.shazam.sig;base64,...' /tmp/output.wav
 ```
 
 When using the application, you may notice that certain information will be saved to `~/.local/share/songrec` and `~/.config/songrec` (or an equivalent directory depending on your operating system), including the CSV-format list of the last recognized songs and the last selected microphone input device (so that it is chosen back when restarting the app). You may want to delete these directories in case of persistent issues.
