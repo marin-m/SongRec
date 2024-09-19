@@ -309,8 +309,10 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
         let copy_artist_and_track_fn = move |menu_item: &gtk::MenuItem| {
             let tree_view = menu_item.get_tree_view();
             if let Some(song_record) = tree_view.get_selected_song_record() {
-                gtk::Clipboard::get(&gdk::SELECTION_CLIPBOARD).set_text(&song_record.song_name);
-            }
+                gdk::Display::default()
+                .expect("Couldn't get default display for getting Clipboard")
+                .primary_clipboard()
+                .set_text(&song_record.album.unwrap_or(String::new()));            }
         };
         history_context_menu.connect_activate_menu_item("copy_artist_and_track", copy_artist_and_track_fn);
         favorites_context_menu.connect_activate_menu_item("copy_artist_and_track", copy_artist_and_track_fn);
