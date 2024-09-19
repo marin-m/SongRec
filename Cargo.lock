@@ -2565,7 +2565,7 @@ dependencies = [
  "csv",
  "directories",
  "gdk",
- "gdk-pixbuf 0.9.0",
+ "gdk-pixbuf 0.20.1",
  "gettext-rs",
  "gettext-sys",
  "gio 0.20.1",
