@@ -26,10 +26,10 @@ impl SongHistoryRecordListStore for gtk::ListStore {
 
         Some(SongHistoryRecord {
             song_name,
-            album,
-            track_key,
-            release_year,
-            genre,
+            album: Some(album),
+            track_key: Some(track_key),
+            release_year: Some(release_year),
+            genre: Some(genre),
             recognition_date,
         })
     }
