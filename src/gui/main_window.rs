@@ -357,7 +357,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
                 
                 let search_url = format!("https://www.youtube.com/results?search_query={}", encoded_search_term);
                 
-                gtk::show_uri(None, &search_url, gtk::get_current_event_time()).unwrap();
+                gtk::show_uri(None, &search_url, chrono::Utc::now().timestamp_millis() as u32).unwrap();
             }
             
         };
@@ -635,7 +635,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
             
             let search_url = format!("https://www.youtube.com/results?search_query={}", encoded_search_term);
             
-            gtk::show_uri(None, &search_url, gtk::get_current_event_time()).unwrap();
+            gtk::show_uri(None, &search_url, chrono::Utc::now().timestamp_millis() as u32);
             
         });
         
@@ -655,7 +655,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
 
             #[cfg(not(windows))] {
 
-                gtk::show_uri(None, &format!("file://{}", obtain_favorites_csv_path().unwrap()), gtk::get_current_event_time()).ok();
+                gtk::show_uri(None, &format!("file://{}", obtain_favorites_csv_path().unwrap()), chrono::Utc::now().timestamp_millis() as u32).ok();
             }
 
             #[cfg(windows)]
@@ -670,7 +670,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
 
             #[cfg(not(windows))] {
 
-                gtk::show_uri(None, &format!("file://{}", obtain_recognition_history_csv_path().unwrap()), gtk::get_current_event_time()).ok();
+                gtk::show_uri(None, &format!("file://{}", obtain_recognition_history_csv_path().unwrap()), chrono::Utc::now().timestamp_millis() as u32).ok();
             }
 
             #[cfg(windows)]
