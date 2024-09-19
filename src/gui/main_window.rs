@@ -420,10 +420,10 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
                     None => return,
                 };
 
-                let width = pixbuf.get_width() as f64;
+                let width = pixbuf.width() as f64;
                 let max_width = allocation.width.min(400) as f64;
                 let width_scale = width / max_width;
-                let height = pixbuf.get_height() as f64;
+                let height = pixbuf.height() as f64;
                 let max_height = allocation.height.min(400) as f64;
                 let height_scale = height / max_height;
 
