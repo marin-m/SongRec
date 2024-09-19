@@ -60,15 +60,15 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
 
         #[cfg(not(feature = "mpris"))]
         {
-            prefs_menu_item.hide();
-            main_menu_separator.hide();
-            _enable_mpris_box.hide();
+            prefs_menu_item.set_visible(false);
+            main_menu_separator.set_visible(false);
+            _enable_mpris_box.set_visible(false);
         }
 
         if !enable_mpris_cli {
-            prefs_menu_item.hide();
-            main_menu_separator.hide();
-            _enable_mpris_box.hide();
+            prefs_menu_item.set_visible(false);
+            main_menu_separator.set_visible(false);
+            _enable_mpris_box.set_visible(false);
         }
 
         prefs_window.connect_delete_event(move |item, _event| {
@@ -384,7 +384,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
         favorites_builder.connect_signals(clone!(@strong favorites_window => move |_builder, handler_name| {
             match handler_name {
                 "__hide_window" => Box::new(clone! (@strong favorites_window => move |_| {
-                    favorites_window.hide();
+                    favorites_window.set_visible(false);
                     Some(true.to_value())
                 })),
                 _ => Box::new(|_| {None})
@@ -548,7 +548,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
             
             let file_chooser = gtk::FileDialog::new();
             file_chooser.open(Some(&main_window), None, &|file| {
-                recognize_file_button.hide();
+                recognize_file_button.set_visible(false);
                 
                 spinner.show();
                 
@@ -570,7 +570,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
                 
                 microphone_stop_button.show();
                 current_volume_hbox.show();
-                microphone_button.hide();
+                microphone_button.set_visible(false);
             }
 
         }));
@@ -579,8 +579,8 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
             
             microphone_tx_2.send(MicrophoneMessage::MicrophoneRecordStop).unwrap();
             
-            microphone_stop_button.hide();
-            current_volume_hbox.hide();
+            microphone_stop_button.set_visible(false);
+            current_volume_hbox.set_visible(false);
             microphone_button.show();
             
         }));
@@ -698,7 +698,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
             match gui_message {
                 ErrorMessage(_) | NetworkStatus(_) | SongRecognized(_) => {
                     recognize_file_button.show();
-                    spinner.hide();
+                    spinner.set_visible(false);
                 },
                 _ =>  { }
             }
@@ -748,7 +748,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
                 },
                 NetworkStatus(network_is_reachable) => {
                     if network_is_reachable {
-                        network_unreachable.hide();
+                        network_unreachable.set_visible(false);
                     }
                     else {
                         network_unreachable.show_all();
@@ -803,7 +803,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
                         }
                     }
                     else {
-                        recognize_from_my_speakers_checkbox.hide();
+                        recognize_from_my_speakers_checkbox.set_visible(false);
                     }
                     
                     // Should we start recording yet? (will depend of the possible
@@ -820,7 +820,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
                             
                             microphone_stop_button.show();
                             current_volume_hbox.show();
-                            microphone_button.hide();
+                            microphone_button.set_visible(false);
                         }
                     }
                 },
@@ -886,14 +886,14 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
                                         };
                                     },
                                     Err(_) => {
-                                        recognized_song_cover.hide();
+                                        recognized_song_cover.set_visible(false);
                                     }
                                     
                                 };
                                     
                             }
                             None => {
-                                recognized_song_cover.hide();
+                                recognized_song_cover.set_visible(false);
                             }
                         };
 
@@ -913,15 +913,15 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
         
         main_window.show_all();
 
-        results_frame.hide();
+        results_frame.set_visible(false);
         
-        recognize_from_my_speakers_checkbox.hide(); // This will be available only of PulseAudio is up and controllable
+        recognize_from_my_speakers_checkbox.set_visible(false); // This will be available only of PulseAudio is up and controllable
 
-        spinner.hide();
-        network_unreachable.hide();
+        spinner.set_visible(false);
+        network_unreachable.set_visible(false);
 
-        microphone_stop_button.hide();
-        current_volume_hbox.hide();
+        microphone_stop_button.set_visible(false);
+        current_volume_hbox.set_visible(false);
 
     });
     
