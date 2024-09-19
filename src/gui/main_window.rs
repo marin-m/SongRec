@@ -433,7 +433,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
                     (width / scale) as i32,
                     (height / scale) as i32,
                     gdk_pixbuf::InterpType::Bilinear
-                ).expect("Failed to scale music cover image");
+                );
 
                 // Defer resizing until after size allocation is done
 
