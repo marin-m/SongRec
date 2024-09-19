@@ -343,7 +343,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
                 
                 let search_url = format!("https://www.youtube.com/results?search_query={}", encoded_search_term);
                 
-                gtk::show_uri(None, &search_url, chrono::Utc::now().timestamp_millis() as u32).unwrap();
+                gtk::show_uri(None, &search_url, chrono::Utc::now().timestamp_millis() as u32);
             }
             
         };
