@@ -2,7 +2,6 @@ use gdk::EventButton;
 use gio::prelude::*;
 use glib::clone;
 use gtk::prelude::*;
-use gtk::ResponseType;
 use gettextrs::gettext;
 use gdk_pixbuf::Pixbuf;
 use std::error::Error;
