@@ -17,9 +17,9 @@ trait SongHistoryRecordListStore {
 
 impl SongHistoryRecordListStore for gtk::ListStore {
     fn get_song_history_record(self: &mut Self, iter: &gtk::TreeIter) -> Option<SongHistoryRecord> {
-        let song_name = self.get_value(&iter, 0).get::<String>().ok()??;
+        let song_name = self.get_value(&iter, 0).get::<String>().ok()?;
         let album = self.get_value(&iter, 1).get::<String>().ok()?;
-        let recognition_date = self.get_value(&iter, 2).get::<String>().ok()??;
+        let recognition_date = self.get_value(&iter, 2).get::<String>().ok()?;
         let track_key = self.get_value(&iter, 3).get::<String>().ok()?;
         let release_year = self.get_value(&iter, 4).get::<String>().ok()?;
         let genre = self.get_value(&iter, 5).get::<String>().ok()?;
