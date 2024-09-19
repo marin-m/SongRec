@@ -546,25 +546,17 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
 
         recognize_file_button.connect_clicked(clone!(@strong main_window, @strong spinner, @strong recognize_file_button => move |_| {
             
-            let file_chooser = gtk::FileChooserNative::new(
-                Some(&gettext("Select a file to recognize")),
-                Some(&main_window),
-                gtk::FileChooserAction::Open,
-                Some(&gettext("_Open")),
-                Some(&gettext("_Cancel"))
-            );
-            
-            if file_chooser.run() == ResponseType::Accept {
+            let file_chooser = gtk::FileDialog::new();
+            file_chooser.open(Some(&main_window), None, &|file| {
                 recognize_file_button.hide();
                 
                 spinner.show();
                 
-                let input_file_path = file_chooser.get_filename().expect(&gettext("Couldn't get filename"));
+                let input_file_path = file.expect(&gettext("Couldn't get filename"));
                 let input_file_string = input_file_path.to_str().unwrap().to_string();
                 
-                processing_tx_3.send(ProcessingMessage::ProcessAudioFile(input_file_string)).unwrap();
-            };
-        
+                processing_tx_3.send(ProcessingMessage::ProcessAudioFile(input_file_string)).unwrap();                
+            });
         }));
         
         microphone_button.connect_clicked(clone!(@strong microphone_button, @strong microphone_stop_button,
