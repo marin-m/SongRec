@@ -38,8 +38,7 @@ use std::os::windows::process::CommandExt;
 pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: bool) -> Result<(), Box<dyn Error>> {
     
     let application = gtk::Application::new(Some("com.github.marinm.songrec"),
-        gio::ApplicationFlags::HANDLES_OPEN)
-        .expect(&gettext("Application::new failed"));
+        gio::ApplicationFlags::HANDLES_OPEN);
 
     application.connect_startup(move |application| {
         
