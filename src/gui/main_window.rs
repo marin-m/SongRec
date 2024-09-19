@@ -69,22 +69,8 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
             _enable_mpris_box.set_visible(false);
         }
 
-        prefs_window.connect_delete_event(move |item, _event| {
-            item.hide_on_delete()
-        });
-        prefs_menu_item.connect_clicked(move |_menu_item: &gtk::MenuButton| {
-            prefs_window.show_all();
-        });
-
         let about_menu_item: gtk::MenuButton = main_builder.object("about_menu_button").unwrap();
         let about_dialog: gtk::AboutDialog = main_builder.object("about_dialog").unwrap();
-
-        about_dialog.connect_delete_event(move |item, _event| {
-            item.hide_on_delete()
-        });
-        about_menu_item.connect_clicked(move |_menu_item: &gtk::MenuButton| {
-            about_dialog.show_all();
-        });
 
         let favorites_window: gtk::Window = favorites_builder.object("favorites_window").unwrap();
         
@@ -572,8 +558,8 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
                     device_name.to_owned()
                 )).unwrap();
                 
-                microphone_stop_button.show();
-                current_volume_hbox.show();
+                microphone_stop_button.set_visible(true);
+                current_volume_hbox.set_visible(true);
                 microphone_button.set_visible(false);
             }
 
@@ -585,7 +571,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
             
             microphone_stop_button.set_visible(false);
             current_volume_hbox.set_visible(false);
-            microphone_button.show();
+            microphone_button.set_visible(true);
             
         }));
         
@@ -701,7 +687,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
             
             match gui_message {
                 ErrorMessage(_) | NetworkStatus(_) | SongRecognized(_) => {
-                    recognize_file_button.show();
+                    recognize_file_button.set_visible(true);
                     spinner.set_visible(false);
                 },
                 _ =>  { }
@@ -740,23 +726,19 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
                     }
                 },
                 ShowFavorites => {
-                    favorites_window.show_all();
+                    favorites_window.set_visible(true);
                 },
                 ErrorMessage(string) => {
                     if !(string == gettext("No match for this song") && microphone_stop_button.is_visible()) {
                         let dialog = gtk::MessageDialog::new(Some(&main_window),
                             gtk::DialogFlags::MODAL, gtk::MessageType::Error, gtk::ButtonsType::Ok, &string);
-                        dialog.connect_response(|dialog, _| dialog.close());
-                        dialog.show_all();
-                    }
+                        dialog.connect_response(|dialog, _| dialog.close());                    }
                 },
                 NetworkStatus(network_is_reachable) => {
                     if network_is_reachable {
                         network_unreachable.set_visible(false);
                     }
-                    else {
-                        network_unreachable.show_all();
-                    }
+                    else {                    }
                     #[cfg(feature = "mpris")] if _enable_mpris_box.is_active() {
                         let mpris_status = if network_is_reachable { PlaybackStatus::Playing } else { PlaybackStatus::Paused };
 
@@ -791,9 +773,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
                     
                     combo_box.set_active(Some(old_device_index));
 
-                    if has_monitor_device {
-                        recognize_from_my_speakers_checkbox.show_all();
-                        recognize_from_my_speakers_checkbox.set_active(
+                    if has_monitor_device {                        recognize_from_my_speakers_checkbox.set_active(
                             devices[old_device_index as usize].is_monitor
                         );
 
@@ -822,8 +802,8 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
                                 device_name.to_owned()
                             )).unwrap();
                             
-                            microphone_stop_button.show();
-                            current_volume_hbox.show();
+                            microphone_stop_button.set_visible(true);
+                            current_volume_hbox.set_visible(true);
                             microphone_button.set_visible(false);
                         }
                     }
@@ -860,9 +840,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
 
                         recognized_song_name.set_markup(&format!("<b>{}</b>", glib::markup_escape_text(song_name.as_ref().unwrap())));
                         *youtube_query_borrow = song_name;
-                        
-                        results_frame.show_all();
-                        
+                                                
                         match message.cover_image {
                             Some(cover_data) => {
                                 let stream = gio::MemoryInputStream::from_bytes(&glib::Bytes::from(&cover_data));
@@ -915,8 +893,6 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
 
         // Don't forget to make all widgets visible.
         
-        main_window.show_all();
-
         results_frame.set_visible(false);
         
         recognize_from_my_speakers_checkbox.set_visible(false); // This will be available only of PulseAudio is up and controllable
