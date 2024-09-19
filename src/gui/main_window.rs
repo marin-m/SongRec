@@ -142,24 +142,24 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
         // Add a context menu to the history tree view, in order to allow
         // users to copy or search items (see https://stackoverflow.com/a/49720383)
         // add and remove favorites
-        let history_context_menu: gtk::Menu = main_builder.object("list_view_context_menu").unwrap();
+        let history_context_menu: gtk::PopoverMenu = main_builder.object("list_view_context_menu").unwrap();
         history_tree_view.connect_right_click(&history_context_menu, &favorites_interface);
 
-        let favorites_context_menu: gtk::Menu = favorites_builder.object("list_view_context_menu").unwrap();
+        let favorites_context_menu: gtk::PopoverMenu = favorites_builder.object("list_view_context_menu").unwrap();
         favorites_tree_view.connect_right_click(&favorites_context_menu, &favorites_interface);
 
         trait ContextMenuItemsExt {
-            fn connect_activate_menu_item<F: Fn(&gtk::MenuItem) + 'static>(&self, name: &str, f: F) -> ();
-            fn get_menu_item(&self, name: &str) -> Option<gtk::MenuItem>;
+            fn connect_activate_menu_item<F: Fn(&gio::MenuItem) + 'static>(&self, name: &str, f: F) -> ();
+            fn get_menu_item(&self, name: &str) -> Option<gio::MenuItem>;
             fn show_menu_item(&self, name: &str) -> Option<()>;
             fn hide_menu_item(&self, name: &str) -> Option<()>;
             fn toggle_menu_items_for_favorite(&self, is_favorite: bool);
         }
 
-        impl ContextMenuItemsExt for gtk::Menu {
-            fn get_menu_item(&self, name: &str) -> Option<gtk::MenuItem> {
+        impl ContextMenuItemsExt for gtk::PopoverMenu {
+            fn get_menu_item(&self, name: &str) -> Option<gio::MenuItem> {
                 for child in self.get_children() {
-                    if let Ok(menu_item) = child.downcast::<gtk::MenuItem>() {
+                    if let Ok(menu_item) = child.downcast::<gio::MenuItem>() {
                         if menu_item.get_buildable_name().unwrap() == name {
                             return Some(menu_item);
                         }
@@ -168,7 +168,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
                 return None;
             }
 
-            fn connect_activate_menu_item<F: Fn(&gtk::MenuItem) + 'static>(&self, name: &str, f: F) -> () {
+            fn connect_activate_menu_item<F: Fn(&gio::MenuItem) + 'static>(&self, name: &str, f: F) -> () {
                 if let Some(menu_item) = self.get_menu_item(name) {
                     menu_item.connect_activate(f);
                 }
@@ -242,11 +242,11 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
         }
 
         trait RightClickExt {
-            fn connect_right_click(&self, builder: &gtk::Menu, favorites_interface: &Arc<RwLock<FavoritesInterface>>);
+            fn connect_right_click(&self, builder: &gtk::PopoverMenu, favorites_interface: &Arc<RwLock<FavoritesInterface>>);
         }
 
         impl RightClickExt for gtk::TreeView {
-            fn connect_right_click(&self, context_menu: &gtk::Menu, favorites_interface: &Arc<RwLock<FavoritesInterface>>) {
+            fn connect_right_click(&self, context_menu: &gtk::PopoverMenu, favorites_interface: &Arc<RwLock<FavoritesInterface>>) {
                 self.connect_button_press_event(clone!(@strong context_menu, @strong favorites_interface => move |tree_view, button| {
                     if button.get_event_type() == gdk::EventType::ButtonPress && button.get_button() == 3 { // Is this a single right click?
                         // Display the context menu
@@ -272,18 +272,18 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
             fn get_tree_view(&self) -> gtk::TreeView;
         }
 
-        impl TreeViewExt for gtk::Menu {
+        impl TreeViewExt for gtk::PopoverMenu {
             fn get_tree_view(&self) -> gtk::TreeView{
-                let widget: gtk::Widget= self.get_attach_widget().unwrap();
+                let widget: gtk::Widget = self.downcast::<gtk::PopoverMenu>().unwrap();
                 let tree_view: gtk::TreeView = widget.downcast::<gtk::TreeView>().unwrap();
                 tree_view
             }
         }
 
-        impl TreeViewExt for gtk::MenuItem {
+        impl TreeViewExt for gio::MenuItem {
             fn get_tree_view(&self) -> gtk::TreeView {
                 let widget: gtk::Widget = self.get_parent().unwrap();
-                let menu: gtk::Menu = widget.downcast::<gtk::Menu>().unwrap();
+                let menu: gtk::PopoverMenu = widget.downcast::<gtk::PopoverMenu>().unwrap();
                 menu.get_tree_view()
             }
         }
@@ -292,7 +292,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
         
         // Bind the context menu actions for the recognized songs history
 
-        let copy_artist_and_track_fn = move |menu_item: &gtk::MenuItem| {
+        let copy_artist_and_track_fn = move |menu_item: &gio::MenuItem| {
             let tree_view = menu_item.get_tree_view();
             if let Some(song_record) = tree_view.get_selected_song_record() {
                 gdk::Display::default()
@@ -303,7 +303,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
         history_context_menu.connect_activate_menu_item("copy_artist_and_track", copy_artist_and_track_fn);
         favorites_context_menu.connect_activate_menu_item("copy_artist_and_track", copy_artist_and_track_fn);
 
-        let copy_artist_fn = move |menu_item: &gtk::MenuItem| {
+        let copy_artist_fn = move |menu_item: &gio::MenuItem| {
             let tree_view = menu_item.get_tree_view();
 
             if let Some(song_record) = tree_view.get_selected_song_record() {
@@ -315,7 +315,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
         history_context_menu.connect_activate_menu_item("copy_artist", copy_artist_fn);
         favorites_context_menu.connect_activate_menu_item("copy_artist", copy_artist_fn);
         
-        let copy_track_name_fn = move |menu_item: &gtk::MenuItem| {
+        let copy_track_name_fn = move |menu_item: &gio::MenuItem| {
             let tree_view = menu_item.get_tree_view();
             if let Some(song_record) = tree_view.get_selected_song_record() {
                 let full_song_name_parts: Vec<&str> = song_record.song_name.splitn(2, " - ").collect();
@@ -325,7 +325,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
         history_context_menu.connect_activate_menu_item("copy_track_name", copy_track_name_fn);
         favorites_context_menu.connect_activate_menu_item("copy_track_name", copy_track_name_fn);
 
-        let copy_album_fn = move |menu_item: &gtk::MenuItem| {
+        let copy_album_fn = move |menu_item: &gio::MenuItem| {
             let tree_view = menu_item.get_tree_view();
             if let Some(song_record) = tree_view.get_selected_song_record() {
                 gtk::Clipboard::get(&gdk::SELECTION_CLIPBOARD).set_text(&song_record.album.unwrap_or(String::new()));
@@ -334,7 +334,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
         history_context_menu.connect_activate_menu_item("copy_album", copy_album_fn);
         favorites_context_menu.connect_activate_menu_item("copy_album", copy_album_fn);
 
-        let search_on_youtube_fn = move |menu_item: &gtk::MenuItem| {
+        let search_on_youtube_fn = move |menu_item: &gio::MenuItem| {
             let tree_view = menu_item.get_tree_view();
             if let Some(song_record) = tree_view.get_selected_song_record() {
                 
@@ -350,7 +350,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
         history_context_menu.connect_activate_menu_item("search_on_youtube", search_on_youtube_fn);
         favorites_context_menu.connect_activate_menu_item("search_on_youtube", search_on_youtube_fn);
 
-        let add_to_favorites_fn = clone!(@strong gui_tx => move |menu_item: &gtk::MenuItem| {
+        let add_to_favorites_fn = clone!(@strong gui_tx => move |menu_item: &gio::MenuItem| {
             let tree_view = menu_item.get_tree_view();
             if let Some(song_record) = tree_view.get_selected_song_record() {
                 gui_tx.send(GUIMessage::AddFavorite(song_record)).unwrap();
@@ -358,7 +358,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
         });
         history_context_menu.connect_activate_menu_item("add_to_favorites",add_to_favorites_fn);
 
-        let remove_from_favorites_fn = clone!(@strong gui_tx => move |menu_item: &gtk::MenuItem| {
+        let remove_from_favorites_fn = clone!(@strong gui_tx => move |menu_item: &gio::MenuItem| {
             let tree_view = menu_item.get_tree_view();
             if let Some(song_record) = tree_view.get_selected_song_record() {
                 gui_tx.send(GUIMessage::RemoveFavorite(song_record)).unwrap();
