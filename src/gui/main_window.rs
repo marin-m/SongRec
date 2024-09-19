@@ -244,12 +244,12 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
                     let tree_model = self.model().unwrap();
                     if let Some(tree_iter) = tree_model.iter(&path) {
                         return Some(SongHistoryRecord {
-                            song_name: tree_model.get_value(&tree_iter, 0).get().unwrap().unwrap(),
-                            album: tree_model.get_value(&tree_iter, 1).get().unwrap(),
-                            track_key: tree_model.get_value(&tree_iter, 3).get().unwrap(), 
-                            release_year: tree_model.get_value(&tree_iter, 4).get().unwrap(), 
+                            song_name: tree_model.get_value(&tree_iter, 0).get::<String>().unwrap(),
+                            album: tree_model.get_value(&tree_iter, 1).get::<Option<String>>().unwrap(),
+                            track_key: tree_model.get_value(&tree_iter, 3).get::<Option<String>>().unwrap(), 
+                            release_year: tree_model.get_value(&tree_iter, 4).get::<Option<String>>().unwrap(), 
                             genre: tree_model.get_value(&tree_iter, 5).get().unwrap(),
-                            recognition_date: tree_model.get_value(&tree_iter, 2).get().unwrap().unwrap(),
+                            recognition_date: tree_model.get_value(&tree_iter, 2).get::<String>().unwrap(),
                         });
                     }
                 }
