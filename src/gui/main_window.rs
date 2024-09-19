@@ -500,7 +500,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
         combo_box.connect_changed(clone!(@strong microphone_button, @strong microphone_stop_button, @strong combo_box,
             @strong combo_box_model, @strong recognize_from_my_speakers_checkbox, @strong gui_tx => move |_| {
             
-            if let Some(active_item) = combo_box.get_active_iter() {
+            if let Some(active_item) = combo_box.active_iter() {
                 let device_name_str: String = combo_box_model.get_value(&active_item, 1).get().unwrap().unwrap();
                 let is_monitor: bool = combo_box_model.get_value(&active_item, 2).get().unwrap().unwrap();
 
@@ -570,7 +570,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
         microphone_button.connect_clicked(clone!(@strong microphone_button, @strong microphone_stop_button,
             @strong combo_box_model, @strong current_volume_hbox, @strong combo_box => move |_| {
             
-            if let Some(active_item) = combo_box.get_active_iter() {
+            if let Some(active_item) = combo_box.active_iter() {
                 let device_name: String = combo_box_model.get_value(&active_item, 1).get().unwrap().unwrap();
                 microphone_tx.send(MicrophoneMessage::MicrophoneRecordStart(
                     device_name.to_owned()
@@ -597,7 +597,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
                 @strong microphone_button, @strong microphone_stop_button,
                 @strong combo_box_model, @strong combo_box => move |_| {
 
-            if let Some(active_item) = combo_box.get_active_iter() {
+            if let Some(active_item) = combo_box.active_iter() {
                 let is_currently_monitor: bool = combo_box_model.get_value(&active_item, 2).get().unwrap().unwrap();
 
                 if is_currently_monitor {
@@ -819,7 +819,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
 
                     if recording {
                     
-                        if let Some(active_item) = combo_box.get_active_iter() {
+                        if let Some(active_item) = combo_box.active_iter() {
                             let device_name: String = combo_box_model.get_value(&active_item, 1).get().unwrap().unwrap();
 
                             microphone_tx_5.send(MicrophoneMessage::MicrophoneRecordStart(
