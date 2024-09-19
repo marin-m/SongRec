@@ -114,7 +114,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
         
         application.connect_open(move |_application, files, _hint| {
             if files.len() >= 1 {
-                if let Some(file_path) = files[0].get_path() {
+                if let Some(file_path) = files[0].path() {
                     let file_path_string = file_path.into_os_string().into_string().unwrap();
                     
                     processing_tx_4.send(ProcessingMessage::ProcessAudioFile(file_path_string)).unwrap();
@@ -920,7 +920,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
                     window.close();
                 }
             }
-            gtk::Inhibit(false) // Do not inhibit the default delete event behavior
+            glib::signal::Inhibit(false) // Do not inhibit the default delete event behavior
         });
     });
     
