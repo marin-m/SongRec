@@ -224,7 +224,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
 
         impl SongRecordsExt for gtk::TreeView {
             fn get_selected_song_record(&self) -> Option<SongHistoryRecord> {
-                if let Some((tree_model, tree_iter)) = &self.get_selection().get_selected() {
+                if let Some((tree_model, tree_iter)) = &self.selection().selected() {
                     Some(SongHistoryRecord {
                         song_name: tree_model.get_value(&tree_iter, 0).get().unwrap().unwrap(),
                         album: tree_model.get_value(&tree_iter, 1).get().unwrap(),
@@ -242,7 +242,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
                 let (x, y) = mouse_button.get_position();
                 if let Some((Some(path), _, _, _)) = self.path_at_pos(x as i32, y as i32) {
                     let tree_model = self.model().unwrap();
-                    if let Some(tree_iter) = tree_model.get_iter(&path) {
+                    if let Some(tree_iter) = tree_model.iter(&path) {
                         return Some(SongHistoryRecord {
                             song_name: tree_model.get_value(&tree_iter, 0).get().unwrap().unwrap(),
                             album: tree_model.get_value(&tree_iter, 1).get().unwrap(),
