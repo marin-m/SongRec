@@ -550,7 +550,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
             file_chooser.open(Some(&main_window), None, &|file| {
                 recognize_file_button.set_visible(false);
                 
-                spinner.show();
+                spinner.start();
                 
                 let input_file_path = file.expect(&gettext("Couldn't get filename"));
                 let input_file_string = input_file_path.to_str().unwrap().to_string();
