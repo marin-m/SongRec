@@ -1,4 +1,4 @@
-use gdk::EventButton;
+use gdk::ButtonEvent;
 use gio::prelude::*;
 use glib::clone;
 use gtk::prelude::*;
@@ -217,7 +217,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
 
         trait SongRecordsExt {
             fn get_selected_song_record(&self) -> Option<SongHistoryRecord>;
-            fn get_song_record_at_mouse(&self, mouse_button: &EventButton) -> Option<SongHistoryRecord>;
+            fn get_song_record_at_mouse(&self, mouse_button: &ButtonEvent) -> Option<SongHistoryRecord>;
         }
 
         impl SongRecordsExt for gtk::TreeView {
@@ -236,7 +236,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
                 }
             }
 
-            fn get_song_record_at_mouse(&self, mouse_button: &EventButton) -> Option<SongHistoryRecord> {
+            fn get_song_record_at_mouse(&self, mouse_button: &ButtonEvent) -> Option<SongHistoryRecord> {
                 let (x, y) = mouse_button.get_position();
                 if let Some((Some(path), _, _, _)) = self.path_at_pos(x as i32, y as i32) {
                     let tree_model = self.model().unwrap();
