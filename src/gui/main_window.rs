@@ -406,7 +406,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
         // Resize the cover image when its container is resized - Ensure responsiveness
 
         let cover = recognized_song_cover.clone();
-        recognized_song_cover.get_parent().unwrap()
+        recognized_song_cover.parent().unwrap()
             .connect_size_allocate(move |_widget: &gtk::Widget, allocation| {
                 // Return early if image surface has not been set
                 
