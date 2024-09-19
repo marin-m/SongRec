@@ -68,14 +68,13 @@ impl SongHistoryRecordListStore for gtk::ListStore {
     fn add_song_history_record(self: &mut Self, to_add: &SongHistoryRecord) {
         self.set(
             &self.insert(0),
-            &[0, 1, 2, 3, 4, 5],
             &[
-                &to_add.song_name,
-                &to_add.album,
-                &to_add.recognition_date,
-                &to_add.track_key,
-                &to_add.release_year,
-                &to_add.genre,
+                (0, &to_add.song_name),
+                (1, &to_add.album),
+                (2, &to_add.recognition_date),
+                (3, &to_add.track_key),
+                (4, &to_add.release_year),
+                (5, &to_add.genre),
             ],
         )
     }
