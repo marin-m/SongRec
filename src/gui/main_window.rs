@@ -925,10 +925,11 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
     });
     
     if let Some(input_file_string) = input_file {
-        application.run(&["songrec".to_string(), input_file_string.to_string()]);
+        // TODO: Add the ability to specify the input file directly in the CLI
+        // application.run(&["songrec".to_string(), input_file_string.to_string()]);
     }
     else {
-        application.run(&[]);
+        application.run();
     }
     
     Ok(())
