@@ -51,7 +51,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
     
         let main_window: gtk::ApplicationWindow = main_builder.object("window").unwrap();
 
-        let prefs_menu_item: gtk::ModelButton = main_builder.object("preferences_menu_button").unwrap();
+        let prefs_menu_item: gtk::MenuButton = main_builder.object("preferences_menu_button").unwrap();
         let main_menu_separator: gtk::Separator = main_builder.object("main_menu_separator").unwrap();
         let prefs_window: gtk::Window = main_builder.object("preferences_window").unwrap();
         let _enable_mpris_box: gtk::CheckButton = main_builder.object("enable_mpris_box").unwrap();
@@ -72,17 +72,17 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
         prefs_window.connect_delete_event(move |item, _event| {
             item.hide_on_delete()
         });
-        prefs_menu_item.connect_clicked(move |_menu_item: &gtk::ModelButton| {
+        prefs_menu_item.connect_clicked(move |_menu_item: &gtk::MenuButton| {
             prefs_window.show_all();
         });
 
-        let about_menu_item: gtk::ModelButton = main_builder.object("about_menu_button").unwrap();
+        let about_menu_item: gtk::MenuButton = main_builder.object("about_menu_button").unwrap();
         let about_dialog: gtk::AboutDialog = main_builder.object("about_dialog").unwrap();
 
         about_dialog.connect_delete_event(move |item, _event| {
             item.hide_on_delete()
         });
-        about_menu_item.connect_clicked(move |_menu_item: &gtk::ModelButton| {
+        about_menu_item.connect_clicked(move |_menu_item: &gtk::MenuButton| {
             about_dialog.show_all();
         });
 
