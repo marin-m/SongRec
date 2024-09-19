@@ -35,7 +35,7 @@ impl SongHistoryRecordListStore for gtk::ListStore {
     }
 
     fn remove_song(self: &mut Self, to_remove: Song) {
-        if let Some(iter) = self.get_iter_first() {
+        if let Some(iter) = self.iter_first() {
             loop {
                 if let Some(song_history_record) = self.get_song_history_record(&iter) {
                     if song_history_record.get_song() == to_remove {
@@ -51,7 +51,7 @@ impl SongHistoryRecordListStore for gtk::ListStore {
 
     fn remove_song_history_record(self: &mut Self, to_remove: SongHistoryRecord) {
         let song_to_remove: Song = to_remove.get_song();
-        if let Some(iter) = self.get_iter_first() {
+        if let Some(iter) = self.iter_first() {
             loop {
                 if let Some(song_history_record) = self.get_song_history_record(&iter) {
                     if song_history_record.get_song() == song_to_remove {
@@ -168,7 +168,7 @@ impl SongRecordInterface for RecognitionHistoryInterface {
     fn save(self: &mut Self) {
         let mut writer = csv::Writer::from_path(&self.csv_path).unwrap();
 
-        if let Some(iter) = self.gtk_list_store.get_iter_first() {
+        if let Some(iter) = self.gtk_list_store.iter_first() {
             loop {
                 if let Some(song_history_record) =
                     self.gtk_list_store.get_song_history_record(&iter)
@@ -245,7 +245,7 @@ impl SongRecordInterface for FavoritesInterface {
     fn save(self: &mut Self) {
         let mut writer = csv::Writer::from_path(&self.csv_path).unwrap();
 
-        if let Some(iter) = self.gtk_list_store.get_iter_first() {
+        if let Some(iter) = self.gtk_list_store.iter_first() {
             loop {
                 if let Some(song_history_record) =
                     self.gtk_list_store.get_song_history_record(&iter)

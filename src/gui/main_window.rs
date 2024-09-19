@@ -611,7 +611,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
 
                 if is_currently_monitor != recognize_from_my_speakers_checkbox.get_active() {
 
-                    if let Some(iter) = combo_box_model.get_iter_first() {
+                    if let Some(iter) = combo_box_model.iter_first() {
                         loop {
                             let is_other_monitor: bool = combo_box_model.get_value(&iter, 2).get().unwrap().unwrap();
 
