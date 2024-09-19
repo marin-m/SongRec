@@ -51,12 +51,12 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
 
         // We create the main window.
     
-        let main_window: gtk::ApplicationWindow = main_builder.get_object("window").unwrap();
+        let main_window: gtk::ApplicationWindow = main_builder.object("window").unwrap();
 
-        let prefs_menu_item: gtk::ModelButton = main_builder.get_object("preferences_menu_button").unwrap();
-        let main_menu_separator: gtk::Separator = main_builder.get_object("main_menu_separator").unwrap();
-        let prefs_window: gtk::Window = main_builder.get_object("preferences_window").unwrap();
-        let _enable_mpris_box: gtk::CheckButton = main_builder.get_object("enable_mpris_box").unwrap();
+        let prefs_menu_item: gtk::ModelButton = main_builder.object("preferences_menu_button").unwrap();
+        let main_menu_separator: gtk::Separator = main_builder.object("main_menu_separator").unwrap();
+        let prefs_window: gtk::Window = main_builder.object("preferences_window").unwrap();
+        let _enable_mpris_box: gtk::CheckButton = main_builder.object("enable_mpris_box").unwrap();
 
         #[cfg(not(feature = "mpris"))]
         {
@@ -78,8 +78,8 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
             prefs_window.show_all();
         });
 
-        let about_menu_item: gtk::ModelButton = main_builder.get_object("about_menu_button").unwrap();
-        let about_dialog: gtk::AboutDialog = main_builder.get_object("about_dialog").unwrap();
+        let about_menu_item: gtk::ModelButton = main_builder.object("about_menu_button").unwrap();
+        let about_dialog: gtk::AboutDialog = main_builder.object("about_dialog").unwrap();
 
         about_dialog.connect_delete_event(move |item, _event| {
             item.hide_on_delete()
@@ -88,7 +88,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
             about_dialog.show_all();
         });
 
-        let favorites_window: gtk::Window = favorites_builder.get_object("favorites_window").unwrap();
+        let favorites_window: gtk::Window = favorites_builder.object("favorites_window").unwrap();
         
         main_window.set_application(Some(application));
 
@@ -148,20 +148,20 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
         }
 
         // We initialize the CSV file that will contain song history.
-        let history_list_store = main_builder.get_object("history_list_store").unwrap();
+        let history_list_store = main_builder.object("history_list_store").unwrap();
         let mut song_history_interface = RecognitionHistoryInterface::new(history_list_store, obtain_recognition_history_csv_path).unwrap();
-        let history_tree_view: gtk::TreeView = main_builder.get_object("history_tree_view").unwrap();
+        let history_tree_view: gtk::TreeView = main_builder.object("history_tree_view").unwrap();
 
-        let favorites_list_store = favorites_builder.get_object("favorites_list_store").unwrap();
+        let favorites_list_store = favorites_builder.object("favorites_list_store").unwrap();
         let favorites_interface = Arc::new(RwLock::new(FavoritesInterface::new(favorites_list_store, obtain_favorites_csv_path).unwrap()));
-        let favorites_tree_view: gtk::TreeView = favorites_builder.get_object("favorites_tree_view").unwrap();
+        let favorites_tree_view: gtk::TreeView = favorites_builder.object("favorites_tree_view").unwrap();
         // Add a context menu to the history tree view, in order to allow
         // users to copy or search items (see https://stackoverflow.com/a/49720383)
         // add and remove favorites
-        let history_context_menu: gtk::Menu = main_builder.get_object("list_view_context_menu").unwrap();
+        let history_context_menu: gtk::Menu = main_builder.object("list_view_context_menu").unwrap();
         history_tree_view.connect_right_click(&history_context_menu, &favorites_interface);
 
-        let favorites_context_menu: gtk::Menu = favorites_builder.get_object("list_view_context_menu").unwrap();
+        let favorites_context_menu: gtk::Menu = favorites_builder.object("list_view_context_menu").unwrap();
         favorites_tree_view.connect_right_click(&favorites_context_menu, &favorites_interface);
 
         trait ContextMenuItemsExt {
@@ -394,14 +394,14 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
         // Obtain items from vertical box layout with a file picker button,
         // and places for song recognition information
         
-        let recognize_file_button: gtk::Button = main_builder.get_object("recognize_file_button").unwrap();
-        let spinner: gtk::Spinner = main_builder.get_object("spinner").unwrap();
-        let network_unreachable: gtk::Label = main_builder.get_object("network_unreachable").unwrap();
+        let recognize_file_button: gtk::Button = main_builder.object("recognize_file_button").unwrap();
+        let spinner: gtk::Spinner = main_builder.object("spinner").unwrap();
+        let network_unreachable: gtk::Label = main_builder.object("network_unreachable").unwrap();
         
-        let results_frame: gtk::Frame = main_builder.get_object("results_frame").unwrap();
+        let results_frame: gtk::Frame = main_builder.object("results_frame").unwrap();
         
-        let recognized_song_name: gtk::Label = main_builder.get_object("recognized_song_name").unwrap();
-        let recognized_song_cover: gtk::Image = main_builder.get_object("recognized_song_cover").unwrap();
+        let recognized_song_name: gtk::Label = main_builder.object("recognized_song_name").unwrap();
+        let recognized_song_cover: gtk::Image = main_builder.object("recognized_song_cover").unwrap();
         let cover_image: Rc<RefCell<Option<Pixbuf>>> = Rc::new(RefCell::new(None));
         let cover_image2 = cover_image.clone();
 
@@ -443,18 +443,18 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
             }
         );
 
-        let microphone_button: gtk::Button = main_builder.get_object("microphone_button").unwrap();
-        let microphone_stop_button: gtk::Button = main_builder.get_object("microphone_stop_button").unwrap();
+        let microphone_button: gtk::Button = main_builder.object("microphone_button").unwrap();
+        let microphone_stop_button: gtk::Button = main_builder.object("microphone_stop_button").unwrap();
 
-        let notification_enable_checkbox: gtk::CheckButton = main_builder.get_object("notification_enable_checkbox").unwrap();
+        let notification_enable_checkbox: gtk::CheckButton = main_builder.object("notification_enable_checkbox").unwrap();
 
-        let youtube_button: gtk::Button = main_builder.get_object("youtube_button").unwrap();
+        let youtube_button: gtk::Button = main_builder.object("youtube_button").unwrap();
         
-        let wipe_history_button: gtk::Button = main_builder.get_object("wipe_history_button").unwrap();
-        let export_history_csv_button: gtk::Button = main_builder.get_object("export_history_csv_button").unwrap();
-        let favorites_button: gtk::Button = main_builder.get_object("favorites_list_button").unwrap();
+        let wipe_history_button: gtk::Button = main_builder.object("wipe_history_button").unwrap();
+        let export_history_csv_button: gtk::Button = main_builder.object("export_history_csv_button").unwrap();
+        let favorites_button: gtk::Button = main_builder.object("favorites_list_button").unwrap();
 
-        let export_favorites_csv_button: gtk::Button = favorites_builder.get_object("export_favorites_csv_button").unwrap();
+        let export_favorites_csv_button: gtk::Button = favorites_builder.object("export_favorites_csv_button").unwrap();
 
         #[cfg(feature = "mpris")]
         let mut mpris_obj = {
@@ -489,13 +489,13 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
         //  - https://github.com/RustAudio/rodio/issues/270
         //  - https://github.com/RustAudio/rodio/issues/214 )
         
-        let combo_box: gtk::ComboBox = main_builder.get_object("microphone_source_select_box").unwrap();
-        let combo_box_model: gtk::ListStore = main_builder.get_object("input_devices_list_store").unwrap();
+        let combo_box: gtk::ComboBox = main_builder.object("microphone_source_select_box").unwrap();
+        let combo_box_model: gtk::ListStore = main_builder.object("input_devices_list_store").unwrap();
         
-        let recognize_from_my_speakers_checkbox: gtk::CheckButton = main_builder.get_object("recognize_from_my_speakers_checkbox").unwrap();
+        let recognize_from_my_speakers_checkbox: gtk::CheckButton = main_builder.object("recognize_from_my_speakers_checkbox").unwrap();
         
-        let current_volume_hbox: gtk::Box = main_builder.get_object("current_volume_hbox").unwrap();
-        let current_volume_bar: gtk::ProgressBar = main_builder.get_object("current_volume_bar").unwrap();
+        let current_volume_hbox: gtk::Box = main_builder.object("current_volume_hbox").unwrap();
+        let current_volume_bar: gtk::ProgressBar = main_builder.object("current_volume_bar").unwrap();
         
         combo_box.connect_changed(clone!(@strong microphone_button, @strong microphone_stop_button, @strong combo_box,
             @strong combo_box_model, @strong recognize_from_my_speakers_checkbox, @strong gui_tx => move |_| {
