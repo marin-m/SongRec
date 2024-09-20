@@ -99,15 +99,15 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
         let processing_tx_2 = processing_tx.clone();
         let processing_tx_4 = processing_tx.clone();
         
-        spawn_big_thread(clone!(@strong gui_tx => move || { // microphone_rx, processing_tx
+        spawn_big_thread(clone!(#[strong] gui_tx, move || { // microphone_rx, processing_tx
             microphone_thread(microphone_rx, processing_tx_2, gui_tx);
         }));
         
-        spawn_big_thread(clone!(@strong gui_tx => move || { // processing_rx, http_tx
+        spawn_big_thread(clone!(#[strong] gui_tx, move || { // processing_rx, http_tx
             processing_thread(processing_rx, http_tx, gui_tx);
         }));
         
-        spawn_big_thread(clone!(@strong gui_tx => move || { // http_rx
+        spawn_big_thread(clone!(#[strong] gui_tx, move || { // http_rx
             http_thread(http_rx, gui_tx, microphone_tx_3);
         }));
 
@@ -247,7 +247,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
 
         impl RightClickExt for gtk::TreeView {
             fn connect_right_click(&self, context_menu: &gtk::PopoverMenu, favorites_interface: &Arc<RwLock<FavoritesInterface>>) {
-                self.connect_button_press_event(clone!(@strong context_menu, @strong favorites_interface => move |tree_view, button| {
+                self.connect_button_press_event(clone!(#[strong] context_menu, #[strong] favorites_interface, move |tree_view, button| {
                     if button.get_event_type() == gdk::EventType::ButtonPress && button.get_button() == 3 { // Is this a single right click?
                         // Display the context menu
             
@@ -359,7 +359,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
         history_context_menu.connect_activate_menu_item("search_on_youtube", search_on_youtube_fn);
         favorites_context_menu.connect_activate_menu_item("search_on_youtube", search_on_youtube_fn);
 
-        let add_to_favorites_fn = clone!(@strong gui_tx => move |menu_item: &gio::MenuItem| {
+        let add_to_favorites_fn = clone!(#[strong] gui_tx, move |menu_item: &gio::MenuItem| {
             let tree_view = menu_item.get_tree_view();
             if let Some(song_record) = tree_view.get_selected_song_record() {
                 gui_tx.send(GUIMessage::AddFavorite(song_record)).unwrap();
@@ -367,7 +367,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
         });
         history_context_menu.connect_activate_menu_item("add_to_favorites",add_to_favorites_fn);
 
-        let remove_from_favorites_fn = clone!(@strong gui_tx => move |menu_item: &gio::MenuItem| {
+        let remove_from_favorites_fn = clone!(#[strong] gui_tx, move |menu_item: &gio::MenuItem| {
             let tree_view = menu_item.get_tree_view();
             if let Some(song_record) = tree_view.get_selected_song_record() {
                 gui_tx.send(GUIMessage::RemoveFavorite(song_record)).unwrap();
@@ -494,8 +494,8 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
         let current_volume_hbox: gtk::Box = main_builder.object("current_volume_hbox").unwrap();
         let current_volume_bar: gtk::ProgressBar = main_builder.object("current_volume_bar").unwrap();
         
-        combo_box.connect_changed(clone!(@strong microphone_button, @strong microphone_stop_button, @strong combo_box,
-            @strong combo_box_model, @strong recognize_from_my_speakers_checkbox, @strong gui_tx => move |_| {
+        combo_box.connect_changed(clone!(#[strong] microphone_button, #[strong] microphone_stop_button, #[strong] combo_box,
+            #[strong] combo_box_model, #[strong] recognize_from_my_speakers_checkbox, #[strong] gui_tx, move |_| {
             
             if let Some(active_item) = combo_box.active_iter() {
                 let device_name_str: String = combo_box_model.get_value(&active_item, 1).get().unwrap().unwrap();
@@ -541,7 +541,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
         
         let processing_tx_3 = processing_tx.clone();
 
-        recognize_file_button.connect_clicked(clone!(@strong main_window, @strong spinner, @strong recognize_file_button => move |_| {
+        recognize_file_button.connect_clicked(clone!(#[strong] main_window, #[strong] spinner, #[strong] recognize_file_button, move |_| {
             
             let file_chooser = gtk::FileDialog::new();
             file_chooser.open(Some(&main_window), None, &|file| {
@@ -556,8 +556,8 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
             });
         }));
         
-        microphone_button.connect_clicked(clone!(@strong microphone_button, @strong microphone_stop_button,
-            @strong combo_box_model, @strong current_volume_hbox, @strong combo_box => move |_| {
+        microphone_button.connect_clicked(clone!(#[strong] microphone_button, #[strong] microphone_stop_button,
+            #[strong] combo_box_model, #[strong] current_volume_hbox, #[strong] combo_box, move |_| {
             
             if let Some(active_item) = combo_box.active_iter() {
                 let device_name: String = combo_box_model.get_value(&active_item, 1).get().unwrap().unwrap();
@@ -572,7 +572,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
 
         }));
         
-        microphone_stop_button.connect_clicked(clone!(@strong microphone_button, @strong microphone_stop_button, @strong current_volume_hbox => move |_| {
+        microphone_stop_button.connect_clicked(clone!(#[strong] microphone_button, #[strong] microphone_stop_button, #[strong] current_volume_hbox, move |_| {
             
             microphone_tx_2.send(MicrophoneMessage::MicrophoneRecordStop).unwrap();
             
@@ -582,9 +582,9 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
             
         }));
         
-        recognize_from_my_speakers_checkbox.connect_toggled(clone!(@strong recognize_from_my_speakers_checkbox,
-                @strong microphone_button, @strong microphone_stop_button,
-                @strong combo_box_model, @strong combo_box => move |_| {
+        recognize_from_my_speakers_checkbox.connect_toggled(clone!(#[strong] recognize_from_my_speakers_checkbox,
+                #[strong] microphone_button, #[strong] microphone_stop_button,
+                #[strong] combo_box_model, #[strong] combo_box, move |_| {
 
             if let Some(active_item) = combo_box.active_iter() {
                 let is_currently_monitor: bool = combo_box_model.get_value(&active_item, 2).get().unwrap().unwrap();
@@ -632,13 +632,13 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
             
         });
         
-        wipe_history_button.connect_clicked(clone!(@strong gui_tx => move |_| {
+        wipe_history_button.connect_clicked(clone!(#[strong] gui_tx, move |_| {
 
             gui_tx.send(GUIMessage::WipeSongHistory).unwrap();
 
         }));
         
-        favorites_button.connect_clicked(clone!(@strong gui_tx => move |_| {
+        favorites_button.connect_clicked(clone!(#[strong] gui_tx, move |_| {
 
             gui_tx.send(GUIMessage::ShowFavorites).unwrap();
 
@@ -674,26 +674,26 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
 
         });
 
-        _enable_mpris_box.connect_toggled(clone!(@strong _enable_mpris_box, @strong gui_tx => move |_| {
+        _enable_mpris_box.connect_toggled(clone!(#[strong] _enable_mpris_box, #[strong] gui_tx, move |_| {
             let mut new_preference: Preferences = Preferences::new();
             new_preference.enable_mpris = Some(_enable_mpris_box.is_active());
             gui_tx.send(GUIMessage::UpdatePreference(new_preference)).unwrap();
         }));
 
-        notification_enable_checkbox.connect_toggled(clone!(@strong notification_enable_checkbox, @strong gui_tx => move |_| {
+        notification_enable_checkbox.connect_toggled(clone!(#[strong] notification_enable_checkbox, #[strong] gui_tx, move |_| {
             let mut new_preference: Preferences = Preferences::new();
             new_preference.enable_notifications = Some(notification_enable_checkbox.is_active());
             gui_tx.send(GUIMessage::UpdatePreference(new_preference)).unwrap();
         }));
 
-        gui_rx.attach(None, clone!(@strong application, @strong main_window, @strong results_frame,
-                @strong current_volume_hbox, @strong spinner, @strong recognize_file_button,
-                @strong network_unreachable, @strong microphone_stop_button, @strong combo_box,
-                @strong recognize_from_my_speakers_checkbox, @strong _enable_mpris_box,
-                @strong notification_enable_checkbox, @strong favorites_window => move |gui_message| {
+        gui_rx.attach(None, clone!(#[strong] application, #[strong] main_window, #[strong] results_frame,
+                #[strong] current_volume_hbox, #[strong] spinner, #[strong] recognize_file_button,
+                #[strong] network_unreachable, #[strong] microphone_stop_button, #[strong] combo_box,
+                #[strong] recognize_from_my_speakers_checkbox, #[strong] _enable_mpris_box,
+                #[strong] notification_enable_checkbox, #[strong] favorites_window, move |gui_message| {
             
             match gui_message {
-                ErrorMessage(_) | NetworkStatus(_) | SongRecognized(_) => {
+                ErrorMessage(_) | NetworkStatus(_) | SongRecognized(_), {
                     recognize_file_button.set_visible(true);
                     spinner.set_visible(false);
                 },
