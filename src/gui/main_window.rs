@@ -308,7 +308,10 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
 
             if let Some(song_record) = tree_view.get_selected_song_record() {
                 let full_song_name_parts: Vec<&str> = song_record.song_name.splitn(2, " - ").collect();
-                gtk::Clipboard::get(&gdk::SELECTION_CLIPBOARD).set_text(full_song_name_parts[0]);
+                gdk::Display::default()
+                .expect("Couldn't get default display for getting Clipboard")
+                .primary_clipboard()
+                .set_text(full_song_name_parts[0]);
             }
 
         };
@@ -319,7 +322,10 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
             let tree_view = menu_item.get_tree_view();
             if let Some(song_record) = tree_view.get_selected_song_record() {
                 let full_song_name_parts: Vec<&str> = song_record.song_name.splitn(2, " - ").collect();
-                gtk::Clipboard::get(&gdk::SELECTION_CLIPBOARD).set_text(full_song_name_parts[1]);
+                gdk::Display::default()
+                .expect("Couldn't get default display for getting Clipboard")
+                .primary_clipboard()
+                .set_text(full_song_name_parts[1]);
             }
         };
         history_context_menu.connect_activate_menu_item("copy_track_name", copy_track_name_fn);
@@ -328,7 +334,10 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
         let copy_album_fn = move |menu_item: &gio::MenuItem| {
             let tree_view = menu_item.get_tree_view();
             if let Some(song_record) = tree_view.get_selected_song_record() {
-                gtk::Clipboard::get(&gdk::SELECTION_CLIPBOARD).set_text(&song_record.album.unwrap_or(String::new()));
+                gdk::Display::default()
+                .expect("Couldn't get default display for getting Clipboard")
+                .primary_clipboard()
+                .set_text(&song_record.album.unwrap_or(String::new()));
             }
         };
         history_context_menu.connect_activate_menu_item("copy_album", copy_album_fn);
