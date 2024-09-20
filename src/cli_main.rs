@@ -14,7 +14,9 @@ use mpris_player::PlaybackStatus;
 use crate::core::http_thread::http_thread;
 use crate::core::microphone_thread::microphone_thread;
 use crate::core::processing_thread::processing_thread;
-use crate::core::thread_messages::{GUIMessage, MicrophoneMessage, ProcessingMessage, spawn_big_thread};
+use crate::core::thread_messages::{
+    spawn_big_thread, GUIMessage, MicrophoneMessage, ProcessingMessage,
+};
 
 use crate::utils::csv_song_history::SongHistoryRecord;
 #[cfg(feature = "mpris")]
@@ -46,29 +48,46 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
     let processing_microphone_tx = processing_tx.clone();
     let microphone_http_tx = microphone_tx.clone();
 
-    spawn_big_thread(
-        clone!(@strong gui_tx => move || { // microphone_rx, processing_tx
+    spawn_big_thread(clone!(
+        #[strong]
+        gui_tx,
+        move || {
+            // microphone_rx, processing_tx
             microphone_thread(microphone_rx, processing_microphone_tx, gui_tx);
-        }),
-    );
+        }
+    ));
 
-    spawn_big_thread(clone!(@strong gui_tx => move || { // processing_rx, http_tx
-        processing_thread(processing_rx, http_tx, gui_tx);
-    }));
+    spawn_big_thread(clone!(
+        #[strong]
+        gui_tx,
+        move || {
+            // processing_rx, http_tx
+            processing_thread(processing_rx, http_tx, gui_tx);
+        }
+    ));
 
-    spawn_big_thread(clone!(@strong gui_tx => move || { // http_rx
-        http_thread(http_rx, gui_tx, microphone_http_tx);
-    }));
+    spawn_big_thread(clone!(
+        #[strong]
+        gui_tx,
+        move || {
+            // http_rx
+            http_thread(http_rx, gui_tx, microphone_http_tx);
+        }
+    ));
 
     // recognize once if an input file is provided
     let do_recognize_once = parameters.recognize_once || parameters.input_file.is_some();
 
     // do not enable mpris if recognizing one song
-    
+
     #[cfg(feature = "mpris")]
     let mpris_obj = {
         let do_enable_mpris = parameters.enable_mpris && !do_recognize_once;
-        if do_enable_mpris { get_player() } else { None }
+        if do_enable_mpris {
+            get_player()
+        } else {
+            None
+        }
     };
     let last_track: Rc<RefCell<Option<String>>> = Rc::new(RefCell::new(None));
 
@@ -105,7 +124,7 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
                         main_loop_cli.quit();
                         return glib::Continue(false);
                     }
-                dev
+                    dev
                 } else {
                     if device_names.is_empty() {
                         eprintln!("{}", gettext("Exiting: no audio devices found!"));
@@ -122,7 +141,8 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
                     .unwrap();
             }
             GUIMessage::NetworkStatus(reachable) => {
-                #[cfg(feature = "mpris")] {
+                #[cfg(feature = "mpris")]
+                {
                     let mpris_status = if reachable {
                         PlaybackStatus::Playing
                     } else {
