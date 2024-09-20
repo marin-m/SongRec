@@ -223,7 +223,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
             }
 
             fn get_song_record_at_mouse(&self, mouse_button: &ButtonEvent) -> Option<SongHistoryRecord> {
-                let (x, y) = mouse_button.get_position();
+                let (x, y) = mouse_button.position()?;
                 if let Some((Some(path), _, _, _)) = self.path_at_pos(x as i32, y as i32) {
                     let tree_model = self.model().unwrap();
                     if let Some(tree_iter) = tree_model.iter(&path) {
