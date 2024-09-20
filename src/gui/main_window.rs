@@ -259,7 +259,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
                             context_menu.toggle_menu_items_for_favorite(is_favorite);
                             
                         }
-                        context_menu.popup_at_pointer(Some(button));
+                        context_menu.popup();
                     }
                     
                     Inhibit(false) // Ensure that focus is given to the clicked item
