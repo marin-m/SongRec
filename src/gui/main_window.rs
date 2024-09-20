@@ -1,4 +1,5 @@
 use gdk::ButtonEvent;
+use gio::glib::RustClosure;
 use gio::prelude::*;
 use glib::clone;
 use gtk::prelude::*;
@@ -376,14 +377,12 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
         history_context_menu.connect_activate_menu_item("remove_from_favorites",remove_from_favorites_fn.clone());
         favorites_context_menu.connect_activate_menu_item("remove_from_favorites",remove_from_favorites_fn);
 
-        favorites_builder.connect_signals(clone!(@strong favorites_window => move |_builder, handler_name| {
-            match handler_name {
-                "__hide_window" => Box::new(clone! (@strong favorites_window => move |_| {
-                    favorites_window.set_visible(false);
-                    Some(true.to_value())
-                })),
-                _ => Box::new(|_| {None})
-            }
+        favorites_builder.connect_closure("__hide_window", true, RustClosure::new(move |_| {
+            let favorites_window = favorites_window.clone();
+            (move |_| {
+                favorites_window.set_visible(false);
+                Some(true.to_value())
+            })(None)
         }));
 
         // Obtain items from vertical box layout with a file picker button,
