@@ -282,7 +282,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
 
         impl TreeViewExt for gio::MenuItem {
             fn get_tree_view(&self) -> gtk::TreeView {
-                let widget: gtk::Widget = self.get_parent().unwrap();
+                let widget: gtk::Widget = self.parent().unwrap();
                 let menu: gtk::PopoverMenu = widget.downcast::<gtk::PopoverMenu>().unwrap();
                 menu.get_tree_view()
             }
