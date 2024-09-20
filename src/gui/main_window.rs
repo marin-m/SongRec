@@ -2,6 +2,7 @@ use gdk::ButtonEvent;
 use gio::glib::RustClosure;
 use gio::prelude::*;
 use glib::clone;
+use glib::signal::Inhibit;
 use gtk::prelude::*;
 use gettextrs::gettext;
 use gdk_pixbuf::Pixbuf;
