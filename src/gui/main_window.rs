@@ -647,7 +647,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
 
             #[cfg(not(windows))] {
 
-                gtk::show_uri(None, &format!("file://{}", obtain_favorites_csv_path().unwrap()), chrono::Utc::now().timestamp_millis() as u32).ok();
+                gtk::show_uri(None, &format!("file://{}", obtain_favorites_csv_path().unwrap()), chrono::Utc::now().timestamp_millis() as u32);
             }
 
             #[cfg(windows)]
@@ -662,7 +662,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
 
             #[cfg(not(windows))] {
 
-                gtk::show_uri(None, &format!("file://{}", obtain_recognition_history_csv_path().unwrap()), chrono::Utc::now().timestamp_millis() as u32).ok();
+                gtk::show_uri(None, &format!("file://{}", obtain_recognition_history_csv_path().unwrap()), chrono::Utc::now().timestamp_millis() as u32);
             }
 
             #[cfg(windows)]
