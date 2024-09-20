@@ -2399,7 +2399,7 @@ dependencies = [
  "gettext-rs",
  "gettext-sys",
  "gio",
- "glib 0.10.3",
+ "glib 0.20.3",
  "gtk4",
  "hound",
  "libadwaita",
