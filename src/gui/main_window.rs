@@ -916,7 +916,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
     
 
     application.connect_activate(move |application| {
-        let main_window = &application.get_windows()[0];
+        let main_window = &application.windows()[0];
 
         // Raise the existing window to the top whenever a second
         // GUI instance is attempted to be launched
