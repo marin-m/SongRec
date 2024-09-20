@@ -763,9 +763,14 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
                     // set back the old device if it was recorded
                     
                     for device in devices.iter() {
-                        combo_box_model.set(&combo_box_model.append(), &[0, 1, 2], &[
-                            &device.display_name, &device.inner_name,
-                            &device.is_monitor]);
+                        combo_box_model.set(
+                            &combo_box_model.append(),
+                            &[
+                                (0, &device.display_name),
+                                (1, &device.inner_name),
+                                (2, &device.is_monitor)
+                            ]
+                        );
                         
                         if device.is_monitor {
                             has_monitor_device = true;
