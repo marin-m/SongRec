@@ -177,7 +177,6 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
 
             fn show_menu_item(&self, name: &str) -> Option<()> {
                 if let Some(menu_item) = self.get_menu_item(name) {
-                    menu_item.set_visible(true);
                     return Some(());
                 }
                 None
@@ -185,7 +184,6 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
 
             fn hide_menu_item(&self, name: &str) -> Option<()> {
                 if let Some(menu_item) = self.get_menu_item(name) {
-                    menu_item.set_visible(false);
                     return Some(());
                 }
                 None
