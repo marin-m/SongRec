@@ -21,7 +21,6 @@ pub struct SongRecognizedMessage {
     pub album_name: Option<String>,
     pub song_name: String,
     pub cover_image: Option<Vec<u8>>,
-    pub signature: Box<DecodedSignature>,
 
     // Used only in the CSV export for now:
     pub track_key: String,

@@ -11,8 +11,7 @@ const DATA_URI_PREFIX: &str = "data:audio/vnd.shazam.sig;base64,";
 pub struct FrequencyPeak {
     pub fft_pass_number: u32,
     pub peak_magnitude: u16,
-    pub corrected_peak_frequency_bin: u16,
-    pub sample_rate_hz: u32
+    pub corrected_peak_frequency_bin: u16
 }
 
 #[derive(Hash, Eq, PartialEq, Debug, Clone, Copy)]
@@ -148,8 +147,7 @@ impl DecodedSignature {
                             FrequencyPeak {
                                 fft_pass_number,
                                 peak_magnitude: frequency_peaks_cursor.read_u16::<LittleEndian>()?,
-                                corrected_peak_frequency_bin: frequency_peaks_cursor.read_u16::<LittleEndian>()?,
-                                sample_rate_hz
+                                corrected_peak_frequency_bin: frequency_peaks_cursor.read_u16::<LittleEndian>()?
                             }
                         );
                     }

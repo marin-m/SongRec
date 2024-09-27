@@ -57,7 +57,6 @@ fn try_recognize_song(signature: DecodedSignature) -> Result<SongRecognizedMessa
             Value::String(string) => Some(obtain_raw_cover_image(string)?),
             _ => None
         },
-        signature: Box::new(signature),
         track_key: match &json_object["track"]["key"] {
             Value::String(string) => string.to_string(),
             _ => { return Err(Box::new(std::io::Error::new(std::io::ErrorKind::Other, gettext("No match for this song").as_str()))) }
