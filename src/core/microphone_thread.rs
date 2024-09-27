@@ -3,6 +3,7 @@ use std::sync::{Arc, Mutex};
 
 use cpal::traits::{DeviceTrait, StreamTrait};
 use cpal::platform::Device;
+use cpal::FromSample;
 use gettextrs::gettext;
 use crate::core::thread_messages::{*, MicrophoneMessage::*};
 
@@ -64,9 +65,10 @@ pub fn microphone_thread(microphone_rx: mpsc::Receiver<MicrophoneMessage>, proce
                 let processing_already_ongoing_2 = processing_already_ongoing.clone();
                 
                 stream = Some(match config.sample_format() {
-                    cpal::SampleFormat::F32 => device.build_input_stream(&config.into(), move |data, _: &_| write_data::<f32, f32>(data, &processing_tx_2, gui_tx_3.clone(), channels, sample_rate, &mut twelve_seconds_buffer, &mut number_unprocessed_samples, &mut number_unmeasured_samples, &processing_already_ongoing_2), err_fn).unwrap(),
-                    cpal::SampleFormat::I16 => device.build_input_stream(&config.into(), move |data, _: &_| write_data::<i16, i16>(data, &processing_tx_2, gui_tx_3.clone(), channels, sample_rate, &mut twelve_seconds_buffer, &mut number_unprocessed_samples, &mut number_unmeasured_samples, &processing_already_ongoing_2), err_fn).unwrap(),
-                    cpal::SampleFormat::U16 => device.build_input_stream(&config.into(), move |data, _: &_| write_data::<u16, i16>(data, &processing_tx_2, gui_tx_3.clone(), channels, sample_rate, &mut twelve_seconds_buffer, &mut number_unprocessed_samples, &mut number_unmeasured_samples, &processing_already_ongoing_2), err_fn).unwrap(),
+                    cpal::SampleFormat::F32 => device.build_input_stream(&config.into(), move |data, _: &_| write_data::<f32, f32>(data, &processing_tx_2, gui_tx_3.clone(), channels, sample_rate, &mut twelve_seconds_buffer, &mut number_unprocessed_samples, &mut number_unmeasured_samples, &processing_already_ongoing_2), err_fn, None).unwrap(),
+                    cpal::SampleFormat::I16 => device.build_input_stream(&config.into(), move |data, _: &_| write_data::<i16, i16>(data, &processing_tx_2, gui_tx_3.clone(), channels, sample_rate, &mut twelve_seconds_buffer, &mut number_unprocessed_samples, &mut number_unmeasured_samples, &processing_already_ongoing_2), err_fn, None).unwrap(),
+                    cpal::SampleFormat::U16 => device.build_input_stream(&config.into(), move |data, _: &_| write_data::<u16, i16>(data, &processing_tx_2, gui_tx_3.clone(), channels, sample_rate, &mut twelve_seconds_buffer, &mut number_unprocessed_samples, &mut number_unmeasured_samples, &processing_already_ongoing_2), err_fn, None).unwrap(),
+                    _ => unreachable!()
                 });
                 
                 stream.as_ref().unwrap().play().unwrap();
@@ -102,7 +104,7 @@ pub fn microphone_thread(microphone_rx: mpsc::Receiver<MicrophoneMessage>, proce
 fn write_data<T, U>(input_samples: &[T], processing_tx: &mpsc::Sender<ProcessingMessage>, gui_tx: glib::Sender<GUIMessage>, channels: u16, sample_rate: u32, twelve_seconds_buffer: &mut [i16], number_unprocessed_samples: &mut usize, number_unmeasured_samples: &mut usize, processing_already_ongoing: &Arc<Mutex<bool>>)
 where
     T: cpal::Sample + rodio::Sample,
-    U: cpal::Sample,
+    U: cpal::Sample, i16: FromSample<T>
 {
     
     // Reassemble data into a 12-samples buffer, and do recognition
