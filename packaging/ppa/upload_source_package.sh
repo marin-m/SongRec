@@ -26,7 +26,7 @@ for version in bionic focal jammy lunar mantic noble; do
     cd "${temp_dir}/songrec-0.4.2${version}"
 
     mkdir -p .cargo
-    cargo vendor --locked vendor | sed 's/^directory = ".*"/directory = "vendor"/g' > .cargo/config
+    cargo vendor --locked vendor | sed 's/^directory = ".*"/directory = "vendor"/g' > .cargo/config.toml
 
     # "dpkg-source" will destroy the ".gitignore" files from source archive anyway.
     # Prevent "cargo" to check for their presence.

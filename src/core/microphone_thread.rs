@@ -74,7 +74,7 @@ pub fn microphone_thread(microphone_rx: mpsc::Receiver<MicrophoneMessage>, proce
                 stream.as_ref().unwrap().play().unwrap();
 
                 // Re-call the function in the case the backend is PulseBackend,
-                // because we may be have appeared in the list of PulseAudio's
+                // because we may have appeared in the list of PulseAudio's
                 // source outputs now
                 backend.set_device(&host, &device_name);
                 

@@ -44,9 +44,9 @@ rustup update
 rustup target add x86_64-pc-windows-gnu
 rustup toolchain install stable-x86_64-pc-windows-gnu
 
-echo "[target.x86_64-pc-windows-gnu]" > ~/.cargo/config
-echo "linker = \"x86_64-w64-mingw32-gcc\"" >> ~/.cargo/config
-echo "ar = \"x86_64-w64-mingw32-gcc-ar\"" >> ~/.cargo/config
+echo "[target.x86_64-pc-windows-gnu]" > ~/.cargo/config.toml
+echo "linker = \"x86_64-w64-mingw32-gcc\"" >> ~/.cargo/config.toml
+echo "ar = \"x86_64-w64-mingw32-gcc-ar\"" >> ~/.cargo/config.toml
 
 wget -nc https://www.gyan.dev/ffmpeg/builds/ffmpeg-release-full.7z -O /opt/gtkwin/ffmpeg-release-full.7z
 7z -y x /opt/gtkwin/ffmpeg-release-full.7z -o/opt/gtkwin -i'r!*ffmpeg.exe'

@@ -48,8 +48,8 @@ pub fn decode_with_ffmpeg(file_path: &str) -> Option<rodio::Decoder<BufReader<st
     // If FFMpeg is available, use it to convert the input file
     // from whichever format to a .WAV (because Rodio has its
     // decoding support limited to .WAV, .FLAC, .OGG, .MP3, which
-    // makes that .MP4/.AAC, .OPUS or .WMA are not supported, and
-    // Rodio's minimp3 .MP3 decoder seems to crash on Windows anyway)
+    // makes that .MP4/.AAC, .OPUS or .WMA are not supported
+    // by default)
     
     if let Some(ffmpeg_path) = actual_ffmpeg_path {
         

@@ -22,7 +22,7 @@ cp -ra ../../ "${temp_dir}/songrec-0.4.2"
 cd "${temp_dir}/songrec-0.4.2"
 
 mkdir -p .cargo
-cargo vendor --locked vendor | sed 's/^directory = ".*"/directory = "vendor"/g' > .cargo/config
+cargo vendor --locked vendor | sed 's/^directory = ".*"/directory = "vendor"/g' > .cargo/config.toml
 
 # "dpkg-source" will destroy the ".gitignore" files from source archive anyway.
 # Prevent "cargo" to check for their presence.

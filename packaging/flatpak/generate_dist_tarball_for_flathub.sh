@@ -17,7 +17,7 @@ cd /tmp/dist_dir
 
 # Fetch dependency sources to be bundled with the applicaiton
 mkdir -p .cargo
-cargo vendor --locked vendor | sed 's/^directory = ".*"/directory = "vendor"/g' > .cargo/config
+cargo vendor --locked vendor | sed 's/^directory = ".*"/directory = "vendor"/g' > .cargo/config.toml
 
 rm -rf .git
 
