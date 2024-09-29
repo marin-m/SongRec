@@ -931,8 +931,14 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
         microphone_stop_button.hide();
         current_volume_hbox.hide();
 
+        let quit = gio::SimpleAction::new("quit", None);
+        quit.connect_activate(glib::clone!(@weak application => move |_,_| {
+            application.quit();
+        }));
+        application.set_accels_for_action("app.quit", &["<Primary>Q"]);
+        application.add_action(&quit);
+
     });
-    
 
     application.connect_activate(move |application| {
         let main_window = &application.get_windows()[0];
