@@ -34,7 +34,7 @@ sudo pacman -S songrec
 songrec
 ```
 
-Using apt with PPA (Ubuntu, supported 18.04, 20.04, 22.04, 23.04, 23.10):
+Using apt with PPA (Ubuntu, supported 20.04, 22.04, 24.04, 24.10, and older versions of Songrec are available for older releases):
 
 ```bash
 wget -qO- 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x6888550b2fc77d09' | sudo tee /etc/apt/trusted.gpg.d/songrec.asc
@@ -74,7 +74,7 @@ Note: You may remove dependencies over GTK+, Pulseaudio/PipeWire's libpulse or D
 
 ### Installing Rust
 
-First, you need to [install the Rust compiler and package manager](https://www.rust-lang.org/tools/install). It has been observed to work with `rustc` since version 1.43.0.
+First, you need to [install the Rust compiler and package manager](https://www.rust-lang.org/tools/install). The current minimal `rustc` required version should be at least version 1.70.
 
 You can either install Rust from the repositories, for example using Ubuntu/Debian:
 
