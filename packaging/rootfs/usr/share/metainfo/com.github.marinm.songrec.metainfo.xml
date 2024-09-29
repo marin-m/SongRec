@@ -27,7 +27,7 @@ https://hughsie.github.io/oars/index.html
 -->
   <content_rating type="oars-1.0" />
   <releases>
-    <release version="0.4.3" date="2024-07-29">
+    <release version="0.4.3" date="2024-09-29">
       <description>
         <p>Prevent mission application icon when running (PR #163 thanks to @heldderarbeit)</p>
         <p>Quit the application when doing Ctrl+Q (issue #181)</p>
