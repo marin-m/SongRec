@@ -1,3 +1,17 @@
+songrec (0.4.3) bionic; urgency=low
+
+  * Prevent mission application icon when running (PR #163 thanks to @heldderarbeit)
+  * Quit the application when doing Ctrl+Q (issue #181)
+  * Change the Flatpak permission from --device=dri to --device=all, because --device=dri made it impossible to change the audio input source to monitor mode on certain recent Flatpak/PipeWire combinations (issue #177)
+  * Fix usage of the Context menu in the Favourites window (PR #179 from @damonhayhurst and issue #178)
+  * Minor code refactoring (PR #153 from @dotX12) and bug fixes, including with building in --debug mode (issue #159)
+  * Remove the "Play Shazam lure" button, as it is no more functional with recent Shazam versions (issue #170)
+  * Update Slovak translation from issue #23 (thanks to @dodog)
+  * Update Portuguese translation from PR #172 (thanks to @marcelocripe)
+  * Update the `rodio` crate dependency to drop the requirement on the `minimp3` library, that prevented building on certain platforms
+
+ -- Marin <marin-m@users.noreply.github.com>  Sun, 29 Sep 2024 14:38:07 +0200
+
 songrec (0.4.2) bionic; urgency=low
 
   * Add a Catalan translation (thanks to @pgiuli in issue #23)

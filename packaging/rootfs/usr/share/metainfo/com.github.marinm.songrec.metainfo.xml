@@ -27,6 +27,19 @@ https://hughsie.github.io/oars/index.html
 -->
   <content_rating type="oars-1.0" />
   <releases>
+    <release version="0.4.3" date="2024-07-29">
+      <description>
+        <p>Prevent mission application icon when running (PR #163 thanks to @heldderarbeit)</p>
+        <p>Quit the application when doing Ctrl+Q (issue #181)</p>
+        <p>Change the Flatpak permission from --device=dri to --device=all, because --device=dri made it impossible to change the audio input source to monitor mode on certain recent Flatpak/PipeWire combinations (issue #177)</p>
+        <p>Fix usage of the Context menu in the Favourites window (PR #179 from @damonhayhurst and issue #178)</p>
+        <p>Minor code refactoring (PR #153 from @dotX12) and bug fixes, including with building in --debug mode (issue #159)</p>
+        <p>Remove the "Play Shazam lure" button, as it is no more functional with recent Shazam versions (issue #170)</p>
+        <p>Update Slovak translation from issue #23 (thanks to @dodog)</p>
+        <p>Update Portuguese translation from PR #172 (thanks to @marcelocripe)</p>
+        <p>Update the `rodio` crate dependency to drop the requirement on the `minimp3` library, that prevented building on certain platforms</p>
+      </description>
+    </release>
     <release version="0.4.2" date="2024-01-22">
       <description>
         <p>Add a Catalan translation (thanks to @pgiuli in issue #23)</p>
