@@ -1,6 +1,7 @@
 use serde_json::{json, Value};
 use reqwest::header::HeaderMap;
 use std::time::SystemTime;
+use std::env;
 use std::error::Error;
 use std::time::Duration;
 use rand::seq::SliceRandom;
@@ -38,7 +39,7 @@ pub fn recognize_song_from_signature(signature: &DecodedSignature) -> Result<Val
     headers.insert("User-Agent", USER_AGENTS.choose(&mut rand::thread_rng()).unwrap().parse()?);
     headers.insert("Content-Language", "en_US".parse()?);
 
-    let client = reqwest::blocking::Client::new();
+    let client = reqwest_client()?;
     let response = client.post(&url)
         .timeout(Duration::from_secs(20))
         .query(&[
@@ -65,7 +66,7 @@ pub fn obtain_raw_cover_image(url: &str) -> Result<Vec<u8>, Box<dyn Error>> {
     headers.insert("User-Agent", USER_AGENTS.choose(&mut rand::thread_rng()).unwrap().parse()?);
     headers.insert("Content-Language", "en_US".parse()?);
 
-    let client = reqwest::blocking::Client::new();
+    let client = reqwest_client()?;
     let response = client.get(url)
         .timeout(Duration::from_secs(20))
         .headers(headers)
@@ -73,4 +74,14 @@ pub fn obtain_raw_cover_image(url: &str) -> Result<Vec<u8>, Box<dyn Error>> {
     
     Ok(response.bytes()?.as_ref().to_vec())
 
+}
+
+fn reqwest_client() -> Result<reqwest::blocking::Client, Box<dyn Error>> {
+    let mut client = reqwest::blocking::Client::builder();
+    if let Ok(proxy) = env::var("https_proxy") {
+        client = client.proxy(reqwest::Proxy::https(&proxy)?);
+    } else if let Ok(proxy) = env::var("HTTPS_PROXY") {
+        client = client.proxy(reqwest::Proxy::https(&proxy)?);
+    };
+    Ok(client.build()?)
 }
