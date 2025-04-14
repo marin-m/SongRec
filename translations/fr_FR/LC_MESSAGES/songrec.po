@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-01 10:17+0200\n"
+"POT-Creation-Date: 2025-04-14 23:56+0200\n"
 "PO-Revision-Date: 2021-08-05 11:48+0200\n"
 "Last-Translator: marin <marin@marin-thinkpad-t460s>\n"
 "Language-Team: French\n"
@@ -40,8 +40,8 @@ msgid "Warning: Network unreachable"
 msgstr "Avertissement : Pas de connexion réseau"
 
 #: ../src/cli_main.rs:147 ../src/core/http_thread.rs:49
-#: ../src/core/http_thread.rs:54 ../src/core/http_thread.rs:63
-#: ../src/core/http_thread.rs:89 ../src/gui/main_window.rs:750
+#: ../src/core/http_thread.rs:54 ../src/core/http_thread.rs:62
+#: ../src/core/http_thread.rs:88 ../src/gui/main_window.rs:750
 msgid "No match for this song"
 msgstr "Chanson non reconnue"
 
@@ -160,23 +160,23 @@ msgstr ""
 "microphone dès que celle-ci est lancée (au lieu de cela, attendre que "
 "l'utilisateur clique sur un bouton)."
 
-#: ../src/core/microphone_thread.rs:50
+#: ../src/core/microphone_thread.rs:51
 msgid "Microphone error:"
 msgstr "Erreur du microphone :"
 
-#: ../src/core/microphone_thread.rs:55
+#: ../src/core/microphone_thread.rs:56
 msgid "Failed to get default input config"
 msgstr "Impossible d'obtenir la configuration par défaut pour l'entrée audio"
 
-#: ../src/fingerprinting/signature_format.rs:94
+#: ../src/fingerprinting/signature_format.rs:93
 msgid "Invalid sample rate in decoded Shazam packet"
 msgstr "Fréquence d'échantillonnage invalide au sein du paquet Shazam décodé"
 
-#: ../src/fingerprinting/signature_format.rs:127
+#: ../src/fingerprinting/signature_format.rs:126
 msgid "Invalid frequency band in decoded Shazam packet"
 msgstr "Bande de fréquences invalide au sein du paquet Shazam décodé"
 
-#: ../src/fingerprinting/signature_format.rs:203
+#: ../src/fingerprinting/signature_format.rs:201
 msgid "Invalid sample rate passed when encoding Shazam packet"
 msgstr ""
 "Fréquence d'échantillonnage invalide passée lors de l'encodage du paquet "
@@ -244,7 +244,7 @@ msgstr ""
 "Erreur lors de la lecture de l'historique des chansons reconnues sur le "
 "disque :"
 
-#: ../src/gui/song_history_interface.rs:206
+#: ../src/gui/song_history_interface.rs:212
 msgid "Error when reading the favorites on the disk:"
 msgstr "Erreur lors de la lecture des favoris sur le disque :"
 

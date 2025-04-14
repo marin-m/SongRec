@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Songrec\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-01 10:17+0200\n"
+"POT-Creation-Date: 2025-04-14 23:56+0200\n"
 "PO-Revision-Date: 2024-06-03 13:29+0200\n"
 "Last-Translator: marcelocripe@gmail.com <marcelocripe@gmail.com>\n"
 "Language-Team: Brazilian Portuguese\n"
@@ -41,8 +41,8 @@ msgid "Warning: Network unreachable"
 msgstr "Aviso: Não há conexão com a internet"
 
 #: ../src/cli_main.rs:147 ../src/core/http_thread.rs:49
-#: ../src/core/http_thread.rs:54 ../src/core/http_thread.rs:63
-#: ../src/core/http_thread.rs:89 ../src/gui/main_window.rs:750
+#: ../src/core/http_thread.rs:54 ../src/core/http_thread.rs:62
+#: ../src/core/http_thread.rs:88 ../src/gui/main_window.rs:750
 msgid "No match for this song"
 msgstr "A música não pôde ser identificada"
 
@@ -173,24 +173,24 @@ msgstr ""
 "detectado por meio do microfone, em vez de esperar que o usuário clique em "
 "um botão."
 
-#: ../src/core/microphone_thread.rs:50
+#: ../src/core/microphone_thread.rs:51
 msgid "Microphone error:"
 msgstr "Ocorreu um problema com o microfone:"
 
-#: ../src/core/microphone_thread.rs:55
+#: ../src/core/microphone_thread.rs:56
 msgid "Failed to get default input config"
 msgstr ""
 "Não foi possível obter as configurações padrão do dispositivo de entrada"
 
-#: ../src/fingerprinting/signature_format.rs:94
+#: ../src/fingerprinting/signature_format.rs:93
 msgid "Invalid sample rate in decoded Shazam packet"
 msgstr "A taxa de amostragem ao decodificar o pacote do ‘Shazam’ não é válida"
 
-#: ../src/fingerprinting/signature_format.rs:127
+#: ../src/fingerprinting/signature_format.rs:126
 msgid "Invalid frequency band in decoded Shazam packet"
 msgstr "A banda da frequência ao decodificar o pacote do ‘Shazam’ não é válida"
 
-#: ../src/fingerprinting/signature_format.rs:203
+#: ../src/fingerprinting/signature_format.rs:201
 msgid "Invalid sample rate passed when encoding Shazam packet"
 msgstr ""
 "A taxa de amostragem passada ao codificar o pacote do ‘Shazam’ não é válida"
@@ -255,7 +255,7 @@ msgstr "Ao salvar o arquivo de configurações:"
 msgid "Error when reading the song history on the disk:"
 msgstr "Ocorreu um erro ao ler o histórico das músicas salvas:"
 
-#: ../src/gui/song_history_interface.rs:206
+#: ../src/gui/song_history_interface.rs:212
 msgid "Error when reading the favorites on the disk:"
 msgstr "Ocorreu um erro ao ler os favoritos salvos:"
 
