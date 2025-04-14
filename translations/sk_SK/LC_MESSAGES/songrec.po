@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-01 10:17+0200\n"
+"POT-Creation-Date: 2025-04-14 23:56+0200\n"
 "PO-Revision-Date: 2024-05-16 00:36+0200\n"
 "Last-Translator: Jozef Gaal <preklady@mayday.sk>\n"
 "Language-Team: \n"
@@ -39,8 +39,8 @@ msgid "Warning: Network unreachable"
 msgstr "Upozornenie: Sieť nedostupná"
 
 #: ../src/cli_main.rs:147 ../src/core/http_thread.rs:49
-#: ../src/core/http_thread.rs:54 ../src/core/http_thread.rs:63
-#: ../src/core/http_thread.rs:89 ../src/gui/main_window.rs:750
+#: ../src/core/http_thread.rs:54 ../src/core/http_thread.rs:62
+#: ../src/core/http_thread.rs:88 ../src/gui/main_window.rs:750
 msgid "No match for this song"
 msgstr "Žiadna zhoda pre túto skladbu"
 
@@ -154,23 +154,23 @@ msgstr ""
 "hneď po spustení (namiesto toho, aby ste očakávali, že používateľ klikne na "
 "tlačidlo)."
 
-#: ../src/core/microphone_thread.rs:50
+#: ../src/core/microphone_thread.rs:51
 msgid "Microphone error:"
 msgstr "Chyba mikrofónu:"
 
-#: ../src/core/microphone_thread.rs:55
+#: ../src/core/microphone_thread.rs:56
 msgid "Failed to get default input config"
 msgstr "Nepodarilo sa získať predvolenú konfiguráciu vstupu"
 
-#: ../src/fingerprinting/signature_format.rs:94
+#: ../src/fingerprinting/signature_format.rs:93
 msgid "Invalid sample rate in decoded Shazam packet"
 msgstr "Neplatná vzorkovacia frekvencia v dekódovanom pakete Shazam"
 
-#: ../src/fingerprinting/signature_format.rs:127
+#: ../src/fingerprinting/signature_format.rs:126
 msgid "Invalid frequency band in decoded Shazam packet"
 msgstr "Neplatné frekvenčné pásmo v dekódovanom pakete Shazam"
 
-#: ../src/fingerprinting/signature_format.rs:203
+#: ../src/fingerprinting/signature_format.rs:201
 msgid "Invalid sample rate passed when encoding Shazam packet"
 msgstr ""
 "Pri kódovaní paketu Shazam bola odovzdaná nesprávna vzorkovacia frekvencia"
@@ -235,7 +235,7 @@ msgstr "Pri ukladaná súboru predvolieb:"
 msgid "Error when reading the song history on the disk:"
 msgstr "Chyba pri čítaní histórie skladieb z disku:"
 
-#: ../src/gui/song_history_interface.rs:206
+#: ../src/gui/song_history_interface.rs:212
 msgid "Error when reading the favorites on the disk:"
 msgstr "Chyba pri čítaní obľúbených položiek z disku:"
 

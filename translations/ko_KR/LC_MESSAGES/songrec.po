@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-01 10:17+0200\n"
+"POT-Creation-Date: 2025-04-14 23:56+0200\n"
 "PO-Revision-Date: 2023-12-30 23:42+0900\n"
 "Last-Translator: 이정희 <daemul72@gmail.com>\n"
 "Language-Team: \n"
@@ -38,8 +38,8 @@ msgid "Warning: Network unreachable"
 msgstr "경고: 네트워크에 연결할 수 없음"
 
 #: ../src/cli_main.rs:147 ../src/core/http_thread.rs:49
-#: ../src/core/http_thread.rs:54 ../src/core/http_thread.rs:63
-#: ../src/core/http_thread.rs:89 ../src/gui/main_window.rs:750
+#: ../src/core/http_thread.rs:54 ../src/core/http_thread.rs:62
+#: ../src/core/http_thread.rs:88 ../src/gui/main_window.rs:750
 msgid "No match for this song"
 msgstr "이 노래와 일치하는 항목이 없습니다"
 
@@ -145,23 +145,23 @@ msgstr ""
 "GUI를 실행하되, (사용자가 버튼을 클릭할 것으로 예상하지 않고) 실행하자마자 마"
 "이크를 통해 오디오를 인식하지 않도록 합니다."
 
-#: ../src/core/microphone_thread.rs:50
+#: ../src/core/microphone_thread.rs:51
 msgid "Microphone error:"
 msgstr "마이크 오류:"
 
-#: ../src/core/microphone_thread.rs:55
+#: ../src/core/microphone_thread.rs:56
 msgid "Failed to get default input config"
 msgstr "기본 입력 구성을 가져오지 못했습니다"
 
-#: ../src/fingerprinting/signature_format.rs:94
+#: ../src/fingerprinting/signature_format.rs:93
 msgid "Invalid sample rate in decoded Shazam packet"
 msgstr "디코딩된 Shazam 패킷의 샘플 속도가 잘못되었습니다"
 
-#: ../src/fingerprinting/signature_format.rs:127
+#: ../src/fingerprinting/signature_format.rs:126
 msgid "Invalid frequency band in decoded Shazam packet"
 msgstr "디코딩된 Shazam 패킷의 주파수 대역이 잘못되었습니다"
 
-#: ../src/fingerprinting/signature_format.rs:203
+#: ../src/fingerprinting/signature_format.rs:201
 msgid "Invalid sample rate passed when encoding Shazam packet"
 msgstr "Shazam 패킷을 인코딩할 때 잘못된 샘플 속도가 전달되었습니다"
 
@@ -225,7 +225,7 @@ msgstr "환경설정 파일을 저장하는 경우:"
 msgid "Error when reading the song history on the disk:"
 msgstr "디스크에서 노래 기록을 읽는 동안 오류 발생:"
 
-#: ../src/gui/song_history_interface.rs:206
+#: ../src/gui/song_history_interface.rs:212
 msgid "Error when reading the favorites on the disk:"
 msgstr ""
 

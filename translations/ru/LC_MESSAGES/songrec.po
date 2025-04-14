@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-01 10:17+0200\n"
+"POT-Creation-Date: 2025-04-14 23:56+0200\n"
 "PO-Revision-Date: 2025-04-10 11:41+1100\n"
 "Last-Translator: Aleksandr Shamaraev <shad@altlinux.org>\n"
 "Language-Team: shad@altlinux.org\n"
@@ -39,8 +39,8 @@ msgid "Warning: Network unreachable"
 msgstr "Предупреждение: сеть недоступна"
 
 #: ../src/cli_main.rs:147 ../src/core/http_thread.rs:49
-#: ../src/core/http_thread.rs:54 ../src/core/http_thread.rs:63
-#: ../src/core/http_thread.rs:89 ../src/gui/main_window.rs:750
+#: ../src/core/http_thread.rs:54 ../src/core/http_thread.rs:62
+#: ../src/core/http_thread.rs:88 ../src/gui/main_window.rs:750
 msgid "No match for this song"
 msgstr "Нет совпадений для этой песни"
 
@@ -54,8 +54,7 @@ msgstr "Запись началась!"
 
 #: ../src/main.rs:66
 msgid "An open-source Shazam client for Linux, written in Rust."
-msgstr ""
-"Клиент Shazam с открытым исходным кодом для Linux, написанный на Rust."
+msgstr "Клиент Shazam с открытым исходным кодом для Linux, написанный на Rust."
 
 #: ../src/main.rs:69
 msgid ""
@@ -131,8 +130,8 @@ msgid ""
 "Take a data-URI Shazam fingerprint, perform song recognition towards "
 "Shazam's servers and print obtained information to the standard output."
 msgstr ""
-"Взять отпечаток URI-данных Shazam, выполнить распознавание песни на "
-"серверах Shazam и вывести полученную информацию на стандартный вывод."
+"Взять отпечаток URI-данных Shazam, выполнить распознавание песни на серверах "
+"Shazam и вывести полученную информацию на стандартный вывод."
 
 #: ../src/main.rs:160
 msgid "The data-URI Shazam fingerprint to recognize."
@@ -154,23 +153,23 @@ msgstr ""
 "Запустить графический интерфейс, но не распознавать звук через микрофон "
 "сразу после запуска (ожидать, что пользователь нажмет кнопку)."
 
-#: ../src/core/microphone_thread.rs:50
+#: ../src/core/microphone_thread.rs:51
 msgid "Microphone error:"
 msgstr "Ошибка микрофона:"
 
-#: ../src/core/microphone_thread.rs:55
+#: ../src/core/microphone_thread.rs:56
 msgid "Failed to get default input config"
 msgstr "Не удалось получить конфигурацию ввода по умолчанию"
 
-#: ../src/fingerprinting/signature_format.rs:94
+#: ../src/fingerprinting/signature_format.rs:93
 msgid "Invalid sample rate in decoded Shazam packet"
 msgstr "Неверная частота дискретизации в декодированном пакете Shazam"
 
-#: ../src/fingerprinting/signature_format.rs:127
+#: ../src/fingerprinting/signature_format.rs:126
 msgid "Invalid frequency band in decoded Shazam packet"
 msgstr "Неверный диапазон частот в декодированном пакете Shazam"
 
-#: ../src/fingerprinting/signature_format.rs:203
+#: ../src/fingerprinting/signature_format.rs:201
 msgid "Invalid sample rate passed when encoding Shazam packet"
 msgstr "При кодировании пакета Shazam передана неверная частота дискретизации"
 
@@ -234,7 +233,7 @@ msgstr "При сохранении файла настроек:"
 msgid "Error when reading the song history on the disk:"
 msgstr "Ошибка при чтении истории песен на диске:"
 
-#: ../src/gui/song_history_interface.rs:206
+#: ../src/gui/song_history_interface.rs:212
 msgid "Error when reading the favorites on the disk:"
 msgstr "Ошибка при чтении избранного на диске:"
 

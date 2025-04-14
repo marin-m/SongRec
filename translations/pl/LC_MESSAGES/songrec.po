@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-01 10:17+0200\n"
+"POT-Creation-Date: 2025-04-14 23:56+0200\n"
 "PO-Revision-Date: 2021-12-26 11:36+0100\n"
 "Last-Translator: Rafał Mikrut <qarminkrut@gmail.com>\n"
 "Language-Team: \n"
@@ -40,8 +40,8 @@ msgid "Warning: Network unreachable"
 msgstr ""
 
 #: ../src/cli_main.rs:147 ../src/core/http_thread.rs:49
-#: ../src/core/http_thread.rs:54 ../src/core/http_thread.rs:63
-#: ../src/core/http_thread.rs:89 ../src/gui/main_window.rs:750
+#: ../src/core/http_thread.rs:54 ../src/core/http_thread.rs:62
+#: ../src/core/http_thread.rs:88 ../src/gui/main_window.rs:750
 msgid "No match for this song"
 msgstr "Nie znaleziono piosenki"
 
@@ -150,23 +150,23 @@ msgstr ""
 "uruchomieniu (zamiast tego oczekuj na kliknięcie przez użytkownika "
 "przycisku)."
 
-#: ../src/core/microphone_thread.rs:50
+#: ../src/core/microphone_thread.rs:51
 msgid "Microphone error:"
 msgstr "Błąd mikrofonu:"
 
-#: ../src/core/microphone_thread.rs:55
+#: ../src/core/microphone_thread.rs:56
 msgid "Failed to get default input config"
 msgstr "Nie udało się uzyskać domyślnej konfiguracji urządzeń wejścia"
 
-#: ../src/fingerprinting/signature_format.rs:94
+#: ../src/fingerprinting/signature_format.rs:93
 msgid "Invalid sample rate in decoded Shazam packet"
 msgstr "Nieprawidłowa częstotliwość próbkowania w zdekodowanym pakiecie Shazam"
 
-#: ../src/fingerprinting/signature_format.rs:127
+#: ../src/fingerprinting/signature_format.rs:126
 msgid "Invalid frequency band in decoded Shazam packet"
 msgstr "Nieprawidłowe pasmo częstotliwości w zdekodowanym pakiecie Shazam"
 
-#: ../src/fingerprinting/signature_format.rs:203
+#: ../src/fingerprinting/signature_format.rs:201
 msgid "Invalid sample rate passed when encoding Shazam packet"
 msgstr ""
 "Nieprawidłowa częstotliwość próbkowania przekazana podczas kodowania pakietu "
@@ -232,7 +232,7 @@ msgstr ""
 msgid "Error when reading the song history on the disk:"
 msgstr ""
 
-#: ../src/gui/song_history_interface.rs:206
+#: ../src/gui/song_history_interface.rs:212
 msgid "Error when reading the favorites on the disk:"
 msgstr ""
 
