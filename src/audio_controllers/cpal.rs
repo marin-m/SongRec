@@ -17,6 +17,7 @@ impl AudioBackend for CpalBackend {
             // source on an ALSA-based configuration may
             // crash our underlying sound library.
             
+            #[cfg(target_os = "linux")]
             if device_name.contains("upmix") || device_name.contains("downmix") {
                 continue;
             }
