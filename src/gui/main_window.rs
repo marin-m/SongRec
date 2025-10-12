@@ -41,6 +41,8 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
         gio::ApplicationFlags::HANDLES_OPEN)
         .expect(&gettext("Application::new failed"));
 
+    glib::set_prgname(Some("com.github.marinm.songrec"));
+
     application.connect_startup(move |application| {
         
         let interface_src = include_str!("interface.glade");
