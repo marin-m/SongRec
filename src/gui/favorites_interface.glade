@@ -117,6 +117,7 @@
                                         <property name="resizable">True</property>
                                         <property name="sizing">autosize</property>
                                         <property name="title" translatable="yes">Song name</property>
+                                        <property name="sort-column-id">0</property>
                                         <child>
                                           <object class="GtkCellRendererText"/>
                                           <attributes>
@@ -130,6 +131,7 @@
                                         <property name="resizable">True</property>
                                         <property name="sizing">autosize</property>
                                         <property name="title" translatable="yes">Album</property>
+                                        <property name="sort-column-id">1</property>
                                         <child>
                                           <object class="GtkCellRendererText"/>
                                           <attributes>
@@ -143,6 +145,7 @@
                                         <property name="resizable">True</property>
                                         <property name="sizing">autosize</property>
                                         <property name="title" translatable="yes">Recognition Date</property>
+                                        <property name="sort-column-id">2</property>
                                         <child>
                                           <object class="GtkCellRendererText"/>
                                           <attributes>
