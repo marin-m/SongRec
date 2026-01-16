@@ -1,9 +1,11 @@
 use std::panic;
 use std::sync::Arc;
+use std::fs;
 
 use mpris_player::{MprisPlayer, PlaybackStatus, Metadata};
 
 use crate::core::thread_messages::SongRecognizedMessage;
+use std::time::{SystemTime, UNIX_EPOCH};
 
 fn init_player(p: Arc<MprisPlayer>) -> Arc<MprisPlayer> {
     p.set_can_quit(false);
@@ -46,7 +48,22 @@ pub fn update_song(p: &MprisPlayer, m: &SongRecognizedMessage) {
         metadata.genre = Some(vec![genre.clone()]);
     }
     if let Some(ref buf) = m.cover_image { 
-        metadata.art_url = Some(format!("data:image/jpeg;base64,{}", base64::encode(buf)));
+        let (mime_ext, mime_type) = if buf.len() >= 4 && buf[0] == 0x89 && buf[1] == b'P' && buf[2] == b'N' && buf[3] == b'G' {
+            ("png", "image/png")
+        } else {
+            // default to jpeg if unknown
+            ("jpg", "image/jpeg")
+        };
+        let now_ms = SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_millis();
+        let mut tmp = std::env::temp_dir();
+        tmp.push(format!("songrec_cover_{}.{}", now_ms, mime_ext));
+        if fs::write(&tmp, buf).is_ok() {
+            // Use file:// URL for better compatibility with MPRIS clients
+            metadata.art_url = Some(format!("file://{}", tmp.display()));
+        } else {
+            // Fallback to data URI (ensure we use the correct mime type)
+            metadata.art_url = Some(format!("data:{};base64,{}", mime_type, base64::encode(buf)));
+        }
     }
     p.set_metadata(metadata);
 }
