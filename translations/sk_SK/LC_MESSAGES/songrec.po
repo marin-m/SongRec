@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-14 23:56+0200\n"
+"POT-Creation-Date: 2026-01-18 14:43+0100\n"
 "PO-Revision-Date: 2024-05-16 00:36+0200\n"
 "Last-Translator: Jozef Gaal <preklady@mayday.sk>\n"
 "Language-Team: \n"
@@ -40,7 +40,7 @@ msgstr "Upozornenie: Sieť nedostupná"
 
 #: ../src/cli_main.rs:147 ../src/core/http_thread.rs:49
 #: ../src/core/http_thread.rs:54 ../src/core/http_thread.rs:62
-#: ../src/core/http_thread.rs:88 ../src/gui/main_window.rs:750
+#: ../src/core/http_thread.rs:88 ../src/gui/main_window.rs:752
 msgid "No match for this song"
 msgstr "Žiadna zhoda pre túto skladbu"
 
@@ -179,47 +179,47 @@ msgstr ""
 msgid "Application::new failed"
 msgstr "Aplikácia::nová zlyhala"
 
-#: ../src/gui/main_window.rs:467 ../src/gui/main_window.rs:726
+#: ../src/gui/main_window.rs:469 ../src/gui/main_window.rs:728
 msgid "Unable to enable MPRIS support"
 msgstr "Nie je možné zapnúť podporu MPRIS"
 
-#: ../src/gui/main_window.rs:519 ../src/gui/main_window.rs:604
-#: ../src/gui/main_window.rs:805
+#: ../src/gui/main_window.rs:521 ../src/gui/main_window.rs:606
+#: ../src/gui/main_window.rs:807
 msgid "Turn on speakers recognition"
 msgstr "Zapnúť rozpoznávanie z reproduktorov"
 
-#: ../src/gui/main_window.rs:520 ../src/gui/main_window.rs:605
-#: ../src/gui/main_window.rs:806
+#: ../src/gui/main_window.rs:522 ../src/gui/main_window.rs:607
+#: ../src/gui/main_window.rs:808
 msgid "Turn off speakers recognition"
 msgstr "Vypnúť rozpoznávanie z reproduktorov"
 
-#: ../src/gui/main_window.rs:523 ../src/gui/main_window.rs:608
-#: ../src/gui/main_window.rs:809 interface.glade.h:14
+#: ../src/gui/main_window.rs:525 ../src/gui/main_window.rs:610
+#: ../src/gui/main_window.rs:811 interface.ui.h:14
 msgid "Turn on microphone recognition"
 msgstr "Zapnúť rozpoznávanie z mikrofónu"
 
-#: ../src/gui/main_window.rs:524 ../src/gui/main_window.rs:609
-#: ../src/gui/main_window.rs:810 interface.glade.h:15
+#: ../src/gui/main_window.rs:526 ../src/gui/main_window.rs:611
+#: ../src/gui/main_window.rs:812 interface.ui.h:15
 msgid "Turn off microphone recognition"
 msgstr "Vypnúť rozpoznávanie z mikrofónu"
 
-#: ../src/gui/main_window.rs:550
+#: ../src/gui/main_window.rs:552
 msgid "Select a file to recognize"
 msgstr "Vyberte súbor na rozpoznanie"
 
-#: ../src/gui/main_window.rs:553
+#: ../src/gui/main_window.rs:555
 msgid "_Open"
 msgstr "_Otvoriť"
 
-#: ../src/gui/main_window.rs:554
+#: ../src/gui/main_window.rs:556
 msgid "_Cancel"
 msgstr "_Zrušiť"
 
-#: ../src/gui/main_window.rs:562
+#: ../src/gui/main_window.rs:564
 msgid "Couldn't get filename"
 msgstr "Nepodarilo sa získať názov súboru"
 
-#: ../src/gui/main_window.rs:852
+#: ../src/gui/main_window.rs:854
 msgid "Song recognized"
 msgstr "Skladba rozpoznaná"
 
@@ -239,50 +239,50 @@ msgstr "Chyba pri čítaní histórie skladieb z disku:"
 msgid "Error when reading the favorites on the disk:"
 msgstr "Chyba pri čítaní obľúbených položiek z disku:"
 
-#: interface.glade.h:1
+#: interface.ui.h:1
 msgid "Preferences"
 msgstr "Nastavenia"
 
-#: interface.glade.h:2
+#: interface.ui.h:2
 msgid ""
 "Enable MPRIS (display playing song information in the GNOME control panel)"
 msgstr ""
 "Zapnúť MPRIS (zobrazenie informácií o prehrávanej skladbe na ovládacom "
 "paneli GNOME)"
 
-#: interface.glade.h:3
+#: interface.ui.h:3
 msgid "About"
 msgstr "O aplikácii"
 
-#: interface.glade.h:4 favorites_interface.glade.h:5
+#: interface.ui.h:4 favorites_interface.ui.h:6
 msgid "Copy artist and track"
 msgstr "Kopírovať interpreta a názov skladby"
 
-#: interface.glade.h:5 favorites_interface.glade.h:6
+#: interface.ui.h:5 favorites_interface.ui.h:7
 msgid "Copy artist"
 msgstr "Kopírovať interpreta"
 
-#: interface.glade.h:6 favorites_interface.glade.h:7
+#: interface.ui.h:6 favorites_interface.ui.h:8
 msgid "Copy track name"
 msgstr "Kopírovať názov skladby"
 
-#: interface.glade.h:7 favorites_interface.glade.h:8
+#: interface.ui.h:7 favorites_interface.ui.h:9
 msgid "Copy album"
 msgstr "Kopírovať album"
 
-#: interface.glade.h:8 favorites_interface.glade.h:9
+#: interface.ui.h:8 favorites_interface.ui.h:10
 msgid "Search on YouTube"
 msgstr "Vyhľadať na YouTube"
 
-#: interface.glade.h:9
+#: interface.ui.h:9
 msgid "Add to Favorites"
 msgstr "Pridať medzi obľúbené"
 
-#: interface.glade.h:10 favorites_interface.glade.h:10
+#: interface.ui.h:10 favorites_interface.ui.h:11
 msgid "Remove from Favorites"
 msgstr "Odstrániť z obľúbených"
 
-#: interface.glade.h:11
+#: interface.ui.h:11
 msgid ""
 "Help translating https://github.com/marin-m/SongRec/tree/master/"
 "translations#readme"
@@ -291,73 +291,77 @@ msgstr ""
 "Pomôžte prekladať https://github.com/marin-m/SongRec/tree/master/"
 "translations#readme"
 
-#: interface.glade.h:12
+#: interface.ui.h:12
 msgid "About..."
 msgstr "O..."
 
-#: interface.glade.h:13
+#: interface.ui.h:13
 msgid "Recognize from file"
 msgstr "Rozpoznať zo súboru"
 
-#: interface.glade.h:16
+#: interface.ui.h:16
 msgid "Enable notifications"
 msgstr "Zapnúť oznámenia"
 
-#: interface.glade.h:17
+#: interface.ui.h:17
 msgid "Shazam servers are not reachable, are you connected?"
 msgstr "Servery Shazam nie sú dostupné, ste pripojení?"
 
-#: interface.glade.h:18
+#: interface.ui.h:18
 msgid "Recognize songs"
 msgstr "Rozpoznať skladby"
 
-#: interface.glade.h:19
+#: interface.ui.h:19
 msgid "Recognition results"
 msgstr "Výsledky rozpoznania"
 
-#: interface.glade.h:20
+#: interface.ui.h:20
 msgid "Recognize from my speakers instead of microphone"
 msgstr "Rozpoznať z mojich reproduktorov namiesto mikrofónu"
 
-#: interface.glade.h:21
+#: interface.ui.h:21
 msgid "Current volume:"
 msgstr "Aktuálna hlasitosť:"
 
-#: interface.glade.h:22
+#: interface.ui.h:22
 msgid "Audio input"
 msgstr "Zvukový vstup"
 
-#: interface.glade.h:23 favorites_interface.glade.h:1
+#: interface.ui.h:23 favorites_interface.ui.h:1
 msgid "Song name"
 msgstr "Názov skladby"
 
-#: interface.glade.h:24 favorites_interface.glade.h:2
+#: interface.ui.h:24 favorites_interface.ui.h:2
 msgid "Album"
 msgstr "Album"
 
-#: interface.glade.h:25
+#: interface.ui.h:25
 msgid "Recognition date"
 msgstr "Dátum rozpoznania"
 
-#: interface.glade.h:26 favorites_interface.glade.h:4
+#: interface.ui.h:26 favorites_interface.ui.h:5
 msgid "Favorites"
 msgstr "Obľúbené"
 
-#: interface.glade.h:27
+#: interface.ui.h:27
 msgid "Wipe history"
 msgstr "Vymazať históriu"
 
-#: interface.glade.h:28 favorites_interface.glade.h:3
+#: interface.ui.h:28 favorites_interface.ui.h:4
 msgid "Export to CSV"
 msgstr "Exportovať do CSV"
 
-#: interface.glade.h:29
+#: interface.ui.h:29
 msgid "Recognition history"
 msgstr "História rozpoznania"
 
-#: interface.glade.h:30
+#: interface.ui.h:30
 msgid "SongRec"
 msgstr "SongRec"
+
+#: favorites_interface.ui.h:3
+msgid "Recognition Date"
+msgstr ""
 
 #~ msgid ""
 #~ "Convert a data-URI Shazam fingerprint into hearable tones, played back "

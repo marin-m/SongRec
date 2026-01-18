@@ -1,52 +1,53 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.40.0 -->
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Created with Cambalache 0.96.3 -->
 <interface>
+  <!-- interface-name interface.ui -->
   <requires lib="gtk+" version="3.20"/>
   <object class="GtkImage" id="copy_icon">
-    <property name="visible">True</property>
     <property name="can-focus">False</property>
     <property name="icon-name">edit-copy</property>
+    <property name="visible">True</property>
   </object>
   <object class="GtkImage" id="copy_icon_2">
-    <property name="visible">True</property>
     <property name="can-focus">False</property>
     <property name="icon-name">edit-copy</property>
+    <property name="visible">True</property>
   </object>
   <object class="GtkImage" id="copy_icon_3">
-    <property name="visible">True</property>
     <property name="can-focus">False</property>
     <property name="icon-name">edit-copy</property>
+    <property name="visible">True</property>
   </object>
   <object class="GtkImage" id="copy_icon_4">
-    <property name="visible">True</property>
     <property name="can-focus">False</property>
     <property name="icon-name">edit-copy</property>
+    <property name="visible">True</property>
   </object>
   <object class="GtkImage" id="csv_icon">
-    <property name="visible">True</property>
     <property name="can-focus">False</property>
-    <property name="pixel-size">20</property>
     <property name="icon-name">media-floppy</property>
+    <property name="pixel-size">20</property>
+    <property name="visible">True</property>
   </object>
   <object class="GtkImage" id="favorite_icon">
-    <property name="visible">True</property>
     <property name="can-focus">False</property>
     <property name="icon-name">emblem-favorite</property>
+    <property name="visible">True</property>
   </object>
   <object class="GtkImage" id="favorite_icon_2">
-    <property name="visible">True</property>
     <property name="can-focus">False</property>
     <property name="icon-name">emblem-favorite</property>
+    <property name="visible">True</property>
   </object>
   <object class="GtkImage" id="favorite_icon_3">
-    <property name="visible">True</property>
     <property name="can-focus">False</property>
     <property name="icon-name">emblem-favorite</property>
+    <property name="visible">True</property>
   </object>
   <object class="GtkImage" id="file_icon">
-    <property name="visible">True</property>
     <property name="can-focus">False</property>
     <property name="stock">gtk-file</property>
+    <property name="visible">True</property>
   </object>
   <object class="GtkListStore" id="history_list_store">
     <columns>
@@ -75,40 +76,40 @@
     </columns>
   </object>
   <object class="GtkImage" id="microphone_icon">
-    <property name="visible">True</property>
     <property name="can-focus">False</property>
     <property name="icon-name">audio-input-microphone</property>
+    <property name="visible">True</property>
   </object>
   <object class="GtkImage" id="microphone_stop_icon">
-    <property name="visible">True</property>
     <property name="can-focus">False</property>
     <property name="stock">gtk-media-stop</property>
+    <property name="visible">True</property>
   </object>
   <object class="GtkWindow" id="preferences_window">
     <property name="can-focus">False</property>
-    <property name="title" translatable="yes">Preferences</property>
-    <property name="modal">True</property>
-    <property name="default-width">720</property>
     <property name="default-height">480</property>
+    <property name="default-width">720</property>
     <property name="destroy-with-parent">True</property>
     <property name="has-resize-grip">True</property>
+    <property name="modal">True</property>
+    <property name="title" translatable="yes">Preferences</property>
     <child>
       <object class="GtkBox">
-        <property name="visible">True</property>
         <property name="can-focus">False</property>
-        <property name="margin-start">25</property>
-        <property name="margin-end">25</property>
-        <property name="margin-top">25</property>
         <property name="margin-bottom">25</property>
+        <property name="margin-end">25</property>
+        <property name="margin-start">25</property>
+        <property name="margin-top">25</property>
         <property name="orientation">vertical</property>
         <property name="spacing">12</property>
+        <property name="visible">True</property>
         <child>
           <object class="GtkCheckButton" id="enable_mpris_box">
-            <property name="label" translatable="yes">Enable MPRIS (display playing song information in the GNOME control panel)</property>
-            <property name="visible">True</property>
             <property name="can-focus">True</property>
-            <property name="receives-default">False</property>
             <property name="draw-indicator">True</property>
+            <property name="label" translatable="yes">Enable MPRIS (display playing song information in the GNOME control panel)</property>
+            <property name="receives-default">False</property>
+            <property name="visible">True</property>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -116,121 +117,115 @@
             <property name="position">0</property>
           </packing>
         </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
       </object>
     </child>
   </object>
   <object class="GtkAction" id="show_about_dialog">
     <property name="label" translatable="yes">About</property>
-    <signal name="activate" handler="about_dialog.show" swapped="no"/>
+    <signal name="activate" handler="about_dialog.show"/>
   </object>
   <object class="GtkImage" id="wipe_icon">
-    <property name="visible">True</property>
     <property name="can-focus">False</property>
     <property name="icon-name">user-trash-full</property>
+    <property name="visible">True</property>
   </object>
   <object class="GtkImage" id="youtube_icon">
-    <property name="visible">True</property>
     <property name="can-focus">False</property>
     <property name="icon-name">edit-find</property>
+    <property name="visible">True</property>
   </object>
   <object class="GtkImage" id="youtube_icon_2">
-    <property name="visible">True</property>
     <property name="can-focus">False</property>
     <property name="icon-name">edit-find</property>
+    <property name="visible">True</property>
   </object>
   <object class="GtkMenu" id="list_view_context_menu">
     <property name="can-focus">False</property>
     <child>
       <object class="GtkImageMenuItem" id="copy_artist_and_track">
-        <property name="label" translatable="yes">Copy artist and track</property>
-        <property name="visible">True</property>
+        <property name="always-show-image">True</property>
         <property name="can-focus">False</property>
         <property name="image">copy_icon</property>
+        <property name="label" translatable="yes">Copy artist and track</property>
         <property name="use-stock">False</property>
-        <property name="always-show-image">True</property>
+        <property name="visible">True</property>
       </object>
     </child>
     <child>
       <object class="GtkImageMenuItem" id="copy_artist">
-        <property name="label" translatable="yes">Copy artist</property>
-        <property name="visible">True</property>
+        <property name="always-show-image">True</property>
         <property name="can-focus">False</property>
         <property name="image">copy_icon_2</property>
+        <property name="label" translatable="yes">Copy artist</property>
         <property name="use-stock">False</property>
-        <property name="always-show-image">True</property>
+        <property name="visible">True</property>
       </object>
     </child>
     <child>
       <object class="GtkImageMenuItem" id="copy_track_name">
-        <property name="label" translatable="yes">Copy track name</property>
-        <property name="visible">True</property>
+        <property name="always-show-image">True</property>
         <property name="can-focus">False</property>
         <property name="image">copy_icon_3</property>
+        <property name="label" translatable="yes">Copy track name</property>
         <property name="use-stock">False</property>
-        <property name="always-show-image">True</property>
+        <property name="visible">True</property>
       </object>
     </child>
     <child>
       <object class="GtkImageMenuItem" id="copy_album">
-        <property name="label" translatable="yes">Copy album</property>
-        <property name="visible">True</property>
+        <property name="always-show-image">True</property>
         <property name="can-focus">False</property>
         <property name="image">copy_icon_4</property>
+        <property name="label" translatable="yes">Copy album</property>
         <property name="use-stock">False</property>
-        <property name="always-show-image">True</property>
+        <property name="visible">True</property>
       </object>
     </child>
     <child>
       <object class="GtkImageMenuItem" id="search_on_youtube">
-        <property name="label" translatable="yes">Search on YouTube</property>
-        <property name="visible">True</property>
+        <property name="always-show-image">True</property>
         <property name="can-focus">False</property>
         <property name="image">youtube_icon_2</property>
+        <property name="label" translatable="yes">Search on YouTube</property>
         <property name="use-stock">False</property>
-        <property name="always-show-image">True</property>
+        <property name="visible">True</property>
       </object>
     </child>
     <child>
       <object class="GtkImageMenuItem" id="add_to_favorites">
-        <property name="label" translatable="yes">Add to Favorites</property>
-        <property name="visible">True</property>
+        <property name="always-show-image">True</property>
         <property name="can-focus">False</property>
         <property name="image">favorite_icon_2</property>
+        <property name="label" translatable="yes">Add to Favorites</property>
         <property name="use-stock">False</property>
-        <property name="always-show-image">True</property>
+        <property name="visible">True</property>
       </object>
     </child>
     <child>
       <object class="GtkImageMenuItem" id="remove_from_favorites">
-        <property name="label" translatable="yes">Remove from Favorites</property>
-        <property name="visible">True</property>
+        <property name="always-show-image">True</property>
         <property name="can-focus">False</property>
         <property name="image">favorite_icon_3</property>
+        <property name="label" translatable="yes">Remove from Favorites</property>
         <property name="use-stock">False</property>
-        <property name="always-show-image">True</property>
+        <property name="visible">True</property>
       </object>
     </child>
   </object>
   <object class="GtkAboutDialog" id="about_dialog">
-    <property name="can-focus">False</property>
-    <property name="modal">True</property>
-    <property name="destroy-with-parent">True</property>
-    <property name="type-hint">dialog</property>
-    <property name="transient-for">window</property>
-    <property name="program-name">SongRec</property>
-    <property name="version">0.4.3</property>
-    <property name="website">https://github.com/marin-m/SongRec</property>
     <property name="authors">© Marin Moulinier
 Contributors https://github.com/marin-m/SongRec/graphs/contributors</property>
-    <property name="translator-credits" translatable="yes">Help translating https://github.com/marin-m/SongRec/tree/master/translations#readme</property>
-    <property name="logo-icon-name">audio-x-generic</property>
+    <property name="can-focus">False</property>
+    <property name="destroy-with-parent">True</property>
     <property name="license-type">gpl-3-0</property>
+    <property name="logo-icon-name">audio-x-generic</property>
+    <property name="modal">True</property>
+    <property name="program-name">SongRec</property>
+    <property name="transient-for">window</property>
+    <property name="translator-credits" translatable="yes">Help translating https://github.com/marin-m/SongRec/tree/master/translations#readme</property>
+    <property name="type-hint">dialog</property>
+    <property name="version">0.4.3</property>
+    <property name="website">https://github.com/marin-m/SongRec</property>
     <child internal-child="vbox">
       <object class="GtkBox">
         <property name="can-focus">False</property>
@@ -252,21 +247,21 @@ Contributors https://github.com/marin-m/SongRec/graphs/contributors</property>
     <property name="relative-to">menu_button</property>
     <child>
       <object class="GtkBox">
-        <property name="visible">True</property>
         <property name="can-focus">False</property>
-        <property name="margin-start">10</property>
-        <property name="margin-end">10</property>
-        <property name="margin-top">10</property>
         <property name="margin-bottom">10</property>
+        <property name="margin-end">10</property>
+        <property name="margin-start">10</property>
+        <property name="margin-top">10</property>
         <property name="orientation">vertical</property>
+        <property name="visible">True</property>
         <child>
           <object class="GtkModelButton" id="preferences_menu_button">
-            <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
             <property name="text" translatable="yes">Preferences</property>
-            <signal name="activate" handler="about_dialog.show" swapped="no"/>
-            <signal name="clicked" handler="about_dialog.show" swapped="no"/>
+            <property name="visible">True</property>
+            <signal name="activate" handler="about_dialog.show"/>
+            <signal name="clicked" handler="about_dialog.show"/>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -276,8 +271,8 @@ Contributors https://github.com/marin-m/SongRec/graphs/contributors</property>
         </child>
         <child>
           <object class="GtkSeparator" id="main_menu_separator">
-            <property name="visible">True</property>
             <property name="can-focus">False</property>
+            <property name="visible">True</property>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -287,10 +282,10 @@ Contributors https://github.com/marin-m/SongRec/graphs/contributors</property>
         </child>
         <child>
           <object class="GtkModelButton" id="about_menu_button">
-            <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
             <property name="text" translatable="yes">About...</property>
+            <property name="visible">True</property>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -298,88 +293,85 @@ Contributors https://github.com/marin-m/SongRec/graphs/contributors</property>
             <property name="position">2</property>
           </packing>
         </child>
-        <child>
-          <placeholder/>
-        </child>
       </object>
       <packing>
-        <property name="submenu">main</property>
         <property name="position">1</property>
+        <property name="submenu">main</property>
       </packing>
     </child>
   </object>
   <object class="GtkApplicationWindow" id="window">
-    <property name="name">window</property>
-    <property name="visible">True</property>
     <property name="can-focus">False</property>
-    <property name="window-position">center</property>
-    <property name="default-width">977</property>
     <property name="default-height">497</property>
-    <property name="icon-name">audio-x-generic</property>
+    <property name="default-width">977</property>
     <property name="has-resize-grip">True</property>
+    <property name="icon-name">audio-x-generic</property>
+    <property name="name">window</property>
     <property name="show-menubar">False</property>
+    <property name="visible">True</property>
+    <property name="window-position">center</property>
     <child>
       <object class="GtkScrolledWindow" id="fbsw">
         <property name="can-focus">False</property>
         <property name="hscrollbar-policy">never</property>
         <child>
           <object class="GtkViewport">
-            <property name="visible">True</property>
             <property name="can-focus">False</property>
+            <property name="visible">True</property>
             <child>
               <object class="GtkFlowBox" id="flowbox">
-                <property name="name">flowbox</property>
-                <property name="visible">True</property>
                 <property name="can-focus">False</property>
+                <property name="margin-bottom">12</property>
                 <property name="margin-left">12</property>
                 <property name="margin-right">12</property>
                 <property name="margin-top">12</property>
-                <property name="margin-bottom">12</property>
-                <property name="min-children-per-line">1</property>
                 <property name="max-children-per-line">2</property>
+                <property name="min-children-per-line">1</property>
+                <property name="name">flowbox</property>
                 <property name="selection-mode">none</property>
+                <property name="visible">True</property>
                 <child>
                   <object class="GtkFlowBoxChild" id="fbc1">
-                    <property name="visible">True</property>
                     <property name="can-focus">False</property>
+                    <property name="visible">True</property>
                     <child>
                       <object class="GtkBox" id="vbox1">
-                        <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="margin-right">9</property>
                         <property name="orientation">vertical</property>
                         <property name="spacing">15</property>
+                        <property name="visible">True</property>
                         <child>
                           <object class="GtkFrame" id="buttons_frame">
-                            <property name="name">buttons_frame</property>
-                            <property name="visible">True</property>
                             <property name="can-focus">False</property>
                             <property name="label-xalign">0.039999999105930328</property>
+                            <property name="name">buttons_frame</property>
                             <property name="shadow-type">in</property>
+                            <property name="visible">True</property>
                             <child>
                               <object class="GtkAlignment">
-                                <property name="visible">True</property>
                                 <property name="can-focus">False</property>
                                 <property name="left-padding">12</property>
+                                <property name="visible">True</property>
                                 <child>
                                   <object class="GtkBox">
-                                    <property name="visible">True</property>
                                     <property name="can-focus">False</property>
+                                    <property name="margin-bottom">15</property>
                                     <property name="margin-left">15</property>
                                     <property name="margin-right">15</property>
                                     <property name="margin-top">15</property>
-                                    <property name="margin-bottom">15</property>
                                     <property name="orientation">vertical</property>
                                     <property name="spacing">15</property>
+                                    <property name="visible">True</property>
                                     <child>
                                       <object class="GtkButton" id="recognize_file_button">
-                                        <property name="label" translatable="yes">Recognize from file</property>
-                                        <property name="height-request">40</property>
-                                        <property name="visible">True</property>
-                                        <property name="can-focus">True</property>
-                                        <property name="receives-default">True</property>
-                                        <property name="image">file_icon</property>
                                         <property name="always-show-image">True</property>
+                                        <property name="can-focus">True</property>
+                                        <property name="height-request">40</property>
+                                        <property name="image">file_icon</property>
+                                        <property name="label" translatable="yes">Recognize from file</property>
+                                        <property name="receives-default">True</property>
+                                        <property name="visible">True</property>
                                       </object>
                                       <packing>
                                         <property name="expand">False</property>
@@ -389,10 +381,10 @@ Contributors https://github.com/marin-m/SongRec/graphs/contributors</property>
                                     </child>
                                     <child>
                                       <object class="GtkSpinner" id="spinner">
+                                        <property name="active">True</property>
+                                        <property name="can-focus">False</property>
                                         <property name="name">spinner</property>
                                         <property name="width-request">40</property>
-                                        <property name="can-focus">False</property>
-                                        <property name="active">True</property>
                                       </object>
                                       <packing>
                                         <property name="expand">False</property>
@@ -402,13 +394,13 @@ Contributors https://github.com/marin-m/SongRec/graphs/contributors</property>
                                     </child>
                                     <child>
                                       <object class="GtkButton" id="microphone_button">
-                                        <property name="label" translatable="yes">Turn on microphone recognition</property>
-                                        <property name="height-request">40</property>
-                                        <property name="visible">True</property>
-                                        <property name="can-focus">True</property>
-                                        <property name="receives-default">True</property>
-                                        <property name="image">microphone_icon</property>
                                         <property name="always-show-image">True</property>
+                                        <property name="can-focus">True</property>
+                                        <property name="height-request">40</property>
+                                        <property name="image">microphone_icon</property>
+                                        <property name="label" translatable="yes">Turn on microphone recognition</property>
+                                        <property name="receives-default">True</property>
+                                        <property name="visible">True</property>
                                       </object>
                                       <packing>
                                         <property name="expand">False</property>
@@ -418,12 +410,12 @@ Contributors https://github.com/marin-m/SongRec/graphs/contributors</property>
                                     </child>
                                     <child>
                                       <object class="GtkButton" id="microphone_stop_button">
-                                        <property name="label" translatable="yes">Turn off microphone recognition</property>
-                                        <property name="height-request">40</property>
-                                        <property name="can-focus">True</property>
-                                        <property name="receives-default">True</property>
-                                        <property name="image">microphone_stop_icon</property>
                                         <property name="always-show-image">True</property>
+                                        <property name="can-focus">True</property>
+                                        <property name="height-request">40</property>
+                                        <property name="image">microphone_stop_icon</property>
+                                        <property name="label" translatable="yes">Turn off microphone recognition</property>
+                                        <property name="receives-default">True</property>
                                       </object>
                                       <packing>
                                         <property name="expand">False</property>
@@ -433,10 +425,10 @@ Contributors https://github.com/marin-m/SongRec/graphs/contributors</property>
                                     </child>
                                     <child>
                                       <object class="GtkCheckButton" id="notification_enable_checkbox">
-                                        <property name="label" translatable="yes">Enable notifications</property>
                                         <property name="can-focus">True</property>
-                                        <property name="receives-default">True</property>
                                         <property name="draw-indicator">True</property>
+                                        <property name="label" translatable="yes">Enable notifications</property>
+                                        <property name="receives-default">True</property>
                                       </object>
                                       <packing>
                                         <property name="expand">False</property>
@@ -446,8 +438,8 @@ Contributors https://github.com/marin-m/SongRec/graphs/contributors</property>
                                     </child>
                                     <child>
                                       <object class="GtkLabel" id="network_unreachable">
-                                        <property name="height-request">28</property>
                                         <property name="can-focus">False</property>
+                                        <property name="height-request">28</property>
                                         <property name="label" translatable="yes">Shazam servers are not reachable, are you connected?</property>
                                         <attributes>
                                           <attribute name="weight" value="medium"/>
@@ -466,10 +458,10 @@ Contributors https://github.com/marin-m/SongRec/graphs/contributors</property>
                             </child>
                             <child type="label">
                               <object class="GtkLabel">
-                                <property name="name">buttons_frame_label</property>
-                                <property name="visible">True</property>
                                 <property name="can-focus">False</property>
                                 <property name="label" translatable="yes">Recognize songs</property>
+                                <property name="name">buttons_frame_label</property>
+                                <property name="visible">True</property>
                               </object>
                             </child>
                           </object>
@@ -481,34 +473,34 @@ Contributors https://github.com/marin-m/SongRec/graphs/contributors</property>
                         </child>
                         <child>
                           <object class="GtkFrame" id="results_frame">
-                            <property name="name">results_frame</property>
                             <property name="can-focus">False</property>
                             <property name="label-xalign">0.039999999105930328</property>
+                            <property name="name">results_frame</property>
                             <property name="shadow-type">in</property>
                             <child>
                               <object class="GtkAlignment">
-                                <property name="visible">True</property>
                                 <property name="can-focus">False</property>
                                 <property name="left-padding">12</property>
+                                <property name="visible">True</property>
                                 <child>
                                   <object class="GtkBox">
-                                    <property name="visible">True</property>
                                     <property name="can-focus">False</property>
+                                    <property name="margin-bottom">15</property>
                                     <property name="margin-left">15</property>
                                     <property name="margin-right">15</property>
                                     <property name="margin-top">15</property>
-                                    <property name="margin-bottom">15</property>
                                     <property name="orientation">vertical</property>
                                     <property name="spacing">15</property>
+                                    <property name="visible">True</property>
                                     <child>
                                       <object class="GtkLabel" id="recognized_song_name">
-                                        <property name="name">recognized_song_name</property>
-                                        <property name="visible">True</property>
                                         <property name="can-focus">False</property>
                                         <property name="label">&lt;b&gt;Artist - Song name&lt;/b&gt;</property>
-                                        <property name="use-markup">True</property>
-                                        <property name="wrap">True</property>
+                                        <property name="name">recognized_song_name</property>
                                         <property name="selectable">True</property>
+                                        <property name="use-markup">True</property>
+                                        <property name="visible">True</property>
+                                        <property name="wrap">True</property>
                                       </object>
                                       <packing>
                                         <property name="expand">False</property>
@@ -518,16 +510,16 @@ Contributors https://github.com/marin-m/SongRec/graphs/contributors</property>
                                     </child>
                                     <child>
                                       <object class="GtkScrolledWindow">
-                                        <property name="visible">True</property>
                                         <property name="can-focus">True</property>
                                         <property name="hscrollbar-policy">external</property>
-                                        <property name="vscrollbar-policy">external</property>
-                                        <property name="min-content-width">100</property>
                                         <property name="min-content-height">100</property>
+                                        <property name="min-content-width">100</property>
+                                        <property name="visible">True</property>
+                                        <property name="vscrollbar-policy">external</property>
                                         <child>
                                           <object class="GtkViewport">
-                                            <property name="visible">True</property>
                                             <property name="can-focus">False</property>
+                                            <property name="visible">True</property>
                                             <child>
                                               <object class="GtkImage" id="recognized_song_cover">
                                                 <property name="can-focus">False</property>
@@ -544,13 +536,13 @@ Contributors https://github.com/marin-m/SongRec/graphs/contributors</property>
                                     </child>
                                     <child>
                                       <object class="GtkButton" id="youtube_button">
-                                        <property name="label" translatable="yes">Search on YouTube</property>
-                                        <property name="height-request">0</property>
-                                        <property name="visible">True</property>
-                                        <property name="can-focus">True</property>
-                                        <property name="receives-default">True</property>
-                                        <property name="image">youtube_icon</property>
                                         <property name="always-show-image">True</property>
+                                        <property name="can-focus">True</property>
+                                        <property name="height-request">0</property>
+                                        <property name="image">youtube_icon</property>
+                                        <property name="label" translatable="yes">Search on YouTube</property>
+                                        <property name="receives-default">True</property>
+                                        <property name="visible">True</property>
                                       </object>
                                       <packing>
                                         <property name="expand">False</property>
@@ -564,10 +556,10 @@ Contributors https://github.com/marin-m/SongRec/graphs/contributors</property>
                             </child>
                             <child type="label">
                               <object class="GtkLabel">
-                                <property name="name">results_frame_label</property>
-                                <property name="visible">True</property>
                                 <property name="can-focus">False</property>
                                 <property name="label" translatable="yes">Recognition results</property>
+                                <property name="name">results_frame_label</property>
+                                <property name="visible">True</property>
                               </object>
                             </child>
                           </object>
@@ -583,47 +575,48 @@ Contributors https://github.com/marin-m/SongRec/graphs/contributors</property>
                 </child>
                 <child>
                   <object class="GtkFlowBoxChild" id="fbc2">
-                    <property name="visible">True</property>
                     <property name="can-focus">False</property>
+                    <property name="visible">True</property>
                     <child>
                       <object class="GtkBox" id="vbox2">
-                        <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="orientation">vertical</property>
                         <property name="spacing">15</property>
+                        <property name="visible">True</property>
                         <child>
                           <object class="GtkFrame" id="microphone_source_frame">
-                            <property name="visible">True</property>
                             <property name="can-focus">False</property>
                             <property name="label-xalign">0.039999999105930328</property>
                             <property name="shadow-type">in</property>
+                            <property name="visible">True</property>
                             <child>
                               <object class="GtkAlignment">
-                                <property name="visible">True</property>
                                 <property name="can-focus">False</property>
                                 <property name="left-padding">12</property>
+                                <property name="visible">True</property>
                                 <child>
                                   <object class="GtkBox">
-                                    <property name="visible">True</property>
                                     <property name="can-focus">False</property>
+                                    <property name="margin-bottom">15</property>
                                     <property name="margin-left">15</property>
                                     <property name="margin-right">15</property>
                                     <property name="margin-top">15</property>
-                                    <property name="margin-bottom">15</property>
                                     <property name="orientation">vertical</property>
                                     <property name="spacing">15</property>
+                                    <property name="visible">True</property>
                                     <child>
                                       <object class="GtkComboBox" id="microphone_source_select_box">
-                                        <property name="visible">True</property>
-                                        <property name="can-focus">False</property>
-                                        <property name="model">input_devices_list_store</property>
                                         <property name="active">0</property>
+                                        <property name="can-focus">False</property>
                                         <property name="id-column">0</property>
+                                        <property name="model">input_devices_list_store</property>
+                                        <property name="visible">True</property>
                                         <child>
                                           <object class="GtkCellRendererText">
                                             <property name="ellipsize">end</property>
                                             <property name="width">50</property>
                                           </object>
+                                          <!-- Custom child fragments -->
                                           <attributes>
                                             <attribute name="markup">0</attribute>
                                             <attribute name="text">0</attribute>
@@ -638,10 +631,10 @@ Contributors https://github.com/marin-m/SongRec/graphs/contributors</property>
                                     </child>
                                     <child>
                                       <object class="GtkCheckButton" id="recognize_from_my_speakers_checkbox">
-                                        <property name="label" translatable="yes">Recognize from my speakers instead of microphone</property>
                                         <property name="can-focus">True</property>
-                                        <property name="receives-default">False</property>
                                         <property name="draw-indicator">True</property>
+                                        <property name="label" translatable="yes">Recognize from my speakers instead of microphone</property>
+                                        <property name="receives-default">False</property>
                                       </object>
                                       <packing>
                                         <property name="expand">False</property>
@@ -651,14 +644,14 @@ Contributors https://github.com/marin-m/SongRec/graphs/contributors</property>
                                     </child>
                                     <child>
                                       <object class="GtkBox" id="current_volume_hbox">
-                                        <property name="visible">True</property>
                                         <property name="can-focus">False</property>
                                         <property name="spacing">15</property>
+                                        <property name="visible">True</property>
                                         <child>
                                           <object class="GtkLabel">
-                                            <property name="visible">True</property>
                                             <property name="can-focus">False</property>
                                             <property name="label" translatable="yes">Current volume:</property>
+                                            <property name="visible">True</property>
                                           </object>
                                           <packing>
                                             <property name="expand">False</property>
@@ -668,8 +661,8 @@ Contributors https://github.com/marin-m/SongRec/graphs/contributors</property>
                                         </child>
                                         <child>
                                           <object class="GtkProgressBar" id="current_volume_bar">
-                                            <property name="visible">True</property>
                                             <property name="can-focus">False</property>
+                                            <property name="visible">True</property>
                                           </object>
                                           <packing>
                                             <property name="expand">True</property>
@@ -690,9 +683,9 @@ Contributors https://github.com/marin-m/SongRec/graphs/contributors</property>
                             </child>
                             <child type="label">
                               <object class="GtkLabel">
-                                <property name="visible">True</property>
                                 <property name="can-focus">False</property>
                                 <property name="label" translatable="yes">Audio input</property>
+                                <property name="visible">True</property>
                               </object>
                             </child>
                           </object>
@@ -704,40 +697,37 @@ Contributors https://github.com/marin-m/SongRec/graphs/contributors</property>
                         </child>
                         <child>
                           <object class="GtkFrame">
-                            <property name="visible">True</property>
                             <property name="can-focus">False</property>
                             <property name="label-xalign">0.039999999105930328</property>
                             <property name="shadow-type">in</property>
+                            <property name="visible">True</property>
                             <child>
                               <object class="GtkAlignment">
-                                <property name="visible">True</property>
                                 <property name="can-focus">False</property>
                                 <property name="left-padding">12</property>
+                                <property name="visible">True</property>
                                 <child>
                                   <object class="GtkBox">
-                                    <property name="visible">True</property>
                                     <property name="can-focus">False</property>
+                                    <property name="margin-bottom">15</property>
                                     <property name="margin-left">15</property>
                                     <property name="margin-right">15</property>
                                     <property name="margin-top">15</property>
-                                    <property name="margin-bottom">15</property>
                                     <property name="orientation">vertical</property>
                                     <property name="spacing">15</property>
+                                    <property name="visible">True</property>
                                     <child>
                                       <object class="GtkScrolledWindow" id="buttons">
-                                        <property name="visible">True</property>
                                         <property name="can-focus">True</property>
                                         <property name="shadow-type">in</property>
+                                        <property name="visible">True</property>
                                         <child>
                                           <object class="GtkTreeView" id="history_tree_view">
-                                            <property name="visible">True</property>
                                             <property name="can-focus">True</property>
-                                            <property name="vexpand">True</property>
-                                            <property name="model">history_list_store</property>
                                             <property name="enable-grid-lines">vertical</property>
-                                            <child internal-child="selection">
-                                              <object class="GtkTreeSelection"/>
-                                            </child>
+                                            <property name="model">history_list_store</property>
+                                            <property name="vexpand">True</property>
+                                            <property name="visible">True</property>
                                             <child>
                                               <object class="GtkTreeViewColumn">
                                                 <property name="resizable">True</property>
@@ -745,6 +735,7 @@ Contributors https://github.com/marin-m/SongRec/graphs/contributors</property>
                                                 <property name="title" translatable="yes">Song name</property>
                                                 <child>
                                                   <object class="GtkCellRendererText"/>
+                                                  <!-- Custom child fragments -->
                                                   <attributes>
                                                     <attribute name="text">0</attribute>
                                                   </attributes>
@@ -758,6 +749,7 @@ Contributors https://github.com/marin-m/SongRec/graphs/contributors</property>
                                                 <property name="title" translatable="yes">Album</property>
                                                 <child>
                                                   <object class="GtkCellRendererText"/>
+                                                  <!-- Custom child fragments -->
                                                   <attributes>
                                                     <attribute name="text">1</attribute>
                                                   </attributes>
@@ -771,6 +763,7 @@ Contributors https://github.com/marin-m/SongRec/graphs/contributors</property>
                                                 <property name="title" translatable="yes">Recognition date</property>
                                                 <child>
                                                   <object class="GtkCellRendererText"/>
+                                                  <!-- Custom child fragments -->
                                                   <attributes>
                                                     <attribute name="text">2</attribute>
                                                   </attributes>
@@ -788,53 +781,53 @@ Contributors https://github.com/marin-m/SongRec/graphs/contributors</property>
                                     </child>
                                     <child>
                                       <object class="GtkFlowBox" id="buttonbox">
-                                        <property name="visible">True</property>
                                         <property name="can-focus">False</property>
                                         <property name="max-children-per-line">3</property>
+                                        <property name="visible">True</property>
                                         <child>
                                           <object class="GtkFlowBoxChild">
-                                            <property name="visible">True</property>
                                             <property name="can-focus">True</property>
+                                            <property name="visible">True</property>
                                             <child>
                                               <object class="GtkButton" id="favorites_list_button">
-                                                <property name="label" translatable="yes">Favorites</property>
-                                                <property name="visible">True</property>
-                                                <property name="can-focus">True</property>
-                                                <property name="receives-default">True</property>
-                                                <property name="image">favorite_icon</property>
                                                 <property name="always-show-image">True</property>
+                                                <property name="can-focus">True</property>
+                                                <property name="image">favorite_icon</property>
+                                                <property name="label" translatable="yes">Favorites</property>
+                                                <property name="receives-default">True</property>
+                                                <property name="visible">True</property>
                                               </object>
                                             </child>
                                           </object>
                                         </child>
                                         <child>
                                           <object class="GtkFlowBoxChild">
-                                            <property name="visible">True</property>
                                             <property name="can-focus">True</property>
+                                            <property name="visible">True</property>
                                             <child>
                                               <object class="GtkButton" id="wipe_history_button">
-                                                <property name="label" translatable="yes">Wipe history</property>
-                                                <property name="visible">True</property>
-                                                <property name="can-focus">True</property>
-                                                <property name="receives-default">True</property>
-                                                <property name="image">wipe_icon</property>
                                                 <property name="always-show-image">True</property>
+                                                <property name="can-focus">True</property>
+                                                <property name="image">wipe_icon</property>
+                                                <property name="label" translatable="yes">Wipe history</property>
+                                                <property name="receives-default">True</property>
+                                                <property name="visible">True</property>
                                               </object>
                                             </child>
                                           </object>
                                         </child>
                                         <child>
                                           <object class="GtkFlowBoxChild">
-                                            <property name="visible">True</property>
                                             <property name="can-focus">True</property>
+                                            <property name="visible">True</property>
                                             <child>
                                               <object class="GtkButton" id="export_history_csv_button">
-                                                <property name="label" translatable="yes">Export to CSV</property>
-                                                <property name="visible">True</property>
-                                                <property name="can-focus">True</property>
-                                                <property name="receives-default">True</property>
-                                                <property name="image">csv_icon</property>
                                                 <property name="always-show-image">True</property>
+                                                <property name="can-focus">True</property>
+                                                <property name="image">csv_icon</property>
+                                                <property name="label" translatable="yes">Export to CSV</property>
+                                                <property name="receives-default">True</property>
+                                                <property name="visible">True</property>
                                               </object>
                                             </child>
                                           </object>
@@ -852,9 +845,9 @@ Contributors https://github.com/marin-m/SongRec/graphs/contributors</property>
                             </child>
                             <child type="label">
                               <object class="GtkLabel">
-                                <property name="visible">True</property>
                                 <property name="can-focus">False</property>
                                 <property name="label" translatable="yes">Recognition history</property>
+                                <property name="visible">True</property>
                               </object>
                             </child>
                           </object>
@@ -876,21 +869,18 @@ Contributors https://github.com/marin-m/SongRec/graphs/contributors</property>
     </child>
     <child type="titlebar">
       <object class="GtkHeaderBar">
-        <property name="visible">True</property>
         <property name="can-focus">False</property>
-        <property name="title" translatable="yes">SongRec</property>
         <property name="show-close-button">True</property>
+        <property name="title" translatable="yes">SongRec</property>
+        <property name="visible">True</property>
         <child>
           <object class="GtkMenuButton" id="menu_button">
-            <property name="visible">True</property>
             <property name="can-focus">True</property>
-            <property name="focus-on-click">False</property>
-            <property name="receives-default">True</property>
             <property name="direction">none</property>
+            <property name="focus-on-click">False</property>
             <property name="popover">main_menu</property>
-            <child>
-              <placeholder/>
-            </child>
+            <property name="receives-default">True</property>
+            <property name="visible">True</property>
           </object>
           <packing>
             <property name="pack-type">end</property>

@@ -1,5 +1,6 @@
 char *s = N_("Song name");
 char *s = N_("Album");
+char *s = N_("Recognition Date");
 char *s = N_("Export to CSV");
 char *s = N_("Favorites");
 char *s = N_("Copy artist and track");

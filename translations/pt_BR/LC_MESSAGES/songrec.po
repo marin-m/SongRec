@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Songrec\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-14 23:56+0200\n"
+"POT-Creation-Date: 2026-01-18 14:43+0100\n"
 "PO-Revision-Date: 2024-06-03 13:29+0200\n"
 "Last-Translator: marcelocripe@gmail.com <marcelocripe@gmail.com>\n"
 "Language-Team: Brazilian Portuguese\n"
@@ -42,7 +42,7 @@ msgstr "Aviso: Não há conexão com a internet"
 
 #: ../src/cli_main.rs:147 ../src/core/http_thread.rs:49
 #: ../src/core/http_thread.rs:54 ../src/core/http_thread.rs:62
-#: ../src/core/http_thread.rs:88 ../src/gui/main_window.rs:750
+#: ../src/core/http_thread.rs:88 ../src/gui/main_window.rs:752
 msgid "No match for this song"
 msgstr "A música não pôde ser identificada"
 
@@ -79,14 +79,14 @@ msgstr "Especificar o dispositivo de áudio a ser utilizado"
 #: ../src/main.rs:82 ../src/main.rs:111
 msgid "Enable printing full song info in JSON"
 msgstr ""
-"Ativar a saída das informações completas da música com o formato "
-"‘JSON’ (JavaScript Object Notation ou Notação de Objetos do JavaScript)"
+"Ativar a saída das informações completas da música com o formato ‘JSON’ "
+"(JavaScript Object Notation ou Notação de Objetos do JavaScript)"
 
 #: ../src/main.rs:88 ../src/main.rs:117
 msgid "Enable printing full song info in the CSV format"
 msgstr ""
-"Ativar a saída das informações completas da música com o formato "
-"‘CSV’ (comma-separated values ou valores separados por vírgulas)"
+"Ativar a saída das informações completas da música com o formato ‘CSV’ "
+"(comma-separated values ou valores separados por vírgulas)"
 
 #: ../src/main.rs:93 ../src/main.rs:181 ../src/main.rs:195
 msgid "Disable MPRIS support"
@@ -199,47 +199,47 @@ msgstr ""
 msgid "Application::new failed"
 msgstr "Ao que parece, ‘Application::new’ falhou"
 
-#: ../src/gui/main_window.rs:467 ../src/gui/main_window.rs:726
+#: ../src/gui/main_window.rs:469 ../src/gui/main_window.rs:728
 msgid "Unable to enable MPRIS support"
 msgstr "A funcionalidade do ‘MPRIS’ não pôde ser ativada"
 
-#: ../src/gui/main_window.rs:519 ../src/gui/main_window.rs:604
-#: ../src/gui/main_window.rs:805
+#: ../src/gui/main_window.rs:521 ../src/gui/main_window.rs:606
+#: ../src/gui/main_window.rs:807
 msgid "Turn on speakers recognition"
 msgstr "Ativar a identificação por meio do alto-falante"
 
-#: ../src/gui/main_window.rs:520 ../src/gui/main_window.rs:605
-#: ../src/gui/main_window.rs:806
+#: ../src/gui/main_window.rs:522 ../src/gui/main_window.rs:607
+#: ../src/gui/main_window.rs:808
 msgid "Turn off speakers recognition"
 msgstr "Desativar a identificação por meio do alto-falante"
 
-#: ../src/gui/main_window.rs:523 ../src/gui/main_window.rs:608
-#: ../src/gui/main_window.rs:809 interface.glade.h:14
+#: ../src/gui/main_window.rs:525 ../src/gui/main_window.rs:610
+#: ../src/gui/main_window.rs:811 interface.ui.h:14
 msgid "Turn on microphone recognition"
 msgstr "Ativar a identificação por meio do microfone"
 
-#: ../src/gui/main_window.rs:524 ../src/gui/main_window.rs:609
-#: ../src/gui/main_window.rs:810 interface.glade.h:15
+#: ../src/gui/main_window.rs:526 ../src/gui/main_window.rs:611
+#: ../src/gui/main_window.rs:812 interface.ui.h:15
 msgid "Turn off microphone recognition"
 msgstr "Desativar a identificação por meio do microfone"
 
-#: ../src/gui/main_window.rs:550
+#: ../src/gui/main_window.rs:552
 msgid "Select a file to recognize"
 msgstr "Escolha um arquivo de áudio que você quer identificar"
 
-#: ../src/gui/main_window.rs:553
+#: ../src/gui/main_window.rs:555
 msgid "_Open"
 msgstr "_Abrir"
 
-#: ../src/gui/main_window.rs:554
+#: ../src/gui/main_window.rs:556
 msgid "_Cancel"
 msgstr "_Cancelar"
 
-#: ../src/gui/main_window.rs:562
+#: ../src/gui/main_window.rs:564
 msgid "Couldn't get filename"
 msgstr "Não foi possível obter o nome do arquivo"
 
-#: ../src/gui/main_window.rs:852
+#: ../src/gui/main_window.rs:854
 msgid "Song recognized"
 msgstr "A música foi identificada"
 
@@ -259,50 +259,50 @@ msgstr "Ocorreu um erro ao ler o histórico das músicas salvas:"
 msgid "Error when reading the favorites on the disk:"
 msgstr "Ocorreu um erro ao ler os favoritos salvos:"
 
-#: interface.glade.h:1
+#: interface.ui.h:1
 msgid "Preferences"
 msgstr "Preferências"
 
-#: interface.glade.h:2
+#: interface.ui.h:2
 msgid ""
 "Enable MPRIS (display playing song information in the GNOME control panel)"
 msgstr ""
 "Ativar a funcionalidade do ‘MPRIS’ (exibir as informações sobre a música "
 "reproduzida no painel de controle do GNOME)"
 
-#: interface.glade.h:3
+#: interface.ui.h:3
 msgid "About"
 msgstr "Sobre"
 
-#: interface.glade.h:4 favorites_interface.glade.h:5
+#: interface.ui.h:4 favorites_interface.ui.h:6
 msgid "Copy artist and track"
 msgstr "Copiar o nome do artista e o título da música"
 
-#: interface.glade.h:5 favorites_interface.glade.h:6
+#: interface.ui.h:5 favorites_interface.ui.h:7
 msgid "Copy artist"
 msgstr "Copiar o nome do artista"
 
-#: interface.glade.h:6 favorites_interface.glade.h:7
+#: interface.ui.h:6 favorites_interface.ui.h:8
 msgid "Copy track name"
 msgstr "Copiar o título da música"
 
-#: interface.glade.h:7 favorites_interface.glade.h:8
+#: interface.ui.h:7 favorites_interface.ui.h:9
 msgid "Copy album"
 msgstr "Copiar o nome do álbum"
 
-#: interface.glade.h:8 favorites_interface.glade.h:9
+#: interface.ui.h:8 favorites_interface.ui.h:10
 msgid "Search on YouTube"
 msgstr "Pesquisar no YouTube"
 
-#: interface.glade.h:9
+#: interface.ui.h:9
 msgid "Add to Favorites"
 msgstr "Adicionar aos favoritos"
 
-#: interface.glade.h:10 favorites_interface.glade.h:10
+#: interface.ui.h:10 favorites_interface.ui.h:11
 msgid "Remove from Favorites"
 msgstr "Remover dos favoritos"
 
-#: interface.glade.h:11
+#: interface.ui.h:11
 msgid ""
 "Help translating https://github.com/marin-m/SongRec/tree/master/"
 "translations#readme"
@@ -312,75 +312,79 @@ msgstr ""
 "Ajude a traduzir o programa ‘SongRec’ na página eletrônica\n"
 "https://github.com/marin-m/SongRec/tree/master/translations#readme"
 
-#: interface.glade.h:12
+#: interface.ui.h:12
 msgid "About..."
 msgstr "Sobre..."
 
-#: interface.glade.h:13
+#: interface.ui.h:13
 msgid "Recognize from file"
 msgstr "Identificar a partir de um arquivo"
 
-#: interface.glade.h:16
+#: interface.ui.h:16
 msgid "Enable notifications"
 msgstr "Ativar as notificações"
 
-#: interface.glade.h:17
+#: interface.ui.h:17
 msgid "Shazam servers are not reachable, are you connected?"
 msgstr ""
 "Os servidores do ‘Shazam’ não estão respondendo, você tem certeza de que "
 "possui conexão com a internet?"
 
-#: interface.glade.h:18
+#: interface.ui.h:18
 msgid "Recognize songs"
 msgstr "Identificar as músicas"
 
-#: interface.glade.h:19
+#: interface.ui.h:19
 msgid "Recognition results"
 msgstr "Resultados das músicas identificadas"
 
-#: interface.glade.h:20
+#: interface.ui.h:20
 msgid "Recognize from my speakers instead of microphone"
 msgstr "Identificar a partir dos meus alto-falantes em vez do microfone"
 
-#: interface.glade.h:21
+#: interface.ui.h:21
 msgid "Current volume:"
 msgstr "Volume atual:"
 
-#: interface.glade.h:22
+#: interface.ui.h:22
 msgid "Audio input"
 msgstr "Entrada do áudio"
 
-#: interface.glade.h:23 favorites_interface.glade.h:1
+#: interface.ui.h:23 favorites_interface.ui.h:1
 msgid "Song name"
 msgstr "Nome da música"
 
-#: interface.glade.h:24 favorites_interface.glade.h:2
+#: interface.ui.h:24 favorites_interface.ui.h:2
 msgid "Album"
 msgstr "Álbum"
 
-#: interface.glade.h:25
+#: interface.ui.h:25
 msgid "Recognition date"
 msgstr "Data da identificação"
 
-#: interface.glade.h:26 favorites_interface.glade.h:4
+#: interface.ui.h:26 favorites_interface.ui.h:5
 msgid "Favorites"
 msgstr "Favoritos"
 
-#: interface.glade.h:27
+#: interface.ui.h:27
 msgid "Wipe history"
 msgstr "Limpar o histórico"
 
-#: interface.glade.h:28 favorites_interface.glade.h:3
+#: interface.ui.h:28 favorites_interface.ui.h:4
 msgid "Export to CSV"
 msgstr "Exportar para o formato ‘CSV’"
 
-#: interface.glade.h:29
+#: interface.ui.h:29
 msgid "Recognition history"
 msgstr "Histórico das identificações"
 
-#: interface.glade.h:30
+#: interface.ui.h:30
 msgid "SongRec"
 msgstr "Identificador de Músicas SongRec"
+
+#: favorites_interface.ui.h:3
+msgid "Recognition Date"
+msgstr ""
 
 #~ msgid ""
 #~ "Convert a data-URI Shazam fingerprint into hearable tones, played back "
@@ -411,5 +415,5 @@ msgstr "Identificador de Músicas SongRec"
 
 #~ msgid "Note: Could not parse TSV output from"
 #~ msgstr ""
-#~ "Observação: Não foi possível processar a saída com o formato "
-#~ "‘TSV’ (valores separados por tabulação) para o comando"
+#~ "Observação: Não foi possível processar a saída com o formato ‘TSV’ "
+#~ "(valores separados por tabulação) para o comando"

@@ -45,10 +45,10 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
 
     application.connect_startup(move |application| {
         
-        let interface_src = include_str!("interface.glade");
+        let interface_src = include_str!("interface.ui");
         let main_builder = gtk::Builder::from_string(interface_src);
         
-        let favorites_interface_src = include_str!("favorites_interface.glade");
+        let favorites_interface_src = include_str!("favorites_interface.ui");
         let favorites_builder = gtk::Builder::from_string(favorites_interface_src);
 
         // We create the main window.
