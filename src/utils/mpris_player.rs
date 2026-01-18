@@ -39,7 +39,7 @@ pub fn get_player() -> Option<Arc<MprisPlayer>> {
     player.map(init_player).ok()
 }
 
-pub fn update_song(p: &MprisPlayer, m: &SongRecognizedMessage) {
+pub fn update_song(p: &MprisPlayer, m: &SongRecognizedMessage, last_cover_path: &mut Option<std::path::PathBuf>) {
     let mut metadata = Metadata::new();
     metadata.title = Some(m.song_name.clone());
     metadata.artist = Some(vec![m.artist_name.clone()]);
@@ -47,6 +47,12 @@ pub fn update_song(p: &MprisPlayer, m: &SongRecognizedMessage) {
     if let Some(ref genre) = m.genre { 
         metadata.genre = Some(vec![genre.clone()]);
     }
+
+    // Clean up old cover file
+    if let Some(path) = last_cover_path.take() {
+        let _ = fs::remove_file(path);
+    }
+
     if let Some(ref buf) = m.cover_image { 
         let (mime_ext, mime_type) = if buf.len() >= 4 && buf[0] == 0x89 && buf[1] == b'P' && buf[2] == b'N' && buf[3] == b'G' {
             ("png", "image/png")
@@ -60,6 +66,7 @@ pub fn update_song(p: &MprisPlayer, m: &SongRecognizedMessage) {
         if fs::write(&tmp, buf).is_ok() {
             // Use file:// URL for better compatibility with MPRIS clients
             metadata.art_url = Some(format!("file://{}", tmp.display()));
+            *last_cover_path = Some(tmp);
         } else {
             // Fallback to data URI (ensure we use the correct mime type)
             metadata.art_url = Some(format!("data:{};base64,{}", mime_type, base64::encode(buf)));
