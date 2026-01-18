@@ -1,9 +1,11 @@
 use std::panic;
 use std::sync::Arc;
+use std::fs;
 
 use mpris_player::{MprisPlayer, PlaybackStatus, Metadata};
 
 use crate::core::thread_messages::SongRecognizedMessage;
+use std::time::{SystemTime, UNIX_EPOCH};
 
 fn init_player(p: Arc<MprisPlayer>) -> Arc<MprisPlayer> {
     p.set_can_quit(false);
@@ -37,7 +39,7 @@ pub fn get_player() -> Option<Arc<MprisPlayer>> {
     player.map(init_player).ok()
 }
 
-pub fn update_song(p: &MprisPlayer, m: &SongRecognizedMessage) {
+pub fn update_song(p: &MprisPlayer, m: &SongRecognizedMessage, last_cover_path: &mut Option<std::path::PathBuf>) {
     let mut metadata = Metadata::new();
     metadata.title = Some(m.song_name.clone());
     metadata.artist = Some(vec![m.artist_name.clone()]);
@@ -45,8 +47,34 @@ pub fn update_song(p: &MprisPlayer, m: &SongRecognizedMessage) {
     if let Some(ref genre) = m.genre { 
         metadata.genre = Some(vec![genre.clone()]);
     }
+
+    // Clean up old cover file
+    if let Some(path) = last_cover_path.take() {
+        let _ = fs::remove_file(path);
+    }
+
     if let Some(ref buf) = m.cover_image { 
-        metadata.art_url = Some(format!("data:image/jpeg;base64,{}", base64::encode(buf)));
+        let (mime_ext, mime_type) = if buf.len() >= 4 && buf[0] == 0x89 && buf[1] == b'P' && buf[2] == b'N' && buf[3] == b'G' {
+            ("png", "image/png")
+        } else if buf.len() >= 3 && buf[0] == 0x47 && buf[1] == 0x49 && buf[2] == 0x46 {
+            ("gif", "image/gif")
+        } else if buf.len() >= 12 && &buf[0..4] == b"RIFF" && &buf[8..12] == b"WEBP" {
+            ("webp", "image/webp")
+        } else {
+            // default to jpeg if unknown
+            ("jpg", "image/jpeg")
+        };
+        let now_ms = SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_millis();
+        let mut tmp = std::env::temp_dir();
+        tmp.push(format!("songrec_cover_{}.{}", now_ms, mime_ext));
+        if fs::write(&tmp, buf).is_ok() {
+            // Use file:// URL for better compatibility with MPRIS clients
+            metadata.art_url = Some(format!("file://{}", tmp.display()));
+            *last_cover_path = Some(tmp);
+        } else {
+            // Fallback to data URI (ensure we use the correct mime type)
+            metadata.art_url = Some(format!("data:{};base64,{}", mime_type, base64::encode(buf)));
+        }
     }
     p.set_metadata(metadata);
 }

@@ -70,6 +70,9 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
         let do_enable_mpris = parameters.enable_mpris && !do_recognize_once;
         if do_enable_mpris { get_player() } else { None }
     };
+    #[cfg(feature = "mpris")]
+    let mut last_cover_path = None;
+
     let last_track: Rc<RefCell<Option<String>>> = Rc::new(RefCell::new(None));
 
     let main_loop_cli = main_loop.clone();
@@ -164,7 +167,7 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
 
                 if *last_track_borrow != track_key {
                     #[cfg(feature = "mpris")]
-                    mpris_obj.as_ref().map(|p| update_song(p, &message));
+                    mpris_obj.as_ref().map(|p| update_song(p, &message, &mut last_cover_path));
                     *last_track_borrow = track_key;
                     match parameters.output_type {
                         CLIOutputType::JSON => {

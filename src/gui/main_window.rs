@@ -470,6 +470,8 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
             }
             player
         };
+        #[cfg(feature = "mpris")]
+        let mut last_cover_path = None;
         
         // Thread-local variables to be passed across callbacks.
         
@@ -849,7 +851,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
                     if *youtube_query_borrow != song_name { // If this is already the last recognized song, don't update the display
 
                         #[cfg(feature = "mpris")]
-                        mpris_obj.as_ref().map(|p| update_song(p, &message));
+                        mpris_obj.as_ref().map(|p| update_song(p, &message, &mut last_cover_path));
 
                         let notification = gio::Notification::new(&gettext("Song recognized"));
                         notification.set_body(Some(song_name.as_ref().unwrap()));
