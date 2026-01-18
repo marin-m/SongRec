@@ -53,7 +53,7 @@
     <property name="name">favorites</property>
     <property name="can-focus">False</property>
     <property name="title">SongRec</property>
-    <property name="default-width">700</property>
+    <property name="default-width">900</property>
     <property name="default-height">497</property>
     <property name="icon-name">audio-x-generic</property>
     <property name="has-resize-grip">True</property>
@@ -117,6 +117,7 @@
                                         <property name="resizable">True</property>
                                         <property name="sizing">autosize</property>
                                         <property name="title" translatable="yes">Song name</property>
+                                        <property name="sort-column-id">0</property>
                                         <child>
                                           <object class="GtkCellRendererText"/>
                                           <attributes>
@@ -130,10 +131,25 @@
                                         <property name="resizable">True</property>
                                         <property name="sizing">autosize</property>
                                         <property name="title" translatable="yes">Album</property>
+                                        <property name="sort-column-id">1</property>
                                         <child>
                                           <object class="GtkCellRendererText"/>
                                           <attributes>
                                             <attribute name="text">1</attribute>
+                                          </attributes>
+                                        </child>
+                                      </object>
+                                    </child>
+                                    <child>
+                                      <object class="GtkTreeViewColumn">
+                                        <property name="resizable">True</property>
+                                        <property name="sizing">autosize</property>
+                                        <property name="title" translatable="yes">Recognition Date</property>
+                                        <property name="sort-column-id">2</property>
+                                        <child>
+                                          <object class="GtkCellRendererText"/>
+                                          <attributes>
+                                            <attribute name="text">2</attribute>
                                           </attributes>
                                         </child>
                                       </object>
