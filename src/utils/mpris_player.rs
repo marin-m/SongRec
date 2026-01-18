@@ -56,6 +56,10 @@ pub fn update_song(p: &MprisPlayer, m: &SongRecognizedMessage, last_cover_path: 
     if let Some(ref buf) = m.cover_image { 
         let (mime_ext, mime_type) = if buf.len() >= 4 && buf[0] == 0x89 && buf[1] == b'P' && buf[2] == b'N' && buf[3] == b'G' {
             ("png", "image/png")
+        } else if buf.len() >= 3 && buf[0] == 0x47 && buf[1] == 0x49 && buf[2] == 0x46 {
+            ("gif", "image/gif")
+        } else if buf.len() >= 12 && &buf[0..4] == b"RIFF" && &buf[8..12] == b"WEBP" {
+            ("webp", "image/webp")
         } else {
             // default to jpeg if unknown
             ("jpg", "image/jpeg")
