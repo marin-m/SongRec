@@ -5,7 +5,7 @@ use std::fs;
 use mpris_player::{MprisPlayer, PlaybackStatus, Metadata};
 
 use crate::core::thread_messages::SongRecognizedMessage;
-use std::time::{SystemTime, UNIX_EPOCH};
+use std::os::unix::fs::MetadataExt;
 
 fn init_player(p: Arc<MprisPlayer>) -> Arc<MprisPlayer> {
     p.set_can_quit(false);
@@ -64,9 +64,9 @@ pub fn update_song(p: &MprisPlayer, m: &SongRecognizedMessage, last_cover_path: 
             // default to jpeg if unknown
             ("jpg", "image/jpeg")
         };
-        let now_ms = SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_millis();
+        let process_uid = std::fs::metadata("/proc/self").map(|m| m.uid()).unwrap_or(0);
         let mut tmp = std::env::temp_dir();
-        tmp.push(format!("songrec_cover_{}.{}", now_ms, mime_ext));
+        tmp.push(format!("songrec_cover_{}.{}", process_uid, mime_ext));
         if fs::write(&tmp, buf).is_ok() {
             // Use file:// URL for better compatibility with MPRIS clients
             metadata.art_url = Some(format!("file://{}", tmp.display()));
