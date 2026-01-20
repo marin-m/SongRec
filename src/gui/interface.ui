@@ -615,6 +615,7 @@ Contributors https://github.com/marin-m/SongRec/graphs/contributors</property>
                                           <object class="GtkCellRendererText">
                                             <property name="ellipsize">end</property>
                                             <property name="width">50</property>
+                                            <property name="width-chars">1</property>
                                           </object>
                                           <!-- Custom child fragments -->
                                           <attributes>
