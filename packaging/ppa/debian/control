@@ -11,7 +11,7 @@ Build-Depends: debhelper (>= 10),
                cargo,
                rsync,
                rustc (>= 1.43.0)
-Homepage: https://github.com/marin-m/SongRec
+Homepage: https://songrec.fossplant.re/
 Vcs-Git: https://github.com/marin-m/songrec.git
 Vcs-Browser: https://github.com/marin-m/SongRec
 

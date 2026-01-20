@@ -2,7 +2,7 @@
 name = "songrec"
 license = "GPL-3.0+"
 description = "An open-source Shazam client for Linux, written in Rust."
-homepage = "https://github.com/marin-m/SongRec"
+homepage = "https://songrec.fossplant.re/"
 repository = "https://github.com/marin-m/SongRec"
 readme = "README.md"
 keywords = ["shazam", "audio", "audio-fingerprinting"]
