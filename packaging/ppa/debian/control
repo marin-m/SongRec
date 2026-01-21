@@ -8,9 +8,9 @@ Build-Depends: debhelper (>= 10),
                libpulse-dev,
                libgtk-3-dev,
                libssl-dev,
-               cargo,
+               cargo | rustup,
                rsync,
-               rustc (>= 1.43.0)
+               rustc (>= 1.43.0) | rustup
 Homepage: https://songrec.fossplant.re/
 Vcs-Git: https://github.com/marin-m/songrec.git
 Vcs-Browser: https://github.com/marin-m/SongRec
