@@ -3,87 +3,93 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-21 06:54+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2022-10-09 13:27+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: de_DE\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.1.1\n"
 
 #: ../src/cli_main.rs:107
 msgid "Exiting: audio device not found"
-msgstr ""
+msgstr "Beenden: Audiogerät nicht gefunden"
 
 #: ../src/cli_main.rs:114
 msgid "Exiting: no audio devices found!"
-msgstr ""
+msgstr "Beenden: Keine Audiogeräte gefunden!"
 
 #: ../src/cli_main.rs:120
 msgid "Using device"
-msgstr ""
+msgstr "Gerät verwenden"
 
 #: ../src/cli_main.rs:141
 msgid "Error: Network unreachable"
-msgstr ""
+msgstr "Fehler: Netzwerk nicht erreichbar"
 
 #: ../src/cli_main.rs:145
 msgid "Warning: Network unreachable"
-msgstr ""
+msgstr "Warnung: Netzwerk nicht erreichbar"
 
 #: ../src/cli_main.rs:150 ../src/core/http_thread.rs:49
 #: ../src/core/http_thread.rs:54 ../src/core/http_thread.rs:62
 #: ../src/core/http_thread.rs:88 ../src/gui/main_window.rs:754
 msgid "No match for this song"
-msgstr ""
+msgstr "Keine Übereinstimmung für dieses Lied"
 
 #: ../src/cli_main.rs:151
 msgid "Error:"
-msgstr ""
+msgstr "Fehler:"
 
 #: ../src/cli_main.rs:160
 msgid "Recording started!"
-msgstr ""
+msgstr "Aufnahme aktiv!"
 
 #: ../src/main.rs:66
 msgid "An open-source Shazam client for Linux, written in Rust."
-msgstr ""
+msgstr "Ein Open-Source Shazam Client für Linux, geschrieben in Rust."
 
 #: ../src/main.rs:69
 msgid ""
 "Run as a command-line program listening the microphone and printing "
 "recognized songs to stdout, exposing current song info via MPRIS"
 msgstr ""
+"Wird als Kommandozeilenprogramm ausgeführt, das das Mikrofon abhört und "
+"erkannte Lieder per stdout ausgibt, wobei aktuelle Lied Informationen über "
+"MPRIS angezeigt werden"
 
 #: ../src/main.rs:75 ../src/main.rs:104 ../src/main.rs:142
 msgid "Specify the audio device to use"
-msgstr ""
+msgstr "Geben Sie das zu verwendende Audiogerät an"
 
 #: ../src/main.rs:82 ../src/main.rs:111
 msgid "Enable printing full song info in JSON"
-msgstr ""
+msgstr "Aktivieren der vollständigen Song Informationen Ausgabe im JSON Format"
 
 #: ../src/main.rs:88 ../src/main.rs:117
 msgid "Enable printing full song info in the CSV format"
-msgstr ""
+msgstr "Aktivieren der vollständigen Song Informationen Ausgabe im CSV Format"
 
 #: ../src/main.rs:93 ../src/main.rs:181 ../src/main.rs:195
 msgid "Disable MPRIS support"
-msgstr ""
+msgstr "MPRIS Unterstützung deaktivieren"
 
 #: ../src/main.rs:98
 msgid "Recognize one song from a sound file or microphone and print its info."
 msgstr ""
+"Erkennen Sie ein Lied aus einer Audio Datei oder von einem Mikrofon und "
+"geben Sie dessen Informationen aus."
 
 #: ../src/main.rs:122
 msgid "Recognize a file instead of using mic input"
-msgstr ""
+msgstr "Erkennen aus einer Datei, anstelle des Mikrofon Eingang"
 
 #: ../src/main.rs:127
 msgid ""
@@ -91,134 +97,148 @@ msgid ""
 "towards Shazam's servers and print obtained information to the standard "
 "output."
 msgstr ""
+"Erzeugen eines Shazam Fingerabdrucks aus einer Audio Datei, durchführen der "
+"Lied Erkennung mit Hilfe der Shazam Server und ausgeben der erhaltenen "
+"Informationen auf der Standardausgabe."
 
 #: ../src/main.rs:131
 msgid "The audio file to recognize."
-msgstr ""
+msgstr "Die zu erkennende Audio Datei."
 
 #: ../src/main.rs:136
 msgid ""
 "Recognize a currently playing song using the microphone and print obtained "
 "information to the standard output"
 msgstr ""
+"Erkennen eines gerade wiedergegebenen Liedes über das Mikrofon und ausgeben "
+"der erhaltenen Informationen auf der Standardausgabe"
 
 #: ../src/main.rs:147
 msgid ""
 "Generate a Shazam fingerprint from a sound file, and print it to the "
 "standard output."
 msgstr ""
+"Erzeugt einen Shazam Fingerabdruck aus einer Audio Datei und gibt ihn auf "
+"der Standardausgabe aus."
 
 #: ../src/main.rs:151
 msgid "The .WAV or .MP3 file to generate an audio fingerprint for."
 msgstr ""
+"Die .WAV oder .MP3 Datei, für die ein Audio-Fingerprint erstellt werden soll."
 
 #: ../src/main.rs:156
 msgid ""
 "Take a data-URI Shazam fingerprint, perform song recognition towards "
 "Shazam's servers and print obtained information to the standard output."
 msgstr ""
+"Erstellen eines Daten-URI Shazam Fingerabdruck, durchführen der Lied "
+"Erkennung mit Hilfe der Shazam Server und ausgeben der erhaltenen "
+"Informationen auf der Standardausgabe."
 
 #: ../src/main.rs:160
 msgid "The data-URI Shazam fingerprint to recognize."
-msgstr ""
+msgstr "Der zu erkennende Daten-URI Shazam-Fingerabdruck."
 
 #: ../src/main.rs:172
 msgid "The default action. Display a GUI."
-msgstr ""
+msgstr "Die Standard Aktion. Eine grafische Benutzeroberfläche anzeigen."
 
 #: ../src/main.rs:176 ../src/main.rs:190
 msgid "An optional audio file to recognize on the launch of the application."
-msgstr ""
+msgstr "Eine optionale Audiodatei, die beim Start der Anwendung erkannt wird."
 
 #: ../src/main.rs:186
 msgid ""
 "Launch the GUI, but don't recognize audio through the microphone as soon as "
 "it is launched (rather than expecting the user to click on a button)."
 msgstr ""
+"Starten der grafische Benutzeroberfläche. Es wird aber kein Audio über das "
+"Mikrofon erkannt, sobald diese gestartet wurde (Anstatt zu erwarten, dass "
+"der Benutzer auf eine Schaltfläche klickt)."
 
 #: ../src/core/microphone_thread.rs:51
 msgid "Microphone error:"
-msgstr ""
+msgstr "Mikrofon Fehler:"
 
 #: ../src/core/microphone_thread.rs:56
 msgid "Failed to get default input config"
-msgstr ""
+msgstr "Standard Eingabe Konfiguration konnte nicht abgerufen werden"
 
 #: ../src/fingerprinting/signature_format.rs:93
 msgid "Invalid sample rate in decoded Shazam packet"
-msgstr ""
+msgstr "Ungültige Abtastrate im dekodierten Shazam Paket"
 
 #: ../src/fingerprinting/signature_format.rs:126
 msgid "Invalid frequency band in decoded Shazam packet"
-msgstr ""
+msgstr "Ungültiges Frequenzband im dekodierten Shazam Paket"
 
 #: ../src/fingerprinting/signature_format.rs:201
 msgid "Invalid sample rate passed when encoding Shazam packet"
-msgstr ""
+msgstr "Ungültige Abtastrate bei der Codierung des Shazam Pakets übergeben"
 
 #: ../src/gui/main_window.rs:42
 msgid "Application::new failed"
-msgstr ""
+msgstr "Application::new fehlgeschlagen"
 
 #: ../src/gui/main_window.rs:469 ../src/gui/main_window.rs:730
 msgid "Unable to enable MPRIS support"
-msgstr ""
+msgstr "MPRIS Unterstützung kann nicht aktiviert werden"
 
 #: ../src/gui/main_window.rs:523 ../src/gui/main_window.rs:608
 #: ../src/gui/main_window.rs:809
 msgid "Turn on speakers recognition"
-msgstr ""
+msgstr "Lautsprechern Erkennung aktivieren"
 
 #: ../src/gui/main_window.rs:524 ../src/gui/main_window.rs:609
 #: ../src/gui/main_window.rs:810
 msgid "Turn off speakers recognition"
-msgstr ""
+msgstr "Lautsprechern Erkennung deaktivieren"
 
 #: ../src/gui/main_window.rs:527 ../src/gui/main_window.rs:612
 #: ../src/gui/main_window.rs:813 interface.ui.h:14
 msgid "Turn on microphone recognition"
-msgstr ""
+msgstr "Mikrofon Erkennung aktivieren"
 
 #: ../src/gui/main_window.rs:528 ../src/gui/main_window.rs:613
 #: ../src/gui/main_window.rs:814 interface.ui.h:15
 msgid "Turn off microphone recognition"
-msgstr ""
+msgstr "Mikrofon Erkennung deaktivieren"
 
 #: ../src/gui/main_window.rs:554
 msgid "Select a file to recognize"
-msgstr ""
+msgstr "Wählen Sie eine zu erkennende Datei"
 
 #: ../src/gui/main_window.rs:557
 msgid "_Open"
-msgstr ""
+msgstr "_Öffnen"
 
 #: ../src/gui/main_window.rs:558
 msgid "_Cancel"
-msgstr ""
+msgstr "_Abbrechen"
 
 #: ../src/gui/main_window.rs:566
 msgid "Couldn't get filename"
-msgstr ""
+msgstr "Dateiname konnte nicht ermittelt werden"
 
 #: ../src/gui/main_window.rs:856
 msgid "Song recognized"
-msgstr ""
+msgstr "Lied erkannt"
 
 #: ../src/gui/preferences.rs:52
 msgid "When parsing the preferences file:"
-msgstr ""
+msgstr "Beim Analysieren der Einstellungsdatei:"
 
 #: ../src/gui/preferences.rs:84
 msgid "When saving the preferences file:"
-msgstr ""
+msgstr "Beim Speichern der Einstellungsdatei:"
 
 #: ../src/gui/song_history_interface.rs:131
 msgid "Error when reading the song history on the disk:"
-msgstr ""
+msgstr "Fehler beim Lesen des Song Verlauf auf dem Datenträger:"
 
 #: ../src/gui/song_history_interface.rs:212
 msgid "Error when reading the favorites on the disk:"
-msgstr ""
+msgstr "Fehler beim Lesen der Favoriten auf dem Datenträger:"
 
 #: interface.ui.h:1
 msgid "Preferences"
@@ -235,23 +255,23 @@ msgstr ""
 
 #: interface.ui.h:4 favorites_interface.ui.h:6
 msgid "Copy artist and track"
-msgstr ""
+msgstr "Künstler und Titelname kopieren"
 
 #: interface.ui.h:5 favorites_interface.ui.h:7
 msgid "Copy artist"
-msgstr ""
+msgstr "Künstler kopieren"
 
 #: interface.ui.h:6 favorites_interface.ui.h:8
 msgid "Copy track name"
-msgstr ""
+msgstr "Titelname kopieren"
 
 #: interface.ui.h:7 favorites_interface.ui.h:9
 msgid "Copy album"
-msgstr ""
+msgstr "Album kopieren"
 
 #: interface.ui.h:8 favorites_interface.ui.h:10
 msgid "Search on YouTube"
-msgstr ""
+msgstr "Suche auf Youtube"
 
 #: interface.ui.h:9
 msgid "Add to Favorites"
@@ -259,7 +279,7 @@ msgstr ""
 
 #: interface.ui.h:10 favorites_interface.ui.h:11
 msgid "Remove from Favorites"
-msgstr ""
+msgstr "Von Favoriten entfernen"
 
 #: interface.ui.h:11
 msgid ""
@@ -273,47 +293,47 @@ msgstr ""
 
 #: interface.ui.h:13
 msgid "Recognize from file"
-msgstr ""
+msgstr "Erkennung aus Datei"
 
 #: interface.ui.h:16
 msgid "Enable notifications"
-msgstr ""
+msgstr "Aktiviere Benachrichtigungen"
 
 #: interface.ui.h:17
 msgid "Shazam servers are not reachable, are you connected?"
-msgstr ""
+msgstr "Die Shazam Server sind nicht erreichbar, sind Sie verbunden?"
 
 #: interface.ui.h:18
 msgid "Recognize songs"
-msgstr ""
+msgstr "Lieder erkennen"
 
 #: interface.ui.h:19
 msgid "Recognition results"
-msgstr ""
+msgstr "Erkennungs Ergebnisse"
 
 #: interface.ui.h:20
 msgid "Recognize from my speakers instead of microphone"
-msgstr ""
+msgstr "Erkennung von meinen Lautsprechern anstelle vom Mikrofon"
 
 #: interface.ui.h:21
 msgid "Current volume:"
-msgstr ""
+msgstr "Aktuelle Lautstärke:"
 
 #: interface.ui.h:22
 msgid "Audio input"
-msgstr ""
+msgstr "Audio Eingang"
 
 #: interface.ui.h:23 favorites_interface.ui.h:1
 msgid "Song name"
-msgstr ""
+msgstr "Lied Name"
 
 #: interface.ui.h:24 favorites_interface.ui.h:2
 msgid "Album"
-msgstr ""
+msgstr "Album"
 
 #: interface.ui.h:25
 msgid "Recognition date"
-msgstr ""
+msgstr "Erkennungs Datum"
 
 #: interface.ui.h:26 favorites_interface.ui.h:5
 msgid "Favorites"
@@ -321,20 +341,48 @@ msgstr ""
 
 #: interface.ui.h:27
 msgid "Wipe history"
-msgstr ""
+msgstr "Verlauf löschen"
 
 #: interface.ui.h:28 favorites_interface.ui.h:4
 msgid "Export to CSV"
-msgstr ""
+msgstr "Nach CSV exportieren"
 
 #: interface.ui.h:29
 msgid "Recognition history"
-msgstr ""
+msgstr "Erkennungs Verlauf"
 
 #: interface.ui.h:30
 msgid "SongRec"
-msgstr ""
+msgstr "SongRec"
 
 #: favorites_interface.ui.h:3
 msgid "Recognition Date"
 msgstr ""
+
+#~ msgid ""
+#~ "Convert a data-URI Shazam fingerprint into hearable tones, played back "
+#~ "instantly (or written to a file, if a path is provided). Not particularly "
+#~ "useful, but gives the simplest output that will trick Shazam into "
+#~ "recognizing a non-song."
+#~ msgstr ""
+#~ "Konvertieren eines Daten-URI Shazam Fingerabdruck in hörbare Töne, die "
+#~ "sofort wiedergegeben werden (Oder in eine Datei geschrieben werden, wenn "
+#~ "ein Pfad angegeben wird). Nicht besonders nützlich, aber es ist die "
+#~ "einfachste Ausgabe, die Shazam dazu bringt, ein nicht Lied zu erkennen."
+
+#~ msgid "The data-URI Shazam fingerprint to convert into hearable sound."
+#~ msgstr ""
+#~ "Der Daten-URI Shazam Fingerabdruck wird in hörbaren Ton umgewandelt."
+
+#~ msgid ""
+#~ "File path of the .WAV file to write tones to, or nothing to play back the "
+#~ "sound instantly."
+#~ msgstr ""
+#~ "Der Dateipfad der .WAV Datei, in die Töne geschrieben werden sollen, oder "
+#~ "nichts, um den Ton sofort abzuspielen."
+
+#~ msgid "Play a Shazam lure"
+#~ msgstr "Shazam Vorschau wiedergeben"
+
+#~ msgid "Note: Could not parse TSV output from"
+#~ msgstr "Hinweis: Die TSV Ausgabe konnte nicht analysiert werden"

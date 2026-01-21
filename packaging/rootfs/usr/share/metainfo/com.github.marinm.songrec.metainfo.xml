@@ -4,8 +4,13 @@
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-3.0+</project_license>
   <name>SongRec</name>
-  <summary>An open-source, unofficial Shazam client for Linux, written in Rust.</summary>
+  <branding>
+    <color type="primary" scheme_preference="light">#b5b5d7</color>
+    <color type="primary" scheme_preference="dark">#664D96</color>
+  </branding>
+  <summary>Recognize songs from audio easily</summary>
   <description>
+    <p>SongRec is an unofficial Shazam client for Linux, writted in Rust.</p>
     <p>Features:</p>
     <p>- Recognize audio from an arbitrary audio file.</p>
     <p>- Recognize audio from the microphone.</p>
@@ -17,15 +22,20 @@
   <screenshots>
     <screenshot type="default">
       <image>https://raw.githubusercontent.com/marin-m/SongRec/master/packaging/Screenshot.png</image>
-      <caption>The GUI</caption>
+      <caption>SongRec's main window</caption>
     </screenshot>
   </screenshots>
+  <translation type="gettext">songrec</translation>
+  <url type="bugtracker">https://github.com/marin-m/SongRec/issues</url>
   <url type="homepage">https://songrec.fossplant.re/</url>
+  <url type="faq">https://github.com/marin-m/SongRec#readme</url>
+  <url type="translate">https://github.com/marin-m/SongRec/tree/master/translations#readme</url>
+  <url type="vcs-browser">https://github.com/marin-m/SongRec</url>
 <!--
 Open Age Rating Service
 https://hughsie.github.io/oars/index.html
 -->
-  <content_rating type="oars-1.0" />
+  <content_rating type="oars-1.1" />
   <releases>
     <release version="0.4.3" date="2024-09-29">
       <description>
