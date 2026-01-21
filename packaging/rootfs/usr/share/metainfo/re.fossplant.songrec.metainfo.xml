@@ -21,11 +21,28 @@
   </description>
   <screenshots>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/marin-m/SongRec/a7c4c2ad9edd25c41396047e264b562859841197/packaging/Screenshot.png</image>
+      <image type="source">https://raw.githubusercontent.com/marin-m/SongRec/a7c4c2ad9edd25c41396047e264b562859841197/packaging/Screenshot.png</image>
       <caption>SongRec's main window</caption>
+    </screenshot>
+    <screenshot environment="gnome:dark">
+      <image type="source">https://raw.githubusercontent.com/marin-m/SongRec/refs/heads/master/packaging/Screenshot_lowres_dark.png</image>
+      <caption>SongRec's main window, on GNOME in dark mode</caption>
+    </screenshot>
+    <screenshot environment="gnome:dark">
+      <image type="source">https://raw.githubusercontent.com/marin-m/SongRec/refs/heads/master/packaging/Screenshot_favourites_dark.png</image>
+      <caption>SongRec's favourites window</caption>
     </screenshot>
   </screenshots>
   <translation type="gettext">songrec</translation>
+  <replaces>
+    <id>com.github.marinm.songrec</id>
+  </replaces>
+  <provides>
+    <id>com.github.marinm.songrec</id>
+  </provides>
+  <recommends>
+    <internet>always</internet>
+  </recommends>
   <url type="bugtracker">https://github.com/marin-m/SongRec/issues</url>
   <url type="homepage">https://songrec.fossplant.re/</url>
   <url type="faq">https://github.com/marin-m/SongRec#readme</url>
@@ -209,7 +226,9 @@ https://hughsie.github.io/oars/index.html
     <kudo>HiDpiIcon</kudo>
     <kudo>Notifications</kudo>
   </kudos>
-  <developer_name>Marin</developer_name>
+  <developer id="re.fossplant">
+    <name>Marin M. - Fossplant.re</name>
+  </developer>
   <update_contact>marin-m@users.noreply.github.com</update_contact>
 
   <launchable type="desktop-id">re.fossplant.songrec.desktop</launchable>
