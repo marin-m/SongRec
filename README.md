@@ -34,7 +34,7 @@ sudo pacman -S songrec
 songrec
 ```
 
-Using apt with PPA (Ubuntu, supported 20.04, 22.04, 24.04, 24.10, and older versions of Songrec are available for older releases):
+Using apt with PPA (Ubuntu, supported up to the current 25.10):
 
 ```bash
 wget -qO- 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x6888550b2fc77d09' | sudo tee /etc/apt/trusted.gpg.d/songrec.asc
