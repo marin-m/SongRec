@@ -1,3 +1,9 @@
+songrec (0.5.0+2) bionic; urgency=low
+
+  * Use Cargo.lock version 3 instead of 4 in order still to build under older Ubuntu versions.
+
+ -- Marin <marin-m@users.noreply.github.com>  Wed, 21 Jan 2026 18:00:06 +0100
+
 songrec (0.5.0+1) bionic; urgency=low
 
   * Update the metainfo.xml file in order to include "replace" and "provides" tags.
