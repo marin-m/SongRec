@@ -37,11 +37,11 @@ use std::os::windows::process::CommandExt;
 
 pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: bool) -> Result<(), Box<dyn Error>> {
     
-    let application = gtk::Application::new(Some("com.github.marinm.songrec"),
+    let application = gtk::Application::new(Some("re.fossplant.songrec"),
         gio::ApplicationFlags::HANDLES_OPEN)
         .expect(&gettext("Application::new failed"));
 
-    glib::set_prgname(Some("com.github.marinm.songrec"));
+    glib::set_prgname(Some("re.fossplant.songrec"));
 
     application.connect_startup(move |application| {
         

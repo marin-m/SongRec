@@ -19,4 +19,4 @@ flatpak install flathub --user org.freedesktop.Sdk.Extension.rust-stable//23.08 
 # Build the Flathub package
 rm -rf target/ # Don't copy all the planet into the Flatpak build dir
 rm -rf repo/
-flatpak-builder --install repo packaging/flatpak/com.github.marinm.songrec.json --user -y
+flatpak-builder --install repo packaging/flatpak/re.fossplant.songrec.json --user -y

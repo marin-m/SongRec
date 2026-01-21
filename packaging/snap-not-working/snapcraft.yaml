@@ -16,7 +16,7 @@ confinement: strict # use 'strict' once you have the right plugs and slots
 apps:
   songrec:
     command: bin/desktop-launch songrec
-    desktop: usr/share/applications/com.github.marinm.songrec.desktop
+    desktop: usr/share/applications/re.fossplant.songrec.desktop
     plugs: 
       - home
       - network
@@ -114,7 +114,7 @@ parts:
       snapcraftctl pull
 
       # Point icon to the correct location
-      sed -i -e 's|Icon=com.github.marinm.songrec|Icon=/usr/share/icons/hicolor/scalable/apps/com.github.marinm.songrec.svg|g' usr/share/applications/com.github.marinm.songrec.desktop
+      sed -i -e 's|Icon=re.fossplant.songrec|Icon=/usr/share/icons/hicolor/scalable/apps/re.fossplant.songrec.svg|g' usr/share/applications/re.fossplant.songrec.desktop
 
 layout:
   /usr/lib/$SNAPCRAFT_ARCH_TRIPLET/alsa-lib:

@@ -1,5 +1,5 @@
 {
-    "app-id": "com.github.marinm.songrec",
+    "app-id": "re.fossplant.songrec",
     "runtime": "org.freedesktop.Platform",
     "runtime-version": "23.08",
     "sdk": "org.freedesktop.Sdk",

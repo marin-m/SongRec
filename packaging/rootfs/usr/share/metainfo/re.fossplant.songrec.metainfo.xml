@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
-  <id>com.github.marinm.songrec</id>
+  <id>re.fossplant.songrec</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-3.0+</project_license>
   <name>SongRec</name>
@@ -197,7 +197,7 @@ https://hughsie.github.io/oars/index.html
   <developer_name>Marin</developer_name>
   <update_contact>marin-m@users.noreply.github.com</update_contact>
 
-  <launchable type="desktop-id">com.github.marinm.songrec.desktop</launchable>
+  <launchable type="desktop-id">re.fossplant.songrec.desktop</launchable>
   <provides>
     <mediatype>audio/mpeg</mediatype>
     <mediatype>audio/x-wav</mediatype>
