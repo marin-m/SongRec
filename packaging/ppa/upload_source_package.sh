@@ -17,13 +17,13 @@ function cleanup_dirs {
 
 trap cleanup_dirs INT TERM
 
-for version in focal jammy noble oracular plucky questing; do
+for version in focal jammy noble oracular plucky questing resolute; do
 
     rm -rf ../../target/ ../../vendor/ ../../.flatpak-builder ../flatpak/.flatpak-builder ../../repo ../../.cargo
 
-    cp -ra ../../ "${temp_dir}/songrec-0.4.3${version}"
+    cp -ra ../../ "${temp_dir}/songrec-0.5.0${version}"
 
-    cd "${temp_dir}/songrec-0.4.3${version}"
+    cd "${temp_dir}/songrec-0.5.0${version}"
 
     mkdir -p .cargo
     cargo vendor --locked vendor | sed 's/^directory = ".*"/directory = "vendor"/g' > .cargo/config.toml
@@ -49,11 +49,11 @@ for version in focal jammy noble oracular plucky questing; do
 
     # Push to Launchpad
 
-    dput ppa:marin-m/songrec "../../songrec_0.4.3${version}_source.changes"
+    dput ppa:marin-m/songrec "../../songrec_0.5.0${version}_source.changes"
 
     cd "${ORIG_DIR}"
 
-    rm -rf "${temp_dir}/songrec-0.4.3${version}"
+    rm -rf "${temp_dir}/songrec-0.5.0${version}"
 
 done
 

@@ -1,3 +1,19 @@
+songrec (0.5.0) bionic; urgency=low
+
+  * Packaging: Change the translations path to /usr/share/locale instead of /usr/share/songrec/translations (this may require action from distribution package maintainers)
+  * Packaging: Change the package name to re.fossplant.songrec instead of com.github.marinm.songrec so that the application can be correctly verified on Flathub
+  * Branding: Update the Flathub landing page to comply with style guidelines
+  * Branding: Change the project homepage URL
+  * Wrap the name of long microphone devices names in the GUI
+  * Handle network-related variables correctly (PR #191 thanks to @losynix)
+  * Fix the chronological order when displaying songs onto the UI (PR #192 thanks to @nt8r)
+  * Add Russian translation (PR #193 thanks to @AlexanderShad)
+  * Rectify the window icon under Wayland (PR #203 thanks to @Integral-Tech)
+  * Add the recognition date to favorites window, and made all columns sortable (PR #208 thanks to @damonhayhurst)
+  * Fix MPRIS cover art display under certain platforms (PR #210 thanks to @micahlt)
+
+ -- Marin <marin-m@users.noreply.github.com>  Wed, 21 Jan 2026 08:56:48 +0100
+
 songrec (0.4.3) bionic; urgency=low
 
   * Prevent mission application icon when running (PR #163 thanks to @heldderarbeit)

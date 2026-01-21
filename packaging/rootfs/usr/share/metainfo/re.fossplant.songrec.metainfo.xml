@@ -37,6 +37,21 @@ https://hughsie.github.io/oars/index.html
 -->
   <content_rating type="oars-1.1" />
   <releases>
+    <release version="0.5.0" date="2026-01-21">
+      <description>
+        <p>Packaging: Change the translations path to /usr/share/locale instead of /usr/share/songrec/translations (this may require action from distribution package maintainers)</p>
+        <p>Packaging: Change the package name to re.fossplant.songrec instead of com.github.marinm.songrec so that the application can be correctly verified on Flathub</p>
+        <p>Branding: Update the Flathub landing page to comply with style guidelines</p>
+        <p>Branding: Change the project homepage URL</p>
+        <p>Wrap the name of long microphone devices names in the GUI</p>
+        <p>Handle network-related variables correctly (PR #191 thanks to @losynix)</p>
+        <p>Fix the chronological order when displaying songs onto the UI (PR #192 thanks to @nt8r)</p>
+        <p>Add Russian translation (PR #193 thanks to @AlexanderShad)</p>
+        <p>Rectify the window icon under Wayland (PR #203 thanks to @Integral-Tech)</p>
+        <p>Add the recognition date to favorites window, and made all columns sortable (PR #208 thanks to @damonhayhurst)</p>
+        <p>Fix MPRIS cover art display under certain platforms (PR #210 thanks to @micahlt)</p>
+      </description>
+    </release>
     <release version="0.4.3" date="2024-09-29">
       <description>
         <p>Prevent mission application icon when running (PR #163 thanks to @heldderarbeit)</p>
