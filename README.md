@@ -48,8 +48,8 @@ Using Flatpak (all distributions) (NOTE: with Flatpak, the GUI should work fine 
 ```bash
 sudo apt install flatpak -y
 flatpak remote-add --user flathub https://flathub.org/repo/flathub.flatpakrepo --if-not-exists
-flatpak install --user flathub com.github.marinm.songrec -y
-flatpak run com.github.marinm.songrec
+flatpak install --user flathub re.fossplant.songrec -y
+flatpak run re.fossplant.songrec
 ```
 
 Using Cargo (all distributions, dependencies given for Ubuntu/Debian, if your `rustc` version is not recent enough please refer to the instructions below):
@@ -184,6 +184,12 @@ The following subcommands will do the same with an intermediary step, manipulati
 ```
 ./songrec audio-file-to-fingerprint sound_file.mp3
 ./songrec fingerprint-to-recognized-song 'data:audio/vnd.shazam.sig;base64,...'
+```
+
+Please note that if you have installed the application through Flathub, you will need to use the `--file-forwarding` flag in order to use the command line with data on the filesystem (which doesn't go through the same Flatpak/XDG portals as the GUI):
+
+```
+flatpak run --file-forwarding re.fossplant.songrec audio-file-to-fingerprint @@ sound_file.mp3 @@
 ```
 
 When using the application, you may notice that certain information will be saved to `~/.local/share/songrec` and `~/.config/songrec` (or an equivalent directory depending on your operating system), including the CSV-format list of the last recognized songs and the last selected microphone input device (so that it is chosen back when restarting the app). You may want to delete these directories in case of persistent issues.
