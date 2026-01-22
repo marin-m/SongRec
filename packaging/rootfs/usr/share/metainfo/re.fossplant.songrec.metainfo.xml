@@ -37,9 +37,6 @@
   <replaces>
     <id>com.github.marinm.songrec</id>
   </replaces>
-  <provides>
-    <id>com.github.marinm.songrec</id>
-  </provides>
   <recommends>
     <internet>always</internet>
   </recommends>
@@ -233,6 +230,9 @@ https://hughsie.github.io/oars/index.html
 
   <launchable type="desktop-id">re.fossplant.songrec.desktop</launchable>
   <provides>
+    <id>com.github.marinm.songrec</id>
+    <dbus type="user">re.fossplant.songrec</dbus>
+    <binary>songrec</binary>
     <mediatype>audio/mpeg</mediatype>
     <mediatype>audio/x-wav</mediatype>
     <mediatype>audio/x-vorbis+ogg</mediatype>
