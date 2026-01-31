@@ -36,63 +36,51 @@ use crate::utils::filesystem_operations::obtain_recognition_history_csv_path;
 use std::os::windows::process::CommandExt;
 
 pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: bool) -> Result<(), Box<dyn Error>> {
-    
-    let application = gtk::Application::new(Some("re.fossplant.songrec"),
+
+    gio::resources_register_include!("compiled.gresource")
+        .expect("Failed to register resources.");
+
+    let application = adw::Application::new(Some("re.fossplant.songrec"),
         gio::ApplicationFlags::HANDLES_OPEN)
         .expect(&gettext("Application::new failed"));
 
     glib::set_prgname(Some("re.fossplant.songrec"));
 
     application.connect_startup(move |application| {
+
+        // Load the bundled .UI resources file
         
-        let interface_src = include_str!("interface.ui");
-        let main_builder = gtk::Builder::from_string(interface_src);
+        let main_builder = gtk::Builder::from_resource("/re/fossplant/songrec/interface.ui");
         
-        let favorites_interface_src = include_str!("favorites_interface.ui");
-        let favorites_builder = gtk::Builder::from_string(favorites_interface_src);
+        // Load the preferences file
 
-        // We create the main window.
-    
-        let main_window: gtk::ApplicationWindow = main_builder.get_object("window").unwrap();
+        let mut preferences_interface: PreferencesInterface = PreferencesInterface::new();
+        let old_preferences: Preferences = preferences_interface.preferences.clone();
 
-        let prefs_menu_item: gtk::ModelButton = main_builder.get_object("preferences_menu_button").unwrap();
-        let main_menu_separator: gtk::Separator = main_builder.get_object("main_menu_separator").unwrap();
-        let prefs_window: gtk::Window = main_builder.get_object("preferences_window").unwrap();
-        let _enable_mpris_box: gtk::CheckButton = main_builder.get_object("enable_mpris_box").unwrap();
+        // MPRIS support-related state 
 
-        #[cfg(not(feature = "mpris"))]
-        {
-            prefs_menu_item.hide();
-            main_menu_separator.hide();
-            _enable_mpris_box.hide();
+        // (WIP to be complete)
+
+        #[cfg(feature = "mpris")]
+        let mut mpris_obj = {
+            let player = if enable_mpris_cli && old_preferences.enable_mpris {
+                get_player()
+            } else {
+                None
+            };
+            if enable_mpris_cli && _enable_mpris_box.get_active() && player.is_none() {
+                println!("{}", gettext("Unable to enable MPRIS support"))
+            }
+            player
+        };
+        #[cfg(feature = "mpris")]
+        let mut last_cover_path = None;
+
+        /* Legacy code:
+        if let Some(old_enable_mpris) = old_preferences.enable_mpris {
+            _enable_mpris_box.set_active(old_enable_mpris);
         }
-
-        if !enable_mpris_cli {
-            prefs_menu_item.hide();
-            main_menu_separator.hide();
-            _enable_mpris_box.hide();
-        }
-
-        prefs_window.connect_delete_event(move |item, _event| {
-            item.hide_on_delete()
-        });
-        prefs_menu_item.connect_clicked(move |_menu_item: &gtk::ModelButton| {
-            prefs_window.show_all();
-        });
-
-        let about_menu_item: gtk::ModelButton = main_builder.get_object("about_menu_button").unwrap();
-        let about_dialog: gtk::AboutDialog = main_builder.get_object("about_dialog").unwrap();
-
-        about_dialog.connect_delete_event(move |item, _event| {
-            item.hide_on_delete()
-        });
-        about_menu_item.connect_clicked(move |_menu_item: &gtk::ModelButton| {
-            about_dialog.show_all();
-        });
-
-        let favorites_window: gtk::Window = favorites_builder.get_object("favorites_window").unwrap();
-        
-        main_window.set_application(Some(application));
+        */
 
         // We spawn required background threads, and create the
         // associated communication channels.
@@ -127,6 +115,122 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
             http_thread(http_rx, gui_tx, microphone_tx_3);
         }));
 
+        // We create the main window.
+    
+        let main_window: adw::ApplicationWindow = main_builder.get_object("window").unwrap();
+
+        // WIP XX handle the new cogwheel menu here
+
+            // Use main_window.add_action/add_action_entries (as it partially implements gio::ActionGroup + gio::ActionMap*) (+ gio::ActionEntryBuilder?)
+
+                // Cf. https://discourse.gnome.org/t/defining-a-menu-model-with-check-box-items/15231/6
+
+                // Cf. https://gtk-rs.org/gtk4-rs/stable/latest/book/actions.html
+
+                    // !! /=> https://gtk-rs.org/gtk4-rs/stable/latest/book/actions.html#menus
+                    // https://gtk-rs.org/gtk4-rs/stable/latest/book/actions.html#settings
+
+                    // + https://developer.gnome.org/documentation/tutorials/actions.html
+
+                // Cf. https://gtk-rs.org/gtk-rs-core/stable/latest/docs/gio/struct.ActionEntry.html
+                // Cf. https://gtk-rs.org/gtk-rs-core/stable/latest/docs/gio/struct.Action.html
+
+                // Cf. https://gtk-rs.org/gtk4-rs/git/docs/gtk4/struct.ApplicationWindow.html
+                    // or https://docs.rs/gtk/latest/gtk/struct.ApplicationWindow.html
+
+        // XX app.set_accels_for_action
+
+        let about_dialog: adw::AboutDialog = main_builder.get_object("about_dialog").unwrap();
+
+        let action_show_about = gio::ActionEntry::builder("show-about")
+            .activate(clone!(
+                #[weak]
+                about_dialog,
+                move |main_window, _, _| {
+                    about_dialog.present(main_window);
+                }
+            ))
+            .build();
+        
+        #[cfg(feature = "mpris")]
+        let action_mpris_setting = gio::ActionEntry::builder("mpris-setting")
+            .state(old_preferences.enable_mpris.to_variant())
+            .activate(|_, action, _| {
+                let state = action.state().unwrap();
+                let action_state: bool = state.get().unwrap();
+                let new_state = !action_state; // toggle
+                action.set_state(new_state.to_variant());
+
+                // do something with the new state: WIP
+                // + Make this code conditional (MPRIS flag etc.)
+
+                let mut new_preference: Preferences = Preferences::new();
+                new_preference.enable_mpris = Some(_enable_mpris_box.get_active());
+                gui_tx.send(GUIMessage::UpdatePreference(new_preference)).unwrap();
+
+            })
+            .build();
+
+        /*
+            // Legacy code (commented):
+
+            let about_menu_item: gtk::ModelButton = main_builder.get_object("about_menu_button").unwrap();
+            let about_dialog: gtk::AboutDialog = main_builder.get_object("about_dialog").unwrap();
+
+            about_dialog.connect_delete_event(move |item, _event| {
+                item.hide_on_delete()
+            });
+            about_menu_item.connect_clicked(move |_menu_item: &gtk::ModelButton| {
+                about_dialog.show_all();
+            });
+        
+        */
+
+        xx
+
+        // The actions defined here will be accessible under the
+        // standard "win.*" action group name
+
+        main_window.add_action_entries([
+            action_show_about,
+            #[cfg(feature = "mpris")]
+            action_mpris_setting, // DON'T FORGET to put a tooltip for this
+            action_notification_setting,
+            action_wipe_history,
+            action_export_csv
+        ]);
+
+        // WIP end
+        
+        let prefs_menu_item: gtk::ModelButton = main_builder.get_object("preferences_menu_button").unwrap();
+        let main_menu_separator: gtk::Separator = main_builder.get_object("main_menu_separator").unwrap();
+        let prefs_window: gtk::Window = main_builder.get_object("preferences_window").unwrap();
+        let _enable_mpris_box: gtk::CheckButton = main_builder.get_object("enable_mpris_box").unwrap();
+
+        #[cfg(not(feature = "mpris"))]
+        {
+            prefs_menu_item.hide();
+            main_menu_separator.hide();
+            _enable_mpris_box.hide();
+        }
+
+        if !enable_mpris_cli {
+            prefs_menu_item.hide();
+            main_menu_separator.hide();
+            _enable_mpris_box.hide();
+        }
+
+        prefs_window.connect_delete_event(move |item, _event| {
+            item.hide_on_delete()
+        });
+        prefs_menu_item.connect_clicked(move |_menu_item: &gtk::ModelButton| {
+            prefs_window.show_all();
+        });
+
+        let favorites_window: gtk::Window = main_builder.get_object("favorites_window").unwrap();
+        
+        main_window.set_application(Some(application));
+
         // We create a callback for handling files to recognize opened
         // from the command line or through "xdg-open".
         
@@ -139,31 +243,22 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
                 }
             }
         });
-        
-        // Load files
-
-        let mut preferences_interface: PreferencesInterface = PreferencesInterface::new();
-        let old_preferences: Preferences = preferences_interface.preferences.clone();
-
-        if let Some(old_enable_mpris) = old_preferences.enable_mpris {
-            _enable_mpris_box.set_active(old_enable_mpris);
-        }
 
         // We initialize the CSV file that will contain song history.
         let history_list_store = main_builder.get_object("history_list_store").unwrap();
         let mut song_history_interface = RecognitionHistoryInterface::new(history_list_store, obtain_recognition_history_csv_path).unwrap();
         let history_tree_view: gtk::TreeView = main_builder.get_object("history_tree_view").unwrap();
 
-        let favorites_list_store = favorites_builder.get_object("favorites_list_store").unwrap();
+        let favorites_list_store = main_builder.get_object("favorites_list_store").unwrap();
         let favorites_interface = Arc::new(RwLock::new(FavoritesInterface::new(favorites_list_store, obtain_favorites_csv_path).unwrap()));
-        let favorites_tree_view: gtk::TreeView = favorites_builder.get_object("favorites_tree_view").unwrap();
+        let favorites_tree_view: gtk::TreeView = main_builder.get_object("favorites_tree_view").unwrap();
         // Add a context menu to the history tree view, in order to allow
         // users to copy or search items (see https://stackoverflow.com/a/49720383)
         // add and remove favorites
         let history_context_menu: gtk::Menu = main_builder.get_object("list_view_context_menu").unwrap();
         history_tree_view.connect_right_click(&history_context_menu, &favorites_interface);
 
-        let favorites_context_menu: gtk::Menu = favorites_builder.get_object("list_view_context_menu").unwrap();
+        let favorites_context_menu: gtk::Menu = main_builder.get_object("list_view_context_menu").unwrap();
         favorites_tree_view.connect_right_click(&favorites_context_menu, &favorites_interface);
 
         trait ContextMenuItemsExt {
@@ -383,7 +478,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
         history_context_menu.connect_activate_menu_item("remove_from_favorites",remove_from_favorites_fn.clone());
         favorites_context_menu.connect_activate_menu_item("remove_from_favorites",remove_from_favorites_fn);
 
-        favorites_builder.connect_signals(clone!(@strong favorites_window => move |_builder, handler_name| {
+        main_builder.connect_signals(clone!(@strong favorites_window => move |_builder, handler_name| {
             match handler_name {
                 "__hide_window" => Box::new(clone! (@strong favorites_window => move |_| {
                     favorites_window.hide();
@@ -456,22 +551,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
         let export_history_csv_button: gtk::Button = main_builder.get_object("export_history_csv_button").unwrap();
         let favorites_button: gtk::Button = main_builder.get_object("favorites_list_button").unwrap();
 
-        let export_favorites_csv_button: gtk::Button = favorites_builder.get_object("export_favorites_csv_button").unwrap();
-
-        #[cfg(feature = "mpris")]
-        let mut mpris_obj = {
-            let player = if enable_mpris_cli && _enable_mpris_box.get_active() {
-                get_player()
-            } else {
-                None
-            };
-            if enable_mpris_cli && _enable_mpris_box.get_active() && player.is_none() {
-                println!("{}", gettext("Unable to enable MPRIS support"))
-            }
-            player
-        };
-        #[cfg(feature = "mpris")]
-        let mut last_cover_path = None;
+        let export_favorites_csv_button: gtk::Button = main_builder.get_object("export_favorites_csv_button").unwrap();
         
         // Thread-local variables to be passed across callbacks.
         
