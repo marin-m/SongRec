@@ -73,7 +73,7 @@ fn try_recognize_song(signature: DecodedSignature) -> Result<SongRecognizedMessa
     })
 }
 
-pub fn http_thread(http_rx: mpsc::Receiver<HTTPMessage>, gui_tx: glib::Sender<GUIMessage>, microphone_tx: mpsc::Sender<MicrophoneMessage>) {
+pub fn http_thread(http_rx: mpsc::Receiver<HTTPMessage>, gui_tx: mpsc::Sender<GUIMessage>, microphone_tx: mpsc::Sender<MicrophoneMessage>) {
     
     for message in http_rx.iter() {
         match message {

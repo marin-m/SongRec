@@ -9,7 +9,7 @@ use crate::core::thread_messages::{*, MicrophoneMessage::*};
 
 use crate::audio_controllers::audio_backend::get_any_backend;
 
-pub fn microphone_thread(microphone_rx: mpsc::Receiver<MicrophoneMessage>, processing_tx: mpsc::Sender<ProcessingMessage>, gui_tx: glib::Sender<GUIMessage>) {
+pub fn microphone_thread(microphone_rx: mpsc::Receiver<MicrophoneMessage>, processing_tx: mpsc::Sender<ProcessingMessage>, gui_tx: mpsc::Sender<GUIMessage>) {
 
     // Use the default host for working with audio devices.
     
@@ -101,7 +101,7 @@ pub fn microphone_thread(microphone_rx: mpsc::Receiver<MicrophoneMessage>, proce
     
 }
 
-fn write_data<T, U>(input_samples: &[T], processing_tx: &mpsc::Sender<ProcessingMessage>, gui_tx: glib::Sender<GUIMessage>, channels: u16, sample_rate: u32, twelve_seconds_buffer: &mut [i16], number_unprocessed_samples: &mut usize, number_unmeasured_samples: &mut usize, processing_already_ongoing: &Arc<Mutex<bool>>)
+fn write_data<T, U>(input_samples: &[T], processing_tx: &mpsc::Sender<ProcessingMessage>, gui_tx: mpsc::Sender<GUIMessage>, channels: u16, sample_rate: u32, twelve_seconds_buffer: &mut [i16], number_unprocessed_samples: &mut usize, number_unmeasured_samples: &mut usize, processing_already_ongoing: &Arc<Mutex<bool>>)
 where
     T: cpal::Sample + rodio::Sample,
     U: cpal::Sample, i16: FromSample<T>

@@ -80,6 +80,14 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
         if let Some(old_enable_mpris) = old_preferences.enable_mpris {
             _enable_mpris_box.set_active(old_enable_mpris);
         }
+
+        (..)
+
+        _enable_mpris_box.connect_toggled(clone!(@strong _enable_mpris_box, @strong gui_tx => move |_| {
+            let mut new_preference: Preferences = Preferences::new();
+            new_preference.enable_mpris = Some(_enable_mpris_box.get_active());
+            gui_tx.send(GUIMessage::UpdatePreference(new_preference)).unwrap();
+        }));
         */
 
         // We spawn required background threads, and create the
@@ -161,11 +169,8 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
                 let new_state = !action_state; // toggle
                 action.set_state(new_state.to_variant());
 
-                // do something with the new state: WIP
-                // + Make this code conditional (MPRIS flag etc.)
-
                 let mut new_preference: Preferences = Preferences::new();
-                new_preference.enable_mpris = Some(_enable_mpris_box.get_active());
+                new_preference.enable_mpris = Some(new_state);
                 gui_tx.send(GUIMessage::UpdatePreference(new_preference)).unwrap();
 
             })
@@ -769,12 +774,6 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
 
         });
 
-        _enable_mpris_box.connect_toggled(clone!(@strong _enable_mpris_box, @strong gui_tx => move |_| {
-            let mut new_preference: Preferences = Preferences::new();
-            new_preference.enable_mpris = Some(_enable_mpris_box.get_active());
-            gui_tx.send(GUIMessage::UpdatePreference(new_preference)).unwrap();
-        }));
-
         notification_enable_checkbox.connect_toggled(clone!(@strong notification_enable_checkbox, @strong gui_tx => move |_| {
             let mut new_preference: Preferences = Preferences::new();
             new_preference.enable_notifications = Some(notification_enable_checkbox.get_active());
@@ -784,7 +783,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
         gui_rx.attach(None, clone!(@strong application, @strong main_window, @strong results_frame,
                 @strong current_volume_hbox, @strong spinner, @strong recognize_file_button,
                 @strong network_unreachable, @strong microphone_stop_button, @strong combo_box,
-                @strong recognize_from_my_speakers_checkbox, @strong _enable_mpris_box,
+                @strong recognize_from_my_speakers_checkbox, @strong action_mpris_setting,
                 @strong notification_enable_checkbox, @strong favorites_window => move |gui_message| {
             
             match gui_message {
@@ -800,13 +799,16 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
                     preferences_interface.update(new_preference);
                     #[cfg(feature = "mpris")]
                     if mpris_obj.is_none() {
+                        let state = action_mpris_setting.state().unwrap();
+                        let action_state: bool = state.get().unwrap();
+
                         mpris_obj = {
-                            let player = if enable_mpris_cli && _enable_mpris_box.get_active() {
+                            let player = if enable_mpris_cli && action_state {
                                 get_player()
                             } else {
                                 None
                             };
-                            if enable_mpris_cli && _enable_mpris_box.get_active() && player.is_none() {
+                            if enable_mpris_cli && action_state && player.is_none() {
                                 println!("{}", gettext("Unable to enable MPRIS support"))
                             }
                             player
@@ -845,10 +847,15 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
                     else {
                         network_unreachable.show_all();
                     }
-                    #[cfg(feature = "mpris")] if _enable_mpris_box.get_active() {
-                        let mpris_status = if network_is_reachable { PlaybackStatus::Playing } else { PlaybackStatus::Paused };
+                    #[cfg(feature = "mpris")]
+                    {
+                        let state = action_mpris_setting.state().unwrap();
+                        let action_state: bool = state.get().unwrap();
+                        if action_state {
+                            let mpris_status = if network_is_reachable { PlaybackStatus::Playing } else { PlaybackStatus::Paused };
 
-                        mpris_obj.as_ref().map(|p| p.set_playback_status(mpris_status));
+                            mpris_obj.as_ref().map(|p| p.set_playback_status(mpris_status));
+                        }
                     }
                 }
                 // This message is sent once in the program execution for
@@ -1016,7 +1023,7 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
         current_volume_hbox.hide();
 
         let quit = gio::SimpleAction::new("quit", None);
-        quit.connect_activate(glib::clone!(@weak application => move |_,_| {
+        quit.connect_activate(clone!(@weak application => move |_,_| {
             application.quit();
         }));
         application.set_accels_for_action("app.quit", &["<Primary>Q"]);
