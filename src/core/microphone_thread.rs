@@ -1,4 +1,3 @@
-use std::sync::mpsc;
 use std::sync::{Arc, Mutex};
 
 use cpal::traits::{DeviceTrait, StreamTrait};
@@ -9,7 +8,7 @@ use crate::core::thread_messages::{*, MicrophoneMessage::*};
 
 use crate::audio_controllers::audio_backend::get_any_backend;
 
-pub fn microphone_thread(microphone_rx: mpsc::Receiver<MicrophoneMessage>, processing_tx: mpsc::Sender<ProcessingMessage>, gui_tx: async_channel::Sender<GUIMessage>) {
+pub fn microphone_thread(microphone_rx: async_channel::Receiver<MicrophoneMessage>, processing_tx: async_channel::Sender<ProcessingMessage>, gui_tx: async_channel::Sender<GUIMessage>) {
 
     // Use the default host for working with audio devices.
     
@@ -39,7 +38,7 @@ pub fn microphone_thread(microphone_rx: mpsc::Receiver<MicrophoneMessage>, proce
     // recording from the microphone, and knowing from which device
     // in particular)
 
-    for message in microphone_rx.iter() {
+    while let Ok(message) = microphone_rx.recv_blocking() {
         match message {
             MicrophoneRecordStart(device_name) => {
                 let processing_tx_2 = processing_tx.clone();
@@ -101,7 +100,7 @@ pub fn microphone_thread(microphone_rx: mpsc::Receiver<MicrophoneMessage>, proce
     
 }
 
-fn write_data<T, U>(input_samples: &[T], processing_tx: &mpsc::Sender<ProcessingMessage>, gui_tx: async_channel::Sender<GUIMessage>, channels: u16, sample_rate: u32, twelve_seconds_buffer: &mut [i16], number_unprocessed_samples: &mut usize, number_unmeasured_samples: &mut usize, processing_already_ongoing: &Arc<Mutex<bool>>)
+fn write_data<T, U>(input_samples: &[T], processing_tx: &async_channel::Sender<ProcessingMessage>, gui_tx: async_channel::Sender<GUIMessage>, channels: u16, sample_rate: u32, twelve_seconds_buffer: &mut [i16], number_unprocessed_samples: &mut usize, number_unmeasured_samples: &mut usize, processing_already_ongoing: &Arc<Mutex<bool>>)
 where
     T: cpal::Sample + rodio::Sample,
     U: cpal::Sample, i16: FromSample<T>
@@ -131,7 +130,7 @@ where
     let mut processing_already_ongoing_borrow = processing_already_ongoing.lock().unwrap();
 
     if *number_unprocessed_samples >= 16000 * 4 && *processing_already_ongoing_borrow == false {
-        processing_tx.send(ProcessingMessage::ProcessAudioSamples(Box::new(twelve_seconds_buffer.to_vec()))).unwrap();
+        processing_tx.send_blocking(ProcessingMessage::ProcessAudioSamples(Box::new(twelve_seconds_buffer.to_vec()))).unwrap();
         
         *number_unprocessed_samples = 0;
         *processing_already_ongoing_borrow = true;

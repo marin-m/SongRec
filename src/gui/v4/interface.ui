@@ -51,6 +51,7 @@
                                           </object>
                                         </property>
                                         <property name="selectable">False</property>
+                                        <property name="visible">False</property>
                                       </object>
                                     </child>
                                     <child>
@@ -219,7 +220,7 @@
   <menu id="menu_model">
     <section id="menu_section">
       <item>
-        <attribute name="action">show_notifications_action</attribute>
+        <attribute name="action">win.notification-setting</attribute>
         <attribute name="label">Show notifications</attribute>
       </item>
       <item>

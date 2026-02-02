@@ -1,4 +1,3 @@
-use std::sync::mpsc;
 use std::error::Error;
 use gettextrs::gettext;
 use regex::Regex;
@@ -73,9 +72,9 @@ fn try_recognize_song(signature: DecodedSignature) -> Result<SongRecognizedMessa
     })
 }
 
-pub fn http_thread(http_rx: mpsc::Receiver<HTTPMessage>, gui_tx: async_channel::Sender<GUIMessage>, microphone_tx: mpsc::Sender<MicrophoneMessage>) {
+pub fn http_thread(http_rx: async_channel::Receiver<HTTPMessage>, gui_tx: async_channel::Sender<GUIMessage>, microphone_tx: async_channel::Sender<MicrophoneMessage>) {
     
-    for message in http_rx.iter() {
+    while let Ok(message) = http_rx.recv_blocking() {
         match message {
             HTTPMessage::RecognizeSignature(signature) => {
                 match try_recognize_song(*signature) {
@@ -96,7 +95,7 @@ pub fn http_thread(http_rx: mpsc::Receiver<HTTPMessage>, gui_tx: async_channel::
                     }
                 };
                 
-                microphone_tx.send(MicrophoneMessage::ProcessingDone).unwrap();
+                microphone_tx.send_blocking(MicrophoneMessage::ProcessingDone).unwrap();
             }
         }
     }

@@ -175,6 +175,21 @@ pub fn gui_main(recording: bool, input_file: Option<&str>, enable_mpris_cli: boo
 
             })
             .build();
+        
+        let action_notification_setting = gio::ActionEntry::builder("notification-setting")
+            .state(old_preferences.enable_notifications.to_variant())
+            .activate(|_, action, _| {
+                let state = action.state().unwrap();
+                let action_state: bool = state.get().unwrap();
+                let new_state = !action_state; // toggle
+                action.set_state(new_state.to_variant());
+
+                let mut new_preference: Preferences = Preferences::new();
+                new_preference.enable_notifications = Some(new_state);
+                gui_tx.send(GUIMessage::UpdatePreference(new_preference)).unwrap();
+
+            })
+            .build();
 
         /*
             // Legacy code (commented):

@@ -1,7 +1,6 @@
 use std::cell::RefCell;
 use std::error::Error;
 use std::rc::Rc;
-use std::sync::mpsc;
 
 use chrono::Local;
 use gettextrs::gettext;
@@ -35,9 +34,9 @@ pub struct CLIParameters {
 pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>>
 {
     let (gui_tx, gui_rx) = async_channel::unbounded(); // WIP: replace with async_channel::unbounded + Receiver.recv_blocking (https://docs.rs/async-channel/latest/async_channel/struct.Receiver.html)
-    let (microphone_tx, microphone_rx) = mpsc::channel();
-    let (processing_tx, processing_rx) = mpsc::channel();
-    let (http_tx, http_rx) = mpsc::channel();
+    let (microphone_tx, microphone_rx) = async_channel::unbounded();
+    let (processing_tx, processing_rx) = async_channel::unbounded();
+    let (http_tx, http_rx) = async_channel::unbounded();
 
     let gui_tx_2 = gui_tx.clone();
     let gui_tx_3 = gui_tx.clone();
@@ -76,7 +75,7 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>>
 
     if let Some(ref filename) = parameters.input_file {
         processing_tx
-            .send(ProcessingMessage::ProcessAudioFile(filename.to_string()))
+            .send_blocking(ProcessingMessage::ProcessAudioFile(filename.to_string()))
             .unwrap();
     }
 
@@ -111,7 +110,7 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>>
                 };
                 eprintln!("{} {}", gettext("Using device"), dev_name);
                 microphone_tx
-                    .send(MicrophoneMessage::MicrophoneRecordStart(
+                    .send_blocking(MicrophoneMessage::MicrophoneRecordStart(
                         dev_name.to_owned(),
                     ))
                     .unwrap();
