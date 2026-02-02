@@ -15,7 +15,7 @@ use crate::gui::preferences::{PreferencesInterface, Preferences};
 pub fn gui_main(recording: bool, input_file: Option<String>, enable_mpris_cli: bool) -> Result<(), Box<dyn Error>> {
     
     let app = App::new();
-    app.run();
+    app.run(input_file);
 
     Ok(())
 }
@@ -110,14 +110,23 @@ impl App {
         });
     }
 
-    fn run(self) {
+    fn run(self, input_file: Option<String>) {
         let application = adw::Application::new(Some("re.fossplant.songrec"),
             gio::ApplicationFlags::HANDLES_OPEN);
+
+        // => https://gtk-rs.org/gtk-rs-core/git/docs/gio/struct.Application.html
+        // => https://gtk-rs.org/gtk-rs-core/git/docs/gio/prelude/trait.ApplicationExtManual.html#method.run
+        // => https://gtk-rs.org/gtk-rs-core/git/docs/gio/struct.ApplicationFlags.html#associatedconstant.HANDLES_COMMAND_LINE
 
         application.connect_activate(move |application| {
             self.on_activate(application);
         });
-        application.run();
+        if let Some(input_file_string) = input_file {
+            application.run_with_args(&["songrec".to_string(), input_file_string]);
+        }
+        else {
+            application.run_with_args(&["songrec".to_string()]);
+        }
     }
 
     fn on_activate(&self, application: &adw::Application) {

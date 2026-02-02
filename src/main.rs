@@ -15,6 +15,7 @@ mod core {
     pub mod microphone_thread;
     pub mod processing_thread;
     pub mod http_thread;
+    pub mod logging;
     pub mod thread_messages;
 }
 
@@ -53,6 +54,7 @@ use crate::fingerprinting::communication::recognize_song_from_signature;
 use crate::utils::internationalization::setup_internationalization;
 #[cfg(feature = "gui")]
 use crate::gui::main_window_v4::gui_main;
+use crate::core::logging::Logging;
 use crate::cli_main::{cli_main, CLIParameters, CLIOutputType};
 
 use std::error::Error;
@@ -240,8 +242,23 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     setup_internationalization();
 
+    // TODO simplify the code in this module etc. path handling ^
+
     // Collect the program arguments
     let args = app!().get_matches();
+
+    // Set up logging
+
+    match args.get_count("verbose") {
+        0 => Logging::setup_logging(log::LevelFilter::Warn, log::LevelFilter::Warn),
+        1 => Logging::setup_logging(log::LevelFilter::Warn, log::LevelFilter::Debug),
+        2 => Logging::setup_logging(log::LevelFilter::Info, log::LevelFilter::Debug),
+        _ => Logging::setup_logging(log::LevelFilter::Trace, log::LevelFilter::Trace)
+    };
+
+    Logging::bind_glib_logging();
+
+    // Parse other arguments
     
     match args.subcommand_name() {
         Some("audio-file-to-recognized-song") => {            

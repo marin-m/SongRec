@@ -16,6 +16,7 @@
                   <object class="GtkScrolledWindow">
                     <child>
                       <object class="GtkFlowBox" id="flowbox">
+                        <property name="can-focus">False</property>
                         <property name="margin-bottom">12</property>
                         <property name="margin-end">12</property>
                         <property name="margin-start">12</property>
@@ -25,8 +26,10 @@
                         <property name="selection-mode">none</property>
                         <child>
                           <object class="GtkFlowBoxChild" id="fbc1">
+                            <property name="can-focus">False</property>
                             <property name="child">
                               <object class="GtkBox" id="vbox1">
+                                <property name="can-focus">False</property>
                                 <property name="orientation">vertical</property>
                                 <property name="spacing">15</property>
                                 <child>
@@ -115,6 +118,7 @@
                         </child>
                         <child>
                           <object class="GtkFlowBoxChild" id="fcb2">
+                            <property name="can-focus">False</property>
                             <property name="child">
                               <object class="GtkBox" id="vbox2">
                                 <property name="orientation">vertical</property>
