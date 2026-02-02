@@ -73,24 +73,24 @@ fn try_recognize_song(signature: DecodedSignature) -> Result<SongRecognizedMessa
     })
 }
 
-pub fn http_thread(http_rx: mpsc::Receiver<HTTPMessage>, gui_tx: mpsc::Sender<GUIMessage>, microphone_tx: mpsc::Sender<MicrophoneMessage>) {
+pub fn http_thread(http_rx: mpsc::Receiver<HTTPMessage>, gui_tx: async_channel::Sender<GUIMessage>, microphone_tx: mpsc::Sender<MicrophoneMessage>) {
     
     for message in http_rx.iter() {
         match message {
             HTTPMessage::RecognizeSignature(signature) => {
                 match try_recognize_song(*signature) {
                     Ok(recognized_song) => {
-                        gui_tx.send(GUIMessage::SongRecognized(Box::new(recognized_song))).unwrap();
-                        gui_tx.send(GUIMessage::NetworkStatus(true)).unwrap();
+                        gui_tx.send_blocking(GUIMessage::SongRecognized(Box::new(recognized_song))).unwrap();
+                        gui_tx.send_blocking(GUIMessage::NetworkStatus(true)).unwrap();
                     },
                     Err(error) => {
                         match error.to_string().as_str() {
                             a if a == gettext("No match for this song") => {
-                                gui_tx.send(GUIMessage::ErrorMessage(error.to_string())).unwrap();
-                                gui_tx.send(GUIMessage::NetworkStatus(true)).unwrap();
+                                gui_tx.send_blocking(GUIMessage::ErrorMessage(error.to_string())).unwrap();
+                                gui_tx.send_blocking(GUIMessage::NetworkStatus(true)).unwrap();
                             }
                             _ => {
-                                gui_tx.send(GUIMessage::NetworkStatus(false)).unwrap();
+                                gui_tx.send_blocking(GUIMessage::NetworkStatus(false)).unwrap();
                             }
                         }
                     }

@@ -223,12 +223,13 @@
         <attribute name="label">Show notifications</attribute>
       </item>
       <item>
-        <attribute name="action">enable_mpris_action</attribute>
+        <attribute name="action">win.mpris-setting</attribute>
         <attribute name="label">Enable MPRIS</attribute>
       </item>
     </section>
     <section>
       <item>
+        <attribute name="action">win.show-about</attribute>
         <attribute name="label">About...</attribute>
       </item>
     </section>

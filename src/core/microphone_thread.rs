@@ -9,7 +9,7 @@ use crate::core::thread_messages::{*, MicrophoneMessage::*};
 
 use crate::audio_controllers::audio_backend::get_any_backend;
 
-pub fn microphone_thread(microphone_rx: mpsc::Receiver<MicrophoneMessage>, processing_tx: mpsc::Sender<ProcessingMessage>, gui_tx: mpsc::Sender<GUIMessage>) {
+pub fn microphone_thread(microphone_rx: mpsc::Receiver<MicrophoneMessage>, processing_tx: mpsc::Sender<ProcessingMessage>, gui_tx: async_channel::Sender<GUIMessage>) {
 
     // Use the default host for working with audio devices.
     
@@ -33,7 +33,7 @@ pub fn microphone_thread(microphone_rx: mpsc::Receiver<MicrophoneMessage>, proce
 
     let device_names: Vec<DeviceListItem> = backend.list_devices(&host);
     
-    gui_tx.send(GUIMessage::DevicesList(Box::new(device_names))).unwrap();
+    gui_tx.send_blocking(GUIMessage::DevicesList(Box::new(device_names))).unwrap();
     
     // Process ingress inter-thread messages (stopping or starting
     // recording from the microphone, and knowing from which device
@@ -48,7 +48,7 @@ pub fn microphone_thread(microphone_rx: mpsc::Receiver<MicrophoneMessage>, proce
                 let gui_tx_4 = gui_tx.clone();
     
                 let err_fn = move |error| {
-                    gui_tx_2.send(GUIMessage::ErrorMessage(format!("{} {}", gettext("Microphone error:"), error))).unwrap();
+                    gui_tx_2.send_blocking(GUIMessage::ErrorMessage(format!("{} {}", gettext("Microphone error:"), error))).unwrap();
                 };
                 
                 let device: Device = backend.set_device(&host, &device_name);
@@ -78,7 +78,7 @@ pub fn microphone_thread(microphone_rx: mpsc::Receiver<MicrophoneMessage>, proce
                 // source outputs now
                 backend.set_device(&host, &device_name);
                 
-                gui_tx_4.send(GUIMessage::MicrophoneRecording).unwrap();
+                gui_tx_4.send_blocking(GUIMessage::MicrophoneRecording).unwrap();
 
             },
             
@@ -101,7 +101,7 @@ pub fn microphone_thread(microphone_rx: mpsc::Receiver<MicrophoneMessage>, proce
     
 }
 
-fn write_data<T, U>(input_samples: &[T], processing_tx: &mpsc::Sender<ProcessingMessage>, gui_tx: mpsc::Sender<GUIMessage>, channels: u16, sample_rate: u32, twelve_seconds_buffer: &mut [i16], number_unprocessed_samples: &mut usize, number_unmeasured_samples: &mut usize, processing_already_ongoing: &Arc<Mutex<bool>>)
+fn write_data<T, U>(input_samples: &[T], processing_tx: &mpsc::Sender<ProcessingMessage>, gui_tx: async_channel::Sender<GUIMessage>, channels: u16, sample_rate: u32, twelve_seconds_buffer: &mut [i16], number_unprocessed_samples: &mut usize, number_unmeasured_samples: &mut usize, processing_already_ongoing: &Arc<Mutex<bool>>)
 where
     T: cpal::Sample + rodio::Sample,
     U: cpal::Sample, i16: FromSample<T>
@@ -155,7 +155,7 @@ where
         
         let max_s16le_volume_fraction = max_s16le_amplitude as f32 / 32767.0; // 32767 is the maximum value for an i16 (2**15 - 1)
         
-        gui_tx.send(GUIMessage::MicrophoneVolumePercent(max_s16le_volume_fraction * 100.0)).unwrap();
+        gui_tx.send_blocking(GUIMessage::MicrophoneVolumePercent(max_s16le_volume_fraction * 100.0)).unwrap();
         
         *number_unmeasured_samples = 0;
         

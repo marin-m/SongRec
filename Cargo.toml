@@ -15,6 +15,7 @@ edition = "2018"
 
 [dependencies]
 chfft = "0.3.4" # Fast Fourier transform
+async-channel = "2.5.0"
 byteorder = "1.3.4" # Used for reading and writing binary structures
 crc32fast = "1.2.0" # Used for the CRC-32 checksum in the binary signature
 base64 = "0.12.3"

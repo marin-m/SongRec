@@ -4,7 +4,7 @@ use crate::core::thread_messages::{*, ProcessingMessage::*};
 
 use crate::fingerprinting::algorithm::SignatureGenerator;
 
-pub fn processing_thread(processing_rx: mpsc::Receiver<ProcessingMessage>, http_tx: mpsc::Sender<HTTPMessage>, gui_tx: mpsc::Sender<GUIMessage>) {
+pub fn processing_thread(processing_rx: mpsc::Receiver<ProcessingMessage>, http_tx: mpsc::Sender<HTTPMessage>, gui_tx: async_channel::Sender<GUIMessage>) {
     
     for message in processing_rx.iter() {
         
@@ -18,7 +18,7 @@ pub fn processing_thread(processing_rx: mpsc::Receiver<ProcessingMessage>, http_
                 http_tx.send(HTTPMessage::RecognizeSignature(Box::new(signature))).unwrap();
             },
             Err(error) => {
-                gui_tx.send(GUIMessage::ErrorMessage(error.to_string())).unwrap();
+                gui_tx.send_blocking(GUIMessage::ErrorMessage(error.to_string())).unwrap();
             }
         };
             

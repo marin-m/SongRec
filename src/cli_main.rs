@@ -34,7 +34,7 @@ pub struct CLIParameters {
 
 pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>>
 {
-    let (gui_tx, gui_rx) = mpsc::channel(); // (WIP transitioning from glib::MainContext::channel(glib::PRIORITY_DEFAULT); )
+    let (gui_tx, gui_rx) = async_channel::unbounded(); // WIP: replace with async_channel::unbounded + Receiver.recv_blocking (https://docs.rs/async-channel/latest/async_channel/struct.Receiver.html)
     let (microphone_tx, microphone_rx) = mpsc::channel();
     let (processing_tx, processing_rx) = mpsc::channel();
     let (http_tx, http_rx) = mpsc::channel();
@@ -82,7 +82,7 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>>
 
     let mut csv_writer = csv::Writer::from_writer(std::io::stdout());
 
-    for gui_message in gui_rx.iter() {
+    while let Ok(gui_message) = gui_rx.recv_blocking() {
         match gui_message {
             GUIMessage::DevicesList(device_names) => {
                 // no need to start a microphone if recognizing from file
@@ -206,6 +206,8 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>>
             _ => {}
         }
     }
+
+    gui_rx.close();
 
     Ok(())
 }
