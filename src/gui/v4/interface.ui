@@ -4,7 +4,7 @@
   <!-- interface-name interface_v4.ui -->
   <requires lib="gio" version="2.0"/>
   <requires lib="gtk" version="4.14"/>
-  <requires lib="libadwaita" version="1.5"/>
+  <requires lib="libadwaita" version="1.6"/>
   <object class="AdwApplicationWindow" id="window">
     <property name="content">
       <object class="AdwNavigationView">
@@ -34,7 +34,12 @@
                                     <property name="title" translatable="yes">Recognize from file</property>
                                     <child>
                                       <object class="GtkButton">
-                                        <property name="icon-name">document-open</property>
+                                        <property name="child">
+                                          <object class="AdwButtonContent">
+                                            <property name="icon-name">folder-new-symbolic</property>
+                                            <property name="label">Pick a file...</property>
+                                          </object>
+                                        </property>
                                       </object>
                                     </child>
                                   </object>
@@ -59,6 +64,11 @@
                                   <object class="AdwSwitchRow">
                                     <property name="active">True</property>
                                     <property name="title" translatable="yes">Recognize from microphone</property>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="AdwSwitchRow">
+                                    <property name="title" translatable="yes">Recognize from my speakers instead of microphone</property>
                                   </object>
                                 </child>
                                 <child>
@@ -102,7 +112,12 @@
                                     <property name="title" translatable="yes">Search on YouTube</property>
                                     <child>
                                       <object class="GtkButton">
-                                        <property name="icon-name">edit-find</property>
+                                        <property name="child">
+                                          <object class="AdwButtonContent">
+                                            <property name="icon-name">search-symbolic</property>
+                                            <property name="label">Search...</property>
+                                          </object>
+                                        </property>
                                       </object>
                                     </child>
                                   </object>
@@ -120,9 +135,6 @@
                                 <property name="title" translatable="yes">Audio input</property>
                                 <child>
                                   <object class="AdwComboRow"/>
-                                </child>
-                                <child>
-                                  <object class="AdwSwitchRow"/>
                                 </child>
                                 <child>
                                   <object class="AdwPreferencesRow">
@@ -230,7 +242,7 @@
     <child>
       <object class="AdwBreakpoint">
         <!-- Custom object fragments -->
-        <condition>max-width: 720px</condition>
+        <condition>max-width: 400sp</condition>
         <setter object="layout_box" property="orientation">vertical</setter>
       </object>
     </child>
