@@ -89,7 +89,7 @@ SongRec {version}
                 .long("verbose")
                 .action(ArgAction::Count)
                 .help(gettext("-v: Set the log level to DEBUG instead of WARN for SongRec-related messages
--vv: Set the log level to DEBUG for SongRec-related messages and INFO for GLib-related messages
+-vv: Set the log level to DEBUG for SongRec-related messages and INFO for library-related messages
 -vvv: Set the log level to TRACE"))
         )
         .subcommand(

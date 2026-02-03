@@ -4,6 +4,7 @@ use glib::clone;
 use adw::prelude::*;
 use gettextrs::gettext;
 use std::error::Error;
+use log::debug;
 
 use crate::core::microphone_thread::microphone_thread;
 use crate::core::processing_thread::processing_thread;
@@ -102,7 +103,7 @@ impl App {
         glib::spawn_future_local(async move {
             while let Ok(gui_message) = gui_rx.recv().await {
 
-                eprintln!("[DEBUG] Received unhandled yet GUI message: {:?}", gui_message);
+                debug!("Received unhandled yet GUI message: {:?}", gui_message);
                 
                 // TODO handle UpdatePreference and other
                 // messages here
@@ -118,8 +119,18 @@ impl App {
         // => https://gtk-rs.org/gtk-rs-core/git/docs/gio/prelude/trait.ApplicationExtManual.html#method.run
         // => https://gtk-rs.org/gtk-rs-core/git/docs/gio/struct.ApplicationFlags.html#associatedconstant.HANDLES_COMMAND_LINE
 
+        self.setup_open_action(&application);
+
         application.connect_activate(move |application| {
-            self.on_activate(application);
+            let main_window = &application.windows()[0];
+
+            // Raise the existing window to the top whenever a second
+            // GUI instance is attempted to be launched
+            main_window.present();
+        });
+
+        application.connect_startup(move |application| {
+            self.on_startup(application);
         });
         if let Some(input_file_string) = input_file {
             application.run_with_args(&["songrec".to_string(), input_file_string]);
@@ -129,7 +140,7 @@ impl App {
         }
     }
 
-    fn on_activate(&self, application: &adw::Application) {
+    fn on_startup(&self, application: &adw::Application) {
         self.setup_intercom();
         self.setup_actions();
         self.show_window(application);
@@ -188,6 +199,23 @@ impl App {
             action_notification_setting,
             // WIP xx
         ]);
+    }
+
+    fn setup_open_action(&self, application: &adw::Application) {
+        let processing_tx = self.processing_tx.clone();
+
+        // We create a callback for handling files to recognize opened
+        // from the command line or through "xdg-open".
+        
+        application.connect_open(move |_application, files, _hint| {
+            if files.len() >= 1 {
+                if let Some(file_path) = files[0].path() {
+                    let file_path_string = file_path.into_os_string().into_string().unwrap();
+                    
+                    processing_tx.send_blocking(ProcessingMessage::ProcessAudioFile(file_path_string)).unwrap();
+                }
+            }
+        });
     }
 
     fn show_window(&self, application: &adw::Application) {
