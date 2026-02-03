@@ -14,152 +14,134 @@
               <object class="AdwToolbarView">
                 <property name="content">
                   <object class="GtkScrolledWindow">
-                    <child>
-                      <object class="GtkFlowBox" id="flowbox">
-                        <property name="can-focus">False</property>
-                        <property name="margin-bottom">12</property>
-                        <property name="margin-end">12</property>
-                        <property name="margin-start">12</property>
-                        <property name="margin-top">12</property>
-                        <property name="max-children-per-line">2</property>
-                        <property name="min-children-per-line">1</property>
-                        <property name="selection-mode">none</property>
-                        <child>
-                          <object class="GtkFlowBoxChild" id="fbc1">
+                    <property name="child">
+                      <object class="GtkBox" id="layout_box">
+                        <property name="margin-bottom">15</property>
+                        <property name="margin-end">15</property>
+                        <property name="margin-start">15</property>
+                        <property name="margin-top">15</property>
+                        <property name="spacing">15</property>
+                        <child type="primary">
+                          <object class="GtkBox" id="vbox1">
                             <property name="can-focus">False</property>
-                            <property name="child">
-                              <object class="GtkBox" id="vbox1">
-                                <property name="can-focus">False</property>
-                                <property name="orientation">vertical</property>
-                                <property name="spacing">15</property>
+                            <property name="orientation">vertical</property>
+                            <property name="spacing">15</property>
+                            <child>
+                              <object class="AdwPreferencesGroup">
+                                <property name="title" translatable="yes">Recognize songs</property>
                                 <child>
-                                  <object class="AdwPreferencesGroup">
-                                    <property name="title">Recognize songs</property>
+                                  <object class="AdwActionRow">
+                                    <property name="title" translatable="yes">Recognize from file</property>
                                     <child>
-                                      <object class="AdwActionRow">
-                                        <property name="title">Recognize from file</property>
-                                        <child>
-                                          <object class="GtkButton">
-                                            <property name="icon-name">document-open</property>
-                                          </object>
-                                        </child>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="AdwPreferencesRow">
-                                        <property name="activatable">False</property>
-                                        <property name="child">
-                                          <object class="GtkSpinner">
-                                            <property name="spinning">True</property>
-                                          </object>
-                                        </property>
-                                        <property name="selectable">False</property>
-                                        <property name="visible">False</property>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="AdwSwitchRow">
-                                        <property name="active">True</property>
-                                        <property name="title">Recognize from microphone</property>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="GtkLabel">
-                                        <property name="label">Shazam servers are not reachable, are you connected?</property>
-                                        <property name="margin-top">5</property>
-                                        <attributes>
-                                          <attribute name="weight" value="medium"/>
-                                          <attribute name="foreground" value="#a4a400000000"/>
-                                        </attributes>
+                                      <object class="GtkButton">
+                                        <property name="icon-name">document-open</property>
                                       </object>
                                     </child>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="AdwPreferencesGroup">
-                                    <property name="title">Recognition results</property>
+                                  <object class="AdwPreferencesRow">
+                                    <property name="activatable">False</property>
+                                    <property name="margin-bottom">7</property>
+                                    <property name="margin-end">7</property>
+                                    <property name="margin-start">7</property>
+                                    <property name="margin-top">7</property>
+                                    <property name="selectable">False</property>
+                                    <property name="visible">False</property>
                                     <child>
-                                      <object class="AdwPreferencesRow">
+                                      <object class="GtkSpinner">
+                                        <property name="spinning">True</property>
+                                      </object>
+                                    </child>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="AdwSwitchRow">
+                                    <property name="active">True</property>
+                                    <property name="title" translatable="yes">Recognize from microphone</property>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkLabel">
+                                    <property name="label" translatable="yes">Shazam servers are not reachable, are you connected?</property>
+                                    <property name="margin-top">5</property>
+                                    <attributes>
+                                      <attribute name="weight" value="medium"/>
+                                      <attribute name="foreground" value="#a4a400000000"/>
+                                    </attributes>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="AdwPreferencesGroup">
+                                <property name="title" translatable="yes">Recognition results</property>
+                                <child>
+                                  <object class="AdwPreferencesRow">
+                                    <child>
+                                      <object class="GtkBox">
+                                        <property name="orientation">vertical</property>
                                         <child>
-                                          <object class="GtkBox">
-                                            <property name="orientation">vertical</property>
-                                            <child>
-                                              <object class="GtkImage"/>
-                                            </child>
-                                            <child>
-                                              <object class="GtkLabel" id="recognized_song_name">
-                                                <property name="label">Artist - Song name</property>
-                                                <property name="selectable">True</property>
-                                                <attributes>
-                                                  <attribute name="weight" value="bold"/>
-                                                </attributes>
-                                              </object>
-                                            </child>
+                                          <object class="GtkImage"/>
+                                        </child>
+                                        <child>
+                                          <object class="GtkLabel" id="recognized_song_name">
+                                            <property name="label">Artist - Song name</property>
+                                            <property name="selectable">True</property>
+                                            <attributes>
+                                              <attribute name="weight" value="bold"/>
+                                            </attributes>
                                           </object>
                                         </child>
                                       </object>
                                     </child>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="AdwActionRow">
+                                    <property name="title" translatable="yes">Search on YouTube</property>
                                     <child>
-                                      <object class="AdwActionRow">
-                                        <property name="title">Search on YouTube</property>
-                                        <child>
-                                          <object class="GtkButton">
-                                            <property name="icon-name">edit-find</property>
-                                          </object>
-                                        </child>
+                                      <object class="GtkButton">
+                                        <property name="icon-name">edit-find</property>
                                       </object>
                                     </child>
                                   </object>
                                 </child>
                               </object>
-                            </property>
-                            <property name="focusable">False</property>
+                            </child>
                           </object>
                         </child>
-                        <child>
-                          <object class="GtkFlowBoxChild" id="fcb2">
-                            <property name="can-focus">False</property>
-                            <property name="child">
-                              <object class="GtkBox" id="vbox2">
-                                <property name="orientation">vertical</property>
-                                <property name="spacing">15</property>
+                        <child type="secondary">
+                          <object class="GtkBox" id="vbox2">
+                            <property name="orientation">vertical</property>
+                            <property name="spacing">15</property>
+                            <child>
+                              <object class="AdwPreferencesGroup">
+                                <property name="title" translatable="yes">Audio input</property>
                                 <child>
-                                  <object class="AdwPreferencesGroup">
-                                    <property name="title">Audio input</property>
-                                    <child>
-                                      <object class="AdwComboRow"/>
-                                    </child>
-                                    <child>
-                                      <object class="AdwSwitchRow"/>
-                                    </child>
-                                    <child>
-                                      <object class="AdwPreferencesRow"/>
-                                    </child>
-                                  </object>
+                                  <object class="AdwComboRow"/>
                                 </child>
                                 <child>
-                                  <object class="AdwPreferencesGroup">
-                                    <property name="header-suffix">
-                                      <object class="GtkMenuButton">
-                                        <property name="icon-name">preferences-system</property>
-                                        <property name="menu-model">history_menu_model</property>
-                                      </object>
-                                    </property>
-                                    <property name="title">Recognition history</property>
+                                  <object class="AdwSwitchRow"/>
+                                </child>
+                                <child>
+                                  <object class="AdwPreferencesRow">
                                     <child>
-                                      <object class="AdwPreferencesRow">
+                                      <object class="GtkBox">
+                                        <property name="margin-bottom">15</property>
+                                        <property name="margin-end">15</property>
+                                        <property name="margin-start">15</property>
+                                        <property name="margin-top">15</property>
+                                        <property name="spacing">6</property>
                                         <child>
-                                          <object class="GtkTreeView"/>
+                                          <object class="GtkLabel">
+                                            <property name="label">Volume:</property>
+                                          </object>
                                         </child>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="AdwPreferencesRow">
                                         <child>
-                                          <object class="GtkButton">
-                                            <property name="action-name">navigation.push</property>
-                                            <property name="action-target">'favourites_tag'</property>
-                                            <property name="label">View favourites</property>
+                                          <object class="GtkProgressBar">
+                                            <property name="fraction">0.5</property>
+                                            <property name="valign">center</property>
                                           </object>
                                         </child>
                                       </object>
@@ -167,12 +149,37 @@
                                   </object>
                                 </child>
                               </object>
-                            </property>
-                            <property name="focusable">False</property>
+                            </child>
+                            <child>
+                              <object class="AdwPreferencesGroup">
+                                <property name="header-suffix">
+                                  <object class="GtkMenuButton">
+                                    <property name="icon-name">preferences-system</property>
+                                    <property name="menu-model">history_menu_model</property>
+                                  </object>
+                                </property>
+                                <property name="title" translatable="yes">Recognition history</property>
+                                <child>
+                                  <object class="AdwPreferencesRow">
+                                    <property name="child">
+                                      <object class="GtkColumnView"/>
+                                    </property>
+                                    <property name="height-request">200</property>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="AdwButtonRow">
+                                    <property name="action-name">navigation.push</property>
+                                    <property name="action-target">'favourites_tag'</property>
+                                    <property name="title">View favourites</property>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
                           </object>
                         </child>
                       </object>
-                    </child>
+                    </property>
                   </object>
                 </property>
                 <child type="top">
@@ -195,7 +202,7 @@
             <property name="child">
               <object class="AdwToolbarView">
                 <property name="content">
-                  <object class="GtkTreeView"/>
+                  <object class="GtkColumnView"/>
                 </property>
                 <child type="top">
                   <object class="AdwHeaderBar"/>
@@ -210,7 +217,7 @@
               </object>
             </property>
             <property name="tag">favourites_tag</property>
-            <property name="title">Favourites</property>
+            <property name="title" translatable="yes">Favourites</property>
           </object>
         </child>
       </object>
@@ -220,22 +227,29 @@
     <property name="icon-name">audio-x-generic</property>
     <property name="title">SongRec</property>
     <property name="visible">True</property>
+    <child>
+      <object class="AdwBreakpoint">
+        <!-- Custom object fragments -->
+        <condition>max-width: 720px</condition>
+        <setter object="layout_box" property="orientation">vertical</setter>
+      </object>
+    </child>
   </object>
   <menu id="menu_model">
     <section id="menu_section">
       <item>
         <attribute name="action">win.notification-setting</attribute>
-        <attribute name="label">Show notifications</attribute>
+        <attribute name="label" translatable="yes">Show notifications</attribute>
       </item>
       <item>
         <attribute name="action">win.mpris-setting</attribute>
-        <attribute name="label">Enable MPRIS</attribute>
+        <attribute name="label" translatable="yes">Enable MPRIS</attribute>
       </item>
     </section>
     <section>
       <item>
         <attribute name="action">win.show-about</attribute>
-        <attribute name="label">About...</attribute>
+        <attribute name="label" translatable="yes">About...</attribute>
       </item>
     </section>
   </menu>
