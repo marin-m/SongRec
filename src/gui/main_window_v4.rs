@@ -143,6 +143,11 @@ impl App {
     }
 
     fn setup_callbacks(&self) {
+
+        let microphone_tx = self.microphone_tx.clone();
+        let gui_tx = self.gui_tx.clone();
+        let builder = self.builder.clone();
+
         self.builder_scope.add_callback("loopback_options_switched", |values| {
             let switch_row = values[0].get::<adw::SwitchRow>().unwrap();
 
@@ -155,13 +160,55 @@ impl App {
             info!("TEST 2 {:?}", values);
             None
         });
-        self.builder_scope.add_callback("input_device_switched", |values| {
+        self.builder_scope.add_callback("input_device_switched", move |values| {
+            let microphone_switch: adw::SwitchRow = builder.object("microphone_switch").unwrap();
+            let loopback_switch: adw::SwitchRow = builder.object("loopback_switch").unwrap();
+
             let combo_row = values[0].get::<adw::ComboRow>().unwrap();
 
-            info!("TEST 5 {:?}", values);
+            // Plug the sound
+
+            if let Some(device) = combo_row.selected_item() {
+                let device = device.downcast::<ListedDevice>().unwrap();
+
+                let device_name = device.inner_name();
+                let is_monitor = device.is_monitor();
+
+                if microphone_switch.is_active() && is_monitor {
+                
+                    microphone_switch.set_active(false);
+                    loopback_switch.set_active(true);
+                }
+                else if loopback_switch.is_active() && !is_monitor {
+                
+                    microphone_switch.set_active(false);
+                    loopback_switch.set_active(true);
+                }
+
+                // Save the selected microphone device name so that it is
+                // remembered after relaunching the app
+                
+                let mut new_preference = Preferences::new();
+                new_preference.current_device_name = Some(device_name.to_string());
+                gui_tx.send_blocking(GUIMessage::UpdatePreference(new_preference)).unwrap();
+        
+                // Should we start recording yet? (will depend of the possible
+                // command line flags of the application)
+
+                if microphone_switch.is_active() || loopback_switch.is_active() {
+                    microphone_tx.send_blocking(MicrophoneMessage::MicrophoneRecordStop).unwrap();
+                    microphone_tx.send_blocking(MicrophoneMessage::MicrophoneRecordStart(
+                        device_name.to_owned()
+                    )).unwrap();
+                }
+            }
             None
         });
     }
+
+    /* fn sync_selected_device(&self) {
+
+    } */
 
     fn setup_intercom(&self, set_recording: bool) {
         // WIP: Setup threads + smol-rs/async-channel::unbounded listener
@@ -247,8 +294,8 @@ impl App {
                         // the moment (maybe it should be updated automatically
                         // later?):
                         DevicesList(devices) => {
-                            let mut old_device_index: u32 = 0;
-                            let mut old_device: Option<ListedDevice> = None;
+                            let mut initial_device_index: u32 = 0;
+                            let mut initial_device: Option<ListedDevice> = None;
                             let mut found_monitor_device = false;
                             let mut current_index: u32 = 0;
 
@@ -257,7 +304,7 @@ impl App {
 
                             g_list_store.remove_all();
 
-                            for device in devices.iter() {
+                            for device in devices.iter() { // device: thread_messages::DeviceListItem
                                 let listed_device = ListedDevice::new(
                                     device.display_name.clone(),
                                     device.inner_name.clone(),
@@ -266,15 +313,15 @@ impl App {
                                 g_list_store.append(&listed_device);
                                 
                                 if old_device_name == Some(device.inner_name.to_string()) {
-                                    old_device_index = current_index;
-                                    old_device = Some(listed_device);
+                                    initial_device_index = current_index;
+                                    initial_device = Some(listed_device);
                                 }
                                 else if old_device_name == None && device.is_monitor && !found_monitor_device {
-                                    old_device_index = current_index;
-                                    old_device = Some(listed_device);
+                                    initial_device_index = current_index;
+                                    initial_device = Some(listed_device);
                                 }
                                 else if current_index == 0 {
-                                    old_device = Some(listed_device);
+                                    initial_device = Some(listed_device);
                                 }
                                 current_index += 1;
                             
@@ -283,32 +330,16 @@ impl App {
                                 }
                             }
 
-                            if let Some(device) = old_device {
-                                adw_combo_row.set_selected(old_device_index);
+                            if let Some(device) = initial_device { // device: ListedDevice
+                                adw_combo_row.set_selected(initial_device_index);
                                 loopback_switch.set_visible(found_monitor_device);
-
-                                let device_name = device.inner_name();
-                                let is_monitor = device.is_monitor();
 
                                 debug!("Initally selected audio input device: {:?} / {:?}", device.inner_name(), device.display_name());
 
                                 microphone_switch.set_visible(true);
                                 volume_row.set_visible(true);
 
-                                if microphone_switch.is_active() && is_monitor {
-                                
-                                    microphone_switch.set_active(false);
-                                    loopback_switch.set_active(true);
-                                }
-                        
-                                // Should we start recording yet? (will depend of the possible
-                                // command line flags of the application)
-
-                                if microphone_switch.is_active() || loopback_switch.is_active() {
-                                    microphone_tx_2.send(MicrophoneMessage::MicrophoneRecordStart(
-                                        device_name.to_owned()
-                                    )).await.unwrap();
-                                }
+                                // Will trigger the "input_device_switched" callback
                             }
                             
                         },

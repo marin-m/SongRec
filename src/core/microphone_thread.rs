@@ -83,7 +83,9 @@ pub fn microphone_thread(microphone_rx: async_channel::Receiver<MicrophoneMessag
             
             MicrophoneRecordStop => {
     
-                drop(stream.unwrap());
+                if let Some(some_stream) = stream {
+                    drop(some_stream);
+                }
                 
                 stream = None;
 
