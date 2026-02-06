@@ -128,10 +128,16 @@ impl App {
             while let Ok(gui_message) = gui_rx.recv().await {
 
                 if let AppendToLog(log_string) = gui_message {
-                    let buffer_ptr: &str = &about_dialog.debug_info();
+                    const MAX_LOG_SIZE: usize = 20 * 1024 * 1024; // 20 MB
+
+                    let mut buffer_ptr: &str = &about_dialog.debug_info();
+                    if buffer_ptr.len() > MAX_LOG_SIZE {
+                        buffer_ptr = &buffer_ptr[..buffer_ptr.len() - MAX_LOG_SIZE];
+                    }
+
                     let mut buffer: String = buffer_ptr.to_owned();
                     buffer.push_str(&log_string);
-                    // TODO Limit logged info size?
+
                     about_dialog.set_debug_info(&buffer);
                 }
                 else {
