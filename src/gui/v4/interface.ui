@@ -186,6 +186,8 @@
                                 </child>
                                 <child>
                                   <object class="AdwPreferencesRow" id="volume_row">
+                                    <property name="activatable">False</property>
+                                    <property name="selectable">False</property>
                                     <property name="visible">False</property>
                                     <child>
                                       <object class="GtkBox">

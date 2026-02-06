@@ -3,6 +3,7 @@ use gtk::prelude::*;
 use gtk::subclass::prelude::*;
 use gtk::glib::clone;
 use glib::Value;
+use std::cell::RefCell;
 use adw::prelude::*;
 use gettextrs::gettext;
 use std::error::Error;
@@ -34,7 +35,7 @@ struct App {
     builder: gtk::Builder,
     builder_scope: gtk::BuilderRustScope,
 
-    preferences_interface: PreferencesInterface,
+    preferences_interface: RefCell<PreferencesInterface>,
     old_preferences: Preferences,
 
     gui_tx: async_channel::Sender<GUIMessage>,
@@ -70,6 +71,7 @@ impl App {
 
         let preferences_interface: PreferencesInterface = PreferencesInterface::new();
         let old_preferences: Preferences = preferences_interface.preferences.clone();
+        let preferences_interface = RefCell::new(preferences_interface);
 
         App {
             builder,
@@ -239,6 +241,7 @@ impl App {
         });
 
         let gui_rx = self.gui_rx.clone();
+        let mut preferences_interface_ptr = self.preferences_interface.clone();
 
         let old_device_name = self.old_preferences.current_device_name.clone();
         
@@ -290,6 +293,9 @@ impl App {
 
                     match gui_message {
 
+                        UpdatePreference(new_preference) => {
+                            preferences_interface_ptr.get_mut().update(new_preference);
+                        },
                         // This message is sent once in the program execution for
                         // the moment (maybe it should be updated automatically
                         // later?):
