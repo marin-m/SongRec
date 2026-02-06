@@ -1,10 +1,12 @@
 use gio::prelude::*;
 use gtk::prelude::*;
+use gtk::subclass::prelude::*;
 use gtk::glib::clone;
+use glib::Value;
 use adw::prelude::*;
 use gettextrs::gettext;
 use std::error::Error;
-use log::{debug, trace};
+use log::{info, debug, trace};
 
 use crate::core::microphone_thread::microphone_thread;
 use crate::core::processing_thread::processing_thread;
@@ -30,6 +32,8 @@ pub fn gui_main(
 
 struct App {
     builder: gtk::Builder,
+    builder_scope: gtk::BuilderRustScope,
+
     preferences_interface: PreferencesInterface,
     old_preferences: Preferences,
 
@@ -43,6 +47,7 @@ struct App {
     http_rx: async_channel::Receiver<HTTPMessage>
 }
 
+// #[gtk::template_callbacks(functions)]
 impl App {
     fn new(log_object: Logging) -> App {
         let (gui_tx, gui_rx) = async_channel::unbounded();
@@ -57,13 +62,19 @@ impl App {
         gtk::init().unwrap();
         gtk::glib::set_prgname(Some("re.fossplant.songrec"));
 
-        let builder = gtk::Builder::from_resource("/re/fossplant/songrec/interface.ui");
+        let builder = gtk::Builder::new();
+
+        let builder_scope = gtk::BuilderRustScope::new();
+        // Self::add_callbacks_to_scope(&scope);
+        builder.set_scope(Some(&builder_scope));
 
         let preferences_interface: PreferencesInterface = PreferencesInterface::new();
         let old_preferences: Preferences = preferences_interface.preferences.clone();
 
         App {
             builder,
+            builder_scope,
+
             preferences_interface,
             old_preferences,
 
@@ -77,6 +88,79 @@ impl App {
     fn load_resources() {
         gio::resources_register_include!("compiled.gresource")
             .expect("Failed to register resources.");
+    }
+
+    fn run(self, set_recording: bool, input_file: Option<String>) {
+        let application = adw::Application::new(Some("re.fossplant.songrec"),
+            gio::ApplicationFlags::HANDLES_OPEN);
+
+        // => https://gtk-rs.org/gtk-rs-core/git/docs/gio/struct.Application.html
+        // => https://gtk-rs.org/gtk-rs-core/git/docs/gio/prelude/trait.ApplicationExtManual.html#method.run
+        // => https://gtk-rs.org/gtk-rs-core/git/docs/gio/struct.ApplicationFlags.html#associatedconstant.HANDLES_COMMAND_LINE
+
+        // We create a callback for handling files to recognize opened
+        // from the command line or through "xdg-open".
+        
+        let processing_tx = self.processing_tx.clone();
+
+        application.connect_open(move |_application, files, _hint| {
+            if files.len() >= 1 {
+                if let Some(file_path) = files[0].path() {
+                    let file_path_string = file_path.into_os_string().into_string().unwrap();
+                    
+                    processing_tx.send_blocking(ProcessingMessage::ProcessAudioFile(file_path_string)).unwrap();
+                }
+            }
+        });
+
+        application.connect_activate(move |application| {
+            let main_window = &application.windows()[0];
+
+            // Raise/highlight the existing window whenever a second
+            // GUI instance is attempted to be launched
+            main_window.present();
+        });
+
+        self.setup_callbacks();
+        self.builder.add_from_resource("/re/fossplant/songrec/interface.ui").unwrap();
+
+        application.connect_startup(move |application| {
+            self.on_startup(application, set_recording);
+        });
+
+        if let Some(input_file_string) = input_file {
+            application.run_with_args(&["songrec".to_string(), input_file_string]);
+        }
+        else {
+            application.run_with_args(&["songrec".to_string()]);
+        }
+    }
+
+    fn on_startup(&self, application: &adw::Application, set_recording: bool) {
+        self.setup_intercom(set_recording);
+        self.setup_actions();
+        self.show_window(application);
+    }
+
+    fn setup_callbacks(&self) {
+        self.builder_scope.add_callback("loopback_options_switched", |values| {
+            let switch_row = values[0].get::<adw::SwitchRow>().unwrap();
+
+            info!("TEST 1 {:?}", values);
+            None
+        });
+        self.builder_scope.add_callback("microphone_option_switched", |values| {
+            let switch_row = values[0].get::<adw::SwitchRow>().unwrap();
+
+            info!("TEST 2 {:?}", values);
+            None
+        });
+        self.builder_scope.add_callback("input_device_switched", |values| {
+            let combo_row = values[0].get::<adw::ComboRow>().unwrap();
+
+            info!("TEST 5 {:?}", values);
+            None
+        });
     }
 
     fn setup_intercom(&self, set_recording: bool) {
@@ -245,41 +329,6 @@ impl App {
         });
     }
 
-    fn run(self, set_recording: bool, input_file: Option<String>) {
-        let application = adw::Application::new(Some("re.fossplant.songrec"),
-            gio::ApplicationFlags::HANDLES_OPEN);
-
-        // => https://gtk-rs.org/gtk-rs-core/git/docs/gio/struct.Application.html
-        // => https://gtk-rs.org/gtk-rs-core/git/docs/gio/prelude/trait.ApplicationExtManual.html#method.run
-        // => https://gtk-rs.org/gtk-rs-core/git/docs/gio/struct.ApplicationFlags.html#associatedconstant.HANDLES_COMMAND_LINE
-
-        self.setup_open_action(&application);
-
-        application.connect_activate(move |application| {
-            let main_window = &application.windows()[0];
-
-            // Raise the existing window to the top whenever a second
-            // GUI instance is attempted to be launched
-            main_window.present();
-        });
-
-        application.connect_startup(move |application| {
-            self.on_startup(application, set_recording);
-        });
-        if let Some(input_file_string) = input_file {
-            application.run_with_args(&["songrec".to_string(), input_file_string]);
-        }
-        else {
-            application.run_with_args(&["songrec".to_string()]);
-        }
-    }
-
-    fn on_startup(&self, application: &adw::Application, set_recording: bool) {
-        self.setup_intercom(set_recording);
-        self.setup_actions();
-        self.show_window(application);
-    }
-
     fn setup_actions(&self) {
         let window: adw::ApplicationWindow = self.builder.object("window").unwrap();
         let about_dialog: adw::AboutDialog = self.builder.object("about_dialog").unwrap();
@@ -288,6 +337,38 @@ impl App {
             .activate(
                 move |window, _, _| {
                     about_dialog.present(Some(window));
+                }
+            )
+            .build();
+
+        let action_recognize_file = gio::ActionEntry::builder("recognize-file")
+            .activate(
+                move |window, action, obj| {
+                    info!("TEST 3");
+                }
+            )
+            .build();
+
+        let action_search_youtube = gio::ActionEntry::builder("search-youtube")
+            .activate(
+                move |window, action, obj| {
+                    info!("TEST 4");
+                }
+            )
+            .build();
+
+        let action_export_to_csv = gio::ActionEntry::builder("export-to-csv")
+            .activate(
+                move |window, action, obj| {
+                    info!("TEST 6");
+                }
+            )
+            .build();
+
+        let action_wipe_history = gio::ActionEntry::builder("wipe-history")
+            .activate(
+                move |window, action, obj| {
+                    info!("TEST 7");
                 }
             )
             .build();
@@ -331,25 +412,12 @@ impl App {
             #[cfg(feature = "mpris")]
             action_mpris_setting, // DON'T FORGET to put a tooltip for this
             action_notification_setting,
+            action_recognize_file,
+            action_search_youtube,
+            action_export_to_csv,
+            action_wipe_history,
             // WIP xx
         ]);
-    }
-
-    fn setup_open_action(&self, application: &adw::Application) {
-        let processing_tx = self.processing_tx.clone();
-
-        // We create a callback for handling files to recognize opened
-        // from the command line or through "xdg-open".
-        
-        application.connect_open(move |_application, files, _hint| {
-            if files.len() >= 1 {
-                if let Some(file_path) = files[0].path() {
-                    let file_path_string = file_path.into_os_string().into_string().unwrap();
-                    
-                    processing_tx.send_blocking(ProcessingMessage::ProcessAudioFile(file_path_string)).unwrap();
-                }
-            }
-        });
     }
 
     fn show_window(&self, application: &adw::Application) {

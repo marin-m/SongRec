@@ -74,11 +74,6 @@ SongRec {version}
 
 {all-args}{after-help}
 ") */
-            // TODO handle: (2026-02-02)
-            // -v or -v1, -v2, -v3 instead of -1, -2, -3
-            // --log-file OUTPUT to output logs to a file in addition to stderr
-            // (+ Add menu options in the GUI + Show debug logs in the ABOUT dialog)
-                // => READ clap + fern documentations + integrate logging.rs + update main_window_v4.rs
 
                 // Cf. https://docs.rs/clap/latest/clap/_derive/_tutorial/index.html
                     // ^ rewrite using this new syntax

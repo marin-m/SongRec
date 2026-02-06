@@ -32,10 +32,12 @@
                                 <child>
                                   <object class="AdwActionRow" id="recognize_file_row">
                                     <property name="activatable">True</property>
+                                    <property name="activatable-widget">recognize_file_button</property>
                                     <property name="selectable">False</property>
                                     <property name="title" translatable="yes">Recognize from file</property>
                                     <child>
-                                      <object class="GtkButton">
+                                      <object class="GtkButton" id="recognize_file_button">
+                                        <property name="action-name">win.recognize-file</property>
                                         <property name="child">
                                           <object class="AdwButtonContent">
                                             <property name="icon-name">folder-new-symbolic</property>
@@ -69,6 +71,7 @@
                                     <property name="selectable">False</property>
                                     <property name="title" translatable="yes">Recognize from microphone</property>
                                     <property name="visible">False</property>
+                                    <signal name="notify::active" handler="microphone_option_switched"/>
                                   </object>
                                 </child>
                                 <child>
@@ -77,6 +80,7 @@
                                     <property name="selectable">False</property>
                                     <property name="title" translatable="yes">Recognize from my speakers</property>
                                     <property name="visible">False</property>
+                                    <signal name="notify::active" handler="loopback_options_switched"/>
                                   </object>
                                 </child>
                                 <child>
@@ -119,12 +123,14 @@
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="AdwActionRow">
+                                  <object class="AdwActionRow" id="search_youtube_row">
                                     <property name="activatable">True</property>
+                                    <property name="activatable-widget">search_youtube_button</property>
                                     <property name="selectable">False</property>
                                     <property name="title" translatable="yes">Search on YouTube</property>
                                     <child>
-                                      <object class="GtkButton">
+                                      <object class="GtkButton" id="search_youtube_button">
+                                        <property name="action-name">win.search-youtube</property>
                                         <property name="child">
                                           <object class="AdwButtonContent">
                                             <property name="icon-name">search-symbolic</property>
@@ -175,6 +181,7 @@
                                       <object class="GListStore" id="audio_inputs_model"/>
                                     </property>
                                     <property name="title" translatable="yes">Device</property>
+                                    <signal name="notify::selected-item" handler="input_device_switched"/>
                                   </object>
                                 </child>
                                 <child>
@@ -321,11 +328,11 @@ Contributors https://github.com/marin-m/SongRec/graphs/contributors</property>
   </object>
   <menu id="history_menu_model">
     <item>
-      <attribute name="action">export_to_csv</attribute>
+      <attribute name="action">win.export-to-csv</attribute>
       <attribute name="label">Export to CSV</attribute>
     </item>
     <item>
-      <attribute name="action">delete_history</attribute>
+      <attribute name="action">win.wipe-history</attribute>
       <attribute name="label">Delete history</attribute>
     </item>
   </menu>
