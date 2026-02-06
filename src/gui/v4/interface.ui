@@ -2,7 +2,7 @@
 <!-- Created with Cambalache 0.96.3 -->
 <interface>
   <!-- interface-name interface_v4.ui -->
-  <requires lib="gio" version="2.0"/>
+  <requires lib="gio" version="2.44"/>
   <requires lib="gtk" version="4.14"/>
   <requires lib="libadwaita" version="1.6"/>
   <object class="AdwApplicationWindow" id="window">
@@ -68,7 +68,7 @@
                                 </child>
                                 <child>
                                   <object class="AdwSwitchRow">
-                                    <property name="title" translatable="yes">Recognize from my speakers instead of microphone</property>
+                                    <property name="title" translatable="yes">Recognize from my speakers</property>
                                   </object>
                                 </child>
                                 <child>
@@ -134,7 +134,18 @@
                               <object class="AdwPreferencesGroup">
                                 <property name="title" translatable="yes">Audio input</property>
                                 <child>
-                                  <object class="AdwComboRow"/>
+                                  <object class="AdwComboRow" id="audio_inputs">
+                                    <property name="factory">
+                                      <object class="GtkBuilderListItemFactory">
+                                        <property name="bytes"><![CDATA[<!-- WIP -->]]></property>
+                                      </object>
+                                    </property>
+                                    <property name="model">
+                                      <object class="GListStore">
+                                        <property name="item-type">ListedDevice</property>
+                                      </object>
+                                    </property>
+                                  </object>
                                 </child>
                                 <child>
                                   <object class="AdwPreferencesRow">

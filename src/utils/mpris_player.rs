@@ -2,6 +2,11 @@ use std::panic;
 use std::sync::Arc;
 use std::fs;
 
+/*
+// TODO rewrite Cf. https://github.com/SeaDve/mpris-server/blob/main/examples/player.rs
+// https://github.com/SeaDve/mpris-server/blob/main/examples/local_server.rs
+// https://github.com/SeaDve/mpris-server/blob/main/examples/server.rs
+
 use mpris_player::{MprisPlayer, PlaybackStatus, Metadata};
 
 use crate::core::thread_messages::SongRecognizedMessage;
@@ -78,3 +83,4 @@ pub fn update_song(p: &MprisPlayer, m: &SongRecognizedMessage, last_cover_path: 
     }
     p.set_metadata(metadata);
 }
+*/

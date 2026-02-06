@@ -1,6 +1,6 @@
 use gio::prelude::*;
 use gtk::prelude::*;
-use glib::clone;
+use gtk::glib::clone;
 use adw::prelude::*;
 use gettextrs::gettext;
 use std::error::Error;
@@ -46,7 +46,7 @@ impl App {
         Self::load_resources();
 
         gtk::init().unwrap();
-        glib::set_prgname(Some("re.fossplant.songrec"));
+        gtk::glib::set_prgname(Some("re.fossplant.songrec"));
 
         let builder = gtk::Builder::from_resource("/re/fossplant/songrec/interface.ui");
 
@@ -100,7 +100,7 @@ impl App {
 
         let gui_rx = self.gui_rx.clone();
 
-        glib::spawn_future_local(async move {
+        gtk::glib::spawn_future_local(async move {
             while let Ok(gui_message) = gui_rx.recv().await {
 
                 debug!("Received unhandled yet GUI message: {:?}", gui_message);

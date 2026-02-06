@@ -31,6 +31,8 @@ mod gui {
     pub mod main_window_v4;
     // mod song_history_interface; // <- To be revamped
     pub mod preferences;
+
+    pub mod listed_device;
 }
 
 mod utils {
