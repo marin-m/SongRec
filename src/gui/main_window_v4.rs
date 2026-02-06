@@ -150,18 +150,96 @@ impl App {
         let gui_tx = self.gui_tx.clone();
         let builder = self.builder.clone();
 
-        self.builder_scope.add_callback("loopback_options_switched", |values| {
-            let switch_row = values[0].get::<adw::SwitchRow>().unwrap();
+        self.builder_scope.add_callback("loopback_options_switched", move |values| {
+            let loopback_switch: adw::SwitchRow = builder.object("loopback_switch").unwrap();
+            let microphone_switch: adw::SwitchRow = builder.object("microphone_switch").unwrap();
+            let g_list_store: gio::ListStore = builder.object("audio_inputs_model").unwrap();
 
-            info!("TEST 1 {:?}", values);
+            if loopback_switch.is_active() {
+                microphone_switch.set_active(false);
+
+                let adw_combo_row: adw::ComboRow = builder.object("audio_inputs").unwrap();
+
+                if let Some(current_device) = adw_combo_row.selected_item() {
+                    let current_device = current_device.downcast::<ListedDevice>().unwrap();
+
+                    if !current_device.is_monitor() {
+                        // Choose a monitor mode device instead
+                        
+                        for position in 0..g_list_store.n_items() {
+                            let other_device = g_list_store.item(position).unwrap()
+                                .downcast::<ListedDevice>().unwrap();
+                            
+                            if other_device.is_monitor() {
+                                adw_combo_row.set_selected(position);
+                                break;
+                            }
+                        }
+                    }
+                    else {
+                        microphone_tx.send_blocking(MicrophoneMessage::MicrophoneRecordStop).unwrap();
+                        microphone_tx.send_blocking(MicrophoneMessage::MicrophoneRecordStart(
+                            current_device.inner_name().to_owned()
+                        )).unwrap();
+                    }
+                }
+            }
+
+            else if !microphone_switch.is_active() && !loopback_switch.is_active() {
+                microphone_tx.send_blocking(MicrophoneMessage::MicrophoneRecordStop).unwrap();
+            }
+
             None
         });
-        self.builder_scope.add_callback("microphone_option_switched", |values| {
-            let switch_row = values[0].get::<adw::SwitchRow>().unwrap();
 
-            info!("TEST 2 {:?}", values);
+        let microphone_tx = self.microphone_tx.clone();
+        let builder = self.builder.clone();
+
+        self.builder_scope.add_callback("microphone_option_switched", move |values| {
+            let microphone_switch: adw::SwitchRow = builder.object("microphone_switch").unwrap();
+            let loopback_switch: adw::SwitchRow = builder.object("loopback_switch").unwrap();
+            let g_list_store: gio::ListStore = builder.object("audio_inputs_model").unwrap();
+
+            if microphone_switch.is_active() {
+                loopback_switch.set_active(false);
+
+                let adw_combo_row: adw::ComboRow = builder.object("audio_inputs").unwrap();
+
+                if let Some(current_device) = adw_combo_row.selected_item() {
+                    let current_device = current_device.downcast::<ListedDevice>().unwrap();
+
+                    if current_device.is_monitor() {
+                        // Choose a non-monitor mode device instead
+                        
+                        for position in 0..g_list_store.n_items() {
+                            let other_device = g_list_store.item(position).unwrap()
+                                .downcast::<ListedDevice>().unwrap();
+                            
+                            if !other_device.is_monitor() {
+                                adw_combo_row.set_selected(position);
+                                break;
+                            }
+                        }
+                    }
+                    else {
+                        microphone_tx.send_blocking(MicrophoneMessage::MicrophoneRecordStop).unwrap();
+                        microphone_tx.send_blocking(MicrophoneMessage::MicrophoneRecordStart(
+                            current_device.inner_name().to_owned()
+                        )).unwrap();
+                    }
+                }
+            }
+
+            else if !microphone_switch.is_active() && !loopback_switch.is_active() {
+                microphone_tx.send_blocking(MicrophoneMessage::MicrophoneRecordStop).unwrap();
+            }
+
             None
         });
+
+        let microphone_tx = self.microphone_tx.clone();
+        let builder = self.builder.clone();
+
         self.builder_scope.add_callback("input_device_switched", move |values| {
             let microphone_switch: adw::SwitchRow = builder.object("microphone_switch").unwrap();
             let loopback_switch: adw::SwitchRow = builder.object("loopback_switch").unwrap();
@@ -183,8 +261,8 @@ impl App {
                 }
                 else if loopback_switch.is_active() && !is_monitor {
                 
-                    microphone_switch.set_active(false);
-                    loopback_switch.set_active(true);
+                    loopback_switch.set_active(false);
+                    microphone_switch.set_active(true);
                 }
 
                 // Save the selected microphone device name so that it is
