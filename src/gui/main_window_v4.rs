@@ -245,6 +245,7 @@ impl App {
 
         let old_device_name = self.old_preferences.current_device_name.clone();
         
+        let window: gtk::ApplicationWindow = self.builder.object("main_window").unwrap();
         let adw_combo_row: adw::ComboRow = self.builder.object("audio_inputs").unwrap();
         let about_dialog: adw::AboutDialog = self.builder.object("about_dialog").unwrap(); 
         let g_list_store: gio::ListStore = self.builder.object("audio_inputs_model").unwrap();
@@ -254,6 +255,7 @@ impl App {
         let volume_row: adw::PreferencesRow = self.builder.object("volume_row").unwrap();
         let volume_gauge: gtk::ProgressBar = self.builder.object("volume_gauge").unwrap();
         let results_section: adw::PreferencesGroup = self.builder.object("results_section").unwrap();
+        let no_network_message: gtk::Label = self.builder.object("no_network_message").unwrap();
         let results_image: gtk::Image = self.builder.object("results_image").unwrap();
         let results_label: gtk::Label = self.builder.object("results_label").unwrap();
         let loopback_switch: adw::SwitchRow = self.builder.object("loopback_switch").unwrap();
@@ -302,10 +304,20 @@ impl App {
                         UpdatePreference(new_preference) => {
                             preferences_interface_ptr.get_mut().update(new_preference);
                         },
-                        // TODO handle offline state etc.
+                        ErrorMessage(string) => {
+                            if !(string == gettext("No match for this song") && (
+                                microphone_switch.is_active() || loopback_switch.is_active()
+                            )) {
+                                let dialog = gtk::AlertDialog::builder()
+                                    .message(&string)
+                                    .build();
+                                dialog.show(Some(&window));
+                            }
+                        },
+                        NetworkStatus(network_is_reachable) => {
+                            no_network_message.set_visible(!network_is_reachable);
+                        },
                         SongRecognized(message) => {
-                            // WIP
-
                             results_section.set_visible(true);
                             if let Some(cover_image) = message.cover_image {
                                 if let Ok(texture) = gdk::Texture::from_bytes(
