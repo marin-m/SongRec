@@ -58,6 +58,8 @@ pub enum GUIMessage {
     NetworkStatus(bool), // Is the network reachable?
     #[cfg(feature = "gui")]
     WipeSongHistory,
+    #[cfg(feature = "gui")]
+    AppendToLog(String),
     MicrophoneRecording,
     MicrophoneVolumePercent(f32),
     SongRecognized(Box<SongRecognizedMessage>),

@@ -37,7 +37,7 @@ rand = "0.7.3"
 # the latest versions don't link under Windows when cross-compiling using MinGW.
 gettext-sys = { version = "0.19.9", features = ["gettext-system"] }
 gettext-rs = { version = "0.5.0" }
-tempfile = "3.2.0"
+tempfile = "3.24.0"
 # GUI deps
 gtk = { version = "0.10.3", package = "gtk4", features = ["v4_14"], optional = true }
 adw = { version = "0.8.1", package = "libadwaita", features = ["v1_6"], optional = true }

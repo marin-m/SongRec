@@ -9,14 +9,20 @@ use log::{debug, trace};
 use crate::core::microphone_thread::microphone_thread;
 use crate::core::processing_thread::processing_thread;
 use crate::core::http_thread::http_thread;
+use crate::core::logging::Logging;
 use crate::core::thread_messages::{*, GUIMessage::*};
 
 use crate::gui::preferences::{PreferencesInterface, Preferences};
 use crate::gui::listed_device::ListedDevice;
 
-pub fn gui_main(recording: bool, input_file: Option<String>, enable_mpris_cli: bool) -> Result<(), Box<dyn Error>> {
+pub fn gui_main(
+    log_object: Logging,
+    recording: bool,
+    input_file: Option<String>,
+    enable_mpris_cli: bool
+) -> Result<(), Box<dyn Error>> {
     
-    let app = App::new();
+    let app = App::new(log_object);
     app.run(recording, input_file);
 
     Ok(())
@@ -38,11 +44,13 @@ struct App {
 }
 
 impl App {
-    fn new() -> App {
+    fn new(log_object: Logging) -> App {
         let (gui_tx, gui_rx) = async_channel::unbounded();
         let (microphone_tx, microphone_rx) = async_channel::unbounded();
         let (processing_tx, processing_rx) = async_channel::unbounded();
         let (http_tx, http_rx) = async_channel::unbounded();
+
+        log_object.connect_to_gui_logger(gui_tx.clone());
 
         Self::load_resources();
 
@@ -104,6 +112,7 @@ impl App {
         let old_device_name = self.old_preferences.current_device_name.clone();
         
         let adw_combo_row: adw::ComboRow = self.builder.object("audio_inputs").unwrap();
+        let about_dialog: adw::AboutDialog = self.builder.object("about_dialog").unwrap(); 
         let g_list_store: gio::ListStore = self.builder.object("audio_inputs_model").unwrap();
         let microphone_switch: adw::SwitchRow = self.builder.object("microphone_switch").unwrap();
         let recognize_file_row: adw::PreferencesRow = self.builder.object("recognize_file_row").unwrap();
@@ -118,104 +127,114 @@ impl App {
         gtk::glib::spawn_future_local(async move {
             while let Ok(gui_message) = gui_rx.recv().await {
 
-                if let MicrophoneVolumePercent(_) = gui_message {
-                    trace!("Received GUI message: {:?}", gui_message);
+                if let AppendToLog(log_string) = gui_message {
+                    let buffer_ptr: &str = &about_dialog.debug_info();
+                    let mut buffer: String = buffer_ptr.to_owned();
+                    buffer.push_str(&log_string);
+                    // TODO Limit logged info size?
+                    about_dialog.set_debug_info(&buffer);
                 }
                 else {
-                    debug!("Received GUI message: {:?}", gui_message);
-                }
-                
-                match gui_message {
-                    ErrorMessage(_) | NetworkStatus(_) | SongRecognized(_) => {
-                        recognize_file_row.set_sensitive(true);
-                        spinner_row.hide();
-                    },
-                    _ =>  { }
-                }
 
-                match gui_message {
-
-                    // This message is sent once in the program execution for
-                    // the moment (maybe it should be updated automatically
-                    // later?):
-                    DevicesList(devices) => {
-                        let mut old_device_index: u32 = 0;
-                        let mut old_device: Option<ListedDevice> = None;
-                        let mut found_monitor_device = false;
-                        let mut current_index: u32 = 0;
-
-                        // Fill in the list of available devices, and
-                        // set back the old device if it was recorded
-
-                        g_list_store.remove_all();
-
-                        for device in devices.iter() {
-                            let listed_device = ListedDevice::new(
-                                device.display_name.clone(),
-                                device.inner_name.clone(),
-                                device.is_monitor
-                            );
-                            g_list_store.append(&listed_device);
-                            
-                            if old_device_name == Some(device.inner_name.to_string()) {
-                                old_device_index = current_index;
-                                old_device = Some(listed_device);
-                            }
-                            else if old_device_name == None && device.is_monitor && !found_monitor_device {
-                                old_device_index = current_index;
-                                old_device = Some(listed_device);
-                            }
-                            else if current_index == 0 {
-                                old_device = Some(listed_device);
-                            }
-                            current_index += 1;
-                        
-                            if device.is_monitor {
-                                found_monitor_device = true;
-                            }
-                        }
-
-                        if let Some(device) = old_device {
-                            adw_combo_row.set_selected(old_device_index);
-                            loopback_switch.set_visible(found_monitor_device);
-
-                            let device_name = device.inner_name();
-                            let is_monitor = device.is_monitor();
-
-                            debug!("Initally selected audio input device: {:?} / {:?}", device.inner_name(), device.display_name());
-
-                            microphone_switch.set_visible(true);
-                            volume_row.set_visible(true);
-
-                            if microphone_switch.is_active() && is_monitor {
-                            
-                                microphone_switch.set_active(false);
-                                loopback_switch.set_active(true);
-                            }
-                    
-                            // Should we start recording yet? (will depend of the possible
-                            // command line flags of the application)
-
-                            if microphone_switch.is_active() || loopback_switch.is_active() {
-                                microphone_tx_2.send(MicrophoneMessage::MicrophoneRecordStart(
-                                    device_name.to_owned()
-                                )).await.unwrap();
-                            }
-                        }
-                        
-                    },
-                    MicrophoneRecording => { },
-
-                    MicrophoneVolumePercent(percent) => {
-                        volume_gauge.set_fraction((percent / 100.0) as f64);
-                    },
-
-                    _ => {
-                        debug!("(parsing unimplemented yet): {:?}", gui_message);
+                    if let MicrophoneVolumePercent(_) = gui_message {
+                        trace!("Received GUI message: {:?}", gui_message);
                     }
+                    else {
+                        debug!("Received GUI message: {:?}", gui_message);
+                    }
+                    
+                    match gui_message {
+                        ErrorMessage(_) | NetworkStatus(_) | SongRecognized(_) => {
+                            recognize_file_row.set_sensitive(true);
+                            spinner_row.set_visible(false);
+                        },
+                        _ =>  { }
+                    }
+
+                    match gui_message {
+
+                        // This message is sent once in the program execution for
+                        // the moment (maybe it should be updated automatically
+                        // later?):
+                        DevicesList(devices) => {
+                            let mut old_device_index: u32 = 0;
+                            let mut old_device: Option<ListedDevice> = None;
+                            let mut found_monitor_device = false;
+                            let mut current_index: u32 = 0;
+
+                            // Fill in the list of available devices, and
+                            // set back the old device if it was recorded
+
+                            g_list_store.remove_all();
+
+                            for device in devices.iter() {
+                                let listed_device = ListedDevice::new(
+                                    device.display_name.clone(),
+                                    device.inner_name.clone(),
+                                    device.is_monitor
+                                );
+                                g_list_store.append(&listed_device);
+                                
+                                if old_device_name == Some(device.inner_name.to_string()) {
+                                    old_device_index = current_index;
+                                    old_device = Some(listed_device);
+                                }
+                                else if old_device_name == None && device.is_monitor && !found_monitor_device {
+                                    old_device_index = current_index;
+                                    old_device = Some(listed_device);
+                                }
+                                else if current_index == 0 {
+                                    old_device = Some(listed_device);
+                                }
+                                current_index += 1;
+                            
+                                if device.is_monitor {
+                                    found_monitor_device = true;
+                                }
+                            }
+
+                            if let Some(device) = old_device {
+                                adw_combo_row.set_selected(old_device_index);
+                                loopback_switch.set_visible(found_monitor_device);
+
+                                let device_name = device.inner_name();
+                                let is_monitor = device.is_monitor();
+
+                                debug!("Initally selected audio input device: {:?} / {:?}", device.inner_name(), device.display_name());
+
+                                microphone_switch.set_visible(true);
+                                volume_row.set_visible(true);
+
+                                if microphone_switch.is_active() && is_monitor {
+                                
+                                    microphone_switch.set_active(false);
+                                    loopback_switch.set_active(true);
+                                }
+                        
+                                // Should we start recording yet? (will depend of the possible
+                                // command line flags of the application)
+
+                                if microphone_switch.is_active() || loopback_switch.is_active() {
+                                    microphone_tx_2.send(MicrophoneMessage::MicrophoneRecordStart(
+                                        device_name.to_owned()
+                                    )).await.unwrap();
+                                }
+                            }
+                            
+                        },
+                        MicrophoneRecording => { },
+
+                        MicrophoneVolumePercent(percent) => {
+                            volume_gauge.set_fraction((percent / 100.0) as f64);
+                        },
+
+                        _ => {
+                            debug!("(parsing unimplemented yet): {:?}", gui_message);
+                        }
+                    }
+                    
+                    // TODO handle missing messages here
                 }
-                
-                // TODO handle missing messages here
             }
         });
     }

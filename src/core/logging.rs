@@ -1,16 +1,55 @@
 
 use log::Level;
+use std::boxed::Box;
 use glib::{LogLevel, LogWriterOutput};
+use std::sync::{Arc, Mutex};
+use std::io::Write;
+use crate::core::thread_messages::GUIMessage;
 use std::collections::HashMap;
 
-pub struct Logging;
+#[derive(Clone)]
+struct GUIDispatcher {
+    gui_tx: Arc<Mutex<Option<async_channel::Sender<GUIMessage>>>>
+}
+
+impl GUIDispatcher {
+    fn new() -> Self {
+        Self {
+            gui_tx: Arc::new(Mutex::new(None))
+        }
+    }
+
+    fn connect_to_gui_logger(&self, gui_tx: async_channel::Sender<GUIMessage>) {
+        *self.gui_tx.lock().unwrap() = Some(gui_tx);
+    }
+}
+
+impl Write for GUIDispatcher {
+    fn write(&mut self, buf: &[u8]) -> Result<usize, std::io::Error> {
+        if let Some(ref gui_tx) = *self.gui_tx.lock().unwrap() {
+            gui_tx.send_blocking(GUIMessage::AppendToLog(
+                String::from_utf8_lossy(buf).into_owned()
+            )).unwrap();
+        }
+        Ok(buf.len())
+    }
+
+    fn flush(&mut self) -> Result<(), std::io::Error> {
+        Ok(())
+    }
+}
+
+unsafe impl std::marker::Send for GUIDispatcher { }
+
+pub struct Logging {
+    gui_dispatcher: GUIDispatcher,
+}
 
 impl Logging {
-    pub fn setup_logging(glib_level: log::LevelFilter, songrec_level: log::LevelFilter) {
+    pub fn setup_logging(glib_level: log::LevelFilter, songrec_level: log::LevelFilter) -> Self {
         // TODO: Improve the format?
-        // + Bind to a file in addition to the standard output?
 
-        fern::Dispatch::new()
+        let mut main_dispatch = fern::Dispatch::new()
             .format(|out, message, record| {
                 out.finish(format_args!(
                     "[{} {} {} {}:{}] {}",
@@ -25,11 +64,36 @@ impl Logging {
                     },
                     message
                 ))
-            })
+            });
+        
+        let stderr_dispatch = fern::Dispatch::new()
             .level(glib_level)
             .level_for("songrec", songrec_level)
-            .chain(std::io::stderr())
-            .apply().unwrap();
+            .chain(std::io::stderr());
+        
+        let gui_dispatcher = GUIDispatcher::new();
+        let gui_dispatcher_copy: Box<dyn Write + Send> = Box::new(gui_dispatcher.clone());
+
+        #[cfg(feature = "gui")]
+        {
+            let gui_dispatch = fern::Dispatch::new()
+                .level(log::LevelFilter::Debug)
+                .level_for("songrec", log::LevelFilter::Debug)
+                .chain(gui_dispatcher_copy);
+
+            main_dispatch = main_dispatch.chain(gui_dispatch);
+        }
+        main_dispatch = main_dispatch.chain(stderr_dispatch);
+
+        main_dispatch.apply().unwrap();
+        
+        Self {
+            gui_dispatcher
+        }
+    }
+
+    pub fn connect_to_gui_logger(self, gui_tx: async_channel::Sender<GUIMessage>) {
+        self.gui_dispatcher.connect_to_gui_logger(gui_tx); // WIP uncomment this when the app launches
     }
 
     pub fn bind_glib_logging() {
@@ -37,7 +101,6 @@ impl Logging {
 
         glib::log_set_writer_func(|level, log_fields| {
 
-            // WIP:
             // Use: https://docs.rs/log/0.4.27/log/struct.Record.html
             // https://docs.rs/log/0.4.27/log/struct.RecordBuilder.html
             // https://docs.rs/log/0.4.27/log/fn.logger.html + https://docs.rs/log/0.4.27/log/trait.Log.html#tymethod.log

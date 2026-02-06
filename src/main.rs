@@ -251,7 +251,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     // Set up logging
 
-    match args.get_count("verbose") {
+    let log_object: Logging = match args.get_count("verbose") {
         0 => Logging::setup_logging(log::LevelFilter::Warn, log::LevelFilter::Warn),
         1 => Logging::setup_logging(log::LevelFilter::Warn, log::LevelFilter::Debug),
         2 => Logging::setup_logging(log::LevelFilter::Info, log::LevelFilter::Debug),
@@ -347,7 +347,8 @@ fn main() -> Result<(), Box<dyn Error>> {
         Some("gui-norecording") => {
             let subcommand_args = args.subcommand_matches("gui-norecording").unwrap();
 
-            gui_main(false,
+            gui_main(log_object,
+                 false,
                  subcommand_args.get_one::<String>("input_file").cloned(),
                  !subcommand_args.contains_id("disable-mpris"),
             )?;
@@ -355,13 +356,14 @@ fn main() -> Result<(), Box<dyn Error>> {
         #[cfg(feature="gui")]
         Some("gui") | None => {
             if let Some(subcommand_args) = args.subcommand_matches("gui") {
-                gui_main(true,
+                gui_main(log_object,
+                     true,
                      subcommand_args.get_one::<String>("input_file").cloned(),
                      !subcommand_args.contains_id("disable-mpris"),
                 )?;
             }
             else {
-                gui_main(true, None, true)?;
+                gui_main(log_object, true, None, true)?;
             }
         },
         #[cfg(not(feature="gui"))]
