@@ -253,6 +253,9 @@ impl App {
         let spinner_row: adw::PreferencesRow = self.builder.object("spinner_row").unwrap();
         let volume_row: adw::PreferencesRow = self.builder.object("volume_row").unwrap();
         let volume_gauge: gtk::ProgressBar = self.builder.object("volume_gauge").unwrap();
+        let results_section: adw::PreferencesGroup = self.builder.object("results_section").unwrap();
+        let results_image: gtk::Image = self.builder.object("results_image").unwrap();
+        let results_label: gtk::Label = self.builder.object("results_label").unwrap();
         let loopback_switch: adw::SwitchRow = self.builder.object("loopback_switch").unwrap();
 
         microphone_switch.set_active(set_recording);
@@ -262,7 +265,10 @@ impl App {
             while let Ok(gui_message) = gui_rx.recv().await {
 
                 if let AppendToLog(log_string) = gui_message {
-                    const MAX_LOG_SIZE: usize = 20 * 1024 * 1024; // 20 MB
+                    // Disabled for now, causes freeze when recognizing a song
+                    // because of the pixbuf which is very large
+
+                    /* const MAX_LOG_SIZE: usize = 20 * 1024 * 1024; // 20 MB
 
                     let mut buffer_ptr: &str = &about_dialog.debug_info();
                     if buffer_ptr.len() > MAX_LOG_SIZE {
@@ -272,7 +278,7 @@ impl App {
                     let mut buffer: String = buffer_ptr.to_owned();
                     buffer.push_str(&log_string);
 
-                    about_dialog.set_debug_info(&buffer);
+                    about_dialog.set_debug_info(&buffer); */
                 }
                 else {
 
@@ -295,6 +301,27 @@ impl App {
 
                         UpdatePreference(new_preference) => {
                             preferences_interface_ptr.get_mut().update(new_preference);
+                        },
+                        // TODO handle offline state etc.
+                        SongRecognized(message) => {
+                            // WIP
+
+                            results_section.set_visible(true);
+                            if let Some(cover_image) = message.cover_image {
+                                if let Ok(texture) = gdk::Texture::from_bytes(
+                                    &glib::Bytes::from(&cover_image)
+                                ) {
+                                    results_image.set_paintable(Some(&texture));
+                                }
+                            }
+                            results_label.set_label(&format!("{} - {}", message.artist_name, message.song_name));
+
+                            // https://gtk-rs.org/gtk4-rs/git/docs/gdk4/struct.Texture.html#method.from_bytes
+                            // https://docs.gtk.org/gdk4/ctor.Texture.new_from_bytes.html
+                            // The file format is detected automatically. The supported formats are PNG, JPEG and TIFF, though more formats might be available.
+
+                            // + https://gtk-rs.org/gtk4-rs/git/docs/gtk4/struct.Image.html#method.set_paintable
+                            // + https://docs.gtk.org/gtk4/method.Image.set_from_paintable.html
                         },
                         // This message is sent once in the program execution for
                         // the moment (maybe it should be updated automatically
@@ -367,9 +394,11 @@ impl App {
     }
 
     fn setup_actions(&self) {
-        let window: adw::ApplicationWindow = self.builder.object("window").unwrap();
+        let window: adw::ApplicationWindow = self.builder.object("main_window").unwrap();
         let file_picker: gtk::FileDialog = self.builder.object("file_picker").unwrap();
         let about_dialog: adw::AboutDialog = self.builder.object("about_dialog").unwrap();
+        let recognize_file_row: adw::PreferencesRow = self.builder.object("recognize_file_row").unwrap();
+        let spinner_row: adw::PreferencesRow = self.builder.object("spinner_row").unwrap();
 
         let action_show_about = gio::ActionEntry::builder("show-about")
             .activate(
@@ -384,18 +413,24 @@ impl App {
         let action_recognize_file = gio::ActionEntry::builder("recognize-file")
             .activate(
                 move |window, action, obj| {
-                    info!("TEST 3");
-
-                    // WIP call a XDG file picker here
+                    // Call a XDG file picker here
 
                     let processing_tx = processing_tx.clone();
 
                     let window: &adw::ApplicationWindow = window;
+                    let recognize_file_row = recognize_file_row.clone();
+                    let spinner_row = spinner_row.clone();
+
                     file_picker.open(Some(window), None::<&gio::Cancellable>, move |file| {
+
                         match file {
                             Ok(gio_file) => {
                                 info!("Picked file: {:?}", gio_file.path());
                                 let path_str = gio_file.path().unwrap().to_string_lossy().into_owned();
+
+                                recognize_file_row.set_sensitive(false);
+                                spinner_row.set_visible(true);
+
                                 processing_tx.send_blocking(ProcessingMessage::ProcessAudioFile(path_str)).unwrap();
                             },
                             Err(error) => {
@@ -480,7 +515,7 @@ impl App {
     }
 
     fn show_window(&self, application: &adw::Application) {
-        let window: adw::ApplicationWindow = self.builder.object("window").unwrap();
+        let window: adw::ApplicationWindow = self.builder.object("main_window").unwrap();
         window.set_application(Some(application));
 
         /* let quit = gio::SimpleAction::new("quit", None);
