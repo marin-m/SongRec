@@ -4,7 +4,7 @@ use gtk::glib::clone;
 use adw::prelude::*;
 use gettextrs::gettext;
 use std::error::Error;
-use log::debug;
+use log::{debug, trace};
 
 use crate::core::microphone_thread::microphone_thread;
 use crate::core::processing_thread::processing_thread;
@@ -17,7 +17,7 @@ use crate::gui::listed_device::ListedDevice;
 pub fn gui_main(recording: bool, input_file: Option<String>, enable_mpris_cli: bool) -> Result<(), Box<dyn Error>> {
     
     let app = App::new();
-    app.run(input_file);
+    app.run(recording, input_file);
 
     Ok(())
 }
@@ -71,7 +71,7 @@ impl App {
             .expect("Failed to register resources.");
     }
 
-    fn setup_intercom(&self) {
+    fn setup_intercom(&self, set_recording: bool) {
         // WIP: Setup threads + smol-rs/async-channel::unbounded listener
 
         // NOTE: Dropping the removed glib::MainContext from legacy code:
@@ -105,11 +105,23 @@ impl App {
         
         let adw_combo_row: adw::ComboRow = self.builder.object("audio_inputs").unwrap();
         let g_list_store: gio::ListStore = self.builder.object("audio_inputs_model").unwrap();
+        let microphone_switch: adw::SwitchRow = self.builder.object("microphone_switch").unwrap();
+        let volume_row: adw::PreferencesRow = self.builder.object("volume_row").unwrap();
+        let volume_gauge: gtk::ProgressBar = self.builder.object("volume_gauge").unwrap();
+        let loopback_switch: adw::SwitchRow = self.builder.object("loopback_switch").unwrap();
+
+        microphone_switch.set_active(set_recording);
         
+        let microphone_tx_2 = self.microphone_tx.clone();
         gtk::glib::spawn_future_local(async move {
             while let Ok(gui_message) = gui_rx.recv().await {
 
-                debug!("Received GUI message: {:?}", gui_message);
+                if let MicrophoneVolumePercent(_) = gui_message {
+                    trace!("Received GUI message: {:?}", gui_message);
+                }
+                else {
+                    debug!("Received GUI message: {:?}", gui_message);
+                }
                 
                 match gui_message {
                     ErrorMessage(_) | NetworkStatus(_) | SongRecognized(_) => {
@@ -125,44 +137,77 @@ impl App {
                     // later?):
                     DevicesList(devices) => {
                         let mut old_device_index: u32 = 0;
-                        let mut has_monitor_device = false;
+                        let mut old_device: Option<ListedDevice> = None;
+                        let mut found_monitor_device = false;
                         let mut current_index: u32 = 0;
 
                         // Fill in the list of available devices, and
                         // set back the old device if it was recorded
 
+                        g_list_store.remove_all();
+
                         for device in devices.iter() {
-                            g_list_store.append(&ListedDevice::new(
+                            let listed_device = ListedDevice::new(
                                 device.display_name.clone(),
                                 device.inner_name.clone(),
                                 device.is_monitor
-                            ));
-                        
-                            if device.is_monitor {
-                                has_monitor_device = true;
-                            }
+                            );
+                            g_list_store.append(&listed_device);
                             
                             if old_device_name == Some(device.inner_name.to_string()) {
                                 old_device_index = current_index;
+                                old_device = Some(listed_device);
+                            }
+                            else if old_device_name == None && device.is_monitor && !found_monitor_device {
+                                old_device_index = current_index;
+                                old_device = Some(listed_device);
+                            }
+                            else if current_index == 0 {
+                                old_device = Some(listed_device);
                             }
                             current_index += 1;
+                        
+                            if device.is_monitor {
+                                found_monitor_device = true;
+                            }
                         }
 
-                        adw_combo_row.set_selected(current_index);
+                        if let Some(device) = old_device {
+                            adw_combo_row.set_selected(old_device_index);
+                            loopback_switch.set_visible(found_monitor_device);
 
-                        if has_monitor_device {
-                            // XX wip
+                            let device_name = device.inner_name();
+                            let is_monitor = device.is_monitor();
+
+                            debug!("Initally selected audio input device: {:?} / {:?}", device.inner_name(), device.display_name());
+
+                            microphone_switch.set_visible(true);
+                            volume_row.set_visible(true);
+
+                            if microphone_switch.is_active() && is_monitor {
+                            
+                                microphone_switch.set_active(false);
+                                loopback_switch.set_active(true);
+                            }
+                    
+                            // Should we start recording yet? (will depend of the possible
+                            // command line flags of the application)
+
+                            if microphone_switch.is_active() || loopback_switch.is_active() {
+                                microphone_tx_2.send(MicrophoneMessage::MicrophoneRecordStart(
+                                    device_name.to_owned()
+                                )).await.unwrap();
+                            }
                         }
-                
-                        // Should we start recording yet? (will depend of the possible
-                        // command line flags of the application)
-
-                        // XX WIP
                         
                     },
 
+                    MicrophoneVolumePercent(percent) => {
+                        volume_gauge.set_fraction((percent / 100.0) as f64);
+                    },
+
                     _ => {
-                        debug!("(parsing unimplemented yet)");
+                        debug!("(parsing unimplemented yet): {:?}", gui_message);
                     }
                 }
                 
@@ -171,7 +216,7 @@ impl App {
         });
     }
 
-    fn run(self, input_file: Option<String>) {
+    fn run(self, set_recording: bool, input_file: Option<String>) {
         let application = adw::Application::new(Some("re.fossplant.songrec"),
             gio::ApplicationFlags::HANDLES_OPEN);
 
@@ -190,7 +235,7 @@ impl App {
         });
 
         application.connect_startup(move |application| {
-            self.on_startup(application);
+            self.on_startup(application, set_recording);
         });
         if let Some(input_file_string) = input_file {
             application.run_with_args(&["songrec".to_string(), input_file_string]);
@@ -200,8 +245,8 @@ impl App {
         }
     }
 
-    fn on_startup(&self, application: &adw::Application) {
-        self.setup_intercom();
+    fn on_startup(&self, application: &adw::Application, set_recording: bool) {
+        self.setup_intercom(set_recording);
         self.setup_actions();
         self.show_window(application);
     }

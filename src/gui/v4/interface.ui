@@ -61,14 +61,16 @@
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="AdwSwitchRow">
+                                  <object class="AdwSwitchRow" id="microphone_switch">
                                     <property name="active">True</property>
                                     <property name="title" translatable="yes">Recognize from microphone</property>
+                                    <property name="visible">False</property>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="AdwSwitchRow">
+                                  <object class="AdwSwitchRow" id="loopback_switch">
                                     <property name="title" translatable="yes">Recognize from my speakers</property>
+                                    <property name="visible">False</property>
                                   </object>
                                 </child>
                                 <child>
@@ -165,7 +167,8 @@
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="AdwPreferencesRow">
+                                  <object class="AdwPreferencesRow" id="volume_row">
+                                    <property name="visible">False</property>
                                     <child>
                                       <object class="GtkBox">
                                         <property name="margin-bottom">15</property>
@@ -175,12 +178,11 @@
                                         <property name="spacing">6</property>
                                         <child>
                                           <object class="GtkLabel">
-                                            <property name="label">Volume:</property>
+                                            <property name="label" translatable="yes">Volume:</property>
                                           </object>
                                         </child>
                                         <child>
-                                          <object class="GtkProgressBar">
-                                            <property name="fraction">0.5</property>
+                                          <object class="GtkProgressBar" id="volume_gauge">
                                             <property name="valign">center</property>
                                           </object>
                                         </child>
