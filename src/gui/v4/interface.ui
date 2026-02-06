@@ -136,15 +136,32 @@
                                 <child>
                                   <object class="AdwComboRow" id="audio_inputs">
                                     <property name="factory">
-                                      <object class="GtkBuilderListItemFactory">
-                                        <property name="bytes"><![CDATA[<!-- WIP -->]]></property>
+                                      <object class="GtkBuilderListItemFactory" id="audio_inputs_factory">
+                                        <property name="bytes"><![CDATA[<interface>
+  <template class="GtkListItem">
+    <property name="child">
+      <object class="GtkLabel">
+        <property name="xalign">0</property>
+        <property name="ellipsize">PANGO_ELLIPSIZE_END</property>
+        <!--property name="wrap-mode">PANGO_WRAP_CHAR</property>
+        <property name="max-width-chars">10</property>
+        <property name="width-chars">10</property>
+        <property name="wrap">TRUE</property-->
+        <binding name="label">
+          <lookup name="display_name" type="ListedDevice">
+            <lookup name="item">GtkListItem</lookup>
+          </lookup>
+        </binding>
+      </object>
+    </property>
+  </template>
+</interface>]]></property>
                                       </object>
                                     </property>
                                     <property name="model">
-                                      <object class="GListStore">
-                                        <property name="item-type">ListedDevice</property>
-                                      </object>
+                                      <object class="GListStore" id="audio_inputs_model"/>
                                     </property>
+                                    <property name="title" translatable="yes">Device</property>
                                   </object>
                                 </child>
                                 <child>

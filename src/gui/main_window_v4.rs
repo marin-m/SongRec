@@ -12,6 +12,7 @@ use crate::core::http_thread::http_thread;
 use crate::core::thread_messages::{*, GUIMessage::*};
 
 use crate::gui::preferences::{PreferencesInterface, Preferences};
+use crate::gui::listed_device::ListedDevice;
 
 pub fn gui_main(recording: bool, input_file: Option<String>, enable_mpris_cli: bool) -> Result<(), Box<dyn Error>> {
     
@@ -100,13 +101,72 @@ impl App {
 
         let gui_rx = self.gui_rx.clone();
 
+        let old_device_name = self.old_preferences.current_device_name.clone();
+        
+        let adw_combo_row: adw::ComboRow = self.builder.object("audio_inputs").unwrap();
+        let g_list_store: gio::ListStore = self.builder.object("audio_inputs_model").unwrap();
+        
         gtk::glib::spawn_future_local(async move {
             while let Ok(gui_message) = gui_rx.recv().await {
 
-                debug!("Received unhandled yet GUI message: {:?}", gui_message);
+                debug!("Received GUI message: {:?}", gui_message);
                 
-                // TODO handle UpdatePreference and other
-                // messages here
+                match gui_message {
+                    ErrorMessage(_) | NetworkStatus(_) | SongRecognized(_) => {
+                        // TODO hide spinner
+                    },
+                    _ =>  { }
+                }
+
+                match gui_message {
+
+                    // This message is sent once in the program execution for
+                    // the moment (maybe it should be updated automatically
+                    // later?):
+                    DevicesList(devices) => {
+                        let mut old_device_index: u32 = 0;
+                        let mut has_monitor_device = false;
+                        let mut current_index: u32 = 0;
+
+                        // Fill in the list of available devices, and
+                        // set back the old device if it was recorded
+
+                        for device in devices.iter() {
+                            g_list_store.append(&ListedDevice::new(
+                                device.display_name.clone(),
+                                device.inner_name.clone(),
+                                device.is_monitor
+                            ));
+                        
+                            if device.is_monitor {
+                                has_monitor_device = true;
+                            }
+                            
+                            if old_device_name == Some(device.inner_name.to_string()) {
+                                old_device_index = current_index;
+                            }
+                            current_index += 1;
+                        }
+
+                        adw_combo_row.set_selected(current_index);
+
+                        if has_monitor_device {
+                            // XX wip
+                        }
+                
+                        // Should we start recording yet? (will depend of the possible
+                        // command line flags of the application)
+
+                        // XX WIP
+                        
+                    },
+
+                    _ => {
+                        debug!("(parsing unimplemented yet)");
+                    }
+                }
+                
+                // TODO handle missing messages here
             }
         });
     }

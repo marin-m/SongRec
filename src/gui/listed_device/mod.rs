@@ -1,15 +1,20 @@
 mod imp;
 
-use glib::subclass::prelude::ObjectImpl;
-use glib::subclass::prelude::ObjectSubclass;
-
 glib::wrapper! {
-    pub struct ListedDevice(ObjectSubclass<imp::ListedDevice>)
-        @implements gtk::Accessible, gtk::Actionable, gtk::Buildable, gtk::ConstraintTarget;
+    pub struct ListedDevice(ObjectSubclass<imp::ListedDevice>);
 }
 
 impl ListedDevice {
-    pub fn new() -> Self {
-        glib::Object::builder().build()
+    pub fn new
+    (
+        display_name: String,
+        inner_name: String,
+        is_monitor: bool
+    ) -> Self {
+        glib::Object::builder()
+            .property("display_name", display_name)
+            .property("inner_name", inner_name)
+            .property("is_monitor", is_monitor)
+            .build()
     }
 }
