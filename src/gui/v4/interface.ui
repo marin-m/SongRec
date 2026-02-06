@@ -16,6 +16,7 @@
                   <object class="GtkScrolledWindow" id="main_scrollview">
                     <property name="child">
                       <object class="GtkBox" id="layout_box">
+                        <property name="homogeneous">True</property>
                         <property name="margin-bottom">15</property>
                         <property name="margin-end">15</property>
                         <property name="margin-start">15</property>
@@ -300,7 +301,7 @@
     <child>
       <object class="AdwBreakpoint" id="main_page_breakpoint">
         <!-- Custom object fragments -->
-        <condition>max-width: 400sp</condition>
+        <condition>max-width: 600px</condition>
         <setter object="layout_box" property="orientation">vertical</setter>
       </object>
     </child>
