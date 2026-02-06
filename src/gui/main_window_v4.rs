@@ -7,7 +7,7 @@ use std::cell::RefCell;
 use adw::prelude::*;
 use gettextrs::gettext;
 use std::error::Error;
-use log::{info, debug, trace};
+use log::{error, info, debug, trace};
 
 use crate::core::microphone_thread::microphone_thread;
 use crate::core::processing_thread::processing_thread;
@@ -368,6 +368,7 @@ impl App {
 
     fn setup_actions(&self) {
         let window: adw::ApplicationWindow = self.builder.object("window").unwrap();
+        let file_picker: gtk::FileDialog = self.builder.object("file_picker").unwrap();
         let about_dialog: adw::AboutDialog = self.builder.object("about_dialog").unwrap();
 
         let action_show_about = gio::ActionEntry::builder("show-about")
@@ -377,11 +378,31 @@ impl App {
                 }
             )
             .build();
+        
+        let processing_tx = self.processing_tx.clone();
 
         let action_recognize_file = gio::ActionEntry::builder("recognize-file")
             .activate(
                 move |window, action, obj| {
                     info!("TEST 3");
+
+                    // WIP call a XDG file picker here
+
+                    let processing_tx = processing_tx.clone();
+
+                    let window: &adw::ApplicationWindow = window;
+                    file_picker.open(Some(window), None::<&gio::Cancellable>, move |file| {
+                        match file {
+                            Ok(gio_file) => {
+                                info!("Picked file: {:?}", gio_file.path());
+                                let path_str = gio_file.path().unwrap().to_string_lossy().into_owned();
+                                processing_tx.send_blocking(ProcessingMessage::ProcessAudioFile(path_str)).unwrap();
+                            },
+                            Err(error) => {
+                                error!("Error picking file: {:?}", error);
+                            }
+                        }
+                    });
                 }
             )
             .build();
@@ -411,7 +432,6 @@ impl App {
             .build();
         
         let gui_tx = self.gui_tx.clone();
-        let gui_tx_2 = self.gui_tx.clone();
         
         #[cfg(feature = "mpris")]
         let action_mpris_setting = gio::ActionEntry::builder("mpris-setting")
@@ -429,6 +449,8 @@ impl App {
             })
             .build();
         
+        let gui_tx = self.gui_tx.clone();
+        
         let action_notification_setting = gio::ActionEntry::builder("notification-setting")
             .state(self.old_preferences.enable_notifications.unwrap().to_variant())
             .activate(move |_, action, _| {
@@ -439,7 +461,7 @@ impl App {
 
                 let mut new_preference: Preferences = Preferences::new();
                 new_preference.enable_notifications = Some(new_state);
-                gui_tx_2.send_blocking(GUIMessage::UpdatePreference(new_preference)).unwrap();
+                gui_tx.send_blocking(GUIMessage::UpdatePreference(new_preference)).unwrap();
 
             })
             .build();

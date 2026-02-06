@@ -338,4 +338,7 @@ Contributors https://github.com/marin-m/SongRec/graphs/contributors</property>
       <attribute name="label">Delete history</attribute>
     </item>
   </menu>
+  <object class="GtkFileDialog" id="file_picker">
+    <property name="title" translatable="yes">Select a file to recognize</property>
+  </object>
 </interface>
