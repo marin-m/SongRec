@@ -106,6 +106,8 @@ impl App {
         let adw_combo_row: adw::ComboRow = self.builder.object("audio_inputs").unwrap();
         let g_list_store: gio::ListStore = self.builder.object("audio_inputs_model").unwrap();
         let microphone_switch: adw::SwitchRow = self.builder.object("microphone_switch").unwrap();
+        let recognize_file_row: adw::PreferencesRow = self.builder.object("recognize_file_row").unwrap();
+        let spinner_row: adw::PreferencesRow = self.builder.object("spinner_row").unwrap();
         let volume_row: adw::PreferencesRow = self.builder.object("volume_row").unwrap();
         let volume_gauge: gtk::ProgressBar = self.builder.object("volume_gauge").unwrap();
         let loopback_switch: adw::SwitchRow = self.builder.object("loopback_switch").unwrap();
@@ -125,7 +127,8 @@ impl App {
                 
                 match gui_message {
                     ErrorMessage(_) | NetworkStatus(_) | SongRecognized(_) => {
-                        // TODO hide spinner
+                        recognize_file_row.set_sensitive(true);
+                        spinner_row.hide();
                     },
                     _ =>  { }
                 }
@@ -201,6 +204,7 @@ impl App {
                         }
                         
                     },
+                    MicrophoneRecording => { },
 
                     MicrophoneVolumePercent(percent) => {
                         volume_gauge.set_fraction((percent / 100.0) as f64);

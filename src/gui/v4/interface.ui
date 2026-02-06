@@ -30,7 +30,9 @@
                               <object class="AdwPreferencesGroup">
                                 <property name="title" translatable="yes">Recognize songs</property>
                                 <child>
-                                  <object class="AdwActionRow">
+                                  <object class="AdwActionRow" id="recognize_file_row">
+                                    <property name="activatable">True</property>
+                                    <property name="selectable">False</property>
                                     <property name="title" translatable="yes">Recognize from file</property>
                                     <child>
                                       <object class="GtkButton">
@@ -45,7 +47,7 @@
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="AdwPreferencesRow">
+                                  <object class="AdwPreferencesRow" id="spinner_row">
                                     <property name="activatable">False</property>
                                     <property name="margin-bottom">7</property>
                                     <property name="margin-end">7</property>
@@ -62,13 +64,17 @@
                                 </child>
                                 <child>
                                   <object class="AdwSwitchRow" id="microphone_switch">
+                                    <property name="activatable">True</property>
                                     <property name="active">True</property>
+                                    <property name="selectable">False</property>
                                     <property name="title" translatable="yes">Recognize from microphone</property>
                                     <property name="visible">False</property>
                                   </object>
                                 </child>
                                 <child>
                                   <object class="AdwSwitchRow" id="loopback_switch">
+                                    <property name="activatable">True</property>
+                                    <property name="selectable">False</property>
                                     <property name="title" translatable="yes">Recognize from my speakers</property>
                                     <property name="visible">False</property>
                                   </object>
@@ -90,6 +96,8 @@
                                 <property name="title" translatable="yes">Recognition results</property>
                                 <child>
                                   <object class="AdwPreferencesRow">
+                                    <property name="activatable">False</property>
+                                    <property name="selectable">False</property>
                                     <child>
                                       <object class="GtkBox">
                                         <property name="orientation">vertical</property>
@@ -111,6 +119,8 @@
                                 </child>
                                 <child>
                                   <object class="AdwActionRow">
+                                    <property name="activatable">True</property>
+                                    <property name="selectable">False</property>
                                     <property name="title" translatable="yes">Search on YouTube</property>
                                     <child>
                                       <object class="GtkButton">

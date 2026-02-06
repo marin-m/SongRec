@@ -98,9 +98,9 @@ impl AudioBackend for PulseBackend {
         if let Some(app_idx) = self.get_app_idx() {
 
             for dev in self.devices.clone() {
-                debug!("compare ! {:?} / {:?}", dev.name, inner_name);
+                debug!("Comparing libpulse device names: {:?} / {:?}", dev.name, inner_name);
                 if Some(inner_name) == dev.name.as_deref() {
-                    debug!("find ! {}", dev.index);
+                    debug!("Selected libpulse device found: {:?}", dev);
 
                     self.handler.move_app_by_name(app_idx, inner_name).unwrap();
                     break;
