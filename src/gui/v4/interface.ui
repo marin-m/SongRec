@@ -42,7 +42,7 @@
                                         <property name="child">
                                           <object class="AdwButtonContent">
                                             <property name="icon-name">folder-new-symbolic</property>
-                                            <property name="label">Pick a file...</property>
+                                            <property name="label" translatable="yes">Pick a file...</property>
                                           </object>
                                         </property>
                                       </object>
@@ -143,7 +143,7 @@
                                         <property name="child">
                                           <object class="AdwButtonContent">
                                             <property name="icon-name">search-symbolic</property>
-                                            <property name="label">Search...</property>
+                                            <property name="label" translatable="yes">Search...</property>
                                           </object>
                                         </property>
                                       </object>
@@ -171,10 +171,6 @@
       <object class="GtkLabel">
         <property name="xalign">0</property>
         <property name="ellipsize">PANGO_ELLIPSIZE_END</property>
-        <!--property name="wrap-mode">PANGO_WRAP_CHAR</property>
-        <property name="max-width-chars">10</property>
-        <property name="width-chars">10</property>
-        <property name="wrap">TRUE</property-->
         <binding name="label">
           <lookup name="display_name" type="ListedDevice">
             <lookup name="item">GtkListItem</lookup>
@@ -233,7 +229,33 @@
                                 <child>
                                   <object class="AdwPreferencesRow" id="history_row">
                                     <property name="child">
-                                      <object class="GtkColumnView" id="history_view"/>
+                                      <object class="GtkColumnView" id="history_view">
+                                        <property name="model">
+                                          <object class="GtkSingleSelection">
+                                            <property name="model">
+                                              <object class="GListStore" id="history_model"/>
+                                            </property>
+                                          </object>
+                                        </property>
+                                        <child>
+                                          <object class="GtkColumnViewColumn">
+                                            <property name="id">song_name</property>
+                                            <property name="title" translatable="yes">Song name</property>
+                                          </object>
+                                        </child>
+                                        <child>
+                                          <object class="GtkColumnViewColumn">
+                                            <property name="id">album</property>
+                                            <property name="title" translatable="yes">Album</property>
+                                          </object>
+                                        </child>
+                                        <child>
+                                          <object class="GtkColumnViewColumn">
+                                            <property name="id">recognition_date</property>
+                                            <property name="title" translatable="yes">Recognition date</property>
+                                          </object>
+                                        </child>
+                                      </object>
                                     </property>
                                     <property name="height-request">200</property>
                                   </object>
@@ -242,7 +264,7 @@
                                   <object class="AdwButtonRow" id="favourites_button">
                                     <property name="action-name">navigation.push</property>
                                     <property name="action-target">'favourites_tag'</property>
-                                    <property name="title">View favourites</property>
+                                    <property name="title" translatable="yes">View favourites</property>
                                   </object>
                                 </child>
                               </object>
@@ -273,15 +295,47 @@
             <property name="child">
               <object class="AdwToolbarView">
                 <property name="content">
-                  <object class="GtkColumnView"/>
+                  <object class="GtkColumnView" id="favourites_view">
+                    <property name="model">
+                      <object class="GtkSingleSelection">
+                        <property name="model">
+                          <object class="GListStore" id="favourites_model"/>
+                        </property>
+                      </object>
+                    </property>
+                    <child>
+                      <object class="GtkColumnViewColumn">
+                        <property name="title" translatable="yes">Song name</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkColumnViewColumn">
+                        <property name="id">album</property>
+                        <property name="title" translatable="yes">Album</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkColumnViewColumn">
+                        <property name="id">recognition_date</property>
+                        <property name="title" translatable="yes">Recognition date</property>
+                      </object>
+                    </child>
+                  </object>
                 </property>
                 <child type="top">
-                  <object class="AdwHeaderBar"/>
+                  <object class="AdwHeaderBar" id="favourites_titlebar"/>
                 </child>
                 <child type="bottom">
-                  <object class="GtkActionBar">
+                  <object class="GtkActionBar" id="favourites_actions">
                     <child>
-                      <object class="GtkButton"/>
+                      <object class="GtkButton" id="favourites_export_csv">
+                        <child>
+                          <object class="AdwButtonContent">
+                            <property name="icon-name">x-office-spreadsheet-symbolic</property>
+                            <property name="label" translatable="yes">Export to CSV</property>
+                          </object>
+                        </child>
+                      </object>
                     </child>
                   </object>
                 </child>
@@ -301,7 +355,7 @@
     <child>
       <object class="AdwBreakpoint" id="main_page_breakpoint">
         <!-- Custom object fragments -->
-        <condition>max-width: 600px</condition>
+        <condition>max-width: 800px</condition>
         <setter object="layout_box" property="orientation">vertical</setter>
       </object>
     </child>
@@ -340,11 +394,11 @@ Contributors https://github.com/marin-m/SongRec/graphs/contributors</property>
   <menu id="history_menu_model">
     <item>
       <attribute name="action">win.export-to-csv</attribute>
-      <attribute name="label">Export to CSV</attribute>
+      <attribute name="label" translatable="yes">Export to CSV</attribute>
     </item>
     <item>
       <attribute name="action">win.wipe-history</attribute>
-      <attribute name="label">Delete history</attribute>
+      <attribute name="label" translatable="yes">Delete history</attribute>
     </item>
   </menu>
   <object class="GtkFileDialog" id="file_picker">

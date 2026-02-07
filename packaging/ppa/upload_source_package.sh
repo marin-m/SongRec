@@ -17,7 +17,7 @@ function cleanup_dirs {
 
 trap cleanup_dirs INT TERM
 
-for version in noble questing resolute; do
+for version in questing resolute; do
 
     rm -rf ../../target/ ../../vendor/ ../../.flatpak-builder ../flatpak/.flatpak-builder ../../repo ../../.cargo
 

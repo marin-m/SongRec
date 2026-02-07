@@ -401,8 +401,15 @@ impl App {
                                 if let Ok(texture) = gdk::Texture::from_bytes(
                                     &glib::Bytes::from(&cover_image)
                                 ) {
+                                    results_image.set_visible(true);
                                     results_image.set_paintable(Some(&texture));
                                 }
+                                else {
+                                    results_image.set_visible(false);
+                                }
+                            }
+                            else {
+                                results_image.set_visible(false);
                             }
                             results_label.set_label(&format!("{} - {}", message.artist_name, message.song_name));
 
