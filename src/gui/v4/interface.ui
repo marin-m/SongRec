@@ -357,6 +357,7 @@
         <!-- Custom object fragments -->
         <condition>max-width: 800px</condition>
         <setter object="layout_box" property="orientation">vertical</setter>
+        <setter object="layout_box" property="homogeneous">false</setter>
       </object>
     </child>
   </object>
