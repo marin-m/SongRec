@@ -42,7 +42,7 @@ tempfile = "3.24.0"
 gtk = { version = "0.10.3", package = "gtk4", features = ["v4_14"], optional = true }
 adw = { version = "0.8.1", package = "libadwaita", features = ["v1_6"], optional = true }
 gdk = { version = "0.10.3", package = "gdk4", optional = true }
-gio = { version = "0.21.5", optional = true }
+gio = { version = "0.21.5", features = ["v2_74"], optional = true }
 percent-encoding = { version = "2.1.0", optional = true } # For percent-encoding contents in URLs
 chrono = { version = "0.4.13" } # For formatting dates
 gdk-pixbuf = { version = "0.21.5", optional = true }

@@ -52,17 +52,16 @@
                                 <child>
                                   <object class="AdwPreferencesRow" id="spinner_row">
                                     <property name="activatable">False</property>
-                                    <property name="margin-bottom">7</property>
+                                    <property name="child">
+                                      <object class="AdwSpinner">
+                                        <property name="margin-bottom">7</property>
+                                      </object>
+                                    </property>
                                     <property name="margin-end">7</property>
                                     <property name="margin-start">7</property>
                                     <property name="margin-top">7</property>
                                     <property name="selectable">False</property>
                                     <property name="visible">False</property>
-                                    <child>
-                                      <object class="GtkSpinner">
-                                        <property name="spinning">True</property>
-                                      </object>
-                                    </child>
                                   </object>
                                 </child>
                                 <child>
@@ -233,24 +232,78 @@
                                         <property name="model">
                                           <object class="GtkSingleSelection">
                                             <property name="model">
-                                              <object class="GListStore" id="history_model"/>
+                                              <object class="GListStore" id="history_list_store"/>
                                             </property>
                                           </object>
                                         </property>
                                         <child>
                                           <object class="GtkColumnViewColumn">
+                                            <property name="factory">
+                                              <object class="GtkBuilderListItemFactory">
+                                                <property name="bytes"><![CDATA[<interface>
+  <template class="GtkColumnViewCell">
+    <property name="child">
+      <object class="GtkLabel">
+        <property name="xalign">0</property>
+        <binding name="label">
+          <lookup name="song_name" type="HistoryEntry">
+            <lookup name="item">GtkColumnViewCell</lookup>
+          </lookup>
+        </binding>
+      </object>
+    </property>
+  </template>
+</interface>]]></property>
+                                              </object>
+                                            </property>
                                             <property name="id">song_name</property>
                                             <property name="title" translatable="yes">Song name</property>
                                           </object>
                                         </child>
                                         <child>
                                           <object class="GtkColumnViewColumn">
+                                            <property name="factory">
+                                              <object class="GtkBuilderListItemFactory">
+                                                <property name="bytes"><![CDATA[<interface>
+  <template class="GtkColumnViewCell">
+    <property name="child">
+      <object class="GtkLabel">
+        <property name="xalign">0</property>
+        <binding name="label">
+          <lookup name="album" type="HistoryEntry">
+            <lookup name="item">GtkColumnViewCell</lookup>
+          </lookup>
+        </binding>
+      </object>
+    </property>
+  </template>
+</interface>]]></property>
+                                              </object>
+                                            </property>
                                             <property name="id">album</property>
                                             <property name="title" translatable="yes">Album</property>
                                           </object>
                                         </child>
                                         <child>
                                           <object class="GtkColumnViewColumn">
+                                            <property name="factory">
+                                              <object class="GtkBuilderListItemFactory">
+                                                <property name="bytes"><![CDATA[<interface>
+  <template class="GtkColumnViewCell">
+    <property name="child">
+      <object class="GtkLabel">
+        <property name="xalign">0</property>
+        <binding name="label">
+          <lookup name="recognition_date" type="HistoryEntry">
+            <lookup name="item">GtkColumnViewCell</lookup>
+          </lookup>
+        </binding>
+      </object>
+    </property>
+  </template>
+</interface>]]></property>
+                                              </object>
+                                            </property>
                                             <property name="id">recognition_date</property>
                                             <property name="title" translatable="yes">Recognition date</property>
                                           </object>
@@ -305,17 +358,71 @@
                     </property>
                     <child>
                       <object class="GtkColumnViewColumn">
+                        <property name="factory">
+                          <object class="GtkBuilderListItemFactory">
+                            <property name="bytes"><![CDATA[<interface>
+  <template class="GtkColumnViewCell">
+    <property name="child">
+      <object class="GtkLabel">
+        <property name="xalign">0</property>
+        <binding name="label">
+          <lookup name="song_name" type="HistoryEntry">
+            <lookup name="item">GtkColumnViewCell</lookup>
+          </lookup>
+        </binding>
+      </object>
+    </property>
+  </template>
+</interface>]]></property>
+                          </object>
+                        </property>
                         <property name="title" translatable="yes">Song name</property>
                       </object>
                     </child>
                     <child>
                       <object class="GtkColumnViewColumn">
+                        <property name="factory">
+                          <object class="GtkBuilderListItemFactory">
+                            <property name="bytes"><![CDATA[<interface>
+  <template class="GtkColumnViewCell">
+    <property name="child">
+      <object class="GtkLabel">
+        <property name="xalign">0</property>
+        <binding name="label">
+          <lookup name="album" type="HistoryEntry">
+            <lookup name="item">GtkColumnViewCell</lookup>
+          </lookup>
+        </binding>
+      </object>
+    </property>
+  </template>
+</interface>]]></property>
+                          </object>
+                        </property>
                         <property name="id">album</property>
                         <property name="title" translatable="yes">Album</property>
                       </object>
                     </child>
                     <child>
                       <object class="GtkColumnViewColumn">
+                        <property name="factory">
+                          <object class="GtkBuilderListItemFactory">
+                            <property name="bytes"><![CDATA[<interface>
+  <template class="GtkColumnViewCell">
+    <property name="child">
+      <object class="GtkLabel">
+        <property name="xalign">0</property>
+        <binding name="label">
+          <lookup name="recognition_date" type="HistoryEntry">
+            <lookup name="item">GtkColumnViewCell</lookup>
+          </lookup>
+        </binding>
+      </object>
+    </property>
+  </template>
+</interface>]]></property>
+                          </object>
+                        </property>
                         <property name="id">recognition_date</property>
                         <property name="title" translatable="yes">Recognition date</property>
                       </object>

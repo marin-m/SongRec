@@ -29,10 +29,11 @@ mod audio_controllers {
 #[cfg(feature = "gui")]
 mod gui {
     pub mod main_window_v4;
-    // mod song_history_interface; // <- To be revamped
+    pub mod song_history_interface;
     pub mod preferences;
 
     pub mod listed_device;
+    pub mod history_entry;
 }
 
 mod utils {

@@ -4,6 +4,7 @@ use gtk::subclass::prelude::*;
 use gtk::glib::clone;
 use glib::Value;
 use std::cell::RefCell;
+use chrono::Local;
 use adw::prelude::*;
 use gettextrs::gettext;
 use std::error::Error;
@@ -15,7 +16,15 @@ use crate::core::http_thread::http_thread;
 use crate::core::logging::Logging;
 use crate::core::thread_messages::{*, GUIMessage::*};
 
+use crate::gui::song_history_interface::FavoritesInterface;
+
+use crate::gui::song_history_interface::{SongRecordInterface, RecognitionHistoryInterface};
+use crate::utils::csv_song_history::SongHistoryRecord;
+use crate::utils::filesystem_operations::obtain_recognition_history_csv_path;
+
 use crate::gui::preferences::{PreferencesInterface, Preferences};
+
+use crate::gui::history_entry::HistoryEntry;
 use crate::gui::listed_device::ListedDevice;
 
 pub fn gui_main(
@@ -33,9 +42,9 @@ pub fn gui_main(
 
 struct App {
     builder: gtk::Builder,
-    builder_scope: gtk::BuilderRustScope,
 
     preferences_interface: RefCell<PreferencesInterface>,
+    song_history_interface: RefCell<RecognitionHistoryInterface>,
     old_preferences: Preferences,
 
     gui_tx: async_channel::Sender<GUIMessage>,
@@ -69,14 +78,27 @@ impl App {
         // Self::add_callbacks_to_scope(&scope);
         builder.set_scope(Some(&builder_scope));
 
+        Self::setup_callbacks(
+            microphone_tx.clone(),
+            gui_tx.clone(),
+            builder.clone(),
+            builder_scope
+        );
+        builder.add_from_resource("/re/fossplant/songrec/interface.ui").unwrap();
+
+        let history_list_store = builder.object("history_list_store").unwrap();
+        let song_history_interface = RefCell::new(
+            RecognitionHistoryInterface::new(history_list_store, obtain_recognition_history_csv_path).unwrap()
+        );
+
         let preferences_interface: PreferencesInterface = PreferencesInterface::new();
         let old_preferences: Preferences = preferences_interface.preferences.clone();
         let preferences_interface = RefCell::new(preferences_interface);
 
         App {
             builder,
-            builder_scope,
 
+            song_history_interface,
             preferences_interface,
             old_preferences,
 
@@ -123,9 +145,6 @@ impl App {
             main_window.present();
         });
 
-        self.setup_callbacks();
-        self.builder.add_from_resource("/re/fossplant/songrec/interface.ui").unwrap();
-
         application.connect_startup(move |application| {
             self.on_startup(application, set_recording);
         });
@@ -144,13 +163,17 @@ impl App {
         self.show_window(application);
     }
 
-    fn setup_callbacks(&self) {
+    fn setup_callbacks(
+        microphone_tx_shared: async_channel::Sender<MicrophoneMessage>,
+        gui_tx_shared: async_channel::Sender<GUIMessage>,
+        builder_shared: gtk::Builder,
+        builder_scope: gtk::BuilderRustScope
+    ) {
 
-        let microphone_tx = self.microphone_tx.clone();
-        let gui_tx = self.gui_tx.clone();
-        let builder = self.builder.clone();
+        let microphone_tx = microphone_tx_shared.clone();
+        let builder = builder_shared.clone();
 
-        self.builder_scope.add_callback("loopback_options_switched", move |values| {
+        builder_scope.add_callback("loopback_options_switched", move |values| {
             let loopback_switch: adw::SwitchRow = builder.object("loopback_switch").unwrap();
             let microphone_switch: adw::SwitchRow = builder.object("microphone_switch").unwrap();
             let g_list_store: gio::ListStore = builder.object("audio_inputs_model").unwrap();
@@ -192,10 +215,10 @@ impl App {
             None
         });
 
-        let microphone_tx = self.microphone_tx.clone();
-        let builder = self.builder.clone();
+        let microphone_tx = microphone_tx_shared.clone();
+        let builder = builder_shared.clone();
 
-        self.builder_scope.add_callback("microphone_option_switched", move |values| {
+        builder_scope.add_callback("microphone_option_switched", move |values| {
             let microphone_switch: adw::SwitchRow = builder.object("microphone_switch").unwrap();
             let loopback_switch: adw::SwitchRow = builder.object("loopback_switch").unwrap();
             let g_list_store: gio::ListStore = builder.object("audio_inputs_model").unwrap();
@@ -237,10 +260,11 @@ impl App {
             None
         });
 
-        let microphone_tx = self.microphone_tx.clone();
-        let builder = self.builder.clone();
+        let microphone_tx = microphone_tx_shared.clone();
+        let gui_tx = gui_tx_shared.clone();
+        let builder = builder_shared.clone();
 
-        self.builder_scope.add_callback("input_device_switched", move |values| {
+        builder_scope.add_callback("input_device_switched", move |values| {
             let microphone_switch: adw::SwitchRow = builder.object("microphone_switch").unwrap();
             let loopback_switch: adw::SwitchRow = builder.object("loopback_switch").unwrap();
 
@@ -340,7 +364,7 @@ impl App {
 
         microphone_switch.set_active(set_recording);
         
-        let microphone_tx_2 = self.microphone_tx.clone();
+        let mut song_history_interface = self.song_history_interface.clone();
         gtk::glib::spawn_future_local(async move {
             while let Ok(gui_message) = gui_rx.recv().await {
 
@@ -411,7 +435,26 @@ impl App {
                             else {
                                 results_image.set_visible(false);
                             }
-                            results_label.set_label(&format!("{} - {}", message.artist_name, message.song_name));
+                            let song_name = format!("{} - {}", message.artist_name, message.song_name);
+                            
+                            results_label.set_label(&song_name);
+
+                            // TODO restore MPRIS code
+                            // #[cfg(feature = "mpris")]
+                            // mpris_obj.as_ref().map(|p| update_song(p, &message, &mut last_cover_path));
+
+                            let notification = gio::Notification::new(&gettext("Song recognized"));
+                            notification.set_body(Some(&song_name));
+
+                            song_history_interface.get_mut().add_row_and_save(SongHistoryRecord {
+                                song_name: song_name,
+                                album: Some(message.album_name.as_ref().unwrap_or(&"".to_string()).to_string()),
+                                track_key: Some(message.track_key),
+                                release_year: Some(message.release_year.as_ref().unwrap_or(&"".to_string()).to_string()),
+                                genre: Some(message.genre.as_ref().unwrap_or(&"".to_string()).to_string()),
+                                recognition_date: Local::now().format("%c").to_string(),
+                                
+                            });
 
                             // https://gtk-rs.org/gtk4-rs/git/docs/gdk4/struct.Texture.html#method.from_bytes
                             // https://docs.gtk.org/gdk4/ctor.Texture.new_from_bytes.html
