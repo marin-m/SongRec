@@ -73,7 +73,7 @@ impl App {
         Self::load_resources();
 
         gtk::init().unwrap();
-        gtk::glib::set_prgname(Some("re.fossplant.songrec"));
+        glib::set_prgname(Some("re.fossplant.songrec"));
 
         let builder = gtk::Builder::new();
 
@@ -368,7 +368,7 @@ impl App {
         microphone_switch.set_active(set_recording);
         
         let mut song_history_interface = self.song_history_interface.clone();
-        gtk::glib::spawn_future_local(async move {
+        glib::spawn_future_local(async move {
             while let Ok(gui_message) = gui_rx.recv().await {
 
                 if let AppendToLog(log_string) = gui_message {
@@ -525,6 +525,22 @@ impl App {
                             volume_gauge.set_fraction((percent / 100.0) as f64);
                         },
 
+                        WipeSongHistory => {
+                            let dialog = gtk::AlertDialog::builder()
+                                .message(&gettext("Are you sure you want to wipe history?"))
+                                .buttons(vec![gettext("Yes"), gettext("Cancel")])
+                                .default_button(0)
+                                .cancel_button(1)
+                                .build();
+                            
+                            let song_history_interface = song_history_interface.clone();
+                            dialog.choose(Some(&window), None::<&gio::Cancellable>, move |result| {
+                                if result == Ok(0) {
+                                    song_history_interface.borrow_mut().wipe_and_save();
+                                }
+                            });
+                        },
+
                         _ => {
                             debug!("(parsing unimplemented yet): {:?}", gui_message);
                         }
@@ -600,7 +616,7 @@ impl App {
                         let window: &adw::ApplicationWindow = window;
                         let window = window.clone();
 
-                        gtk::glib::spawn_future_local(async move {
+                        glib::spawn_future_local(async move {
                             let launch_path = obtain_recognition_history_csv_path().unwrap();
                             info!("Launching file: {}", launch_path);
                             let launch_file = gio::File::for_path(launch_path.clone());
@@ -620,11 +636,13 @@ impl App {
                 }
             )
             .build();
+        
+        let gui_tx = self.gui_tx.clone();
 
         let action_wipe_history = gio::ActionEntry::builder("wipe-history")
             .activate(
                 move |window, action, obj| {
-                    info!("TEST 7");
+                    gui_tx.send_blocking(GUIMessage::WipeSongHistory).unwrap();
                 }
             )
             .build();

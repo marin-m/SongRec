@@ -293,6 +293,7 @@
                                             </child>
                                             <child>
                                               <object class="GtkColumnViewColumn">
+                                                <property name="expand">True</property>
                                                 <property name="factory">
                                                   <object class="GtkBuilderListItemFactory">
                                                     <property name="bytes"><![CDATA[<interface>
