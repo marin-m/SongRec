@@ -5,6 +5,7 @@ use gtk::glib::clone;
 use glib::Value;
 use std::cell::RefCell;
 use chrono::Local;
+use std::rc::Rc;
 use adw::prelude::*;
 use gettextrs::gettext;
 use percent_encoding::{utf8_percent_encode, NON_ALPHANUMERIC};
@@ -49,7 +50,7 @@ struct App {
     builder: gtk::Builder,
 
     preferences_interface: RefCell<PreferencesInterface>,
-    song_history_interface: RefCell<RecognitionHistoryInterface>,
+    song_history_interface: Rc<RefCell<Box<dyn SongRecordInterface>>>,
     old_preferences: Preferences,
 
     gui_tx: async_channel::Sender<GUIMessage>,
@@ -92,8 +93,14 @@ impl App {
         builder.add_from_resource("/re/fossplant/songrec/interface.ui").unwrap();
 
         let history_list_store = builder.object("history_list_store").unwrap();
-        let song_history_interface = RefCell::new(
-            RecognitionHistoryInterface::new(history_list_store, obtain_recognition_history_csv_path).unwrap()
+        let song_history_interface: Rc<RefCell<Box<dyn SongRecordInterface>>> = Rc::new(
+            RefCell::new(
+                Box::new(
+                    RecognitionHistoryInterface::new(
+                        history_list_store, obtain_recognition_history_csv_path
+                    ).unwrap()
+                )
+            )
         );
 
         let preferences_interface: PreferencesInterface = PreferencesInterface::new();
@@ -175,7 +182,9 @@ impl App {
         let column_view: gtk::ColumnView = self.builder.object("history_view").unwrap();
         let popover_menu: gtk::PopoverMenu = self.builder.object("history_context_menu").unwrap();
 
-        ContextMenuUtil::connect_menu(column_view, popover_menu);
+        let song_history_interface = self.song_history_interface.clone();
+
+        ContextMenuUtil::connect_menu(column_view, popover_menu, song_history_interface);
 
         // See:
         // https://github.com/shartrec/kelpie-flight-planner/blob/a5575a5/src/window/airport_view.rs#L266 (right click)
@@ -475,7 +484,7 @@ impl App {
                                 let notification = gio::Notification::new(&gettext("Song recognized"));
                                 notification.set_body(Some(&song_name));
 
-                                song_history_interface.get_mut().add_row_and_save(SongHistoryRecord {
+                                song_history_interface.borrow_mut().add_row_and_save(SongHistoryRecord {
                                     song_name: song_name,
                                     album: Some(message.album_name.as_ref().unwrap_or(&"".to_string()).to_string()),
                                     track_key: Some(message.track_key),

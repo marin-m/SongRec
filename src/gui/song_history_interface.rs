@@ -1,6 +1,7 @@
 use crate::utils::csv_song_history::{HasSong, Song, SongHistoryRecord};
 use gettextrs::gettext;
 use gtk::prelude::*;
+use std::cell::RefCell;
 use std::collections::HashSet;
 use std::error::Error;
 /// This file contains code for interfacing between the CSV Song history
@@ -56,11 +57,15 @@ impl SongHistoryRecordListStore for gio::ListStore {
 #[derive(Debug, Clone)]
 pub struct RecognitionHistoryInterface {
     csv_path: String,
+    hover_selected_item: RefCell<Option<HistoryEntry>>,
+    ctx_selected_item: RefCell<Option<HistoryEntry>>,
     list_store: gio::ListStore,
 }
 #[derive(Debug, Clone)]
 pub struct FavoritesInterface {
     csv_path: String,
+    hover_selected_item: RefCell<Option<HistoryEntry>>,
+    ctx_selected_item: RefCell<Option<HistoryEntry>>,
     list_store: gio::ListStore,
     is_favorite: HashSet<Song>,
 }
@@ -72,11 +77,18 @@ pub trait SongRecordInterface {
     ) -> Result<Self, Box<dyn Error>>
     where
         Self: Sized;
-    fn load(self: &mut Self) -> Result<(), Box<dyn Error>>;
+
+    fn set_hovered_record(&mut self, record: HistoryEntry);
+    fn get_hovered_record(&self) -> Option<HistoryEntry>;
+    fn set_context_menu_record(&mut self, record: HistoryEntry);
+    fn get_context_menu_record(&self) -> Option<HistoryEntry>;
+
     fn wipe_and_save(self: &mut Self);
     fn add_row_and_save(self: &mut Self, record: SongHistoryRecord);
-    fn save(self: &mut Self);
+
+    fn load(self: &mut Self) -> Result<(), Box<dyn Error>>;
     fn remove(self: &mut Self, record: SongHistoryRecord);
+    fn save(self: &mut Self);
 }
 
 impl dyn SongRecordInterface {}
@@ -95,6 +107,8 @@ impl SongRecordInterface for RecognitionHistoryInterface {
     ) -> Result<Self, Box<dyn Error>> {
         let mut interface = RecognitionHistoryInterface {
             csv_path: get_csv_path()?,
+            hover_selected_item: RefCell::new(None),
+            ctx_selected_item: RefCell::new(None),
             list_store,
         };
 
@@ -107,6 +121,19 @@ impl SongRecordInterface for RecognitionHistoryInterface {
         }
 
         Ok(interface)
+    }
+
+    fn set_hovered_record(&mut self, record: HistoryEntry) {
+        self.hover_selected_item.replace(Some(record));
+    }
+    fn get_hovered_record(&self) -> Option<HistoryEntry> {
+        self.hover_selected_item.borrow().clone()
+    }
+    fn set_context_menu_record(&mut self, record: HistoryEntry) {
+        self.ctx_selected_item.replace(Some(record));
+    }
+    fn get_context_menu_record(&self) -> Option<HistoryEntry> {
+        self.ctx_selected_item.borrow().clone()
     }
 
     fn load(self: &mut Self) -> Result<(), Box<dyn Error>> {
@@ -169,6 +196,8 @@ impl SongRecordInterface for FavoritesInterface {
     ) -> Result<Self, Box<dyn Error>> {
         let mut interface = FavoritesInterface {
             csv_path: get_csv_path()?,
+            hover_selected_item: RefCell::new(None),
+            ctx_selected_item: RefCell::new(None),
             list_store,
             is_favorite: HashSet::<Song>::new(),
         };
@@ -182,6 +211,19 @@ impl SongRecordInterface for FavoritesInterface {
         }
 
         Ok(interface)
+    }
+
+    fn set_hovered_record(&mut self, record: HistoryEntry) {
+        self.hover_selected_item.replace(Some(record));
+    }
+    fn get_hovered_record(&self) -> Option<HistoryEntry> {
+        self.hover_selected_item.borrow().clone()
+    }
+    fn set_context_menu_record(&mut self, record: HistoryEntry) {
+        self.ctx_selected_item.replace(Some(record));
+    }
+    fn get_context_menu_record(&self) -> Option<HistoryEntry> {
+        self.ctx_selected_item.borrow().clone()
     }
 
     fn load(self: &mut Self) -> Result<(), Box<dyn Error>> {
