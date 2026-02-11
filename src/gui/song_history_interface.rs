@@ -32,8 +32,8 @@ impl SongHistoryRecordListStore for gio::ListStore {
         // (Note: Song is SongHistoryRecord minus the recognition date)
         // This removes all items with the matching Song footprint
         let mut items_to_remove: HashSet<u32> = HashSet::new();
-        for item in self.iter::<HistoryEntry>() {
-            let item = item.unwrap();
+        for item in self.iter::<glib::Object>() {
+            let item = item.unwrap().downcast::<HistoryEntry>().unwrap();
             if item.get_song() == to_remove {
                 while let Some(index) = self.find(&item) {
                     items_to_remove.insert(index);
@@ -147,9 +147,10 @@ impl SongRecordInterface for RecognitionHistoryInterface {
     fn save(self: &mut Self) {
         let mut writer = csv::Writer::from_path(&self.csv_path).unwrap();
 
-        for item in self.list_store.iter::<HistoryEntry>() {
+        for item in self.list_store.iter::<glib::Object>() {
+            let item = item.unwrap().downcast::<HistoryEntry>().unwrap();
             writer.serialize(
-                item.unwrap().get_song_history_record()
+                item.get_song_history_record()
             ).unwrap();
         }
         writer.flush().unwrap();
@@ -217,9 +218,10 @@ impl SongRecordInterface for FavoritesInterface {
     fn save(self: &mut Self) {
         let mut writer = csv::Writer::from_path(&self.csv_path).unwrap();
 
-        for item in self.list_store.iter::<HistoryEntry>() {
+        for item in self.list_store.iter::<glib::Object>() {
+            let item = item.unwrap().downcast::<HistoryEntry>().unwrap();
             writer.serialize(
-                item.unwrap().get_song_history_record()
+                item.get_song_history_record()
             ).unwrap();
         }
         writer.flush().unwrap();

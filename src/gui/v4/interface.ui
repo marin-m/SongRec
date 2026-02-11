@@ -228,23 +228,27 @@
                                 <child>
                                   <object class="AdwPreferencesRow" id="history_row">
                                     <property name="child">
-                                      <object class="GtkColumnView" id="history_view">
-                                        <property name="model">
-                                          <object class="GtkSingleSelection">
-                                            <property name="model">
-                                              <object class="GListStore" id="history_list_store"/>
-                                            </property>
-                                          </object>
-                                        </property>
+                                      <object class="GtkScrolledWindow">
+                                        <property name="child">history_view</property>
                                         <child>
-                                          <object class="GtkColumnViewColumn">
-                                            <property name="factory">
-                                              <object class="GtkBuilderListItemFactory">
-                                                <property name="bytes"><![CDATA[<interface>
+                                          <object class="GtkColumnView" id="history_view">
+                                            <property name="model">
+                                              <object class="GtkSingleSelection">
+                                                <property name="model">
+                                                  <object class="GListStore" id="history_list_store"/>
+                                                </property>
+                                              </object>
+                                            </property>
+                                            <child>
+                                              <object class="GtkColumnViewColumn">
+                                                <property name="factory">
+                                                  <object class="GtkBuilderListItemFactory">
+                                                    <property name="bytes"><![CDATA[<interface>
   <template class="GtkColumnViewCell">
     <property name="child">
       <object class="GtkLabel">
         <property name="xalign">0</property>
+        <property name="name">table_cell</property>
         <binding name="label">
           <lookup name="song_name" type="HistoryEntry">
             <lookup name="item">GtkColumnViewCell</lookup>
@@ -254,21 +258,23 @@
     </property>
   </template>
 </interface>]]></property>
+                                                  </object>
+                                                </property>
+                                                <property name="id">song_name</property>
+                                                <property name="resizable">True</property>
+                                                <property name="title" translatable="yes">Song name</property>
                                               </object>
-                                            </property>
-                                            <property name="id">song_name</property>
-                                            <property name="title" translatable="yes">Song name</property>
-                                          </object>
-                                        </child>
-                                        <child>
-                                          <object class="GtkColumnViewColumn">
-                                            <property name="factory">
-                                              <object class="GtkBuilderListItemFactory">
-                                                <property name="bytes"><![CDATA[<interface>
+                                            </child>
+                                            <child>
+                                              <object class="GtkColumnViewColumn">
+                                                <property name="factory">
+                                                  <object class="GtkBuilderListItemFactory">
+                                                    <property name="bytes"><![CDATA[<interface>
   <template class="GtkColumnViewCell">
     <property name="child">
       <object class="GtkLabel">
         <property name="xalign">0</property>
+        <property name="name">table_cell</property>
         <binding name="label">
           <lookup name="album" type="HistoryEntry">
             <lookup name="item">GtkColumnViewCell</lookup>
@@ -278,21 +284,23 @@
     </property>
   </template>
 </interface>]]></property>
+                                                  </object>
+                                                </property>
+                                                <property name="id">album</property>
+                                                <property name="resizable">True</property>
+                                                <property name="title" translatable="yes">Album</property>
                                               </object>
-                                            </property>
-                                            <property name="id">album</property>
-                                            <property name="title" translatable="yes">Album</property>
-                                          </object>
-                                        </child>
-                                        <child>
-                                          <object class="GtkColumnViewColumn">
-                                            <property name="factory">
-                                              <object class="GtkBuilderListItemFactory">
-                                                <property name="bytes"><![CDATA[<interface>
+                                            </child>
+                                            <child>
+                                              <object class="GtkColumnViewColumn">
+                                                <property name="factory">
+                                                  <object class="GtkBuilderListItemFactory">
+                                                    <property name="bytes"><![CDATA[<interface>
   <template class="GtkColumnViewCell">
     <property name="child">
       <object class="GtkLabel">
         <property name="xalign">0</property>
+        <property name="name">table_cell</property>
         <binding name="label">
           <lookup name="recognition_date" type="HistoryEntry">
             <lookup name="item">GtkColumnViewCell</lookup>
@@ -302,10 +310,13 @@
     </property>
   </template>
 </interface>]]></property>
+                                                  </object>
+                                                </property>
+                                                <property name="id">recognition_date</property>
+                                                <property name="resizable">True</property>
+                                                <property name="title" translatable="yes">Recognition date</property>
                                               </object>
-                                            </property>
-                                            <property name="id">recognition_date</property>
-                                            <property name="title" translatable="yes">Recognition date</property>
+                                            </child>
                                           </object>
                                         </child>
                                       </object>
@@ -454,7 +465,7 @@
         </child>
       </object>
     </property>
-    <property name="default-height">497</property>
+    <property name="default-height">529</property>
     <property name="default-width">977</property>
     <property name="icon-name">audio-x-generic</property>
     <property name="title">SongRec</property>
