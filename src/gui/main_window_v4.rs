@@ -20,12 +20,15 @@ use crate::gui::song_history_interface::FavoritesInterface;
 
 use crate::gui::song_history_interface::{SongRecordInterface, RecognitionHistoryInterface};
 use crate::utils::csv_song_history::SongHistoryRecord;
-use crate::utils::filesystem_operations::obtain_recognition_history_csv_path;
+use crate::utils::filesystem_operations::{obtain_recognition_history_csv_path, obtain_favorites_csv_path};
 
 use crate::gui::preferences::{PreferencesInterface, Preferences};
 
 use crate::gui::history_entry::HistoryEntry;
 use crate::gui::listed_device::ListedDevice;
+
+#[cfg(windows)]
+use std::os::windows::process::CommandExt;
 
 pub fn gui_main(
     log_object: Logging,
@@ -593,7 +596,27 @@ impl App {
         let action_export_to_csv = gio::ActionEntry::builder("export-to-csv")
             .activate(
                 move |window, action, obj| {
-                    info!("TEST 6");
+                    #[cfg(not(windows))] {
+                        let window: &adw::ApplicationWindow = window;
+                        let window = window.clone();
+
+                        gtk::glib::spawn_future_local(async move {
+                            let launch_path = obtain_recognition_history_csv_path().unwrap();
+                            info!("Launching file: {}", launch_path);
+                            let launch_file = gio::File::for_path(launch_path.clone());
+                            if let Err(err) = gtk::FileLauncher::new(Some(&launch_file))
+                                .launch_future(Some(&window)).await
+                            {
+                                error!("Could not launch file {}: {:?}", launch_path, err);
+                            }
+                        });
+                    }
+
+                    #[cfg(windows)]
+                    std::process::Command::new("cmd")
+                        .args(&["/c", &format!("start {}", obtain_recognition_history_csv_path().unwrap())])
+                        .creation_flags(0x00000008) // Set "CREATE_NO_WINDOW" on Windows
+                        .output().ok();
                 }
             )
             .build();
