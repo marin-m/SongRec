@@ -331,10 +331,10 @@
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="AdwButtonRow" id="favourites_button">
+                                  <object class="AdwButtonRow" id="favorites_button">
                                     <property name="action-name">navigation.push</property>
-                                    <property name="action-target">'favourites_tag'</property>
-                                    <property name="title" translatable="yes">View favourites</property>
+                                    <property name="action-target">'favorites_tag'</property>
+                                    <property name="title" translatable="yes">View favorites</property>
                                   </object>
                                 </child>
                               </object>
@@ -361,21 +361,26 @@
           </object>
         </child>
         <child>
-          <object class="AdwNavigationPage" id="favourites_page">
+          <object class="AdwNavigationPage" id="favorites_page">
             <property name="child">
               <object class="AdwToolbarView">
                 <property name="content">
                   <object class="GtkScrolledWindow">
-                    <property name="child">favourites_view</property>
+                    <property name="child">favorites_view</property>
                     <child>
-                      <object class="GtkColumnView" id="favourites_view">
+                      <object class="GtkColumnView" id="favorites_view">
                         <property name="model">
-                          <object class="GtkSingleSelection">
+                          <object class="GtkSingleSelection" id="favorites_selection">
+                            <property name="autoselect">False</property>
+                            <property name="can-unselect">True</property>
                             <property name="model">
-                              <object class="GListStore" id="favourites_model"/>
+                              <object class="GListStore" id="favorites_list_store"/>
                             </property>
                           </object>
                         </property>
+                        <property name="show-column-separators">True</property>
+                        <property name="show-row-separators">True</property>
+                        <property name="single-click-activate">True</property>
                         <child>
                           <object class="GtkColumnViewColumn">
                             <property name="factory">
@@ -456,12 +461,13 @@
                   </object>
                 </property>
                 <child type="top">
-                  <object class="AdwHeaderBar" id="favourites_titlebar"/>
+                  <object class="AdwHeaderBar" id="favorites_titlebar"/>
                 </child>
                 <child type="bottom">
-                  <object class="GtkActionBar" id="favourites_actions">
+                  <object class="GtkActionBar" id="favorites_actions">
                     <child>
-                      <object class="GtkButton" id="favourites_export_csv">
+                      <object class="GtkButton" id="favorites_export_csv">
+                        <property name="action-name">win.export-favorites-to-csv</property>
                         <child>
                           <object class="AdwButtonContent">
                             <property name="icon-name">x-office-spreadsheet-symbolic</property>
@@ -474,8 +480,8 @@
                 </child>
               </object>
             </property>
-            <property name="tag">favourites_tag</property>
-            <property name="title" translatable="yes">Favourites</property>
+            <property name="tag">favorites_tag</property>
+            <property name="title" translatable="yes">Favorites</property>
           </object>
         </child>
       </object>
@@ -544,35 +550,87 @@ Contributors https://github.com/marin-m/SongRec/graphs/contributors</property>
   <menu id="history_context_model">
     <section>
       <item>
+        <attribute name="action">copy-artist-track</attribute>
+        <attribute name="action-namespace">history-menu</attribute>
         <attribute name="icon">edit-copy-symbolic</attribute>
         <attribute name="label" translatable="yes">Copy artist and track</attribute>
       </item>
       <item>
+        <attribute name="action">copy-artist</attribute>
+        <attribute name="action-namespace">history-menu</attribute>
         <attribute name="icon">edit-copy-symbolic</attribute>
         <attribute name="label" translatable="yes">Copy artist</attribute>
       </item>
       <item>
+        <attribute name="action">copy-track-name</attribute>
+        <attribute name="action-namespace">history-menu</attribute>
         <attribute name="icon">edit-copy-symbolic</attribute>
         <attribute name="label" translatable="yes">Copy track name</attribute>
       </item>
       <item>
+        <attribute name="action">copy-album</attribute>
+        <attribute name="action-namespace">history-menu</attribute>
         <attribute name="icon">edit-copy-symbolic</attribute>
         <attribute name="label" translatable="yes">Copy album</attribute>
       </item>
     </section>
     <section>
       <item>
+        <attribute name="action">search-on-youtube</attribute>
+        <attribute name="action-namespace">history-menu</attribute>
         <attribute name="icon">category-search-symbolic</attribute>
         <attribute name="label" translatable="yes">Search on YouTube</attribute>
       </item>
     </section>
     <section>
       <item>
+        <attribute name="action">add-to-favorites</attribute>
+        <attribute name="action-namespace">history-menu</attribute>
         <attribute name="icon">favorite-new-symbolic</attribute>
         <attribute name="label" translatable="yes">Add to Favorites</attribute>
       </item>
+    </section>
+  </menu>
+  <menu id="history_context_model_faved">
+    <section>
       <item>
-        <attribute name="icon">app-remove-symbolic</attribute>
+        <attribute name="action">copy-artist-track</attribute>
+        <attribute name="action-namespace">history-menu</attribute>
+        <attribute name="icon">edit-copy-symbolic</attribute>
+        <attribute name="label" translatable="yes">Copy artist and track</attribute>
+      </item>
+      <item>
+        <attribute name="action">copy-artist</attribute>
+        <attribute name="action-namespace">history-menu</attribute>
+        <attribute name="icon">edit-copy-symbolic</attribute>
+        <attribute name="label" translatable="yes">Copy artist</attribute>
+      </item>
+      <item>
+        <attribute name="action">copy-track-name</attribute>
+        <attribute name="action-namespace">history-menu</attribute>
+        <attribute name="icon">edit-copy-symbolic</attribute>
+        <attribute name="label" translatable="yes">Copy track name</attribute>
+      </item>
+      <item>
+        <attribute name="action">copy-album</attribute>
+        <attribute name="action-namespace">history-menu</attribute>
+        <attribute name="icon">edit-copy-symbolic</attribute>
+        <attribute name="label" translatable="yes">Copy album</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="action">search-on-youtube</attribute>
+        <attribute name="action-namespace">history-menu</attribute>
+        <attribute name="icon">category-search-symbolic</attribute>
+        <attribute name="label" translatable="yes">Search on YouTube</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="action">add-to-favorites</attribute>
+        <attribute name="action-namespace">history-menu</attribute>
+        <attribute name="icon">edit-delete-symbolic</attribute>
         <attribute name="label" translatable="yes">Remove from Favorites</attribute>
       </item>
     </section>

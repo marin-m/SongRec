@@ -50,8 +50,11 @@ struct App {
     builder: gtk::Builder,
 
     preferences_interface: RefCell<PreferencesInterface>,
-    song_history_interface: Rc<RefCell<Box<dyn SongRecordInterface>>>,
+    song_history_interface: RefCell<RecognitionHistoryInterface>,
+    favorites_interface: RefCell<FavoritesInterface>,
     old_preferences: Preferences,
+
+    ctx_selected_item: Rc<RefCell<Option<HistoryEntry>>>,
 
     gui_tx: async_channel::Sender<GUIMessage>,
     gui_rx: async_channel::Receiver<GUIMessage>,
@@ -93,15 +96,20 @@ impl App {
         builder.add_from_resource("/re/fossplant/songrec/interface.ui").unwrap();
 
         let history_list_store = builder.object("history_list_store").unwrap();
-        let song_history_interface: Rc<RefCell<Box<dyn SongRecordInterface>>> = Rc::new(
-            RefCell::new(
-                Box::new(
-                    RecognitionHistoryInterface::new(
-                        history_list_store, obtain_recognition_history_csv_path
-                    ).unwrap()
-                )
-            )
+        let song_history_interface = RefCell::new(
+            RecognitionHistoryInterface::new(
+                history_list_store, obtain_recognition_history_csv_path
+            ).unwrap()
         );
+
+        let favorites_list_store = builder.object("favorites_list_store").unwrap();
+        let favorites_interface = RefCell::new(
+            FavoritesInterface::new(
+                favorites_list_store, obtain_favorites_csv_path
+            ).unwrap()
+        );
+
+        let ctx_selected_item: Rc<RefCell<Option<HistoryEntry>>> = Rc::new(RefCell::new(None));
 
         let preferences_interface: PreferencesInterface = PreferencesInterface::new();
         let old_preferences: Preferences = preferences_interface.preferences.clone();
@@ -111,8 +119,11 @@ impl App {
             builder,
 
             song_history_interface,
+            favorites_interface,
             preferences_interface,
             old_preferences,
+
+            ctx_selected_item,
 
             gui_tx, gui_rx,
             microphone_tx, microphone_rx,
@@ -179,12 +190,21 @@ impl App {
     fn setup_context_menus(&self) {
         // XX WIP
 
-        let column_view: gtk::ColumnView = self.builder.object("history_view").unwrap();
-        let popover_menu: gtk::PopoverMenu = self.builder.object("history_context_menu").unwrap();
+        ContextMenuUtil::connect_menu(
+            self.builder.clone(),
+            self.builder.object("history_view").unwrap(),
+            self.builder.object("history_context_menu").unwrap(),
+            self.ctx_selected_item.clone(),
+            self.favorites_interface.clone()
+        );
 
-        let song_history_interface = self.song_history_interface.clone();
-
-        ContextMenuUtil::connect_menu(column_view, popover_menu, song_history_interface);
+        ContextMenuUtil::connect_menu(
+            self.builder.clone(),
+            self.builder.object("favorites_view").unwrap(),
+            self.builder.object("history_context_menu").unwrap(),
+            self.ctx_selected_item.clone(),
+            self.favorites_interface.clone()
+        );
 
         // See:
         // https://github.com/shartrec/kelpie-flight-planner/blob/a5575a5/src/window/airport_view.rs#L266 (right click)
@@ -682,6 +702,33 @@ impl App {
                 }
             )
             .build();
+
+        let action_export_favorites_to_csv = gio::ActionEntry::builder("export-favorites-to-csv")
+            .activate(
+                move |window: &adw::ApplicationWindow, action, obj| {
+                    #[cfg(not(windows))] {
+                        let window = window.clone();
+
+                        glib::spawn_future_local(async move {
+                            let launch_path = obtain_favorites_csv_path().unwrap();
+                            info!("Launching file: {}", launch_path);
+                            let launch_file = gio::File::for_path(launch_path.clone());
+                            if let Err(err) = gtk::FileLauncher::new(Some(&launch_file))
+                                .launch_future(Some(&window)).await
+                            {
+                                error!("Could not launch file {}: {:?}", launch_path, err);
+                            }
+                        });
+                    }
+
+                    #[cfg(windows)]
+                    std::process::Command::new("cmd")
+                        .args(&["/c", &format!("start {}", obtain_favorites_csv_path().unwrap())])
+                        .creation_flags(0x00000008) // Set "CREATE_NO_WINDOW" on Windows
+                        .output().ok();
+                }
+            )
+            .build();
         
         let gui_tx = self.gui_tx.clone();
 
@@ -744,6 +791,7 @@ impl App {
             action_recognize_file,
             action_search_youtube,
             action_export_to_csv,
+            action_export_favorites_to_csv,
             action_wipe_history,
             action_close,
             // WIP xx
