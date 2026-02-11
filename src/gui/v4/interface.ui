@@ -233,12 +233,17 @@
                                         <child>
                                           <object class="GtkColumnView" id="history_view">
                                             <property name="model">
-                                              <object class="GtkSingleSelection">
+                                              <object class="GtkSingleSelection" id="history_selection">
+                                                <property name="autoselect">False</property>
+                                                <property name="can-unselect">True</property>
                                                 <property name="model">
                                                   <object class="GListStore" id="history_list_store"/>
                                                 </property>
                                               </object>
                                             </property>
+                                            <property name="show-column-separators">True</property>
+                                            <property name="show-row-separators">True</property>
+                                            <property name="single-click-activate">True</property>
                                             <child>
                                               <object class="GtkColumnViewColumn">
                                                 <property name="factory">
