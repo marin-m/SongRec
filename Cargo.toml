@@ -57,11 +57,13 @@ glib-build-tools = "0.21.0"
 default = ["gui", "ffmpeg", "pulse", "mpris"]
 gui = ["gtk", "adw", "gdk", "gio", "percent-encoding", "directories", "app_dirs", "gdk-pixbuf"]
 pulse = [ "pulsectl-rs", "libpulse-binding" ]
-mpris = [ "mpris-server" ]
+# mpris = [ "mpris-server" ]
+mpris = [ "mpris-player" ]
 ffmpeg = []
 
 [target.'cfg(unix)'.dependencies]
 pulsectl-rs = { version = "0.3.2", optional = true }
 libpulse-binding = { version = "2.24.0", optional = true }
-mpris-server = { version = "0.9.0", optional = true }
+# mpris-server = { version = "0.9.0", optional = true }
+mpris-player = { version = "0.6.1", optional = true }
 

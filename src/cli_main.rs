@@ -5,8 +5,8 @@ use std::rc::Rc;
 use chrono::Local;
 use gettextrs::gettext;
 
-// #[cfg(feature = "mpris")]
-// use mpris_player::PlaybackStatus;
+#[cfg(feature = "mpris")]
+use mpris_player::PlaybackStatus;
 
 use crate::core::http_thread::http_thread;
 use crate::core::microphone_thread::microphone_thread;
@@ -15,8 +15,8 @@ use crate::core::thread_messages::{GUIMessage, MicrophoneMessage, ProcessingMess
 
 use crate::utils::csv_song_history::SongHistoryRecord;
 // TODO re-implement this
-// #[cfg(feature = "mpris")]
-// use crate::utils::mpris_player::{get_player, update_song};
+#[cfg(feature = "mpris")]
+use crate::utils::mpris_player::{get_player, update_song};
 
 pub enum CLIOutputType {
     SongName,
@@ -62,13 +62,13 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>>
     // do not enable mpris if recognizing one song
     
     // TODO re-implement this with new lib
-    /* #[cfg(feature = "mpris")]
+    #[cfg(feature = "mpris")]
     let mpris_obj = {
         let do_enable_mpris = parameters.enable_mpris && !do_recognize_once;
         if do_enable_mpris { get_player() } else { None }
-    }; */
+    };
     #[cfg(feature = "mpris")]
-    let mut last_cover_path: Option<String> = None;
+    let mut last_cover_path = None;
 
     let last_track: Rc<RefCell<Option<String>>> = Rc::new(RefCell::new(None));
 
@@ -120,14 +120,14 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>>
             GUIMessage::NetworkStatus(reachable) => {
                 #[cfg(feature = "mpris")] {
                     // TODO re-implement this
-                    /* let mpris_status = if reachable {
+                    let mpris_status = if reachable {
                         PlaybackStatus::Playing
                     } else {
                         PlaybackStatus::Paused
                     };
                     mpris_obj
                         .as_ref()
-                        .map(|p| p.set_playback_status(mpris_status)); */
+                        .map(|p| p.set_playback_status(mpris_status));
                 }
 
                 if !reachable {
@@ -159,10 +159,9 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>>
 
                 if *last_track_borrow != track_key {
                     // TODO re-implement this with new lib
-                    /*
                     #[cfg(feature = "mpris")]
                     mpris_obj.as_ref().map(|p| update_song(p, &message, &mut last_cover_path));
-                    */
+
                     *last_track_borrow = track_key;
                     match parameters.output_type {
                         CLIOutputType::JSON => {
