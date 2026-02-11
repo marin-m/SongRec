@@ -25,7 +25,7 @@ impl ContextMenuUtil {
         builder: gtk::Builder,
         column_view: gtk::ColumnView, popover_menu: gtk::PopoverMenu,
         ctx_selected_item: Rc<RefCell<Option<HistoryEntry>>>,
-        favorites: RefCell<FavoritesInterface>
+        favorites: Rc<RefCell<FavoritesInterface>>
     ) {
         let selection: gtk::SingleSelection = column_view.model().unwrap()
             .downcast::<gtk::SingleSelection>().unwrap();
@@ -83,34 +83,63 @@ impl ContextMenuUtil {
 
     pub fn bind_actions(
         window: adw::ApplicationWindow,
-        ctx_selected_item: Rc<RefCell<Option<HistoryEntry>>>
+        ctx_selected_item: Rc<RefCell<Option<HistoryEntry>>>,
+        favorites_interface: Rc<RefCell<FavoritesInterface>>
     ) {
         let item = ctx_selected_item.clone();
         let action_search_youtube = gio::ActionEntry::builder("search-on-youtube")
             .activate(clone!(#[weak] window, move |_, _, _| {
-            if let Some(entry) = &*item.borrow() {
-                let results_label = entry.song_name();
+                if let Some(entry) = &*item.borrow() {
+                    let results_label = entry.song_name();
 
-                let mut encoded_search_term = utf8_percent_encode(results_label.as_str(), NON_ALPHANUMERIC).to_string();
-                encoded_search_term = encoded_search_term.replace("%20", "+");
+                    let mut encoded_search_term = utf8_percent_encode(results_label.as_str(), NON_ALPHANUMERIC).to_string();
+                    encoded_search_term = encoded_search_term.replace("%20", "+");
+                    
+                    let search_url = format!("https://www.youtube.com/results?search_query={}", encoded_search_term);
+
+                    glib::spawn_future_local(async move {
                 
-                let search_url = format!("https://www.youtube.com/results?search_query={}", encoded_search_term);
+                        info!("Launching URL: {}", search_url);
+                        if let Err(err) = gtk::UriLauncher::new(&search_url)
+                            .launch_future(Some(&window)).await
+                        {
+                            error!("Could not launch URL {}: {:?}", search_url, err);
+                        }
+                    });
+                }
+            }))
+        .build();
 
-                glib::spawn_future_local(async move {
-            
-                    info!("Launching URL: {}", search_url);
-                    if let Err(err) = gtk::UriLauncher::new(&search_url)
-                        .launch_future(Some(&window)).await
-                    {
-                        error!("Could not launch URL {}: {:?}", search_url, err);
-                    }
-                });
-            }
-        }))
+        let item = ctx_selected_item.clone();
+        let favorites = favorites_interface.clone();
+        let action_add_favorites = gio::ActionEntry::builder("add-to-favorites")
+            .activate(move|_, _, _| {
+                if let Some(entry) = &*item.borrow() {
+                    favorites.borrow_mut().add_row_and_save(
+                        entry.get_song_history_record()
+                    );
+                }
+            })
+        .build();
+
+        let item = ctx_selected_item.clone();
+        let favorites = favorites_interface.clone();
+        let action_remove_favorites = gio::ActionEntry::builder("remove-from-favorites")
+            .activate(move|_, _, _| {
+                if let Some(entry) = &*item.borrow() {
+                    favorites.borrow_mut().remove(
+                        entry.get_song_history_record()
+                    );
+                }
+            })
         .build();
 
         let actions = gio::SimpleActionGroup::new();
-        actions.add_action_entries([action_search_youtube]);
+        actions.add_action_entries([
+            action_add_favorites,
+            action_remove_favorites,
+            action_search_youtube
+        ]);
         window.insert_action_group("history-menu", Some(&actions));
     }
 

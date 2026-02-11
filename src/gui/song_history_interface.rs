@@ -25,28 +25,17 @@ impl SongHistoryRecordListStore for gio::ListStore {
 
     fn add_song_history_record(self: &mut Self, to_add: &SongHistoryRecord)
     {
-        self.append(&HistoryEntry::new(to_add));
+        self.insert(0, &HistoryEntry::new(to_add));
     }
 
     fn remove_song(self: &mut Self, to_remove: Song) {
         // Cf. https://gtk-rs.org/gtk-rs-core/git/docs/gio/struct.ListStore.html#method.remove
         // (Note: Song is SongHistoryRecord minus the recognition date)
         // This removes all items with the matching Song footprint
-        let mut items_to_remove: HashSet<u32> = HashSet::new();
-        for item in self.iter::<glib::Object>() {
-            let item = item.unwrap().downcast::<HistoryEntry>().unwrap();
-            if item.get_song() == to_remove {
-                while let Some(index) = self.find(&item) {
-                    items_to_remove.insert(index);
-                }
-            }
-        }
-        let mut items_to_remove = items_to_remove.into_iter()
-            .collect::<Vec<u32>>();
-        items_to_remove.sort();
-        for index in items_to_remove.into_iter().rev() {
-            self.remove(index);
-        }
+        self.retain(|item| {
+            let item = item.clone().downcast::<HistoryEntry>().unwrap();
+            item.get_song() != to_remove
+        })
     }
 
     fn remove_song_history_record(self: &mut Self, to_remove: SongHistoryRecord) {

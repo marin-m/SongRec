@@ -617,7 +617,7 @@ Contributors https://github.com/marin-m/SongRec/graphs/contributors</property>
     </section>
     <section>
       <item>
-        <attribute name="action">history-menu.add-to-favorites</attribute>
+        <attribute name="action">history-menu.remove-from-favorites</attribute>
         <attribute name="icon">edit-delete-symbolic</attribute>
         <attribute name="label" translatable="yes">Remove from Favorites</attribute>
       </item>

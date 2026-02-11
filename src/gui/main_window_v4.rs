@@ -49,9 +49,9 @@ pub fn gui_main(
 struct App {
     builder: gtk::Builder,
 
-    preferences_interface: RefCell<PreferencesInterface>,
-    song_history_interface: RefCell<RecognitionHistoryInterface>,
-    favorites_interface: RefCell<FavoritesInterface>,
+    preferences_interface: Rc<RefCell<PreferencesInterface>>,
+    song_history_interface: Rc<RefCell<RecognitionHistoryInterface>>,
+    favorites_interface: Rc<RefCell<FavoritesInterface>>,
     old_preferences: Preferences,
 
     ctx_selected_item: Rc<RefCell<Option<HistoryEntry>>>,
@@ -96,24 +96,28 @@ impl App {
         builder.add_from_resource("/re/fossplant/songrec/interface.ui").unwrap();
 
         let history_list_store = builder.object("history_list_store").unwrap();
-        let song_history_interface = RefCell::new(
-            RecognitionHistoryInterface::new(
-                history_list_store, obtain_recognition_history_csv_path
-            ).unwrap()
+        let song_history_interface = Rc::new(
+            RefCell::new(
+                RecognitionHistoryInterface::new(
+                    history_list_store, obtain_recognition_history_csv_path
+                ).unwrap()
+            )
         );
 
         let favorites_list_store = builder.object("favorites_list_store").unwrap();
-        let favorites_interface = RefCell::new(
-            FavoritesInterface::new(
-                favorites_list_store, obtain_favorites_csv_path
-            ).unwrap()
+        let favorites_interface = Rc::new(
+            RefCell::new(
+                FavoritesInterface::new(
+                    favorites_list_store, obtain_favorites_csv_path
+                ).unwrap()
+            )
         );
 
         let ctx_selected_item: Rc<RefCell<Option<HistoryEntry>>> = Rc::new(RefCell::new(None));
 
         let preferences_interface: PreferencesInterface = PreferencesInterface::new();
         let old_preferences: Preferences = preferences_interface.preferences.clone();
-        let preferences_interface = RefCell::new(preferences_interface);
+        let preferences_interface = Rc::new(RefCell::new(preferences_interface));
 
         App {
             builder,
@@ -208,7 +212,8 @@ impl App {
         
         ContextMenuUtil::bind_actions(
             self.builder.object("main_window").unwrap(),
-            self.ctx_selected_item.clone()
+            self.ctx_selected_item.clone(),
+            self.favorites_interface.clone()
         );
 
         // See:
@@ -458,7 +463,7 @@ impl App {
                     match gui_message {
 
                         UpdatePreference(new_preference) => {
-                            preferences_interface_ptr.get_mut().update(new_preference);
+                            preferences_interface_ptr.borrow_mut().update(new_preference);
                         },
                         ErrorMessage(string) => {
                             if !(string == gettext("No match for this song") && (
