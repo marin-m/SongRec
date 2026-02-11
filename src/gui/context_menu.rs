@@ -6,6 +6,7 @@ use gtk::glib::clone;
 
 use std::error::Error;
 use std::rc::Rc;
+use percent_encoding::{utf8_percent_encode, NON_ALPHANUMERIC};
 use std::cell::RefCell;
 use log::{error, info, debug, trace};
 
@@ -80,9 +81,38 @@ impl ContextMenuUtil {
         }); */
     }
 
-    /* pub fn bind_actions(XX WIP) {
+    pub fn bind_actions(
+        window: adw::ApplicationWindow,
+        ctx_selected_item: Rc<RefCell<Option<HistoryEntry>>>
+    ) {
+        let item = ctx_selected_item.clone();
+        let action_search_youtube = gio::ActionEntry::builder("search-on-youtube")
+            .activate(clone!(#[weak] window, move |_, _, _| {
+            if let Some(entry) = &*item.borrow() {
+                let results_label = entry.song_name();
 
-    } */
+                let mut encoded_search_term = utf8_percent_encode(results_label.as_str(), NON_ALPHANUMERIC).to_string();
+                encoded_search_term = encoded_search_term.replace("%20", "+");
+                
+                let search_url = format!("https://www.youtube.com/results?search_query={}", encoded_search_term);
+
+                glib::spawn_future_local(async move {
+            
+                    info!("Launching URL: {}", search_url);
+                    if let Err(err) = gtk::UriLauncher::new(&search_url)
+                        .launch_future(Some(&window)).await
+                    {
+                        error!("Could not launch URL {}: {:?}", search_url, err);
+                    }
+                });
+            }
+        }))
+        .build();
+
+        let actions = gio::SimpleActionGroup::new();
+        actions.add_action_entries([action_search_youtube]);
+        window.insert_action_group("history-menu", Some(&actions));
+    }
 
     // See:
     // https://github.com/shartrec/kelpie-flight-planner/blob/a5575a5/src/window/airport_view.rs#L266 (right click)

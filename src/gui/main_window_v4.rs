@@ -205,6 +205,11 @@ impl App {
             self.ctx_selected_item.clone(),
             self.favorites_interface.clone()
         );
+        
+        ContextMenuUtil::bind_actions(
+            self.builder.object("main_window").unwrap(),
+            self.ctx_selected_item.clone()
+        );
 
         // See:
         // https://github.com/shartrec/kelpie-flight-planner/blob/a5575a5/src/window/airport_view.rs#L266 (right click)

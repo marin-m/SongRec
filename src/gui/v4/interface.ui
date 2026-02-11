@@ -550,42 +550,36 @@ Contributors https://github.com/marin-m/SongRec/graphs/contributors</property>
   <menu id="history_context_model">
     <section>
       <item>
-        <attribute name="action">copy-artist-track</attribute>
-        <attribute name="action-namespace">history-menu</attribute>
+        <attribute name="action">history-menu.copy-artist-track</attribute>
         <attribute name="icon">edit-copy-symbolic</attribute>
         <attribute name="label" translatable="yes">Copy artist and track</attribute>
       </item>
       <item>
-        <attribute name="action">copy-artist</attribute>
-        <attribute name="action-namespace">history-menu</attribute>
+        <attribute name="action">history-menu.copy-artist</attribute>
         <attribute name="icon">edit-copy-symbolic</attribute>
         <attribute name="label" translatable="yes">Copy artist</attribute>
       </item>
       <item>
-        <attribute name="action">copy-track-name</attribute>
-        <attribute name="action-namespace">history-menu</attribute>
+        <attribute name="action">history-menu.copy-track-name</attribute>
         <attribute name="icon">edit-copy-symbolic</attribute>
         <attribute name="label" translatable="yes">Copy track name</attribute>
       </item>
       <item>
-        <attribute name="action">copy-album</attribute>
-        <attribute name="action-namespace">history-menu</attribute>
+        <attribute name="action">history-menu.copy-album</attribute>
         <attribute name="icon">edit-copy-symbolic</attribute>
         <attribute name="label" translatable="yes">Copy album</attribute>
       </item>
     </section>
     <section>
       <item>
-        <attribute name="action">search-on-youtube</attribute>
-        <attribute name="action-namespace">history-menu</attribute>
+        <attribute name="action">history-menu.search-on-youtube</attribute>
         <attribute name="icon">category-search-symbolic</attribute>
         <attribute name="label" translatable="yes">Search on YouTube</attribute>
       </item>
     </section>
     <section>
       <item>
-        <attribute name="action">add-to-favorites</attribute>
-        <attribute name="action-namespace">history-menu</attribute>
+        <attribute name="action">history-menu.add-to-favorites</attribute>
         <attribute name="icon">favorite-new-symbolic</attribute>
         <attribute name="label" translatable="yes">Add to Favorites</attribute>
       </item>
@@ -594,42 +588,36 @@ Contributors https://github.com/marin-m/SongRec/graphs/contributors</property>
   <menu id="history_context_model_faved">
     <section>
       <item>
-        <attribute name="action">copy-artist-track</attribute>
-        <attribute name="action-namespace">history-menu</attribute>
+        <attribute name="action">history-menu.copy-artist-track</attribute>
         <attribute name="icon">edit-copy-symbolic</attribute>
         <attribute name="label" translatable="yes">Copy artist and track</attribute>
       </item>
       <item>
-        <attribute name="action">copy-artist</attribute>
-        <attribute name="action-namespace">history-menu</attribute>
+        <attribute name="action">history-menu.copy-artist</attribute>
         <attribute name="icon">edit-copy-symbolic</attribute>
         <attribute name="label" translatable="yes">Copy artist</attribute>
       </item>
       <item>
-        <attribute name="action">copy-track-name</attribute>
-        <attribute name="action-namespace">history-menu</attribute>
+        <attribute name="action">history-menu.copy-track-name</attribute>
         <attribute name="icon">edit-copy-symbolic</attribute>
         <attribute name="label" translatable="yes">Copy track name</attribute>
       </item>
       <item>
-        <attribute name="action">copy-album</attribute>
-        <attribute name="action-namespace">history-menu</attribute>
+        <attribute name="action">history-menu.copy-album</attribute>
         <attribute name="icon">edit-copy-symbolic</attribute>
         <attribute name="label" translatable="yes">Copy album</attribute>
       </item>
     </section>
     <section>
       <item>
-        <attribute name="action">search-on-youtube</attribute>
-        <attribute name="action-namespace">history-menu</attribute>
+        <attribute name="action">history-menu.search-on-youtube</attribute>
         <attribute name="icon">category-search-symbolic</attribute>
         <attribute name="label" translatable="yes">Search on YouTube</attribute>
       </item>
     </section>
     <section>
       <item>
-        <attribute name="action">add-to-favorites</attribute>
-        <attribute name="action-namespace">history-menu</attribute>
+        <attribute name="action">history-menu.add-to-favorites</attribute>
         <attribute name="icon">edit-delete-symbolic</attribute>
         <attribute name="label" translatable="yes">Remove from Favorites</attribute>
       </item>
