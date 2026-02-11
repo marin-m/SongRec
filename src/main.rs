@@ -32,6 +32,7 @@ mod gui {
     pub mod song_history_interface;
     pub mod preferences;
 
+    pub mod context_menu;
     pub mod listed_device;
     pub mod history_entry;
 }

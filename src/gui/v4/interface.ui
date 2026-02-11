@@ -360,19 +360,22 @@
             <property name="child">
               <object class="AdwToolbarView">
                 <property name="content">
-                  <object class="GtkColumnView" id="favourites_view">
-                    <property name="model">
-                      <object class="GtkSingleSelection">
-                        <property name="model">
-                          <object class="GListStore" id="favourites_model"/>
-                        </property>
-                      </object>
-                    </property>
+                  <object class="GtkScrolledWindow">
+                    <property name="child">favourites_view</property>
                     <child>
-                      <object class="GtkColumnViewColumn">
-                        <property name="factory">
-                          <object class="GtkBuilderListItemFactory">
-                            <property name="bytes"><![CDATA[<interface>
+                      <object class="GtkColumnView" id="favourites_view">
+                        <property name="model">
+                          <object class="GtkSingleSelection">
+                            <property name="model">
+                              <object class="GListStore" id="favourites_model"/>
+                            </property>
+                          </object>
+                        </property>
+                        <child>
+                          <object class="GtkColumnViewColumn">
+                            <property name="factory">
+                              <object class="GtkBuilderListItemFactory">
+                                <property name="bytes"><![CDATA[<interface>
   <template class="GtkColumnViewCell">
     <property name="child">
       <object class="GtkLabel">
@@ -386,16 +389,17 @@
     </property>
   </template>
 </interface>]]></property>
+                              </object>
+                            </property>
+                            <property name="resizable">True</property>
+                            <property name="title" translatable="yes">Song name</property>
                           </object>
-                        </property>
-                        <property name="title" translatable="yes">Song name</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkColumnViewColumn">
-                        <property name="factory">
-                          <object class="GtkBuilderListItemFactory">
-                            <property name="bytes"><![CDATA[<interface>
+                        </child>
+                        <child>
+                          <object class="GtkColumnViewColumn">
+                            <property name="factory">
+                              <object class="GtkBuilderListItemFactory">
+                                <property name="bytes"><![CDATA[<interface>
   <template class="GtkColumnViewCell">
     <property name="child">
       <object class="GtkLabel">
@@ -409,17 +413,19 @@
     </property>
   </template>
 </interface>]]></property>
+                              </object>
+                            </property>
+                            <property name="id">album</property>
+                            <property name="resizable">True</property>
+                            <property name="title" translatable="yes">Album</property>
                           </object>
-                        </property>
-                        <property name="id">album</property>
-                        <property name="title" translatable="yes">Album</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkColumnViewColumn">
-                        <property name="factory">
-                          <object class="GtkBuilderListItemFactory">
-                            <property name="bytes"><![CDATA[<interface>
+                        </child>
+                        <child>
+                          <object class="GtkColumnViewColumn">
+                            <property name="expand">True</property>
+                            <property name="factory">
+                              <object class="GtkBuilderListItemFactory">
+                                <property name="bytes"><![CDATA[<interface>
   <template class="GtkColumnViewCell">
     <property name="child">
       <object class="GtkLabel">
@@ -433,10 +439,13 @@
     </property>
   </template>
 </interface>]]></property>
+                              </object>
+                            </property>
+                            <property name="id">recognition_date</property>
+                            <property name="resizable">True</property>
+                            <property name="title" translatable="yes">Recognition date</property>
                           </object>
-                        </property>
-                        <property name="id">recognition_date</property>
-                        <property name="title" translatable="yes">Recognition date</property>
+                        </child>
                       </object>
                     </child>
                   </object>
@@ -524,4 +533,43 @@ Contributors https://github.com/marin-m/SongRec/graphs/contributors</property>
   <object class="GtkFileDialog" id="file_picker">
     <property name="title" translatable="yes">Select a file to recognize</property>
   </object>
+  <object class="GtkPopoverMenu" id="history_context_menu">
+    <property name="menu-model">history_context_model</property>
+  </object>
+  <menu id="history_context_model">
+    <section>
+      <item>
+        <attribute name="icon">edit-copy-symbolic</attribute>
+        <attribute name="label" translatable="yes">Copy artist and track</attribute>
+      </item>
+      <item>
+        <attribute name="icon">edit-copy-symbolic</attribute>
+        <attribute name="label" translatable="yes">Copy artist</attribute>
+      </item>
+      <item>
+        <attribute name="icon">edit-copy-symbolic</attribute>
+        <attribute name="label" translatable="yes">Copy track name</attribute>
+      </item>
+      <item>
+        <attribute name="icon">edit-copy-symbolic</attribute>
+        <attribute name="label" translatable="yes">Copy album</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="icon">category-search-symbolic</attribute>
+        <attribute name="label" translatable="yes">Search on YouTube</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="icon">favorite-new-symbolic</attribute>
+        <attribute name="label" translatable="yes">Add to Favorites</attribute>
+      </item>
+      <item>
+        <attribute name="icon">app-remove-symbolic</attribute>
+        <attribute name="label" translatable="yes">Remove from Favorites</attribute>
+      </item>
+    </section>
+  </menu>
 </interface>

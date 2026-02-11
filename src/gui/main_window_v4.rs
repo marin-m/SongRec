@@ -25,6 +25,7 @@ use crate::utils::filesystem_operations::{obtain_recognition_history_csv_path, o
 
 use crate::gui::preferences::{PreferencesInterface, Preferences};
 
+use crate::gui::context_menu::ContextMenuUtil;
 use crate::gui::history_entry::HistoryEntry;
 use crate::gui::listed_device::ListedDevice;
 
@@ -164,7 +165,22 @@ impl App {
     fn on_startup(&self, application: &adw::Application, set_recording: bool) {
         self.setup_intercom(set_recording);
         self.setup_actions(application);
+        self.setup_context_menus();
         self.show_window(application);
+    }
+
+    fn setup_context_menus(&self) {
+        // XX WIP
+
+        let column_view: gtk::ColumnView = self.builder.object("history_view").unwrap();
+        let popover_menu: gtk::PopoverMenu = self.builder.object("history_context_menu").unwrap();
+
+        ContextMenuUtil::connect_menu(column_view, popover_menu);
+
+        // See:
+        // https://github.com/shartrec/kelpie-flight-planner/blob/a5575a5/src/window/airport_view.rs#L266 (right click)
+        // https://github.com/shartrec/kelpie-flight-planner/blob/a5575a5/src/window/airport_view.rs#L349 (context menu key)
+        // https://discourse.gnome.org/t/adding-a-context-menu-to-a-listview-using-gtk4-rs/19995/5
     }
 
     fn setup_callbacks(
