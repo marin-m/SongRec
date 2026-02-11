@@ -162,7 +162,7 @@ impl App {
 
     fn on_startup(&self, application: &adw::Application, set_recording: bool) {
         self.setup_intercom(set_recording);
-        self.setup_actions();
+        self.setup_actions(application);
         self.show_window(application);
     }
 
@@ -528,7 +528,7 @@ impl App {
                         WipeSongHistory => {
                             let dialog = gtk::AlertDialog::builder()
                                 .message(&gettext("Are you sure you want to wipe history?"))
-                                .buttons(vec![gettext("Yes"), gettext("Cancel")])
+                                .buttons(vec![gettext("_Yes"), gettext("_No")])
                                 .default_button(0)
                                 .cancel_button(1)
                                 .build();
@@ -552,7 +552,7 @@ impl App {
         });
     }
 
-    fn setup_actions(&self) {
+    fn setup_actions(&self, application: &adw::Application) {
         let window: adw::ApplicationWindow = self.builder.object("main_window").unwrap();
         let file_picker: gtk::FileDialog = self.builder.object("file_picker").unwrap();
         let about_dialog: adw::AboutDialog = self.builder.object("about_dialog").unwrap();
@@ -681,6 +681,14 @@ impl App {
 
             })
             .build();
+        
+        let action_close = gio::ActionEntry::builder("close")
+            .activate(
+                move |window: &adw::ApplicationWindow, _, _| {
+                    window.close();
+                }
+            )
+            .build();
 
         window.add_action_entries([
             action_show_about,
@@ -691,20 +699,16 @@ impl App {
             action_search_youtube,
             action_export_to_csv,
             action_wipe_history,
+            action_close,
             // WIP xx
         ]);
+
+        application.set_accels_for_action("win.close", &["<Primary>Q"]);
     }
 
     fn show_window(&self, application: &adw::Application) {
         let window: adw::ApplicationWindow = self.builder.object("main_window").unwrap();
         window.set_application(Some(application));
-
-        /* let quit = gio::SimpleAction::new("quit", None);
-        quit.connect_activate(glib::clone!(#[strong] application, move |_,_| {
-            application.quit();
-        })); 
-        application.set_accels_for_action("app.quit", &["<Primary>Q"]);
-        application.add_action(&quit);*/
 
         window.present();
     }
