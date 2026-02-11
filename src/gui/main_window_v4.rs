@@ -7,6 +7,7 @@ use std::cell::RefCell;
 use chrono::Local;
 use adw::prelude::*;
 use gettextrs::gettext;
+use percent_encoding::{utf8_percent_encode, NON_ALPHANUMERIC};
 use std::error::Error;
 use log::{error, info, debug, trace};
 
@@ -52,7 +53,7 @@ struct App {
 
     gui_tx: async_channel::Sender<GUIMessage>,
     gui_rx: async_channel::Receiver<GUIMessage>,
-    microphone_tx: async_channel::Sender<MicrophoneMessage>, // WIP switch everything to async_channel so that we can clone receivers too
+    microphone_tx: async_channel::Sender<MicrophoneMessage>,
     microphone_rx: async_channel::Receiver<MicrophoneMessage>,
     processing_tx: async_channel::Sender<ProcessingMessage>,
     processing_rx: async_channel::Receiver<ProcessingMessage>,
@@ -424,6 +425,14 @@ impl App {
                         },
                         SongRecognized(message) => {
                             results_section.set_visible(true);
+
+                            // https://gtk-rs.org/gtk4-rs/git/docs/gdk4/struct.Texture.html#method.from_bytes
+                            // https://docs.gtk.org/gdk4/ctor.Texture.new_from_bytes.html
+                            // The file format is detected automatically. The supported formats are PNG, JPEG and TIFF, though more formats might be available.
+
+                            // + https://gtk-rs.org/gtk4-rs/git/docs/gtk4/struct.Image.html#method.set_paintable
+                            // + https://docs.gtk.org/gtk4/method.Image.set_from_paintable.html
+
                             if let Some(cover_image) = message.cover_image {
                                 if let Ok(texture) = gdk::Texture::from_bytes(
                                     &glib::Bytes::from(&cover_image)
@@ -440,31 +449,26 @@ impl App {
                             }
                             let song_name = format!("{} - {}", message.artist_name, message.song_name);
                             
-                            results_label.set_label(&song_name);
+                            if results_label.text().as_str() != &song_name {
+                                results_label.set_label(&song_name);
 
-                            // TODO restore MPRIS code
-                            // #[cfg(feature = "mpris")]
-                            // mpris_obj.as_ref().map(|p| update_song(p, &message, &mut last_cover_path));
+                                // TODO restore MPRIS code
+                                // #[cfg(feature = "mpris")]
+                                // mpris_obj.as_ref().map(|p| update_song(p, &message, &mut last_cover_path));
 
-                            let notification = gio::Notification::new(&gettext("Song recognized"));
-                            notification.set_body(Some(&song_name));
+                                let notification = gio::Notification::new(&gettext("Song recognized"));
+                                notification.set_body(Some(&song_name));
 
-                            song_history_interface.get_mut().add_row_and_save(SongHistoryRecord {
-                                song_name: song_name,
-                                album: Some(message.album_name.as_ref().unwrap_or(&"".to_string()).to_string()),
-                                track_key: Some(message.track_key),
-                                release_year: Some(message.release_year.as_ref().unwrap_or(&"".to_string()).to_string()),
-                                genre: Some(message.genre.as_ref().unwrap_or(&"".to_string()).to_string()),
-                                recognition_date: Local::now().format("%c").to_string(),
-                                
-                            });
-
-                            // https://gtk-rs.org/gtk4-rs/git/docs/gdk4/struct.Texture.html#method.from_bytes
-                            // https://docs.gtk.org/gdk4/ctor.Texture.new_from_bytes.html
-                            // The file format is detected automatically. The supported formats are PNG, JPEG and TIFF, though more formats might be available.
-
-                            // + https://gtk-rs.org/gtk4-rs/git/docs/gtk4/struct.Image.html#method.set_paintable
-                            // + https://docs.gtk.org/gtk4/method.Image.set_from_paintable.html
+                                song_history_interface.get_mut().add_row_and_save(SongHistoryRecord {
+                                    song_name: song_name,
+                                    album: Some(message.album_name.as_ref().unwrap_or(&"".to_string()).to_string()),
+                                    track_key: Some(message.track_key),
+                                    release_year: Some(message.release_year.as_ref().unwrap_or(&"".to_string()).to_string()),
+                                    genre: Some(message.genre.as_ref().unwrap_or(&"".to_string()).to_string()),
+                                    recognition_date: Local::now().format("%c").to_string(),
+                                    
+                                });
+                            }
                         },
                         // This message is sent once in the program execution for
                         // the moment (maybe it should be updated automatically
@@ -556,6 +560,7 @@ impl App {
         let window: adw::ApplicationWindow = self.builder.object("main_window").unwrap();
         let file_picker: gtk::FileDialog = self.builder.object("file_picker").unwrap();
         let about_dialog: adw::AboutDialog = self.builder.object("about_dialog").unwrap();
+        let results_label: gtk::Label = self.builder.object("results_label").unwrap();
         let recognize_file_row: adw::PreferencesRow = self.builder.object("recognize_file_row").unwrap();
         let spinner_row: adw::PreferencesRow = self.builder.object("spinner_row").unwrap();
 
@@ -603,17 +608,33 @@ impl App {
 
         let action_search_youtube = gio::ActionEntry::builder("search-youtube")
             .activate(
-                move |window, action, obj| {
-                    info!("TEST 4");
+                move |window: &adw::ApplicationWindow, _, _| {
+                    let window = window.clone();
+
+                    let results_label = results_label.text();
+
+                    let mut encoded_search_term = utf8_percent_encode(results_label.as_str(), NON_ALPHANUMERIC).to_string();
+                    encoded_search_term = encoded_search_term.replace("%20", "+");
+                    
+                    let search_url = format!("https://www.youtube.com/results?search_query={}", encoded_search_term);
+
+                    glib::spawn_future_local(async move {
+                
+                        info!("Launching URL: {}", search_url);
+                        if let Err(err) = gtk::UriLauncher::new(&search_url)
+                            .launch_future(Some(&window)).await
+                        {
+                            error!("Could not launch URL {}: {:?}", search_url, err);
+                        }
+                    });
                 }
             )
             .build();
 
         let action_export_to_csv = gio::ActionEntry::builder("export-to-csv")
             .activate(
-                move |window, action, obj| {
+                move |window: &adw::ApplicationWindow, action, obj| {
                     #[cfg(not(windows))] {
-                        let window: &adw::ApplicationWindow = window;
                         let window = window.clone();
 
                         glib::spawn_future_local(async move {
