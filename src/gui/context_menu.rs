@@ -87,6 +87,59 @@ impl ContextMenuUtil {
         favorites_interface: Rc<RefCell<FavoritesInterface>>
     ) {
         let item = ctx_selected_item.clone();
+        let action_copy_artist_track = gio::ActionEntry::builder("copy-artist-track")
+            .activate(move|_, _, _| {
+                if let Some(entry) = &*item.borrow() {
+                    if let Some(display) = gdk::Display::default() {
+                        display.clipboard().set(&entry.song_name());
+                    }
+                }
+            })
+        .build();
+
+        let item = ctx_selected_item.clone();
+        let action_copy_artist = gio::ActionEntry::builder("copy-artist")
+            .activate(move|_, _, _| {
+                if let Some(entry) = &*item.borrow() {
+                    if let Some(display) = gdk::Display::default() {
+                        let song_name = entry.song_name();
+                        let full_song_name_parts: Vec<&str> = song_name.splitn(2, " - ").collect();
+                        display.clipboard().set(&full_song_name_parts[0]);
+                    }
+                }
+            })
+        .build();
+
+        let item = ctx_selected_item.clone();
+        let action_copy_track = gio::ActionEntry::builder("copy-track-name")
+            .activate(move|_, _, _| {
+                if let Some(entry) = &*item.borrow() {
+                    if let Some(display) = gdk::Display::default() {
+                        let song_name = entry.song_name();
+                        let full_song_name_parts: Vec<&str> = song_name.splitn(2, " - ").collect();
+                        display.clipboard().set(&full_song_name_parts[1]);
+                    }
+                }
+            })
+        .build();
+
+        let item = ctx_selected_item.clone();
+        let action_copy_album = gio::ActionEntry::builder("copy-album")
+            .activate(move|_, _, _| {
+                if let Some(entry) = &*item.borrow() {
+                    if let Some(display) = gdk::Display::default() {
+                        if let Some(album) = entry.album() {
+                            display.clipboard().set(&album);
+                        }
+                        else {
+                            display.clipboard().set(&"");
+                        }
+                    }
+                }
+            })
+        .build();
+
+        let item = ctx_selected_item.clone();
         let action_search_youtube = gio::ActionEntry::builder("search-on-youtube")
             .activate(clone!(#[weak] window, move |_, _, _| {
                 if let Some(entry) = &*item.borrow() {
@@ -136,6 +189,10 @@ impl ContextMenuUtil {
 
         let actions = gio::SimpleActionGroup::new();
         actions.add_action_entries([
+            action_copy_artist_track,
+            action_copy_artist,
+            action_copy_track,
+            action_copy_album,
             action_add_favorites,
             action_remove_favorites,
             action_search_youtube
