@@ -6,84 +6,88 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-12 06:16+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2026-01-21 06:54+0100\n"
+"PO-Revision-Date: 2026-01-23 16:14+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: cs_CZ\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.8\n"
 
 #: ../src/cli_main.rs:107
 msgid "Exiting: audio device not found"
-msgstr ""
+msgstr "Ukončování: zvukové zařízení nenalezeno"
 
 #: ../src/cli_main.rs:114
 msgid "Exiting: no audio devices found!"
-msgstr ""
+msgstr "Ukončování: žádná zvuková zařízení nenalezena!"
 
 #: ../src/cli_main.rs:120
 msgid "Using device"
-msgstr ""
+msgstr "Používám zařízení"
 
 #: ../src/cli_main.rs:141
 msgid "Error: Network unreachable"
-msgstr ""
+msgstr "Chyba: síť není dostupná"
 
 #: ../src/cli_main.rs:145
 msgid "Warning: Network unreachable"
-msgstr ""
+msgstr "Varování: síť není dostupná"
 
 #: ../src/cli_main.rs:150 ../src/core/http_thread.rs:49
 #: ../src/core/http_thread.rs:54 ../src/core/http_thread.rs:62
 #: ../src/core/http_thread.rs:88 ../src/gui/main_window.rs:754
 msgid "No match for this song"
-msgstr ""
+msgstr "Nenalezena žádná shoda s touto skladbou"
 
 #: ../src/cli_main.rs:151
 msgid "Error:"
-msgstr ""
+msgstr "Chyba:"
 
 #: ../src/cli_main.rs:160
 msgid "Recording started!"
-msgstr ""
+msgstr "Nahrávání spuštěno!"
 
 #: ../src/main.rs:66
 msgid "An open-source Shazam client for Linux, written in Rust."
-msgstr ""
+msgstr "Otevřený Shazam klient pro Linux, napsaný v Rustu."
 
 #: ../src/main.rs:69
 msgid ""
 "Run as a command-line program listening the microphone and printing "
 "recognized songs to stdout, exposing current song info via MPRIS"
 msgstr ""
+"Spustit jako program pro příkazovou řádku poslouchající mikrofon a "
+"vypisující rozpoznané skladby do stdout, při zobrazení informací o skladbě "
+"přes MPRIS"
 
 #: ../src/main.rs:75 ../src/main.rs:104 ../src/main.rs:142
 msgid "Specify the audio device to use"
-msgstr ""
+msgstr "Určete, které zvukové zařízení použít"
 
 #: ../src/main.rs:82 ../src/main.rs:111
 msgid "Enable printing full song info in JSON"
-msgstr ""
+msgstr "Povolit výpis všech informací o skladbě jako JSON"
 
 #: ../src/main.rs:88 ../src/main.rs:117
 msgid "Enable printing full song info in the CSV format"
-msgstr ""
+msgstr "Povolit výpis všech informací o skladbě ve formátu CSV"
 
 #: ../src/main.rs:93 ../src/main.rs:181 ../src/main.rs:195
 msgid "Disable MPRIS support"
-msgstr ""
+msgstr "Zakázat podporu MPRIS"
 
 #: ../src/main.rs:98
 msgid "Recognize one song from a sound file or microphone and print its info."
-msgstr ""
+msgstr "Rozpoznat jednu skladbu ze zvukového souboru a vypsat informace o ní."
 
 #: ../src/main.rs:122
 msgid "Recognize a file instead of using mic input"
-msgstr ""
+msgstr "Rozpoznat soubor namísto použití vstupu z mikrofonu"
 
 #: ../src/main.rs:127
 msgid ""
@@ -91,250 +95,264 @@ msgid ""
 "towards Shazam's servers and print obtained information to the standard "
 "output."
 msgstr ""
+"Vygenerovat otisk Shazam ze zvukového souboru, provést rozpoznání skladby "
+"pomocí serverů Shazam a vypsat získané informace na standardní výstup."
 
 #: ../src/main.rs:131
 msgid "The audio file to recognize."
-msgstr ""
+msgstr "Zvukový soubor k rozpoznání."
 
 #: ../src/main.rs:136
 msgid ""
 "Recognize a currently playing song using the microphone and print obtained "
 "information to the standard output"
 msgstr ""
+"Rozpoznat aktuálně hrající skladbu pomocí mikrofonu a vypsat získané "
+"informace na standardní výstup"
 
 #: ../src/main.rs:147
 msgid ""
 "Generate a Shazam fingerprint from a sound file, and print it to the "
 "standard output."
 msgstr ""
+"Vygenerovat otisk Shazam ze zvukového souboru, provést rozpoznání skladby a "
+"vypsat ji na standardní výstup."
 
 #: ../src/main.rs:151
 msgid "The .WAV or .MP3 file to generate an audio fingerprint for."
-msgstr ""
+msgstr "Soubor .WAV nebo .MP3, pro který vygenerovat zvukový otisk."
 
 #: ../src/main.rs:156
 msgid ""
 "Take a data-URI Shazam fingerprint, perform song recognition towards "
 "Shazam's servers and print obtained information to the standard output."
 msgstr ""
+"Pořídit data-URI otisk Shazam, provést rozpoznání skladby pomocí serverů "
+"Shazam a vypsat získané informace na standardní výstup."
 
 #: ../src/main.rs:160
 msgid "The data-URI Shazam fingerprint to recognize."
-msgstr ""
+msgstr "Otisk data-URI Shazam k rozpoznání."
 
 #: ../src/main.rs:172
 msgid "The default action. Display a GUI."
-msgstr ""
+msgstr "Výchozí akce. Zobrazit grafické rozhraní."
 
 #: ../src/main.rs:176 ../src/main.rs:190
 msgid "An optional audio file to recognize on the launch of the application."
-msgstr ""
+msgstr "Volitelný zvukový soubor, který rozpoznat při spuštění aplikace."
 
 #: ../src/main.rs:186
 msgid ""
 "Launch the GUI, but don't recognize audio through the microphone as soon as "
 "it is launched (rather than expecting the user to click on a button)."
 msgstr ""
+"Spustit grafické rozhraní, ale nezačít okamžitě po spuštění rozpoznávat "
+"zvuk z mikrofonu (namísto čekání, než uživatel klikne na tlačítko)."
 
 #: ../src/core/microphone_thread.rs:51
 msgid "Microphone error:"
-msgstr ""
+msgstr "Chyba mikrofonu:"
 
 #: ../src/core/microphone_thread.rs:56
 msgid "Failed to get default input config"
-msgstr ""
+msgstr "Nepodařilo se získat výchozí konfiguraci vstupu"
 
 #: ../src/fingerprinting/signature_format.rs:93
 msgid "Invalid sample rate in decoded Shazam packet"
-msgstr ""
+msgstr "Neplatná vzorkovací frekvence v dekódovaném paketu Shazamu"
 
 #: ../src/fingerprinting/signature_format.rs:126
 msgid "Invalid frequency band in decoded Shazam packet"
-msgstr ""
+msgstr "Neplatný rozsah pásem v dekódovaném paketu Shazamu"
 
 #: ../src/fingerprinting/signature_format.rs:201
 msgid "Invalid sample rate passed when encoding Shazam packet"
-msgstr ""
+msgstr "Předána neplatná vzorkovací frekvence při kódování paketu Shazamu"
 
 #: ../src/gui/main_window.rs:42
 msgid "Application::new failed"
-msgstr ""
+msgstr "Application::new selhala"
 
 #: ../src/gui/main_window.rs:469 ../src/gui/main_window.rs:730
 msgid "Unable to enable MPRIS support"
-msgstr ""
+msgstr "Nepodařilo se povolit podporu MPRIS"
 
 #: ../src/gui/main_window.rs:523 ../src/gui/main_window.rs:608
 #: ../src/gui/main_window.rs:809
 msgid "Turn on speakers recognition"
-msgstr ""
+msgstr "Zapnout rozpoznávání z reproduktorů"
 
 #: ../src/gui/main_window.rs:524 ../src/gui/main_window.rs:609
 #: ../src/gui/main_window.rs:810
 msgid "Turn off speakers recognition"
-msgstr ""
+msgstr "Vypnout rozpoznávání z reproduktorů"
 
 #: ../src/gui/main_window.rs:527 ../src/gui/main_window.rs:612
 #: ../src/gui/main_window.rs:813 interface.ui.h:14
 msgid "Turn on microphone recognition"
-msgstr ""
+msgstr "Zapnout rozpoznávání z mikrofonu"
 
 #: ../src/gui/main_window.rs:528 ../src/gui/main_window.rs:613
 #: ../src/gui/main_window.rs:814 interface.ui.h:15
 msgid "Turn off microphone recognition"
-msgstr ""
+msgstr "Vypnout rozpoznávání z mikrofonu"
 
 #: ../src/gui/main_window.rs:554
 msgid "Select a file to recognize"
-msgstr ""
+msgstr "Vyberte soubor k rozpoznání"
 
 #: ../src/gui/main_window.rs:557
 msgid "_Open"
-msgstr ""
+msgstr "_Otevřít"
 
 #: ../src/gui/main_window.rs:558
 msgid "_Cancel"
-msgstr ""
+msgstr "_Zrušit"
 
 #: ../src/gui/main_window.rs:566
 msgid "Couldn't get filename"
-msgstr ""
+msgstr "Nepodařilo se získat název souboru"
 
 #: ../src/gui/main_window.rs:856
 msgid "Song recognized"
-msgstr ""
+msgstr "Skladba rozpoznána"
 
 #: ../src/gui/preferences.rs:52
 msgid "When parsing the preferences file:"
-msgstr ""
+msgstr "Při zpracování souboru předvoleb:"
 
 #: ../src/gui/preferences.rs:84
 msgid "When saving the preferences file:"
-msgstr ""
+msgstr "Při ukládání souboru předvoleb:"
 
 #: ../src/gui/song_history_interface.rs:131
 msgid "Error when reading the song history on the disk:"
-msgstr ""
+msgstr "Chyba při čtení historie skladeb z disku:"
 
 #: ../src/gui/song_history_interface.rs:212
 msgid "Error when reading the favorites on the disk:"
-msgstr ""
+msgstr "Chyba při čtení oblíbených z disku:"
 
 #: interface.ui.h:1
 msgid "Preferences"
-msgstr ""
+msgstr "Předvolby"
 
 #: interface.ui.h:2
 msgid ""
 "Enable MPRIS (display playing song information in the GNOME control panel)"
 msgstr ""
+"Povolit MPRIS (zobrazení informace o hrající skladbě v ovládacím panelu "
+"GNOME)"
 
 #: interface.ui.h:3
 msgid "About"
-msgstr ""
+msgstr "O aplikaci"
 
 #: interface.ui.h:4 favorites_interface.ui.h:6
 msgid "Copy artist and track"
-msgstr ""
+msgstr "Kopírovat umělce a skladbu"
 
 #: interface.ui.h:5 favorites_interface.ui.h:7
 msgid "Copy artist"
-msgstr ""
+msgstr "Kopírovat umělce"
 
 #: interface.ui.h:6 favorites_interface.ui.h:8
 msgid "Copy track name"
-msgstr ""
+msgstr "Kopírovat název skladby"
 
 #: interface.ui.h:7 favorites_interface.ui.h:9
 msgid "Copy album"
-msgstr ""
+msgstr "Kopírovat album"
 
 #: interface.ui.h:8 favorites_interface.ui.h:10
 msgid "Search on YouTube"
-msgstr ""
+msgstr "Vyhledat na YouTube"
 
 #: interface.ui.h:9
 msgid "Add to Favorites"
-msgstr ""
+msgstr "Přidat do oblíbených"
 
 #: interface.ui.h:10 favorites_interface.ui.h:11
 msgid "Remove from Favorites"
-msgstr ""
+msgstr "Odstranit z oblíbených"
 
 #: interface.ui.h:11
 msgid ""
 "Help translating https://github.com/marin-m/SongRec/tree/master/"
 "translations#readme"
 msgstr ""
+"Pomozte s překladem https://github.com/marin-m/SongRec/tree/master/"
+"translations#readme"
 
 #: interface.ui.h:12
 msgid "About..."
-msgstr ""
+msgstr "O aplikaci…"
 
 #: interface.ui.h:13
 msgid "Recognize from file"
-msgstr ""
+msgstr "Rozpoznat ze souboru"
 
 #: interface.ui.h:16
 msgid "Enable notifications"
-msgstr ""
+msgstr "Povolit oznámení"
 
 #: interface.ui.h:17
 msgid "Shazam servers are not reachable, are you connected?"
-msgstr ""
+msgstr "Servery Shazamu nejsou dostupné, jste připojeni k síti?"
 
 #: interface.ui.h:18
 msgid "Recognize songs"
-msgstr ""
+msgstr "Rozpoznat skladby"
 
 #: interface.ui.h:19
 msgid "Recognition results"
-msgstr ""
+msgstr "Výsledky rozpoznání"
 
 #: interface.ui.h:20
 msgid "Recognize from my speakers instead of microphone"
-msgstr ""
+msgstr "Rozpoznávat z reproduktorů namísto mikrofonu"
 
 #: interface.ui.h:21
 msgid "Current volume:"
-msgstr ""
+msgstr "Aktuální hlasitost:"
 
 #: interface.ui.h:22
 msgid "Audio input"
-msgstr ""
+msgstr "Zvukový vstup"
 
 #: interface.ui.h:23 favorites_interface.ui.h:1
 msgid "Song name"
-msgstr ""
+msgstr "Název skladby"
 
 #: interface.ui.h:24 favorites_interface.ui.h:2
 msgid "Album"
-msgstr ""
+msgstr "Album"
 
 #: interface.ui.h:25
 msgid "Recognition date"
-msgstr ""
+msgstr "Datum rozpoznání"
 
 #: interface.ui.h:26 favorites_interface.ui.h:5
 msgid "Favorites"
-msgstr ""
+msgstr "Oblíbené"
 
 #: interface.ui.h:27
 msgid "Wipe history"
-msgstr ""
+msgstr "Vymazat historii"
 
 #: interface.ui.h:28 favorites_interface.ui.h:4
 msgid "Export to CSV"
-msgstr ""
+msgstr "Exportovat do CSV"
 
 #: interface.ui.h:29
 msgid "Recognition history"
-msgstr ""
+msgstr "Historie rozpoznávání"
 
 #: interface.ui.h:30
 msgid "SongRec"
-msgstr ""
+msgstr "SongRec"
 
 #: favorites_interface.ui.h:3
 msgid "Recognition Date"
-msgstr ""
+msgstr "Datum rozpoznání"
