@@ -2,7 +2,7 @@
 
 SongRec is an open-source Shazam client for Linux, written in Rust.
 
-![Screenshot](packaging/Screenshot.png?raw=true)
+![Screenshot](packaging/Screenshot_hires_light.png?raw=true)
 
 Features:
 
