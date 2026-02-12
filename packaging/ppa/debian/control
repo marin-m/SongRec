@@ -6,8 +6,8 @@ Standards-Version: 4.1.2
 Build-Depends: debhelper (>= 10),
                libasound2-dev,
                libpulse-dev,
-               libgtk-4-dev (=> 4.14),
-               libadwaita-1-dev (=> 1.6),
+               libgtk-4-dev (>= 4.14),
+               libadwaita-1-dev (>= 1.6),
                libssl-dev,
                cargo | rustup,
                rsync,
@@ -23,8 +23,8 @@ Depends: libasound2,
          libssl1.1 | libssl3,
          ffmpeg,
          ${misc:Depends},
-         libgtk-4-1 (=> 4.14),
-         libadwaita-1-0 (=> 1.6)
+         libgtk-4-1 (>= 4.14),
+         libadwaita-1-0 (>= 1.6)
 Recommends: pulseaudio-utils
 Description: An unofficial Shazam client for Linux, written in Rust
  Features:
