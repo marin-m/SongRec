@@ -195,15 +195,15 @@ msgstr "Brano riconosciuto"
 
 #: ../src/gui/main_window.rs:653
 msgid "Are you sure you want to wipe history?"
-msgstr ""
+msgstr "Sei sicuro di voler cancellare la cronologia?"
 
 #: ../src/gui/main_window.rs:654
 msgid "_Yes"
-msgstr ""
+msgstr "_Sì"
 
 #: ../src/gui/main_window.rs:654
 msgid "_No"
-msgstr ""
+msgstr "_No"
 
 #: ../src/gui/preferences.rs:53
 msgid "When parsing the preferences file:"
@@ -235,11 +235,11 @@ msgstr ""
 
 #: interface.ui.h:4
 msgid "Recognize from microphone"
-msgstr ""
+msgstr "Riconoscimento dal microfono"
 
 #: interface.ui.h:5
 msgid "Recognize from my speakers"
-msgstr ""
+msgstr "Riconoscimento dai miei relatori"
 
 #: interface.ui.h:6
 msgid "Shazam servers are not reachable, are you connected?"
@@ -255,7 +255,7 @@ msgstr "Cerca su YouTube"
 
 #: interface.ui.h:9
 msgid "Search..."
-msgstr ""
+msgstr "Ricerca..."
 
 #: interface.ui.h:10
 msgid "Audio input"
@@ -287,7 +287,7 @@ msgstr "Data di riconoscimento"
 
 #: interface.ui.h:17
 msgid "View favorites"
-msgstr ""
+msgstr "Visualizza i preferiti"
 
 #: interface.ui.h:18
 msgid "Export to CSV"
@@ -295,23 +295,23 @@ msgstr "Esporta in CSV"
 
 #: interface.ui.h:19
 msgid "Favorites"
-msgstr ""
+msgstr "Preferite"
 
 #: interface.ui.h:20
 msgid "Show notifications"
-msgstr ""
+msgstr "Mostra notifiche"
 
 #: interface.ui.h:21
 msgid "Enable MPRIS"
-msgstr ""
+msgstr "Abilita MPRIS"
 
 #: interface.ui.h:22
 msgid "About..."
-msgstr ""
+msgstr "A proposito..."
 
 #: interface.ui.h:23
 msgid "Delete history"
-msgstr ""
+msgstr "Elimina cronologia"
 
 #: interface.ui.h:24
 msgid "Select a file to recognize"
@@ -335,7 +335,7 @@ msgstr "Copia album"
 
 #: interface.ui.h:29
 msgid "Add to Favorites"
-msgstr ""
+msgstr "Aggiungi ai preferiti"
 
 #: interface.ui.h:30
 msgid "Remove from Favorites"

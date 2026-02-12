@@ -188,15 +188,15 @@ msgstr "Cançó reconeguda"
 
 #: ../src/gui/main_window.rs:653
 msgid "Are you sure you want to wipe history?"
-msgstr ""
+msgstr "Esteu segur que voleu esborrar l'historial?"
 
 #: ../src/gui/main_window.rs:654
 msgid "_Yes"
-msgstr ""
+msgstr "_Sí"
 
 #: ../src/gui/main_window.rs:654
 msgid "_No"
-msgstr ""
+msgstr "_No"
 
 #: ../src/gui/preferences.rs:53
 msgid "When parsing the preferences file:"
@@ -224,15 +224,15 @@ msgstr "Reconèixer des d'arxiu"
 
 #: interface.ui.h:3
 msgid "Pick a file..."
-msgstr ""
+msgstr "Seleccionar..."
 
 #: interface.ui.h:4
 msgid "Recognize from microphone"
-msgstr ""
+msgstr "Reconeixement des del micròfon"
 
 #: interface.ui.h:5
 msgid "Recognize from my speakers"
-msgstr ""
+msgstr "Reconeix dels meus altaveus"
 
 #: interface.ui.h:6
 msgid "Shazam servers are not reachable, are you connected?"
@@ -248,7 +248,7 @@ msgstr "Cerca a YouTube"
 
 #: interface.ui.h:9
 msgid "Search..."
-msgstr ""
+msgstr "Buscar..."
 
 #: interface.ui.h:10
 msgid "Audio input"
@@ -280,7 +280,7 @@ msgstr "Data de reconeixement"
 
 #: interface.ui.h:17
 msgid "View favorites"
-msgstr ""
+msgstr "Veure preferits"
 
 #: interface.ui.h:18
 msgid "Export to CSV"
@@ -292,11 +292,11 @@ msgstr "Preferits"
 
 #: interface.ui.h:20
 msgid "Show notifications"
-msgstr ""
+msgstr "Mostra les notificacions"
 
 #: interface.ui.h:21
 msgid "Enable MPRIS"
-msgstr ""
+msgstr "Activa MPRIS"
 
 #: interface.ui.h:22
 msgid "About..."
@@ -304,7 +304,7 @@ msgstr "Quant a..."
 
 #: interface.ui.h:23
 msgid "Delete history"
-msgstr ""
+msgstr "Suprimeix l'historial"
 
 #: interface.ui.h:24
 msgid "Select a file to recognize"
