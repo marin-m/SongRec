@@ -35,7 +35,7 @@ pub fn get_player() -> Option<Arc<MprisPlayer>> {
     let prev_hook = panic::take_hook();
     panic::set_hook(Box::new(|_| {}));
     let player = panic::catch_unwind(|| MprisPlayer::new(
-        "SongRec".to_string(),
+        "re.fossplant.songrec".to_string(),
         "SongRec".to_string(),
         "re.fossplant.songrec.desktop".to_string()
     ));
