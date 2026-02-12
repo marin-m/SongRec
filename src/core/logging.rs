@@ -4,9 +4,11 @@ use std::boxed::Box;
 use glib::{LogLevel, LogWriterOutput};
 use std::sync::{Arc, Mutex};
 use std::io::Write;
+#[cfg(feature = "gui")]
 use crate::core::thread_messages::GUIMessage;
 use std::collections::HashMap;
 
+#[cfg(feature = "gui")]
 #[derive(Clone)]
 struct GUIDispatcher {
     #[cfg(feature = "gui")]
@@ -47,6 +49,7 @@ impl Write for GUIDispatcher {
 unsafe impl std::marker::Send for GUIDispatcher { }
 
 pub struct Logging {
+    #[cfg(feature = "gui")]
     gui_dispatcher: GUIDispatcher,
 }
 
