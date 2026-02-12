@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Songrec\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-21 06:54+0100\n"
-"PO-Revision-Date: 2024-06-03 13:29+0200\n"
+"PO-Revision-Date: 2026-01-23 13:29+0200\n"
 "Last-Translator: marcelocripe@gmail.com <marcelocripe@gmail.com>\n"
 "Language-Team: Brazilian Portuguese\n"
 "Language: pt_BR\n"
@@ -66,11 +66,11 @@ msgid ""
 "Run as a command-line program listening the microphone and printing "
 "recognized songs to stdout, exposing current song info via MPRIS"
 msgstr ""
-"É executado como um programa de linha de comando que captura os sons do "
-"microfone e os envia para o canal de saída padrão (stdout) para a música ser "
-"identificada. As informações sobre a música identificada são fornecidas pelo "
-"‘MPRIS’ (Media Player Remote Interfacing Specification ou Interface Remota "
-"de Especificação do Reprodutor de Mídia)"
+"O ‘SongRec’ é executado como um programa de linha de comando que captura os "
+"sons do microfone e os envia para o canal de saída padrão (stdout) para a "
+"música ser identificada. As informações sobre a música identificada são "
+"fornecidas pelo ‘MPRIS’ (Media Player Remote Interfacing Specification ou "
+"Interface Remota de Especificação do Reprodutor de Mídia)"
 
 #: ../src/main.rs:75 ../src/main.rs:104 ../src/main.rs:142
 msgid "Specify the audio device to use"
@@ -110,9 +110,9 @@ msgid ""
 "towards Shazam's servers and print obtained information to the standard "
 "output."
 msgstr ""
-"Criar uma impressão digital do padrão do ‘Shazam’ a partir de um arquivo de "
-"áudio, realizar a identificação das músicas utilizando os servidores do "
-"‘Shazam’ e enviar as informações obtidas para a saída padrão."
+"Criar uma impressão digital do mesmo padrão do ‘Shazam’ a partir de um "
+"arquivo de áudio, realizar a identificação das músicas utilizando os "
+"servidores do ‘Shazam’ e enviar as informações obtidas para a saída padrão."
 
 #: ../src/main.rs:131
 msgid "The audio file to recognize."
@@ -131,14 +131,14 @@ msgid ""
 "Generate a Shazam fingerprint from a sound file, and print it to the "
 "standard output."
 msgstr ""
-"Criar uma impressão digital do padrão do ‘Shazam’ a partir de um arquivo de "
-"áudio e a enviar para a saída padrão."
+"Criar uma impressão digital do mesmo padrão do ‘Shazam’ a partir de um "
+"arquivo de áudio e enviar para a saída padrão."
 
 #: ../src/main.rs:151
 msgid "The .WAV or .MP3 file to generate an audio fingerprint for."
 msgstr ""
-"O arquivo com o formato ‘.WAV’ ou ‘.MP3’ para criar a impressão digital de "
-"áudio."
+"O arquivo com o formato ‘.WAV’ ou ‘.MP3’ para criar a impressão digital "
+"de áudio."
 
 #: ../src/main.rs:156
 msgid ""
@@ -146,13 +146,13 @@ msgid ""
 "Shazam's servers and print obtained information to the standard output."
 msgstr ""
 "Carregar um URI (Uniform Resource Identifier ou Identificador Uniforme de "
-"Recursos) de dados para criar a impressão digital do padrão do ‘Shazam’, "
+"Recursos) de dados para criar a impressão digital do mesmo padrão do ‘Shazam’, "
 "realizar a identificação das músicas utilizando os servidores do ‘Shazam’ e "
 "enviar as informações obtidas para a saída padrão."
 
 #: ../src/main.rs:160
 msgid "The data-URI Shazam fingerprint to recognize."
-msgstr "O URI de dados do padrão do ‘Shazam’ a ser identificado."
+msgstr "O URI de dados do mesmo padrão do ‘Shazam’ a ser identificado."
 
 #: ../src/main.rs:172
 msgid "The default action. Display a GUI."
@@ -170,8 +170,8 @@ msgid ""
 "it is launched (rather than expecting the user to click on a button)."
 msgstr ""
 "Iniciar a interface gráfica do usuário, mas não identificar o áudio "
-"detectado por meio do microfone, em vez de esperar que o usuário clique em "
-"um botão."
+"detectado por meio do microfone, em vez de esperar que o usuário clique "
+"em um botão."
 
 #: ../src/core/microphone_thread.rs:51
 msgid "Microphone error:"
@@ -188,7 +188,7 @@ msgstr "A taxa de amostragem ao decodificar o pacote do ‘Shazam’ não é vá
 
 #: ../src/fingerprinting/signature_format.rs:126
 msgid "Invalid frequency band in decoded Shazam packet"
-msgstr "A banda da frequência ao decodificar o pacote do ‘Shazam’ não é válida"
+msgstr "A banda de frequência ao decodificar o pacote do ‘Shazam’ não é válida"
 
 #: ../src/fingerprinting/signature_format.rs:201
 msgid "Invalid sample rate passed when encoding Shazam packet"
@@ -197,7 +197,7 @@ msgstr ""
 
 #: ../src/gui/main_window.rs:42
 msgid "Application::new failed"
-msgstr "Ao que parece, ‘Application::new’ falhou"
+msgstr "Ao que parece, ocorreu uma falha no ‘Application::new’"
 
 #: ../src/gui/main_window.rs:469 ../src/gui/main_window.rs:730
 msgid "Unable to enable MPRIS support"
@@ -307,9 +307,9 @@ msgid ""
 "Help translating https://github.com/marin-m/SongRec/tree/master/"
 "translations#readme"
 msgstr ""
-"(Tradutores voluntários do idioma Português do Brasil)\n"
-"marcelocripe <marcelocripe@gmail.com>, 2024.\n"
-"Ajude a traduzir o programa ‘SongRec’ na página eletrônica\n"
+"Tradutores voluntários do idioma Português do Brasil:\n"
+"marcelocripe <marcelocripe@gmail.com>, 2024 a 2026.\n"
+"Por favor, ajude a traduzir o programa ‘SongRec’ na página eletrônica\n"
 "https://github.com/marin-m/SongRec/tree/master/translations#readme"
 
 #: interface.ui.h:12
@@ -336,7 +336,7 @@ msgstr "Identificar as músicas"
 
 #: interface.ui.h:19
 msgid "Recognition results"
-msgstr "Resultados das músicas identificadas"
+msgstr "Resultados das músicas que foram identificadas"
 
 #: interface.ui.h:20
 msgid "Recognize from my speakers instead of microphone"
@@ -384,7 +384,7 @@ msgstr "Identificador de Músicas SongRec"
 
 #: favorites_interface.ui.h:3
 msgid "Recognition Date"
-msgstr ""
+msgstr "Data da identificação"
 
 #~ msgid ""
 #~ "Convert a data-URI Shazam fingerprint into hearable tones, played back "
