@@ -1,3 +1,9 @@
+songrec (0.6.0+1) bionic; urgency=low
+
+  * Fix the Debian package build process, see https://bugs.launchpad.net/bugs/2141645
+
+ -- Marin <marin-m@users.noreply.github.com>  Thu, 12 Feb 2026 13:53:54 +0100
+
 songrec (0.6.0) bionic; urgency=low
 
   * Update interface to GTK 4 (issue #206)
