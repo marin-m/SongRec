@@ -1,3 +1,12 @@
+songrec (0.6.0) bionic; urgency=low
+
+  * Update interface to GTK 4 (issue #206)
+  * Fix using MPRIS over Flatpak (issue #214)
+  * Add advanced logs using the -v command line flag
+  * Update upstream translations (Czech by @Fjuro, Brazilian by @marcelocripe)
+
+ -- Marin <marin-m@users.noreply.github.com>  Thu, 12 Feb 2026 09:19:34 +0100
+
 songrec (0.5.0+2) bionic; urgency=low
 
   * Use Cargo.lock version 3 instead of 4 in order still to build under older Ubuntu versions.

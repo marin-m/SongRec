@@ -51,6 +51,14 @@ https://hughsie.github.io/oars/index.html
 -->
   <content_rating type="oars-1.1" />
   <releases>
+    <release version="0.6.0" date="2026-02-12">
+      <description>
+        <p>Update interface to GTK 4 (issue #206)</p>
+        <p>Fix using MPRIS over Flatpak (issue #214)</p>
+        <p>Add advanced logs using the -v command line flag</p>
+        <p>Update upstream translations (Czech by @Fjuro, Brazilian by @marcelocripe)</p>
+      </description>
+    </release>
     <release version="0.5.0" date="2026-01-21">
       <description>
         <p>Packaging: Change the translations path to /usr/share/locale instead of /usr/share/songrec/translations (this may require action from distribution package maintainers)</p>
