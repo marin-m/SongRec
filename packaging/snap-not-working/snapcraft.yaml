@@ -86,7 +86,7 @@ parts:
     source: https://github.com/ubuntu/snapcraft-desktop-helpers.git
     source-subdir: gtk
     plugin: make
-    make-parameters: ["FLAVOR=gtk3"]
+    make-parameters: ["FLAVOR=gtk4"]
     build-packages:
       - gcc
     override-build: |
