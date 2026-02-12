@@ -98,7 +98,6 @@ SongRec {version}
                     Arg::new("audio-device")
                         .short('d')
                         .long("audio-device")
-                        .action(ArgAction::Set)
                         .help(gettext("Specify the audio device to use"))
                 )
                 .arg(
@@ -106,17 +105,20 @@ SongRec {version}
                         .short('j')
                         .long("json")
                         .conflicts_with("csv")
+                        .action(ArgAction::SetTrue)
                         .help(gettext("Enable printing full song info in JSON"))
                 )
                 .arg(
                     Arg::new("csv")
                         .short('c')
                         .long("csv")
+                        .action(ArgAction::SetTrue)
                         .help(gettext("Enable printing full song info in the CSV format"))
                 )
                 .arg(
                     Arg::new("disable-mpris")
                         .long("disable-mpris")
+                        .action(ArgAction::SetTrue)
                         .help(gettext("Disable MPRIS support"))
                 )
         )
@@ -135,12 +137,14 @@ SongRec {version}
                         .short('j')
                         .long("json")
                         .conflicts_with("csv")
+                        .action(ArgAction::SetTrue)
                         .help(gettext("Enable printing full song info in JSON"))
                 )
                 .arg(
                     Arg::new("csv")
                         .short('c')
                         .long("csv")
+                        .action(ArgAction::SetTrue)
                         .help(gettext("Enable printing full song info in the CSV format"))
                 )
                 .arg(
@@ -165,7 +169,6 @@ SongRec {version}
                     Arg::new("audio-device")
                         .short('d')
                         .long("audio-device")
-                        .action(ArgAction::Set)
                         .help(gettext("Specify the audio device to use"))
                 )
         )
@@ -205,6 +208,7 @@ macro_rules! gui_app {
                 .arg(
                     Arg::new("disable-mpris")
                         .long("disable-mpris")
+                        .action(ArgAction::SetTrue)
                         .help(gettext("Disable MPRIS support"))
                 )
         )
@@ -219,6 +223,7 @@ macro_rules! gui_app {
                 .arg(
                     Arg::new("disable-mpris")
                         .long("disable-mpris")
+                        .action(ArgAction::SetTrue)
                         .help(gettext("Disable MPRIS support"))
                 )
         )

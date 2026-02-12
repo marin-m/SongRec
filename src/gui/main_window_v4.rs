@@ -11,6 +11,8 @@ use gettextrs::gettext;
 use percent_encoding::{utf8_percent_encode, NON_ALPHANUMERIC};
 use std::error::Error;
 use log::{error, info, debug, trace};
+#[cfg(feature = "mpris")]
+use mpris_player::PlaybackStatus;
 
 use crate::core::microphone_thread::microphone_thread;
 use crate::core::processing_thread::processing_thread;
@@ -23,6 +25,8 @@ use crate::gui::song_history_interface::FavoritesInterface;
 use crate::gui::song_history_interface::{SongRecordInterface, RecognitionHistoryInterface};
 use crate::utils::csv_song_history::SongHistoryRecord;
 use crate::utils::filesystem_operations::{obtain_recognition_history_csv_path, obtain_favorites_csv_path};
+#[cfg(feature = "mpris")]
+use crate::utils::mpris_player::{get_player, update_song};
 
 use crate::gui::preferences::{PreferencesInterface, Preferences};
 
@@ -41,7 +45,7 @@ pub fn gui_main(
 ) -> Result<(), Box<dyn Error>> {
     
     let app = App::new(log_object);
-    app.run(recording, input_file);
+    app.run(recording, enable_mpris_cli, input_file);
 
     Ok(())
 }
@@ -141,7 +145,7 @@ impl App {
             .expect("Failed to register resources.");
     }
 
-    fn run(self, set_recording: bool, input_file: Option<String>) {
+    fn run(self, set_recording: bool, enable_mpris_cli: bool, input_file: Option<String>) {
         let application = adw::Application::new(Some("re.fossplant.songrec"),
             gio::ApplicationFlags::HANDLES_OPEN);
 
@@ -173,7 +177,7 @@ impl App {
         });
 
         application.connect_startup(move |application| {
-            self.on_startup(application, set_recording);
+            self.on_startup(application, set_recording, enable_mpris_cli);
         });
 
         if let Some(input_file_string) = input_file {
@@ -184,15 +188,18 @@ impl App {
         }
     }
 
-    fn on_startup(&self, application: &adw::Application, set_recording: bool) {
-        self.setup_intercom(set_recording);
-        self.setup_actions(application);
+    fn on_startup(&self,
+        application: &adw::Application,
+        set_recording: bool,
+        enable_mpris_cli: bool
+    ) {
+        self.setup_intercom(application, set_recording, enable_mpris_cli);
+        self.setup_actions(application, enable_mpris_cli);
         self.setup_context_menus();
         self.show_window(application);
     }
 
     fn setup_context_menus(&self) {
-        // XX WIP
 
         ContextMenuUtil::connect_menu(
             self.builder.clone(),
@@ -373,7 +380,10 @@ impl App {
 
     } */
 
-    fn setup_intercom(&self, set_recording: bool) {
+    fn setup_intercom(&self, application: &adw::Application,
+        set_recording: bool,
+        enable_mpris_cli: bool
+    ) {
         // WIP: Setup threads + smol-rs/async-channel::unbounded listener
 
         // NOTE: Dropping the removed glib::MainContext from legacy code:
@@ -424,7 +434,26 @@ impl App {
         microphone_switch.set_active(set_recording);
         
         let mut song_history_interface = self.song_history_interface.clone();
+        let old_preferences = self.old_preferences.clone();
+        let application = application.clone();
+
         glib::spawn_future_local(async move {
+
+            #[cfg(feature = "mpris")]
+            let mut mpris_obj = {
+                let player = if enable_mpris_cli && old_preferences.enable_mpris == Some(true) {
+                    get_player()
+                } else {
+                    None
+                };
+                if enable_mpris_cli && old_preferences.enable_mpris == Some(true) && player.is_none() {
+                    println!("{}", gettext("Unable to enable MPRIS support"))
+                }
+                player
+            };
+            #[cfg(feature = "mpris")]
+            let mut last_cover_path = None;
+
             while let Ok(gui_message) = gui_rx.recv().await {
 
                 if let AppendToLog(log_string) = gui_message {
@@ -464,7 +493,23 @@ impl App {
 
                         UpdatePreference(new_preference) => {
                             preferences_interface_ptr.borrow_mut().update(new_preference);
-                        },
+                                #[cfg(feature = "mpris")]
+                                if mpris_obj.is_none() {
+                                    let mpris_enabled = preferences_interface_ptr.borrow().preferences.enable_mpris == Some(true);
+
+                                    mpris_obj = {
+                                        let player = if enable_mpris_cli && mpris_enabled {
+                                            get_player()
+                                        } else {
+                                            None
+                                        };
+                                        if enable_mpris_cli && mpris_enabled && player.is_none() {
+                                            println!("{}", gettext("Unable to enable MPRIS support"))
+                                        }
+                                        player
+                                    };
+                                }
+                            },
                         ErrorMessage(string) => {
                             if !(string == gettext("No match for this song") && (
                                 microphone_switch.is_active() || loopback_switch.is_active()
@@ -477,6 +522,17 @@ impl App {
                         },
                         NetworkStatus(network_is_reachable) => {
                             no_network_message.set_visible(!network_is_reachable);
+
+                            #[cfg(feature = "mpris")]
+                            {
+                                let mpris_enabled = preferences_interface_ptr.borrow().preferences.enable_mpris == Some(true);
+
+                                if mpris_enabled {
+                                    let mpris_status = if network_is_reachable { PlaybackStatus::Playing } else { PlaybackStatus::Paused };
+
+                                    mpris_obj.as_ref().map(|p| p.set_playback_status(mpris_status));
+                                }
+                            }
                         },
                         SongRecognized(message) => {
                             results_section.set_visible(true);
@@ -488,31 +544,43 @@ impl App {
                             // + https://gtk-rs.org/gtk4-rs/git/docs/gtk4/struct.Image.html#method.set_paintable
                             // + https://docs.gtk.org/gtk4/method.Image.set_from_paintable.html
 
-                            if let Some(cover_image) = message.cover_image {
-                                if let Ok(texture) = gdk::Texture::from_bytes(
-                                    &glib::Bytes::from(&cover_image)
-                                ) {
-                                    results_image.set_visible(true);
-                                    results_image.set_paintable(Some(&texture));
-                                }
-                                else {
-                                    results_image.set_visible(false);
-                                }
-                            }
-                            else {
-                                results_image.set_visible(false);
-                            }
                             let song_name = format!("{} - {}", message.artist_name, message.song_name);
                             
                             if results_label.text().as_str() != &song_name {
                                 results_label.set_label(&song_name);
 
-                                // TODO restore MPRIS code
-                                // #[cfg(feature = "mpris")]
-                                // mpris_obj.as_ref().map(|p| update_song(p, &message, &mut last_cover_path));
-
                                 let notification = gio::Notification::new(&gettext("Song recognized"));
                                 notification.set_body(Some(&song_name));
+
+                                if let Some(ref cover_image) = message.cover_image {
+                                    if let Ok(texture) = gdk::Texture::from_bytes(
+                                        &glib::Bytes::from(cover_image)
+                                    ) {
+                                        results_image.set_visible(true);
+                                        results_image.set_paintable(Some(&texture));
+
+                                        match message.album_name {
+                                            Some(ref value) => { results_image.set_tooltip_text(Some(&value)) },
+                                            None => { results_image.set_tooltip_text(None) }
+                                        };
+                                        notification.set_icon(&texture);
+                                    }
+                                    else {
+                                        results_image.set_visible(false);
+                                    }
+                                }
+                                else {
+                                    results_image.set_visible(false);
+                                }
+
+                                #[cfg(feature = "mpris")]
+                                if preferences_interface_ptr.borrow().preferences.enable_mpris == Some(true) {
+                                    mpris_obj.as_ref().map(|p| update_song(p, &message, &mut last_cover_path));
+                                }
+
+                                if preferences_interface_ptr.borrow().preferences.enable_notifications == Some(true) {
+                                    application.send_notification(Some("recognized-song"), &notification);
+                                }
 
                                 song_history_interface.borrow_mut().add_row_and_save(SongHistoryRecord {
                                     song_name: song_name,
@@ -611,7 +679,7 @@ impl App {
         });
     }
 
-    fn setup_actions(&self, application: &adw::Application) {
+    fn setup_actions(&self, application: &adw::Application, enable_mpris_cli: bool) {
         let window: adw::ApplicationWindow = self.builder.object("main_window").unwrap();
         let file_picker: gtk::FileDialog = self.builder.object("file_picker").unwrap();
         let about_dialog: adw::AboutDialog = self.builder.object("about_dialog").unwrap();
@@ -795,8 +863,6 @@ impl App {
 
         window.add_action_entries([
             action_show_about,
-            #[cfg(feature = "mpris")]
-            action_mpris_setting, // DON'T FORGET to put a tooltip for this
             action_notification_setting,
             action_recognize_file,
             action_search_youtube,
@@ -804,8 +870,14 @@ impl App {
             action_export_favorites_to_csv,
             action_wipe_history,
             action_close,
-            // WIP xx
         ]);
+
+        #[cfg(feature = "mpris")]
+        if enable_mpris_cli {
+            window.add_action_entries([
+                action_mpris_setting, // DON'T FORGET to put a tooltip for this
+            ]);
+        }
 
         application.set_accels_for_action("win.close", &["<Primary>Q"]);
     }

@@ -67,7 +67,6 @@
                                 <child>
                                   <object class="AdwSwitchRow" id="microphone_switch">
                                     <property name="activatable">True</property>
-                                    <property name="active">True</property>
                                     <property name="selectable">False</property>
                                     <property name="title" translatable="yes">Recognize from microphone</property>
                                     <property name="visible">False</property>
