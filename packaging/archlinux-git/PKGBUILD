@@ -1,6 +1,6 @@
 pkgname=songrec-git
 _pkgname=songrec
-pkgver=r425.ea12948
+pkgver=r426.56e1737
 pkgrel=1
 provides=('songrec')
 conflicts=('songrec')
@@ -9,7 +9,7 @@ url='https://songrec.fossplant.re/'
 arch=('x86_64')
 license=('GPL3')
 makedepends=('cargo' 'rust' 'pkgconf' 'git')
-depends=('gtk4' 'alsa-lib' 'libpulse' 'pulseaudio-alsa' 'openssl' 'ffmpeg')
+depends=('gtk4' 'libadwaita' 'alsa-lib' 'libpulse' 'pulseaudio-alsa' 'openssl' 'ffmpeg')
 source=("$_pkgname::git+https://github.com/marin-m/songrec.git")
 sha256sums=('SKIP')
 

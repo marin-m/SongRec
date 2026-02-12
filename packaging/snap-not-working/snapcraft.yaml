@@ -41,7 +41,7 @@ plugs:
     interface: content
     target: $SNAP/gnome-platform
     default-provider: gnome-3-34-1804
-  gtk-3-themes:
+  gtk-4-themes:
     interface: content
     target: $SNAP/data-dir/themes
     default-provider: gtk-common-themes
@@ -59,14 +59,16 @@ parts:
   songrec:
     build-packages:
       - libasound2-dev
-      - libgtk-3-dev
+      - libgtk-4-dev
+      - libadwaita-1-dev
       - libssl-dev
       - libffi-dev
     
     stage-packages:
       - libasound2
       - libssl1.1
-      - libgtk-3-0
+      - libgtk-4-1
+      - libadwaita-1-0
       - ffmpeg
       - libffi7
     
