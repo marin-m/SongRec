@@ -2,9 +2,14 @@ use std::panic;
 use std::sync::Arc;
 use std::fs;
 
+// TODO rewrite Cf. https://github.com/SeaDve/mpris-server/blob/main/examples/player.rs
+// https://github.com/SeaDve/mpris-server/blob/main/examples/local_server.rs
+// https://github.com/SeaDve/mpris-server/blob/main/examples/server.rs
+
 use mpris_player::{MprisPlayer, PlaybackStatus, Metadata};
 
 use crate::core::thread_messages::SongRecognizedMessage;
+use std::time::SystemTime;
 use std::os::unix::fs::MetadataExt;
 
 fn init_player(p: Arc<MprisPlayer>) -> Arc<MprisPlayer> {
@@ -66,7 +71,9 @@ pub fn update_song(p: &MprisPlayer, m: &SongRecognizedMessage, last_cover_path: 
         };
         let process_uid = std::fs::metadata("/proc/self").map(|m| m.uid()).unwrap_or(0);
         let mut tmp = std::env::temp_dir();
-        tmp.push(format!("songrec_cover_{}.{}", process_uid, mime_ext));
+        let timestamp = SystemTime::now().duration_since(SystemTime::UNIX_EPOCH)
+            .unwrap().as_secs();
+        tmp.push(format!("songrec_cover_{}_{}.{}", process_uid, timestamp, mime_ext));
         if fs::write(&tmp, buf).is_ok() {
             // Use file:// URL for better compatibility with MPRIS clients
             metadata.art_url = Some(format!("file://{}", tmp.display()));

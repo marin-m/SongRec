@@ -2,892 +2,624 @@
 <!-- Created with Cambalache 0.96.3 -->
 <interface>
   <!-- interface-name interface.ui -->
-  <requires lib="gtk+" version="3.20"/>
-  <object class="GtkImage" id="copy_icon">
-    <property name="can-focus">False</property>
-    <property name="icon-name">edit-copy</property>
-    <property name="visible">True</property>
-  </object>
-  <object class="GtkImage" id="copy_icon_2">
-    <property name="can-focus">False</property>
-    <property name="icon-name">edit-copy</property>
-    <property name="visible">True</property>
-  </object>
-  <object class="GtkImage" id="copy_icon_3">
-    <property name="can-focus">False</property>
-    <property name="icon-name">edit-copy</property>
-    <property name="visible">True</property>
-  </object>
-  <object class="GtkImage" id="copy_icon_4">
-    <property name="can-focus">False</property>
-    <property name="icon-name">edit-copy</property>
-    <property name="visible">True</property>
-  </object>
-  <object class="GtkImage" id="csv_icon">
-    <property name="can-focus">False</property>
-    <property name="icon-name">media-floppy</property>
-    <property name="pixel-size">20</property>
-    <property name="visible">True</property>
-  </object>
-  <object class="GtkImage" id="favorite_icon">
-    <property name="can-focus">False</property>
-    <property name="icon-name">emblem-favorite</property>
-    <property name="visible">True</property>
-  </object>
-  <object class="GtkImage" id="favorite_icon_2">
-    <property name="can-focus">False</property>
-    <property name="icon-name">emblem-favorite</property>
-    <property name="visible">True</property>
-  </object>
-  <object class="GtkImage" id="favorite_icon_3">
-    <property name="can-focus">False</property>
-    <property name="icon-name">emblem-favorite</property>
-    <property name="visible">True</property>
-  </object>
-  <object class="GtkImage" id="file_icon">
-    <property name="can-focus">False</property>
-    <property name="stock">gtk-file</property>
-    <property name="visible">True</property>
-  </object>
-  <object class="GtkListStore" id="history_list_store">
-    <columns>
-      <!-- column-name song_name -->
-      <column type="gchararray"/>
-      <!-- column-name album -->
-      <column type="gchararray"/>
-      <!-- column-name recognition_date -->
-      <column type="gchararray"/>
-      <!-- column-name track_key -->
-      <column type="gchararray"/>
-      <!-- column-name release_year -->
-      <column type="gchararray"/>
-      <!-- column-name genre -->
-      <column type="gchararray"/>
-    </columns>
-  </object>
-  <object class="GtkListStore" id="input_devices_list_store">
-    <columns>
-      <!-- column-name inner_name -->
-      <column type="gchararray"/>
-      <!-- column-name display_name -->
-      <column type="gchararray"/>
-      <!-- column-name is_monitor -->
-      <column type="gboolean"/>
-    </columns>
-  </object>
-  <object class="GtkImage" id="microphone_icon">
-    <property name="can-focus">False</property>
-    <property name="icon-name">audio-input-microphone</property>
-    <property name="visible">True</property>
-  </object>
-  <object class="GtkImage" id="microphone_stop_icon">
-    <property name="can-focus">False</property>
-    <property name="stock">gtk-media-stop</property>
-    <property name="visible">True</property>
-  </object>
-  <object class="GtkWindow" id="preferences_window">
-    <property name="can-focus">False</property>
-    <property name="default-height">480</property>
-    <property name="default-width">720</property>
-    <property name="destroy-with-parent">True</property>
-    <property name="has-resize-grip">True</property>
-    <property name="modal">True</property>
-    <property name="title" translatable="yes">Preferences</property>
-    <child>
-      <object class="GtkBox">
-        <property name="can-focus">False</property>
-        <property name="margin-bottom">25</property>
-        <property name="margin-end">25</property>
-        <property name="margin-start">25</property>
-        <property name="margin-top">25</property>
-        <property name="orientation">vertical</property>
-        <property name="spacing">12</property>
-        <property name="visible">True</property>
+  <requires lib="gio" version="2.44"/>
+  <requires lib="gtk" version="4.14"/>
+  <requires lib="libadwaita" version="1.6"/>
+  <object class="AdwApplicationWindow" id="main_window">
+    <property name="content">
+      <object class="AdwNavigationView" id="main_window_pages">
         <child>
-          <object class="GtkCheckButton" id="enable_mpris_box">
-            <property name="can-focus">True</property>
-            <property name="draw-indicator">True</property>
-            <property name="label" translatable="yes">Enable MPRIS (display playing song information in the GNOME control panel)</property>
-            <property name="receives-default">False</property>
-            <property name="visible">True</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-      </object>
-    </child>
-  </object>
-  <object class="GtkAction" id="show_about_dialog">
-    <property name="label" translatable="yes">About</property>
-    <signal name="activate" handler="about_dialog.show"/>
-  </object>
-  <object class="GtkImage" id="wipe_icon">
-    <property name="can-focus">False</property>
-    <property name="icon-name">user-trash-full</property>
-    <property name="visible">True</property>
-  </object>
-  <object class="GtkImage" id="youtube_icon">
-    <property name="can-focus">False</property>
-    <property name="icon-name">edit-find</property>
-    <property name="visible">True</property>
-  </object>
-  <object class="GtkImage" id="youtube_icon_2">
-    <property name="can-focus">False</property>
-    <property name="icon-name">edit-find</property>
-    <property name="visible">True</property>
-  </object>
-  <object class="GtkMenu" id="list_view_context_menu">
-    <property name="can-focus">False</property>
-    <child>
-      <object class="GtkImageMenuItem" id="copy_artist_and_track">
-        <property name="always-show-image">True</property>
-        <property name="can-focus">False</property>
-        <property name="image">copy_icon</property>
-        <property name="label" translatable="yes">Copy artist and track</property>
-        <property name="use-stock">False</property>
-        <property name="visible">True</property>
-      </object>
-    </child>
-    <child>
-      <object class="GtkImageMenuItem" id="copy_artist">
-        <property name="always-show-image">True</property>
-        <property name="can-focus">False</property>
-        <property name="image">copy_icon_2</property>
-        <property name="label" translatable="yes">Copy artist</property>
-        <property name="use-stock">False</property>
-        <property name="visible">True</property>
-      </object>
-    </child>
-    <child>
-      <object class="GtkImageMenuItem" id="copy_track_name">
-        <property name="always-show-image">True</property>
-        <property name="can-focus">False</property>
-        <property name="image">copy_icon_3</property>
-        <property name="label" translatable="yes">Copy track name</property>
-        <property name="use-stock">False</property>
-        <property name="visible">True</property>
-      </object>
-    </child>
-    <child>
-      <object class="GtkImageMenuItem" id="copy_album">
-        <property name="always-show-image">True</property>
-        <property name="can-focus">False</property>
-        <property name="image">copy_icon_4</property>
-        <property name="label" translatable="yes">Copy album</property>
-        <property name="use-stock">False</property>
-        <property name="visible">True</property>
-      </object>
-    </child>
-    <child>
-      <object class="GtkImageMenuItem" id="search_on_youtube">
-        <property name="always-show-image">True</property>
-        <property name="can-focus">False</property>
-        <property name="image">youtube_icon_2</property>
-        <property name="label" translatable="yes">Search on YouTube</property>
-        <property name="use-stock">False</property>
-        <property name="visible">True</property>
-      </object>
-    </child>
-    <child>
-      <object class="GtkImageMenuItem" id="add_to_favorites">
-        <property name="always-show-image">True</property>
-        <property name="can-focus">False</property>
-        <property name="image">favorite_icon_2</property>
-        <property name="label" translatable="yes">Add to Favorites</property>
-        <property name="use-stock">False</property>
-        <property name="visible">True</property>
-      </object>
-    </child>
-    <child>
-      <object class="GtkImageMenuItem" id="remove_from_favorites">
-        <property name="always-show-image">True</property>
-        <property name="can-focus">False</property>
-        <property name="image">favorite_icon_3</property>
-        <property name="label" translatable="yes">Remove from Favorites</property>
-        <property name="use-stock">False</property>
-        <property name="visible">True</property>
-      </object>
-    </child>
-  </object>
-  <object class="GtkAboutDialog" id="about_dialog">
-    <property name="authors">© Marin Moulinier
-Contributors https://github.com/marin-m/SongRec/graphs/contributors</property>
-    <property name="can-focus">False</property>
-    <property name="destroy-with-parent">True</property>
-    <property name="license-type">gpl-3-0</property>
-    <property name="logo-icon-name">audio-x-generic</property>
-    <property name="modal">True</property>
-    <property name="program-name">SongRec</property>
-    <property name="transient-for">window</property>
-    <property name="translator-credits" translatable="yes">Help translating https://github.com/marin-m/SongRec/tree/master/translations#readme</property>
-    <property name="type-hint">dialog</property>
-    <property name="version">0.5.0</property>
-    <property name="website">https://songrec.fossplant.re/</property>
-    <child internal-child="vbox">
-      <object class="GtkBox">
-        <property name="can-focus">False</property>
-        <child internal-child="action_area">
-          <object class="GtkButtonBox">
-            <property name="can-focus">False</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-      </object>
-    </child>
-  </object>
-  <object class="GtkPopoverMenu" id="main_menu">
-    <property name="can-focus">False</property>
-    <property name="relative-to">menu_button</property>
-    <child>
-      <object class="GtkBox">
-        <property name="can-focus">False</property>
-        <property name="margin-bottom">10</property>
-        <property name="margin-end">10</property>
-        <property name="margin-start">10</property>
-        <property name="margin-top">10</property>
-        <property name="orientation">vertical</property>
-        <property name="visible">True</property>
-        <child>
-          <object class="GtkModelButton" id="preferences_menu_button">
-            <property name="can-focus">True</property>
-            <property name="receives-default">True</property>
-            <property name="text" translatable="yes">Preferences</property>
-            <property name="visible">True</property>
-            <signal name="activate" handler="about_dialog.show"/>
-            <signal name="clicked" handler="about_dialog.show"/>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkSeparator" id="main_menu_separator">
-            <property name="can-focus">False</property>
-            <property name="visible">True</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">1</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkModelButton" id="about_menu_button">
-            <property name="can-focus">True</property>
-            <property name="receives-default">True</property>
-            <property name="text" translatable="yes">About...</property>
-            <property name="visible">True</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">2</property>
-          </packing>
-        </child>
-      </object>
-      <packing>
-        <property name="position">1</property>
-        <property name="submenu">main</property>
-      </packing>
-    </child>
-  </object>
-  <object class="GtkApplicationWindow" id="window">
-    <property name="can-focus">False</property>
-    <property name="default-height">497</property>
-    <property name="default-width">977</property>
-    <property name="has-resize-grip">True</property>
-    <property name="icon-name">audio-x-generic</property>
-    <property name="name">window</property>
-    <property name="show-menubar">False</property>
-    <property name="visible">True</property>
-    <property name="window-position">center</property>
-    <child>
-      <object class="GtkScrolledWindow" id="fbsw">
-        <property name="can-focus">False</property>
-        <property name="hscrollbar-policy">never</property>
-        <child>
-          <object class="GtkViewport">
-            <property name="can-focus">False</property>
-            <property name="visible">True</property>
-            <child>
-              <object class="GtkFlowBox" id="flowbox">
-                <property name="can-focus">False</property>
-                <property name="margin-bottom">12</property>
-                <property name="margin-left">12</property>
-                <property name="margin-right">12</property>
-                <property name="margin-top">12</property>
-                <property name="max-children-per-line">2</property>
-                <property name="min-children-per-line">1</property>
-                <property name="name">flowbox</property>
-                <property name="selection-mode">none</property>
-                <property name="visible">True</property>
-                <child>
-                  <object class="GtkFlowBoxChild" id="fbc1">
-                    <property name="can-focus">False</property>
-                    <property name="visible">True</property>
-                    <child>
-                      <object class="GtkBox" id="vbox1">
-                        <property name="can-focus">False</property>
-                        <property name="margin-right">9</property>
-                        <property name="orientation">vertical</property>
+          <object class="AdwNavigationPage" id="main_page">
+            <property name="child">
+              <object class="AdwToolbarView">
+                <property name="content">
+                  <object class="GtkScrolledWindow" id="main_scrollview">
+                    <property name="child">
+                      <object class="GtkBox" id="layout_box">
+                        <property name="homogeneous">True</property>
+                        <property name="margin-bottom">15</property>
+                        <property name="margin-end">15</property>
+                        <property name="margin-start">15</property>
+                        <property name="margin-top">15</property>
                         <property name="spacing">15</property>
-                        <property name="visible">True</property>
-                        <child>
-                          <object class="GtkFrame" id="buttons_frame">
+                        <child type="primary">
+                          <object class="GtkBox" id="left_column">
                             <property name="can-focus">False</property>
-                            <property name="label-xalign">0.039999999105930328</property>
-                            <property name="name">buttons_frame</property>
-                            <property name="shadow-type">in</property>
-                            <property name="visible">True</property>
+                            <property name="orientation">vertical</property>
+                            <property name="spacing">15</property>
                             <child>
-                              <object class="GtkAlignment">
-                                <property name="can-focus">False</property>
-                                <property name="left-padding">12</property>
-                                <property name="visible">True</property>
+                              <object class="AdwPreferencesGroup" id="identify_section">
+                                <property name="title" translatable="yes">Recognize songs</property>
                                 <child>
-                                  <object class="GtkBox">
-                                    <property name="can-focus">False</property>
-                                    <property name="margin-bottom">15</property>
-                                    <property name="margin-left">15</property>
-                                    <property name="margin-right">15</property>
-                                    <property name="margin-top">15</property>
-                                    <property name="orientation">vertical</property>
-                                    <property name="spacing">15</property>
-                                    <property name="visible">True</property>
+                                  <object class="AdwActionRow" id="recognize_file_row">
+                                    <property name="activatable">True</property>
+                                    <property name="activatable-widget">recognize_file_button</property>
+                                    <property name="selectable">False</property>
+                                    <property name="title" translatable="yes">Recognize from file</property>
                                     <child>
                                       <object class="GtkButton" id="recognize_file_button">
-                                        <property name="always-show-image">True</property>
-                                        <property name="can-focus">True</property>
-                                        <property name="height-request">40</property>
-                                        <property name="image">file_icon</property>
-                                        <property name="label" translatable="yes">Recognize from file</property>
-                                        <property name="receives-default">True</property>
-                                        <property name="visible">True</property>
+                                        <property name="action-name">win.recognize-file</property>
+                                        <property name="child">
+                                          <object class="AdwButtonContent">
+                                            <property name="icon-name">folder-new-symbolic</property>
+                                            <property name="label" translatable="yes">Pick a file...</property>
+                                          </object>
+                                        </property>
                                       </object>
-                                      <packing>
-                                        <property name="expand">False</property>
-                                        <property name="fill">True</property>
-                                        <property name="position">0</property>
-                                      </packing>
                                     </child>
-                                    <child>
-                                      <object class="GtkSpinner" id="spinner">
-                                        <property name="active">True</property>
-                                        <property name="can-focus">False</property>
-                                        <property name="name">spinner</property>
-                                        <property name="width-request">40</property>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="AdwPreferencesRow" id="spinner_row">
+                                    <property name="activatable">False</property>
+                                    <property name="child">
+                                      <object class="AdwSpinner">
+                                        <property name="margin-bottom">7</property>
                                       </object>
-                                      <packing>
-                                        <property name="expand">False</property>
-                                        <property name="fill">True</property>
-                                        <property name="position">1</property>
-                                      </packing>
+                                    </property>
+                                    <property name="margin-end">7</property>
+                                    <property name="margin-start">7</property>
+                                    <property name="margin-top">7</property>
+                                    <property name="selectable">False</property>
+                                    <property name="visible">False</property>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="AdwSwitchRow" id="microphone_switch">
+                                    <property name="activatable">True</property>
+                                    <property name="selectable">False</property>
+                                    <property name="title" translatable="yes">Recognize from microphone</property>
+                                    <property name="visible">False</property>
+                                    <signal name="notify::active" handler="microphone_option_switched"/>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="AdwSwitchRow" id="loopback_switch">
+                                    <property name="activatable">True</property>
+                                    <property name="selectable">False</property>
+                                    <property name="title" translatable="yes">Recognize from my speakers</property>
+                                    <property name="visible">False</property>
+                                    <signal name="notify::active" handler="loopback_options_switched"/>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkLabel" id="no_network_message">
+                                    <property name="label" translatable="yes">Shazam servers are not reachable, are you connected?</property>
+                                    <property name="margin-top">5</property>
+                                    <property name="visible">False</property>
+                                    <attributes>
+                                      <attribute name="weight" value="medium"/>
+                                      <attribute name="foreground" value="#a4a400000000"/>
+                                    </attributes>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="AdwPreferencesGroup" id="results_section">
+                                <property name="title" translatable="yes">Recognition results</property>
+                                <property name="visible">False</property>
+                                <child>
+                                  <object class="AdwPreferencesRow" id="results_row">
+                                    <property name="activatable">False</property>
+                                    <property name="selectable">False</property>
+                                    <child>
+                                      <object class="GtkBox">
+                                        <property name="margin-bottom">7</property>
+                                        <property name="margin-end">7</property>
+                                        <property name="margin-start">7</property>
+                                        <property name="margin-top">7</property>
+                                        <property name="orientation">vertical</property>
+                                        <property name="spacing">7</property>
+                                        <child>
+                                          <object class="GtkImage" id="results_image">
+                                            <property name="pixel-size">210</property>
+                                          </object>
+                                        </child>
+                                        <child>
+                                          <object class="GtkLabel" id="results_label">
+                                            <property name="label">Artist - Song name</property>
+                                            <property name="selectable">True</property>
+                                            <attributes>
+                                              <attribute name="weight" value="bold"/>
+                                            </attributes>
+                                          </object>
+                                        </child>
+                                      </object>
                                     </child>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="AdwActionRow" id="search_youtube_row">
+                                    <property name="activatable">True</property>
+                                    <property name="activatable-widget">search_youtube_button</property>
+                                    <property name="selectable">False</property>
+                                    <property name="title" translatable="yes">Search on YouTube</property>
                                     <child>
-                                      <object class="GtkButton" id="microphone_button">
-                                        <property name="always-show-image">True</property>
-                                        <property name="can-focus">True</property>
-                                        <property name="height-request">40</property>
-                                        <property name="image">microphone_icon</property>
-                                        <property name="label" translatable="yes">Turn on microphone recognition</property>
-                                        <property name="receives-default">True</property>
-                                        <property name="visible">True</property>
+                                      <object class="GtkButton" id="search_youtube_button">
+                                        <property name="action-name">win.search-youtube</property>
+                                        <property name="child">
+                                          <object class="AdwButtonContent">
+                                            <property name="icon-name">search-symbolic</property>
+                                            <property name="label" translatable="yes">Search...</property>
+                                          </object>
+                                        </property>
                                       </object>
-                                      <packing>
-                                        <property name="expand">False</property>
-                                        <property name="fill">True</property>
-                                        <property name="position">2</property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <object class="GtkButton" id="microphone_stop_button">
-                                        <property name="always-show-image">True</property>
-                                        <property name="can-focus">True</property>
-                                        <property name="height-request">40</property>
-                                        <property name="image">microphone_stop_icon</property>
-                                        <property name="label" translatable="yes">Turn off microphone recognition</property>
-                                        <property name="receives-default">True</property>
-                                      </object>
-                                      <packing>
-                                        <property name="expand">False</property>
-                                        <property name="fill">True</property>
-                                        <property name="position">3</property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <object class="GtkCheckButton" id="notification_enable_checkbox">
-                                        <property name="can-focus">True</property>
-                                        <property name="draw-indicator">True</property>
-                                        <property name="label" translatable="yes">Enable notifications</property>
-                                        <property name="receives-default">True</property>
-                                      </object>
-                                      <packing>
-                                        <property name="expand">False</property>
-                                        <property name="fill">True</property>
-                                        <property name="position">4</property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <object class="GtkLabel" id="network_unreachable">
-                                        <property name="can-focus">False</property>
-                                        <property name="height-request">28</property>
-                                        <property name="label" translatable="yes">Shazam servers are not reachable, are you connected?</property>
-                                        <attributes>
-                                          <attribute name="weight" value="medium"/>
-                                          <attribute name="foreground" value="#a4a400000000"/>
-                                        </attributes>
-                                      </object>
-                                      <packing>
-                                        <property name="expand">False</property>
-                                        <property name="fill">True</property>
-                                        <property name="position">5</property>
-                                      </packing>
                                     </child>
                                   </object>
                                 </child>
                               </object>
                             </child>
-                            <child type="label">
-                              <object class="GtkLabel">
-                                <property name="can-focus">False</property>
-                                <property name="label" translatable="yes">Recognize songs</property>
-                                <property name="name">buttons_frame_label</property>
-                                <property name="visible">True</property>
+                          </object>
+                        </child>
+                        <child type="secondary">
+                          <object class="GtkBox" id="right_column">
+                            <property name="orientation">vertical</property>
+                            <property name="spacing">15</property>
+                            <child>
+                              <object class="AdwPreferencesGroup" id="input_device_section">
+                                <property name="title" translatable="yes">Audio input</property>
+                                <child>
+                                  <object class="AdwComboRow" id="audio_inputs">
+                                    <property name="factory">
+                                      <object class="GtkBuilderListItemFactory" id="audio_inputs_factory">
+                                        <property name="bytes"><![CDATA[<interface>
+  <template class="GtkListItem">
+    <property name="child">
+      <object class="GtkLabel">
+        <property name="xalign">0</property>
+        <property name="ellipsize">PANGO_ELLIPSIZE_END</property>
+        <binding name="label">
+          <lookup name="display_name" type="ListedDevice">
+            <lookup name="item">GtkListItem</lookup>
+          </lookup>
+        </binding>
+      </object>
+    </property>
+  </template>
+</interface>]]></property>
+                                      </object>
+                                    </property>
+                                    <property name="model">
+                                      <object class="GListStore" id="audio_inputs_model"/>
+                                    </property>
+                                    <property name="title" translatable="yes">Device</property>
+                                    <signal name="notify::selected-item" handler="input_device_switched"/>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="AdwPreferencesRow" id="volume_row">
+                                    <property name="activatable">False</property>
+                                    <property name="selectable">False</property>
+                                    <property name="visible">False</property>
+                                    <child>
+                                      <object class="GtkBox">
+                                        <property name="margin-bottom">15</property>
+                                        <property name="margin-end">15</property>
+                                        <property name="margin-start">15</property>
+                                        <property name="margin-top">15</property>
+                                        <property name="spacing">6</property>
+                                        <child>
+                                          <object class="GtkLabel" id="volume_label">
+                                            <property name="label" translatable="yes">Volume:</property>
+                                          </object>
+                                        </child>
+                                        <child>
+                                          <object class="GtkProgressBar" id="volume_gauge">
+                                            <property name="valign">center</property>
+                                          </object>
+                                        </child>
+                                      </object>
+                                    </child>
+                                  </object>
+                                </child>
                               </object>
                             </child>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">0</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkFrame" id="results_frame">
-                            <property name="can-focus">False</property>
-                            <property name="label-xalign">0.039999999105930328</property>
-                            <property name="name">results_frame</property>
-                            <property name="shadow-type">in</property>
                             <child>
-                              <object class="GtkAlignment">
-                                <property name="can-focus">False</property>
-                                <property name="left-padding">12</property>
-                                <property name="visible">True</property>
+                              <object class="AdwPreferencesGroup" id="history_section">
+                                <property name="header-suffix">
+                                  <object class="GtkMenuButton" id="history_params">
+                                    <property name="icon-name">preferences-system</property>
+                                    <property name="menu-model">history_menu_model</property>
+                                  </object>
+                                </property>
+                                <property name="title" translatable="yes">Recognition history</property>
                                 <child>
-                                  <object class="GtkBox">
-                                    <property name="can-focus">False</property>
-                                    <property name="margin-bottom">15</property>
-                                    <property name="margin-left">15</property>
-                                    <property name="margin-right">15</property>
-                                    <property name="margin-top">15</property>
-                                    <property name="orientation">vertical</property>
-                                    <property name="spacing">15</property>
-                                    <property name="visible">True</property>
-                                    <child>
-                                      <object class="GtkLabel" id="recognized_song_name">
-                                        <property name="can-focus">False</property>
-                                        <property name="label">&lt;b&gt;Artist - Song name&lt;/b&gt;</property>
-                                        <property name="name">recognized_song_name</property>
-                                        <property name="selectable">True</property>
-                                        <property name="use-markup">True</property>
-                                        <property name="visible">True</property>
-                                        <property name="wrap">True</property>
-                                      </object>
-                                      <packing>
-                                        <property name="expand">False</property>
-                                        <property name="fill">True</property>
-                                        <property name="position">0</property>
-                                      </packing>
-                                    </child>
-                                    <child>
+                                  <object class="AdwPreferencesRow" id="history_row">
+                                    <property name="child">
                                       <object class="GtkScrolledWindow">
-                                        <property name="can-focus">True</property>
-                                        <property name="hscrollbar-policy">external</property>
-                                        <property name="min-content-height">100</property>
-                                        <property name="min-content-width">100</property>
-                                        <property name="visible">True</property>
-                                        <property name="vscrollbar-policy">external</property>
+                                        <property name="child">history_view</property>
                                         <child>
-                                          <object class="GtkViewport">
-                                            <property name="can-focus">False</property>
-                                            <property name="visible">True</property>
+                                          <object class="GtkColumnView" id="history_view">
+                                            <property name="model">
+                                              <object class="GtkSingleSelection" id="history_selection">
+                                                <property name="autoselect">False</property>
+                                                <property name="can-unselect">True</property>
+                                                <property name="model">
+                                                  <object class="GListStore" id="history_list_store"/>
+                                                </property>
+                                              </object>
+                                            </property>
+                                            <property name="show-column-separators">True</property>
+                                            <property name="show-row-separators">True</property>
+                                            <property name="single-click-activate">True</property>
                                             <child>
-                                              <object class="GtkImage" id="recognized_song_cover">
-                                                <property name="can-focus">False</property>
+                                              <object class="GtkColumnViewColumn">
+                                                <property name="factory">
+                                                  <object class="GtkBuilderListItemFactory">
+                                                    <property name="bytes"><![CDATA[<interface>
+  <template class="GtkColumnViewCell">
+    <property name="child">
+      <object class="GtkLabel">
+        <property name="xalign">0</property>
+        <property name="name">table_cell</property>
+        <binding name="label">
+          <lookup name="song_name" type="HistoryEntry">
+            <lookup name="item">GtkColumnViewCell</lookup>
+          </lookup>
+        </binding>
+      </object>
+    </property>
+  </template>
+</interface>]]></property>
+                                                  </object>
+                                                </property>
+                                                <property name="id">song_name</property>
+                                                <property name="resizable">True</property>
+                                                <property name="title" translatable="yes">Song name</property>
+                                              </object>
+                                            </child>
+                                            <child>
+                                              <object class="GtkColumnViewColumn">
+                                                <property name="factory">
+                                                  <object class="GtkBuilderListItemFactory">
+                                                    <property name="bytes"><![CDATA[<interface>
+  <template class="GtkColumnViewCell">
+    <property name="child">
+      <object class="GtkLabel">
+        <property name="xalign">0</property>
+        <property name="name">table_cell</property>
+        <binding name="label">
+          <lookup name="album" type="HistoryEntry">
+            <lookup name="item">GtkColumnViewCell</lookup>
+          </lookup>
+        </binding>
+      </object>
+    </property>
+  </template>
+</interface>]]></property>
+                                                  </object>
+                                                </property>
+                                                <property name="id">album</property>
+                                                <property name="resizable">True</property>
+                                                <property name="title" translatable="yes">Album</property>
+                                              </object>
+                                            </child>
+                                            <child>
+                                              <object class="GtkColumnViewColumn">
+                                                <property name="expand">True</property>
+                                                <property name="factory">
+                                                  <object class="GtkBuilderListItemFactory">
+                                                    <property name="bytes"><![CDATA[<interface>
+  <template class="GtkColumnViewCell">
+    <property name="child">
+      <object class="GtkLabel">
+        <property name="xalign">0</property>
+        <property name="name">table_cell</property>
+        <binding name="label">
+          <lookup name="recognition_date" type="HistoryEntry">
+            <lookup name="item">GtkColumnViewCell</lookup>
+          </lookup>
+        </binding>
+      </object>
+    </property>
+  </template>
+</interface>]]></property>
+                                                  </object>
+                                                </property>
+                                                <property name="id">recognition_date</property>
+                                                <property name="resizable">True</property>
+                                                <property name="title" translatable="yes">Recognition date</property>
                                               </object>
                                             </child>
                                           </object>
                                         </child>
                                       </object>
-                                      <packing>
-                                        <property name="expand">True</property>
-                                        <property name="fill">True</property>
-                                        <property name="position">1</property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <object class="GtkButton" id="youtube_button">
-                                        <property name="always-show-image">True</property>
-                                        <property name="can-focus">True</property>
-                                        <property name="height-request">0</property>
-                                        <property name="image">youtube_icon</property>
-                                        <property name="label" translatable="yes">Search on YouTube</property>
-                                        <property name="receives-default">True</property>
-                                        <property name="visible">True</property>
-                                      </object>
-                                      <packing>
-                                        <property name="expand">False</property>
-                                        <property name="fill">True</property>
-                                        <property name="position">2</property>
-                                      </packing>
-                                    </child>
+                                    </property>
+                                    <property name="height-request">200</property>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="AdwButtonRow" id="favorites_button">
+                                    <property name="action-name">navigation.push</property>
+                                    <property name="action-target">'favorites_tag'</property>
+                                    <property name="title" translatable="yes">View favorites</property>
                                   </object>
                                 </child>
                               </object>
                             </child>
-                            <child type="label">
-                              <object class="GtkLabel">
-                                <property name="can-focus">False</property>
-                                <property name="label" translatable="yes">Recognition results</property>
-                                <property name="name">results_frame_label</property>
-                                <property name="visible">True</property>
-                              </object>
-                            </child>
                           </object>
-                          <packing>
-                            <property name="expand">True</property>
-                            <property name="fill">True</property>
-                            <property name="position">1</property>
-                          </packing>
                         </child>
+                      </object>
+                    </property>
+                  </object>
+                </property>
+                <child type="top">
+                  <object class="AdwHeaderBar" id="title_bar">
+                    <child type="end">
+                      <object class="GtkMenuButton" id="menu_button">
+                        <property name="icon-name">open-menu-symbolic</property>
+                        <property name="menu-model">main_menu_model</property>
                       </object>
                     </child>
                   </object>
                 </child>
-                <child>
-                  <object class="GtkFlowBoxChild" id="fbc2">
-                    <property name="can-focus">False</property>
-                    <property name="visible">True</property>
+              </object>
+            </property>
+            <property name="title">SongRec</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwNavigationPage" id="favorites_page">
+            <property name="child">
+              <object class="AdwToolbarView">
+                <property name="content">
+                  <object class="GtkScrolledWindow">
+                    <property name="child">favorites_view</property>
                     <child>
-                      <object class="GtkBox" id="vbox2">
-                        <property name="can-focus">False</property>
-                        <property name="orientation">vertical</property>
-                        <property name="spacing">15</property>
-                        <property name="visible">True</property>
-                        <child>
-                          <object class="GtkFrame" id="microphone_source_frame">
-                            <property name="can-focus">False</property>
-                            <property name="label-xalign">0.039999999105930328</property>
-                            <property name="shadow-type">in</property>
-                            <property name="visible">True</property>
-                            <child>
-                              <object class="GtkAlignment">
-                                <property name="can-focus">False</property>
-                                <property name="left-padding">12</property>
-                                <property name="visible">True</property>
-                                <child>
-                                  <object class="GtkBox">
-                                    <property name="can-focus">False</property>
-                                    <property name="margin-bottom">15</property>
-                                    <property name="margin-left">15</property>
-                                    <property name="margin-right">15</property>
-                                    <property name="margin-top">15</property>
-                                    <property name="orientation">vertical</property>
-                                    <property name="spacing">15</property>
-                                    <property name="visible">True</property>
-                                    <child>
-                                      <object class="GtkComboBox" id="microphone_source_select_box">
-                                        <property name="active">0</property>
-                                        <property name="can-focus">False</property>
-                                        <property name="id-column">0</property>
-                                        <property name="model">input_devices_list_store</property>
-                                        <property name="visible">True</property>
-                                        <child>
-                                          <object class="GtkCellRendererText">
-                                            <property name="ellipsize">end</property>
-                                            <property name="width">50</property>
-                                            <property name="width-chars">1</property>
-                                          </object>
-                                          <!-- Custom child fragments -->
-                                          <attributes>
-                                            <attribute name="markup">0</attribute>
-                                            <attribute name="text">0</attribute>
-                                          </attributes>
-                                        </child>
-                                      </object>
-                                      <packing>
-                                        <property name="expand">False</property>
-                                        <property name="fill">True</property>
-                                        <property name="position">0</property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <object class="GtkCheckButton" id="recognize_from_my_speakers_checkbox">
-                                        <property name="can-focus">True</property>
-                                        <property name="draw-indicator">True</property>
-                                        <property name="label" translatable="yes">Recognize from my speakers instead of microphone</property>
-                                        <property name="receives-default">False</property>
-                                      </object>
-                                      <packing>
-                                        <property name="expand">False</property>
-                                        <property name="fill">True</property>
-                                        <property name="position">1</property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <object class="GtkBox" id="current_volume_hbox">
-                                        <property name="can-focus">False</property>
-                                        <property name="spacing">15</property>
-                                        <property name="visible">True</property>
-                                        <child>
-                                          <object class="GtkLabel">
-                                            <property name="can-focus">False</property>
-                                            <property name="label" translatable="yes">Current volume:</property>
-                                            <property name="visible">True</property>
-                                          </object>
-                                          <packing>
-                                            <property name="expand">False</property>
-                                            <property name="fill">True</property>
-                                            <property name="position">0</property>
-                                          </packing>
-                                        </child>
-                                        <child>
-                                          <object class="GtkProgressBar" id="current_volume_bar">
-                                            <property name="can-focus">False</property>
-                                            <property name="visible">True</property>
-                                          </object>
-                                          <packing>
-                                            <property name="expand">True</property>
-                                            <property name="fill">True</property>
-                                            <property name="position">1</property>
-                                          </packing>
-                                        </child>
-                                      </object>
-                                      <packing>
-                                        <property name="expand">False</property>
-                                        <property name="fill">True</property>
-                                        <property name="position">2</property>
-                                      </packing>
-                                    </child>
-                                  </object>
-                                </child>
-                              </object>
-                            </child>
-                            <child type="label">
-                              <object class="GtkLabel">
-                                <property name="can-focus">False</property>
-                                <property name="label" translatable="yes">Audio input</property>
-                                <property name="visible">True</property>
-                              </object>
-                            </child>
+                      <object class="GtkColumnView" id="favorites_view">
+                        <property name="model">
+                          <object class="GtkSingleSelection" id="favorites_selection">
+                            <property name="autoselect">False</property>
+                            <property name="can-unselect">True</property>
+                            <property name="model">
+                              <object class="GListStore" id="favorites_list_store"/>
+                            </property>
                           </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">0</property>
-                          </packing>
+                        </property>
+                        <property name="show-column-separators">True</property>
+                        <property name="show-row-separators">True</property>
+                        <property name="single-click-activate">True</property>
+                        <child>
+                          <object class="GtkColumnViewColumn">
+                            <property name="factory">
+                              <object class="GtkBuilderListItemFactory">
+                                <property name="bytes"><![CDATA[<interface>
+  <template class="GtkColumnViewCell">
+    <property name="child">
+      <object class="GtkLabel">
+        <property name="xalign">0</property>
+        <binding name="label">
+          <lookup name="song_name" type="HistoryEntry">
+            <lookup name="item">GtkColumnViewCell</lookup>
+          </lookup>
+        </binding>
+      </object>
+    </property>
+  </template>
+</interface>]]></property>
+                              </object>
+                            </property>
+                            <property name="resizable">True</property>
+                            <property name="title" translatable="yes">Song name</property>
+                          </object>
                         </child>
                         <child>
-                          <object class="GtkFrame">
-                            <property name="can-focus">False</property>
-                            <property name="label-xalign">0.039999999105930328</property>
-                            <property name="shadow-type">in</property>
-                            <property name="visible">True</property>
-                            <child>
-                              <object class="GtkAlignment">
-                                <property name="can-focus">False</property>
-                                <property name="left-padding">12</property>
-                                <property name="visible">True</property>
-                                <child>
-                                  <object class="GtkBox">
-                                    <property name="can-focus">False</property>
-                                    <property name="margin-bottom">15</property>
-                                    <property name="margin-left">15</property>
-                                    <property name="margin-right">15</property>
-                                    <property name="margin-top">15</property>
-                                    <property name="orientation">vertical</property>
-                                    <property name="spacing">15</property>
-                                    <property name="visible">True</property>
-                                    <child>
-                                      <object class="GtkScrolledWindow" id="buttons">
-                                        <property name="can-focus">True</property>
-                                        <property name="shadow-type">in</property>
-                                        <property name="visible">True</property>
-                                        <child>
-                                          <object class="GtkTreeView" id="history_tree_view">
-                                            <property name="can-focus">True</property>
-                                            <property name="enable-grid-lines">vertical</property>
-                                            <property name="model">history_list_store</property>
-                                            <property name="vexpand">True</property>
-                                            <property name="visible">True</property>
-                                            <child>
-                                              <object class="GtkTreeViewColumn">
-                                                <property name="resizable">True</property>
-                                                <property name="sizing">autosize</property>
-                                                <property name="title" translatable="yes">Song name</property>
-                                                <child>
-                                                  <object class="GtkCellRendererText"/>
-                                                  <!-- Custom child fragments -->
-                                                  <attributes>
-                                                    <attribute name="text">0</attribute>
-                                                  </attributes>
-                                                </child>
-                                              </object>
-                                            </child>
-                                            <child>
-                                              <object class="GtkTreeViewColumn">
-                                                <property name="resizable">True</property>
-                                                <property name="sizing">autosize</property>
-                                                <property name="title" translatable="yes">Album</property>
-                                                <child>
-                                                  <object class="GtkCellRendererText"/>
-                                                  <!-- Custom child fragments -->
-                                                  <attributes>
-                                                    <attribute name="text">1</attribute>
-                                                  </attributes>
-                                                </child>
-                                              </object>
-                                            </child>
-                                            <child>
-                                              <object class="GtkTreeViewColumn">
-                                                <property name="resizable">True</property>
-                                                <property name="sizing">autosize</property>
-                                                <property name="title" translatable="yes">Recognition date</property>
-                                                <child>
-                                                  <object class="GtkCellRendererText"/>
-                                                  <!-- Custom child fragments -->
-                                                  <attributes>
-                                                    <attribute name="text">2</attribute>
-                                                  </attributes>
-                                                </child>
-                                              </object>
-                                            </child>
-                                          </object>
-                                        </child>
-                                      </object>
-                                      <packing>
-                                        <property name="expand">True</property>
-                                        <property name="fill">True</property>
-                                        <property name="position">0</property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <object class="GtkFlowBox" id="buttonbox">
-                                        <property name="can-focus">False</property>
-                                        <property name="max-children-per-line">3</property>
-                                        <property name="visible">True</property>
-                                        <child>
-                                          <object class="GtkFlowBoxChild">
-                                            <property name="can-focus">True</property>
-                                            <property name="visible">True</property>
-                                            <child>
-                                              <object class="GtkButton" id="favorites_list_button">
-                                                <property name="always-show-image">True</property>
-                                                <property name="can-focus">True</property>
-                                                <property name="image">favorite_icon</property>
-                                                <property name="label" translatable="yes">Favorites</property>
-                                                <property name="receives-default">True</property>
-                                                <property name="visible">True</property>
-                                              </object>
-                                            </child>
-                                          </object>
-                                        </child>
-                                        <child>
-                                          <object class="GtkFlowBoxChild">
-                                            <property name="can-focus">True</property>
-                                            <property name="visible">True</property>
-                                            <child>
-                                              <object class="GtkButton" id="wipe_history_button">
-                                                <property name="always-show-image">True</property>
-                                                <property name="can-focus">True</property>
-                                                <property name="image">wipe_icon</property>
-                                                <property name="label" translatable="yes">Wipe history</property>
-                                                <property name="receives-default">True</property>
-                                                <property name="visible">True</property>
-                                              </object>
-                                            </child>
-                                          </object>
-                                        </child>
-                                        <child>
-                                          <object class="GtkFlowBoxChild">
-                                            <property name="can-focus">True</property>
-                                            <property name="visible">True</property>
-                                            <child>
-                                              <object class="GtkButton" id="export_history_csv_button">
-                                                <property name="always-show-image">True</property>
-                                                <property name="can-focus">True</property>
-                                                <property name="image">csv_icon</property>
-                                                <property name="label" translatable="yes">Export to CSV</property>
-                                                <property name="receives-default">True</property>
-                                                <property name="visible">True</property>
-                                              </object>
-                                            </child>
-                                          </object>
-                                        </child>
-                                      </object>
-                                      <packing>
-                                        <property name="expand">False</property>
-                                        <property name="fill">True</property>
-                                        <property name="position">1</property>
-                                      </packing>
-                                    </child>
-                                  </object>
-                                </child>
+                          <object class="GtkColumnViewColumn">
+                            <property name="factory">
+                              <object class="GtkBuilderListItemFactory">
+                                <property name="bytes"><![CDATA[<interface>
+  <template class="GtkColumnViewCell">
+    <property name="child">
+      <object class="GtkLabel">
+        <property name="xalign">0</property>
+        <binding name="label">
+          <lookup name="album" type="HistoryEntry">
+            <lookup name="item">GtkColumnViewCell</lookup>
+          </lookup>
+        </binding>
+      </object>
+    </property>
+  </template>
+</interface>]]></property>
                               </object>
-                            </child>
-                            <child type="label">
-                              <object class="GtkLabel">
-                                <property name="can-focus">False</property>
-                                <property name="label" translatable="yes">Recognition history</property>
-                                <property name="visible">True</property>
-                              </object>
-                            </child>
+                            </property>
+                            <property name="id">album</property>
+                            <property name="resizable">True</property>
+                            <property name="title" translatable="yes">Album</property>
                           </object>
-                          <packing>
+                        </child>
+                        <child>
+                          <object class="GtkColumnViewColumn">
                             <property name="expand">True</property>
-                            <property name="fill">True</property>
-                            <property name="position">1</property>
-                          </packing>
+                            <property name="factory">
+                              <object class="GtkBuilderListItemFactory">
+                                <property name="bytes"><![CDATA[<interface>
+  <template class="GtkColumnViewCell">
+    <property name="child">
+      <object class="GtkLabel">
+        <property name="xalign">0</property>
+        <binding name="label">
+          <lookup name="recognition_date" type="HistoryEntry">
+            <lookup name="item">GtkColumnViewCell</lookup>
+          </lookup>
+        </binding>
+      </object>
+    </property>
+  </template>
+</interface>]]></property>
+                              </object>
+                            </property>
+                            <property name="id">recognition_date</property>
+                            <property name="resizable">True</property>
+                            <property name="title" translatable="yes">Recognition date</property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </property>
+                <child type="top">
+                  <object class="AdwHeaderBar" id="favorites_titlebar"/>
+                </child>
+                <child type="bottom">
+                  <object class="GtkActionBar" id="favorites_actions">
+                    <child>
+                      <object class="GtkButton" id="favorites_export_csv">
+                        <property name="action-name">win.export-favorites-to-csv</property>
+                        <child>
+                          <object class="AdwButtonContent">
+                            <property name="icon-name">x-office-spreadsheet-symbolic</property>
+                            <property name="label" translatable="yes">Export to CSV</property>
+                          </object>
                         </child>
                       </object>
                     </child>
                   </object>
                 </child>
               </object>
-            </child>
+            </property>
+            <property name="tag">favorites_tag</property>
+            <property name="title" translatable="yes">Favorites</property>
           </object>
         </child>
       </object>
-    </child>
-    <child type="titlebar">
-      <object class="GtkHeaderBar">
-        <property name="can-focus">False</property>
-        <property name="show-close-button">True</property>
-        <property name="title" translatable="yes">SongRec</property>
-        <property name="visible">True</property>
-        <child>
-          <object class="GtkMenuButton" id="menu_button">
-            <property name="can-focus">True</property>
-            <property name="direction">none</property>
-            <property name="focus-on-click">False</property>
-            <property name="popover">main_menu</property>
-            <property name="receives-default">True</property>
-            <property name="visible">True</property>
-          </object>
-          <packing>
-            <property name="pack-type">end</property>
-          </packing>
-        </child>
+    </property>
+    <property name="default-height">529</property>
+    <property name="default-width">977</property>
+    <property name="icon-name">audio-x-generic</property>
+    <property name="title">SongRec</property>
+    <property name="visible">True</property>
+    <child>
+      <object class="AdwBreakpoint" id="main_page_breakpoint">
+        <!-- Custom object fragments -->
+        <condition>max-width: 800px</condition>
+        <setter object="layout_box" property="orientation">vertical</setter>
+        <setter object="layout_box" property="homogeneous">false</setter>
       </object>
     </child>
   </object>
+  <menu id="main_menu_model">
+    <section id="menu_section">
+      <item>
+        <attribute name="action">win.notification-setting</attribute>
+        <attribute name="label" translatable="yes">Show notifications</attribute>
+      </item>
+      <item>
+        <attribute name="action">win.mpris-setting</attribute>
+        <attribute name="label" translatable="yes">Enable MPRIS</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="action">win.show-about</attribute>
+        <attribute name="label" translatable="yes">About...</attribute>
+      </item>
+    </section>
+  </menu>
+  <object class="AdwAboutDialog" id="about_dialog">
+    <property name="application-icon">audio-x-generic</property>
+    <property name="application-name">SongRec</property>
+    <property name="developer-name">Marin Moulinier - Fossplant.re</property>
+    <property name="developers">Marin Moulinier https://moulinier.dev/
+Contributors https://github.com/marin-m/SongRec/graphs/contributors</property>
+    <property name="issue-url">https://github.com/marin-m/SongRec/issues</property>
+    <property name="license-type">gpl-3-0</property>
+    <property name="support-url">https://matrix.to/#/!DZgyxHTQHSssuGdiHl:matrix.org</property>
+    <property name="translator-credits">SongRec translators https://github.com/marin-m/SongRec/tree/master/translations&gt;</property>
+    <property name="version">0.6.0</property>
+    <property name="website">https://songrec.fossplant.re/</property>
+  </object>
+  <menu id="history_menu_model">
+    <item>
+      <attribute name="action">win.export-to-csv</attribute>
+      <attribute name="label" translatable="yes">Export to CSV</attribute>
+    </item>
+    <item>
+      <attribute name="action">win.wipe-history</attribute>
+      <attribute name="label" translatable="yes">Delete history</attribute>
+    </item>
+  </menu>
+  <object class="GtkFileDialog" id="file_picker">
+    <property name="title" translatable="yes">Select a file to recognize</property>
+  </object>
+  <object class="GtkPopoverMenu" id="history_context_menu">
+    <property name="menu-model">history_context_model</property>
+  </object>
+  <menu id="history_context_model">
+    <section>
+      <item>
+        <attribute name="action">history-menu.copy-artist-track</attribute>
+        <attribute name="icon">edit-copy-symbolic</attribute>
+        <attribute name="label" translatable="yes">Copy artist and track</attribute>
+      </item>
+      <item>
+        <attribute name="action">history-menu.copy-artist</attribute>
+        <attribute name="icon">edit-copy-symbolic</attribute>
+        <attribute name="label" translatable="yes">Copy artist</attribute>
+      </item>
+      <item>
+        <attribute name="action">history-menu.copy-track-name</attribute>
+        <attribute name="icon">edit-copy-symbolic</attribute>
+        <attribute name="label" translatable="yes">Copy track name</attribute>
+      </item>
+      <item>
+        <attribute name="action">history-menu.copy-album</attribute>
+        <attribute name="icon">edit-copy-symbolic</attribute>
+        <attribute name="label" translatable="yes">Copy album</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="action">history-menu.search-on-youtube</attribute>
+        <attribute name="icon">category-search-symbolic</attribute>
+        <attribute name="label" translatable="yes">Search on YouTube</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="action">history-menu.add-to-favorites</attribute>
+        <attribute name="icon">favorite-new-symbolic</attribute>
+        <attribute name="label" translatable="yes">Add to Favorites</attribute>
+      </item>
+    </section>
+  </menu>
+  <menu id="history_context_model_faved">
+    <section>
+      <item>
+        <attribute name="action">history-menu.copy-artist-track</attribute>
+        <attribute name="icon">edit-copy-symbolic</attribute>
+        <attribute name="label" translatable="yes">Copy artist and track</attribute>
+      </item>
+      <item>
+        <attribute name="action">history-menu.copy-artist</attribute>
+        <attribute name="icon">edit-copy-symbolic</attribute>
+        <attribute name="label" translatable="yes">Copy artist</attribute>
+      </item>
+      <item>
+        <attribute name="action">history-menu.copy-track-name</attribute>
+        <attribute name="icon">edit-copy-symbolic</attribute>
+        <attribute name="label" translatable="yes">Copy track name</attribute>
+      </item>
+      <item>
+        <attribute name="action">history-menu.copy-album</attribute>
+        <attribute name="icon">edit-copy-symbolic</attribute>
+        <attribute name="label" translatable="yes">Copy album</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="action">history-menu.search-on-youtube</attribute>
+        <attribute name="icon">category-search-symbolic</attribute>
+        <attribute name="label" translatable="yes">Search on YouTube</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="action">history-menu.remove-from-favorites</attribute>
+        <attribute name="icon">edit-delete-symbolic</attribute>
+        <attribute name="label" translatable="yes">Remove from Favorites</attribute>
+      </item>
+    </section>
+  </menu>
 </interface>

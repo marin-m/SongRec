@@ -1,4 +1,3 @@
-use std::sync::mpsc;
 use std::error::Error;
 use gettextrs::gettext;
 use regex::Regex;
@@ -73,30 +72,30 @@ fn try_recognize_song(signature: DecodedSignature) -> Result<SongRecognizedMessa
     })
 }
 
-pub fn http_thread(http_rx: mpsc::Receiver<HTTPMessage>, gui_tx: glib::Sender<GUIMessage>, microphone_tx: mpsc::Sender<MicrophoneMessage>) {
+pub fn http_thread(http_rx: async_channel::Receiver<HTTPMessage>, gui_tx: async_channel::Sender<GUIMessage>, microphone_tx: async_channel::Sender<MicrophoneMessage>) {
     
-    for message in http_rx.iter() {
+    while let Ok(message) = http_rx.recv_blocking() {
         match message {
             HTTPMessage::RecognizeSignature(signature) => {
                 match try_recognize_song(*signature) {
                     Ok(recognized_song) => {
-                        gui_tx.send(GUIMessage::SongRecognized(Box::new(recognized_song))).unwrap();
-                        gui_tx.send(GUIMessage::NetworkStatus(true)).unwrap();
+                        gui_tx.send_blocking(GUIMessage::SongRecognized(Box::new(recognized_song))).unwrap();
+                        gui_tx.send_blocking(GUIMessage::NetworkStatus(true)).unwrap();
                     },
                     Err(error) => {
                         match error.to_string().as_str() {
                             a if a == gettext("No match for this song") => {
-                                gui_tx.send(GUIMessage::ErrorMessage(error.to_string())).unwrap();
-                                gui_tx.send(GUIMessage::NetworkStatus(true)).unwrap();
+                                gui_tx.send_blocking(GUIMessage::ErrorMessage(error.to_string())).unwrap();
+                                gui_tx.send_blocking(GUIMessage::NetworkStatus(true)).unwrap();
                             }
                             _ => {
-                                gui_tx.send(GUIMessage::NetworkStatus(false)).unwrap();
+                                gui_tx.send_blocking(GUIMessage::NetworkStatus(false)).unwrap();
                             }
                         }
                     }
                 };
                 
-                microphone_tx.send(MicrophoneMessage::ProcessingDone).unwrap();
+                microphone_tx.send_blocking(MicrophoneMessage::ProcessingDone).unwrap();
             }
         }
     }

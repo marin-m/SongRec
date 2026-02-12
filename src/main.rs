@@ -15,6 +15,7 @@ mod core {
     pub mod microphone_thread;
     pub mod processing_thread;
     pub mod http_thread;
+    pub mod logging;
     pub mod thread_messages;
 }
 
@@ -28,8 +29,12 @@ mod audio_controllers {
 #[cfg(feature = "gui")]
 mod gui {
     pub mod main_window;
-    mod song_history_interface;
+    pub mod song_history_interface;
     pub mod preferences;
+
+    pub mod context_menu;
+    pub mod listed_device;
+    pub mod history_entry;
 }
 
 mod utils {
@@ -53,111 +58,136 @@ use crate::fingerprinting::communication::recognize_song_from_signature;
 use crate::utils::internationalization::setup_internationalization;
 #[cfg(feature = "gui")]
 use crate::gui::main_window::gui_main;
+use crate::core::logging::Logging;
 use crate::cli_main::{cli_main, CLIParameters, CLIOutputType};
 
 use std::error::Error;
 use gettextrs::gettext;
-use clap::{App, Arg};
+use clap::{command, Command, Arg, ArgAction};
 
 macro_rules! base_app {
     () => {
-    App::new("SongRec")
-        .version("0.5.0")
-        .about(gettext("An open-source Shazam client for Linux, written in Rust.").as_str())
+        command!()
+        .about(gettext("An open-source Shazam client for Linux, written in Rust."))
+        /* .help_template("\
+SongRec {version}
+{about-with-newline}
+{usage-heading} {usage}
+
+{all-args}{after-help}
+") */
+
+                // Cf. https://docs.rs/clap/latest/clap/_derive/_tutorial/index.html
+                    // ^ rewrite using this new syntax
+                // Cf. https://docs.rs/clap/latest/clap/_tutorial/index.html
+                // Cf. https://docs.rs/clap/latest/clap/
+                // Cf. https://github.com/clap-rs/clap/tree/master/examples
+        .arg(
+            Arg::new("verbose")
+                .short('v')
+                .long("verbose")
+                .action(ArgAction::Count)
+                .help(gettext("-v: Set the log level to DEBUG instead of WARN for SongRec-related messages
+-vv: Set the log level to DEBUG for SongRec-related messages and INFO for library-related messages
+-vvv: Set the log level to TRACE"))
+        )
         .subcommand(
-            App::new("listen")
-                .about(gettext("Run as a command-line program listening the microphone and printing recognized songs to stdout, exposing current song info via MPRIS").as_str())
+            Command::new("listen")
+                .about(gettext("Run as a command-line program listening the microphone and printing recognized songs to stdout, exposing current song info via MPRIS"))
                 .arg(
-                    Arg::with_name("audio-device")
-                        .short("d")
+                    Arg::new("audio-device")
+                        .short('d')
                         .long("audio-device")
-                        .takes_value(true)
-                        .help(gettext("Specify the audio device to use").as_str())
+                        .help(gettext("Specify the audio device to use"))
                 )
                 .arg(
-                    Arg::with_name("json")
-                        .short("j")
+                    Arg::new("json")
+                        .short('j')
                         .long("json")
                         .conflicts_with("csv")
-                        .help(gettext("Enable printing full song info in JSON").as_str())
+                        .action(ArgAction::SetTrue)
+                        .help(gettext("Enable printing full song info in JSON"))
                 )
                 .arg(
-                    Arg::with_name("csv")
-                        .short("c")
+                    Arg::new("csv")
+                        .short('c')
                         .long("csv")
-                        .help(gettext("Enable printing full song info in the CSV format").as_str())
+                        .action(ArgAction::SetTrue)
+                        .help(gettext("Enable printing full song info in the CSV format"))
                 )
                 .arg(
-                    Arg::with_name("disable-mpris")
+                    Arg::new("disable-mpris")
                         .long("disable-mpris")
-                        .help(gettext("Disable MPRIS support").as_str())
+                        .action(ArgAction::SetTrue)
+                        .help(gettext("Disable MPRIS support"))
                 )
         )
         .subcommand(
-            App::new("recognize")
-                .about(gettext("Recognize one song from a sound file or microphone and print its info.").as_str())
+            Command::new("recognize")
+                .about(gettext("Recognize one song from a sound file or microphone and print its info."))
                 .arg(
-                    Arg::with_name("audio-device")
-                        .short("d")
+                    Arg::new("audio-device")
+                        .short('d')
                         .long("audio-device")
-                        .takes_value(true)
-                        .help(gettext("Specify the audio device to use").as_str())
+                        .action(ArgAction::Set)
+                        .help(gettext("Specify the audio device to use"))
                 )
                 .arg(
-                    Arg::with_name("json")
-                        .short("j")
+                    Arg::new("json")
+                        .short('j')
                         .long("json")
                         .conflicts_with("csv")
-                        .help(gettext("Enable printing full song info in JSON").as_str())
+                        .action(ArgAction::SetTrue)
+                        .help(gettext("Enable printing full song info in JSON"))
                 )
                 .arg(
-                    Arg::with_name("csv")
-                        .short("c")
+                    Arg::new("csv")
+                        .short('c')
                         .long("csv")
-                        .help(gettext("Enable printing full song info in the CSV format").as_str())
+                        .action(ArgAction::SetTrue)
+                        .help(gettext("Enable printing full song info in the CSV format"))
                 )
                 .arg(
-                    Arg::with_name("input_file")
+                    Arg::new("input_file")
                         .required(false)
-                        .help(gettext("Recognize a file instead of using mic input").as_str())
+                        .help(gettext("Recognize a file instead of using mic input"))
                 )
         )
         .subcommand(
-            App::new("audio-file-to-recognized-song")
-                .about(gettext("Generate a Shazam fingerprint from a sound file, perform song recognition towards Shazam's servers and print obtained information to the standard output.").as_str())
+            Command::new("audio-file-to-recognized-song")
+                .about(gettext("Generate a Shazam fingerprint from a sound file, perform song recognition towards Shazam's servers and print obtained information to the standard output."))
                 .arg(
-                    Arg::with_name("input_file")
+                    Arg::new("input_file")
                         .required(true)
-                        .help(gettext("The audio file to recognize.").as_str())
+                        .help(gettext("The audio file to recognize."))
                 )
         )
         .subcommand(
-            App::new("microphone-to-recognized-song")
-                .about(gettext("Recognize a currently playing song using the microphone and print obtained information to the standard output").as_str())
+            Command::new("microphone-to-recognized-song")
+                .about(gettext("Recognize a currently playing song using the microphone and print obtained information to the standard output"))
                 .arg(
-                    Arg::with_name("audio-device")
-                        .short("d")
+                    Arg::new("audio-device")
+                        .short('d')
                         .long("audio-device")
-                        .takes_value(true)
-                        .help(gettext("Specify the audio device to use").as_str())
+                        .help(gettext("Specify the audio device to use"))
                 )
         )
         .subcommand(
-            App::new("audio-file-to-fingerprint")
-                .about(gettext("Generate a Shazam fingerprint from a sound file, and print it to the standard output.").as_str())
+            Command::new("audio-file-to-fingerprint")
+                .about(gettext("Generate a Shazam fingerprint from a sound file, and print it to the standard output."))
                 .arg(
-                    Arg::with_name("input_file")
+                    Arg::new("input_file")
                         .required(true)
-                        .help(gettext("The .WAV or .MP3 file to generate an audio fingerprint for.").as_str())
+                        .help(gettext("The .WAV or .MP3 file to generate an audio fingerprint for."))
                 )
         )
         .subcommand(
-            App::new("fingerprint-to-recognized-song")
-                .about(gettext("Take a data-URI Shazam fingerprint, perform song recognition towards Shazam's servers and print obtained information to the standard output.").as_str())
+            Command::new("fingerprint-to-recognized-song")
+                .about(gettext("Take a data-URI Shazam fingerprint, perform song recognition towards Shazam's servers and print obtained information to the standard output."))
                 .arg(
-                    Arg::with_name("fingerprint")
+                    Arg::new("fingerprint")
                         .required(true)
-                        .help(gettext("The data-URI Shazam fingerprint to recognize.").as_str())
+                        .help(gettext("The data-URI Shazam fingerprint to recognize."))
                 )
         )
     };
@@ -168,31 +198,33 @@ macro_rules! gui_app {
     () => {
         base_app!()
         .subcommand(
-            App::new("gui")
-                .about(gettext("The default action. Display a GUI.").as_str())
+            Command::new("gui")
+                .about(gettext("The default action. Display a GUI."))
                 .arg(
-                    Arg::with_name("input_file")
+                    Arg::new("input_file")
                         .required(false)
-                        .help(gettext("An optional audio file to recognize on the launch of the application.").as_str())
+                        .help(gettext("An optional audio file to recognize on the launch of the application."))
                 )
                 .arg(
-                    Arg::with_name("disable-mpris")
+                    Arg::new("disable-mpris")
                         .long("disable-mpris")
-                        .help(gettext("Disable MPRIS support").as_str())
+                        .action(ArgAction::SetTrue)
+                        .help(gettext("Disable MPRIS support"))
                 )
         )
         .subcommand(
-            App::new("gui-norecording")
-                .about(gettext("Launch the GUI, but don't recognize audio through the microphone as soon as it is launched (rather than expecting the user to click on a button).").as_str())
+            Command::new("gui-norecording")
+                .about(gettext("Launch the GUI, but don't recognize audio through the microphone as soon as it is launched (rather than expecting the user to click on a button)."))
                 .arg(
-                    Arg::with_name("input_file")
+                    Arg::new("input_file")
                         .required(false)
-                        .help(gettext("An optional audio file to recognize on the launch of the application.").as_str())
+                        .help(gettext("An optional audio file to recognize on the launch of the application."))
                 )
                 .arg(
-                    Arg::with_name("disable-mpris")
+                    Arg::new("disable-mpris")
                         .long("disable-mpris")
-                        .help(gettext("Disable MPRIS support").as_str())
+                        .action(ArgAction::SetTrue)
+                        .help(gettext("Disable MPRIS support"))
                 )
         )
     };
@@ -214,37 +246,52 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     setup_internationalization();
 
+    // TODO simplify the code in this module etc. path handling ^
+
     // Collect the program arguments
     let args = app!().get_matches();
+
+    // Set up logging
+
+    let log_object: Logging = match args.get_count("verbose") {
+        0 => Logging::setup_logging(log::LevelFilter::Warn, log::LevelFilter::Warn),
+        1 => Logging::setup_logging(log::LevelFilter::Warn, log::LevelFilter::Debug),
+        2 => Logging::setup_logging(log::LevelFilter::Info, log::LevelFilter::Debug),
+        _ => Logging::setup_logging(log::LevelFilter::Trace, log::LevelFilter::Trace)
+    };
+
+    Logging::bind_glib_logging();
+
+    // Parse other arguments
     
     match args.subcommand_name() {
         Some("audio-file-to-recognized-song") => {            
             let subcommand_args = args.subcommand_matches("audio-file-to-recognized-song").unwrap();
             
-            let input_file_string = subcommand_args.value_of("input_file").unwrap();
+            let input_file_string = subcommand_args.get_one::<String>("input_file").unwrap();
             
             println!("{}", serde_json::to_string_pretty(&recognize_song_from_signature(&SignatureGenerator::make_signature_from_file(input_file_string)?)?)?);
         },
         Some("audio-file-to-fingerprint") => {
             let subcommand_args = args.subcommand_matches("audio-file-to-fingerprint").unwrap();
             
-            let input_file_string = subcommand_args.value_of("input_file").unwrap();
+            let input_file_string = subcommand_args.get_one::<String>("input_file").unwrap();
             
             println!("{}", SignatureGenerator::make_signature_from_file(input_file_string)?.encode_to_uri()?);
         },
         Some("fingerprint-to-recognized-song") => {
             let subcommand_args = args.subcommand_matches("fingerprint-to-recognized-song").unwrap();
             
-            let fingerprint_string = subcommand_args.value_of("fingerprint").unwrap();
+            let fingerprint_string = subcommand_args.get_one::<String>("fingerprint").unwrap();
             
             println!("{}", serde_json::to_string_pretty(&recognize_song_from_signature(&DecodedSignature::decode_from_uri(fingerprint_string)?)?)?);
         },
         Some("listen") => {
             let subcommand_args = args.subcommand_matches("listen").unwrap();
-            let audio_device = subcommand_args.value_of("audio-device").map(str::to_string);
-            let enable_mpris = !subcommand_args.is_present("disable-mpris");
-            let enable_json = subcommand_args.is_present("json");
-            let enable_csv = subcommand_args.is_present("csv");
+            let audio_device = subcommand_args.get_one::<String>("audio-device").cloned();
+            let enable_mpris = !subcommand_args.contains_id("disable-mpris");
+            let enable_json = subcommand_args.contains_id("json");
+            let enable_csv = subcommand_args.contains_id("csv");
 
             cli_main(CLIParameters {
                 enable_mpris,
@@ -264,10 +311,10 @@ fn main() -> Result<(), Box<dyn Error>> {
         },
         Some("recognize") => {
             let subcommand_args = args.subcommand_matches("recognize").unwrap();
-            let audio_device = subcommand_args.value_of("audio-device").map(str::to_string);
-            let input_file = subcommand_args.value_of("input_file").map(str::to_string);
-            let enable_json = subcommand_args.is_present("json");
-            let enable_csv = subcommand_args.is_present("csv");
+            let audio_device = subcommand_args.get_one::<String>("audio-device").cloned();
+            let input_file = subcommand_args.get_one::<String>("input_file").cloned();
+            let enable_json = subcommand_args.contains_id("json");
+            let enable_csv = subcommand_args.contains_id("csv");
 
             cli_main(CLIParameters {
                 enable_mpris: false,
@@ -288,7 +335,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         },
         Some("microphone-to-recognized-song") => {
             let subcommand_args = args.subcommand_matches("microphone-to-recognized-song").unwrap();
-            let audio_device = subcommand_args.value_of("audio-device").map(str::to_string);
+            let audio_device = subcommand_args.get_one::<String>("audio-device").cloned();
 
             cli_main(CLIParameters {
                 enable_mpris: false,
@@ -302,21 +349,23 @@ fn main() -> Result<(), Box<dyn Error>> {
         Some("gui-norecording") => {
             let subcommand_args = args.subcommand_matches("gui-norecording").unwrap();
 
-            gui_main(false,
-                 subcommand_args.value_of("input_file"),
-                 !subcommand_args.is_present("disable-mpris"),
+            gui_main(log_object,
+                 false,
+                 subcommand_args.get_one::<String>("input_file").cloned(),
+                 !subcommand_args.contains_id("disable-mpris"),
             )?;
         },
         #[cfg(feature="gui")]
         Some("gui") | None => {
             if let Some(subcommand_args) = args.subcommand_matches("gui") {
-                gui_main(true,
-                     subcommand_args.value_of("input_file"),
-                     !subcommand_args.is_present("disable-mpris"),
+                gui_main(log_object,
+                     true,
+                     subcommand_args.get_one::<String>("input_file").cloned(),
+                     !subcommand_args.contains_id("disable-mpris"),
                 )?;
             }
             else {
-                gui_main(true, None, true)?;
+                gui_main(log_object, true, None, true)?;
             }
         },
         #[cfg(not(feature="gui"))]

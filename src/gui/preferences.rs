@@ -3,6 +3,7 @@ use serde::Deserialize;
 use std::fs::OpenOptions;
 use std::error::Error;
 use gettextrs::gettext;
+use log::debug;
 use std::io::{Read, Write};
 
 use crate::utils::filesystem_operations::obtain_preferences_file_path;
@@ -65,6 +66,7 @@ impl PreferencesInterface {
         let mut contents: String = String::new();
         file.read_to_string(&mut contents)?;
         let preferences: Preferences = toml::from_str(&contents)?;
+        debug!("Loaded preferences from {}: {:?}", preferences_file_path, preferences);
         Ok(PreferencesInterface {
             preferences_file_path: Some(preferences_file_path),
             preferences: preferences

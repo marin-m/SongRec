@@ -7,6 +7,8 @@ use pulsectl::controllers::types::DeviceInfo;
 use crate::audio_controllers::audio_backend::AudioBackend;
 use crate::core::thread_messages::DeviceListItem;
 
+use log::debug;
+
 pub struct PulseBackend {
     handler: SourceController,
     devices: Vec<DeviceInfo>,
@@ -96,8 +98,9 @@ impl AudioBackend for PulseBackend {
         if let Some(app_idx) = self.get_app_idx() {
 
             for dev in self.devices.clone() {
+                debug!("Comparing libpulse device names: {:?} / {:?}", dev.name, inner_name);
                 if Some(inner_name) == dev.name.as_deref() {
-                    // println!("find ! {}", dev.index);
+                    debug!("Selected libpulse device found: {:?}", dev);
 
                     self.handler.move_app_by_name(app_idx, inner_name).unwrap();
                     break;

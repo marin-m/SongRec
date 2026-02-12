@@ -7,24 +7,28 @@ repository = "https://github.com/marin-m/SongRec"
 readme = "README.md"
 keywords = ["shazam", "audio", "audio-fingerprinting"]
 categories = ["multimedia::audio", "command-line-utilities"]
-version = "0.5.0"
+version = "0.6.0"
 authors = ["marin-m"]
 edition = "2018"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+fern = "0.7"
+humantime = "2.3"
+log = { version = "0.4.29", features = ["kv", "kv_std"] }
 chfft = "0.3.4" # Fast Fourier transform
+async-channel = "2.5.0"
 byteorder = "1.3.4" # Used for reading and writing binary structures
 crc32fast = "1.2.0" # Used for the CRC-32 checksum in the binary signature
 base64 = "0.12.3"
 reqwest = { version = "0.10.7", features = ["blocking", "json"] }
 rodio = "0.19.0" # For reading WAV/MP3/FLAG/OGG files, resampling and playing audio.
-clap = "2.33.2" # For argument parsing
+clap = { version = "4.5.56", features = ["cargo"] } # For argument parsing
 cpal = "0.15.3" # For recording audio
 serde_json = "1.0.57" # For decoding and encoding JSON
 uuid = { version = "0.8.1", features = ["v4"] }
-glib = "0.10.3"
+glib = { version = "0.21", features = ["log"] }
 serde = { version = "1.0.115", features = ["derive"] }
 csv = "1.1.3"
 regex = "1.5.4"
@@ -33,27 +37,33 @@ rand = "0.7.3"
 # the latest versions don't link under Windows when cross-compiling using MinGW.
 gettext-sys = { version = "0.19.9", features = ["gettext-system"] }
 gettext-rs = { version = "0.5.0" }
-tempfile = "3.2.0"
+tempfile = "3.24.0"
 # GUI deps
-gtk = { version = "0.9.2", features = ["v3_16", "v3_20", "v3_22"], optional = true } # For the GUI
-gdk = { version = "0.13.2", optional = true }
-gio = { version = "0.9.1", optional = true }
+gtk = { version = "0.10.3", package = "gtk4", features = ["v4_14"], optional = true }
+adw = { version = "0.8.1", package = "libadwaita", features = ["v1_6"], optional = true }
+gdk = { version = "0.10.3", package = "gdk4", optional = true }
+gio = { version = "0.21.5", features = ["v2_74"], optional = true }
 percent-encoding = { version = "2.1.0", optional = true } # For percent-encoding contents in URLs
 chrono = { version = "0.4.13" } # For formatting dates
-gdk-pixbuf = { version = "0.9.0", optional = true }
+gdk-pixbuf = { version = "0.21.5", optional = true }
 directories = {version = "4.0", optional = true }
 toml = "0.4.2"
 app_dirs = { version = "1.2.1", optional = true } # For obtaining and creating either the %APPDATA%, the dotfile path or similar
 
+[build-dependencies]
+glib-build-tools = "0.21.0"
+
 [features]
 default = ["gui", "ffmpeg", "pulse", "mpris"]
-gui = ["gtk", "gdk", "gio", "percent-encoding", "directories", "app_dirs", "gdk-pixbuf"]
+gui = ["gtk", "adw", "gdk", "gio", "percent-encoding", "directories", "app_dirs", "gdk-pixbuf"]
 pulse = [ "pulsectl-rs", "libpulse-binding" ]
+# mpris = [ "mpris-server" ]
 mpris = [ "mpris-player" ]
 ffmpeg = []
 
 [target.'cfg(unix)'.dependencies]
 pulsectl-rs = { version = "0.3.2", optional = true }
 libpulse-binding = { version = "2.24.0", optional = true }
+# mpris-server = { version = "0.9.0", optional = true }
 mpris-player = { version = "0.6.1", optional = true }
 

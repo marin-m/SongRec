@@ -7,103 +7,67 @@ use std::error::Error;
 /// format defined within the "src/utils/csv_song_history.rs" file, the
 /// GTK-rs GUI of SongRec and the filesystem while using the GUI.
 
+use crate::gui::history_entry::HistoryEntry;
+
 trait SongHistoryRecordListStore {
-    fn remove_song_history_record(self: &mut Self, to_remove: SongHistoryRecord);
-    fn remove_song(self: &mut Self, to_remove: Song);
     fn add_song_history_record(self: &mut Self, to_add: &SongHistoryRecord);
-    fn get_song_history_record(self: &mut Self, iter: &gtk::TreeIter) -> Option<SongHistoryRecord>;
+    fn remove_song(self: &mut Self, to_remove: Song);
+    fn remove_song_history_record(self: &mut Self, to_remove: SongHistoryRecord);
 }
 
-impl SongHistoryRecordListStore for gtk::ListStore {
-    fn get_song_history_record(self: &mut Self, iter: &gtk::TreeIter) -> Option<SongHistoryRecord> {
-        let song_name = self.get_value(&iter, 0).get::<String>().ok()??;
-        let album = self.get_value(&iter, 1).get::<String>().ok()?;
-        let recognition_date = self.get_value(&iter, 2).get::<String>().ok()??;
-        let track_key = self.get_value(&iter, 3).get::<String>().ok()?;
-        let release_year = self.get_value(&iter, 4).get::<String>().ok()?;
-        let genre = self.get_value(&iter, 5).get::<String>().ok()?;
+// Extend gio::ListStore to integrate with SongHistoryRecord
+// Cf. https://gtk-rs.org/gtk-rs-core/stable/latest/docs/gio/struct.ListStore.html
 
-        Some(SongHistoryRecord {
-            song_name,
-            album,
-            track_key,
-            release_year,
-            genre,
-            recognition_date,
-        })
+impl SongHistoryRecordListStore for gio::ListStore {
+    // This function first will be the first interacting with the ListStore
+    // to be called after installing a fresh copy of the app
+
+    fn add_song_history_record(self: &mut Self, to_add: &SongHistoryRecord)
+    {
+        self.insert(0, &HistoryEntry::new(to_add));
     }
 
     fn remove_song(self: &mut Self, to_remove: Song) {
-        if let Some(iter) = self.get_iter_first() {
-            loop {
-                if let Some(song_history_record) = self.get_song_history_record(&iter) {
-                    if song_history_record.get_song() == to_remove {
-                        self.remove(&iter);
-                    }
-                }
-                if !self.iter_next(&iter) {
-                    break;
-                }
-            }
-        }
+        // Cf. https://gtk-rs.org/gtk-rs-core/git/docs/gio/struct.ListStore.html#method.remove
+        // (Note: Song is SongHistoryRecord minus the recognition date)
+        // This removes all items with the matching Song footprint
+        self.retain(|item| {
+            let item = item.clone().downcast::<HistoryEntry>().unwrap();
+            item.get_song() != to_remove
+        })
     }
 
     fn remove_song_history_record(self: &mut Self, to_remove: SongHistoryRecord) {
-        let song_to_remove: Song = to_remove.get_song();
-        if let Some(iter) = self.get_iter_first() {
-            loop {
-                if let Some(song_history_record) = self.get_song_history_record(&iter) {
-                    if song_history_record.get_song() == song_to_remove {
-                        self.remove(&iter);
-                    }
-                }
-                if !self.iter_next(&iter) {
-                    break;
-                }
-            }
-        }
-    }
-
-    fn add_song_history_record(self: &mut Self, to_add: &SongHistoryRecord) {
-        self.set(
-            &self.insert(0),
-            &[0, 1, 2, 3, 4, 5],
-            &[
-                &to_add.song_name,
-                &to_add.album,
-                &to_add.recognition_date,
-                &to_add.track_key,
-                &to_add.release_year,
-                &to_add.genre,
-            ],
-        )
+        self.remove_song(to_remove.get_song());
     }
 }
 
 #[derive(Debug, Clone)]
 pub struct RecognitionHistoryInterface {
     csv_path: String,
-    gtk_list_store: gtk::ListStore,
+    list_store: gio::ListStore,
 }
 #[derive(Debug, Clone)]
 pub struct FavoritesInterface {
     csv_path: String,
-    gtk_list_store: gtk::ListStore,
+    list_store: gio::ListStore,
     is_favorite: HashSet<Song>,
 }
 
 pub trait SongRecordInterface {
     fn new(
-        gtk_list_store: gtk::ListStore,
+        list_store: gio::ListStore,
         get_csv_path: fn() -> Result<String, Box<dyn Error>>,
     ) -> Result<Self, Box<dyn Error>>
     where
         Self: Sized;
-    fn load(self: &mut Self) -> Result<(), Box<dyn Error>>;
+
     fn wipe_and_save(self: &mut Self);
     fn add_row_and_save(self: &mut Self, record: SongHistoryRecord);
-    fn save(self: &mut Self);
+
+    fn load(self: &mut Self) -> Result<(), Box<dyn Error>>;
     fn remove(self: &mut Self, record: SongHistoryRecord);
+    fn save(self: &mut Self);
 }
 
 impl dyn SongRecordInterface {}
@@ -117,12 +81,12 @@ fn test_item_date() {
 
 impl SongRecordInterface for RecognitionHistoryInterface {
     fn new(
-        gtk_list_store: gtk::ListStore,
+        list_store: gio::ListStore,
         get_csv_path: fn() -> Result<String, Box<dyn Error>>,
     ) -> Result<Self, Box<dyn Error>> {
         let mut interface = RecognitionHistoryInterface {
             csv_path: get_csv_path()?,
-            gtk_list_store: gtk_list_store,
+            list_store,
         };
 
         if let Err(error_info) = interface.load() {
@@ -149,7 +113,7 @@ impl SongRecordInterface for RecognitionHistoryInterface {
                 }
                 read.sort_by_cached_key(item_date);
                 for result in read {
-                    self.gtk_list_store.add_song_history_record(&result?)
+                    self.list_store.add_song_history_record(&result?)
                 }
             }
             _ => {} // File does not exists, ignore
@@ -158,7 +122,7 @@ impl SongRecordInterface for RecognitionHistoryInterface {
     }
 
     fn wipe_and_save(self: &mut Self) {
-        self.gtk_list_store.clear();
+        self.list_store.remove_all();
 
         let mut writer = csv::Writer::from_path(&self.csv_path).unwrap();
 
@@ -166,7 +130,7 @@ impl SongRecordInterface for RecognitionHistoryInterface {
     }
 
     fn add_row_and_save(self: &mut Self, record: SongHistoryRecord) {
-        self.gtk_list_store.add_song_history_record(&record);
+        self.list_store.add_song_history_record(&record);
 
         self.save();
     }
@@ -174,35 +138,29 @@ impl SongRecordInterface for RecognitionHistoryInterface {
     fn save(self: &mut Self) {
         let mut writer = csv::Writer::from_path(&self.csv_path).unwrap();
 
-        if let Some(iter) = self.gtk_list_store.get_iter_first() {
-            loop {
-                if let Some(song_history_record) =
-                    self.gtk_list_store.get_song_history_record(&iter)
-                {
-                    writer.serialize(song_history_record).unwrap();
-                }
-                if !self.gtk_list_store.iter_next(&iter) {
-                    break;
-                }
-            }
+        for item in self.list_store.iter::<glib::Object>() {
+            let item = item.unwrap().downcast::<HistoryEntry>().unwrap();
+            writer.serialize(
+                item.get_song_history_record()
+            ).unwrap();
         }
         writer.flush().unwrap();
     }
 
     fn remove(self: &mut Self, song_record: SongHistoryRecord) {
-        self.gtk_list_store.remove_song_history_record(song_record);
+        self.list_store.remove_song_history_record(song_record);
         self.save()
     }
 }
 
 impl SongRecordInterface for FavoritesInterface {
     fn new(
-        gtk_list_store: gtk::ListStore,
+        list_store: gio::ListStore,
         get_csv_path: fn() -> Result<String, Box<dyn Error>>,
     ) -> Result<Self, Box<dyn Error>> {
         let mut interface = FavoritesInterface {
             csv_path: get_csv_path()?,
-            gtk_list_store: gtk_list_store,
+            list_store,
             is_favorite: HashSet::<Song>::new(),
         };
 
@@ -225,7 +183,7 @@ impl SongRecordInterface for FavoritesInterface {
             Ok(mut reader) => {
                 for result in reader.deserialize() {
                     let record = result?;
-                    self.gtk_list_store.add_song_history_record(&record);
+                    self.list_store.add_song_history_record(&record);
                     self.is_favorite.insert(record.get_song());
                 }
             }
@@ -235,7 +193,7 @@ impl SongRecordInterface for FavoritesInterface {
     }
 
     fn wipe_and_save(self: &mut Self) {
-        self.gtk_list_store.clear();
+        self.list_store.remove_all();
         self.is_favorite.clear();
         let mut writer = csv::Writer::from_path(&self.csv_path).unwrap();
 
@@ -243,7 +201,7 @@ impl SongRecordInterface for FavoritesInterface {
     }
 
     fn add_row_and_save(self: &mut Self, record: SongHistoryRecord) {
-        self.gtk_list_store.add_song_history_record(&record);
+        self.list_store.add_song_history_record(&record);
         self.is_favorite.insert(record.get_song());
         self.save();
     }
@@ -251,17 +209,11 @@ impl SongRecordInterface for FavoritesInterface {
     fn save(self: &mut Self) {
         let mut writer = csv::Writer::from_path(&self.csv_path).unwrap();
 
-        if let Some(iter) = self.gtk_list_store.get_iter_first() {
-            loop {
-                if let Some(song_history_record) =
-                    self.gtk_list_store.get_song_history_record(&iter)
-                {
-                    writer.serialize(song_history_record).unwrap();
-                }
-                if !self.gtk_list_store.iter_next(&iter) {
-                    break;
-                }
-            }
+        for item in self.list_store.iter::<glib::Object>() {
+            let item = item.unwrap().downcast::<HistoryEntry>().unwrap();
+            writer.serialize(
+                item.get_song_history_record()
+            ).unwrap();
         }
         writer.flush().unwrap();
     }
@@ -269,7 +221,7 @@ impl SongRecordInterface for FavoritesInterface {
     fn remove(self: &mut Self, song_record: SongHistoryRecord) {
         let song = song_record.get_song();
         self.is_favorite.remove(&song);
-        self.gtk_list_store.remove_song(song);
+        self.list_store.remove_song(song);
         self.save()
     }
 }

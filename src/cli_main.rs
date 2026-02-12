@@ -1,12 +1,9 @@
 use std::cell::RefCell;
 use std::error::Error;
 use std::rc::Rc;
-use std::sync::{mpsc, Arc};
 
 use chrono::Local;
 use gettextrs::gettext;
-use glib;
-use glib::clone;
 
 #[cfg(feature = "mpris")]
 use mpris_player::PlaybackStatus;
@@ -17,6 +14,7 @@ use crate::core::processing_thread::processing_thread;
 use crate::core::thread_messages::{GUIMessage, MicrophoneMessage, ProcessingMessage, spawn_big_thread};
 
 use crate::utils::csv_song_history::SongHistoryRecord;
+// TODO re-implement this
 #[cfg(feature = "mpris")]
 use crate::utils::mpris_player::{get_player, update_song};
 
@@ -34,37 +32,36 @@ pub struct CLIParameters {
     pub output_type: CLIOutputType,
 }
 
-pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
-    glib::MainContext::default().acquire();
-    let main_loop = Arc::new(glib::MainLoop::new(None, false));
+pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>>
+{
+    let (gui_tx, gui_rx) = async_channel::unbounded(); // WIP: replace with async_channel::unbounded + Receiver.recv_blocking (https://docs.rs/async-channel/latest/async_channel/struct.Receiver.html)
+    let (microphone_tx, microphone_rx) = async_channel::unbounded();
+    let (processing_tx, processing_rx) = async_channel::unbounded();
+    let (http_tx, http_rx) = async_channel::unbounded();
 
-    let (gui_tx, gui_rx) = glib::MainContext::channel(glib::PRIORITY_DEFAULT);
-    let (microphone_tx, microphone_rx) = mpsc::channel();
-    let (processing_tx, processing_rx) = mpsc::channel();
-    let (http_tx, http_rx) = mpsc::channel();
+    let gui_tx_2 = gui_tx.clone();
+    let gui_tx_3 = gui_tx.clone();
+    let processing_tx_2 = processing_tx.clone();
+    let microphone_tx_2 = microphone_tx.clone();
 
-    let processing_microphone_tx = processing_tx.clone();
-    let microphone_http_tx = microphone_tx.clone();
+    spawn_big_thread(move || {
+        microphone_thread(microphone_rx, processing_tx_2, gui_tx_2);
+    });
 
-    spawn_big_thread(
-        clone!(@strong gui_tx => move || { // microphone_rx, processing_tx
-            microphone_thread(microphone_rx, processing_microphone_tx, gui_tx);
-        }),
-    );
+    spawn_big_thread(move || {
+        processing_thread(processing_rx, http_tx, gui_tx_3);
+    });
 
-    spawn_big_thread(clone!(@strong gui_tx => move || { // processing_rx, http_tx
-        processing_thread(processing_rx, http_tx, gui_tx);
-    }));
-
-    spawn_big_thread(clone!(@strong gui_tx => move || { // http_rx
-        http_thread(http_rx, gui_tx, microphone_http_tx);
-    }));
+    spawn_big_thread(move || {
+        http_thread(http_rx, gui_tx, microphone_tx_2);
+    });
 
     // recognize once if an input file is provided
     let do_recognize_once = parameters.recognize_once || parameters.input_file.is_some();
 
     // do not enable mpris if recognizing one song
     
+    // TODO re-implement this with new lib
     #[cfg(feature = "mpris")]
     let mpris_obj = {
         let do_enable_mpris = parameters.enable_mpris && !do_recognize_once;
@@ -75,25 +72,23 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
 
     let last_track: Rc<RefCell<Option<String>>> = Rc::new(RefCell::new(None));
 
-    let main_loop_cli = main_loop.clone();
-
     let audio_dev_name = parameters.audio_device.as_ref().map(|dev| dev.to_string());
     let input_file_name = parameters.input_file.as_ref().map(|dev| dev.to_string());
 
     if let Some(ref filename) = parameters.input_file {
         processing_tx
-            .send(ProcessingMessage::ProcessAudioFile(filename.to_string()))
+            .send_blocking(ProcessingMessage::ProcessAudioFile(filename.to_string()))
             .unwrap();
     }
 
     let mut csv_writer = csv::Writer::from_writer(std::io::stdout());
 
-    gui_rx.attach(None, move |gui_message| {
+    while let Ok(gui_message) = gui_rx.recv_blocking() {
         match gui_message {
             GUIMessage::DevicesList(device_names) => {
                 // no need to start a microphone if recognizing from file
                 if input_file_name.is_some() {
-                    return glib::Continue(true);
+                    continue;
                 }
                 let dev_name = if let Some(dev) = &audio_dev_name {
                     let mut found: bool = false;
@@ -105,27 +100,26 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
                     }
                     if !found {
                         eprintln!("{}", gettext("Exiting: audio device not found"));
-                        main_loop_cli.quit();
-                        return glib::Continue(false);
+                        break;
                     }
                 dev
                 } else {
                     if device_names.is_empty() {
                         eprintln!("{}", gettext("Exiting: no audio devices found!"));
-                        main_loop_cli.quit();
-                        return glib::Continue(false);
+                        break;
                     }
                     &device_names[0].inner_name
                 };
                 eprintln!("{} {}", gettext("Using device"), dev_name);
                 microphone_tx
-                    .send(MicrophoneMessage::MicrophoneRecordStart(
+                    .send_blocking(MicrophoneMessage::MicrophoneRecordStart(
                         dev_name.to_owned(),
                     ))
                     .unwrap();
             }
             GUIMessage::NetworkStatus(reachable) => {
                 #[cfg(feature = "mpris")] {
+                    // TODO re-implement this
                     let mpris_status = if reachable {
                         PlaybackStatus::Playing
                     } else {
@@ -139,8 +133,7 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
                 if !reachable {
                     if input_file_name.is_some() {
                         eprintln!("{}", gettext("Error: Network unreachable"));
-                        main_loop_cli.quit();
-                        return glib::Continue(false);
+                        break;
                     } else {
                         eprintln!("{}", gettext("Warning: Network unreachable"));
                     }
@@ -151,8 +144,7 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
                     eprintln!("{} {}", gettext("Error:"), string);
                 }
                 if input_file_name.is_some() {
-                    main_loop_cli.quit();
-                    return glib::Continue(false);
+                    break;
                 }
             }
             GUIMessage::MicrophoneRecording => {
@@ -166,8 +158,10 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
                 let song_name = format!("{} - {}", message.artist_name, message.song_name);
 
                 if *last_track_borrow != track_key {
+                    // TODO re-implement this with new lib
                     #[cfg(feature = "mpris")]
                     mpris_obj.as_ref().map(|p| update_song(p, &message, &mut last_cover_path));
+
                     *last_track_borrow = track_key;
                     match parameters.output_type {
                         CLIOutputType::JSON => {
@@ -210,15 +204,14 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
                     };
                 }
                 if do_recognize_once {
-                    main_loop_cli.quit();
-                    return glib::Continue(false);
+                    break;
                 }
             }
             _ => {}
         }
-        glib::Continue(true)
-    });
+    }
 
-    main_loop.run();
+    gui_rx.close();
+
     Ok(())
 }

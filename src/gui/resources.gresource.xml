@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+  <gresource prefix="/re/fossplant/songrec/">
+    <file compressed="true" preprocess="xml-stripblanks">interface.ui</file>
+    <file compressed="true">style.css</file>
+  </gresource>
+</gresources>

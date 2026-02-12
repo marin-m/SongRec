@@ -1,8 +1,6 @@
 use crate::fingerprinting::signature_format::DecodedSignature;
 #[cfg(feature = "gui")]
 use crate::gui::preferences::Preferences;
-#[cfg(feature = "gui")]
-use crate::utils::csv_song_history::SongHistoryRecord;
 
 use std::thread;
 
@@ -16,6 +14,7 @@ pub fn spawn_big_thread<F, T>(argument: F) -> ()
     thread::Builder::new().stack_size(32 * 1024 * 1024).spawn(argument).unwrap();
 }
 
+#[derive(Debug)]
 pub struct SongRecognizedMessage {
     pub artist_name: String,
     pub album_name: Option<String>,
@@ -30,6 +29,7 @@ pub struct SongRecognizedMessage {
     pub shazam_json: String,
 }
 
+#[derive(Debug)]
 pub struct DeviceListItem {
     pub inner_name: String,
     pub display_name: String,
@@ -38,6 +38,7 @@ pub struct DeviceListItem {
     pub is_monitor: bool
 }
 
+#[derive(Debug)]
 pub enum GUIMessage {
     ErrorMessage(String),
     // A list of audio devices, received from the microphone thread
@@ -46,15 +47,11 @@ pub enum GUIMessage {
     DevicesList(Box<Vec<DeviceListItem>>),
     #[cfg(feature = "gui")]
     UpdatePreference(Preferences),
-    #[cfg(feature = "gui")]
-    AddFavorite(SongHistoryRecord),
-    #[cfg(feature = "gui")]
-    RemoveFavorite(SongHistoryRecord),
-    #[cfg(feature = "gui")]
-    ShowFavorites,
     NetworkStatus(bool), // Is the network reachable?
     #[cfg(feature = "gui")]
     WipeSongHistory,
+    #[cfg(feature = "gui")]
+    AppendToLog(String),
     MicrophoneRecording,
     MicrophoneVolumePercent(f32),
     SongRecognized(Box<SongRecognizedMessage>),
