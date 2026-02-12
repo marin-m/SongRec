@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Songrec\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-12 06:19+0100\n"
+"POT-Creation-Date: 2026-02-12 08:11+0100\n"
 "PO-Revision-Date: 2026-01-23 13:29+0200\n"
 "Last-Translator: marcelocripe@gmail.com <marcelocripe@gmail.com>\n"
 "Language-Team: Brazilian Portuguese\n"
@@ -266,7 +266,7 @@ msgstr ""
 msgid "Recognition results"
 msgstr "Resultados das músicas que foram identificadas"
 
-#: interface.ui.h:8 favorites_interface.ui.h:10
+#: interface.ui.h:8
 msgid "Search on YouTube"
 msgstr "Pesquisar no YouTube"
 
@@ -290,11 +290,11 @@ msgstr ""
 msgid "Recognition history"
 msgstr "Histórico das identificações"
 
-#: interface.ui.h:14 favorites_interface.ui.h:1
+#: interface.ui.h:14
 msgid "Song name"
 msgstr "Nome da música"
 
-#: interface.ui.h:15 favorites_interface.ui.h:2
+#: interface.ui.h:15
 msgid "Album"
 msgstr "Álbum"
 
@@ -306,11 +306,11 @@ msgstr "Data da identificação"
 msgid "View favorites"
 msgstr ""
 
-#: interface.ui.h:18 favorites_interface.ui.h:4
+#: interface.ui.h:18
 msgid "Export to CSV"
 msgstr "Exportar para o formato ‘CSV’"
 
-#: interface.ui.h:19 favorites_interface.ui.h:5
+#: interface.ui.h:19
 msgid "Favorites"
 msgstr "Favoritos"
 
@@ -334,19 +334,19 @@ msgstr ""
 msgid "Select a file to recognize"
 msgstr "Escolha um arquivo de áudio que você quer identificar"
 
-#: interface.ui.h:25 favorites_interface.ui.h:6
+#: interface.ui.h:25
 msgid "Copy artist and track"
 msgstr "Copiar o nome do artista e o título da música"
 
-#: interface.ui.h:26 favorites_interface.ui.h:7
+#: interface.ui.h:26
 msgid "Copy artist"
 msgstr "Copiar o nome do artista"
 
-#: interface.ui.h:27 favorites_interface.ui.h:8
+#: interface.ui.h:27
 msgid "Copy track name"
 msgstr "Copiar o título da música"
 
-#: interface.ui.h:28 favorites_interface.ui.h:9
+#: interface.ui.h:28
 msgid "Copy album"
 msgstr "Copiar o nome do álbum"
 
@@ -354,13 +354,12 @@ msgstr "Copiar o nome do álbum"
 msgid "Add to Favorites"
 msgstr "Adicionar aos favoritos"
 
-#: interface.ui.h:30 favorites_interface.ui.h:11
+#: interface.ui.h:30
 msgid "Remove from Favorites"
 msgstr "Remover dos favoritos"
 
-#: favorites_interface.ui.h:3
-msgid "Recognition Date"
-msgstr "Data da identificação"
+#~ msgid "Recognition Date"
+#~ msgstr "Data da identificação"
 
 #~ msgid "Application::new failed"
 #~ msgstr "Ao que parece, ocorreu uma falha no ‘Application::new’"

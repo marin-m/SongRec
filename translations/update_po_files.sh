@@ -18,7 +18,7 @@ mv ../src/gui/interface.ui.h .
 
 # Regenerate the base ".pot" (translation template) file
 
-xgettext -kgettext -kN_ --c++ --from-code utf-8  -o songrec.pot ../src/*.rs ../src/audio_controllers/*.rs ../src/core/*.rs ../src/fingerprinting/*.rs ../src/gui/*.rs ../src/utils/*.rs interface.ui.h favorites_interface.ui.h
+xgettext -kgettext -kN_ --c++ --from-code utf-8  -o songrec.pot ../src/*.rs ../src/audio_controllers/*.rs ../src/core/*.rs ../src/fingerprinting/*.rs ../src/gui/*.rs ../src/utils/*.rs interface.ui.h
 
 for locale in fr_FR nl it pl es ja ca de_DE ko_KR sk_SK ru pt_BR cs_CZ; do
     msgmerge --no-fuzzy-matching --update locale/${locale}/LC_MESSAGES/songrec.po songrec.pot

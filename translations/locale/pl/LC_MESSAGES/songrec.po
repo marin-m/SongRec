@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-12 06:19+0100\n"
+"POT-Creation-Date: 2026-02-12 08:11+0100\n"
 "PO-Revision-Date: 2021-12-26 11:36+0100\n"
 "Last-Translator: Rafał Mikrut <qarminkrut@gmail.com>\n"
 "Language-Team: \n"
@@ -241,7 +241,7 @@ msgstr "Serwery Shazam nie są osiągalne, czy jesteś połączony do internetu?
 msgid "Recognition results"
 msgstr "Wyniki sprawdzania"
 
-#: interface.ui.h:8 favorites_interface.ui.h:10
+#: interface.ui.h:8
 msgid "Search on YouTube"
 msgstr "Wyszukaj na YouTube"
 
@@ -265,11 +265,11 @@ msgstr ""
 msgid "Recognition history"
 msgstr "Historia rozpoznawania"
 
-#: interface.ui.h:14 favorites_interface.ui.h:1
+#: interface.ui.h:14
 msgid "Song name"
 msgstr "Nazwa piosenki"
 
-#: interface.ui.h:15 favorites_interface.ui.h:2
+#: interface.ui.h:15
 msgid "Album"
 msgstr "Album"
 
@@ -281,11 +281,11 @@ msgstr "Data rozpoznania"
 msgid "View favorites"
 msgstr ""
 
-#: interface.ui.h:18 favorites_interface.ui.h:4
+#: interface.ui.h:18
 msgid "Export to CSV"
 msgstr "Wyeksportuj do CSV"
 
-#: interface.ui.h:19 favorites_interface.ui.h:5
+#: interface.ui.h:19
 msgid "Favorites"
 msgstr ""
 
@@ -309,19 +309,19 @@ msgstr ""
 msgid "Select a file to recognize"
 msgstr "Wybierz plik do rozpoznania"
 
-#: interface.ui.h:25 favorites_interface.ui.h:6
+#: interface.ui.h:25
 msgid "Copy artist and track"
 msgstr "Skopiuj wykonawcę i utwór"
 
-#: interface.ui.h:26 favorites_interface.ui.h:7
+#: interface.ui.h:26
 msgid "Copy artist"
 msgstr "Skopiuj wykonawcę"
 
-#: interface.ui.h:27 favorites_interface.ui.h:8
+#: interface.ui.h:27
 msgid "Copy track name"
 msgstr "Skopiuj nazwę utworu"
 
-#: interface.ui.h:28 favorites_interface.ui.h:9
+#: interface.ui.h:28
 msgid "Copy album"
 msgstr "Skopiuj nazwę albumu"
 
@@ -329,12 +329,8 @@ msgstr "Skopiuj nazwę albumu"
 msgid "Add to Favorites"
 msgstr ""
 
-#: interface.ui.h:30 favorites_interface.ui.h:11
+#: interface.ui.h:30
 msgid "Remove from Favorites"
-msgstr ""
-
-#: favorites_interface.ui.h:3
-msgid "Recognition Date"
 msgstr ""
 
 #~ msgid "Application::new failed"

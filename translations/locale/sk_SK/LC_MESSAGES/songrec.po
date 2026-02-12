@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-12 06:19+0100\n"
+"POT-Creation-Date: 2026-02-12 08:11+0100\n"
 "PO-Revision-Date: 2024-05-16 00:36+0200\n"
 "Last-Translator: Jozef Gaal <preklady@mayday.sk>\n"
 "Language-Team: \n"
@@ -244,7 +244,7 @@ msgstr "Servery Shazam nie sú dostupné, ste pripojení?"
 msgid "Recognition results"
 msgstr "Výsledky rozpoznania"
 
-#: interface.ui.h:8 favorites_interface.ui.h:10
+#: interface.ui.h:8
 msgid "Search on YouTube"
 msgstr "Vyhľadať na YouTube"
 
@@ -268,11 +268,11 @@ msgstr ""
 msgid "Recognition history"
 msgstr "História rozpoznania"
 
-#: interface.ui.h:14 favorites_interface.ui.h:1
+#: interface.ui.h:14
 msgid "Song name"
 msgstr "Názov skladby"
 
-#: interface.ui.h:15 favorites_interface.ui.h:2
+#: interface.ui.h:15
 msgid "Album"
 msgstr "Album"
 
@@ -284,11 +284,11 @@ msgstr "Dátum rozpoznania"
 msgid "View favorites"
 msgstr ""
 
-#: interface.ui.h:18 favorites_interface.ui.h:4
+#: interface.ui.h:18
 msgid "Export to CSV"
 msgstr "Exportovať do CSV"
 
-#: interface.ui.h:19 favorites_interface.ui.h:5
+#: interface.ui.h:19
 msgid "Favorites"
 msgstr "Obľúbené"
 
@@ -312,19 +312,19 @@ msgstr ""
 msgid "Select a file to recognize"
 msgstr "Vyberte súbor na rozpoznanie"
 
-#: interface.ui.h:25 favorites_interface.ui.h:6
+#: interface.ui.h:25
 msgid "Copy artist and track"
 msgstr "Kopírovať interpreta a názov skladby"
 
-#: interface.ui.h:26 favorites_interface.ui.h:7
+#: interface.ui.h:26
 msgid "Copy artist"
 msgstr "Kopírovať interpreta"
 
-#: interface.ui.h:27 favorites_interface.ui.h:8
+#: interface.ui.h:27
 msgid "Copy track name"
 msgstr "Kopírovať názov skladby"
 
-#: interface.ui.h:28 favorites_interface.ui.h:9
+#: interface.ui.h:28
 msgid "Copy album"
 msgstr "Kopírovať album"
 
@@ -332,13 +332,9 @@ msgstr "Kopírovať album"
 msgid "Add to Favorites"
 msgstr "Pridať medzi obľúbené"
 
-#: interface.ui.h:30 favorites_interface.ui.h:11
+#: interface.ui.h:30
 msgid "Remove from Favorites"
 msgstr "Odstrániť z obľúbených"
-
-#: favorites_interface.ui.h:3
-msgid "Recognition Date"
-msgstr ""
 
 #~ msgid "Application::new failed"
 #~ msgstr "Aplikácia::nová zlyhala"

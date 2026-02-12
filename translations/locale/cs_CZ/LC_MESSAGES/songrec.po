@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-12 06:19+0100\n"
+"POT-Creation-Date: 2026-02-12 08:11+0100\n"
 "PO-Revision-Date: 2026-01-23 16:14+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -239,7 +239,7 @@ msgstr "Servery Shazamu nejsou dostupné, jste připojeni k síti?"
 msgid "Recognition results"
 msgstr "Výsledky rozpoznání"
 
-#: interface.ui.h:8 favorites_interface.ui.h:10
+#: interface.ui.h:8
 msgid "Search on YouTube"
 msgstr "Vyhledat na YouTube"
 
@@ -263,11 +263,11 @@ msgstr ""
 msgid "Recognition history"
 msgstr "Historie rozpoznávání"
 
-#: interface.ui.h:14 favorites_interface.ui.h:1
+#: interface.ui.h:14
 msgid "Song name"
 msgstr "Název skladby"
 
-#: interface.ui.h:15 favorites_interface.ui.h:2
+#: interface.ui.h:15
 msgid "Album"
 msgstr "Album"
 
@@ -279,11 +279,11 @@ msgstr "Datum rozpoznání"
 msgid "View favorites"
 msgstr ""
 
-#: interface.ui.h:18 favorites_interface.ui.h:4
+#: interface.ui.h:18
 msgid "Export to CSV"
 msgstr "Exportovat do CSV"
 
-#: interface.ui.h:19 favorites_interface.ui.h:5
+#: interface.ui.h:19
 msgid "Favorites"
 msgstr "Oblíbené"
 
@@ -307,19 +307,19 @@ msgstr ""
 msgid "Select a file to recognize"
 msgstr "Vyberte soubor k rozpoznání"
 
-#: interface.ui.h:25 favorites_interface.ui.h:6
+#: interface.ui.h:25
 msgid "Copy artist and track"
 msgstr "Kopírovat umělce a skladbu"
 
-#: interface.ui.h:26 favorites_interface.ui.h:7
+#: interface.ui.h:26
 msgid "Copy artist"
 msgstr "Kopírovat umělce"
 
-#: interface.ui.h:27 favorites_interface.ui.h:8
+#: interface.ui.h:27
 msgid "Copy track name"
 msgstr "Kopírovat název skladby"
 
-#: interface.ui.h:28 favorites_interface.ui.h:9
+#: interface.ui.h:28
 msgid "Copy album"
 msgstr "Kopírovat album"
 
@@ -327,13 +327,12 @@ msgstr "Kopírovat album"
 msgid "Add to Favorites"
 msgstr "Přidat do oblíbených"
 
-#: interface.ui.h:30 favorites_interface.ui.h:11
+#: interface.ui.h:30
 msgid "Remove from Favorites"
 msgstr "Odstranit z oblíbených"
 
-#: favorites_interface.ui.h:3
-msgid "Recognition Date"
-msgstr "Datum rozpoznání"
+#~ msgid "Recognition Date"
+#~ msgstr "Datum rozpoznání"
 
 #~ msgid "Application::new failed"
 #~ msgstr "Application::new selhala"

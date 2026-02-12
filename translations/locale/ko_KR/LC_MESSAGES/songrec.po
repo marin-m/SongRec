@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-12 06:19+0100\n"
+"POT-Creation-Date: 2026-02-12 08:11+0100\n"
 "PO-Revision-Date: 2023-12-30 23:42+0900\n"
 "Last-Translator: 이정희 <daemul72@gmail.com>\n"
 "Language-Team: \n"
@@ -234,7 +234,7 @@ msgstr "Shazam 서버가 연결이 안 되는데, 연결되셨나요?"
 msgid "Recognition results"
 msgstr "인식 결과"
 
-#: interface.ui.h:8 favorites_interface.ui.h:10
+#: interface.ui.h:8
 msgid "Search on YouTube"
 msgstr "YouTube에서 검색하기"
 
@@ -258,11 +258,11 @@ msgstr ""
 msgid "Recognition history"
 msgstr "인식 히스토리"
 
-#: interface.ui.h:14 favorites_interface.ui.h:1
+#: interface.ui.h:14
 msgid "Song name"
 msgstr "노래 이름"
 
-#: interface.ui.h:15 favorites_interface.ui.h:2
+#: interface.ui.h:15
 msgid "Album"
 msgstr "앨범"
 
@@ -274,11 +274,11 @@ msgstr "인식 날짜"
 msgid "View favorites"
 msgstr ""
 
-#: interface.ui.h:18 favorites_interface.ui.h:4
+#: interface.ui.h:18
 msgid "Export to CSV"
 msgstr "CSV로 내보내기"
 
-#: interface.ui.h:19 favorites_interface.ui.h:5
+#: interface.ui.h:19
 msgid "Favorites"
 msgstr ""
 
@@ -302,19 +302,19 @@ msgstr ""
 msgid "Select a file to recognize"
 msgstr "인식할 파일을 선택합니다"
 
-#: interface.ui.h:25 favorites_interface.ui.h:6
+#: interface.ui.h:25
 msgid "Copy artist and track"
 msgstr "아티스트 및 트랙 복사하기"
 
-#: interface.ui.h:26 favorites_interface.ui.h:7
+#: interface.ui.h:26
 msgid "Copy artist"
 msgstr "아티스트 복사하기"
 
-#: interface.ui.h:27 favorites_interface.ui.h:8
+#: interface.ui.h:27
 msgid "Copy track name"
 msgstr "트랙 이름 복사하기"
 
-#: interface.ui.h:28 favorites_interface.ui.h:9
+#: interface.ui.h:28
 msgid "Copy album"
 msgstr "앨범 복사하기"
 
@@ -322,12 +322,8 @@ msgstr "앨범 복사하기"
 msgid "Add to Favorites"
 msgstr ""
 
-#: interface.ui.h:30 favorites_interface.ui.h:11
+#: interface.ui.h:30
 msgid "Remove from Favorites"
-msgstr ""
-
-#: favorites_interface.ui.h:3
-msgid "Recognition Date"
 msgstr ""
 
 #~ msgid "Application::new failed"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-12 06:19+0100\n"
+"POT-Creation-Date: 2026-02-12 08:11+0100\n"
 "PO-Revision-Date: 2021-08-23 21:02+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -227,7 +227,7 @@ msgstr ""
 msgid "Recognition results"
 msgstr "認識結果"
 
-#: interface.ui.h:8 favorites_interface.ui.h:10
+#: interface.ui.h:8
 msgid "Search on YouTube"
 msgstr "YouTubeで検索"
 
@@ -251,11 +251,11 @@ msgstr ""
 msgid "Recognition history"
 msgstr "認識履歴"
 
-#: interface.ui.h:14 favorites_interface.ui.h:1
+#: interface.ui.h:14
 msgid "Song name"
 msgstr "曲名"
 
-#: interface.ui.h:15 favorites_interface.ui.h:2
+#: interface.ui.h:15
 msgid "Album"
 msgstr "アルバム"
 
@@ -267,11 +267,11 @@ msgstr "認識日時"
 msgid "View favorites"
 msgstr ""
 
-#: interface.ui.h:18 favorites_interface.ui.h:4
+#: interface.ui.h:18
 msgid "Export to CSV"
 msgstr "CSVにエクスポート"
 
-#: interface.ui.h:19 favorites_interface.ui.h:5
+#: interface.ui.h:19
 msgid "Favorites"
 msgstr ""
 
@@ -295,19 +295,19 @@ msgstr ""
 msgid "Select a file to recognize"
 msgstr "認識するファイルを選択"
 
-#: interface.ui.h:25 favorites_interface.ui.h:6
+#: interface.ui.h:25
 msgid "Copy artist and track"
 msgstr "曲名とアーティスト名をコピー"
 
-#: interface.ui.h:26 favorites_interface.ui.h:7
+#: interface.ui.h:26
 msgid "Copy artist"
 msgstr "アーティスト名をコピー"
 
-#: interface.ui.h:27 favorites_interface.ui.h:8
+#: interface.ui.h:27
 msgid "Copy track name"
 msgstr "曲名をコピー"
 
-#: interface.ui.h:28 favorites_interface.ui.h:9
+#: interface.ui.h:28
 msgid "Copy album"
 msgstr "アルバム名をコピー"
 
@@ -315,12 +315,8 @@ msgstr "アルバム名をコピー"
 msgid "Add to Favorites"
 msgstr ""
 
-#: interface.ui.h:30 favorites_interface.ui.h:11
+#: interface.ui.h:30
 msgid "Remove from Favorites"
-msgstr ""
-
-#: favorites_interface.ui.h:3
-msgid "Recognition Date"
 msgstr ""
 
 #~ msgid "Turn on speakers recognition"
