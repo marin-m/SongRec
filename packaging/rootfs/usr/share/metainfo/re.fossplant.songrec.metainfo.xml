@@ -21,15 +21,15 @@
   </description>
   <screenshots>
     <screenshot type="default">
-      <image type="source">https://raw.githubusercontent.com/marin-m/SongRec/18fc7c8853e2f8e3a9f0eb638f5b594f034b3a5b/packaging/Screenshot_lowres_light.png</image>
+      <image type="source" scale="2">https://raw.githubusercontent.com/marin-m/SongRec/57bfe25/packaging/Screenshot_hires_light.png</image>
       <caption>SongRec's main window</caption>
     </screenshot>
     <screenshot environment="gnome:dark">
-      <image type="source">https://raw.githubusercontent.com/marin-m/SongRec/18fc7c8853e2f8e3a9f0eb638f5b594f034b3a5b/packaging/Screenshot_lowres_dark.png</image>
+      <image type="source" scale="2">https://raw.githubusercontent.com/marin-m/SongRec/57bfe25/packaging/Screenshot_hires_dark.png</image>
       <caption>SongRec's main window, on GNOME in dark mode</caption>
     </screenshot>
-    <screenshot environment="gnome:dark">
-      <image type="source">https://raw.githubusercontent.com/marin-m/SongRec/18fc7c8853e2f8e3a9f0eb638f5b594f034b3a5b/packaging/Screenshot_favourites_dark.png</image>
+    <screenshot>
+      <image type="source" scale="2">https://raw.githubusercontent.com/marin-m/SongRec/57bfe25/packaging/Screenshot_favourites_light.png</image>
       <caption>SongRec's favourites window</caption>
     </screenshot>
   </screenshots>
