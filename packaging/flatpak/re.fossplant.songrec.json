@@ -1,8 +1,8 @@
 {
     "app-id": "re.fossplant.songrec",
-    "runtime": "org.freedesktop.Platform",
-    "runtime-version": "23.08",
-    "sdk": "org.freedesktop.Sdk",
+    "runtime": "org.gnome.Platform",
+    "runtime-version": "49",
+    "sdk": "org.gnome.Sdk",
     "sdk-extensions" : [
         "org.freedesktop.Sdk.Extension.rust-stable"
     ],
@@ -13,7 +13,6 @@
         "--socket=fallback-x11",
         "--socket=wayland",
         "--device=all",
-        "--filesystem=home:ro",
         "--socket=pulseaudio"
     ],
     "build-options": {
@@ -30,8 +29,8 @@
                 "cargo --offline fetch --verbose",
                 "cargo --offline build --release --verbose",
                 "install -Dm755 ./target/release/songrec -t /app/bin/",
-                "cp -ra ./packaging/rootfs/usr/share /app/",
-                "cp -ra ./translations/locale /app/share/"
+                "cp -r ./packaging/rootfs/usr/share /app/",
+                "cp -r ./translations/locale /app/share/"
             ],
             "sources": [
                 {
