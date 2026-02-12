@@ -1,7 +1,6 @@
 use crate::utils::csv_song_history::{HasSong, Song, SongHistoryRecord};
 use gettextrs::gettext;
 use gtk::prelude::*;
-use std::cell::RefCell;
 use std::collections::HashSet;
 use std::error::Error;
 /// This file contains code for interfacing between the CSV Song history

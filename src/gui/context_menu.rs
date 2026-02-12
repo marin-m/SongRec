@@ -1,25 +1,21 @@
 use gio::prelude::*;
 use gtk::prelude::*;
-use gtk::subclass::prelude::*;
-use gdk::{Key, ModifierType, Rectangle};
+use gdk::Rectangle;
 use gtk::glib::clone;
 
-use std::error::Error;
 use std::rc::Rc;
 use percent_encoding::{utf8_percent_encode, NON_ALPHANUMERIC};
 use std::cell::RefCell;
-use log::{error, info, debug, trace};
+use log::{error, info};
 
 use crate::gui::song_history_interface::FavoritesInterface;
 
 use crate::gui::song_history_interface::SongRecordInterface;
-use crate::utils::csv_song_history::SongHistoryRecord;
 use crate::gui::history_entry::HistoryEntry;
 
 pub struct ContextMenuUtil;
 
 impl ContextMenuUtil {
-    // XX WIP
 
     pub fn connect_menu(
         builder: gtk::Builder,
@@ -29,8 +25,6 @@ impl ContextMenuUtil {
     ) {
         let selection: gtk::SingleSelection = column_view.model().unwrap()
             .downcast::<gtk::SingleSelection>().unwrap();
-
-        // let interface = history_interface.clone();
 
         let click_handler = gtk::GestureClick::new();
         click_handler.set_button(3);
@@ -65,9 +59,8 @@ impl ContextMenuUtil {
 
         // Call column_view.model().unwrap().unselect_all() when mouse hovers out of ColumnView
 
-        // let interface = history_interface.clone();
         let hover_handler = gtk::EventControllerMotion::new();
-        hover_handler.connect_leave(clone!(#[weak] column_view, #[weak] popover_menu, #[weak] selection, move |hover_handler| {
+        hover_handler.connect_leave(clone!(#[weak] selection, move |_hover_handler| {
             selection.unselect_all();
         }));
         column_view.add_controller(hover_handler);

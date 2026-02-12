@@ -13,10 +13,8 @@ cd "$(dirname "$0")"
 # Extract the translation strings present in the Glade file
 
 intltool-extract --type="gettext/glade" ../src/gui/interface.ui
-intltool-extract --type="gettext/glade" ../src/gui/favorites_interface.ui
 
 mv ../src/gui/interface.ui.h .
-mv ../src/gui/favorites_interface.ui.h .
 
 # Regenerate the base ".pot" (translation template) file
 

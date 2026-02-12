@@ -28,7 +28,7 @@ mod audio_controllers {
 
 #[cfg(feature = "gui")]
 mod gui {
-    pub mod main_window_v4;
+    pub mod main_window;
     pub mod song_history_interface;
     pub mod preferences;
 
@@ -57,7 +57,7 @@ use crate::fingerprinting::communication::recognize_song_from_signature;
 
 use crate::utils::internationalization::setup_internationalization;
 #[cfg(feature = "gui")]
-use crate::gui::main_window_v4::gui_main;
+use crate::gui::main_window::gui_main;
 use crate::core::logging::Logging;
 use crate::cli_main::{cli_main, CLIParameters, CLIOutputType};
 

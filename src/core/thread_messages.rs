@@ -1,8 +1,6 @@
 use crate::fingerprinting::signature_format::DecodedSignature;
 #[cfg(feature = "gui")]
 use crate::gui::preferences::Preferences;
-#[cfg(feature = "gui")]
-use crate::utils::csv_song_history::SongHistoryRecord;
 
 use std::thread;
 
@@ -49,12 +47,6 @@ pub enum GUIMessage {
     DevicesList(Box<Vec<DeviceListItem>>),
     #[cfg(feature = "gui")]
     UpdatePreference(Preferences),
-    #[cfg(feature = "gui")]
-    AddFavorite(SongHistoryRecord),
-    #[cfg(feature = "gui")]
-    RemoveFavorite(SongHistoryRecord),
-    #[cfg(feature = "gui")]
-    ShowFavorites,
     NetworkStatus(bool), // Is the network reachable?
     #[cfg(feature = "gui")]
     WipeSongHistory,
