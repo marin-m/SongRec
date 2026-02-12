@@ -112,17 +112,17 @@
                                         <property name="orientation">vertical</property>
                                         <property name="spacing">7</property>
                                         <child>
-                                          <object class="GtkImage" id="results_image">
-                                            <property name="pixel-size">210</property>
-                                          </object>
-                                        </child>
-                                        <child>
                                           <object class="GtkLabel" id="results_label">
                                             <property name="label">Artist - Song name</property>
                                             <property name="selectable">True</property>
                                             <attributes>
                                               <attribute name="weight" value="bold"/>
                                             </attributes>
+                                          </object>
+                                        </child>
+                                        <child>
+                                          <object class="GtkImage" id="results_image">
+                                            <property name="pixel-size">160</property>
                                           </object>
                                         </child>
                                       </object>
@@ -485,7 +485,7 @@
         </child>
       </object>
     </property>
-    <property name="default-height">529</property>
+    <property name="default-height">570</property>
     <property name="default-width">977</property>
     <property name="icon-name">audio-x-generic</property>
     <property name="title">SongRec</property>
