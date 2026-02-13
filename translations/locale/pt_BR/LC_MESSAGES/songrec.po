@@ -10,23 +10,27 @@ msgstr ""
 "Project-Id-Version: Songrec\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-13 16:28+0100\n"
-"PO-Revision-Date: 2026-01-23 13:29+0200\n"
-"Last-Translator: marcelocripe@gmail.com <marcelocripe@gmail.com>\n"
-"Language-Team: Brazilian Portuguese\n"
+"PO-Revision-Date: 2026-02-13 16:58+0000\n"
+"Last-Translator: marcelo cripe <marcelocripe@gmail.com>\n"
+"Language-Team: Portuguese (Brazil) <https://weblate.fossplant.re/projects/"
+"songrec/songrec/pt_BR/>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #: src/cli_main.rs:102
 msgid "Exiting: audio device not found"
 msgstr ""
-"Saindo do programa: O dispositivo de áudio selecionado não foi encontrado"
+"O programa será fechado, porque o dispositivo de áudio que você selecionou "
+"não foi encontrado"
 
 #: src/cli_main.rs:108
 msgid "Exiting: no audio devices found!"
-msgstr "Saindo do programa: Nenhum dispositivo de áudio foi encontrado!"
+msgstr ""
+"O programa será fechado, porque nenhum dispositivo de áudio foi encontrado"
 
 #: src/cli_main.rs:113
 msgid "Using device"
@@ -34,11 +38,11 @@ msgstr "Utilizando o dispositivo"
 
 #: src/cli_main.rs:135
 msgid "Error: Network unreachable"
-msgstr "Ocorreu um erro: Não há conexão com a internet"
+msgstr "Ocorreu um erro, porque não há conexão com a internet"
 
 #: src/cli_main.rs:138
 msgid "Warning: Network unreachable"
-msgstr "Aviso: Não há conexão com a internet"
+msgstr "Atenção! Não há conexão com a internet"
 
 #: src/cli_main.rs:143 src/core/http_thread.rs:48 src/core/http_thread.rs:53
 #: src/core/http_thread.rs:61 src/core/http_thread.rs:87
@@ -65,6 +69,8 @@ msgstr ""
 msgid ""
 "-v: Set the log level to DEBUG instead of WARN for SongRec-related messages"
 msgstr ""
+"-v: Define o nível do registro para depurar (DEBUG) em vez de exibir as "
+"mensagens de aviso (WARN) para as mensagens que são relacionadas ao SongRec"
 
 #: src/main.rs:96
 msgid ""
@@ -210,23 +216,23 @@ msgstr "A música foi identificada"
 
 #: src/gui/main_window.rs:653
 msgid "Are you sure you want to wipe history?"
-msgstr ""
+msgstr "Você tem certeza de que quer apagar a histórico?"
 
 #: src/gui/main_window.rs:654
 msgid "_Yes"
-msgstr ""
+msgstr "_Sim"
 
 #: src/gui/main_window.rs:654
 msgid "_No"
-msgstr ""
+msgstr "_Não"
 
 #: src/gui/preferences.rs:53
 msgid "When parsing the preferences file:"
-msgstr "Ao analisar o arquivo de configurações:"
+msgstr "Ao analisar o arquivo das configurações:"
 
 #: src/gui/preferences.rs:86
 msgid "When saving the preferences file:"
-msgstr "Ao salvar o arquivo de configurações:"
+msgstr "Ao salvar o arquivo das configurações:"
 
 #: src/gui/song_history_interface.rs:95
 msgid "Error when reading the song history on the disk:"
@@ -246,15 +252,15 @@ msgstr "Identificar a partir de um arquivo"
 
 #: translations/interface.ui.h:3
 msgid "Pick a file..."
-msgstr ""
+msgstr "Selecionar um arquivo..."
 
 #: translations/interface.ui.h:4
 msgid "Recognize from microphone"
-msgstr ""
+msgstr "Identificar a partir do microfone"
 
 #: translations/interface.ui.h:5
 msgid "Recognize from my speakers"
-msgstr ""
+msgstr "Identificar a partir do alto-falante"
 
 #: translations/interface.ui.h:6
 msgid "Shazam servers are not reachable, are you connected?"
@@ -272,7 +278,7 @@ msgstr "Pesquisar no YouTube"
 
 #: translations/interface.ui.h:9
 msgid "Search..."
-msgstr ""
+msgstr "Pesquisar..."
 
 #: translations/interface.ui.h:10
 msgid "Audio input"
@@ -280,11 +286,11 @@ msgstr "Entrada do áudio"
 
 #: translations/interface.ui.h:11
 msgid "Device"
-msgstr ""
+msgstr "Dispositivo"
 
 #: translations/interface.ui.h:12
 msgid "Volume:"
-msgstr ""
+msgstr "Volume:"
 
 #: translations/interface.ui.h:13
 msgid "Recognition history"
@@ -304,7 +310,7 @@ msgstr "Data da identificação"
 
 #: translations/interface.ui.h:17
 msgid "View favorites"
-msgstr ""
+msgstr "Exibir os favoritos"
 
 #: translations/interface.ui.h:18
 msgid "Export to CSV"
@@ -316,11 +322,11 @@ msgstr "Favoritos"
 
 #: translations/interface.ui.h:20
 msgid "Show notifications"
-msgstr ""
+msgstr "Exibir as notificações"
 
 #: translations/interface.ui.h:21
 msgid "Enable MPRIS"
-msgstr ""
+msgstr "Ativar o ‘MPRIS’"
 
 #: translations/interface.ui.h:22
 msgid "About..."
@@ -328,7 +334,7 @@ msgstr "Sobre..."
 
 #: translations/interface.ui.h:23
 msgid "Delete history"
-msgstr ""
+msgstr "Excluir o histórico"
 
 #: translations/interface.ui.h:24
 msgid "Select a file to recognize"
