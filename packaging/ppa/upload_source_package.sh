@@ -21,9 +21,9 @@ for version in questing resolute; do
 
     rm -rf ../../target/ ../../vendor/ ../../.flatpak-builder ../flatpak/.flatpak-builder ../../repo ../../.cargo
 
-    cp -ra ../../ "${temp_dir}/songrec-0.6.0+1${version}"
+    cp -ra ../../ "${temp_dir}/songrec-0.6.0+2${version}"
 
-    cd "${temp_dir}/songrec-0.6.0+1${version}"
+    cd "${temp_dir}/songrec-0.6.0+2${version}"
 
     mkdir -p .cargo
     cargo vendor --locked vendor | sed 's/^directory = ".*"/directory = "vendor"/g' > .cargo/config.toml
@@ -31,6 +31,7 @@ for version in questing resolute; do
     # "dpkg-source" will destroy the ".gitignore" files from source archive anyway.
     # Prevent "cargo" to check for their presence.
     find vendor -name .cargo-checksum.json -exec sed -ri 's/"[^"]*?\.gitignore":"[^"]+?"[,\}]//g' '{}' \;
+    find vendor -name .cargo-checksum.json -exec sed -ri 's/"[^"]*?\.orig":"[^"]+?"[,\}]//g' '{}' \;
 
     mv packaging/ppa/debian .
     
@@ -49,11 +50,11 @@ for version in questing resolute; do
 
     # Push to Launchpad
 
-    dput ppa:marin-m/songrec "../../songrec_0.6.0+1${version}_source.changes"
+    dput ppa:marin-m/songrec "../../songrec_0.6.0+2${version}_source.changes"
 
     cd "${ORIG_DIR}"
 
-    rm -rf "${temp_dir}/songrec-0.6.0+1${version}"
+    rm -rf "${temp_dir}/songrec-0.6.0+2${version}"
 
 done
 

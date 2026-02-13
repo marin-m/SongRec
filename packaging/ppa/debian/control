@@ -20,6 +20,7 @@ Package: songrec
 Architecture: any
 Depends: libasound2,
          libpulse0,
+         libc6,
          libssl1.1 | libssl3,
          ffmpeg,
          ${misc:Depends},

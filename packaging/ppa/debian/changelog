@@ -1,3 +1,9 @@
+songrec (0.6.0+2) bionic; urgency=low
+
+  * Fix the Debian package build process (second attempt)
+
+ -- Marin <marin-m@users.noreply.github.com>  Fri, 13 Feb 2026 08:06:24 +0100
+
 songrec (0.6.0+1) bionic; urgency=low
 
   * Fix the Debian package build process, see https://bugs.launchpad.net/bugs/2141645
