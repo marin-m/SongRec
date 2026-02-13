@@ -38,6 +38,14 @@
     <id>com.github.marinm.songrec</id>
   </replaces>
   <recommends>
+    <control>keyboard</control>
+    <control>pointing</control>
+    <control>touch</control>
+  </recommends>
+  <requires>
+    <display_length compare="ge">360</display_length>
+  </requires>
+  <recommends>
     <internet>always</internet>
   </recommends>
   <url type="bugtracker">https://github.com/marin-m/SongRec/issues</url>

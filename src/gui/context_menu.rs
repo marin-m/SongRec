@@ -26,10 +26,8 @@ impl ContextMenuUtil {
         let selection: gtk::SingleSelection = column_view.model().unwrap()
             .downcast::<gtk::SingleSelection>().unwrap();
 
-        let click_handler = gtk::GestureClick::new();
-        click_handler.set_button(3);
-        click_handler.connect_released(clone!(#[weak] column_view, #[weak] popover_menu, #[weak] selection,
-                move |_click_handler, _n, x, y| {
+        let touch_closure = clone!(#[weak] column_view, #[weak] popover_menu, #[weak] selection,
+                move |_: &gtk::GestureClick, _n, x, y| {
             // gesture.set_state(gtk::EventSequenceState::Claimed);
             // let cached_record = interface.borrow().get_hovered_record();
             info!("Selected item: {:?}", selection.selected_item());
@@ -54,8 +52,17 @@ impl ContextMenuUtil {
                 popover_menu.popup();
 
             }
-        }));
+        });
+
+        let click_handler = gtk::GestureClick::new();
+        click_handler.set_button(3);
+        click_handler.connect_released(touch_closure.clone());
         column_view.add_controller(click_handler);
+
+        let touch_handler = gtk::GestureClick::new();
+        touch_handler.set_button(1);
+        touch_handler.connect_released(touch_closure);
+        column_view.add_controller(touch_handler);
 
         // Call column_view.model().unwrap().unselect_all() when mouse hovers out of ColumnView
 
