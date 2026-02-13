@@ -1,0 +1,31 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:foaf="http://xmlns.com/foaf/0.1/"
+         xmlns:gnome="http://api.gnome.org/doap-extensions#"
+         xmlns="http://usefulinc.com/ns/doap#">
+
+  <name xml:lang="en">SongRec</name>
+  <shortdesc xml:lang="en">SongRec is an unofficial Shazam client for Linux, writted in Rust</shortdesc>
+
+  <homepage rdf:resource="https://songrec.fossplant.re/" />
+  <license rdf:resource="http://usefulinc.com/doap/licenses/gplv3" />
+  <support-forum rdf:resource="https://matrix.to/#/!DZgyxHTQHSssuGdiHl:matrix.org" />
+  <download-page rdf:resource="https://github.com/marin-m/SongRec/releases" />
+  <bug-database rdf:resource="https://github.com/marin-m/SongRec/issues" />
+
+  <programming-language>Rust</programming-language>
+
+  <repository>
+    <GitRepository>
+      <location rdf:resource="https://github.com/marin-m/SongRec.git" />
+      <browse rdf:resource="https://github.com/marin-m/SongRec" />
+    </GitRepository>
+  </repository>
+
+  <maintainer>
+    <foaf:Person>
+      <foaf:name>Marin Moulinier</foaf:name>
+      <gnome:userid>marin-m</gnome:userid>
+    </foaf:Person>
+  </maintainer>
+</Project>
