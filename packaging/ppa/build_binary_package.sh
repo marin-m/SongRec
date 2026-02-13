@@ -6,6 +6,8 @@ set -xe
 # Go to script's directory
 cd "$(dirname "$0")"
 
+PKGVER="$(grep -Po '(?<=\().+?(?=\))' debian/changelog | head -1)"
+
 # Create a target directory for our new source package before we build it
 temp_dir="$(mktemp -d)"
 
@@ -17,9 +19,9 @@ trap cleanup_dirs INT TERM
 
 rm -rf ../../target/ ../../vendor/ ../../.flatpak-builder ../flatpak/.flatpak-builder ../../repo
 
-cp -ra ../../ "${temp_dir}/songrec-0.6.0+4"
+cp -ra ../../ "${temp_dir}/songrec-${PKGVER}"
 
-cd "${temp_dir}/songrec-0.6.0+4"
+cd "${temp_dir}/songrec-${PKGVER}"
 
 mkdir -p .cargo
 cargo vendor --locked vendor | sed 's/^directory = ".*"/directory = "vendor"/g' > .cargo/config.toml

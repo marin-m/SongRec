@@ -6,6 +6,8 @@ set -xe
 # Go to script's directory
 cd "$(dirname "$0")"
 
+PKGVER="$(grep -Po '(?<=\().+?(?=\))' debian/changelog | head -1)"
+
 ORIG_DIR="$(pwd)"
 
 # Create a target directory for our new source package before we build it
@@ -21,9 +23,9 @@ for version in questing resolute; do
 
     rm -rf ../../target/ ../../vendor/ ../../.flatpak-builder ../flatpak/.flatpak-builder ../../repo ../../.cargo
 
-    cp -ra ../../ "${temp_dir}/songrec-0.6.0+4${version}"
+    cp -ra ../../ "${temp_dir}/songrec-${PKGVER}${version}"
 
-    cd "${temp_dir}/songrec-0.6.0+4${version}"
+    cd "${temp_dir}/songrec-${PKGVER}${version}"
 
     mkdir -p .cargo
     cargo vendor --locked vendor | sed 's/^directory = ".*"/directory = "vendor"/g' > .cargo/config.toml
@@ -52,11 +54,11 @@ for version in questing resolute; do
 
     # Push to Launchpad
 
-    dput ppa:marin-m/songrec "../../songrec_0.6.0+4${version}_source.changes"
+    dput ppa:marin-m/songrec "../../songrec_${PKGVER}${version}_source.changes"
 
     cd "${ORIG_DIR}"
 
-    rm -rf "${temp_dir}/songrec-0.6.0+4${version}"
+    rm -rf "${temp_dir}/songrec-${PKGVER}${version}"
 
 done
 
