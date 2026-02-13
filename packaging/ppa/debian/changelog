@@ -1,4 +1,10 @@
-songrec (0.6.0+2) bionic; urgency=low
+songrec (0.6.0+3) bionic; urgency=low
+
+  * Fix the Debian package build process (third attempt, filter out *.a files from the checksum list too)
+
+ -- Marin <marin-m@users.noreply.github.com>  Fri, 13 Feb 2026 08:34:29 +0100
+
+ songrec (0.6.0+2) bionic; urgency=low
 
   * Fix the Debian package build process (second attempt)
 

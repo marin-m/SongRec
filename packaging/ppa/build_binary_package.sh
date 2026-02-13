@@ -17,9 +17,9 @@ trap cleanup_dirs INT TERM
 
 rm -rf ../../target/ ../../vendor/ ../../.flatpak-builder ../flatpak/.flatpak-builder ../../repo
 
-cp -ra ../../ "${temp_dir}/songrec-0.6.0+2"
+cp -ra ../../ "${temp_dir}/songrec-0.6.0+3"
 
-cd "${temp_dir}/songrec-0.6.0+2"
+cd "${temp_dir}/songrec-0.6.0+3"
 
 mkdir -p .cargo
 cargo vendor --locked vendor | sed 's/^directory = ".*"/directory = "vendor"/g' > .cargo/config.toml
@@ -28,6 +28,7 @@ cargo vendor --locked vendor | sed 's/^directory = ".*"/directory = "vendor"/g' 
 # Prevent "cargo" to check for their presence.
 find vendor -name .cargo-checksum.json -exec sed -ri 's/"[^"]*?\.gitignore":"[^"]+?"[,\}]//g' '{}' \;
 find vendor -name .cargo-checksum.json -exec sed -ri 's/"[^"]*?\.orig":"[^"]+?"[,\}]//g' '{}' \;
+find vendor -name .cargo-checksum.json -exec sed -ri 's/"[^"]*?\.a":"[^"]+?"[,\}]//g' '{}' \;
 
 mv packaging/ppa/debian .
 
