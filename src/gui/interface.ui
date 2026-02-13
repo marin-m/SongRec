@@ -223,8 +223,10 @@
                                 <property name="accessible-role">section</property>
                                 <property name="header-suffix">
                                   <object class="GtkMenuButton" id="history_params">
+                                    <property name="has-tooltip">True</property>
                                     <property name="icon-name">preferences-system</property>
                                     <property name="menu-model">history_menu_model</property>
+                                    <property name="tooltip-text" translatable="yes">History options...</property>
                                   </object>
                                 </property>
                                 <property name="title" translatable="yes">Recognition history</property>
@@ -354,8 +356,10 @@
                     <child type="end">
                       <object class="GtkMenuButton" id="menu_button">
                         <property name="accessible-role">menu</property>
+                        <property name="has-tooltip">True</property>
                         <property name="icon-name">open-menu-symbolic</property>
                         <property name="menu-model">main_menu_model</property>
+                        <property name="tooltip-text" translatable="yes">Application menu</property>
                       </object>
                     </child>
                   </object>
