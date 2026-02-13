@@ -1,3 +1,9 @@
+songrec (0.6.0+5) bionic; urgency=low
+
+  * Add missing build dependencies over libdbus
+
+ -- Marin <marin-m@users.noreply.github.com>  Fri, 13 Feb 2026 08:53:23 +0100
+
 songrec (0.6.0+4) bionic; urgency=low
 
   * Fix the Debian package build process (fourt attempt, filter out .mailmap files from the checksum list too)

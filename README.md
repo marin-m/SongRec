@@ -104,19 +104,19 @@ rustup update
 Debian:
 
 ```bash
-sudo apt install build-essential libasound2-dev libpulse-dev libgtk-4-dev libssl-dev intltool
+sudo apt install build-essential libasound2-dev libpulse-dev libgtk-4-dev libdbus-1-dev libssl-dev intltool
 ```
 
 Void Linux (libressl):
 
 ```shell
-sudo xbps-install base-devel alsa-lib-devel pulseaudio-devel gtk4-devel libressl-devel intltool
+sudo xbps-install base-devel alsa-lib-devel pulseaudio-devel gtk4-devel dbus-devel libressl-devel intltool
 ```
 
 Void Linux (openssl):
 
 ```shell
-sudo xbps-install base-devel alsa-lib-devel pulseaudio-devel gtk4-devel openssl-devel intltool
+sudo xbps-install base-devel alsa-lib-devel pulseaudio-devel gtk4-devel dbus-devel openssl-devel intltool
 ```
 
 Fedora Linux:
