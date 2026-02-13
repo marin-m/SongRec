@@ -123,7 +123,7 @@ Fedora Linux:
 
 ```shell
 sudo dnf groupinstall "Development Tools"
-sudo dnf install alsa-lib-devel pulseaudio-libs-devel openssl-devel dbus-devel pkgconf-pkg-config glib gtk3-devel
+sudo dnf install alsa-lib-devel pulseaudio-libs-devel openssl-devel dbus-devel pkgconf-pkg-config glib gtk4-devel
 ```
 
 ### Compiling the project
