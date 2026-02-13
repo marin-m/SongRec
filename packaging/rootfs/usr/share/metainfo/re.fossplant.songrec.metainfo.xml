@@ -44,8 +44,6 @@
   </supports>
   <recommends>
     <display_length compare="ge">360</display_length>
-  </recommends>
-  <recommends>
     <internet>always</internet>
   </recommends>
   <url type="bugtracker">https://github.com/marin-m/SongRec/issues</url>
