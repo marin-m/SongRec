@@ -37,14 +37,14 @@
   <replaces>
     <id>com.github.marinm.songrec</id>
   </replaces>
-  <recommends>
+  <supports>
     <control>keyboard</control>
     <control>pointing</control>
     <control>touch</control>
-  </recommends>
-  <requires>
+  </supports>
+  <recommends>
     <display_length compare="ge">360</display_length>
-  </requires>
+  </recommends>
   <recommends>
     <internet>always</internet>
   </recommends>
