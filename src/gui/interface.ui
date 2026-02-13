@@ -29,7 +29,6 @@
                             <property name="spacing">15</property>
                             <child>
                               <object class="AdwPreferencesGroup" id="identify_section">
-                                <property name="accessible-role">section</property>
                                 <property name="title" translatable="yes">Recognize songs</property>
                                 <child>
                                   <object class="AdwActionRow" id="recognize_file_row">
@@ -98,7 +97,6 @@
                             </child>
                             <child>
                               <object class="AdwPreferencesGroup" id="results_section">
-                                <property name="accessible-role">section</property>
                                 <property name="title" translatable="yes">Recognition results</property>
                                 <property name="visible">False</property>
                                 <child>
@@ -160,7 +158,6 @@
                             <property name="spacing">15</property>
                             <child>
                               <object class="AdwPreferencesGroup" id="input_device_section">
-                                <property name="accessible-role">section</property>
                                 <property name="title" translatable="yes">Audio input</property>
                                 <child>
                                   <object class="AdwComboRow" id="audio_inputs">
@@ -220,7 +217,6 @@
                             </child>
                             <child>
                               <object class="AdwPreferencesGroup" id="history_section">
-                                <property name="accessible-role">section</property>
                                 <property name="header-suffix">
                                   <object class="GtkMenuButton" id="history_params">
                                     <property name="has-tooltip">True</property>
