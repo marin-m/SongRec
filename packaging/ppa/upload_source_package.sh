@@ -21,9 +21,9 @@ for version in questing resolute; do
 
     rm -rf ../../target/ ../../vendor/ ../../.flatpak-builder ../flatpak/.flatpak-builder ../../repo ../../.cargo
 
-    cp -ra ../../ "${temp_dir}/songrec-0.6.0+3${version}"
+    cp -ra ../../ "${temp_dir}/songrec-0.6.0+4${version}"
 
-    cd "${temp_dir}/songrec-0.6.0+3${version}"
+    cd "${temp_dir}/songrec-0.6.0+4${version}"
 
     mkdir -p .cargo
     cargo vendor --locked vendor | sed 's/^directory = ".*"/directory = "vendor"/g' > .cargo/config.toml
@@ -33,6 +33,7 @@ for version in questing resolute; do
     find vendor -name .cargo-checksum.json -exec sed -ri 's/"[^"]*?\.gitignore":"[^"]+?"[,\}]//g' '{}' \;
     find vendor -name .cargo-checksum.json -exec sed -ri 's/"[^"]*?\.orig":"[^"]+?"[,\}]//g' '{}' \;
     find vendor -name .cargo-checksum.json -exec sed -ri 's/"[^"]*?\.a":"[^"]+?"[,\}]//g' '{}' \;
+    find vendor -name .cargo-checksum.json -exec sed -ri 's/"[^"]*?\.mailmap":"[^"]+?"[,\}]//g' '{}' \;
 
     mv packaging/ppa/debian .
     
@@ -51,11 +52,11 @@ for version in questing resolute; do
 
     # Push to Launchpad
 
-    dput ppa:marin-m/songrec "../../songrec_0.6.0+3${version}_source.changes"
+    dput ppa:marin-m/songrec "../../songrec_0.6.0+4${version}_source.changes"
 
     cd "${ORIG_DIR}"
 
-    rm -rf "${temp_dir}/songrec-0.6.0+3${version}"
+    rm -rf "${temp_dir}/songrec-0.6.0+4${version}"
 
 done
 
