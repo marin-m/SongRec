@@ -228,15 +228,6 @@ https://hughsie.github.io/oars/index.html
       </description>
     </release>
   </releases>
-  <kudos>
-    <!--
-    GNOME Software kudos:
-    https://gitlab.gnome.org/GNOME/gnome-software/blob/master/doc/kudos.md
-    -->
-    <kudo>ModernToolkit</kudo>
-    <kudo>HiDpiIcon</kudo>
-    <kudo>Notifications</kudo>
-  </kudos>
   <developer id="re.fossplant">
     <name>Marin M. - Fossplant.re</name>
   </developer>
