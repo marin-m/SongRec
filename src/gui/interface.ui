@@ -6,6 +6,7 @@
   <requires lib="gtk" version="4.14"/>
   <requires lib="libadwaita" version="1.6"/>
   <object class="AdwApplicationWindow" id="main_window">
+    <property name="accessible-role">application</property>
     <property name="content">
       <object class="AdwNavigationView" id="main_window_pages">
         <child>
@@ -28,6 +29,7 @@
                             <property name="spacing">15</property>
                             <child>
                               <object class="AdwPreferencesGroup" id="identify_section">
+                                <property name="accessible-role">section</property>
                                 <property name="title" translatable="yes">Recognize songs</property>
                                 <child>
                                   <object class="AdwActionRow" id="recognize_file_row">
@@ -96,6 +98,7 @@
                             </child>
                             <child>
                               <object class="AdwPreferencesGroup" id="results_section">
+                                <property name="accessible-role">section</property>
                                 <property name="title" translatable="yes">Recognition results</property>
                                 <property name="visible">False</property>
                                 <child>
@@ -157,6 +160,7 @@
                             <property name="spacing">15</property>
                             <child>
                               <object class="AdwPreferencesGroup" id="input_device_section">
+                                <property name="accessible-role">section</property>
                                 <property name="title" translatable="yes">Audio input</property>
                                 <child>
                                   <object class="AdwComboRow" id="audio_inputs">
@@ -216,6 +220,7 @@
                             </child>
                             <child>
                               <object class="AdwPreferencesGroup" id="history_section">
+                                <property name="accessible-role">section</property>
                                 <property name="header-suffix">
                                   <object class="GtkMenuButton" id="history_params">
                                     <property name="icon-name">preferences-system</property>
@@ -230,6 +235,7 @@
                                         <property name="child">history_view</property>
                                         <child>
                                           <object class="GtkColumnView" id="history_view">
+                                            <property name="accessible-role">list</property>
                                             <property name="model">
                                               <object class="GtkSingleSelection" id="history_selection">
                                                 <property name="autoselect">False</property>
@@ -367,6 +373,7 @@
                     <property name="child">favorites_view</property>
                     <child>
                       <object class="GtkColumnView" id="favorites_view">
+                        <property name="accessible-role">list</property>
                         <property name="model">
                           <object class="GtkSingleSelection" id="favorites_selection">
                             <property name="autoselect">False</property>
