@@ -2,7 +2,7 @@ This directory contains instructions that you may follow if you are willing to h
 
 ## How to translate the interface?
 
-1. Connect using your Github or Gitlab account at **https://weblate.fossplant.re/accounts/register/** (you can also use an e-mail)
+1. Connect using your Github or Gitlab account at **https://weblate.fossplant.re/accounts/login/** (you can also register with an e-mail)
 2. Use the Weblate interface at https://weblate.fossplant.re/projects/songrec/songrec/
 
 ## How to rebuild SongRec while taking in account your translation?
