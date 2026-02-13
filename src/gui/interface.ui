@@ -24,7 +24,6 @@
                         <property name="spacing">15</property>
                         <child type="primary">
                           <object class="GtkBox" id="left_column">
-                            <property name="can-focus">False</property>
                             <property name="orientation">vertical</property>
                             <property name="spacing">15</property>
                             <child>
