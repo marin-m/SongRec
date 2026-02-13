@@ -2,12 +2,12 @@ This directory contains instructions that you may follow if you are willing to h
 
 ## How to translate the interface?
 
-1. Connect using your Github or Gitlab account at **https://weblate.fossplant.re/accounts/register/**
+1. Connect using your Github or Gitlab account at **https://weblate.fossplant.re/accounts/register/** (you can also use an e-mail)
 2. Use the Weblate interface at https://weblate.fossplant.re/projects/songrec/songrec/
 
 ## How to rebuild SongRec while taking in account your translation?
 
-1. Download a `.po` file for your translation using the Weblate interface, for this, go to your your language and select "Files > Download translation". You should open a `.po` files
+1. Download a `.po` file for your translation using the Weblate interface, for this, go to your your language and select "Files > Download translation". You should obtain a `.po` files
 1. Download the SongRec source code, either cloning the repository (using for example the `git clone git@github.com:marin-m/SongRec.git` command in your terminal, or directly [downloading the Zipball](https://github.com/marin-m/SongRec/archive/refs/heads/master.zip) from Github and extracting it to your hard disk).
 2. Save your `.po` file under the `translations/locale/fr_FR/LC_MESSAGES/songrec.po` file of the repository, replacing `fr_FR` with the locale code of your language, and creating the intermediary directories as needed.
 3. Run the `./translations/update_po_files.sh` script that should generate a binary `.mo` file from the text `.po` file that you coped at the previous steps. Before that, you should install the dependencies of the concerned script (through the `sudo apt install intltool gettext` command), and edit the script to include the locale code of your language within the lines starting with `for locale in` [...].
