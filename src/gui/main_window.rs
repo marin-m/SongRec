@@ -875,7 +875,7 @@ impl App {
             ]);
         }
 
-        application.set_accels_for_action("win.close", &["<Primary>Q"]);
+        application.set_accels_for_action("win.close", &["<Primary>Q", "<Primary>W"]);
     }
 
     fn show_window(&self, application: &adw::Application) {

@@ -353,6 +353,7 @@
                   <object class="AdwHeaderBar" id="title_bar">
                     <child type="end">
                       <object class="GtkMenuButton" id="menu_button">
+                        <property name="accessible-role">menu</property>
                         <property name="icon-name">open-menu-symbolic</property>
                         <property name="menu-model">main_menu_model</property>
                       </object>
