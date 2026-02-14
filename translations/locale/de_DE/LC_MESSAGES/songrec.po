@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-13 16:28+0100\n"
+"POT-Creation-Date: 2026-02-14 06:55+0100\n"
 "PO-Revision-Date: 2022-10-09 13:27+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -58,7 +58,10 @@ msgstr "Ein Open-Source Shazam Client für Linux, geschrieben in Rust."
 
 #: src/main.rs:90
 msgid ""
-"-v: Set the log level to DEBUG instead of WARN for SongRec-related messages"
+"-v: Set the log level to DEBUG instead of WARN for SongRec-related messages\n"
+"-vv: Set the log level to DEBUG for SongRec-related messages and INFO for "
+"library-related messages\n"
+"-vvv: Set the log level to TRACE"
 msgstr ""
 
 #: src/main.rs:96
@@ -266,74 +269,82 @@ msgid "Volume:"
 msgstr ""
 
 #: translations/interface.ui.h:13
+msgid "History options..."
+msgstr ""
+
+#: translations/interface.ui.h:14
 msgid "Recognition history"
 msgstr "Erkennungs Verlauf"
 
-#: translations/interface.ui.h:14
+#: translations/interface.ui.h:15
 msgid "Song name"
 msgstr "Lied Name"
 
-#: translations/interface.ui.h:15
+#: translations/interface.ui.h:16
 msgid "Album"
 msgstr "Album"
 
-#: translations/interface.ui.h:16
+#: translations/interface.ui.h:17
 msgid "Recognition date"
 msgstr "Erkennungs Datum"
 
-#: translations/interface.ui.h:17
+#: translations/interface.ui.h:18
 msgid "View favorites"
 msgstr ""
 
-#: translations/interface.ui.h:18
-msgid "Export to CSV"
-msgstr "Nach CSV exportieren"
-
 #: translations/interface.ui.h:19
-msgid "Favorites"
+msgid "Application menu"
 msgstr ""
 
 #: translations/interface.ui.h:20
-msgid "Show notifications"
-msgstr ""
+msgid "Export to CSV"
+msgstr "Nach CSV exportieren"
 
 #: translations/interface.ui.h:21
-msgid "Enable MPRIS"
+msgid "Favorites"
 msgstr ""
 
 #: translations/interface.ui.h:22
-msgid "About..."
+msgid "Show notifications"
 msgstr ""
 
 #: translations/interface.ui.h:23
-msgid "Delete history"
+msgid "Enable MPRIS"
 msgstr ""
 
 #: translations/interface.ui.h:24
+msgid "About..."
+msgstr ""
+
+#: translations/interface.ui.h:25
+msgid "Delete history"
+msgstr ""
+
+#: translations/interface.ui.h:26
 msgid "Select a file to recognize"
 msgstr "Wählen Sie eine zu erkennende Datei"
 
-#: translations/interface.ui.h:25
+#: translations/interface.ui.h:27
 msgid "Copy artist and track"
 msgstr "Künstler und Titelname kopieren"
 
-#: translations/interface.ui.h:26
+#: translations/interface.ui.h:28
 msgid "Copy artist"
 msgstr "Künstler kopieren"
 
-#: translations/interface.ui.h:27
+#: translations/interface.ui.h:29
 msgid "Copy track name"
 msgstr "Titelname kopieren"
 
-#: translations/interface.ui.h:28
+#: translations/interface.ui.h:30
 msgid "Copy album"
 msgstr "Album kopieren"
 
-#: translations/interface.ui.h:29
+#: translations/interface.ui.h:31
 msgid "Add to Favorites"
 msgstr ""
 
-#: translations/interface.ui.h:30
+#: translations/interface.ui.h:32
 msgid "Remove from Favorites"
 msgstr "Von Favoriten entfernen"
 

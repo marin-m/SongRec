@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-13 16:28+0100\n"
+"POT-Creation-Date: 2026-02-14 06:55+0100\n"
 "PO-Revision-Date: 2024-05-16 00:36+0200\n"
 "Last-Translator: Jozef Gaal <preklady@mayday.sk>\n"
 "Language-Team: \n"
@@ -59,7 +59,10 @@ msgstr ""
 
 #: src/main.rs:90
 msgid ""
-"-v: Set the log level to DEBUG instead of WARN for SongRec-related messages"
+"-v: Set the log level to DEBUG instead of WARN for SongRec-related messages\n"
+"-vv: Set the log level to DEBUG for SongRec-related messages and INFO for "
+"library-related messages\n"
+"-vvv: Set the log level to TRACE"
 msgstr ""
 
 #: src/main.rs:96
@@ -265,74 +268,82 @@ msgid "Volume:"
 msgstr ""
 
 #: translations/interface.ui.h:13
+msgid "History options..."
+msgstr ""
+
+#: translations/interface.ui.h:14
 msgid "Recognition history"
 msgstr "História rozpoznania"
 
-#: translations/interface.ui.h:14
+#: translations/interface.ui.h:15
 msgid "Song name"
 msgstr "Názov skladby"
 
-#: translations/interface.ui.h:15
+#: translations/interface.ui.h:16
 msgid "Album"
 msgstr "Album"
 
-#: translations/interface.ui.h:16
+#: translations/interface.ui.h:17
 msgid "Recognition date"
 msgstr "Dátum rozpoznania"
 
-#: translations/interface.ui.h:17
+#: translations/interface.ui.h:18
 msgid "View favorites"
 msgstr ""
 
-#: translations/interface.ui.h:18
+#: translations/interface.ui.h:19
+msgid "Application menu"
+msgstr ""
+
+#: translations/interface.ui.h:20
 msgid "Export to CSV"
 msgstr "Exportovať do CSV"
 
-#: translations/interface.ui.h:19
+#: translations/interface.ui.h:21
 msgid "Favorites"
 msgstr "Obľúbené"
 
-#: translations/interface.ui.h:20
+#: translations/interface.ui.h:22
 msgid "Show notifications"
 msgstr ""
 
-#: translations/interface.ui.h:21
+#: translations/interface.ui.h:23
 msgid "Enable MPRIS"
 msgstr ""
 
-#: translations/interface.ui.h:22
+#: translations/interface.ui.h:24
 msgid "About..."
 msgstr "O..."
 
-#: translations/interface.ui.h:23
+#: translations/interface.ui.h:25
 msgid "Delete history"
 msgstr ""
 
-#: translations/interface.ui.h:24
+#: translations/interface.ui.h:26
 msgid "Select a file to recognize"
 msgstr "Vyberte súbor na rozpoznanie"
 
-#: translations/interface.ui.h:25
+#: translations/interface.ui.h:27
 msgid "Copy artist and track"
 msgstr "Kopírovať interpreta a názov skladby"
 
-#: translations/interface.ui.h:26
+#: translations/interface.ui.h:28
 msgid "Copy artist"
 msgstr "Kopírovať interpreta"
 
-#: translations/interface.ui.h:27
+#: translations/interface.ui.h:29
 msgid "Copy track name"
 msgstr "Kopírovať názov skladby"
 
-#: translations/interface.ui.h:28
+#: translations/interface.ui.h:30
 msgid "Copy album"
 msgstr "Kopírovať album"
 
-#: translations/interface.ui.h:29
+#: translations/interface.ui.h:31
 msgid "Add to Favorites"
 msgstr "Pridať medzi obľúbené"
 
-#: translations/interface.ui.h:30
+#: translations/interface.ui.h:32
 msgid "Remove from Favorites"
 msgstr "Odstrániť z obľúbených"
 

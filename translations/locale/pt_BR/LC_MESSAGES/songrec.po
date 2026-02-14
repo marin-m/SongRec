@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Songrec\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-13 16:28+0100\n"
+"POT-Creation-Date: 2026-02-14 06:55+0100\n"
 "PO-Revision-Date: 2026-02-13 16:58+0000\n"
 "Last-Translator: marcelo cripe <marcelocripe@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://weblate.fossplant.re/projects/"
@@ -67,10 +67,11 @@ msgstr ""
 
 #: src/main.rs:90
 msgid ""
-"-v: Set the log level to DEBUG instead of WARN for SongRec-related messages"
+"-v: Set the log level to DEBUG instead of WARN for SongRec-related messages\n"
+"-vv: Set the log level to DEBUG for SongRec-related messages and INFO for "
+"library-related messages\n"
+"-vvv: Set the log level to TRACE"
 msgstr ""
-"-v: Define o nível do registro para depurar (DEBUG) em vez de exibir as "
-"mensagens de aviso (WARN) para as mensagens que são relacionadas ao SongRec"
 
 #: src/main.rs:96
 msgid ""
@@ -293,76 +294,92 @@ msgid "Volume:"
 msgstr "Volume:"
 
 #: translations/interface.ui.h:13
+msgid "History options..."
+msgstr ""
+
+#: translations/interface.ui.h:14
 msgid "Recognition history"
 msgstr "Histórico das identificações"
 
-#: translations/interface.ui.h:14
+#: translations/interface.ui.h:15
 msgid "Song name"
 msgstr "Nome da música"
 
-#: translations/interface.ui.h:15
+#: translations/interface.ui.h:16
 msgid "Album"
 msgstr "Álbum"
 
-#: translations/interface.ui.h:16
+#: translations/interface.ui.h:17
 msgid "Recognition date"
 msgstr "Data da identificação"
 
-#: translations/interface.ui.h:17
+#: translations/interface.ui.h:18
 msgid "View favorites"
 msgstr "Exibir os favoritos"
 
-#: translations/interface.ui.h:18
+#: translations/interface.ui.h:19
+msgid "Application menu"
+msgstr ""
+
+#: translations/interface.ui.h:20
 msgid "Export to CSV"
 msgstr "Exportar para o formato ‘CSV’"
 
-#: translations/interface.ui.h:19
+#: translations/interface.ui.h:21
 msgid "Favorites"
 msgstr "Favoritos"
 
-#: translations/interface.ui.h:20
+#: translations/interface.ui.h:22
 msgid "Show notifications"
 msgstr "Exibir as notificações"
 
-#: translations/interface.ui.h:21
+#: translations/interface.ui.h:23
 msgid "Enable MPRIS"
 msgstr "Ativar o ‘MPRIS’"
 
-#: translations/interface.ui.h:22
+#: translations/interface.ui.h:24
 msgid "About..."
 msgstr "Sobre..."
 
-#: translations/interface.ui.h:23
+#: translations/interface.ui.h:25
 msgid "Delete history"
 msgstr "Excluir o histórico"
 
-#: translations/interface.ui.h:24
+#: translations/interface.ui.h:26
 msgid "Select a file to recognize"
 msgstr "Escolha um arquivo de áudio que você quer identificar"
 
-#: translations/interface.ui.h:25
+#: translations/interface.ui.h:27
 msgid "Copy artist and track"
 msgstr "Copiar o nome do artista e o título da música"
 
-#: translations/interface.ui.h:26
+#: translations/interface.ui.h:28
 msgid "Copy artist"
 msgstr "Copiar o nome do artista"
 
-#: translations/interface.ui.h:27
+#: translations/interface.ui.h:29
 msgid "Copy track name"
 msgstr "Copiar o título da música"
 
-#: translations/interface.ui.h:28
+#: translations/interface.ui.h:30
 msgid "Copy album"
 msgstr "Copiar o nome do álbum"
 
-#: translations/interface.ui.h:29
+#: translations/interface.ui.h:31
 msgid "Add to Favorites"
 msgstr "Adicionar aos favoritos"
 
-#: translations/interface.ui.h:30
+#: translations/interface.ui.h:32
 msgid "Remove from Favorites"
 msgstr "Remover dos favoritos"
+
+#~ msgid ""
+#~ "-v: Set the log level to DEBUG instead of WARN for SongRec-related "
+#~ "messages"
+#~ msgstr ""
+#~ "-v: Define o nível do registro para depurar (DEBUG) em vez de exibir as "
+#~ "mensagens de aviso (WARN) para as mensagens que são relacionadas ao "
+#~ "SongRec"
 
 #~ msgid "Recognition Date"
 #~ msgstr "Data da identificação"
