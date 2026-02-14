@@ -1,3 +1,9 @@
+songrec (0.6.1+1) bionic; urgency=low
+
+  * Use rustup when building on 24.04
+
+ -- Marin <marin-m@users.noreply.github.com>  Fri, 14 Feb 2026 11:09:28 +0100
+
 songrec (0.6.1) bionic; urgency=low
 
   * Improve accessibility
