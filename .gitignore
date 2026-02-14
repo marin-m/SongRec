@@ -17,6 +17,7 @@ Cargo.lock
 # The following is related to building packages
 vendor/
 repo/
+man/
 .flatpak-builder/
 .cargo/
 

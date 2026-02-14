@@ -173,6 +173,8 @@ fn main() {
         .join("packaging").join("rootfs")
         .join("usr").join("share").join("man").join("man1");
 
+    std::fs::create_dir_all(&out_dir).unwrap();
+
     glib_build_tools::compile_resources(
         &["src/gui"],
         "src/gui/resources.gresource.xml",
