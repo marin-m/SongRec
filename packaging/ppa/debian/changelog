@@ -1,3 +1,9 @@
+songrec (0.6.1+4) bionic; urgency=low
+
+  * Attempt to fix the build process on 24.04
+
+ -- Marin <marin-m@users.noreply.github.com>  Fri, 14 Feb 2026 11:42:21 +0100
+
 songrec (0.6.1+3) bionic; urgency=low
 
   * Explicitly try to install a recent rustc on 24.04
