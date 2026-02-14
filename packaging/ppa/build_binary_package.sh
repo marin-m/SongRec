@@ -37,7 +37,7 @@ mv packaging/ppa/debian .
 
 sed -ri "s/\) bionic/staging) resolute/g" debian/changelog
 
-debuild -b
+debuild -b -us -uc
 
 mv ../*.tar* ../../ || :
 mv ../*.dsc* ../../ || :
