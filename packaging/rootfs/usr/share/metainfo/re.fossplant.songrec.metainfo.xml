@@ -58,6 +58,15 @@ https://hughsie.github.io/oars/index.html
 -->
   <content_rating type="oars-1.1" />
   <releases>
+    <release version="0.6.1" date="2026-02-14">
+      <description>
+        <p>Improve accessibility</p>
+        <p>Update metainfo.xml to better fit the GNOME Circle and Flathub guidelines</p>
+        <p>Move translations to Weblate (weblate.fossplant.re)</p>
+        <p>Auto-generate manpage files</p>
+        <p>Add CI and DOAP files</p>
+      </description>
+    </release>
     <release version="0.6.0" date="2026-02-12">
       <description>
         <p>Update interface to GTK 4 (issue #206)</p>

@@ -2414,7 +2414,7 @@ dependencies = [
 
 [[package]]
 name = "songrec"
-version = "0.6.0"
+version = "0.6.1"
 dependencies = [
  "app_dirs",
  "async-channel",
