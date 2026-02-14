@@ -70,7 +70,7 @@ pub fn microphone_thread(
                 let channels = config.channels();
                 let sample_rate = config.sample_rate().0;
 
-                let mut twelve_seconds_buffer: [i16; 16000 * 12] = [0; 16000 * 12];
+                let mut twelve_seconds_buffer: Box<[i16]> = vec![0i16; 16000 * 12].into();
                 let mut number_unprocessed_samples: usize = 0; // Sample count for the interval of doing Shazam recognition (every 4 seconds)
                 let mut number_unmeasured_samples: usize = 0; // Sample count for doing volume measurement (every 24th of second)
 
