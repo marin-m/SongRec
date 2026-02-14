@@ -21,11 +21,11 @@ trap cleanup_dirs INT TERM
 
 for version in noble questing resolute; do
 
-    rm -rf ../../target/ ../../vendor/ ../../.flatpak-builder ../flatpak/.flatpak-builder ../../repo ../../.cargo
-
     cp -ra ../../ "${temp_dir}/songrec-${PKGVER}${version}"
 
     cd "${temp_dir}/songrec-${PKGVER}${version}"
+
+    rm -rf target/ vendor/ .flatpak-builder packaging/flatpak/.flatpak-builder repo .cargo
 
     mkdir -p .cargo
     cargo vendor --locked vendor | sed 's/^directory = ".*"/directory = "vendor"/g' > .cargo/config.toml

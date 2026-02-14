@@ -35,6 +35,8 @@ find vendor -name .cargo-checksum.json -exec sed -ri 's/"[^"]*?\.mailmap":"[^"]+
 
 mv packaging/ppa/debian .
 
+sed -ri "s/\) bionic/staging) resolute/g" debian/changelog
+
 debuild -b
 
 mv ../*.tar* ../../ || :
