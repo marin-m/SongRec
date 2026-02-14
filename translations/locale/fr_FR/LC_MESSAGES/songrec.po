@@ -9,15 +9,16 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-14 06:55+0100\n"
-"PO-Revision-Date: 2021-08-05 11:48+0200\n"
-"Last-Translator: marin <marin@marin-thinkpad-t460s>\n"
-"Language-Team: French\n"
-"Language: fr\n"
+"PO-Revision-Date: 2026-02-14 06:02+0000\n"
+"Last-Translator: test56 <test56@users.noreply.weblate.fossplant.re>\n"
+"Language-Team: French <https://weblate.fossplant.re/projects/songrec/songrec/"
+"fr/>\n"
+"Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 3.0\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #: src/cli_main.rs:102
 msgid "Exiting: audio device not found"
@@ -64,6 +65,11 @@ msgid ""
 "library-related messages\n"
 "-vvv: Set the log level to TRACE"
 msgstr ""
+"-v: Utiliser le niveau de débogage DEBUG au lieu de WARN pour les messages "
+"liés à SongRec\n"
+"-vv: Utiliser le niveau de débogage DEBUG pour les messages liés à SongRec, "
+"et INFO pour les messages liés aux bibliothèques\n"
+"-vvv: Utiliser le niveau de débogage TRACE"
 
 #: src/main.rs:96
 msgid ""
@@ -278,7 +284,7 @@ msgstr ""
 
 #: translations/interface.ui.h:13
 msgid "History options..."
-msgstr ""
+msgstr "Options de l'historique..."
 
 #: translations/interface.ui.h:14
 msgid "Recognition history"
@@ -302,7 +308,7 @@ msgstr "Voir les favoris"
 
 #: translations/interface.ui.h:19
 msgid "Application menu"
-msgstr ""
+msgstr "Menu de l'application"
 
 #: translations/interface.ui.h:20
 msgid "Export to CSV"
