@@ -1,0 +1,24 @@
+name: Debian Packaging
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v5
+      - name: Install system packages
+        run: sudo apt update && sudo apt install build-essential libasound2-dev libpulse-dev libgtk-4-dev libadwaita-1-dev libdbus-1-dev libssl-dev intltool appstream coreutils sed findutils dput debhelper devscripts
+      - name: Ensure metainfo.xml validity
+        run: appstreamcli validate packaging/rootfs/usr/share/metainfo/re.fossplant.songrec.metainfo.xml
+      - name: Build Debian package
+        run: ./packaging/ppa/build_binary_package.sh
