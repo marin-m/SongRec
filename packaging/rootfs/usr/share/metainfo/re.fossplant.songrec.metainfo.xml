@@ -24,13 +24,13 @@
       <image type="source" scale="2">https://raw.githubusercontent.com/marin-m/SongRec/57bfe25/packaging/Screenshot_hires_light.png</image>
       <caption>SongRec's main window</caption>
     </screenshot>
-    <screenshot environment="gnome:dark">
-      <image type="source" scale="2">https://raw.githubusercontent.com/marin-m/SongRec/57bfe25/packaging/Screenshot_hires_dark.png</image>
-      <caption>SongRec's main window, on GNOME in dark mode</caption>
-    </screenshot>
     <screenshot>
       <image type="source" scale="2">https://raw.githubusercontent.com/marin-m/SongRec/57bfe25/packaging/Screenshot_favourites_light.png</image>
       <caption>SongRec's favourites window</caption>
+    </screenshot>
+    <screenshot environment="gnome:dark">
+      <image type="source" scale="2">https://raw.githubusercontent.com/marin-m/SongRec/57bfe25/packaging/Screenshot_hires_dark.png</image>
+      <caption>SongRec's main window, on GNOME in dark mode</caption>
     </screenshot>
   </screenshots>
   <translation type="gettext">songrec</translation>

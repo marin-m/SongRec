@@ -6,6 +6,7 @@
   <requires lib="gtk" version="4.14"/>
   <requires lib="libadwaita" version="1.5"/>
   <object class="AdwApplicationWindow" id="main_window">
+    <property name="accessible-role">application</property>
     <property name="content">
       <object class="AdwNavigationView" id="main_window_pages">
         <child>
@@ -24,7 +25,6 @@
                         <property name="spacing">15</property>
                         <child type="primary">
                           <object class="GtkBox" id="left_column">
-                            <property name="can-focus">False</property>
                             <property name="orientation">vertical</property>
                             <property name="spacing">15</property>
                             <child>
@@ -220,8 +220,10 @@
                               <object class="AdwPreferencesGroup" id="history_section">
                                 <property name="header-suffix">
                                   <object class="GtkMenuButton" id="history_params">
+                                    <property name="has-tooltip">True</property>
                                     <property name="icon-name">preferences-system</property>
                                     <property name="menu-model">history_menu_model</property>
+                                    <property name="tooltip-text" translatable="yes">History options...</property>
                                   </object>
                                 </property>
                                 <property name="title" translatable="yes">Recognition history</property>
@@ -232,6 +234,7 @@
                                         <property name="child">history_view</property>
                                         <child>
                                           <object class="GtkColumnView" id="history_view">
+                                            <property name="accessible-role">list</property>
                                             <property name="model">
                                               <object class="GtkSingleSelection" id="history_selection">
                                                 <property name="autoselect">False</property>
@@ -359,8 +362,11 @@
                   <object class="AdwHeaderBar" id="title_bar">
                     <child type="end">
                       <object class="GtkMenuButton" id="menu_button">
+                        <property name="accessible-role">menu</property>
+                        <property name="has-tooltip">True</property>
                         <property name="icon-name">open-menu-symbolic</property>
                         <property name="menu-model">main_menu_model</property>
+                        <property name="tooltip-text" translatable="yes">Application menu</property>
                       </object>
                     </child>
                   </object>
@@ -379,6 +385,7 @@
                     <property name="child">favorites_view</property>
                     <child>
                       <object class="GtkColumnView" id="favorites_view">
+                        <property name="accessible-role">list</property>
                         <property name="model">
                           <object class="GtkSingleSelection" id="favorites_selection">
                             <property name="autoselect">False</property>

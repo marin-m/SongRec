@@ -200,6 +200,10 @@ SongRec collects no data and contacts no other servers than Shazam's. SongRec do
 
 This does not suffice to represent anything hearable alone; that means that no actually hearable sound (e.g voice fragments) is sent to servers, only metadata derived on the characteristics of the sound that may only suffice to recognize a song already known by Shazam is being sent.
 
+## Contributing
+
+Please follow the [https://conduct.gnome.org/ GNOME Code of conduct] when interacting within the boundaries of the project.
+
 ## Legal
 
 This software is released under the [GNU GPL v3](https://www.gnu.org/licenses/gpl-3.0.html) license. It was created with the intent of providing interoperability between the remote Shazam services and Linux-based deskop systems.
