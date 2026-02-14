@@ -15,6 +15,8 @@ Features:
 
 A (command-line only) Python version, which I made before rewriting in Rust for performance, is also available for demonstration purposes. It supports file recognition only.
 
+<center>[<img src="packaging/flathub_badge_black.svg?raw=true">](https://flathub.org/en/apps/re.fossplant.songrec)</center>
+
 ## How it works
 
 For useful information about how audio fingerprinting works, you may want to read [this article](http://coding-geek.com/how-shazam-works/) ([archive.org mirror](https://web.archive.org/web/20230215010310/http://coding-geek.com/how-shazam-works/)). To be put simply, Shazam generates a spectrogram (a time/frequency 2D graph of the sound, with amplitude at intersections) of the sound, and maps out the frequency peaks from it (which should match key points of the harmonics of voice or of certains instruments).
