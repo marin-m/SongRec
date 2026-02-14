@@ -1,4 +1,10 @@
-songrec (0.6.1+5) bionic; urgency=low
+songrec (0.6.1+6) bionic; urgency=low
+
+  * Fix typo, again
+
+ -- Marin <marin-m@users.noreply.github.com>  Fri, 14 Feb 2026 11:57:11 +0100
+
+ songrec (0.6.1+5) bionic; urgency=low
 
   * Remove insidious non-breaking spaces
 
