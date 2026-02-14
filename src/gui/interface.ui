@@ -160,6 +160,7 @@
                             <child>
                               <object class="AdwPreferencesGroup" id="input_device_section">
                                 <property name="title" translatable="yes">Audio input</property>
+                                <property name="visible">False</property>
                                 <child>
                                   <object class="AdwComboRow" id="audio_inputs">
                                     <property name="factory">
@@ -192,7 +193,6 @@
                                   <object class="AdwPreferencesRow" id="volume_row">
                                     <property name="activatable">False</property>
                                     <property name="selectable">False</property>
-                                    <property name="visible">False</property>
                                     <child>
                                       <object class="GtkBox">
                                         <property name="margin-bottom">15</property>

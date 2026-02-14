@@ -253,10 +253,12 @@ impl App {
         builder_scope.add_callback("loopback_options_switched", move |_values| {
             let loopback_switch: adw::SwitchRow = builder.object("loopback_switch").unwrap();
             let microphone_switch: adw::SwitchRow = builder.object("microphone_switch").unwrap();
+            let device_section: adw::PreferencesGroup = builder.object("input_device_section").unwrap();
             let g_list_store: gio::ListStore = builder.object("audio_inputs_model").unwrap();
 
             if loopback_switch.is_active() {
                 microphone_switch.set_active(false);
+                device_section.set_visible(true);
 
                 let adw_combo_row: adw::ComboRow = builder.object("audio_inputs").unwrap();
 
@@ -290,6 +292,7 @@ impl App {
                     }
                 }
             } else if !microphone_switch.is_active() && !loopback_switch.is_active() {
+                device_section.set_visible(false);
                 microphone_tx
                     .send_blocking(MicrophoneMessage::MicrophoneRecordStop)
                     .unwrap();
@@ -304,10 +307,12 @@ impl App {
         builder_scope.add_callback("microphone_option_switched", move |_values| {
             let microphone_switch: adw::SwitchRow = builder.object("microphone_switch").unwrap();
             let loopback_switch: adw::SwitchRow = builder.object("loopback_switch").unwrap();
+            let device_section: adw::PreferencesGroup = builder.object("input_device_section").unwrap();
             let g_list_store: gio::ListStore = builder.object("audio_inputs_model").unwrap();
 
             if microphone_switch.is_active() {
                 loopback_switch.set_active(false);
+                device_section.set_visible(true);
 
                 let adw_combo_row: adw::ComboRow = builder.object("audio_inputs").unwrap();
 
@@ -341,6 +346,7 @@ impl App {
                     }
                 }
             } else if !microphone_switch.is_active() && !loopback_switch.is_active() {
+                device_section.set_visible(false);
                 microphone_tx
                     .send_blocking(MicrophoneMessage::MicrophoneRecordStop)
                     .unwrap();
