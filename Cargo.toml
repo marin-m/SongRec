@@ -51,6 +51,9 @@ toml = "1.0.1"
 app_dirs = { version = "1.2.1", optional = true } # For obtaining and creating either the %APPDATA%, the dotfile path or similar
 
 [build-dependencies]
+clap_mangen = "0.2.31"
+clap = { version = "4.5.56", features = ["cargo"] }
+flate2 = "1.1.9"
 glib-build-tools = "0.21.0"
 
 [features]

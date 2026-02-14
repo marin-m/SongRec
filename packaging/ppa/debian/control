@@ -29,10 +29,10 @@ Depends: libasound2,
          libgtk-4-1 (>= 4.14),
          libadwaita-1-0 (>= 1.5)
 Recommends: pulseaudio-utils
-Description: An unofficial Shazam client for Linux, written in Rust
+Description: Unofficial Shazam client for Linux, written in Rust
  Features:
- - Recognize audio from an arbitrary audio file.
- - Recognize audio from the microphone.
- - Usage from both GUI and command line (for the file recognition part).
- - Provide an history of the recognized songs on the GUI, exportable to CSV.
- - Continuous song detection from the microphone, with the ability to choose your input device.
+   - Recognize audio from an arbitrary audio file.
+   - Recognize audio from the microphone.
+   - Usage from both GUI and command line (for the file recognition part).
+   - Provide an history of the recognized songs on the GUI, exportable to CSV.
+   - Continuous song detection from the microphone, with the ability to choose your input device.
