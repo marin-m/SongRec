@@ -3,20 +3,21 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-14 22:10+0100\n"
-"PO-Revision-Date: 2026-01-23 16:14+0100\n"
-"Last-Translator: \n"
-"Language-Team: \n"
+"PO-Revision-Date: 2026-02-14 21:10+0000\n"
+"Last-Translator: Fjuro <fjuro@users.noreply.weblate.fossplant.re>\n"
+"Language-Team: Czech <https://weblate.fossplant.re/projects/songrec/songrec/"
+"cs/>\n"
 "Language: cs_CZ\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.8\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #: src/cli_main.rs:107
 msgid "Exiting: audio device not found"
@@ -63,6 +64,11 @@ msgid ""
 "library-related messages\n"
 "-vvv: Set the log level to TRACE"
 msgstr ""
+"-v: Nastavení úrovně protokolu na DEBUG (ladění) namísto WARN (varování) pro "
+"zprávy týkající se SongRec\n"
+"-vv: Nastavení úrovně protokolu na DEBUG pro zprávy týkající se SongRec a "
+"INFO pro zprávy týkající se knihoven)\n"
+"-vvv: Nastavení úrovně protokolu na TRACE"
 
 #: src/main.rs:95
 msgid ""
@@ -192,15 +198,15 @@ msgstr "Skladba rozpoznána"
 
 #: src/gui/main_window.rs:747
 msgid "Are you sure you want to wipe history?"
-msgstr ""
+msgstr "Opravdu chcete vymazat historii?"
 
 #: src/gui/main_window.rs:748
 msgid "_Yes"
-msgstr ""
+msgstr "_Ano"
 
 #: src/gui/main_window.rs:748
 msgid "_No"
-msgstr ""
+msgstr "_Ne"
 
 #: src/gui/preferences.rs:50
 msgid "When parsing the preferences file:"
@@ -228,15 +234,15 @@ msgstr "Rozpoznat ze souboru"
 
 #: translations/interface.ui.h:3
 msgid "Pick a file..."
-msgstr ""
+msgstr "Vyberte soubor…"
 
 #: translations/interface.ui.h:4
 msgid "Recognize from microphone"
-msgstr ""
+msgstr "Rozpoznávat z mikrofonu"
 
 #: translations/interface.ui.h:5
 msgid "Recognize from my speakers"
-msgstr ""
+msgstr "Rozpoznávat z reproduktorů"
 
 #: translations/interface.ui.h:6
 msgid "Shazam servers are not reachable, are you connected?"
@@ -256,7 +262,7 @@ msgstr "Vyhledat na YouTube"
 
 #: translations/interface.ui.h:10
 msgid "Search..."
-msgstr ""
+msgstr "Hledat…"
 
 #: translations/interface.ui.h:11
 msgid "Audio input"
@@ -264,15 +270,15 @@ msgstr "Zvukový vstup"
 
 #: translations/interface.ui.h:12
 msgid "Device"
-msgstr ""
+msgstr "Zařízení"
 
 #: translations/interface.ui.h:13
 msgid "Volume:"
-msgstr ""
+msgstr "Hlasitost:"
 
 #: translations/interface.ui.h:14
 msgid "History options..."
-msgstr ""
+msgstr "Nastavení historie…"
 
 #: translations/interface.ui.h:15
 msgid "Recognition history"
@@ -292,11 +298,11 @@ msgstr "Datum rozpoznání"
 
 #: translations/interface.ui.h:19
 msgid "View favorites"
-msgstr ""
+msgstr "Zobrazit oblíbené"
 
 #: translations/interface.ui.h:20
 msgid "Application menu"
-msgstr ""
+msgstr "Nabídka aplikace"
 
 #: translations/interface.ui.h:21
 msgid "Export to CSV"
@@ -312,11 +318,11 @@ msgstr ""
 
 #: translations/interface.ui.h:24
 msgid "Enable MPRIS"
-msgstr ""
+msgstr "Povolit MPRIS"
 
 #: translations/interface.ui.h:25
 msgid "Show notifications"
-msgstr ""
+msgstr "Zobrazit oznámení"
 
 #: translations/interface.ui.h:26
 msgid "About..."
@@ -324,7 +330,7 @@ msgstr "O aplikaci…"
 
 #: translations/interface.ui.h:27
 msgid "Delete history"
-msgstr ""
+msgstr "Smazat historii"
 
 #: translations/interface.ui.h:28
 msgid "Select a file to recognize"
