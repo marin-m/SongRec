@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-14 22:10+0100\n"
+"POT-Creation-Date: 2026-02-14 23:12+0100\n"
 "PO-Revision-Date: 2021-12-26 11:36+0100\n"
 "Last-Translator: Rafał Mikrut <qarminkrut@gmail.com>\n"
 "Language-Team: \n"
@@ -204,11 +204,11 @@ msgstr ""
 msgid "_No"
 msgstr ""
 
-#: src/gui/preferences.rs:50
+#: src/gui/preferences.rs:56
 msgid "When parsing the preferences file:"
 msgstr ""
 
-#: src/gui/preferences.rs:95
+#: src/gui/preferences.rs:107
 msgid "When saving the preferences file:"
 msgstr ""
 
@@ -313,46 +313,52 @@ msgid "General preferences"
 msgstr ""
 
 #: translations/interface.ui.h:24
-msgid "Enable MPRIS"
-msgstr ""
-
-#: translations/interface.ui.h:25
 msgid "Show notifications"
 msgstr ""
 
+#: translations/interface.ui.h:25
+msgid "Enable MPRIS"
+msgstr ""
+
 #: translations/interface.ui.h:26
-msgid "About..."
+msgid ""
+"MPRIS will display information about recognized songs in places like the "
+"GNOME or KDE control panel"
 msgstr ""
 
 #: translations/interface.ui.h:27
-msgid "Delete history"
+msgid "About..."
 msgstr ""
 
 #: translations/interface.ui.h:28
+msgid "Delete history"
+msgstr ""
+
+#: translations/interface.ui.h:29
 msgid "Select a file to recognize"
 msgstr "Wybierz plik do rozpoznania"
 
-#: translations/interface.ui.h:29
+#: translations/interface.ui.h:30
 msgid "Copy artist and track"
 msgstr "Skopiuj wykonawcę i utwór"
 
-#: translations/interface.ui.h:30
+#: translations/interface.ui.h:31
 msgid "Copy artist"
 msgstr "Skopiuj wykonawcę"
 
-#: translations/interface.ui.h:31
+#: translations/interface.ui.h:32
 msgid "Copy track name"
 msgstr "Skopiuj nazwę utworu"
 
-#: translations/interface.ui.h:32
+#: translations/interface.ui.h:33
 msgid "Copy album"
 msgstr "Skopiuj nazwę albumu"
 
-#: translations/interface.ui.h:33
+#: translations/interface.ui.h:34
 msgid "Add to Favorites"
 msgstr ""
 
-#: translations/interface.ui.h:34
+#: translations/interface.ui.h:35
 msgid "Remove from Favorites"
 msgstr ""
 

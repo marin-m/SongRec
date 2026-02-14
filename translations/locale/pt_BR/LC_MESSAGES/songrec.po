@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: SongRec\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-14 22:10+0100\n"
+"POT-Creation-Date: 2026-02-14 23:12+0100\n"
 "PO-Revision-Date: 2026-02-13 16:58+0000\n"
 "Last-Translator: marcelo cripe <marcelocripe@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://weblate.fossplant.re/projects/"
@@ -231,11 +231,11 @@ msgstr "_Sim"
 msgid "_No"
 msgstr "_Não"
 
-#: src/gui/preferences.rs:50
+#: src/gui/preferences.rs:56
 msgid "When parsing the preferences file:"
 msgstr "Ao analisar o arquivo das configurações:"
 
-#: src/gui/preferences.rs:95
+#: src/gui/preferences.rs:107
 msgid "When saving the preferences file:"
 msgstr "Ao salvar o arquivo das configurações:"
 
@@ -342,46 +342,52 @@ msgid "General preferences"
 msgstr ""
 
 #: translations/interface.ui.h:24
-msgid "Enable MPRIS"
-msgstr "Ativar o ‘MPRIS’"
-
-#: translations/interface.ui.h:25
 msgid "Show notifications"
 msgstr "Exibir as notificações"
 
+#: translations/interface.ui.h:25
+msgid "Enable MPRIS"
+msgstr "Ativar o ‘MPRIS’"
+
 #: translations/interface.ui.h:26
+msgid ""
+"MPRIS will display information about recognized songs in places like the "
+"GNOME or KDE control panel"
+msgstr ""
+
+#: translations/interface.ui.h:27
 msgid "About..."
 msgstr "Sobre..."
 
-#: translations/interface.ui.h:27
+#: translations/interface.ui.h:28
 msgid "Delete history"
 msgstr "Excluir o histórico"
 
-#: translations/interface.ui.h:28
+#: translations/interface.ui.h:29
 msgid "Select a file to recognize"
 msgstr "Escolha um arquivo de áudio que você quer identificar"
 
-#: translations/interface.ui.h:29
+#: translations/interface.ui.h:30
 msgid "Copy artist and track"
 msgstr "Copiar o nome do artista e o título da música"
 
-#: translations/interface.ui.h:30
+#: translations/interface.ui.h:31
 msgid "Copy artist"
 msgstr "Copiar o nome do artista"
 
-#: translations/interface.ui.h:31
+#: translations/interface.ui.h:32
 msgid "Copy track name"
 msgstr "Copiar o título da música"
 
-#: translations/interface.ui.h:32
+#: translations/interface.ui.h:33
 msgid "Copy album"
 msgstr "Copiar o nome do álbum"
 
-#: translations/interface.ui.h:33
+#: translations/interface.ui.h:34
 msgid "Add to Favorites"
 msgstr "Adicionar aos favoritos"
 
-#: translations/interface.ui.h:34
+#: translations/interface.ui.h:35
 msgid "Remove from Favorites"
 msgstr "Remover dos favoritos"
 

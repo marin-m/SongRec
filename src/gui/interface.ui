@@ -522,8 +522,17 @@
                       <object class="AdwPreferencesGroup" id="general_preferences">
                         <property name="title" translatable="yes">General preferences</property>
                         <child>
-                          <object class="AdwSwitchRow">
+                          <object class="AdwSwitchRow" id="notification_setting">
+                            <property name="action-name">win.notification-setting</property>
+                            <property name="title" translatable="yes">Show notifications</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="AdwSwitchRow" id="mpris_setting">
+                            <property name="action-name">win.mpris-setting</property>
+                            <property name="has-tooltip">True</property>
                             <property name="title" translatable="yes">Enable MPRIS</property>
+                            <property name="tooltip-text" translatable="yes">MPRIS will display information about recognized songs in places like the GNOME or KDE control panel</property>
                           </object>
                         </child>
                       </object>
