@@ -155,6 +155,11 @@ impl App {
             gio::ApplicationFlags::HANDLES_OPEN,
         );
 
+        if let Some(display) = gdk::Display::default() {
+            let icon_theme = gtk::IconTheme::for_display(&display);
+            icon_theme.add_resource_path("/re/fossplant/songrec/");
+        }
+
         // => https://gtk-rs.org/gtk-rs-core/git/docs/gio/struct.Application.html
         // => https://gtk-rs.org/gtk-rs-core/git/docs/gio/prelude/trait.ApplicationExtManual.html#method.run
         // => https://gtk-rs.org/gtk-rs-core/git/docs/gio/struct.ApplicationFlags.html#associatedconstant.HANDLES_COMMAND_LINE

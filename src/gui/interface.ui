@@ -506,7 +506,18 @@
             <property name="child">
               <object class="AdwToolbarView">
                 <property name="content">
-                  <object class="AdwPreferencesPage"/>
+                  <object class="AdwPreferencesPage">
+                    <child>
+                      <object class="AdwPreferencesGroup" id="general_preferences">
+                        <property name="title" translatable="yes">General preferences</property>
+                        <child>
+                          <object class="AdwSwitchRow">
+                            <property name="title" translatable="yes">Enable MPRIS</property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
                 </property>
                 <child type="top">
                   <object class="AdwHeaderBar"/>
@@ -557,7 +568,7 @@
     </section>
   </menu>
   <object class="AdwAboutDialog" id="about_dialog">
-    <property name="application-icon">re.fossplant.songrec</property>
+    <property name="application-icon">custom_icon</property>
     <property name="application-name">SongRec</property>
     <property name="developer-name">Marin Moulinier - Fossplant.re</property>
     <property name="developers">Marin Moulinier https://moulinier.dev/
