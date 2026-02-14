@@ -13,7 +13,7 @@ Features:
 * Continuous song detection from the microphone, with the ability to choose your input device.
 * Ability to recognize songs from your speakers rather than your microphone (on compatible PulseAudio setups).
 
-<p align="center">[![Get it on Flathub](packaging/flathub_badge_black.svg)](https://flathub.org/en/apps/re.fossplant.songrec)</p>
+<p align="center">[<img src="packaging/flathub_badge_black.svg?raw=true">](https://flathub.org/en/apps/re.fossplant.songrec)</p>
 
 A (command-line only) Python version, which I made before rewriting in Rust for performance, is also available for demonstration purposes. It supports file recognition only.
 
