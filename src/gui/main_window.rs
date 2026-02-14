@@ -55,6 +55,7 @@ struct App {
     old_preferences: Preferences,
 
     ctx_selected_item: Rc<RefCell<Option<HistoryEntry>>>,
+    ctx_buffered_log: Rc<RefCell<String>>,
 
     gui_tx: async_channel::Sender<GUIMessage>,
     gui_rx: async_channel::Receiver<GUIMessage>,
@@ -112,6 +113,7 @@ impl App {
         ));
 
         let ctx_selected_item: Rc<RefCell<Option<HistoryEntry>>> = Rc::new(RefCell::new(None));
+        let ctx_buffered_log: Rc<RefCell<String>> = Rc::new(RefCell::new(String::new()));
 
         let preferences_interface: PreferencesInterface = PreferencesInterface::new();
         let old_preferences: Preferences = preferences_interface.preferences.clone();
@@ -126,6 +128,7 @@ impl App {
             old_preferences,
 
             ctx_selected_item,
+            ctx_buffered_log,
 
             gui_tx,
             gui_rx,
@@ -389,11 +392,15 @@ impl App {
             }
             None
         });
+
+        let builder = builder_shared.clone();
+
+        builder_scope.add_callback("about_dialog_closed", move |_values| {
+            let about_dialog: adw::AboutDialog = builder.object("about_dialog").unwrap();
+            about_dialog.set_visible(false);
+            None
+        });
     }
-
-    /* fn sync_selected_device(&self) {
-
-    } */
 
     fn setup_intercom(
         &self,
@@ -434,6 +441,7 @@ impl App {
         let old_device_name = self.old_preferences.current_device_name.clone();
 
         let window: gtk::ApplicationWindow = self.builder.object("main_window").unwrap();
+        let about_dialog: adw::AboutDialog = self.builder.object("about_dialog").unwrap();
         let adw_combo_row: adw::ComboRow = self.builder.object("audio_inputs").unwrap();
         let g_list_store: gio::ListStore = self.builder.object("audio_inputs_model").unwrap();
         let microphone_switch: adw::SwitchRow = self.builder.object("microphone_switch").unwrap();
@@ -453,6 +461,7 @@ impl App {
 
         let song_history_interface = self.song_history_interface.clone();
         let old_preferences = self.old_preferences.clone();
+        let ctx_buffered_log = self.ctx_buffered_log.clone();
         let application = application.clone();
 
         glib::spawn_future_local(async move {
@@ -475,21 +484,21 @@ impl App {
             let mut last_cover_path = None;
 
             while let Ok(gui_message) = gui_rx.recv().await {
-                if let AppendToLog(_log_string) = gui_message {
-                    // Disabled for now, causes freeze when recognizing a song
-                    // because of the pixbuf which is very large
+                if let AppendToLog(log_string) = gui_message {
+                    const MAX_LOG_SIZE: usize = 5 * 1024 * 1024; // 5 MB
 
-                    /* const MAX_LOG_SIZE: usize = 20 * 1024 * 1024; // 20 MB
-
-                    let mut buffer_ptr: &str = &about_dialog.debug_info();
-                    if buffer_ptr.len() > MAX_LOG_SIZE {
-                        buffer_ptr = &buffer_ptr[..buffer_ptr.len() - MAX_LOG_SIZE];
+                    {
+                        let  buffer_ptr: &mut String = &mut *ctx_buffered_log.borrow_mut();
+                        buffer_ptr.push_str(&log_string);
+                        if buffer_ptr.len() > MAX_LOG_SIZE {
+                            let to_cut: String = buffer_ptr.chars().take(buffer_ptr.len() - MAX_LOG_SIZE).collect();
+                            buffer_ptr.drain(..to_cut.len());
+                        }
                     }
 
-                    let mut buffer: String = buffer_ptr.to_owned();
-                    buffer.push_str(&log_string);
-
-                    about_dialog.set_debug_info(&buffer); */
+                    if about_dialog.is_visible() {
+                        about_dialog.set_debug_info(&*ctx_buffered_log.borrow());
+                    }
                 } else {
                     if let MicrophoneVolumePercent(_) = gui_message {
                         trace!("Received GUI message: {:?}", gui_message);
@@ -755,9 +764,14 @@ impl App {
             self.builder.object("recognize_file_row").unwrap();
         let spinner_row: adw::PreferencesRow = self.builder.object("spinner_row").unwrap();
 
+        let ctx_buffered_log = self.ctx_buffered_log.clone();
+
         let action_show_about = gio::ActionEntry::builder("show-about")
             .activate(move |window, _, _| {
+                about_dialog.set_visible(true);
                 about_dialog.present(Some(window));
+
+                about_dialog.set_debug_info(&*ctx_buffered_log.borrow());
             })
             .build();
 

@@ -501,6 +501,22 @@
             <property name="title" translatable="yes">Favorites</property>
           </object>
         </child>
+        <child>
+          <object class="AdwNavigationPage" id="settings_page">
+            <property name="child">
+              <object class="AdwToolbarView">
+                <property name="content">
+                  <object class="AdwPreferencesPage"/>
+                </property>
+                <child type="top">
+                  <object class="AdwHeaderBar"/>
+                </child>
+              </object>
+            </property>
+            <property name="tag">settings_tag</property>
+            <property name="title">Settings</property>
+          </object>
+        </child>
       </object>
     </property>
     <property name="default-height">570</property>
@@ -527,6 +543,11 @@
         <attribute name="action">win.mpris-setting</attribute>
         <attribute name="label" translatable="yes">Enable MPRIS</attribute>
       </item>
+      <item>
+        <attribute name="action">navigation.push</attribute>
+        <attribute name="label">_Preferences...</attribute>
+        <attribute name="target">settings_tag</attribute>
+      </item>
     </section>
     <section>
       <item>
@@ -546,7 +567,9 @@ Contributors https://github.com/marin-m/SongRec/graphs/contributors</property>
     <property name="support-url">https://matrix.to/#/!DZgyxHTQHSssuGdiHl:matrix.org</property>
     <property name="translator-credits">SongRec translators https://github.com/marin-m/SongRec/tree/master/translations&gt;</property>
     <property name="version">0.6.1.1</property>
+    <property name="visible">False</property>
     <property name="website">https://songrec.fossplant.re/</property>
+    <signal name="closed" handler="about_dialog_closed"/>
   </object>
   <menu id="history_menu_model">
     <item>
