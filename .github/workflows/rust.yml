@@ -22,7 +22,7 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - name: Install system packages
-        run: sudo apt update && sudo apt install build-essential libasound2-dev libpulse-dev libgtk-4-dev libdbus-1-dev libssl-dev intltool
+        run: sudo apt update && sudo apt install build-essential libasound2-dev libpulse-dev libgtk-4-dev libadwaita-1-dev libdbus-1-dev libssl-dev intltool
       - name: Build binaries in "${{ matrix.BUILD_TARGET }}" mode
         run: cargo build --profile ${{ matrix.BUILD_TARGET }}
       - name: Run tests in "${{ matrix.BUILD_TARGET }}" mode
