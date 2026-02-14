@@ -17,8 +17,8 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - name: Install system packages
-        run: sudo apt update && sudo apt install build-essential libasound2-dev libpulse-dev libgtk-4-dev libadwaita-1-dev libdbus-1-dev libssl-dev intltool appstream coreutils sed cargo rustc findutils dput debhelper devscripts
+        run: sudo apt update && sudo apt install build-essential libasound2-dev libpulse-dev libgtk-4-dev libadwaita-1-dev libdbus-1-dev libssl-dev intltool appstream coreutils sed rustup findutils dput debhelper devscripts
       - name: Ensure metainfo.xml validity
         run: appstreamcli validate packaging/rootfs/usr/share/metainfo/re.fossplant.songrec.metainfo.xml
       - name: Build Debian package
-        run: rm Cargo.lock && cargo update && ./packaging/ppa/build_binary_package.sh
+        run: bash -c 'rustup update && echo Using: $(rustup which cargo) / $(ls -l $(which cargo)) && ./packaging/ppa/build_binary_package.sh'
