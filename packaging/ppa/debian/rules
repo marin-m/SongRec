@@ -18,6 +18,7 @@
 	dh $@
 
 override_dh_auto_build:
+	rustup update
 	cargo --offline fetch --verbose
 	cargo --offline build --release --verbose
 
