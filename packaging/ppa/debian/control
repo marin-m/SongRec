@@ -35,4 +35,5 @@ Description: Unofficial Shazam client for Linux, written in Rust
    - Recognize audio from the microphone.
    - Usage from both GUI and command line (for the file recognition part).
    - Provide an history of the recognized songs on the GUI, exportable to CSV.
-   - Continuous song detection from the microphone, with the ability to choose your input device.
+   - Continuous song detection from the microphone, with the ability to choose
+     your input device.
