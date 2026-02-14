@@ -8,15 +8,16 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-14 06:55+0100\n"
-"PO-Revision-Date: 2021-08-23 21:02+0000\n"
-"Last-Translator: \n"
-"Language-Team: \n"
-"Language: ja_JP\n"
+"PO-Revision-Date: 2026-02-14 09:47+0000\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Language-Team: Japanese <https://weblate.fossplant.re/projects/songrec/"
+"songrec/ja/>\n"
+"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.3\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #: src/cli_main.rs:102
 msgid "Exiting: audio device not found"
@@ -223,8 +224,7 @@ msgstr ""
 
 #: translations/interface.ui.h:6
 msgid "Shazam servers are not reachable, are you connected?"
-msgstr ""
-"Shazamサーバーへの接続を確立できませんでした。ネットワークは利用可能ですか？"
+msgstr "Shazamサーバーへの接続を確立できませんでした。ネットワークは利用可能ですか？"
 
 #: translations/interface.ui.h:7
 msgid "Recognition results"
