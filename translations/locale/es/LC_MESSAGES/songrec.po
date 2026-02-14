@@ -8,15 +8,16 @@ msgstr ""
 "Project-Id-Version: SongRec\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-14 06:55+0100\n"
-"PO-Revision-Date: 2022-07-24 13:29+0200\n"
-"Last-Translator: Ismael Ferreras Morezuelas <swyterzone+songrec@gmail.com>\n"
-"Language-Team: Swyter <swyterzone@gmail.com>\n"
+"PO-Revision-Date: 2026-02-14 09:47+0000\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Language-Team: Spanish <https://weblate.fossplant.re/projects/songrec/"
+"songrec/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.1\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #: src/cli_main.rs:102
 msgid "Exiting: audio device not found"
@@ -132,8 +133,7 @@ msgstr ""
 
 #: src/main.rs:181
 msgid "The .WAV or .MP3 file to generate an audio fingerprint for."
-msgstr ""
-"El archivo .WAV o .MP3 con el que generar una huella o patrón de audio."
+msgstr "El archivo .WAV o .MP3 con el que generar una huella o patrón de audio."
 
 #: src/main.rs:186
 msgid ""
