@@ -5,8 +5,17 @@
          xmlns="http://usefulinc.com/ns/doap#">
 
   <name xml:lang="en">SongRec</name>
-  <shortdesc xml:lang="en">SongRec is an unofficial Shazam client for Linux, writted in Rust</shortdesc>
+  <shortdesc xml:lang="en">Recognize songs from audio easily</shortdesc>
 
+  <description xml:lang="en"><![CDATA[SongRec is an unofficial Shazam client for Linux, writted in Rust. It allows you to easily find recognize songs from your speakers, microphone or audio files.
+
+Features:
+- Recognize audio from an arbitrary audio file.
+- Recognize audio from the microphone.
+- Usage from both GUI and command line (for the file recognition part).
+- Provide an history of the recognized songs on the GUI, exportable to CSV.
+- Continuous song detection from the microphone, with the ability to choose your input device.
+- Ability to recognize songs from your speakers rather than your microphone (on compatible PulseAudio setups).]]></description>
   <homepage rdf:resource="https://songrec.fossplant.re/" />
   <license rdf:resource="http://usefulinc.com/doap/licenses/gplv3" />
   <support-forum rdf:resource="https://matrix.to/#/!DZgyxHTQHSssuGdiHl:matrix.org" />
@@ -14,6 +23,8 @@
   <bug-database rdf:resource="https://github.com/marin-m/SongRec/issues" />
 
   <programming-language>Rust</programming-language>
+  <platform>GTK 4</platform>
+  <platform>Libadwaita</platform>
 
   <repository>
     <GitRepository>
@@ -25,7 +36,12 @@
   <maintainer>
     <foaf:Person>
       <foaf:name>Marin Moulinier</foaf:name>
-      <gnome:userid>marin-m</gnome:userid>
     </foaf:Person>
+    <foaf:account>
+      <foaf:OnlineAccount>
+        <foaf:accountServiceHomepage rdf:resource="https://github.com"/>
+        <foaf:accountName>marin-m</foaf:accountName>
+      </foaf:OnlineAccount>
+    </foaf:account>
   </maintainer>
 </Project>
