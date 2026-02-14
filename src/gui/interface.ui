@@ -373,7 +373,7 @@
                 </child>
               </object>
             </property>
-            <property name="title">SongRec</property>
+            <property name="title">Songrec</property>
           </object>
         </child>
         <child>
@@ -506,7 +506,7 @@
     <property name="default-height">570</property>
     <property name="default-width">977</property>
     <property name="icon-name">audio-x-generic</property>
-    <property name="title">SongRec</property>
+    <property name="title">Songrec</property>
     <property name="visible">True</property>
     <child>
       <object class="AdwBreakpoint" id="main_page_breakpoint">
@@ -537,14 +537,14 @@
   </menu>
   <object class="AdwAboutDialog" id="about_dialog">
     <property name="application-icon">audio-x-generic</property>
-    <property name="application-name">SongRec</property>
+    <property name="application-name">Songrec</property>
     <property name="developer-name">Marin Moulinier - Fossplant.re</property>
     <property name="developers">Marin Moulinier https://moulinier.dev/
 Contributors https://github.com/marin-m/SongRec/graphs/contributors</property>
     <property name="issue-url">https://github.com/marin-m/SongRec/issues</property>
     <property name="license-type">gpl-3-0</property>
     <property name="support-url">https://matrix.to/#/!DZgyxHTQHSssuGdiHl:matrix.org</property>
-    <property name="translator-credits">SongRec translators https://github.com/marin-m/SongRec/tree/master/translations&gt;</property>
+    <property name="translator-credits">Songrec translators https://github.com/marin-m/SongRec/tree/master/translations&gt;</property>
     <property name="version">0.6.0</property>
     <property name="website">https://songrec.fossplant.re/</property>
   </object>

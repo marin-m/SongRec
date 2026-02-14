@@ -3,14 +3,14 @@
   <id>re.fossplant.songrec</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-3.0+</project_license>
-  <name>SongRec</name>
+  <name>Songrec</name>
   <branding>
     <color type="primary" scheme_preference="light">#b5b5d7</color>
     <color type="primary" scheme_preference="dark">#664D96</color>
   </branding>
   <summary>Recognize songs from audio easily</summary>
   <description>
-    <p>SongRec is an unofficial Shazam client for Linux, writted in Rust.</p>
+    <p>Songrec is an unofficial Shazam client for Linux, writted in Rust. It allows you to easily find recognize songs from your speakers, microphone or audio files.</p>
     <p>Features:</p>
     <p>- Recognize audio from an arbitrary audio file.</p>
     <p>- Recognize audio from the microphone.</p>
@@ -22,15 +22,15 @@
   <screenshots>
     <screenshot type="default">
       <image type="source" scale="2">https://raw.githubusercontent.com/marin-m/SongRec/57bfe25/packaging/Screenshot_hires_light.png</image>
-      <caption>SongRec's main window</caption>
+      <caption>Songrec's main window</caption>
     </screenshot>
     <screenshot>
       <image type="source" scale="2">https://raw.githubusercontent.com/marin-m/SongRec/57bfe25/packaging/Screenshot_favourites_light.png</image>
-      <caption>SongRec's favourites window</caption>
+      <caption>Songrec's favourites window</caption>
     </screenshot>
     <screenshot environment="gnome:dark">
       <image type="source" scale="2">https://raw.githubusercontent.com/marin-m/SongRec/57bfe25/packaging/Screenshot_hires_dark.png</image>
-      <caption>SongRec's main window, on GNOME in dark mode</caption>
+      <caption>Songrec's main window, on GNOME in dark mode</caption>
     </screenshot>
   </screenshots>
   <translation type="gettext">songrec</translation>

@@ -11,7 +11,7 @@ Terminal=false
 Type=Application
 Version=1.0
 
-Name=SongRec
+Name=Songrec
 Name[pt_BR]=Identificador de Músicas SongRec
 
 Comment=An open-source Shazam client for Linux, written in Rust
