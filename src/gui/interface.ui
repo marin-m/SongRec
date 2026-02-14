@@ -4,7 +4,7 @@
   <!-- interface-name interface.ui -->
   <requires lib="gio" version="2.44"/>
   <requires lib="gtk" version="4.14"/>
-  <requires lib="libadwaita" version="1.6"/>
+  <requires lib="libadwaita" version="1.5"/>
   <object class="AdwApplicationWindow" id="main_window">
     <property name="content">
       <object class="AdwNavigationView" id="main_window_pages">
@@ -52,16 +52,17 @@
                                 <child>
                                   <object class="AdwPreferencesRow" id="spinner_row">
                                     <property name="activatable">False</property>
-                                    <property name="child">
-                                      <object class="AdwSpinner">
-                                        <property name="margin-bottom">7</property>
-                                      </object>
-                                    </property>
                                     <property name="margin-end">7</property>
                                     <property name="margin-start">7</property>
                                     <property name="margin-top">7</property>
                                     <property name="selectable">False</property>
                                     <property name="visible">False</property>
+                                    <child>
+                                      <object class="GtkSpinner">
+                                        <property name="margin-bottom">7</property>
+                                        <property name="spinning">True</property>
+                                      </object>
+                                    </child>
                                   </object>
                                 </child>
                                 <child>
@@ -330,10 +331,20 @@
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="AdwButtonRow" id="favorites_button">
+                                  <object class="AdwPreferencesRow" id="favorites_button">
+                                    <property name="accessible-role">button</property>
                                     <property name="action-name">navigation.push</property>
                                     <property name="action-target">'favorites_tag'</property>
-                                    <property name="title" translatable="yes">View favorites</property>
+                                    <property name="child">
+                                      <object class="GtkLabel">
+                                        <property name="label" translatable="yes">View favorites</property>
+                                        <property name="margin-bottom">10</property>
+                                        <property name="margin-top">10</property>
+                                        <attributes>
+                                          <attribute name="weight" value="medium"/>
+                                        </attributes>
+                                      </object>
+                                    </property>
                                   </object>
                                 </child>
                               </object>
