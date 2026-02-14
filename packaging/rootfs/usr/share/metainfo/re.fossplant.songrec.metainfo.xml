@@ -58,6 +58,11 @@ https://hughsie.github.io/oars/index.html
 -->
   <content_rating type="oars-1.1" />
   <releases>
+    <release version="0.6.1.1" date="2026-02-14">
+      <description>
+        <p>Use a flat-looking icon consistent with both the previous releases of SongRec and the GNOME UI guidelines</p>
+      </description>
+    </release>
     <release version="0.6.1" date="2026-02-14">
       <description>
         <p>Improve accessibility</p>

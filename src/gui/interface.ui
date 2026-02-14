@@ -545,7 +545,7 @@ Contributors https://github.com/marin-m/SongRec/graphs/contributors</property>
     <property name="license-type">gpl-3-0</property>
     <property name="support-url">https://matrix.to/#/!DZgyxHTQHSssuGdiHl:matrix.org</property>
     <property name="translator-credits">SongRec translators https://github.com/marin-m/SongRec/tree/master/translations&gt;</property>
-    <property name="version">0.6.1</property>
+    <property name="version">0.6.1.1</property>
     <property name="website">https://songrec.fossplant.re/</property>
   </object>
   <menu id="history_menu_model">
