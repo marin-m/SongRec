@@ -1,3 +1,9 @@
+songrec (0.6.1+2) bionic; urgency=low
+
+  * Fix the building process on 24.04
+
+ -- Marin <marin-m@users.noreply.github.com>  Fri, 14 Feb 2026 11:20:07 +0100
+
 songrec (0.6.1+1) bionic; urgency=low
 
   * Use rustup when building on 24.04

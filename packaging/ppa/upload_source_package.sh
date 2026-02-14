@@ -36,6 +36,7 @@ for version in noble questing resolute; do
     find vendor -name .cargo-checksum.json -exec sed -ri 's/"[^"]*?\.orig":"[^"]+?"[,\}]//g' '{}' \;
     find vendor -name .cargo-checksum.json -exec sed -ri 's/"[^"]*?\.a":"[^"]+?"[,\}]//g' '{}' \;
     find vendor -name .cargo-checksum.json -exec sed -ri 's/"[^"]*?\.mailmap":"[^"]+?"[,\}]//g' '{}' \;
+    find vendor -name .cargo-checksum.json -exec sed -ri 's/"[^"]*?\.lock":"[^"]+?"[,\}]//g' '{}' \;
 
     mv packaging/ppa/debian .
     

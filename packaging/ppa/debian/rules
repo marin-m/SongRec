@@ -18,7 +18,8 @@
 	dh $@
 
 override_dh_auto_build:
-	rustup update
+	rm -f Cargo.lock
+	cargo generate-lockfile
 	cargo --offline fetch --verbose
 	cargo --offline build --release --verbose
 
