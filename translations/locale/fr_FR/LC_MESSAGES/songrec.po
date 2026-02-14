@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-14 22:10+0100\n"
-"PO-Revision-Date: 2026-02-14 06:02+0000\n"
-"Last-Translator: test56 <test56@users.noreply.weblate.fossplant.re>\n"
+"PO-Revision-Date: 2026-02-14 21:37+0000\n"
+"Last-Translator: \"Marin M.\" <nvram@users.noreply.weblate.fossplant.re>\n"
 "Language-Team: French <https://weblate.fossplant.re/projects/songrec/songrec/"
 "fr/>\n"
 "Language: fr_FR\n"
@@ -176,7 +176,7 @@ msgstr ""
 
 #: src/core/http_thread.rs:129 src/fingerprinting/communication.rs:75
 msgid "Your IP has been rate-limited"
-msgstr ""
+msgstr "Votre adresse IP fait l'objet d'une rate-limit"
 
 #: src/core/microphone_thread.rs:58
 msgid "Microphone error:"
@@ -264,7 +264,7 @@ msgstr "Les serveurs de Shazam sont injoignables, êtes-vous connecté ?"
 
 #: translations/interface.ui.h:7
 msgid "ERROR: Your IP has been rate-limited"
-msgstr ""
+msgstr "ERREUR : Votre adresse IP fait l'objet d'une rate-limit"
 
 #: translations/interface.ui.h:8
 msgid "Recognition results"
@@ -328,7 +328,7 @@ msgstr "Mes favoris"
 
 #: translations/interface.ui.h:23
 msgid "General preferences"
-msgstr ""
+msgstr "Préférences générales"
 
 #: translations/interface.ui.h:24
 msgid "Enable MPRIS"
