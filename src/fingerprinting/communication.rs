@@ -1,19 +1,22 @@
-use serde_json::{json, Value};
+use rand::seq::SliceRandom;
 use reqwest::header::HeaderMap;
-use std::time::SystemTime;
+use serde_json::{json, Value};
 use std::env;
 use std::error::Error;
 use std::time::Duration;
-use rand::seq::SliceRandom;
+use std::time::SystemTime;
 use uuid::Uuid;
 
 use crate::fingerprinting::signature_format::DecodedSignature;
 use crate::fingerprinting::user_agent::USER_AGENTS;
 
-pub fn recognize_song_from_signature(signature: &DecodedSignature) -> Result<Value, Box<dyn Error>>  {
-    
-    let timestamp_ms = SystemTime::now().duration_since(SystemTime::UNIX_EPOCH)?.as_millis();
-    
+pub fn recognize_song_from_signature(
+    signature: &DecodedSignature,
+) -> Result<Value, Box<dyn Error>> {
+    let timestamp_ms = SystemTime::now()
+        .duration_since(SystemTime::UNIX_EPOCH)?
+        .as_millis();
+
     let post_data = json!({
         "geolocation": {
             "altitude": 300,
@@ -32,15 +35,25 @@ pub fn recognize_song_from_signature(signature: &DecodedSignature) -> Result<Val
     let uuid_1 = Uuid::new_v4().to_hyphenated().to_string().to_uppercase();
     let uuid_2 = Uuid::new_v4().to_hyphenated().to_string();
 
-    let url = format!("https://amp.shazam.com/discovery/v5/en/US/android/-/tag/{}/{}", uuid_1, uuid_2);
+    let url = format!(
+        "https://amp.shazam.com/discovery/v5/en/US/android/-/tag/{}/{}",
+        uuid_1, uuid_2
+    );
 
     let mut headers = HeaderMap::new();
-    
-    headers.insert("User-Agent", USER_AGENTS.choose(&mut rand::thread_rng()).unwrap().parse()?);
+
+    headers.insert(
+        "User-Agent",
+        USER_AGENTS
+            .choose(&mut rand::thread_rng())
+            .unwrap()
+            .parse()?,
+    );
     headers.insert("Content-Language", "en_US".parse()?);
 
     let client = reqwest_client()?;
-    let response = client.post(&url)
+    let response = client
+        .post(&url)
         .timeout(Duration::from_secs(20))
         .query(&[
             ("sync", "true"),
@@ -49,31 +62,35 @@ pub fn recognize_song_from_signature(signature: &DecodedSignature) -> Result<Val
             ("connected", ""),
             ("shazamapiversion", "v3"),
             ("sharehub", "true"),
-            ("video", "v3")
+            ("video", "v3"),
         ])
         .headers(headers)
         .json(&post_data)
         .send()?;
-    
+
     Ok(response.json()?)
-    
 }
 
 pub fn obtain_raw_cover_image(url: &str) -> Result<Vec<u8>, Box<dyn Error>> {
-
     let mut headers = HeaderMap::new();
-    
-    headers.insert("User-Agent", USER_AGENTS.choose(&mut rand::thread_rng()).unwrap().parse()?);
+
+    headers.insert(
+        "User-Agent",
+        USER_AGENTS
+            .choose(&mut rand::thread_rng())
+            .unwrap()
+            .parse()?,
+    );
     headers.insert("Content-Language", "en_US".parse()?);
 
     let client = reqwest_client()?;
-    let response = client.get(url)
+    let response = client
+        .get(url)
         .timeout(Duration::from_secs(20))
         .headers(headers)
         .send()?;
-    
-    Ok(response.bytes()?.as_ref().to_vec())
 
+    Ok(response.bytes()?.as_ref().to_vec())
 }
 
 fn reqwest_client() -> Result<reqwest::blocking::Client, Box<dyn Error>> {

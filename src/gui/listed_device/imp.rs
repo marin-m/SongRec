@@ -16,11 +16,11 @@
 
 use std::cell::{Cell, RefCell};
 
-use glib::Properties;
 use glib::object::ObjectExt;
+use glib::subclass::object::DerivedObjectProperties;
 use glib::subclass::prelude::ObjectImpl;
 use glib::subclass::prelude::ObjectSubclass;
-use glib::subclass::object::DerivedObjectProperties;
+use glib::Properties;
 
 #[derive(Properties, Default)]
 #[properties(wrapper_type = super::ListedDevice)]
@@ -30,7 +30,7 @@ pub struct ListedDevice {
     #[property(construct_only, get)]
     inner_name: RefCell<String>,
     #[property(construct_only, get)]
-    is_monitor: Cell<bool>
+    is_monitor: Cell<bool>,
 }
 
 // The central trait for subclassing a GObject
@@ -44,5 +44,3 @@ impl ObjectSubclass for ListedDevice {
 // Trait shared by all GObjects
 #[glib::derived_properties]
 impl ObjectImpl for ListedDevice {}
-
-

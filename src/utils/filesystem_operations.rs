@@ -1,34 +1,36 @@
+use app_dirs::{get_app_root, AppDataType::*, AppInfo};
 use directories::ProjectDirs;
+use std::error::Error;
 use std::fs::create_dir_all;
 #[cfg(not(windows))]
 use std::os::unix::fs::symlink;
 #[cfg(windows)]
 use std::os::windows::fs::symlink_dir;
-use std::path::{PathBuf, Path};
-use std::error::Error;
-use app_dirs::{get_app_root, AppInfo, AppDataType::*};
+use std::path::{Path, PathBuf};
 
 const QUALIFIER: &str = "";
 const ORGANIZATION: &str = "SongRec";
 const APPLICATION: &str = "SongRec";
 
 pub fn obtain_recognition_history_csv_path() -> Result<String, Box<dyn Error>> {
-    let project_dir = ProjectDirs::from(QUALIFIER, ORGANIZATION, APPLICATION).ok_or("No valid path")?;
+    let project_dir =
+        ProjectDirs::from(QUALIFIER, ORGANIZATION, APPLICATION).ok_or("No valid path")?;
     let mut csv_path: PathBuf = obtain_data_directory(project_dir)?;
     csv_path.push("song_history.csv");
     Ok(csv_path.to_str().unwrap().to_string())
 }
 
 pub fn obtain_favorites_csv_path() -> Result<String, Box<dyn Error>> {
-    let project_dir = ProjectDirs::from(QUALIFIER, ORGANIZATION, APPLICATION).ok_or("No valid path")?;
+    let project_dir =
+        ProjectDirs::from(QUALIFIER, ORGANIZATION, APPLICATION).ok_or("No valid path")?;
     let mut csv_path: PathBuf = obtain_data_directory(project_dir)?;
     csv_path.push("favorites.csv");
     Ok(csv_path.to_str().unwrap().to_string())
 }
 
-
 pub fn obtain_preferences_file_path() -> Result<String, Box<dyn Error>> {
-    let project_dir = ProjectDirs::from(QUALIFIER, ORGANIZATION, APPLICATION).ok_or("No valid path")?;
+    let project_dir =
+        ProjectDirs::from(QUALIFIER, ORGANIZATION, APPLICATION).ok_or("No valid path")?;
     let mut preferences_file_path: PathBuf = obtain_preferences_directory(project_dir)?;
     preferences_file_path.push("preferences.toml");
     Ok(preferences_file_path.to_str().unwrap().to_string())
@@ -59,11 +61,11 @@ fn obtain_preferences_directory(project_directory: ProjectDirs) -> Result<PathBu
 }
 
 //Backwards compatibility
-fn get_old_data_dir_path() -> Result<PathBuf, Box<dyn Error>>{
+fn get_old_data_dir_path() -> Result<PathBuf, Box<dyn Error>> {
     let app_info = AppInfo {
         name: "SongRec",
-        author: "SongRec"
+        author: "SongRec",
     };
-    
+
     Ok(get_app_root(UserData, &app_info)?)
 }

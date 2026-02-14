@@ -7,10 +7,7 @@ glib::wrapper! {
 }
 
 impl HistoryEntry {
-    pub fn new
-    (
-        song: &SongHistoryRecord
-    ) -> Self {
+    pub fn new(song: &SongHistoryRecord) -> Self {
         glib::Object::builder()
             .property("song_name", song.song_name.clone())
             .property("album", song.album.clone())
@@ -39,7 +36,6 @@ impl HistoryEntry {
     }
 
     pub fn get_song_history_record(&self) -> SongHistoryRecord {
-
         SongHistoryRecord {
             song_name: self.song_name(),
             album: self.album(),
@@ -51,7 +47,6 @@ impl HistoryEntry {
     }
 
     pub fn get_song(&self) -> Song {
-
         Song {
             song_name: self.song_name(),
             album: self.album(),

@@ -1,7 +1,7 @@
-use flate2::GzBuilder;
+use clap::{command, Arg, ArgAction, Command};
 use flate2::Compression;
+use flate2::GzBuilder;
 use std::io::prelude::*;
-use clap::{command, Command, Arg, ArgAction};
 
 // The below is copied from src/main.rs, without gettext calls
 
@@ -121,7 +121,7 @@ macro_rules! base_app {
     };
 }
 
-#[cfg(feature="gui")]
+#[cfg(feature = "gui")]
 macro_rules! gui_app {
     () => {
         base_app!()
@@ -158,20 +158,28 @@ macro_rules! gui_app {
     };
 }
 
-#[cfg(feature="gui")]
+#[cfg(feature = "gui")]
 macro_rules! app {
-    () => { gui_app!() };
+    () => {
+        gui_app!()
+    };
 }
 
-#[cfg(not(feature="gui"))]
+#[cfg(not(feature = "gui"))]
 macro_rules! app {
-    () => { base_app!() };
+    () => {
+        base_app!()
+    };
 }
 
 fn main() {
     let out_dir = std::path::PathBuf::from(".")
-        .join("packaging").join("rootfs")
-        .join("usr").join("share").join("man").join("man1");
+        .join("packaging")
+        .join("rootfs")
+        .join("usr")
+        .join("share")
+        .join("man")
+        .join("man1");
 
     std::fs::create_dir_all(&out_dir).unwrap();
 
@@ -182,17 +190,15 @@ fn main() {
     );
 
     clap_mangen::generate_to(app!(), &out_dir).unwrap();
-    
+
     for path in std::fs::read_dir(out_dir).unwrap() {
         let path_str = path.unwrap().path().display().to_string();
         if path_str.ends_with(".1") {
             let f = std::fs::File::create(format!("{}.gz", path_str)).unwrap();
-            let mut gz = GzBuilder::new()
-                .write(f, Compression::best());
+            let mut gz = GzBuilder::new().write(f, Compression::best());
             gz.write_all(&std::fs::read(&path_str).unwrap()).unwrap();
             gz.finish().unwrap();
             std::fs::remove_file(path_str).unwrap();
         }
     }
-    
 }

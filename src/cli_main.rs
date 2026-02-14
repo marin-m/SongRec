@@ -11,7 +11,9 @@ use mpris_player::PlaybackStatus;
 use crate::core::http_thread::http_thread;
 use crate::core::microphone_thread::microphone_thread;
 use crate::core::processing_thread::processing_thread;
-use crate::core::thread_messages::{GUIMessage, MicrophoneMessage, ProcessingMessage, spawn_big_thread};
+use crate::core::thread_messages::{
+    spawn_big_thread, GUIMessage, MicrophoneMessage, ProcessingMessage,
+};
 
 use crate::utils::csv_song_history::SongHistoryRecord;
 // TODO re-implement this
@@ -32,8 +34,7 @@ pub struct CLIParameters {
     pub output_type: CLIOutputType,
 }
 
-pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>>
-{
+pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
     let (gui_tx, gui_rx) = async_channel::unbounded(); // WIP: replace with async_channel::unbounded + Receiver.recv_blocking (https://docs.rs/async-channel/latest/async_channel/struct.Receiver.html)
     let (microphone_tx, microphone_rx) = async_channel::unbounded();
     let (processing_tx, processing_rx) = async_channel::unbounded();
@@ -60,12 +61,16 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>>
     let do_recognize_once = parameters.recognize_once || parameters.input_file.is_some();
 
     // do not enable mpris if recognizing one song
-    
+
     // TODO re-implement this with new lib
     #[cfg(feature = "mpris")]
     let mpris_obj = {
         let do_enable_mpris = parameters.enable_mpris && !do_recognize_once;
-        if do_enable_mpris { get_player() } else { None }
+        if do_enable_mpris {
+            get_player()
+        } else {
+            None
+        }
     };
     #[cfg(feature = "mpris")]
     let mut last_cover_path = None;
@@ -102,7 +107,7 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>>
                         eprintln!("{}", gettext("Exiting: audio device not found"));
                         break;
                     }
-                dev
+                    dev
                 } else {
                     if device_names.is_empty() {
                         eprintln!("{}", gettext("Exiting: no audio devices found!"));
@@ -118,7 +123,8 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>>
                     .unwrap();
             }
             GUIMessage::NetworkStatus(reachable) => {
-                #[cfg(feature = "mpris")] {
+                #[cfg(feature = "mpris")]
+                {
                     // TODO re-implement this
                     let mpris_status = if reachable {
                         PlaybackStatus::Playing
@@ -160,7 +166,9 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>>
                 if *last_track_borrow != track_key {
                     // TODO re-implement this with new lib
                     #[cfg(feature = "mpris")]
-                    mpris_obj.as_ref().map(|p| update_song(p, &message, &mut last_cover_path));
+                    mpris_obj
+                        .as_ref()
+                        .map(|p| update_song(p, &message, &mut last_cover_path));
 
                     *last_track_borrow = track_key;
                     match parameters.output_type {

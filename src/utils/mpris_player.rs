@@ -1,16 +1,16 @@
+use std::fs;
 use std::panic;
 use std::sync::Arc;
-use std::fs;
 
 // TODO rewrite Cf. https://github.com/SeaDve/mpris-server/blob/main/examples/player.rs
 // https://github.com/SeaDve/mpris-server/blob/main/examples/local_server.rs
 // https://github.com/SeaDve/mpris-server/blob/main/examples/server.rs
 
-use mpris_player::{MprisPlayer, PlaybackStatus, Metadata};
+use mpris_player::{Metadata, MprisPlayer, PlaybackStatus};
 
 use crate::core::thread_messages::SongRecognizedMessage;
-use std::time::SystemTime;
 use std::os::unix::fs::MetadataExt;
+use std::time::SystemTime;
 
 fn init_player(p: Arc<MprisPlayer>) -> Arc<MprisPlayer> {
     p.set_can_quit(false);
@@ -34,22 +34,28 @@ pub fn get_player() -> Option<Arc<MprisPlayer>> {
 
     let prev_hook = panic::take_hook();
     panic::set_hook(Box::new(|_| {}));
-    let player = panic::catch_unwind(|| MprisPlayer::new(
-        "re.fossplant.songrec".to_string(),
-        "SongRec".to_string(),
-        "re.fossplant.songrec.desktop".to_string()
-    ));
+    let player = panic::catch_unwind(|| {
+        MprisPlayer::new(
+            "re.fossplant.songrec".to_string(),
+            "SongRec".to_string(),
+            "re.fossplant.songrec.desktop".to_string(),
+        )
+    });
     panic::set_hook(prev_hook);
 
     player.map(init_player).ok()
 }
 
-pub fn update_song(p: &MprisPlayer, m: &SongRecognizedMessage, last_cover_path: &mut Option<std::path::PathBuf>) {
+pub fn update_song(
+    p: &MprisPlayer,
+    m: &SongRecognizedMessage,
+    last_cover_path: &mut Option<std::path::PathBuf>,
+) {
     let mut metadata = Metadata::new();
     metadata.title = Some(m.song_name.clone());
     metadata.artist = Some(vec![m.artist_name.clone()]);
     metadata.album = m.album_name.clone();
-    if let Some(ref genre) = m.genre { 
+    if let Some(ref genre) = m.genre {
         metadata.genre = Some(vec![genre.clone()]);
     }
 
@@ -58,8 +64,13 @@ pub fn update_song(p: &MprisPlayer, m: &SongRecognizedMessage, last_cover_path: 
         let _ = fs::remove_file(path);
     }
 
-    if let Some(ref buf) = m.cover_image { 
-        let (mime_ext, mime_type) = if buf.len() >= 4 && buf[0] == 0x89 && buf[1] == b'P' && buf[2] == b'N' && buf[3] == b'G' {
+    if let Some(ref buf) = m.cover_image {
+        let (mime_ext, mime_type) = if buf.len() >= 4
+            && buf[0] == 0x89
+            && buf[1] == b'P'
+            && buf[2] == b'N'
+            && buf[3] == b'G'
+        {
             ("png", "image/png")
         } else if buf.len() >= 3 && buf[0] == 0x47 && buf[1] == 0x49 && buf[2] == 0x46 {
             ("gif", "image/gif")
@@ -69,11 +80,18 @@ pub fn update_song(p: &MprisPlayer, m: &SongRecognizedMessage, last_cover_path: 
             // default to jpeg if unknown
             ("jpg", "image/jpeg")
         };
-        let process_uid = std::fs::metadata("/proc/self").map(|m| m.uid()).unwrap_or(0);
+        let process_uid = std::fs::metadata("/proc/self")
+            .map(|m| m.uid())
+            .unwrap_or(0);
         let mut tmp = std::env::temp_dir();
-        let timestamp = SystemTime::now().duration_since(SystemTime::UNIX_EPOCH)
-            .unwrap().as_secs();
-        tmp.push(format!("songrec_cover_{}_{}.{}", process_uid, timestamp, mime_ext));
+        let timestamp = SystemTime::now()
+            .duration_since(SystemTime::UNIX_EPOCH)
+            .unwrap()
+            .as_secs();
+        tmp.push(format!(
+            "songrec_cover_{}_{}.{}",
+            process_uid, timestamp, mime_ext
+        ));
         if fs::write(&tmp, buf).is_ok() {
             // Use file:// URL for better compatibility with MPRIS clients
             metadata.art_url = Some(format!("file://{}", tmp.display()));

@@ -1,11 +1,10 @@
-
 use std::cell::RefCell;
 
-use glib::Properties;
 use glib::object::ObjectExt;
+use glib::subclass::object::DerivedObjectProperties;
 use glib::subclass::prelude::ObjectImpl;
 use glib::subclass::prelude::ObjectSubclass;
-use glib::subclass::object::DerivedObjectProperties;
+use glib::Properties;
 
 #[derive(Properties, Default)]
 #[properties(wrapper_type = super::HistoryEntry)]
@@ -21,7 +20,7 @@ pub struct HistoryEntry {
     #[property(construct_only, get)]
     genre: RefCell<Option<String>>,
     #[property(construct_only, get)]
-    recognition_date: RefCell<String>
+    recognition_date: RefCell<String>,
 }
 
 // The central trait for subclassing a GObject
@@ -35,4 +34,3 @@ impl ObjectSubclass for HistoryEntry {
 // Trait shared by all GObjects
 #[glib::derived_properties]
 impl ObjectImpl for HistoryEntry {}
-

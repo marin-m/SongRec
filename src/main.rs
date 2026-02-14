@@ -1,21 +1,20 @@
-
 #![windows_subsystem = "windows"]
 
 pub mod cli_main;
 
 mod fingerprinting {
-    pub mod communication;
     pub mod algorithm;
+    pub mod communication;
+    mod hanning;
     pub mod signature_format;
     mod user_agent;
-    mod hanning;
 }
 
 mod core {
-    pub mod microphone_thread;
-    pub mod processing_thread;
     pub mod http_thread;
     pub mod logging;
+    pub mod microphone_thread;
+    pub mod processing_thread;
     pub mod thread_messages;
 }
 
@@ -29,12 +28,12 @@ mod audio_controllers {
 #[cfg(feature = "gui")]
 mod gui {
     pub mod main_window;
-    pub mod song_history_interface;
     pub mod preferences;
+    pub mod song_history_interface;
 
     pub mod context_menu;
-    pub mod listed_device;
     pub mod history_entry;
+    pub mod listed_device;
 }
 
 mod utils {
@@ -52,18 +51,18 @@ mod utils {
 }
 
 use crate::fingerprinting::algorithm::SignatureGenerator;
-use crate::fingerprinting::signature_format::DecodedSignature;
 use crate::fingerprinting::communication::recognize_song_from_signature;
+use crate::fingerprinting::signature_format::DecodedSignature;
 
-use crate::utils::internationalization::setup_internationalization;
+use crate::cli_main::{cli_main, CLIOutputType, CLIParameters};
+use crate::core::logging::Logging;
 #[cfg(feature = "gui")]
 use crate::gui::main_window::gui_main;
-use crate::core::logging::Logging;
-use crate::cli_main::{cli_main, CLIParameters, CLIOutputType};
+use crate::utils::internationalization::setup_internationalization;
 
-use std::error::Error;
+use clap::{command, Arg, ArgAction, Command};
 use gettextrs::gettext;
-use clap::{command, Command, Arg, ArgAction};
+use std::error::Error;
 
 macro_rules! base_app {
     () => {
@@ -193,7 +192,7 @@ SongRec {version}
     };
 }
 
-#[cfg(feature="gui")]
+#[cfg(feature = "gui")]
 macro_rules! gui_app {
     () => {
         base_app!()
@@ -230,18 +229,21 @@ macro_rules! gui_app {
     };
 }
 
-#[cfg(feature="gui")]
+#[cfg(feature = "gui")]
 macro_rules! app {
-    () => { gui_app!() };
+    () => {
+        gui_app!()
+    };
 }
 
-#[cfg(not(feature="gui"))]
+#[cfg(not(feature = "gui"))]
 macro_rules! app {
-    () => { base_app!() };
+    () => {
+        base_app!()
+    };
 }
 
 fn main() -> Result<(), Box<dyn Error>> {
-
     // Set up the translation/internationalization part
 
     setup_internationalization();
@@ -257,35 +259,54 @@ fn main() -> Result<(), Box<dyn Error>> {
         0 => Logging::setup_logging(log::LevelFilter::Warn, log::LevelFilter::Warn),
         1 => Logging::setup_logging(log::LevelFilter::Warn, log::LevelFilter::Debug),
         2 => Logging::setup_logging(log::LevelFilter::Info, log::LevelFilter::Debug),
-        _ => Logging::setup_logging(log::LevelFilter::Trace, log::LevelFilter::Trace)
+        _ => Logging::setup_logging(log::LevelFilter::Trace, log::LevelFilter::Trace),
     };
 
     Logging::bind_glib_logging();
 
     // Parse other arguments
-    
+
     match args.subcommand_name() {
-        Some("audio-file-to-recognized-song") => {            
-            let subcommand_args = args.subcommand_matches("audio-file-to-recognized-song").unwrap();
-            
+        Some("audio-file-to-recognized-song") => {
+            let subcommand_args = args
+                .subcommand_matches("audio-file-to-recognized-song")
+                .unwrap();
+
             let input_file_string = subcommand_args.get_one::<String>("input_file").unwrap();
-            
-            println!("{}", serde_json::to_string_pretty(&recognize_song_from_signature(&SignatureGenerator::make_signature_from_file(input_file_string)?)?)?);
-        },
+
+            println!(
+                "{}",
+                serde_json::to_string_pretty(&recognize_song_from_signature(
+                    &SignatureGenerator::make_signature_from_file(input_file_string)?
+                )?)?
+            );
+        }
         Some("audio-file-to-fingerprint") => {
-            let subcommand_args = args.subcommand_matches("audio-file-to-fingerprint").unwrap();
-            
+            let subcommand_args = args
+                .subcommand_matches("audio-file-to-fingerprint")
+                .unwrap();
+
             let input_file_string = subcommand_args.get_one::<String>("input_file").unwrap();
-            
-            println!("{}", SignatureGenerator::make_signature_from_file(input_file_string)?.encode_to_uri()?);
-        },
+
+            println!(
+                "{}",
+                SignatureGenerator::make_signature_from_file(input_file_string)?.encode_to_uri()?
+            );
+        }
         Some("fingerprint-to-recognized-song") => {
-            let subcommand_args = args.subcommand_matches("fingerprint-to-recognized-song").unwrap();
-            
+            let subcommand_args = args
+                .subcommand_matches("fingerprint-to-recognized-song")
+                .unwrap();
+
             let fingerprint_string = subcommand_args.get_one::<String>("fingerprint").unwrap();
-            
-            println!("{}", serde_json::to_string_pretty(&recognize_song_from_signature(&DecodedSignature::decode_from_uri(fingerprint_string)?)?)?);
-        },
+
+            println!(
+                "{}",
+                serde_json::to_string_pretty(&recognize_song_from_signature(
+                    &DecodedSignature::decode_from_uri(fingerprint_string)?
+                )?)?
+            );
+        }
         Some("listen") => {
             let subcommand_args = args.subcommand_matches("listen").unwrap();
             let audio_device = subcommand_args.get_one::<String>("audio-device").cloned();
@@ -300,15 +321,13 @@ fn main() -> Result<(), Box<dyn Error>> {
                 input_file: None,
                 output_type: if enable_json {
                     CLIOutputType::JSON
-                }
-                else if enable_csv {
+                } else if enable_csv {
                     CLIOutputType::CSV
-                }
-                else {
+                } else {
                     CLIOutputType::SongName
-                }
+                },
             })?;
-        },
+        }
         Some("recognize") => {
             let subcommand_args = args.subcommand_matches("recognize").unwrap();
             let audio_device = subcommand_args.get_one::<String>("audio-device").cloned();
@@ -324,17 +343,17 @@ fn main() -> Result<(), Box<dyn Error>> {
 
                 output_type: if enable_json {
                     CLIOutputType::JSON
-                }
-                else if enable_csv {
+                } else if enable_csv {
                     CLIOutputType::CSV
-                }
-                else {
+                } else {
                     CLIOutputType::SongName
-                }
+                },
             })?;
-        },
+        }
         Some("microphone-to-recognized-song") => {
-            let subcommand_args = args.subcommand_matches("microphone-to-recognized-song").unwrap();
+            let subcommand_args = args
+                .subcommand_matches("microphone-to-recognized-song")
+                .unwrap();
             let audio_device = subcommand_args.get_one::<String>("audio-device").cloned();
 
             cli_main(CLIParameters {
@@ -342,45 +361,45 @@ fn main() -> Result<(), Box<dyn Error>> {
                 recognize_once: true,
                 audio_device,
                 input_file: None,
-                output_type: CLIOutputType::JSON
+                output_type: CLIOutputType::JSON,
             })?;
-        },
-        #[cfg(feature="gui")]
+        }
+        #[cfg(feature = "gui")]
         Some("gui-norecording") => {
             let subcommand_args = args.subcommand_matches("gui-norecording").unwrap();
 
-            gui_main(log_object,
-                 false,
-                 subcommand_args.get_one::<String>("input_file").cloned(),
-                 !subcommand_args.contains_id("disable-mpris"),
+            gui_main(
+                log_object,
+                false,
+                subcommand_args.get_one::<String>("input_file").cloned(),
+                !subcommand_args.contains_id("disable-mpris"),
             )?;
-        },
-        #[cfg(feature="gui")]
+        }
+        #[cfg(feature = "gui")]
         Some("gui") | None => {
             if let Some(subcommand_args) = args.subcommand_matches("gui") {
-                gui_main(log_object,
-                     true,
-                     subcommand_args.get_one::<String>("input_file").cloned(),
-                     !subcommand_args.contains_id("disable-mpris"),
+                gui_main(
+                    log_object,
+                    true,
+                    subcommand_args.get_one::<String>("input_file").cloned(),
+                    !subcommand_args.contains_id("disable-mpris"),
                 )?;
-            }
-            else {
+            } else {
                 gui_main(log_object, true, None, true)?;
             }
-        },
-        #[cfg(not(feature="gui"))]
+        }
+        #[cfg(not(feature = "gui"))]
         None => {
             cli_main(CLIParameters {
                 enable_mpris: true,
                 recognize_once: false,
                 audio_device: None,
                 input_file: None,
-                output_type: CLIOutputType::SongName
+                output_type: CLIOutputType::SongName,
             })?;
-        },
-        _ => unreachable!()
+        }
+        _ => unreachable!(),
     }
-    
+
     Ok(())
-    
 }

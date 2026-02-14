@@ -7,11 +7,15 @@ use std::thread;
 /// This module contains code used from message-based communication between threads.
 
 pub fn spawn_big_thread<F, T>(argument: F) -> ()
-    where
-        F: std::ops::FnOnce() -> T,
-        F: std::marker::Send + 'static,
-        T: std::marker::Send + 'static {
-    thread::Builder::new().stack_size(32 * 1024 * 1024).spawn(argument).unwrap();
+where
+    F: std::ops::FnOnce() -> T,
+    F: std::marker::Send + 'static,
+    T: std::marker::Send + 'static,
+{
+    thread::Builder::new()
+        .stack_size(32 * 1024 * 1024)
+        .spawn(argument)
+        .unwrap();
 }
 
 #[derive(Debug)]
@@ -35,7 +39,7 @@ pub struct DeviceListItem {
     pub display_name: String,
     // The checkbox option on the UI should select the first monitor
     // device present in the combo box, when specified
-    pub is_monitor: bool
+    pub is_monitor: bool,
 }
 
 #[derive(Debug)]
