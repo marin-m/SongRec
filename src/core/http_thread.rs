@@ -110,6 +110,9 @@ pub fn http_thread(
                         gui_tx
                             .send_blocking(GUIMessage::NetworkStatus(true))
                             .unwrap();
+                        gui_tx
+                            .send_blocking(GUIMessage::RateLimitState(false))
+                            .unwrap();
                     }
                     Err(error) => match error.to_string().as_str() {
                         a if a == gettext("No match for this song") => {
@@ -118,6 +121,14 @@ pub fn http_thread(
                                 .unwrap();
                             gui_tx
                                 .send_blocking(GUIMessage::NetworkStatus(true))
+                                .unwrap();
+                            gui_tx
+                                .send_blocking(GUIMessage::RateLimitState(false))
+                                .unwrap();
+                        }
+                        a if a == gettext("Your IP has been rate-limited") => {
+                            gui_tx
+                                .send_blocking(GUIMessage::RateLimitState(true))
                                 .unwrap();
                         }
                         _ => {

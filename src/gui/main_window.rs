@@ -115,7 +115,8 @@ impl App {
 
         let ctx_selected_item: Rc<RefCell<Option<HistoryEntry>>> = Rc::new(RefCell::new(None));
         let ctx_buffered_log: Rc<RefCell<String>> = Rc::new(RefCell::new(String::new()));
-        let ctx_logger_source_id: Rc<RefCell<Option<glib::source::SourceId>>> = Rc::new(RefCell::new(None));
+        let ctx_logger_source_id: Rc<RefCell<Option<glib::source::SourceId>>> =
+            Rc::new(RefCell::new(None));
 
         let preferences_interface: PreferencesInterface = PreferencesInterface::new();
         let old_preferences: Preferences = preferences_interface.preferences.clone();
@@ -253,7 +254,8 @@ impl App {
         builder_scope.add_callback("loopback_options_switched", move |_values| {
             let loopback_switch: adw::SwitchRow = builder.object("loopback_switch").unwrap();
             let microphone_switch: adw::SwitchRow = builder.object("microphone_switch").unwrap();
-            let device_section: adw::PreferencesGroup = builder.object("input_device_section").unwrap();
+            let device_section: adw::PreferencesGroup =
+                builder.object("input_device_section").unwrap();
             let g_list_store: gio::ListStore = builder.object("audio_inputs_model").unwrap();
 
             if loopback_switch.is_active() {
@@ -307,7 +309,8 @@ impl App {
         builder_scope.add_callback("microphone_option_switched", move |_values| {
             let microphone_switch: adw::SwitchRow = builder.object("microphone_switch").unwrap();
             let loopback_switch: adw::SwitchRow = builder.object("loopback_switch").unwrap();
-            let device_section: adw::PreferencesGroup = builder.object("input_device_section").unwrap();
+            let device_section: adw::PreferencesGroup =
+                builder.object("input_device_section").unwrap();
             let g_list_store: gio::ListStore = builder.object("audio_inputs_model").unwrap();
 
             if microphone_switch.is_active() {
@@ -466,6 +469,7 @@ impl App {
         let results_section: adw::PreferencesGroup =
             self.builder.object("results_section").unwrap();
         let no_network_message: gtk::Label = self.builder.object("no_network_message").unwrap();
+        let rate_limited_message: gtk::Label = self.builder.object("rate_limited_message").unwrap();
         let results_image: gtk::Image = self.builder.object("results_image").unwrap();
         let results_label: gtk::Label = self.builder.object("results_label").unwrap();
         let loopback_switch: adw::SwitchRow = self.builder.object("loopback_switch").unwrap();
@@ -501,14 +505,16 @@ impl App {
                     const MAX_LOG_SIZE: usize = 2 * 1024 * 1024; // 2 MB
 
                     {
-                        let  buffer_ptr: &mut String = &mut *ctx_buffered_log.borrow_mut();
+                        let buffer_ptr: &mut String = &mut *ctx_buffered_log.borrow_mut();
                         buffer_ptr.push_str(&log_string);
                         if buffer_ptr.len() > MAX_LOG_SIZE {
-                            let to_cut: String = buffer_ptr.chars().take(buffer_ptr.len() - MAX_LOG_SIZE).collect();
+                            let to_cut: String = buffer_ptr
+                                .chars()
+                                .take(buffer_ptr.len() - MAX_LOG_SIZE)
+                                .collect();
                             buffer_ptr.drain(..to_cut.len());
                         }
                     }
-
                 } else {
                     if let MicrophoneVolumePercent(_) = gui_message {
                         trace!("Received GUI message: {:?}", gui_message);
@@ -555,6 +561,9 @@ impl App {
                                 let dialog = gtk::AlertDialog::builder().message(&string).build();
                                 dialog.show(Some(&window));
                             }
+                        }
+                        RateLimitState(is_rate_limited) => {
+                            rate_limited_message.set_visible(is_rate_limited);
                         }
                         NetworkStatus(network_is_reachable) => {
                             no_network_message.set_visible(!network_is_reachable);
@@ -793,16 +802,16 @@ impl App {
                 let about_dialog = about_dialog.clone();
 
                 if *ctx_logger_source_id.borrow() == None {
-                    *ctx_logger_source_id.borrow_mut() = Some(glib::source::timeout_add_seconds_local(1, move ||
-                        if about_dialog.is_visible() {
-                            about_dialog.set_debug_info(&*ctx_buffered_log.borrow());
-                            glib::ControlFlow::Continue
-                        }
-                        else {
-                            *ctx_logger_source_id_2.borrow_mut() = None;
-                            glib::ControlFlow::Break
-                        }
-                    ));
+                    *ctx_logger_source_id.borrow_mut() =
+                        Some(glib::source::timeout_add_seconds_local(1, move || {
+                            if about_dialog.is_visible() {
+                                about_dialog.set_debug_info(&*ctx_buffered_log.borrow());
+                                glib::ControlFlow::Continue
+                            } else {
+                                *ctx_logger_source_id_2.borrow_mut() = None;
+                                glib::ControlFlow::Break
+                            }
+                        }));
                 }
             })
             .build();

@@ -1,3 +1,4 @@
+use gettextrs::gettext;
 use rand::seq::SliceRandom;
 use reqwest::header::HeaderMap;
 use serde_json::{json, Value};
@@ -67,6 +68,13 @@ pub fn recognize_song_from_signature(
         .headers(headers)
         .json(&post_data)
         .send()?;
+
+    if response.status() == reqwest::StatusCode::TOO_MANY_REQUESTS {
+        return Err(Box::new(std::io::Error::new(
+            std::io::ErrorKind::QuotaExceeded,
+            gettext("Your IP has been rate-limited").as_str(),
+        )));
+    }
 
     Ok(response.json()?)
 }

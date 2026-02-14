@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: SongRec\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-14 06:55+0100\n"
+"POT-Creation-Date: 2026-02-14 22:10+0100\n"
 "PO-Revision-Date: 2026-02-13 16:58+0000\n"
 "Last-Translator: marcelo cripe <marcelocripe@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://weblate.fossplant.re/projects/"
@@ -21,51 +21,51 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Weblate 5.15.2\n"
 
-#: src/cli_main.rs:102
+#: src/cli_main.rs:107
 msgid "Exiting: audio device not found"
 msgstr ""
 "O programa será fechado, porque o dispositivo de áudio que você selecionou "
 "não foi encontrado"
 
-#: src/cli_main.rs:108
+#: src/cli_main.rs:113
 msgid "Exiting: no audio devices found!"
 msgstr ""
 "O programa será fechado, porque nenhum dispositivo de áudio foi encontrado"
 
-#: src/cli_main.rs:113
+#: src/cli_main.rs:118
 msgid "Using device"
 msgstr "Utilizando o dispositivo"
 
-#: src/cli_main.rs:135
+#: src/cli_main.rs:141
 msgid "Error: Network unreachable"
 msgstr "Ocorreu um erro, porque não há conexão com a internet"
 
-#: src/cli_main.rs:138
+#: src/cli_main.rs:144
 msgid "Warning: Network unreachable"
 msgstr "Atenção! Não há conexão com a internet"
 
-#: src/cli_main.rs:143 src/core/http_thread.rs:48 src/core/http_thread.rs:53
-#: src/core/http_thread.rs:61 src/core/http_thread.rs:87
-#: src/gui/main_window.rs:510
+#: src/cli_main.rs:149 src/core/http_thread.rs:52 src/core/http_thread.rs:62
+#: src/core/http_thread.rs:75 src/core/http_thread.rs:118
+#: src/gui/main_window.rs:558
 msgid "No match for this song"
 msgstr "A música não pôde ser identificada"
 
-#: src/cli_main.rs:144
+#: src/cli_main.rs:150
 msgid "Error:"
 msgstr "Ocorreu um erro:"
 
-#: src/cli_main.rs:152
+#: src/cli_main.rs:158
 msgid "Recording started!"
 msgstr "A gravação foi iniciada!"
 
-#: src/main.rs:71
+#: src/main.rs:70
 msgid "An open-source Shazam client for Linux, written in Rust."
 msgstr ""
 "O ‘SongRec’ é um identificador de músicas de código aberto para o GNU/Linux, "
 "semelhante ao ‘Shazam’, que foi escrito com a linguagem de programação "
 "‘Rust’."
 
-#: src/main.rs:90
+#: src/main.rs:89
 msgid ""
 "-v: Set the log level to DEBUG instead of WARN for SongRec-related messages\n"
 "-vv: Set the log level to DEBUG for SongRec-related messages and INFO for "
@@ -73,7 +73,7 @@ msgid ""
 "-vvv: Set the log level to TRACE"
 msgstr ""
 
-#: src/main.rs:96
+#: src/main.rs:95
 msgid ""
 "Run as a command-line program listening the microphone and printing "
 "recognized songs to stdout, exposing current song info via MPRIS"
@@ -84,39 +84,39 @@ msgstr ""
 "fornecidas pelo ‘MPRIS’ (Media Player Remote Interfacing Specification ou "
 "Interface Remota de Especificação do Reprodutor de Mídia)"
 
-#: src/main.rs:101 src/main.rs:133 src/main.rs:172
+#: src/main.rs:100 src/main.rs:132 src/main.rs:171
 msgid "Specify the audio device to use"
 msgstr "Especificar o dispositivo de áudio a ser utilizado"
 
-#: src/main.rs:109 src/main.rs:141
+#: src/main.rs:108 src/main.rs:140
 msgid "Enable printing full song info in JSON"
 msgstr ""
 "Ativar a saída das informações completas da música com o formato ‘JSON’ "
 "(JavaScript Object Notation ou Notação de Objetos do JavaScript)"
 
-#: src/main.rs:116 src/main.rs:148
+#: src/main.rs:115 src/main.rs:147
 msgid "Enable printing full song info in the CSV format"
 msgstr ""
 "Ativar a saída das informações completas da música com o formato ‘CSV’ "
 "(comma-separated values ou valores separados por vírgulas)"
 
-#: src/main.rs:122 src/main.rs:212 src/main.rs:227
+#: src/main.rs:121 src/main.rs:211 src/main.rs:226
 msgid "Disable MPRIS support"
 msgstr "Desativar a funcionalidade do ‘MPRIS’"
 
-#: src/main.rs:127
+#: src/main.rs:126
 msgid "Recognize one song from a sound file or microphone and print its info."
 msgstr ""
 "Identificar a música a partir de um arquivo de áudio ou de um microfone e "
 "exibir as suas informações."
 
-#: src/main.rs:153
+#: src/main.rs:152
 msgid "Recognize a file instead of using mic input"
 msgstr ""
 "Identificar a música a partir de um arquivo de áudio em vez de utilizar o "
 "microfone"
 
-#: src/main.rs:158
+#: src/main.rs:157
 msgid ""
 "Generate a Shazam fingerprint from a sound file, perform song recognition "
 "towards Shazam's servers and print obtained information to the standard "
@@ -126,11 +126,11 @@ msgstr ""
 "arquivo de áudio, realizar a identificação das músicas utilizando os "
 "servidores do ‘Shazam’ e enviar as informações obtidas para a saída padrão."
 
-#: src/main.rs:162
+#: src/main.rs:161
 msgid "The audio file to recognize."
 msgstr "O arquivo de áudio a ser identificado."
 
-#: src/main.rs:167
+#: src/main.rs:166
 msgid ""
 "Recognize a currently playing song using the microphone and print obtained "
 "information to the standard output"
@@ -138,7 +138,7 @@ msgstr ""
 "Identificar a música que esteja sendo reproduzida por meio do microfone e "
 "enviar as informações recebidas para a saída padrão"
 
-#: src/main.rs:177
+#: src/main.rs:176
 msgid ""
 "Generate a Shazam fingerprint from a sound file, and print it to the "
 "standard output."
@@ -146,13 +146,13 @@ msgstr ""
 "Criar uma impressão digital do mesmo padrão do ‘Shazam’ a partir de um "
 "arquivo de áudio e enviar para a saída padrão."
 
-#: src/main.rs:181
+#: src/main.rs:180
 msgid "The .WAV or .MP3 file to generate an audio fingerprint for."
 msgstr ""
 "O arquivo com o formato ‘.WAV’ ou ‘.MP3’ para criar a impressão digital de "
 "áudio."
 
-#: src/main.rs:186
+#: src/main.rs:185
 msgid ""
 "Take a data-URI Shazam fingerprint, perform song recognition towards "
 "Shazam's servers and print obtained information to the standard output."
@@ -162,21 +162,21 @@ msgstr ""
 "‘Shazam’, realizar a identificação das músicas utilizando os servidores do "
 "‘Shazam’ e enviar as informações obtidas para a saída padrão."
 
-#: src/main.rs:190
+#: src/main.rs:189
 msgid "The data-URI Shazam fingerprint to recognize."
 msgstr "O URI de dados do mesmo padrão do ‘Shazam’ a ser identificado."
 
-#: src/main.rs:202
+#: src/main.rs:201
 msgid "The default action. Display a GUI."
 msgstr "A ação padrão é de exibir uma interface gráfica do usuário."
 
-#: src/main.rs:206 src/main.rs:221
+#: src/main.rs:205 src/main.rs:220
 msgid "An optional audio file to recognize on the launch of the application."
 msgstr ""
 "Um arquivo de áudio opcional que será identificado quando você iniciar o "
 "programa."
 
-#: src/main.rs:217
+#: src/main.rs:216
 msgid ""
 "Launch the GUI, but don't recognize audio through the microphone as soon as "
 "it is launched (rather than expecting the user to click on a button)."
@@ -185,61 +185,65 @@ msgstr ""
 "detectado por meio do microfone, em vez de esperar que o usuário clique em "
 "um botão."
 
-#: src/core/microphone_thread.rs:50
+#: src/core/http_thread.rs:129 src/fingerprinting/communication.rs:75
+msgid "Your IP has been rate-limited"
+msgstr ""
+
+#: src/core/microphone_thread.rs:58
 msgid "Microphone error:"
 msgstr "Ocorreu um problema com o microfone:"
 
-#: src/core/microphone_thread.rs:55
+#: src/core/microphone_thread.rs:68
 msgid "Failed to get default input config"
 msgstr ""
 "Não foi possível obter as configurações padrão do dispositivo de entrada"
 
-#: src/fingerprinting/signature_format.rs:93
+#: src/fingerprinting/signature_format.rs:97
 msgid "Invalid sample rate in decoded Shazam packet"
 msgstr "A taxa de amostragem ao decodificar o pacote do ‘Shazam’ não é válida"
 
-#: src/fingerprinting/signature_format.rs:126
+#: src/fingerprinting/signature_format.rs:139
 msgid "Invalid frequency band in decoded Shazam packet"
 msgstr "A banda de frequência ao decodificar o pacote do ‘Shazam’ não é válida"
 
-#: src/fingerprinting/signature_format.rs:201
+#: src/fingerprinting/signature_format.rs:220
 msgid "Invalid sample rate passed when encoding Shazam packet"
 msgstr ""
 "A taxa de amostragem passada ao codificar o pacote do ‘Shazam’ não é válida"
 
-#: src/gui/main_window.rs:446 src/gui/main_window.rs:503
+#: src/gui/main_window.rs:496 src/gui/main_window.rs:551
 msgid "Unable to enable MPRIS support"
 msgstr "A funcionalidade do ‘MPRIS’ não pôde ser ativada"
 
-#: src/gui/main_window.rs:548
+#: src/gui/main_window.rs:607
 msgid "Song recognized"
 msgstr "A música foi identificada"
 
-#: src/gui/main_window.rs:653
+#: src/gui/main_window.rs:747
 msgid "Are you sure you want to wipe history?"
 msgstr "Você tem certeza de que quer apagar a histórico?"
 
-#: src/gui/main_window.rs:654
+#: src/gui/main_window.rs:748
 msgid "_Yes"
 msgstr "_Sim"
 
-#: src/gui/main_window.rs:654
+#: src/gui/main_window.rs:748
 msgid "_No"
 msgstr "_Não"
 
-#: src/gui/preferences.rs:53
+#: src/gui/preferences.rs:50
 msgid "When parsing the preferences file:"
 msgstr "Ao analisar o arquivo das configurações:"
 
-#: src/gui/preferences.rs:86
+#: src/gui/preferences.rs:95
 msgid "When saving the preferences file:"
 msgstr "Ao salvar o arquivo das configurações:"
 
-#: src/gui/song_history_interface.rs:95
+#: src/gui/song_history_interface.rs:93
 msgid "Error when reading the song history on the disk:"
 msgstr "Ocorreu um erro ao ler o histórico das músicas salvas:"
 
-#: src/gui/song_history_interface.rs:170
+#: src/gui/song_history_interface.rs:168
 msgid "Error when reading the favorites on the disk:"
 msgstr "Ocorreu um erro ao ler os favoritos salvos:"
 
@@ -270,106 +274,114 @@ msgstr ""
 "possui conexão com a internet?"
 
 #: translations/interface.ui.h:7
+msgid "ERROR: Your IP has been rate-limited"
+msgstr ""
+
+#: translations/interface.ui.h:8
 msgid "Recognition results"
 msgstr "Resultados das músicas que foram identificadas"
 
-#: translations/interface.ui.h:8
+#: translations/interface.ui.h:9
 msgid "Search on YouTube"
 msgstr "Pesquisar no YouTube"
 
-#: translations/interface.ui.h:9
+#: translations/interface.ui.h:10
 msgid "Search..."
 msgstr "Pesquisar..."
 
-#: translations/interface.ui.h:10
+#: translations/interface.ui.h:11
 msgid "Audio input"
 msgstr "Entrada do áudio"
 
-#: translations/interface.ui.h:11
+#: translations/interface.ui.h:12
 msgid "Device"
 msgstr "Dispositivo"
 
-#: translations/interface.ui.h:12
+#: translations/interface.ui.h:13
 msgid "Volume:"
 msgstr "Volume:"
 
-#: translations/interface.ui.h:13
+#: translations/interface.ui.h:14
 msgid "History options..."
 msgstr ""
 
-#: translations/interface.ui.h:14
+#: translations/interface.ui.h:15
 msgid "Recognition history"
 msgstr "Histórico das identificações"
 
-#: translations/interface.ui.h:15
+#: translations/interface.ui.h:16
 msgid "Song name"
 msgstr "Nome da música"
 
-#: translations/interface.ui.h:16
+#: translations/interface.ui.h:17
 msgid "Album"
 msgstr "Álbum"
 
-#: translations/interface.ui.h:17
+#: translations/interface.ui.h:18
 msgid "Recognition date"
 msgstr "Data da identificação"
 
-#: translations/interface.ui.h:18
+#: translations/interface.ui.h:19
 msgid "View favorites"
 msgstr "Exibir os favoritos"
 
-#: translations/interface.ui.h:19
+#: translations/interface.ui.h:20
 msgid "Application menu"
 msgstr ""
 
-#: translations/interface.ui.h:20
+#: translations/interface.ui.h:21
 msgid "Export to CSV"
 msgstr "Exportar para o formato ‘CSV’"
 
-#: translations/interface.ui.h:21
+#: translations/interface.ui.h:22
 msgid "Favorites"
 msgstr "Favoritos"
 
-#: translations/interface.ui.h:22
-msgid "Show notifications"
-msgstr "Exibir as notificações"
-
 #: translations/interface.ui.h:23
+msgid "General preferences"
+msgstr ""
+
+#: translations/interface.ui.h:24
 msgid "Enable MPRIS"
 msgstr "Ativar o ‘MPRIS’"
 
-#: translations/interface.ui.h:24
+#: translations/interface.ui.h:25
+msgid "Show notifications"
+msgstr "Exibir as notificações"
+
+#: translations/interface.ui.h:26
 msgid "About..."
 msgstr "Sobre..."
 
-#: translations/interface.ui.h:25
+#: translations/interface.ui.h:27
 msgid "Delete history"
 msgstr "Excluir o histórico"
 
-#: translations/interface.ui.h:26
+#: translations/interface.ui.h:28
 msgid "Select a file to recognize"
 msgstr "Escolha um arquivo de áudio que você quer identificar"
 
-#: translations/interface.ui.h:27
+#: translations/interface.ui.h:29
 msgid "Copy artist and track"
 msgstr "Copiar o nome do artista e o título da música"
 
-#: translations/interface.ui.h:28
+#: translations/interface.ui.h:30
 msgid "Copy artist"
 msgstr "Copiar o nome do artista"
 
-#: translations/interface.ui.h:29
+#: translations/interface.ui.h:31
 msgid "Copy track name"
 msgstr "Copiar o título da música"
 
-#: translations/interface.ui.h:30
+#: translations/interface.ui.h:32
 msgid "Copy album"
 msgstr "Copiar o nome do álbum"
 
-#: translations/interface.ui.h:31
+#: translations/interface.ui.h:33
 msgid "Add to Favorites"
 msgstr "Adicionar aos favoritos"
 
-#: translations/interface.ui.h:32
+#: translations/interface.ui.h:34
 msgid "Remove from Favorites"
 msgstr "Remover dos favoritos"
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-14 06:55+0100\n"
+"POT-Creation-Date: 2026-02-14 22:10+0100\n"
 "PO-Revision-Date: 2023-12-30 23:42+0900\n"
 "Last-Translator: 이정희 <daemul72@gmail.com>\n"
 "Language-Team: \n"
@@ -17,45 +17,45 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.4.1\n"
 
-#: src/cli_main.rs:102
+#: src/cli_main.rs:107
 msgid "Exiting: audio device not found"
 msgstr "종료 중: 오디오 장치를 찾을 수 없습니다"
 
-#: src/cli_main.rs:108
+#: src/cli_main.rs:113
 msgid "Exiting: no audio devices found!"
 msgstr "종료 중: 오디오 장치를 찾을 수 없습니다!"
 
-#: src/cli_main.rs:113
+#: src/cli_main.rs:118
 msgid "Using device"
 msgstr "장치 사용 중"
 
-#: src/cli_main.rs:135
+#: src/cli_main.rs:141
 msgid "Error: Network unreachable"
 msgstr "오류: 네트워크에 연결할 수 없음"
 
-#: src/cli_main.rs:138
+#: src/cli_main.rs:144
 msgid "Warning: Network unreachable"
 msgstr "경고: 네트워크에 연결할 수 없음"
 
-#: src/cli_main.rs:143 src/core/http_thread.rs:48 src/core/http_thread.rs:53
-#: src/core/http_thread.rs:61 src/core/http_thread.rs:87
-#: src/gui/main_window.rs:510
+#: src/cli_main.rs:149 src/core/http_thread.rs:52 src/core/http_thread.rs:62
+#: src/core/http_thread.rs:75 src/core/http_thread.rs:118
+#: src/gui/main_window.rs:558
 msgid "No match for this song"
 msgstr "이 노래와 일치하는 항목이 없습니다"
 
-#: src/cli_main.rs:144
+#: src/cli_main.rs:150
 msgid "Error:"
 msgstr "오류:"
 
-#: src/cli_main.rs:152
+#: src/cli_main.rs:158
 msgid "Recording started!"
 msgstr "녹음이 시작되었습니다!"
 
-#: src/main.rs:71
+#: src/main.rs:70
 msgid "An open-source Shazam client for Linux, written in Rust."
 msgstr "Rust로 작성된 Linux용 오픈 소스 Shazam 클라이언트입니다."
 
-#: src/main.rs:90
+#: src/main.rs:89
 msgid ""
 "-v: Set the log level to DEBUG instead of WARN for SongRec-related messages\n"
 "-vv: Set the log level to DEBUG for SongRec-related messages and INFO for "
@@ -63,7 +63,7 @@ msgid ""
 "-vvv: Set the log level to TRACE"
 msgstr ""
 
-#: src/main.rs:96
+#: src/main.rs:95
 msgid ""
 "Run as a command-line program listening the microphone and printing "
 "recognized songs to stdout, exposing current song info via MPRIS"
@@ -71,43 +71,43 @@ msgstr ""
 "명령줄 프로그램으로 실행하여 마이크를 수신하고 인식된 곡을 스탯아웃에 인쇄하"
 "여 MPRIS를 통해 현재 곡 정보를 노출합니다"
 
-#: src/main.rs:101 src/main.rs:133 src/main.rs:172
+#: src/main.rs:100 src/main.rs:132 src/main.rs:171
 msgid "Specify the audio device to use"
 msgstr "사용할 오디오 장치 지정하기"
 
-#: src/main.rs:109 src/main.rs:141
+#: src/main.rs:108 src/main.rs:140
 msgid "Enable printing full song info in JSON"
 msgstr "JSON으로 전체 노래 정보 인쇄 활성화"
 
-#: src/main.rs:116 src/main.rs:148
+#: src/main.rs:115 src/main.rs:147
 msgid "Enable printing full song info in the CSV format"
 msgstr "CSV 형식으로 전체 노래 정보 인쇄 활성화"
 
-#: src/main.rs:122 src/main.rs:212 src/main.rs:227
+#: src/main.rs:121 src/main.rs:211 src/main.rs:226
 msgid "Disable MPRIS support"
 msgstr "MPRIS 지원 비활성화"
 
-#: src/main.rs:127
+#: src/main.rs:126
 msgid "Recognize one song from a sound file or microphone and print its info."
 msgstr ""
 "사운드 파일이나 마이크에서 노래 하나를 인식하고 해당 정보를 인쇄합니다."
 
-#: src/main.rs:153
+#: src/main.rs:152
 msgid "Recognize a file instead of using mic input"
 msgstr "마이크 입력을 사용하는 대신 파일 인식"
 
-#: src/main.rs:158
+#: src/main.rs:157
 msgid ""
 "Generate a Shazam fingerprint from a sound file, perform song recognition "
 "towards Shazam's servers and print obtained information to the standard "
 "output."
 msgstr "사용할 오디오 장치 지정하기"
 
-#: src/main.rs:162
+#: src/main.rs:161
 msgid "The audio file to recognize."
 msgstr "인식할 오디오 파일입니다."
 
-#: src/main.rs:167
+#: src/main.rs:166
 msgid ""
 "Recognize a currently playing song using the microphone and print obtained "
 "information to the standard output"
@@ -115,17 +115,17 @@ msgstr ""
 "마이크를 사용하여 현재 재생 중인 노래를 인식하고 얻은 정보를 표준 출력으로 인"
 "쇄합니다."
 
-#: src/main.rs:177
+#: src/main.rs:176
 msgid ""
 "Generate a Shazam fingerprint from a sound file, and print it to the "
 "standard output."
 msgstr "사운드 파일에서 Shazam 지문을 생성하고 표준 출력으로 인쇄합니다."
 
-#: src/main.rs:181
+#: src/main.rs:180
 msgid "The .WAV or .MP3 file to generate an audio fingerprint for."
 msgstr "오디오 지문을 생성할 .WAV 또는 .MP3 파일입니다."
 
-#: src/main.rs:186
+#: src/main.rs:185
 msgid ""
 "Take a data-URI Shazam fingerprint, perform song recognition towards "
 "Shazam's servers and print obtained information to the standard output."
@@ -133,19 +133,19 @@ msgstr ""
 "data-URI Shazam 지문을 가져와 Shazam 서버에 대한 노래 인식을 수행하고 얻은 정"
 "보를 표준 출력으로 인쇄합니다."
 
-#: src/main.rs:190
+#: src/main.rs:189
 msgid "The data-URI Shazam fingerprint to recognize."
 msgstr "인식할 데이터 URI Shazam 지문입니다."
 
-#: src/main.rs:202
+#: src/main.rs:201
 msgid "The default action. Display a GUI."
 msgstr "기본 동작입니다. GUI를 표시합니다."
 
-#: src/main.rs:206 src/main.rs:221
+#: src/main.rs:205 src/main.rs:220
 msgid "An optional audio file to recognize on the launch of the application."
 msgstr "애플리케이션 실행 시 인식할 선택적 오디오 파일입니다."
 
-#: src/main.rs:217
+#: src/main.rs:216
 msgid ""
 "Launch the GUI, but don't recognize audio through the microphone as soon as "
 "it is launched (rather than expecting the user to click on a button)."
@@ -153,59 +153,63 @@ msgstr ""
 "GUI를 실행하되, (사용자가 버튼을 클릭할 것으로 예상하지 않고) 실행하자마자 마"
 "이크를 통해 오디오를 인식하지 않도록 합니다."
 
-#: src/core/microphone_thread.rs:50
+#: src/core/http_thread.rs:129 src/fingerprinting/communication.rs:75
+msgid "Your IP has been rate-limited"
+msgstr ""
+
+#: src/core/microphone_thread.rs:58
 msgid "Microphone error:"
 msgstr "마이크 오류:"
 
-#: src/core/microphone_thread.rs:55
+#: src/core/microphone_thread.rs:68
 msgid "Failed to get default input config"
 msgstr "기본 입력 구성을 가져오지 못했습니다"
 
-#: src/fingerprinting/signature_format.rs:93
+#: src/fingerprinting/signature_format.rs:97
 msgid "Invalid sample rate in decoded Shazam packet"
 msgstr "디코딩된 Shazam 패킷의 샘플 속도가 잘못되었습니다"
 
-#: src/fingerprinting/signature_format.rs:126
+#: src/fingerprinting/signature_format.rs:139
 msgid "Invalid frequency band in decoded Shazam packet"
 msgstr "디코딩된 Shazam 패킷의 주파수 대역이 잘못되었습니다"
 
-#: src/fingerprinting/signature_format.rs:201
+#: src/fingerprinting/signature_format.rs:220
 msgid "Invalid sample rate passed when encoding Shazam packet"
 msgstr "Shazam 패킷을 인코딩할 때 잘못된 샘플 속도가 전달되었습니다"
 
-#: src/gui/main_window.rs:446 src/gui/main_window.rs:503
+#: src/gui/main_window.rs:496 src/gui/main_window.rs:551
 msgid "Unable to enable MPRIS support"
 msgstr "MPRIS 지원을 활성화할 수 없습니다"
 
-#: src/gui/main_window.rs:548
+#: src/gui/main_window.rs:607
 msgid "Song recognized"
 msgstr "인식된 노래"
 
-#: src/gui/main_window.rs:653
+#: src/gui/main_window.rs:747
 msgid "Are you sure you want to wipe history?"
 msgstr ""
 
-#: src/gui/main_window.rs:654
+#: src/gui/main_window.rs:748
 msgid "_Yes"
 msgstr ""
 
-#: src/gui/main_window.rs:654
+#: src/gui/main_window.rs:748
 msgid "_No"
 msgstr ""
 
-#: src/gui/preferences.rs:53
+#: src/gui/preferences.rs:50
 msgid "When parsing the preferences file:"
 msgstr "환경설정 파일을 구문 분석하는 경우:"
 
-#: src/gui/preferences.rs:86
+#: src/gui/preferences.rs:95
 msgid "When saving the preferences file:"
 msgstr "환경설정 파일을 저장하는 경우:"
 
-#: src/gui/song_history_interface.rs:95
+#: src/gui/song_history_interface.rs:93
 msgid "Error when reading the song history on the disk:"
 msgstr "디스크에서 노래 기록을 읽는 동안 오류 발생:"
 
-#: src/gui/song_history_interface.rs:170
+#: src/gui/song_history_interface.rs:168
 msgid "Error when reading the favorites on the disk:"
 msgstr ""
 
@@ -234,106 +238,114 @@ msgid "Shazam servers are not reachable, are you connected?"
 msgstr "Shazam 서버가 연결이 안 되는데, 연결되셨나요?"
 
 #: translations/interface.ui.h:7
+msgid "ERROR: Your IP has been rate-limited"
+msgstr ""
+
+#: translations/interface.ui.h:8
 msgid "Recognition results"
 msgstr "인식 결과"
 
-#: translations/interface.ui.h:8
+#: translations/interface.ui.h:9
 msgid "Search on YouTube"
 msgstr "YouTube에서 검색하기"
 
-#: translations/interface.ui.h:9
+#: translations/interface.ui.h:10
 msgid "Search..."
 msgstr ""
 
-#: translations/interface.ui.h:10
+#: translations/interface.ui.h:11
 msgid "Audio input"
 msgstr "오디오 입력"
 
-#: translations/interface.ui.h:11
+#: translations/interface.ui.h:12
 msgid "Device"
 msgstr ""
 
-#: translations/interface.ui.h:12
+#: translations/interface.ui.h:13
 msgid "Volume:"
 msgstr ""
 
-#: translations/interface.ui.h:13
+#: translations/interface.ui.h:14
 msgid "History options..."
 msgstr ""
 
-#: translations/interface.ui.h:14
+#: translations/interface.ui.h:15
 msgid "Recognition history"
 msgstr "인식 히스토리"
 
-#: translations/interface.ui.h:15
+#: translations/interface.ui.h:16
 msgid "Song name"
 msgstr "노래 이름"
 
-#: translations/interface.ui.h:16
+#: translations/interface.ui.h:17
 msgid "Album"
 msgstr "앨범"
 
-#: translations/interface.ui.h:17
+#: translations/interface.ui.h:18
 msgid "Recognition date"
 msgstr "인식 날짜"
 
-#: translations/interface.ui.h:18
+#: translations/interface.ui.h:19
 msgid "View favorites"
 msgstr ""
 
-#: translations/interface.ui.h:19
+#: translations/interface.ui.h:20
 msgid "Application menu"
 msgstr ""
 
-#: translations/interface.ui.h:20
+#: translations/interface.ui.h:21
 msgid "Export to CSV"
 msgstr "CSV로 내보내기"
 
-#: translations/interface.ui.h:21
+#: translations/interface.ui.h:22
 msgid "Favorites"
 msgstr ""
 
-#: translations/interface.ui.h:22
-msgid "Show notifications"
-msgstr ""
-
 #: translations/interface.ui.h:23
-msgid "Enable MPRIS"
+msgid "General preferences"
 msgstr ""
 
 #: translations/interface.ui.h:24
-msgid "About..."
+msgid "Enable MPRIS"
 msgstr ""
 
 #: translations/interface.ui.h:25
-msgid "Delete history"
+msgid "Show notifications"
 msgstr ""
 
 #: translations/interface.ui.h:26
+msgid "About..."
+msgstr ""
+
+#: translations/interface.ui.h:27
+msgid "Delete history"
+msgstr ""
+
+#: translations/interface.ui.h:28
 msgid "Select a file to recognize"
 msgstr "인식할 파일을 선택합니다"
 
-#: translations/interface.ui.h:27
+#: translations/interface.ui.h:29
 msgid "Copy artist and track"
 msgstr "아티스트 및 트랙 복사하기"
 
-#: translations/interface.ui.h:28
+#: translations/interface.ui.h:30
 msgid "Copy artist"
 msgstr "아티스트 복사하기"
 
-#: translations/interface.ui.h:29
+#: translations/interface.ui.h:31
 msgid "Copy track name"
 msgstr "트랙 이름 복사하기"
 
-#: translations/interface.ui.h:30
+#: translations/interface.ui.h:32
 msgid "Copy album"
 msgstr "앨범 복사하기"
 
-#: translations/interface.ui.h:31
+#: translations/interface.ui.h:33
 msgid "Add to Favorites"
 msgstr ""
 
-#: translations/interface.ui.h:32
+#: translations/interface.ui.h:34
 msgid "Remove from Favorites"
 msgstr ""
 

@@ -94,6 +94,17 @@
                                     </attributes>
                                   </object>
                                 </child>
+                                <child>
+                                  <object class="GtkLabel" id="rate_limited_message">
+                                    <property name="label" translatable="yes">ERROR: Your IP has been rate-limited</property>
+                                    <property name="margin-top">5</property>
+                                    <property name="visible">False</property>
+                                    <attributes>
+                                      <attribute name="weight" value="bold"/>
+                                      <attribute name="foreground" value="#a4a400000000"/>
+                                    </attributes>
+                                  </object>
+                                </child>
                               </object>
                             </child>
                             <child>
