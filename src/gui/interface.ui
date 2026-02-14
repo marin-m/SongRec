@@ -536,7 +536,7 @@
     </section>
   </menu>
   <object class="AdwAboutDialog" id="about_dialog">
-    <property name="application-icon">audio-x-generic</property>
+    <property name="application-icon">re.fossplant.songrec</property>
     <property name="application-name">Songrec</property>
     <property name="developer-name">Marin Moulinier - Fossplant.re</property>
     <property name="developers">Marin Moulinier https://moulinier.dev/
