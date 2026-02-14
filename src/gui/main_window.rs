@@ -56,6 +56,7 @@ struct App {
 
     ctx_selected_item: Rc<RefCell<Option<HistoryEntry>>>,
     ctx_buffered_log: Rc<RefCell<String>>,
+    ctx_logger_source_id: Rc<RefCell<Option<glib::source::SourceId>>>,
 
     gui_tx: async_channel::Sender<GUIMessage>,
     gui_rx: async_channel::Receiver<GUIMessage>,
@@ -114,6 +115,7 @@ impl App {
 
         let ctx_selected_item: Rc<RefCell<Option<HistoryEntry>>> = Rc::new(RefCell::new(None));
         let ctx_buffered_log: Rc<RefCell<String>> = Rc::new(RefCell::new(String::new()));
+        let ctx_logger_source_id: Rc<RefCell<Option<glib::source::SourceId>>> = Rc::new(RefCell::new(None));
 
         let preferences_interface: PreferencesInterface = PreferencesInterface::new();
         let old_preferences: Preferences = preferences_interface.preferences.clone();
@@ -129,6 +131,7 @@ impl App {
 
             ctx_selected_item,
             ctx_buffered_log,
+            ctx_logger_source_id,
 
             gui_tx,
             gui_rx,
@@ -441,7 +444,6 @@ impl App {
         let old_device_name = self.old_preferences.current_device_name.clone();
 
         let window: gtk::ApplicationWindow = self.builder.object("main_window").unwrap();
-        let about_dialog: adw::AboutDialog = self.builder.object("about_dialog").unwrap();
         let adw_combo_row: adw::ComboRow = self.builder.object("audio_inputs").unwrap();
         let g_list_store: gio::ListStore = self.builder.object("audio_inputs_model").unwrap();
         let microphone_switch: adw::SwitchRow = self.builder.object("microphone_switch").unwrap();
@@ -485,7 +487,7 @@ impl App {
 
             while let Ok(gui_message) = gui_rx.recv().await {
                 if let AppendToLog(log_string) = gui_message {
-                    const MAX_LOG_SIZE: usize = 5 * 1024 * 1024; // 5 MB
+                    const MAX_LOG_SIZE: usize = 2 * 1024 * 1024; // 2 MB
 
                     {
                         let  buffer_ptr: &mut String = &mut *ctx_buffered_log.borrow_mut();
@@ -496,9 +498,6 @@ impl App {
                         }
                     }
 
-                    if about_dialog.is_visible() {
-                        about_dialog.set_debug_info(&*ctx_buffered_log.borrow());
-                    }
                 } else {
                     if let MicrophoneVolumePercent(_) = gui_message {
                         trace!("Received GUI message: {:?}", gui_message);
@@ -765,6 +764,7 @@ impl App {
         let spinner_row: adw::PreferencesRow = self.builder.object("spinner_row").unwrap();
 
         let ctx_buffered_log = self.ctx_buffered_log.clone();
+        let ctx_logger_source_id = self.ctx_logger_source_id.clone();
 
         let action_show_about = gio::ActionEntry::builder("show-about")
             .activate(move |window, _, _| {
@@ -772,6 +772,27 @@ impl App {
                 about_dialog.present(Some(window));
 
                 about_dialog.set_debug_info(&*ctx_buffered_log.borrow());
+
+                // Sync the debug info with the About modal at most every
+                // 1 sec as it may require a lot of text rendering power
+                // each time
+
+                let ctx_buffered_log = ctx_buffered_log.clone();
+                let ctx_logger_source_id_2 = ctx_logger_source_id.clone();
+                let about_dialog = about_dialog.clone();
+
+                if *ctx_logger_source_id.borrow() == None {
+                    *ctx_logger_source_id.borrow_mut() = Some(glib::source::timeout_add_seconds_local(1, move ||
+                        if about_dialog.is_visible() {
+                            about_dialog.set_debug_info(&*ctx_buffered_log.borrow());
+                            glib::ControlFlow::Continue
+                        }
+                        else {
+                            *ctx_logger_source_id_2.borrow_mut() = None;
+                            glib::ControlFlow::Break
+                        }
+                    ));
+                }
             })
             .build();
 
