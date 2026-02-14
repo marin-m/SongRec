@@ -15,7 +15,7 @@ Features:
 
 A (command-line only) Python version, which I made before rewriting in Rust for performance, is also available for demonstration purposes. It supports file recognition only.
 
-<center>[<img src="packaging/flathub_badge_black.svg?raw=true">](https://flathub.org/en/apps/re.fossplant.songrec)</center>
+[![Get it on Flathub](packaging/flathub_badge_black.svg)](https://flathub.org/en/apps/re.fossplant.songrec)
 
 ## How it works
 
