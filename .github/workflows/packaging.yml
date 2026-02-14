@@ -21,4 +21,4 @@ jobs:
       - name: Ensure metainfo.xml validity
         run: appstreamcli validate packaging/rootfs/usr/share/metainfo/re.fossplant.songrec.metainfo.xml
       - name: Build Debian package
-        run: rm Cargo.lock && ./packaging/ppa/build_binary_package.sh
+        run: rm Cargo.lock && cargo update && ./packaging/ppa/build_binary_package.sh
