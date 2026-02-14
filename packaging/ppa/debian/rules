@@ -19,9 +19,9 @@
 
 override_dh_auto_build:
 	rm -f Cargo.lock
-	cargo-1.89 generate-lockfile || cargo generate-lockfile
-	cargo-1.89 --offline fetch --verbose || cargo --offline fetch --verbose
-	cargo-1.89 --offline build --release --verbose || cargo --offline build --release --verbose
+	cargo-1.89 generate-lockfile || cargo generate-lockfile
+	cargo-1.89 generate-lockfile || cargo --offline fetch --verbose
+	cargo --offline build --release --verbose || cargo --offline build --release --verbose
 
 override_dh_auto_install:
 	mkdir -p $(CURDIR)/debian/songrec
