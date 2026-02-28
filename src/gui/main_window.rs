@@ -728,8 +728,13 @@ impl App {
                                 && (microphone_switch.is_active() || loopback_switch.is_active()))
                             {
                                 error!("Displaying error: {}", string);
-                                let dialog = gtk::AlertDialog::builder().message(&string).build();
-                                dialog.show(Some(&window));
+                                let dialog = adw::AlertDialog::builder()
+                                    .body(&string)
+                                    .close_response("ok")
+                                    .default_response("ok")
+                                    .build();
+                                dialog.add_responses(&[("ok", &gettext("_Ok"))]);
+                                glib::spawn_future_local(dialog.choose_future(Some(&window)));
 
                                 if string != gettext("No match for this song") {
                                     Self::notify_application_error(
@@ -958,19 +963,23 @@ impl App {
                         }
 
                         WipeSongHistory => {
-                            let dialog = gtk::AlertDialog::builder()
-                                .message(&gettext("Are you sure you want to wipe history?"))
-                                .buttons(vec![gettext("_Yes"), gettext("_No")])
-                                .default_button(0)
-                                .cancel_button(1)
+                            let dialog = adw::AlertDialog::builder()
+                                .body(&gettext("Are you sure you want to wipe history?"))
+                                .default_response("yes")
+                                .close_response("no")
                                 .build();
+
+                            dialog.add_responses(&[
+                                ("yes", &gettext("_Yes")),
+                                ("no", &gettext("_No")),
+                            ]);
 
                             let song_history_interface = song_history_interface.clone();
                             dialog.choose(
                                 Some(&window),
                                 None::<&gio::Cancellable>,
                                 move |result| {
-                                    if result == Ok(0) {
+                                    if result == "yes" {
                                         song_history_interface.borrow_mut().wipe_and_save();
                                     }
                                 },
