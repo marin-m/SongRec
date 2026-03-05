@@ -50,29 +50,6 @@ parts:
   songrec:
     build-packages:
       - libasound2-dev
-      - libgtk-4-dev
-      - libsoup-3.0-dev
-      - libdbus-1-dev
-      - libadwaita-1-dev
-      - libpulse-dev
-      - librsvg2-dev
-      - libffi-dev
-
-    stage-packages:
-      - pipewire-pulse
-      - pipewire-alsa
-      - libasound2
-      - libgtk-4-1
-      - libsoup-3.0-0
-      - libadwaita-1-0
-      - libpulse0
-      - gir1.2-gtk-4.0
-      - gir1.2-rsvg-2.0
-      - librsvg2-common
-      - librsvg2-bin
-      - libdbus-1-3
-      - ffmpeg
-      - libffi8
 
     plugin: rust
     rust-use-global-lto: true
@@ -86,13 +63,31 @@ parts:
     source-subdir: snapcraft-assets
     build-packages:
       - libasound2-dev
-
     stage-packages:
-      - pipewire-pulse
-      - pipewire-alsa
       - libasound2
       - libasound2-plugins
       - yad
+    stage:
+      # restrict to only audio-related files - you need to ensure
+      # that gtk3 is staged for yad to work correctly, to prompt
+      # users to connect the alsa plug or proceed with pulseaudio.
+      #
+      # This helps prevent symbol conflicts in situations where
+      # you're using a non-default library, such as those that the
+      # gnome-3-34 extension for core18 provides.
+      - etc/asound.conf
+      - snap/command-chain/alsa-launch
+      - usr/bin/yad*
+      - usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/alsa-lib
+      - usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libasound*
+      - usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libdnsfile*
+      - usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libFLAC*
+      - usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libjack*
+      - usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libpulse*
+      - usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libsamplerate*
+      - usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libspeex*
+      - usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libvorbis*
+      - usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/pulseaudio
   
   translations:
     plugin: dump
