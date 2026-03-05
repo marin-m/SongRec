@@ -21,9 +21,9 @@ confinement: strict # use 'strict' once you have the right plugs and slots
 
 apps:
   songrec:
+    command: bin/songrec
     command-chain:
     - snap/command-chain/alsa-launch
-    command: bin/songrec
     desktop: usr/share/applications/com.github.marinm.songrec.desktop
     extensions: [gnome]
     plugs:
@@ -31,13 +31,9 @@ apps:
       - network
       - network-status
       - unity7
-      - alsa
       - audio-record
       - audio-playback
     slots: [dbus-svc, mpris]
-
-environment:
-  ALWAYS_USE_PULSEAUDIO: '1'
 
 slots:
   dbus-svc: # name that is used with 'snap connect' on slots side
@@ -45,49 +41,19 @@ slots:
     bus: session
     name: com.github.marinm.songrec
 
-
 parts:
   songrec:
-    build-packages:
-      - libasound2-dev
-
     plugin: rust
     rust-use-global-lto: true
     source: .
 
-    after: [alsa-mixin]
-
-  alsa-mixin:
-    plugin: dump
-    source: https://github.com/diddlesnaps/snapcraft-alsa.git
-    source-subdir: snapcraft-assets
     build-packages:
       - libasound2-dev
     stage-packages:
-      - libasound2
-      - libasound2-plugins
-      - yad
-    stage:
-      # restrict to only audio-related files - you need to ensure
-      # that gtk3 is staged for yad to work correctly, to prompt
-      # users to connect the alsa plug or proceed with pulseaudio.
-      #
-      # This helps prevent symbol conflicts in situations where
-      # you're using a non-default library, such as those that the
-      # gnome-3-34 extension for core18 provides.
-      - etc/asound.conf
-      - snap/command-chain/alsa-launch
-      - usr/bin/yad*
-      - usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/alsa-lib
-      - usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libasound*
-      - usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libdnsfile*
-      - usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libFLAC*
-      - usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libjack*
-      - usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libpulse*
-      - usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libsamplerate*
-      - usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libspeex*
-      - usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libvorbis*
-      - usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/pulseaudio
+      - libdrm-common
+      - libproxy1v5
+  
+    after: [share, alsa-mixin]
   
   translations:
     plugin: dump
@@ -98,12 +64,10 @@ parts:
       snapcraftctl pull
 
       mkdir -p bin/translations
-      mkdir -p snap/command-chain
+      # mkdir -p snap/command-chain
       mv locale bin/translations/
-      cp -a bin/translations snap/command-chain/
+      # cp -a bin/translations snap/command-chain/
       rm -f README.md interface.ui.h songrec.pot update_po_files.sh
-  
-    after: [share]
 
   share:
     plugin: dump
@@ -119,10 +83,33 @@ parts:
       sed -i -e 's|re.fossplant.songrec.desktop|com.github.marinm.songrec.desktop|g' usr/share/metainfo/re.fossplant.songrec.metainfo.xml
       sed -i -e 's|Icon=re.fossplant.songrec|Icon=/usr/share/icons/hicolor/scalable/apps/re.fossplant.songrec.svg|g' usr/share/applications/com.github.marinm.songrec.desktop
 
+  alsa-mixin:
+    plugin: dump
+    source: packaging/rootfs-snap/
+    source-type: local
+
+    stage-packages:
+      - libasound2-plugins
+    stage:
+      - etc/asound.conf
+      - snap/command-chain/alsa-launch
+      - usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/alsa-lib
+      - usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libasound*
+      - usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libdnsfile*
+      - usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libFLAC*
+      - usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libjack*
+      - usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libpulse*
+      - usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libsamplerate*
+      - usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libspeex*
+      - usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libvorbis*
+      - usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/pulseaudio
+
 layout:
+  /usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libproxy:
+    bind: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libproxy
   /usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/alsa-lib:
     bind: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/alsa-lib
-  /usr/share/X11/XErrorDB:
-    symlink: $SNAP/gpu-2404/X11/XErrorDB
   /usr/share/alsa:
     bind: $SNAP/usr/share/alsa
+  /usr/share/libdrm:
+    bind: $SNAP/usr/share/libdrm
