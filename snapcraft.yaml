@@ -48,6 +48,7 @@ parts:
     source: .
 
     build-packages:
+      - rustup
       - libasound2-dev
     stage-packages:
       - libdrm-common
