@@ -90,13 +90,6 @@ impl App {
         }));
         Self::load_resources();
 
-        gtk::init().unwrap();
-
-        if let Some(display) = gdk::Display::default() {
-            let icon_theme = gtk::IconTheme::for_display(&display);
-            icon_theme.add_resource_path("/re/fossplant/songrec/");
-        }
-
         let builder = gtk::Builder::new();
 
         let builder_scope = gtk::BuilderRustScope::new();
@@ -179,6 +172,16 @@ impl App {
     fn load_resources() {
         gio::resources_register_include!("compiled.gresource")
             .expect("Failed to register resources.");
+
+        gtk::init().unwrap();
+
+        if let Some(display) = gdk::Display::default() {
+            let icon_theme = gtk::IconTheme::for_display(&display);
+            icon_theme.add_resource_path("/re/fossplant/songrec/");
+        }
+
+        let css_theme = gtk::CssProvider::new();
+        css_theme.load_from_resource("/re/fossplant/songrec/style.css");
     }
 
     fn run(self, set_recording: bool, enable_mpris_cli: bool, input_file: Option<String>) {
