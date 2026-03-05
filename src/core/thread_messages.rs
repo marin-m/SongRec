@@ -73,7 +73,7 @@ pub enum MicrophoneMessage {
 
 pub enum ProcessingMessage {
     ProcessAudioFile(String),
-    ProcessAudioSamples(Box<Vec<i16>>), // Prefer to use heap across threads to avoid stack overflow
+    ProcessAudioSamples(Box<Vec<f32>>), // Prefer to use heap across threads to avoid stack overflow
 }
 
 pub enum HTTPMessage {

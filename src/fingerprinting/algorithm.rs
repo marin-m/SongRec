@@ -1,4 +1,6 @@
 use chfft::RFft1D;
+use rodio::conversions::SampleTypeConverter;
+use rodio::nz;
 use std::collections::HashMap;
 use std::error::Error;
 use std::io::BufReader;
@@ -58,10 +60,10 @@ impl SignatureGenerator {
         // Downsample the raw PCM samples to 16 KHz, and skip to the middle of the file
         // in order to increase recognition odds. Take 12 seconds of sample.
 
-        let converted_file = rodio::source::UniformSourceIterator::new(decoder?, 1, 16000);
+        let converted_file = rodio::source::UniformSourceIterator::new(decoder?, nz!(1), nz!(16000));
 
-        let raw_pcm_samples: Vec<i16> = converted_file.collect();
-        let mut raw_pcm_samples_slice: &[i16] = &raw_pcm_samples;
+        let raw_pcm_samples: Vec<f32> = converted_file.collect();
+        let mut raw_pcm_samples_slice: &[f32] = &raw_pcm_samples;
 
         let slice_len = raw_pcm_samples_slice.len().min(12 * 16000);
 
@@ -77,7 +79,7 @@ impl SignatureGenerator {
         ))
     }
 
-    pub fn make_signature_from_buffer(s16_mono_16khz_buffer: &[i16]) -> DecodedSignature {
+    pub fn make_signature_from_buffer(f32_mono_16khz_buffer: &[f32]) -> DecodedSignature {
         let mut this = SignatureGenerator {
             ring_buffer_of_samples: vec![0i16; 2048],
             ring_buffer_of_samples_index: 0,
@@ -96,12 +98,14 @@ impl SignatureGenerator {
 
             signature: DecodedSignature {
                 sample_rate_hz: 16000,
-                number_samples: s16_mono_16khz_buffer.len() as u32,
+                number_samples: f32_mono_16khz_buffer.len() as u32,
                 frequency_band_to_sound_peaks: HashMap::new(),
             },
         };
 
-        for chunk in s16_mono_16khz_buffer.chunks_exact(128) {
+        let s16_buffer: Vec<i16> = SampleTypeConverter::<_, i16>::new(f32_mono_16khz_buffer.iter().copied()).collect();
+
+        for chunk in s16_buffer.chunks_exact(128) {
             this.do_fft(chunk);
 
             this.do_peak_spreading();
