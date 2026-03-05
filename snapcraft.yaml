@@ -48,21 +48,14 @@ parts:
     source: .
 
     build-packages:
-      - pkg-config
+      - rustup
       - libasound2-dev
     stage-packages:
       - libdrm-common
       - libproxy1v5
   
-    after: [share, alsa-mixin, rust-deps]
-
-  rust-deps:
-    plugin: nil
-    build-packages:
-      - curl
-    override-pull: |
-      curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-
+    after: [share, alsa-mixin]
+  
   translations:
     plugin: dump
     source: translations/
@@ -72,7 +65,9 @@ parts:
       snapcraftctl pull
 
       mkdir -p bin/translations
+      # mkdir -p snap/command-chain
       mv locale bin/translations/
+      # cp -a bin/translations snap/command-chain/
       rm -f README.md interface.ui.h songrec.pot update_po_files.sh
 
   share:
