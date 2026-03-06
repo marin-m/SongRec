@@ -4,7 +4,7 @@ use std::slice::Iter;
 use std::num::NonZero;
 
 use crate::core::thread_messages::{MicrophoneMessage::*, *};
-use crate::gui::preferences::PreferencesInterface;
+use crate::core::preferences::PreferencesInterface;
 
 use rodio::conversions::SampleTypeConverter;
 use rodio::nz;
@@ -95,88 +95,83 @@ pub fn microphone_thread(
                 let processing_already_ongoing_2 = processing_already_ongoing.clone();
 
                 let preferences_interface = preferences_interface.clone();
-                stream = Some(match config.sample_format() {
-                    cpal::SampleFormat::F32 => match device.build_input_stream(
-                        &config.into(),
-                        move |data, _: &_| {
-                            write_data(
-                                data.into_iter().copied().collect(),
-                                &processing_tx_2,
-                                gui_tx_3.clone(),
-                                channels,
-                                sample_rate,
-                                &mut twelve_seconds_buffer,
-                                &mut number_unprocessed_samples,
-                                &mut number_unmeasured_samples,
-                                &processing_already_ongoing_2,
-                                &preferences_interface,
-                            )
-                        },
-                        err_fn_cb,
-                        None,
-                    ) {
-                        Ok(res) => res,
-                        Err(err) => {
-                            err_fn_3(Box::new(err));
-                            return;
-                        }
-                    },
-                    cpal::SampleFormat::I16 => match device.build_input_stream(
-                        &config.into(),
-                        move |data, _: &_| {
-                            write_data(
-                                SampleTypeConverter::<Copied<Iter<i16>>, f32>::new(data.into_iter().copied()).collect(),
-                                &processing_tx_2,
-                                gui_tx_3.clone(),
-                                channels,
-                                sample_rate,
-                                &mut twelve_seconds_buffer,
-                                &mut number_unprocessed_samples,
-                                &mut number_unmeasured_samples,
-                                &processing_already_ongoing_2,
-                                &preferences_interface,
-                            )
-                        },
-                        err_fn_cb,
-                        None,
-                    ) {
-                        Ok(res) => res,
-                        Err(err) => {
-                            err_fn_3(Box::new(err));
-                            return;
-                        }
-                    },
+                macro_rules! build_input_streams {
+                    ($($sample_format:tt, $generic:ty);+) => {
+                        match config.sample_format() {
 
-                    // //!\ WIP see https://dev.to/sgchris/returning-iterators-from-functions-4cbh
-                    // //!\ WIP see https://github.com/RustAudio/rodio/blob/a352fb53846b47523d828b276b6d625f251aabb2/src/microphone.rs#L280
+                            // See https://github.com/RustAudio/rodio/blob/a352fb53846b47523d828b276b6d625f251aabb2/src/microphone.rs#L280
+                            // See https://dev.to/sgchris/returning-iterators-from-functions-4cbh
 
-                    cpal::SampleFormat::U16 => match device.build_input_stream(
-                        &config.into(),
-                        move |data, _: &_| {
-                            write_data(
-                                SampleTypeConverter::<Copied<Iter<u16>>, f32>::new(data.into_iter().copied()).collect(),
-                                &processing_tx_2,
-                                gui_tx_3.clone(),
-                                channels,
-                                sample_rate,
-                                &mut twelve_seconds_buffer,
-                                &mut number_unprocessed_samples,
-                                &mut number_unmeasured_samples,
-                                &processing_already_ongoing_2,
-                                &preferences_interface,
-                            )
-                        },
-                        err_fn_cb,
-                        None,
-                    ) {
-                        Ok(res) => res,
-                        Err(err) => {
-                            err_fn_3(Box::new(err));
-                            return;
+                            cpal::SampleFormat::F32 => match device.build_input_stream(
+                                &config.into(),
+                                move |data, _: &_| {
+                                    write_data(
+                                        data.into_iter().copied().collect(),
+                                        &processing_tx_2,
+                                        gui_tx_3.clone(),
+                                        channels,
+                                        sample_rate,
+                                        &mut twelve_seconds_buffer,
+                                        &mut number_unprocessed_samples,
+                                        &mut number_unmeasured_samples,
+                                        &processing_already_ongoing_2,
+                                        &preferences_interface,
+                                    )
+                                },
+                                err_fn_cb,
+                                None,
+                            ) {
+                                Ok(res) => res,
+                                Err(err) => {
+                                    err_fn_3(Box::new(err));
+                                    return;
+                                }
+                            },
+                            $(
+                                cpal::SampleFormat::$sample_format => match device.build_input_stream(
+                                    &config.into(),
+                                    move |data, _: &_| {
+                                        write_data(
+                                            SampleTypeConverter::<Copied<Iter<$generic>>, f32>::new(data.into_iter().copied()).collect(),
+                                            &processing_tx_2,
+                                            gui_tx_3.clone(),
+                                            channels,
+                                            sample_rate,
+                                            &mut twelve_seconds_buffer,
+                                            &mut number_unprocessed_samples,
+                                            &mut number_unmeasured_samples,
+                                            &processing_already_ongoing_2,
+                                            &preferences_interface,
+                                        )
+                                    },
+                                    err_fn_cb,
+                                    None,
+                                ) {
+                                    Ok(res) => res,
+                                    Err(err) => {
+                                        err_fn_3(Box::new(err));
+                                        return;
+                                    }
+                                },
+                            )+
+                            _ => unreachable!(),
                         }
-                    },
-                    _ => unreachable!(),
-                });
+                    };
+                }
+
+                stream = Some(build_input_streams!(
+                    F64, f64;
+                    I8, i8;
+                    I16, i16;
+                    I24, cpal::I24;
+                    I32, i32;
+                    I64, i64;
+                    U8, u8;
+                    U16, u16;
+                    U24, cpal::U24;
+                    U32, u32;
+                    U64, u64
+                ));
 
                 stream.as_ref().unwrap().play().unwrap();
 

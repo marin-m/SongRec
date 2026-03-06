@@ -45,9 +45,9 @@ gio = { version = "0.21.5", features = ["v2_74"], optional = true }
 percent-encoding = { version = "2.1.0", optional = true } # For percent-encoding contents in URLs
 chrono = { version = "0.4.13" } # For formatting dates
 gdk-pixbuf = { version = "0.21.5", optional = true }
-directories = {version = "6.0", optional = true }
+directories = {version = "6.0" }
 toml = "1.0.1"
-app_dirs = { version = "1.2.1", optional = true } # For obtaining and creating either the %APPDATA%, the dotfile path or similar
+app_dirs = { version = "1.2.1" } # For obtaining and creating either the %APPDATA%, the dotfile path or similar
 soup3 = { version = "0.8.0", features = [ "v3_4" ] }
 # soup3 = { git = "https://gitlab.gnome.org/World/Rust/soup3-rs.git", rev = "0bae30e", features = [ "v3_4" ] }
 
@@ -61,7 +61,7 @@ glib-build-tools = "0.21.0"
 
 [features]
 default = ["gui", "ffmpeg", "pulse", "mpris" ]
-gui = ["gtk", "adw", "gdk", "gio", "percent-encoding", "ksni", "directories", "app_dirs", "gdk-pixbuf"]
+gui = ["gtk", "adw", "gdk", "gio", "percent-encoding", "ksni", "gdk-pixbuf"]
 pulse = [ "pulsectl-rs", "libpulse-binding" ]
 # mpris = [ "mpris-server" ]
 mpris = [ "mpris-player" ]

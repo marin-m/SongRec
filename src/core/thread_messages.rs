@@ -1,6 +1,6 @@
 use crate::fingerprinting::signature_format::DecodedSignature;
 #[cfg(feature = "gui")]
-use crate::gui::preferences::Preferences;
+use crate::core::preferences::Preferences;
 
 use std::thread;
 

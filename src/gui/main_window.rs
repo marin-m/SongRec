@@ -29,7 +29,7 @@ use crate::utils::filesystem_operations::{
     clear_cache, obtain_favorites_csv_path, obtain_recognition_history_csv_path,
 };
 
-use crate::gui::preferences::{Preferences, PreferencesInterface};
+use crate::core::preferences::{Preferences, PreferencesInterface};
 
 use crate::gui::context_menu::ContextMenuUtil;
 use crate::gui::history_entry::HistoryEntry;

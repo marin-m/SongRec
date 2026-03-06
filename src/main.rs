@@ -13,6 +13,7 @@ mod fingerprinting {
 mod core {
     pub mod http_task;
     pub mod logging;
+    pub mod preferences;
     pub mod microphone_thread;
     pub mod processing_thread;
     pub mod thread_messages;
@@ -28,7 +29,6 @@ mod audio_controllers {
 #[cfg(feature = "gui")]
 mod gui {
     pub mod main_window;
-    pub mod preferences;
     pub mod song_history_interface;
 
     pub mod context_menu;
@@ -39,8 +39,6 @@ mod gui {
 mod utils {
     pub mod csv_song_history;
     pub mod internationalization;
-
-    #[cfg(feature = "gui")]
     pub mod filesystem_operations;
 
     #[cfg(feature = "ffmpeg")]

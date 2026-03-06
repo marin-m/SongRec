@@ -17,7 +17,7 @@ use crate::core::thread_messages::{
     spawn_big_thread, GUIMessage, MicrophoneMessage, ProcessingMessage,
 };
 
-use crate::gui::preferences::{Preferences, PreferencesInterface};
+use crate::core::preferences::{Preferences, PreferencesInterface};
 use crate::utils::csv_song_history::SongHistoryRecord;
 // TODO re-implement this
 #[cfg(feature = "mpris")]
