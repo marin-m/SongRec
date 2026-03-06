@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Created with Cambalache 0.96.3 -->
 <gresources>
   <gresource prefix="/re/fossplant/songrec/">
     <file compressed="true" preprocess="xml-stripblanks">interface.ui</file>
