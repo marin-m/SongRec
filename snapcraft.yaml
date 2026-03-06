@@ -65,10 +65,25 @@ parts:
       snapcraftctl pull
 
       mkdir -p bin/translations
-      # mkdir -p snap/command-chain
       mv locale bin/translations/
-      # cp -a bin/translations snap/command-chain/
       rm -f README.md interface.ui.h songrec.pot update_po_files.sh
+
+  ffmpeg:
+    plugin: dump
+    source: packaging/ffmpeg/linux/
+    source-type: local
+
+    override-pull: |
+      snapcraftctl pull
+
+      mkdir -p bin
+      if [ "$SNAP_ARCH" == "amd64" ]; then
+        mv ffmpeg-*-amd64 bin/ffmpeg
+      fi
+      if [ "$SNAP_ARCH" == "arm64" ]; then
+        mv ffmpeg-*-arm64 bin/ffmpeg
+      fi
+      rm -f ffmpeg-* README.md
 
   share:
     plugin: dump
