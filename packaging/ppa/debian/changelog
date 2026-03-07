@@ -1,3 +1,21 @@
+songrec (0.6.5) bionic; urgency=low
+
+  * Update the Czech translation thanks to @Fjuro
+  * Update the Dutch translation thanks to @Vistaus
+  * Fix cross-platform support and building without the GUI (issue #231)
+  * Fix legacy command line support (PR #233 thanks to @bodoque-01)
+  * Update the Slovak translation (PR #237 thanks to @dodog)
+  * Update the Russian translation (PR #239 thanks to @AlexanderShad)
+  * Implement Snapcraft compatibility (issues #111 and #244)
+  * Update the Arabic translation thanks to @mu7basha
+  * Update the "rodio" dependency and make the ALSA device names look native
+  * Select history rows only after a left-click to better match the native GTK-4 behavior (issue #245)
+  * Handle the Context key and Ctrl+C key bindings when an history row is selected (issues #245 and #200)
+  * Fix supporting MPRIS over Flatpak (issue #214)
+  * Handle left-clicks on the system tray icon over KDE
+
+ -- Marin <marin-m@users.noreply.github.com>  Sat, 07 Mar 2026 15:07:22 +0100
+
 songrec (0.6.4) bionic; urgency=low
 
   * Add an UI button to refresh the PulseAudio device list

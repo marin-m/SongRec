@@ -58,6 +58,23 @@ https://hughsie.github.io/oars/index.html
 -->
   <content_rating type="oars-1.1" />
   <releases>
+    <release version="0.6.5" date="2026-03-07">
+      <description>
+        <p>Update the Czech translation thanks to @Fjuro</p>
+        <p>Update the Dutch translation thanks to @Vistaus</p>
+        <p>Fix cross-platform support and building without the GUI (issue #231)</p>
+        <p>Fix legacy command line support (PR #233 thanks to @bodoque-01)</p>
+        <p>Update the Slovak translation (PR #237 thanks to @dodog)</p>
+        <p>Update the Russian translation (PR #239 thanks to @AlexanderShad)</p>
+        <p>Implement Snapcraft compatibility (issues #111 and #244)</p>
+        <p>Update the Arabic translation thanks to @mu7basha</p>
+        <p>Update the "rodio" dependency and make the ALSA device names look native</p>
+        <p>Select history rows only after a left-click to better match the native GTK-4 behavior (issue #245)</p>
+        <p>Handle the Context key and Ctrl+C key bindings when an history row is selected (issues #245 and #200)</p>
+        <p>Fix supporting MPRIS over Flatpak (issue #214)</p>
+        <p>Handle left-clicks on the system tray icon over KDE</p>
+      </description>
+    </release>
     <release version="0.6.4" date="2026-02-19">
       <description>
         <p>Add an UI button to refresh the PulseAudio device list</p>
