@@ -13,6 +13,13 @@ impl ksni::Tray for SystrayInterface {
     fn icon_name(&self) -> String {
         "re.fossplant.songrec".into()
     }
+    fn activate(&mut self, _x: i32, _y: i32) {
+        self.gui_tx.try_send(GUIMessage::ShowWindow).unwrap();
+    }
+    fn watcher_offline(&self, _: ksni::OfflineReason) -> bool {
+        self.gui_tx.try_send(GUIMessage::ShowWindow).unwrap();
+        true
+    }
     fn title(&self) -> String {
         "SongRec".into()
     }
