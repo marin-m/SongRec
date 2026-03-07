@@ -45,12 +45,6 @@ sudo apt install songrec -y
 songrec
 ```
 
-Using app with Snapcraft (all Ubuntu versions until the 26.04 beta where it has bugs):
-
-```bash
-sudo snap install songrec
-```
-
 Using Flatpak (all distributions) (NOTE: with Flatpak, the GUI should work fine but some of the CLI features may not be usable due to filesystem sandboxing restrictions):
 
 ```bash
