@@ -12,7 +12,11 @@ impl AudioBackend for CpalBackend {
 
         for device in host.input_devices().unwrap() {
             let device_id = device.id().unwrap().to_string();
-            let device_description = device.description().unwrap().name().to_string();
+            let mut device_description = device.description().unwrap().name().to_string();
+
+            if &device_description == "unknown" {
+                device_description = device_id.clone();
+            }
 
             // Selecting the "upmix" or "vdownmix" input
             // source on an ALSA-based configuration may

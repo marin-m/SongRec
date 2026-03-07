@@ -49,6 +49,7 @@ parts:
 
     build-packages:
       - rustup
+      - libpipewire-0.3-dev
       - libasound2-dev
     stage-packages:
       - libdrm-common
@@ -65,6 +66,7 @@ parts:
       snapcraftctl pull
 
       mkdir -p bin/translations
+      rm -rf bin/translations/locale
       mv locale bin/translations/
       rm -f README.md interface.ui.h songrec.pot update_po_files.sh
 

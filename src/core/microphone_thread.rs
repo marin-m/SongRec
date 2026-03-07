@@ -18,12 +18,17 @@ const MAX_BUFFER_SIZE: usize = 512;
 
 pub fn microphone_thread(
     microphone_rx: async_channel::Receiver<MicrophoneMessage>,
+    microphone_tx: async_channel::Sender<MicrophoneMessage>,
     processing_tx: async_channel::Sender<ProcessingMessage>,
     gui_tx: async_channel::Sender<GUIMessage>,
     preferences_interface: Arc<Mutex<PreferencesInterface>>,
 ) {
     // Use the default host for working with audio devices.
 
+    #[cfg(target_os = "linux")]
+    let host = cpal::host_from_id(cpal::HostId::PipeWire).unwrap_or(cpal::default_host());
+
+    #[cfg(not(target_os = "linux"))]
     let host = cpal::default_host();
 
     let mut backend = get_any_backend();
@@ -121,7 +126,22 @@ pub fn microphone_thread(
                                 err_fn_cb,
                                 None,
                             ) {
-                                Ok(res) => res,
+                                Ok(res) => {
+                                    // Re-call the function in the case the backend is PulseBackend,
+                                    // because we may have appeared in the list of PulseAudio's
+                                    // source outputs now
+                                    let microphone_tx = microphone_tx.clone();
+                                    let device_name = device_name.clone();
+                                    glib::source::timeout_add_once(std::time::Duration::from_millis(50), move || {
+                                        microphone_tx
+                                            .try_send(MicrophoneMessage::MicrophoneRecordSetDevice(
+                                                device_name
+                                            ))
+                                            .unwrap();
+                                    });
+
+                                    res
+                                },
                                 Err(err) => {
                                     err_fn_3(Box::new(err));
                                     return;
@@ -147,7 +167,22 @@ pub fn microphone_thread(
                                     err_fn_cb,
                                     None,
                                 ) {
-                                    Ok(res) => res,
+                                    Ok(res) => {
+                                        // Re-call the function in the case the backend is PulseBackend,
+                                        // because we may have appeared in the list of PulseAudio's
+                                        // source outputs now
+                                        let microphone_tx = microphone_tx.clone();
+                                        let device_name = device_name.clone();
+                                        glib::source::timeout_add_once(std::time::Duration::from_millis(50), move || {
+                                            microphone_tx
+                                                .try_send(MicrophoneMessage::MicrophoneRecordSetDevice(
+                                                    device_name
+                                                ))
+                                                .unwrap();
+                                        });
+
+                                        res
+                                    },
                                     Err(err) => {
                                         err_fn_3(Box::new(err));
                                         return;
@@ -175,12 +210,11 @@ pub fn microphone_thread(
 
                 stream.as_ref().unwrap().play().unwrap();
 
-                // Re-call the function in the case the backend is PulseBackend,
-                // because we may have appeared in the list of PulseAudio's
-                // source outputs now
-                backend.set_device(&host, &device_name);
-
                 gui_tx_4.try_send(GUIMessage::MicrophoneRecording).unwrap();
+            }
+
+            MicrophoneRecordSetDevice(device_name) => {
+                backend.set_device(&host, &device_name);
             }
 
             RefreshDevices => {

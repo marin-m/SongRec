@@ -49,6 +49,7 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
     let gui_tx_3 = gui_tx.clone();
     let processing_tx_2 = processing_tx.clone();
     let microphone_tx_2 = microphone_tx.clone();
+    let microphone_tx_3 = microphone_tx.clone();
 
     let preferences_interface = Arc::new(Mutex::new(PreferencesInterface {
         preferences_file_path: None,
@@ -58,6 +59,7 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
     spawn_big_thread(move || {
         microphone_thread(
             microphone_rx,
+            microphone_tx_2,
             processing_tx_2,
             gui_tx_2,
             preferences_interface,
@@ -68,7 +70,7 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
         processing_thread(processing_rx, http_tx, gui_tx_3);
     });
 
-    glib::spawn_future_local(http_task(http_rx, gui_tx, microphone_tx_2));
+    glib::spawn_future_local(http_task(http_rx, gui_tx, microphone_tx_3));
 
     // recognize once if an input file is provided
     let do_recognize_once = parameters.recognize_once || parameters.input_file.is_some();

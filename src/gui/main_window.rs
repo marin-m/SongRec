@@ -637,11 +637,18 @@ impl App {
         // + https://gtk-rs.org/gtk4-rs/stable/latest/book/main_event_loop.html#how-to-avoid-blocking-the-main-loop
 
         let microphone_rx = self.microphone_rx.clone();
+        let microphone_tx = self.microphone_tx.clone();
         let processing_tx = self.processing_tx.clone();
         let gui_tx = self.gui_tx.clone();
         let preferences_interface = self.preferences_interface.clone();
         spawn_big_thread(move || {
-            microphone_thread(microphone_rx, processing_tx, gui_tx, preferences_interface);
+            microphone_thread(
+                microphone_rx,
+                microphone_tx,
+                processing_tx,
+                gui_tx,
+                preferences_interface,
+            );
         });
 
         let processing_rx = self.processing_rx.clone();
