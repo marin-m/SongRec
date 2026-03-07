@@ -2,21 +2,21 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Jozef Gaal <preklady@mayday.sk>, 2024, 2025, 2026.
-#
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: SongRec v0.6.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-03-07 14:51+0100\n"
-"PO-Revision-Date: 2026-02-23 23:24+0100\n"
+"PO-Revision-Date: 2026-03-07 20:31+0000\n"
 "Last-Translator: Jozef Gaal <preklady@mayday.sk>\n"
-"Language-Team: Jozef Gaal <preklady@mayday.sk>\n"
+"Language-Team: Slovak <https://weblate.fossplant.re/projects/songrec/songrec/"
+"sk/>\n"
 "Language: sk_SK\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.8\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #: src/cli_main.rs:118
 msgid "Available device:"
@@ -230,7 +230,7 @@ msgstr "Nie je možné zapnúť podporu MPRIS"
 
 #: src/gui/main_window.rs:793
 msgid "_Ok"
-msgstr ""
+msgstr "_Ok"
 
 #: src/gui/main_window.rs:866
 msgid "Song recognized"
@@ -443,7 +443,7 @@ msgstr "_Predvoľby..."
 
 #: translations/interface.ui.h:40
 msgid "About..."
-msgstr "O..."
+msgstr "O aplikácii..."
 
 #: translations/interface.ui.h:41
 msgid "Delete history"
