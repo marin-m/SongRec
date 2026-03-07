@@ -1392,8 +1392,8 @@ impl App {
         // GDK key names are available here:
         // https://gitlab.gnome.org/GNOME/gtk/-/blob/main/gdk/gdkkeysyms.h
 
-        application.set_accels_for_action("win.close", &["<Ctrl>Q", "<Primary>W"]);
-        application.set_accels_for_action("win.recognize-file", &["<Ctrl>O"]);
+        application.set_accels_for_action("win.close", &["<Primary>Q", "<Primary>W"]);
+        application.set_accels_for_action("win.recognize-file", &["<Primary>O"]);
         application.set_accels_for_action("win.display-shortcuts", &["<Primary>question"]);
         application
             .set_accels_for_action("win.show-preferences", &["<Primary>comma", "<Primary>P"]);
