@@ -1,3 +1,9 @@
+songrec (0.6.5+2) bionic; urgency=low
+
+  * The non-breaking space struck again :)
+
+ -- Marin <marin-m@users.noreply.github.com>  Sat, 07 Mar 2026 16:11:04 +0100
+
 songrec (0.6.5+1) bionic; urgency=low
 
   * Fix building on questing: Rust 1.88 is available in the repositories but the 1.89 backport isn't
