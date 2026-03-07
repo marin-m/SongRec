@@ -391,11 +391,11 @@ impl App {
             let ctx_selected_item = ctx_selected_item.clone();
 
             let cell = values[1].get::<gtk::ColumnViewCell>().unwrap();
-            let column_view = values[0]
-                .get::<gtk::ColumnViewColumn>()
-                .unwrap()
-                .column_view()
-                .unwrap();
+            /* let column_view = values[0]
+            .get::<gtk::ColumnViewColumn>()
+            .unwrap()
+            .column_view()
+            .unwrap(); */
 
             let label = gtk::Label::new(None);
             label.set_xalign(0.0);
@@ -419,6 +419,8 @@ impl App {
 
                         *ctx_selected_item.borrow_mut() = Some(record.clone());
 
+                        // TODO select/focus the item in UI here?
+
                         let unfaved_model: gio::Menu =
                             builder.object("history_context_model").unwrap();
                         let faved_model: gio::Menu =
@@ -430,6 +432,7 @@ impl App {
                         }
 
                         popover_menu.unparent();
+                        popover_menu.set_has_arrow(true);
                         popover_menu.set_parent(&label);
                         popover_menu
                             .set_pointing_to(Some(&Rectangle::new(x as i32, y as i32, 1, 1)));

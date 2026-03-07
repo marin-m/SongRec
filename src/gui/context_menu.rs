@@ -1,9 +1,10 @@
-use gdk::Rectangle;
+use gdk::{Key, ModifierType, Rectangle};
 use gio::prelude::*;
+use glib::Propagation;
 use gtk::glib::clone;
 use gtk::prelude::*;
 
-use log::{debug, error, info};
+use log::{error, info};
 use percent_encoding::{utf8_percent_encode, NON_ALPHANUMERIC};
 use std::cell::RefCell;
 use std::rc::Rc;
@@ -23,50 +24,70 @@ impl ContextMenuUtil {
         ctx_selected_item: Rc<RefCell<Option<HistoryEntry>>>,
         favorites: Rc<RefCell<FavoritesInterface>>,
     ) {
-        // TODO BIND THE CONTEXT KEY + CTRL+C CLOSURES
+        // WIP BIND THE CONTEXT KEY + CTRL+C CLOSURES
 
-        // (Use Gtk.ShortcutManager perhaps?)
+        let controller = gtk::EventControllerKey::new();
 
-        /*
         let selection: gtk::SingleSelection = column_view
             .model()
             .unwrap()
             .downcast::<gtk::SingleSelection>()
             .unwrap();
 
-        let context_key_closure = clone!(
+        controller.connect_key_pressed(clone!(
             #[weak]
             column_view,
             #[weak]
             popover_menu,
             #[weak]
             selection,
-            move |_: &gtk::GestureClick, _n_press, x, y| {
+            #[upgrade_or]
+            Propagation::Proceed,
+            move |_event, key_val, _key_code, modifier| {
                 // gesture.set_state(gtk::EventSequenceState::Claimed);
-                debug!("Selected item: {:?}", selection.selected_item());
-                if let Some(record) = selection.selected_item() {
-                    let record = record.downcast::<HistoryEntry>().unwrap();
-                    debug!("  => {}", record.song_name());
+                if key_val == Key::Menu {
+                    if let Some(record) = selection.selected_item() {
+                        let record = record.downcast::<HistoryEntry>().unwrap();
 
-                    *ctx_selected_item.borrow_mut() = Some(record.clone());
+                        *ctx_selected_item.borrow_mut() = Some(record.clone());
 
-                    let unfaved_model: gio::Menu = builder.object("history_context_model").unwrap();
-                    let faved_model: gio::Menu =
-                        builder.object("history_context_model_faved").unwrap();
-                    if favorites.borrow().is_favorite(record.get_song()) {
-                        popover_menu.set_menu_model(Some(&faved_model));
-                    } else {
-                        popover_menu.set_menu_model(Some(&unfaved_model));
+                        let unfaved_model: gio::Menu =
+                            builder.object("history_context_model").unwrap();
+                        let faved_model: gio::Menu =
+                            builder.object("history_context_model_faved").unwrap();
+                        if favorites.borrow().is_favorite(record.get_song()) {
+                            popover_menu.set_menu_model(Some(&faved_model));
+                        } else {
+                            popover_menu.set_menu_model(Some(&unfaved_model));
+                        }
+
+                        popover_menu.unparent();
+                        popover_menu.set_has_arrow(false);
+                        popover_menu.set_parent(&column_view);
+                        popover_menu.set_pointing_to(Some(&Rectangle::new(
+                            0, // popover_menu.size(gtk::Orientation::Horizontal) as i32,
+                            0, 1, 1,
+                        )));
+                        popover_menu.popup();
                     }
-
-                    popover_menu.unparent();
-                    popover_menu.set_parent(&column_view);
-                    popover_menu.set_pointing_to(Some(&Rectangle::new(x as i32, y as i32, 1, 1)));
-                    popover_menu.popup();
+                    Propagation::Stop
+                } else if key_val == Key::C
+                    && (modifier.contains(ModifierType::CONTROL_MASK)
+                        || modifier.contains(ModifierType::META_MASK))
+                {
+                    if let Some(display) = gdk::Display::default() {
+                        if let Some(record) = selection.selected_item() {
+                            let record = record.downcast::<HistoryEntry>().unwrap();
+                            display.clipboard().set(&record.song_name());
+                        }
+                    }
+                    Propagation::Stop
+                } else {
+                    Propagation::Proceed
                 }
             }
-        );
-        */
+        ));
+        column_view.add_controller(controller);
 
         /* selection.connect_selection_changed(move |selection, _, _| {
             if let Some(item) = selection.selected_item() {
