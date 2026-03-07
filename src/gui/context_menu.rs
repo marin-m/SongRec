@@ -4,7 +4,7 @@ use glib::Propagation;
 use gtk::glib::clone;
 use gtk::prelude::*;
 
-use log::{error, info};
+use log::{debug, error, info};
 use percent_encoding::{utf8_percent_encode, NON_ALPHANUMERIC};
 use std::cell::RefCell;
 use std::rc::Rc;
@@ -17,7 +17,62 @@ use crate::gui::song_history_interface::{RecognitionHistoryInterface, SongRecord
 pub struct ContextMenuUtil;
 
 impl ContextMenuUtil {
-    pub fn connect_menu(
+    pub fn connect_menu_mouse_actions(
+        builder: gtk::Builder,
+        cell: gtk::ColumnViewCell,
+        label: gtk::Label,
+        popover_menu: gtk::PopoverMenu,
+        ctx_selected_item: Rc<RefCell<Option<HistoryEntry>>>,
+        favorites: Rc<RefCell<FavoritesInterface>>,
+    ) {
+        let touch_closure = clone!(
+            #[weak]
+            cell,
+            #[weak]
+            label,
+            #[weak]
+            popover_menu,
+            move |_: &gtk::GestureClick, _n_press, x, y| {
+                let entry = cell.item();
+                // gesture.set_state(gtk::EventSequenceState::Claimed);
+                debug!("Selected item: {:?}", entry);
+                if let Some(record) = entry {
+                    let record = record.downcast::<HistoryEntry>().unwrap();
+                    debug!("  => {}", record.song_name());
+
+                    *ctx_selected_item.borrow_mut() = Some(record.clone());
+
+                    let unfaved_model: gio::Menu = builder.object("history_context_model").unwrap();
+                    let faved_model: gio::Menu =
+                        builder.object("history_context_model_faved").unwrap();
+                    if favorites.borrow().is_favorite(record.get_song()) {
+                        popover_menu.set_menu_model(Some(&faved_model));
+                    } else {
+                        popover_menu.set_menu_model(Some(&unfaved_model));
+                    }
+
+                    popover_menu.unparent();
+                    popover_menu.set_has_arrow(true);
+                    popover_menu.set_parent(&label);
+                    popover_menu.set_pointing_to(Some(&Rectangle::new(x as i32, y as i32, 1, 1)));
+                    popover_menu.popup();
+                }
+            }
+        );
+
+        let touch_handler = gtk::GestureClick::new();
+        touch_handler.set_button(1);
+        touch_handler.set_touch_only(true);
+        touch_handler.connect_pressed(touch_closure.clone());
+        label.add_controller(touch_handler);
+
+        let click_handler = gtk::GestureClick::new();
+        click_handler.set_button(3);
+        click_handler.connect_pressed(touch_closure);
+        label.add_controller(click_handler);
+    }
+
+    pub fn connect_menu_key_actions(
         builder: gtk::Builder,
         column_view: gtk::ColumnView,
         popover_menu: gtk::PopoverMenu,
@@ -71,7 +126,7 @@ impl ContextMenuUtil {
                         popover_menu.popup();
                     }
                     Propagation::Stop
-                } else if key_val == Key::C
+                } else if (key_val == Key::C || key_val == Key::c)
                     && (modifier.contains(ModifierType::CONTROL_MASK)
                         || modifier.contains(ModifierType::META_MASK))
                 {
