@@ -1,16 +1,16 @@
-use std::sync::{Arc, Mutex};
 use std::iter::Copied;
-use std::slice::Iter;
 use std::num::NonZero;
+use std::slice::Iter;
+use std::sync::{Arc, Mutex};
 
-use crate::core::thread_messages::{MicrophoneMessage::*, *};
 use crate::core::preferences::PreferencesInterface;
+use crate::core::thread_messages::{MicrophoneMessage::*, *};
 
-use rodio::conversions::SampleTypeConverter;
-use rodio::nz;
 use cpal::platform::Device;
 use cpal::traits::{DeviceTrait, StreamTrait};
 use gettextrs::gettext;
+use rodio::conversions::SampleTypeConverter;
+use rodio::nz;
 
 use crate::audio_controllers::audio_backend::get_any_backend;
 
@@ -223,10 +223,14 @@ fn write_data(
     // Reassemble data into a 12-second buffer, and do recognition
     // every 4 seconds if the queue to "processing_tx" is empty
 
-    let input_buffer =
-        rodio::buffer::SamplesBuffer::new(NonZero::new(channels).unwrap(), NonZero::new(sample_rate).unwrap(), input_samples);
+    let input_buffer = rodio::buffer::SamplesBuffer::new(
+        NonZero::new(channels).unwrap(),
+        NonZero::new(sample_rate).unwrap(),
+        input_samples,
+    );
 
-    let converted_file = rodio::source::UniformSourceIterator::new(input_buffer, nz!(1), nz!(16000));
+    let converted_file =
+        rodio::source::UniformSourceIterator::new(input_buffer, nz!(1), nz!(16000));
 
     let raw_pcm_samples: Vec<f32> = converted_file.collect();
 

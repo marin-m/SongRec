@@ -256,6 +256,7 @@
                                         <child>
                                           <object class="GtkColumnView" id="history_view">
                                             <property name="accessible-role">list</property>
+                                            <property name="css-classes">column_view</property>
                                             <property name="model">
                                               <object class="GtkSingleSelection" id="history_selection">
                                                 <property name="autoselect">False</property>
@@ -264,26 +265,12 @@
                                             </property>
                                             <property name="show-column-separators">True</property>
                                             <property name="show-row-separators">True</property>
-                                            <property name="single-click-activate">True</property>
                                             <child>
-                                              <object class="GtkColumnViewColumn">
+                                              <object class="GtkColumnViewColumn" id="song_name_cell">
                                                 <property name="factory">
-                                                  <object class="GtkBuilderListItemFactory">
-                                                    <property name="bytes"><![CDATA[<interface>
-  <template class="GtkColumnViewCell">
-    <property name="child">
-      <object class="GtkLabel">
-        <property name="xalign">0</property>
-        <property name="name">table_cell</property>
-        <binding name="label">
-          <lookup name="song_name" type="HistoryEntry">
-            <lookup name="item">GtkColumnViewCell</lookup>
-          </lookup>
-        </binding>
-      </object>
-    </property>
-  </template>
-</interface>]]></property>
+                                                  <object class="GtkSignalListItemFactory">
+                                                    <signal name="setup" handler="history_cell_setup_cb" object="song_name_cell"/>
+                                                    <signal name="bind" handler="history_cell_bind_cb" object="song_name_cell"/>
                                                   </object>
                                                 </property>
                                                 <property name="id">song_name</property>
@@ -292,24 +279,11 @@
                                               </object>
                                             </child>
                                             <child>
-                                              <object class="GtkColumnViewColumn">
+                                              <object class="GtkColumnViewColumn" id="album_cell">
                                                 <property name="factory">
-                                                  <object class="GtkBuilderListItemFactory">
-                                                    <property name="bytes"><![CDATA[<interface>
-  <template class="GtkColumnViewCell">
-    <property name="child">
-      <object class="GtkLabel">
-        <property name="xalign">0</property>
-        <property name="name">table_cell</property>
-        <binding name="label">
-          <lookup name="album" type="HistoryEntry">
-            <lookup name="item">GtkColumnViewCell</lookup>
-          </lookup>
-        </binding>
-      </object>
-    </property>
-  </template>
-</interface>]]></property>
+                                                  <object class="GtkSignalListItemFactory">
+                                                    <signal name="bind" handler="history_cell_bind_cb" object="album_cell"/>
+                                                    <signal name="setup" handler="history_cell_setup_cb" object="album_cell"/>
                                                   </object>
                                                 </property>
                                                 <property name="id">album</property>
@@ -318,25 +292,12 @@
                                               </object>
                                             </child>
                                             <child>
-                                              <object class="GtkColumnViewColumn">
+                                              <object class="GtkColumnViewColumn" id="recognition_date_cell">
                                                 <property name="expand">True</property>
                                                 <property name="factory">
-                                                  <object class="GtkBuilderListItemFactory">
-                                                    <property name="bytes"><![CDATA[<interface>
-  <template class="GtkColumnViewCell">
-    <property name="child">
-      <object class="GtkLabel">
-        <property name="xalign">0</property>
-        <property name="name">table_cell</property>
-        <binding name="label">
-          <lookup name="recognition_date" type="HistoryEntry">
-            <lookup name="item">GtkColumnViewCell</lookup>
-          </lookup>
-        </binding>
-      </object>
-    </property>
-  </template>
-</interface>]]></property>
+                                                  <object class="GtkSignalListItemFactory">
+                                                    <signal name="bind" handler="history_cell_bind_cb" object="recognition_date_cell"/>
+                                                    <signal name="setup" handler="history_cell_setup_cb" object="recognition_date_cell"/>
                                                   </object>
                                                 </property>
                                                 <property name="id">recognition_date</property>
@@ -405,6 +366,7 @@
                     <child>
                       <object class="GtkColumnView" id="favorites_view">
                         <property name="accessible-role">list</property>
+                        <property name="css-classes">column_view</property>
                         <property name="model">
                           <object class="GtkSingleSelection" id="favorites_selection">
                             <property name="autoselect">False</property>
@@ -413,49 +375,25 @@
                         </property>
                         <property name="show-column-separators">True</property>
                         <property name="show-row-separators">True</property>
-                        <property name="single-click-activate">True</property>
                         <child>
-                          <object class="GtkColumnViewColumn">
+                          <object class="GtkColumnViewColumn" id="favorites_song_name_cell">
                             <property name="factory">
-                              <object class="GtkBuilderListItemFactory">
-                                <property name="bytes"><![CDATA[<interface>
-  <template class="GtkColumnViewCell">
-    <property name="child">
-      <object class="GtkLabel">
-        <property name="xalign">0</property>
-        <binding name="label">
-          <lookup name="song_name" type="HistoryEntry">
-            <lookup name="item">GtkColumnViewCell</lookup>
-          </lookup>
-        </binding>
-      </object>
-    </property>
-  </template>
-</interface>]]></property>
+                              <object class="GtkSignalListItemFactory">
+                                <signal name="bind" handler="history_cell_bind_cb" object="favorites_song_name_cell"/>
+                                <signal name="setup" handler="history_cell_setup_cb" object="favorites_song_name_cell"/>
                               </object>
                             </property>
+                            <property name="id">song_name</property>
                             <property name="resizable">True</property>
                             <property name="title" translatable="yes">Song name</property>
                           </object>
                         </child>
                         <child>
-                          <object class="GtkColumnViewColumn">
+                          <object class="GtkColumnViewColumn" id="favorites_album_cell">
                             <property name="factory">
-                              <object class="GtkBuilderListItemFactory">
-                                <property name="bytes"><![CDATA[<interface>
-  <template class="GtkColumnViewCell">
-    <property name="child">
-      <object class="GtkLabel">
-        <property name="xalign">0</property>
-        <binding name="label">
-          <lookup name="album" type="HistoryEntry">
-            <lookup name="item">GtkColumnViewCell</lookup>
-          </lookup>
-        </binding>
-      </object>
-    </property>
-  </template>
-</interface>]]></property>
+                              <object class="GtkSignalListItemFactory">
+                                <signal name="bind" handler="history_cell_bind_cb" object="favorites_album_cell"/>
+                                <signal name="setup" handler="history_cell_setup_cb" object="favorites_album_cell"/>
                               </object>
                             </property>
                             <property name="id">album</property>
@@ -464,24 +402,12 @@
                           </object>
                         </child>
                         <child>
-                          <object class="GtkColumnViewColumn">
+                          <object class="GtkColumnViewColumn" id="favorites_recognition_date_cell">
                             <property name="expand">True</property>
                             <property name="factory">
-                              <object class="GtkBuilderListItemFactory">
-                                <property name="bytes"><![CDATA[<interface>
-  <template class="GtkColumnViewCell">
-    <property name="child">
-      <object class="GtkLabel">
-        <property name="xalign">0</property>
-        <binding name="label">
-          <lookup name="recognition_date" type="HistoryEntry">
-            <lookup name="item">GtkColumnViewCell</lookup>
-          </lookup>
-        </binding>
-      </object>
-    </property>
-  </template>
-</interface>]]></property>
+                              <object class="GtkSignalListItemFactory">
+                                <signal name="bind" handler="history_cell_bind_cb" object="favorites_recognition_date_cell"/>
+                                <signal name="setup" handler="history_cell_setup_cb" object="favorites_recognition_date_cell"/>
                               </object>
                             </property>
                             <property name="id">recognition_date</property>
@@ -822,6 +748,4 @@ Contributors https://github.com/marin-m/SongRec/graphs/contributors</property>
     <property name="modal">True</property>
     <property name="transient-for">main_window</property>
   </object>
-  <object class="GListStore" id="history_list_store"/>
-  <object class="GListStore" id="favorites_list_store"/>
 </interface>

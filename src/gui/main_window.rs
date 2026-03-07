@@ -1,4 +1,7 @@
 use adw::prelude::*;
+use gdk::Rectangle;
+use glib::clone;
+
 use chrono::Local;
 use gettextrs::gettext;
 use log::{debug, error, info, trace};
@@ -90,6 +93,26 @@ impl App {
         }));
         Self::load_resources();
 
+        let ctx_selected_item: Rc<RefCell<Option<HistoryEntry>>> = Rc::new(RefCell::new(None));
+        let ctx_buffered_log: Rc<RefCell<String>> = Rc::new(RefCell::new(String::new()));
+        let ctx_logger_source_id: Rc<RefCell<Option<glib::source::SourceId>>> =
+            Rc::new(RefCell::new(None));
+
+        let history_list_store: gio::ListStore = gio::ListStore::new::<HistoryEntry>();
+        let song_history_interface = Rc::new(RefCell::new(
+            RecognitionHistoryInterface::new(
+                history_list_store.clone(),
+                obtain_recognition_history_csv_path,
+            )
+            .unwrap(),
+        ));
+
+        let favorites_list_store = gio::ListStore::new::<HistoryEntry>();
+        let favorites_interface = Rc::new(RefCell::new(
+            FavoritesInterface::new(favorites_list_store.clone(), obtain_favorites_csv_path)
+                .unwrap(),
+        ));
+
         let builder = gtk::Builder::new();
 
         let builder_scope = gtk::BuilderRustScope::new();
@@ -101,37 +124,19 @@ impl App {
             gui_tx.clone(),
             builder.clone(),
             builder_scope,
+            favorites_interface.clone(),
+            ctx_selected_item.clone(),
         );
         builder
             .add_from_resource("/re/fossplant/songrec/interface.ui")
             .unwrap();
 
-        let history_list_store: gio::ListStore = builder.object("history_list_store").unwrap();
-        let song_history_interface = Rc::new(RefCell::new(
-            RecognitionHistoryInterface::new(
-                history_list_store.clone(),
-                obtain_recognition_history_csv_path,
-            )
-            .unwrap(),
-        ));
-
         let history_selection: gtk::SingleSelection = builder.object("history_selection").unwrap();
         history_selection.set_model(Some(&history_list_store));
-
-        let favorites_list_store: gio::ListStore = builder.object("favorites_list_store").unwrap();
-        let favorites_interface = Rc::new(RefCell::new(
-            FavoritesInterface::new(favorites_list_store.clone(), obtain_favorites_csv_path)
-                .unwrap(),
-        ));
 
         let favorites_selection: gtk::SingleSelection =
             builder.object("favorites_selection").unwrap();
         favorites_selection.set_model(Some(&favorites_list_store));
-
-        let ctx_selected_item: Rc<RefCell<Option<HistoryEntry>>> = Rc::new(RefCell::new(None));
-        let ctx_buffered_log: Rc<RefCell<String>> = Rc::new(RefCell::new(String::new()));
-        let ctx_logger_source_id: Rc<RefCell<Option<glib::source::SourceId>>> =
-            Rc::new(RefCell::new(None));
 
         let preferences_interface: PreferencesInterface = PreferencesInterface::new();
         let old_preferences: Preferences = preferences_interface.preferences.clone();
@@ -372,8 +377,97 @@ impl App {
         gui_tx_shared: async_channel::Sender<GUIMessage>,
         builder_shared: gtk::Builder,
         builder_scope: gtk::BuilderRustScope,
+        favorites: Rc<RefCell<FavoritesInterface>>,
+        ctx_selected_item: Rc<RefCell<Option<HistoryEntry>>>,
     ) {
         let microphone_tx = microphone_tx_shared.clone();
+        let builder = builder_shared.clone();
+
+        builder_scope.add_callback("history_cell_setup_cb", move |values| {
+            let popover_menu: gtk::PopoverMenu = builder.object("history_context_menu").unwrap();
+
+            let builder = builder.clone();
+            let favorites = favorites.clone();
+            let ctx_selected_item = ctx_selected_item.clone();
+
+            let cell = values[1].get::<gtk::ColumnViewCell>().unwrap();
+            let column_view = values[0]
+                .get::<gtk::ColumnViewColumn>()
+                .unwrap()
+                .column_view()
+                .unwrap();
+
+            let label = gtk::Label::new(None);
+            label.set_xalign(0.0);
+            label.add_css_class("cell_label");
+            cell.set_child(Some(&label));
+
+            let touch_closure = clone!(
+                #[weak]
+                cell,
+                #[weak]
+                label,
+                #[weak]
+                popover_menu,
+                move |_: &gtk::GestureClick, _n_press, x, y| {
+                    let entry = cell.item();
+                    // gesture.set_state(gtk::EventSequenceState::Claimed);
+                    debug!("Selected item: {:?}", entry);
+                    if let Some(record) = entry {
+                        let record = record.downcast::<HistoryEntry>().unwrap();
+                        debug!("  => {}", record.song_name());
+
+                        *ctx_selected_item.borrow_mut() = Some(record.clone());
+
+                        let unfaved_model: gio::Menu =
+                            builder.object("history_context_model").unwrap();
+                        let faved_model: gio::Menu =
+                            builder.object("history_context_model_faved").unwrap();
+                        if favorites.borrow().is_favorite(record.get_song()) {
+                            popover_menu.set_menu_model(Some(&faved_model));
+                        } else {
+                            popover_menu.set_menu_model(Some(&unfaved_model));
+                        }
+
+                        popover_menu.unparent();
+                        popover_menu.set_parent(&label);
+                        popover_menu
+                            .set_pointing_to(Some(&Rectangle::new(x as i32, y as i32, 1, 1)));
+                        popover_menu.popup();
+                    }
+                }
+            );
+
+            let touch_handler = gtk::GestureClick::new();
+            touch_handler.set_button(1);
+            touch_handler.set_touch_only(true);
+            touch_handler.connect_pressed(touch_closure.clone());
+            label.add_controller(touch_handler);
+
+            let click_handler = gtk::GestureClick::new();
+            click_handler.set_button(3);
+            click_handler.connect_pressed(touch_closure);
+            label.add_controller(click_handler);
+            None
+        });
+
+        builder_scope.add_callback("history_cell_bind_cb", move |values| {
+            let col = values[0].get::<gtk::ColumnViewColumn>().unwrap();
+            let cell = values[1].get::<gtk::ColumnViewCell>().unwrap();
+            let label = cell.child().unwrap().downcast::<gtk::Label>().unwrap();
+            let entry = cell.item().unwrap().downcast::<HistoryEntry>().unwrap();
+            let prop_name = col.id().unwrap();
+
+            let text = match prop_name.as_str() {
+                "song_name" => entry.song_name(),
+                "album" => entry.album().unwrap_or(String::new()),
+                "recognition_date" => entry.recognition_date(),
+                _ => unreachable!(),
+            };
+            label.set_text(&text);
+            None
+        });
+
         let builder = builder_shared.clone();
 
         builder_scope.add_callback("loopback_options_switched", move |_values| {

@@ -60,7 +60,8 @@ impl SignatureGenerator {
         // Downsample the raw PCM samples to 16 KHz, and skip to the middle of the file
         // in order to increase recognition odds. Take 12 seconds of sample.
 
-        let converted_file = rodio::source::UniformSourceIterator::new(decoder?, nz!(1), nz!(16000));
+        let converted_file =
+            rodio::source::UniformSourceIterator::new(decoder?, nz!(1), nz!(16000));
 
         let raw_pcm_samples: Vec<f32> = converted_file.collect();
         let mut raw_pcm_samples_slice: &[f32] = &raw_pcm_samples;
@@ -103,7 +104,8 @@ impl SignatureGenerator {
             },
         };
 
-        let s16_buffer: Vec<i16> = SampleTypeConverter::<_, i16>::new(f32_mono_16khz_buffer.iter().copied()).collect();
+        let s16_buffer: Vec<i16> =
+            SampleTypeConverter::<_, i16>::new(f32_mono_16khz_buffer.iter().copied()).collect();
 
         for chunk in s16_buffer.chunks_exact(128) {
             this.do_fft(chunk);

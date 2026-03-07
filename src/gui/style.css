@@ -1,3 +1,15 @@
-#table_cell {
+/*
+ * We're putting a GTK+ touch signal handlers
+ * on the labels, not the cell objects
+ * themselves, so the padding of the labels
+ * needs to be encompassed in their hitboxes
+ */
+
+.column_view .cell_label {
     font-size: small;
+    padding: 8px;
+}
+
+.column_view cell {
+    padding: 0;
 }

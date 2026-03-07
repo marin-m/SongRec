@@ -13,8 +13,8 @@ mod fingerprinting {
 mod core {
     pub mod http_task;
     pub mod logging;
-    pub mod preferences;
     pub mod microphone_thread;
+    pub mod preferences;
     pub mod processing_thread;
     pub mod thread_messages;
 }
@@ -38,8 +38,8 @@ mod gui {
 
 mod utils {
     pub mod csv_song_history;
-    pub mod internationalization;
     pub mod filesystem_operations;
+    pub mod internationalization;
 
     #[cfg(feature = "ffmpeg")]
     pub mod ffmpeg_wrapper;

@@ -23,26 +23,30 @@ impl ContextMenuUtil {
         ctx_selected_item: Rc<RefCell<Option<HistoryEntry>>>,
         favorites: Rc<RefCell<FavoritesInterface>>,
     ) {
+        // TODO BIND THE CONTEXT KEY + CTRL+C CLOSURES
+
+        // (Use Gtk.ShortcutManager perhaps?)
+
+        /*
         let selection: gtk::SingleSelection = column_view
             .model()
             .unwrap()
             .downcast::<gtk::SingleSelection>()
             .unwrap();
 
-        let touch_closure = clone!(
+        let context_key_closure = clone!(
             #[weak]
             column_view,
             #[weak]
             popover_menu,
             #[weak]
             selection,
-            move |_: &gtk::GestureClick, _n, x, y| {
+            move |_: &gtk::GestureClick, _n_press, x, y| {
                 // gesture.set_state(gtk::EventSequenceState::Claimed);
-                // let cached_record = interface.borrow().get_hovered_record();
                 debug!("Selected item: {:?}", selection.selected_item());
-                // info!("Selected item (cached): {:?}", cached_record);
                 if let Some(record) = selection.selected_item() {
                     let record = record.downcast::<HistoryEntry>().unwrap();
+                    debug!("  => {}", record.song_name());
 
                     *ctx_selected_item.borrow_mut() = Some(record.clone());
 
@@ -62,28 +66,7 @@ impl ContextMenuUtil {
                 }
             }
         );
-
-        let click_handler = gtk::GestureClick::new();
-        click_handler.set_button(3);
-        click_handler.connect_released(touch_closure.clone());
-        column_view.add_controller(click_handler);
-
-        let touch_handler = gtk::GestureClick::new();
-        touch_handler.set_button(1);
-        touch_handler.connect_released(touch_closure);
-        column_view.add_controller(touch_handler);
-
-        // Call column_view.model().unwrap().unselect_all() when mouse hovers out of ColumnView
-
-        let hover_handler = gtk::EventControllerMotion::new();
-        hover_handler.connect_leave(clone!(
-            #[weak]
-            selection,
-            move |_hover_handler| {
-                selection.unselect_all();
-            }
-        ));
-        column_view.add_controller(hover_handler);
+        */
 
         /* selection.connect_selection_changed(move |selection, _, _| {
             if let Some(item) = selection.selected_item() {
