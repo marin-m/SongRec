@@ -36,7 +36,7 @@ sudo pacman -S songrec
 songrec
 ```
 
-Using apt with PPA (Ubuntu, supported from 24.04 LTS up to the current 25.10):
+Using apt with PPA (Ubuntu, recommended):
 
 ```bash
 wget -qO- 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x6888550b2fc77d09' | sudo tee /etc/apt/trusted.gpg.d/songrec.asc
@@ -45,7 +45,7 @@ sudo apt install songrec -y
 songrec
 ```
 
-Using app with Snapcraft (all Ubuntu versions):
+Using app with Snapcraft (all Ubuntu versions until the 26.04 beta where it has bugs):
 
 ```bash
 sudo snap install songrec

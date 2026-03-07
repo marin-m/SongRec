@@ -25,10 +25,10 @@ pub fn microphone_thread(
 ) {
     // Use the default host for working with audio devices.
 
-    #[cfg(target_os = "linux")]
-    let host = cpal::host_from_id(cpal::HostId::PipeWire).unwrap_or(cpal::default_host());
+    // #[cfg(target_os = "linux")]
+    // let host = cpal::host_from_id(cpal::HostId::PipeWire).unwrap_or(cpal::default_host());
 
-    #[cfg(not(target_os = "linux"))]
+    // #[cfg(not(target_os = "linux"))]
     let host = cpal::default_host();
 
     let mut backend = get_any_backend();
