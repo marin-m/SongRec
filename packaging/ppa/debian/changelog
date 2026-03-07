@@ -1,3 +1,9 @@
+songrec (0.6.5+1) bionic; urgency=low
+
+  * Fix building on questing: Rust 1.88 is available in the repositories but the 1.89 backport isn't
+
+ -- Marin <marin-m@users.noreply.github.com>  Sat, 07 Mar 2026 15:54:26 +0100
+
 songrec (0.6.5) bionic; urgency=low
 
   * Update the Czech translation thanks to @Fjuro
