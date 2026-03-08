@@ -1,7 +1,7 @@
 use gettextrs::{bind_textdomain_codeset, bindtextdomain, setlocale, textdomain, LocaleCategory};
 use std::path::PathBuf;
 
-pub fn setup_internationalization() {
+pub fn setup_internationalization() -> Option<PathBuf> {
     // Set up the translation/internationalization part
 
     let mut translations_path = std::env::current_exe().unwrap();
@@ -95,5 +95,8 @@ pub fn setup_internationalization() {
         bind_textdomain_codeset("songrec", "UTF-8");
 
         setlocale(LocaleCategory::LcAll, "");
+        Some(translations_path)
+    } else {
+        None
     }
 }

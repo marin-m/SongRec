@@ -65,6 +65,7 @@ use crate::utils::internationalization::setup_internationalization;
 
 use clap::{command, Arg, ArgAction, Command};
 use gettextrs::gettext;
+use log::{error, info};
 use soup::prelude::SessionExt;
 use std::error::Error;
 
@@ -296,7 +297,7 @@ macro_rules! app {
 fn main() -> Result<(), Box<dyn Error>> {
     // Set up the translation/internationalization part
 
-    setup_internationalization();
+    let i18n_folder = setup_internationalization();
 
     // TODO simplify the code in this module etc. path handling ^
 
@@ -313,6 +314,15 @@ fn main() -> Result<(), Box<dyn Error>> {
     };
 
     Logging::bind_glib_logging();
+
+    match i18n_folder {
+        Some(path) => {
+            info!("Translations folder found at: {}", path.to_str().unwrap());
+        }
+        None => {
+            error!("No usable translations folder found");
+        }
+    };
 
     // Parse other arguments
 
