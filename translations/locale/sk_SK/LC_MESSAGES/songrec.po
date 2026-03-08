@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: SongRec v0.6.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-03-07 14:51+0100\n"
-"PO-Revision-Date: 2026-03-07 20:31+0000\n"
+"PO-Revision-Date: 2026-03-08 20:02+0000\n"
 "Last-Translator: Jozef Gaal <preklady@mayday.sk>\n"
 "Language-Team: Slovak <https://weblate.fossplant.re/projects/songrec/songrec/"
 "sk/>\n"
@@ -407,7 +407,7 @@ msgstr ""
 
 #: translations/interface.ui.h:32
 msgid "No duplicates in history"
-msgstr "Žiadne duplikáty v histórii"
+msgstr "Nezobrazovať duplikáty v histórii"
 
 #: translations/interface.ui.h:33
 msgid "Network preferences"
