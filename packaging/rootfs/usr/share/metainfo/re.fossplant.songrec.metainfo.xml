@@ -58,6 +58,13 @@ https://hughsie.github.io/oars/index.html
 -->
   <content_rating type="oars-1.1" />
   <releases>
+    <release version="0.6.6" date="2026-03-08">
+      <description>
+        <p>Fix translations other than fr_FR not being loaded in the Flatpak build (see issue #247)</p>
+        <p>Make extra Pulseaudio-related debugging output to be displayed when -v is passed, to allow troubleshoot SongRec not working on Snap with the Ubuntu 26.04+ kernel (see https://bugs.launchpad.net/ubuntu/+bug/2143654 and issue #111)</p>
+        <p>Prepare supporting CPAL 0.18+ which will have libpulse and libpipewire backends (that adds dependencies in the install instructions which are not actually used for the moment)</p>
+      </description>
+    </release>
     <release version="0.6.5" date="2026-03-07">
       <description>
         <p>Update the Czech translation thanks to @Fjuro</p>

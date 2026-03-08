@@ -1,3 +1,11 @@
+songrec (0.6.6) bionic; urgency=low
+
+  * Fix translations other than fr_FR not being loaded in the Flatpak build (see issue #247)
+  * Make extra Pulseaudio-related debugging output to be displayed when -v is passed, to allow troubleshoot SongRec not working on Snap with the Ubuntu 26.04+ kernel (see https://bugs.launchpad.net/ubuntu/+bug/2143654 and issue #111)
+  * Prepare supporting CPAL 0.18+ which will have libpulse and libpipewire backends (that adds dependencies in the install instructions which are not actually used for the moment)
+
+ -- Marin <marin-m@users.noreply.github.com>  Sun, 08 Mar 2026 13:25:03 +0100
+
 songrec (0.6.5+2) bionic; urgency=low
 
   * The non-breaking space struck again :)

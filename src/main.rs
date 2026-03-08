@@ -65,7 +65,7 @@ use crate::utils::internationalization::setup_internationalization;
 
 use clap::{command, Arg, ArgAction, Command};
 use gettextrs::gettext;
-use log::{debug, error};
+use log::debug;
 use soup::prelude::SessionExt;
 use std::error::Error;
 
