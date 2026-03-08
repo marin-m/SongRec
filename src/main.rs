@@ -65,7 +65,7 @@ use crate::utils::internationalization::setup_internationalization;
 
 use clap::{command, Arg, ArgAction, Command};
 use gettextrs::gettext;
-use log::{error, info};
+use log::{debug, error};
 use soup::prelude::SessionExt;
 use std::error::Error;
 
@@ -302,6 +302,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     // TODO simplify the code in this module etc. path handling ^
 
     // Collect the program arguments
+
     let args = app!().get_matches();
 
     // Set up logging
@@ -317,7 +318,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     match i18n_folder {
         Some(path) => {
-            info!("Translations folder found at: {}", path.to_str().unwrap());
+            debug!("Translations folder found at: {}", path.to_str().unwrap());
         }
         None => {
             error!("No usable translations folder found");
