@@ -12,13 +12,7 @@ pub fn setup_internationalization() -> Option<PathBuf> {
 
     translations_path.push("translations");
     translations_path.push("locale");
-    translations_path.push("fr_FR");
-    translations_path.push("LC_MESSAGES");
-    translations_path.push("songrec.mo");
-    if !translations_path.is_file() {
-        translations_path.pop();
-        translations_path.pop();
-        translations_path.pop();
+    if !translations_path.is_dir() {
         translations_path.pop();
         translations_path.pop();
 
@@ -29,14 +23,8 @@ pub fn setup_internationalization() -> Option<PathBuf> {
         translations_path.pop();
         translations_path.push("share");
         translations_path.push("locale");
-        translations_path.push("fr_FR");
-        translations_path.push("LC_MESSAGES");
-        translations_path.push("songrec.mo");
 
-        if !translations_path.is_file() {
-            translations_path.pop();
-            translations_path.pop();
-            translations_path.pop();
+        if !translations_path.is_dir() {
             translations_path.pop();
             translations_path.pop();
 
@@ -48,53 +36,19 @@ pub fn setup_internationalization() -> Option<PathBuf> {
 
             translations_path.push("translations");
             translations_path.push("locale");
-            translations_path.push("fr_FR");
-            translations_path.push("LC_MESSAGES");
-            translations_path.push("songrec.mo");
-            if !translations_path.is_file() {
-                // Alternatively, check in /usr/share
-
-                translations_path = PathBuf::new();
-                translations_path.push("usr");
-                translations_path.push("share");
-                translations_path.push("locale");
-                translations_path.push("fr_FR");
-                translations_path.push("LC_MESSAGES");
-                translations_path.push("songrec.mo");
-
-                translations_path.push("translations");
-                if !translations_path.is_file() {
-                    translations_path.pop();
-
-                    // Alternatively, check in /usr/local/share
-
-                    translations_path.pop();
-                    translations_path.pop();
-                    translations_path.pop();
-                    translations_path.pop();
-                    translations_path.pop();
-
-                    translations_path.push("local");
-                    translations_path.push("share");
-                    translations_path.push("locale");
-                    translations_path.push("fr_FR");
-                    translations_path.push("LC_MESSAGES");
-                    translations_path.push("songrec.mo");
-                }
-            }
         }
     }
 
-    if translations_path.is_file() {
-        translations_path.pop();
-        translations_path.pop();
-        translations_path.pop();
-
-        textdomain("songrec");
+    if translations_path.is_dir() {
         bindtextdomain("songrec", translations_path.to_str().unwrap());
-        bind_textdomain_codeset("songrec", "UTF-8");
+    }
 
-        setlocale(LocaleCategory::LcAll, "");
+    textdomain("songrec");
+    bind_textdomain_codeset("songrec", "UTF-8");
+
+    setlocale(LocaleCategory::LcAll, "");
+
+    if translations_path.is_dir() {
         Some(translations_path)
     } else {
         None

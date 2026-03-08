@@ -321,7 +321,7 @@ fn main() -> Result<(), Box<dyn Error>> {
             debug!("Translations folder found at: {}", path.to_str().unwrap());
         }
         None => {
-            error!("No usable translations folder found");
+            debug!("Translations folder set to system default");
         }
     };
 
