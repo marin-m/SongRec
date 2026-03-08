@@ -3,13 +3,13 @@
 # Copyright (C) 2021 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # marin <marin@marin-thinkpad-t460s>, 2021.
-#
+# Marin <25437947+marin-m@users.noreply.github.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-03-07 14:51+0100\n"
-"PO-Revision-Date: 2026-02-19 11:38+0000\n"
+"PO-Revision-Date: 2026-03-08 06:02+0000\n"
 "Last-Translator: Marin <25437947+marin-m@users.noreply.github.com>\n"
 "Language-Team: French <https://weblate.fossplant.re/projects/songrec/songrec/"
 "fr/>\n"
@@ -238,7 +238,7 @@ msgstr "Impossible d'activer le support de MRPIS"
 
 #: src/gui/main_window.rs:793
 msgid "_Ok"
-msgstr ""
+msgstr "_Ok"
 
 #: src/gui/main_window.rs:866
 msgid "Song recognized"
