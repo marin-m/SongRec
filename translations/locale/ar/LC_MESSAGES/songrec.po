@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Mu7ammed Basha <dash-unbeaten-five@duck.com>, 2026.
 # Mu7ammed Basha <mu7basha@users.noreply.weblate.fossplant.re>, 2026.
+# Marin <25437947+marin-m@users.noreply.github.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-03-07 14:51+0100\n"
-"PO-Revision-Date: 2026-02-25 21:32+0000\n"
-"Last-Translator: Mu7ammed Basha "
-"<mu7basha@users.noreply.weblate.fossplant.re>\n"
+"PO-Revision-Date: 2026-03-09 02:16+0000\n"
+"Last-Translator: Marin <25437947+marin-m@users.noreply.github.com>\n"
 "Language-Team: Arabic <https://weblate.fossplant.re/projects/songrec/songrec/"
 "ar/>\n"
 "Language: ar\n"
@@ -64,7 +64,6 @@ msgid "An open-source Shazam client for Linux, written in Rust."
 msgstr "عميل Shazam مفتوح المصدر على لينكس، مكتوب بلغة Rust."
 
 #: src/main.rs:94
-#, fuzzy
 msgid ""
 "-v: Set the log level to DEBUG instead of INFO for SongRec-related messages\n"
 "-vv: Set the log level to DEBUG for SongRec-related messages and INFO for "
@@ -223,7 +222,7 @@ msgstr "تعذر تفعيل دعم MPRIS"
 
 #: src/gui/main_window.rs:793
 msgid "_Ok"
-msgstr ""
+msgstr "نعم"
 
 #: src/gui/main_window.rs:866
 msgid "Song recognized"
