@@ -283,7 +283,7 @@ msgstr "Reconocer desde el micrófono"
 
 #: translations/interface.ui.h:5
 msgid "Recognize from my speakers"
-msgstr "Reconocer de mis oradoras"
+msgstr "Reconocer de mis altavoces"
 
 #: translations/interface.ui.h:6
 msgid "Shazam servers are not reachable, are you connected?"
