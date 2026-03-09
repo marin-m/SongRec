@@ -9,8 +9,9 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-03-07 14:51+0100\n"
-"PO-Revision-Date: 2026-03-09 02:16+0000\n"
-"Last-Translator: Marin <25437947+marin-m@users.noreply.github.com>\n"
+"PO-Revision-Date: 2026-03-09 12:56+0000\n"
+"Last-Translator: Mu7ammed Basha <mu7basha@users.noreply.weblate.fossplant.re>"
+"\n"
 "Language-Team: Arabic <https://weblate.fossplant.re/projects/songrec/songrec/"
 "ar/>\n"
 "Language: ar\n"
@@ -222,7 +223,7 @@ msgstr "تعذر تفعيل دعم MPRIS"
 
 #: src/gui/main_window.rs:793
 msgid "_Ok"
-msgstr "نعم"
+msgstr "_حسنًا"
 
 #: src/gui/main_window.rs:866
 msgid "Song recognized"
