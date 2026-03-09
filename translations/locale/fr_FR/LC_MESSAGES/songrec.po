@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-03-07 14:51+0100\n"
-"PO-Revision-Date: 2026-03-08 06:02+0000\n"
+"PO-Revision-Date: 2026-03-09 02:16+0000\n"
 "Last-Translator: Marin <25437947+marin-m@users.noreply.github.com>\n"
 "Language-Team: French <https://weblate.fossplant.re/projects/songrec/songrec/"
 "fr/>\n"
@@ -26,11 +26,11 @@ msgstr "Périphérique disponible :"
 
 #: src/cli_main.rs:136
 msgid "Exiting: audio device not found"
-msgstr "Fin de l'exécution : périphérique audio introvable"
+msgstr "Fin de l'exécution : périphérique audio introuvable"
 
 #: src/cli_main.rs:142
 msgid "Exiting: no audio devices found!"
-msgstr "Fin de l'exécution : aucun périphérique audio disponible !"
+msgstr "Fin de l'exécution : aucun périphérique audio disponible !"
 
 #: src/cli_main.rs:147
 msgid "Using device"
@@ -38,11 +38,11 @@ msgstr "Utilisation du périphérique"
 
 #: src/cli_main.rs:170
 msgid "Error: Network unreachable"
-msgstr "Erreur : Pas de connexion réseau"
+msgstr "Erreur : Pas de connexion réseau"
 
 #: src/cli_main.rs:173
 msgid "Warning: Network unreachable"
-msgstr "Avertissement : Pas de connexion réseau"
+msgstr "Avertissement : Pas de connexion réseau"
 
 #: src/cli_main.rs:178 src/core/http_task.rs:54 src/core/http_task.rs:64
 #: src/core/http_task.rs:77 src/core/http_task.rs:121

@@ -1,15 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# Marin <25437947+marin-m@users.noreply.github.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-03-07 14:51+0100\n"
-"PO-Revision-Date: 2026-02-19 11:38+0000\n"
-"Last-Translator: Fjuro <fjuro@users.noreply.weblate.fossplant.re>\n"
+"PO-Revision-Date: 2026-03-09 02:16+0000\n"
+"Last-Translator: Marin <25437947+marin-m@users.noreply.github.com>\n"
 "Language-Team: Czech <https://weblate.fossplant.re/projects/songrec/songrec/"
 "cs/>\n"
 "Language: cs_CZ\n"
@@ -225,7 +224,7 @@ msgstr "Nepodařilo se povolit podporu MPRIS"
 
 #: src/gui/main_window.rs:793
 msgid "_Ok"
-msgstr ""
+msgstr "_Ok"
 
 #: src/gui/main_window.rs:866
 msgid "Song recognized"
