@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: SongRec\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-03-07 14:51+0100\n"
-"PO-Revision-Date: 2026-03-09 12:56+0000\n"
+"PO-Revision-Date: 2026-03-09 15:02+0000\n"
 "Last-Translator: marcelo cripe <marcelocripe@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://weblate.fossplant.re/projects/"
 "songrec/songrec/pt_BR/>\n"
@@ -389,7 +389,7 @@ msgstr "Favoritos"
 
 #: translations/interface.ui.h:24
 msgid "General preferences"
-msgstr "Preferências"
+msgstr "Preferências gerais"
 
 #: translations/interface.ui.h:25
 msgid "Notify when a new song is recognized or network error is encountered"
