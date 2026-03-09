@@ -4,13 +4,13 @@
 # Volunteer Brazilian Portuguese Translators
 # Tradutores Voluntários do idioma Português do Brasil
 # marcelocripe <marcelocripe@gmail.com>, 2024.
-#
+# marcelo cripe <marcelocripe@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: SongRec\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-03-07 14:51+0100\n"
-"PO-Revision-Date: 2026-02-13 16:58+0000\n"
+"PO-Revision-Date: 2026-03-09 12:56+0000\n"
 "Last-Translator: marcelo cripe <marcelocripe@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://weblate.fossplant.re/projects/"
 "songrec/songrec/pt_BR/>\n"
@@ -23,7 +23,7 @@ msgstr ""
 
 #: src/cli_main.rs:118
 msgid "Available device:"
-msgstr ""
+msgstr "Dispositivo que está disponível:"
 
 #: src/cli_main.rs:136
 msgid "Exiting: audio device not found"
@@ -65,9 +65,9 @@ msgstr "A gravação foi iniciada!"
 #: src/main.rs:74
 msgid "An open-source Shazam client for Linux, written in Rust."
 msgstr ""
-"O ‘SongRec’ é um identificador de músicas de código aberto para o GNU/Linux, "
-"semelhante ao ‘Shazam’, que foi escrito com a linguagem de programação "
-"‘Rust’."
+"O ‘SongRec’ é um identificador de músicas gratuito e de código aberto para o "
+"GNU/Linux, semelhante ao ‘Shazam’, que foi escrito com a linguagem de "
+"programação ‘Rust’."
 
 #: src/main.rs:94
 msgid ""
@@ -76,6 +76,12 @@ msgid ""
 "library-related messages\n"
 "-vvv: Set the log level to TRACE"
 msgstr ""
+"-v: Permite definir o nível do registro para a depuração (DEBUG) em vez das "
+"informações (INFO) das mensagens que são relacionadas ao SongRec\n"
+"-vv: Permite definir o nível do registro para a depuração (DEBUG) das "
+"mensagens que são relacionadas ao SongRec e das informações (INFO) que são "
+"relacionadas as mensagens das bibliotecas\n"
+"-vvv: Permite definir o nível do registro para o rastreamento (TRACE)"
 
 #: src/main.rs:100
 msgid ""
@@ -90,7 +96,7 @@ msgstr ""
 
 #: src/main.rs:106 src/main.rs:152 src/main.rs:207
 msgid "List available audio devices and quit"
-msgstr ""
+msgstr "Listar os dispositivos de áudio que estão disponíveis e sair"
 
 #: src/main.rs:112 src/main.rs:159 src/main.rs:213
 msgid "Specify the audio device to use"
@@ -101,6 +107,8 @@ msgid ""
 "Shazam interval between requests in seconds (increase if you are rate-"
 "limited)"
 msgstr ""
+"Intervalo em segundos que o Shazam realizará novas solicitações (aumente o "
+"valor se você estiver próximo do limite da taxa de transferência)"
 
 #: src/main.rs:128 src/main.rs:175
 msgid "Enable printing full song info in JSON"
@@ -112,7 +120,7 @@ msgstr ""
 msgid "Enable printing full song info in the CSV format"
 msgstr ""
 "Ativar a saída das informações completas da música com o formato ‘CSV’ "
-"(comma-separated values ou valores separados por vírgulas)"
+"(Comma-Separated Values ou Valores Separados por Vírgulas)"
 
 #: src/main.rs:141 src/main.rs:261 src/main.rs:276
 msgid "Disable MPRIS support"
@@ -202,10 +210,12 @@ msgstr ""
 #: src/core/http_task.rs:128 src/fingerprinting/communication.rs:66
 msgid "Your IP has been rate-limited"
 msgstr ""
+"O seu endereço IP (Internet Protocol ou Protocolo da Internet) foi limitado "
+"em termos da taxa de transferência"
 
 #: src/core/microphone_thread.rs:67
 msgid "Audio error:"
-msgstr ""
+msgstr "Ocorreu um erro no áudio:"
 
 #: src/core/preferences.rs:82
 msgid "When parsing the preferences file:"
@@ -217,28 +227,28 @@ msgstr "Ao salvar o arquivo das configurações:"
 
 #: src/fingerprinting/signature_format.rs:97
 msgid "Invalid sample rate in decoded Shazam packet"
-msgstr "A taxa de amostragem ao decodificar o pacote do ‘Shazam’ não é válida"
+msgstr "A taxa da amostragem ao decodificar o pacote do ‘Shazam’ não é válida"
 
 #: src/fingerprinting/signature_format.rs:139
 msgid "Invalid frequency band in decoded Shazam packet"
-msgstr "A banda de frequência ao decodificar o pacote do ‘Shazam’ não é válida"
+msgstr "A banda da frequência ao decodificar o pacote do ‘Shazam’ não é válida"
 
 #: src/fingerprinting/signature_format.rs:220
 msgid "Invalid sample rate passed when encoding Shazam packet"
 msgstr ""
-"A taxa de amostragem passada ao codificar o pacote do ‘Shazam’ não é válida"
+"A taxa da amostragem passada ao codificar o pacote do ‘Shazam’ não é válida"
 
 #: src/gui/main_window.rs:255
 msgid "Application error"
-msgstr ""
+msgstr "Ocorreu um erro no programa"
 
 #: src/gui/main_window.rs:276
 msgid "Network error"
-msgstr ""
+msgstr "Ocorreu um erro na conexão com a internet"
 
 #: src/gui/main_window.rs:317
 msgid "Unable to enable notification icon"
-msgstr ""
+msgstr "Não foi possível ativar o ícone das notificações"
 
 #: src/gui/main_window.rs:704 src/gui/main_window.rs:777
 msgid "Unable to enable MPRIS support"
@@ -246,7 +256,7 @@ msgstr "A funcionalidade do ‘MPRIS’ não pôde ser ativada"
 
 #: src/gui/main_window.rs:793
 msgid "_Ok"
-msgstr ""
+msgstr "_Ok"
 
 #: src/gui/main_window.rs:866
 msgid "Song recognized"
@@ -274,11 +284,11 @@ msgstr "Ocorreu um erro ao ler os favoritos salvos:"
 
 #: src/plugins/ksni.rs:30
 msgid "Open SongRec"
-msgstr ""
+msgstr "Abrir o SongRec"
 
 #: src/plugins/ksni.rs:38
 msgid "Quit..."
-msgstr ""
+msgstr "Sair..."
 
 #: translations/interface.ui.h:1
 msgid "Recognize songs"
@@ -309,6 +319,9 @@ msgstr ""
 #: translations/interface.ui.h:7
 msgid "ERROR: Your IP has been rate-limited"
 msgstr ""
+"Ocorreu um erro, porque o seu endereço de IP (Internet Protocol ou Protocolo "
+"de Internet) foi limitado pela taxa de transferência por causa da quantidade "
+"de requisições"
 
 #: translations/interface.ui.h:8
 msgid "Recognition results"
@@ -324,7 +337,7 @@ msgstr "Pesquisar..."
 
 #: translations/interface.ui.h:11
 msgid "Refresh available devices"
-msgstr ""
+msgstr "Recarregar os dispositivos que estão disponíveis"
 
 #: translations/interface.ui.h:12
 msgid "Audio input"
@@ -340,7 +353,7 @@ msgstr "Volume:"
 
 #: translations/interface.ui.h:15
 msgid "History options..."
-msgstr ""
+msgstr "Opções do histórico..."
 
 #: translations/interface.ui.h:16
 msgid "Recognition history"
@@ -364,7 +377,7 @@ msgstr "Exibir os favoritos"
 
 #: translations/interface.ui.h:21
 msgid "Application menu"
-msgstr ""
+msgstr "Menu do programa"
 
 #: translations/interface.ui.h:22
 msgid "Export to CSV"
@@ -376,11 +389,13 @@ msgstr "Favoritos"
 
 #: translations/interface.ui.h:24
 msgid "General preferences"
-msgstr ""
+msgstr "Preferências"
 
 #: translations/interface.ui.h:25
 msgid "Notify when a new song is recognized or network error is encountered"
 msgstr ""
+"Notificar quando uma nova música for reconhecida ou quando ocorrer um erro "
+"na conexão com a internet"
 
 #: translations/interface.ui.h:26
 msgid "Show notifications"
@@ -391,6 +406,8 @@ msgid ""
 "MPRIS will display information about recognized songs in places like the "
 "GNOME or KDE control panel"
 msgstr ""
+"O ‘MPRIS’ exibirá as informações sobre as músicas que foram reconhecidas nos "
+"locais como no painel de controle do GNOME ou do KDE"
 
 #: translations/interface.ui.h:28
 msgid "Enable MPRIS"
@@ -403,50 +420,61 @@ msgid ""
 "interval\" setting when leaving SongRec running in the background to reduce "
 "your changes of getting rate-limited."
 msgstr ""
+"Ao fechar a janela, minimize-a para a bandeja do sistema utilizando o ‘KSNI’ "
+"em vez de fechar o programa. Observe que talvez seja necessário aumentar os "
+"valores da configuração do ‘intervalo das requisições’ ao deixar o SongRec "
+"em execução em segundo plano para reduzir as chances de atingir a limitação "
+"da taxa de transferência."
 
 #: translations/interface.ui.h:30
 msgid "Minimize to system tray"
-msgstr ""
+msgstr "Minimizar para a bandeja do sistema"
 
 #: translations/interface.ui.h:31
 msgid ""
 "Bump a song to the top of the history list and remove the former entry when "
 "the same song is detected multiple times"
 msgstr ""
+"Impulsionar uma música para a parte superior da lista do histórico e remover "
+"a entrada anterior quando a mesma música for detectada várias vezes"
 
 #: translations/interface.ui.h:32
 msgid "No duplicates in history"
-msgstr ""
+msgstr "Não há duplicatas no histórico"
 
 #: translations/interface.ui.h:33
 msgid "Network preferences"
-msgstr ""
+msgstr "Preferências da conexão de rede"
 
 #: translations/interface.ui.h:34
 msgid "By default 8, increase if you are rate-limited"
 msgstr ""
+"Por padrão, o valor é 8. Se você atingiu o limite da taxa de transferência "
+"aumente o valor"
 
 #: translations/interface.ui.h:35
 msgid "Shazam interval between requests in seconds"
-msgstr ""
+msgstr "Intervalo em segundos entre as solicitações do Shazam"
 
 #: translations/interface.ui.h:36
 msgid ""
 "By default the last 12 seconds of music are fingerprinted and sent to "
 "Shazam. Editing may have an impact on reliability"
 msgstr ""
+"Por padrão, os últimos 12 segundos da música são identificados e enviados ao "
+"Shazam. A edição pode afetar a confiabilidade do processo"
 
 #: translations/interface.ui.h:37
 msgid "Shazam buffer size in seconds"
-msgstr ""
+msgstr "Tamanho em segundos do ‘buffer’ do Shazam"
 
 #: translations/interface.ui.h:38
 msgid "Settings"
-msgstr ""
+msgstr "Configurações"
 
 #: translations/interface.ui.h:39
 msgid "_Preferences..."
-msgstr ""
+msgstr "_Preferências..."
 
 #: translations/interface.ui.h:40
 msgid "About..."
@@ -478,7 +506,7 @@ msgstr "Copiar o nome do álbum"
 
 #: translations/interface.ui.h:47
 msgid "Delete from History"
-msgstr ""
+msgstr "Excluir do histórico"
 
 #: translations/interface.ui.h:48
 msgid "Add to Favorites"
