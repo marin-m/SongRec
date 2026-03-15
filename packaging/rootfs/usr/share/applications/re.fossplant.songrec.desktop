@@ -1,5 +1,5 @@
 [Desktop Entry]
-Categories=Utility;GTK;Audio;AudioVideo;
+Categories=GTK;Audio;AudioVideo;
 Exec=songrec gui %f
 Icon=re.fossplant.songrec
 # See https://github.com/lemenkov/shared-mime-info/blob/master/freedesktop.org.xml.in
