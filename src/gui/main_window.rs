@@ -1089,6 +1089,7 @@ impl App {
         let action_show_about = gio::ActionEntry::builder("show-about")
             .activate(move |window, _, _| {
                 about_dialog.set_visible(true);
+                about_dialog.set_version(env!("CARGO_PKG_VERSION"));
                 about_dialog.present(Some(window));
 
                 about_dialog.set_debug_info(&*ctx_buffered_log.borrow());
