@@ -546,12 +546,10 @@
     </property>
     <property name="default-height">570</property>
     <property name="default-width">977</property>
-    <property name="height-request">570</property>
     <property name="icon-name">re.fossplant.songrec</property>
     <property name="startup-id">re.fossplant.songrec</property>
     <property name="title">SongRec</property>
     <property name="visible">True</property>
-    <property name="width-request">977</property>
     <child>
       <object class="AdwBreakpoint" id="main_page_breakpoint">
         <!-- Custom object fragments -->
