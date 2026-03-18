@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-10 02:27+0100\n"
+"POT-Creation-Date: 2026-03-18 16:38+0100\n"
 "PO-Revision-Date: 2026-03-09 02:16+0000\n"
 "Last-Translator: Marin <25437947+marin-m@users.noreply.github.com>\n"
 "Language-Team: Dutch <https://weblate.fossplant.re/projects/songrec/songrec/"
@@ -42,8 +42,8 @@ msgstr "Foutmelding: geen internetverbinding"
 msgid "Warning: Network unreachable"
 msgstr "Waarschuwing: geen internetverbinding"
 
-#: src/cli_main.rs:180 src/core/http_task.rs:54 src/core/http_task.rs:64
-#: src/core/http_task.rs:77 src/core/http_task.rs:121
+#: src/cli_main.rs:180 src/core/http_task.rs:56 src/core/http_task.rs:66
+#: src/core/http_task.rs:79 src/core/http_task.rs:123
 #: src/gui/main_window.rs:791 src/gui/main_window.rs:803
 msgid "No match for this song"
 msgstr "Er is geen overeenkomst gevonden"
@@ -56,11 +56,11 @@ msgstr "Foutmelding:"
 msgid "Recording started!"
 msgstr "De opname is gestart!"
 
-#: src/main.rs:75
+#: src/main.rs:74
 msgid "An open-source Shazam client for Linux, written in Rust."
 msgstr "Een open source Shazam-app voor Linux, geschreven in Rust."
 
-#: src/main.rs:95
+#: src/main.rs:94
 msgid ""
 "-v: Set the log level to DEBUG instead of INFO for SongRec-related messages\n"
 "-vv: Set the log level to DEBUG for SongRec-related messages and INFO for "
@@ -73,7 +73,7 @@ msgstr ""
 "INFO voor berichten omtrent de bibliotheek\n"
 "-vvv: Stel het logniveau in op TRACE"
 
-#: src/main.rs:101
+#: src/main.rs:100
 msgid ""
 "Run as a command-line program listening the microphone and printing "
 "recognized songs to stdout, exposing current song info via MPRIS"
@@ -81,44 +81,44 @@ msgstr ""
 "Voer uit als een opdrachtregeltoepassing om de herkende nummers te tonen via "
 "stdout en de nummerinformatie via MPRIS"
 
-#: src/main.rs:107 src/main.rs:153 src/main.rs:208
+#: src/main.rs:106 src/main.rs:152 src/main.rs:207
 msgid "List available audio devices and quit"
 msgstr "Toon alle audioapparaten en sluit af"
 
-#: src/main.rs:113 src/main.rs:160 src/main.rs:214
+#: src/main.rs:112 src/main.rs:159 src/main.rs:213
 msgid "Specify the audio device to use"
 msgstr "Kies het te gebruiken audioapparaat"
 
-#: src/main.rs:121 src/main.rs:168 src/main.rs:222
+#: src/main.rs:120 src/main.rs:167 src/main.rs:221
 msgid ""
 "Shazam interval between requests in seconds (increase if you are rate-"
 "limited)"
 msgstr ""
 "De Shazam-tijd tussen verzoeken (in seconden — verhoog indien afgekapt)"
 
-#: src/main.rs:129 src/main.rs:176
+#: src/main.rs:128 src/main.rs:175
 msgid "Enable printing full song info in JSON"
 msgstr "Nummerinformatie vastleggen in json-bestand"
 
-#: src/main.rs:136 src/main.rs:183
+#: src/main.rs:135 src/main.rs:182
 msgid "Enable printing full song info in the CSV format"
 msgstr "Nummerinformatie vastleggen in csv-bestand"
 
-#: src/main.rs:142 src/main.rs:262 src/main.rs:277
+#: src/main.rs:141 src/main.rs:261 src/main.rs:276
 msgid "Disable MPRIS support"
 msgstr "MPRIS-ondersteuning uitschakelen"
 
-#: src/main.rs:147
+#: src/main.rs:146
 msgid "Recognize one song from a sound file or microphone and print its info."
 msgstr ""
 "Herken één nummer uit een geluidsbestand of via de microfoon en toon "
 "informatie."
 
-#: src/main.rs:188
+#: src/main.rs:187
 msgid "Recognize a file instead of using mic input"
 msgstr "Bestand gebruiken in plaats van microfoon"
 
-#: src/main.rs:193
+#: src/main.rs:192
 msgid ""
 "Generate a Shazam fingerprint from a sound file, perform song recognition "
 "towards Shazam's servers and print obtained information to the standard "
@@ -127,11 +127,11 @@ msgstr ""
 "Genereer een Shazam-vingerafdruk op basis van een geluidsbestand, voer "
 "muziekherkenning uit en schrijf de verkregen informatie weg."
 
-#: src/main.rs:197
+#: src/main.rs:196
 msgid "The audio file to recognize."
 msgstr "Het te herkennen bestand."
 
-#: src/main.rs:202
+#: src/main.rs:201
 msgid ""
 "Recognize a currently playing song using the microphone and print obtained "
 "information to the standard output"
@@ -139,7 +139,7 @@ msgstr ""
 "Herkent een nummer via de microfoon en toont de informatie via de "
 "standaarduitvoer"
 
-#: src/main.rs:227
+#: src/main.rs:226
 msgid ""
 "Generate a Shazam fingerprint from a sound file, and print it to the "
 "standard output."
@@ -147,12 +147,12 @@ msgstr ""
 "Genereer een Shazam-vingerafdruk op basis van een geluidsbestand en schrijf "
 "de verkregen informatie weg."
 
-#: src/main.rs:231
+#: src/main.rs:230
 msgid "The .WAV or .MP3 file to generate an audio fingerprint for."
 msgstr ""
 "Het wav- of mp3-bestand waarvoor een vingerafdruk moet worden gegenereerd."
 
-#: src/main.rs:236
+#: src/main.rs:235
 msgid ""
 "Take a data-URI Shazam fingerprint, perform song recognition towards "
 "Shazam's servers and print obtained information to the standard output."
@@ -160,26 +160,26 @@ msgstr ""
 "Gebruik een gegevensuri met Shazam-vingerafdruk, voer muziekherkenning uit "
 "en schrijf de verkregen informatie weg."
 
-#: src/main.rs:240
+#: src/main.rs:239
 msgid "The data-URI Shazam fingerprint to recognize."
 msgstr "De te herkennen gegevensuri met Shazam-vingerafdruk."
 
-#: src/main.rs:252
+#: src/main.rs:251
 msgid "The default action. Display a GUI."
 msgstr "De standaardactie: toon het venster."
 
-#: src/main.rs:256 src/main.rs:271
+#: src/main.rs:255 src/main.rs:270
 msgid "An optional audio file to recognize on the launch of the application."
 msgstr ""
 "Een optioneel audiobestand dat na het opstarten dient te worden herkend."
 
-#: src/main.rs:267
+#: src/main.rs:266
 msgid ""
 "Launch the GUI, but don't recognize audio through the microphone as soon as "
 "it is launched (rather than expecting the user to click on a button)."
 msgstr "Toon het venster, maar wacht met het starten van de muziekherkenning."
 
-#: src/core/http_task.rs:128 src/fingerprinting/communication.rs:66
+#: src/core/http_task.rs:130 src/core/fingerprinting/communication.rs:66
 msgid "Your IP has been rate-limited"
 msgstr "Je ip-verzoeken zijn afgekapt"
 
@@ -195,15 +195,15 @@ msgstr "Tijdens verwerken van instellingenbestand:"
 msgid "When saving the preferences file:"
 msgstr "Tijdens opslaan van instellingenbestand:"
 
-#: src/fingerprinting/signature_format.rs:97
+#: src/core/fingerprinting/signature_format.rs:97
 msgid "Invalid sample rate in decoded Shazam packet"
 msgstr "Ongeldige samplesnelheid in gedecodeerd Shazam-pakket"
 
-#: src/fingerprinting/signature_format.rs:139
+#: src/core/fingerprinting/signature_format.rs:139
 msgid "Invalid frequency band in decoded Shazam packet"
 msgstr "Ongeldige frequentieband in gedecodeerd Shazam-pakket"
 
-#: src/fingerprinting/signature_format.rs:220
+#: src/core/fingerprinting/signature_format.rs:220
 msgid "Invalid sample rate passed when encoding Shazam packet"
 msgstr ""
 "Ongeldige samplesnelheid doorgegeven tijdens encoderen van Shazam-pakket"

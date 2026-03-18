@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-10 02:27+0100\n"
+"POT-Creation-Date: 2026-03-18 16:38+0100\n"
 "PO-Revision-Date: 2026-03-09 02:16+0000\n"
 "Last-Translator: Marin <25437947+marin-m@users.noreply.github.com>\n"
 "Language-Team: Russian <https://weblate.fossplant.re/projects/songrec/"
@@ -45,8 +45,8 @@ msgstr "Ошибка: Сеть недоступна"
 msgid "Warning: Network unreachable"
 msgstr "Предупреждение: сеть недоступна"
 
-#: src/cli_main.rs:180 src/core/http_task.rs:54 src/core/http_task.rs:64
-#: src/core/http_task.rs:77 src/core/http_task.rs:121
+#: src/cli_main.rs:180 src/core/http_task.rs:56 src/core/http_task.rs:66
+#: src/core/http_task.rs:79 src/core/http_task.rs:123
 #: src/gui/main_window.rs:791 src/gui/main_window.rs:803
 msgid "No match for this song"
 msgstr "Нет совпадений для этой песни"
@@ -59,11 +59,11 @@ msgstr "Ошибка:"
 msgid "Recording started!"
 msgstr "Запись началась!"
 
-#: src/main.rs:75
+#: src/main.rs:74
 msgid "An open-source Shazam client for Linux, written in Rust."
 msgstr "Клиент Shazam с открытым исходным кодом для Linux, написанный на Rust."
 
-#: src/main.rs:95
+#: src/main.rs:94
 msgid ""
 "-v: Set the log level to DEBUG instead of INFO for SongRec-related messages\n"
 "-vv: Set the log level to DEBUG for SongRec-related messages and INFO for "
@@ -76,7 +76,7 @@ msgstr ""
 "SongRec, и INFO для сообщений, связанных с библиотекой\n"
 "-vvv: Установить уровень логирования TRACE"
 
-#: src/main.rs:101
+#: src/main.rs:100
 msgid ""
 "Run as a command-line program listening the microphone and printing "
 "recognized songs to stdout, exposing current song info via MPRIS"
@@ -85,15 +85,15 @@ msgstr ""
 "песни в стандартный вывод, предоставляя текущую информацию о песне через "
 "MPRIS"
 
-#: src/main.rs:107 src/main.rs:153 src/main.rs:208
+#: src/main.rs:106 src/main.rs:152 src/main.rs:207
 msgid "List available audio devices and quit"
 msgstr "Отобразить список доступных аудиоустройств и выйти"
 
-#: src/main.rs:113 src/main.rs:160 src/main.rs:214
+#: src/main.rs:112 src/main.rs:159 src/main.rs:213
 msgid "Specify the audio device to use"
 msgstr "Укажите аудиоустройство для использования"
 
-#: src/main.rs:121 src/main.rs:168 src/main.rs:222
+#: src/main.rs:120 src/main.rs:167 src/main.rs:221
 msgid ""
 "Shazam interval between requests in seconds (increase if you are rate-"
 "limited)"
@@ -101,29 +101,29 @@ msgstr ""
 "Интервал между запросами Shazam в секундах (увеличьте, если у вас "
 "установлено ограничение на количество запросов)"
 
-#: src/main.rs:129 src/main.rs:176
+#: src/main.rs:128 src/main.rs:175
 msgid "Enable printing full song info in JSON"
 msgstr "Включить печать полной информации о песне в формате JSON"
 
-#: src/main.rs:136 src/main.rs:183
+#: src/main.rs:135 src/main.rs:182
 msgid "Enable printing full song info in the CSV format"
 msgstr "Включить печать полной информации о песне в формате CSV"
 
-#: src/main.rs:142 src/main.rs:262 src/main.rs:277
+#: src/main.rs:141 src/main.rs:261 src/main.rs:276
 msgid "Disable MPRIS support"
 msgstr "Отключить поддержку MPRIS"
 
-#: src/main.rs:147
+#: src/main.rs:146
 msgid "Recognize one song from a sound file or microphone and print its info."
 msgstr ""
 "Распознать одну песню из звукового файла или микрофона и вывести информацию "
 "о ней."
 
-#: src/main.rs:188
+#: src/main.rs:187
 msgid "Recognize a file instead of using mic input"
 msgstr "Распознавать файл вместо использования микрофонного ввода"
 
-#: src/main.rs:193
+#: src/main.rs:192
 msgid ""
 "Generate a Shazam fingerprint from a sound file, perform song recognition "
 "towards Shazam's servers and print obtained information to the standard "
@@ -133,11 +133,11 @@ msgstr ""
 "песни на серверах Shazam и вывести полученную информацию на стандартный "
 "вывод."
 
-#: src/main.rs:197
+#: src/main.rs:196
 msgid "The audio file to recognize."
 msgstr "Аудиофайл для распознавания."
 
-#: src/main.rs:202
+#: src/main.rs:201
 msgid ""
 "Recognize a currently playing song using the microphone and print obtained "
 "information to the standard output"
@@ -145,7 +145,7 @@ msgstr ""
 "Распознать воспроизводимую в данный момент песню с помощью микрофона и "
 "вывести полученную информацию на стандартный вывод"
 
-#: src/main.rs:227
+#: src/main.rs:226
 msgid ""
 "Generate a Shazam fingerprint from a sound file, and print it to the "
 "standard output."
@@ -153,11 +153,11 @@ msgstr ""
 "Сгенерировать отпечаток Shazam из звукового файла и вывести его на "
 "стандартный вывод."
 
-#: src/main.rs:231
+#: src/main.rs:230
 msgid "The .WAV or .MP3 file to generate an audio fingerprint for."
 msgstr "Файл .WAV или .MP3, для которого необходимо создать аудиоотпечаток."
 
-#: src/main.rs:236
+#: src/main.rs:235
 msgid ""
 "Take a data-URI Shazam fingerprint, perform song recognition towards "
 "Shazam's servers and print obtained information to the standard output."
@@ -165,19 +165,19 @@ msgstr ""
 "Взять отпечаток URI-данных Shazam, выполнить распознавание песни на серверах "
 "Shazam и вывести полученную информацию на стандартный вывод."
 
-#: src/main.rs:240
+#: src/main.rs:239
 msgid "The data-URI Shazam fingerprint to recognize."
 msgstr "Отпечаток данных URI Shazam для распознавания."
 
-#: src/main.rs:252
+#: src/main.rs:251
 msgid "The default action. Display a GUI."
 msgstr "Действие по умолчанию. Отображение графического интерфейса."
 
-#: src/main.rs:256 src/main.rs:271
+#: src/main.rs:255 src/main.rs:270
 msgid "An optional audio file to recognize on the launch of the application."
 msgstr "Дополнительный аудиофайл для распознавания при запуске приложения."
 
-#: src/main.rs:267
+#: src/main.rs:266
 msgid ""
 "Launch the GUI, but don't recognize audio through the microphone as soon as "
 "it is launched (rather than expecting the user to click on a button)."
@@ -185,7 +185,7 @@ msgstr ""
 "Запустить графический интерфейс, но не распознавать звук через микрофон "
 "сразу после запуска (ожидать, что пользователь нажмет кнопку)."
 
-#: src/core/http_task.rs:128 src/fingerprinting/communication.rs:66
+#: src/core/http_task.rs:130 src/core/fingerprinting/communication.rs:66
 msgid "Your IP has been rate-limited"
 msgstr "Для вашего IP-адреса установлено ограничение скорости запросов"
 
@@ -201,15 +201,15 @@ msgstr "При анализе файла настроек:"
 msgid "When saving the preferences file:"
 msgstr "При сохранении файла настроек:"
 
-#: src/fingerprinting/signature_format.rs:97
+#: src/core/fingerprinting/signature_format.rs:97
 msgid "Invalid sample rate in decoded Shazam packet"
 msgstr "Неверная частота дискретизации в декодированном пакете Shazam"
 
-#: src/fingerprinting/signature_format.rs:139
+#: src/core/fingerprinting/signature_format.rs:139
 msgid "Invalid frequency band in decoded Shazam packet"
 msgstr "Неверный диапазон частот в декодированном пакете Shazam"
 
-#: src/fingerprinting/signature_format.rs:220
+#: src/core/fingerprinting/signature_format.rs:220
 msgid "Invalid sample rate passed when encoding Shazam packet"
 msgstr "При кодировании пакета Shazam передана неверная частота дискретизации"
 

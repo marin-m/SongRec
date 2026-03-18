@@ -43,13 +43,13 @@ mod utils {
 }
 
 mod plugins {
+    #[cfg(feature = "ffmpeg")]
+    pub mod ffmpeg_wrapper;
     #[cfg(feature = "gui")]
     #[cfg(target_os = "linux")]
     pub mod ksni;
     #[cfg(feature = "mpris")]
     pub mod mpris_player;
-    #[cfg(feature = "ffmpeg")]
-    pub mod ffmpeg_wrapper;
 }
 
 use crate::core::fingerprinting::algorithm::SignatureGenerator;

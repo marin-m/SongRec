@@ -6,7 +6,9 @@ use std::error::Error;
 
 use crate::core::thread_messages::*;
 
-use crate::core::fingerprinting::communication::{obtain_raw_cover_image, recognize_song_from_signature};
+use crate::core::fingerprinting::communication::{
+    obtain_raw_cover_image, recognize_song_from_signature,
+};
 use crate::core::fingerprinting::signature_format::DecodedSignature;
 
 async fn try_recognize_song(
