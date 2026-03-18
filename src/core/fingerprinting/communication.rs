@@ -7,8 +7,8 @@ use std::error::Error;
 use std::time::SystemTime;
 use uuid::Uuid;
 
-use crate::fingerprinting::signature_format::DecodedSignature;
-use crate::fingerprinting::user_agent::USER_AGENTS;
+use crate::core::fingerprinting::signature_format::DecodedSignature;
+use crate::core::fingerprinting::user_agent::USER_AGENTS;
 
 pub async fn recognize_song_from_signature(
     session: &soup::Session,

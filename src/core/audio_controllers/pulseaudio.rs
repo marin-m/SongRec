@@ -3,7 +3,7 @@ use cpal::traits::HostTrait;
 
 use pulsectl::controllers::{AppControl, DeviceControl, SourceController};
 
-use crate::audio_controllers::audio_backend::AudioBackend;
+use crate::core::audio_controllers::audio_backend::AudioBackend;
 use crate::core::thread_messages::DeviceListItem;
 
 use log::{debug, error};

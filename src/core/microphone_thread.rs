@@ -12,7 +12,7 @@ use gettextrs::gettext;
 use rodio::conversions::SampleTypeConverter;
 use rodio::nz;
 
-use crate::audio_controllers::audio_backend::get_any_backend;
+use crate::core::audio_controllers::audio_backend::get_any_backend;
 
 const MAX_BUFFER_SIZE: usize = 512;
 

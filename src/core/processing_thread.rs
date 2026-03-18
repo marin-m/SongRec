@@ -1,6 +1,6 @@
 use crate::core::thread_messages::{ProcessingMessage::*, *};
 
-use crate::fingerprinting::algorithm::SignatureGenerator;
+use crate::core::fingerprinting::algorithm::SignatureGenerator;
 
 pub fn processing_thread(
     processing_rx: async_channel::Receiver<ProcessingMessage>,

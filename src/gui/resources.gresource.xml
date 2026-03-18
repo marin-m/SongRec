@@ -10,7 +10,5 @@
     <file compressed="true" alias="re.fossplant.songrec.png">custom_icon.png</file>
     <file compressed="true" alias="256x256/apps/re.fossplant.songrec.png">custom_icon.png</file>
     <file compressed="true">custom_icon.png</file>
-    <file compressed="true" alias="search-symbolic.png">search-symbolic.png</file>
-    <file compressed="true" alias="actions/128/search-symbolic.png">search-symbolic.png</file>
   </gresource>
 </gresources>

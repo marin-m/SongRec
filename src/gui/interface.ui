@@ -638,7 +638,7 @@ Contributors https://github.com/marin-m/SongRec/graphs/contributors</property>
     <section>
       <item>
         <attribute name="action">history-menu.search-on-youtube</attribute>
-        <attribute name="icon">category-search-symbolic</attribute>
+        <attribute name="icon">search-symbolic</attribute>
         <attribute name="label" translatable="yes">Search on YouTube</attribute>
       </item>
     </section>

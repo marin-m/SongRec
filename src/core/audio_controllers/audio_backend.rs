@@ -1,8 +1,8 @@
 use cpal::platform::{Device, Host};
 
-use crate::audio_controllers::cpal::CpalBackend;
+use crate::core::audio_controllers::cpal::CpalBackend;
 #[cfg(feature = "pulse")]
-use crate::audio_controllers::pulseaudio::PulseBackend;
+use crate::core::audio_controllers::pulseaudio::PulseBackend;
 
 use crate::core::thread_messages::DeviceListItem;
 

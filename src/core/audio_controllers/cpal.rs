@@ -1,7 +1,7 @@
 use cpal::platform::{Device, Host};
 use cpal::traits::{DeviceTrait, HostTrait};
 
-use crate::audio_controllers::audio_backend::AudioBackend;
+use crate::core::audio_controllers::audio_backend::AudioBackend;
 use crate::core::thread_messages::DeviceListItem;
 
 pub struct CpalBackend;

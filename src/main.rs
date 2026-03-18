@@ -2,14 +2,6 @@
 
 pub mod cli_main;
 
-mod fingerprinting {
-    pub mod algorithm;
-    pub mod communication;
-    mod hanning;
-    pub mod signature_format;
-    mod user_agent;
-}
-
 mod core {
     pub mod http_task;
     pub mod logging;
@@ -17,13 +9,21 @@ mod core {
     pub mod preferences;
     pub mod processing_thread;
     pub mod thread_messages;
-}
 
-mod audio_controllers {
-    pub mod audio_backend;
-    pub mod cpal;
-    #[cfg(feature = "pulse")]
-    pub mod pulseaudio;
+    mod audio_controllers {
+        pub mod audio_backend;
+        pub mod cpal;
+        #[cfg(feature = "pulse")]
+        pub mod pulseaudio;
+    }
+
+    pub mod fingerprinting {
+        pub mod algorithm;
+        pub mod communication;
+        mod hanning;
+        pub mod signature_format;
+        mod user_agent;
+    }
 }
 
 #[cfg(feature = "gui")]
@@ -40,9 +40,6 @@ mod utils {
     pub mod csv_song_history;
     pub mod filesystem_operations;
     pub mod internationalization;
-
-    #[cfg(feature = "ffmpeg")]
-    pub mod ffmpeg_wrapper;
 }
 
 mod plugins {
@@ -51,11 +48,13 @@ mod plugins {
     pub mod ksni;
     #[cfg(feature = "mpris")]
     pub mod mpris_player;
+    #[cfg(feature = "ffmpeg")]
+    pub mod ffmpeg_wrapper;
 }
 
-use crate::fingerprinting::algorithm::SignatureGenerator;
-use crate::fingerprinting::communication::recognize_song_from_signature;
-use crate::fingerprinting::signature_format::DecodedSignature;
+use crate::core::fingerprinting::algorithm::SignatureGenerator;
+use crate::core::fingerprinting::communication::recognize_song_from_signature;
+use crate::core::fingerprinting::signature_format::DecodedSignature;
 
 use crate::cli_main::{cli_main, CLIOutputType, CLIParameters};
 use crate::core::logging::Logging;

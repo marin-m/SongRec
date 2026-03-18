@@ -5,10 +5,10 @@ use std::collections::HashMap;
 use std::error::Error;
 use std::io::BufReader;
 
-use crate::fingerprinting::hanning::HANNING_WINDOW_2048_MULTIPLIERS;
-use crate::fingerprinting::signature_format::{DecodedSignature, FrequencyBand, FrequencyPeak};
+use crate::core::fingerprinting::hanning::HANNING_WINDOW_2048_MULTIPLIERS;
+use crate::core::fingerprinting::signature_format::{DecodedSignature, FrequencyBand, FrequencyPeak};
 #[cfg(feature = "ffmpeg")]
-use crate::utils::ffmpeg_wrapper::decode_with_ffmpeg;
+use crate::plugins::ffmpeg_wrapper::decode_with_ffmpeg;
 
 pub struct SignatureGenerator {
     // Used when processing input:
