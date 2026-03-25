@@ -28,7 +28,9 @@ package() {
   install -Dm755 "${CARGO_TARGET_DIR:-target}/release/songrec" "$pkgdir/usr/bin/songrec"
   install -Dm644 "packaging/rootfs/usr/share/applications/re.fossplant.songrec.desktop" "$pkgdir/usr/share/applications/re.fossplant.songrec.desktop"
   install -Dm644 "packaging/rootfs/usr/share/icons/hicolor/scalable/apps/re.fossplant.songrec.svg" \
-                    "$pkgdir/usr/share/icons/hicolor/scalable/apps/re.fossplant.songrec.svg"
+                    "$pkgdir/usr/share/icons/hicolor/scalable/apps/re.fossplant.songrec.svg" \
+  install -Dm644 "packaging/rootfs/usr/share/icons/hicolor/scalable/apps/re.fossplant.songrec-symbolic.svg" \
+                    "$pkgdir/usr/share/icons/hicolor/scalable/apps/re.fossplant.songrec-symbolic.svg" \
   install -Dm644 "packaging/rootfs/usr/share/metainfo/re.fossplant.songrec.metainfo.xml" \
                     "$pkgdir/usr/share/metainfo/re.fossplant.songrec.metainfo.xml"
   cp -ra "translations/locale" "$pkgdir/usr/share/"
