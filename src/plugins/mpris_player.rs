@@ -1,68 +1,63 @@
-use log::debug;
+use log::{debug, error};
 use std::fs;
-use std::panic;
-use std::sync::Arc;
 
 // TODO rewrite Cf. https://github.com/SeaDve/mpris-server/blob/main/examples/player.rs
 // https://github.com/SeaDve/mpris-server/blob/main/examples/local_server.rs
 // https://github.com/SeaDve/mpris-server/blob/main/examples/server.rs
 
-use mpris_player::{Metadata, MprisPlayer, PlaybackStatus};
+use mpris_server::{Metadata, PlaybackStatus, Player};
 
 use crate::core::thread_messages::SongRecognizedMessage;
 use crate::utils::filesystem_operations::obtain_cache_directory;
 use std::os::unix::fs::MetadataExt;
 use std::time::SystemTime;
 
-fn init_player(p: Arc<MprisPlayer>) -> Arc<MprisPlayer> {
-    p.set_can_quit(false);
-    p.set_can_raise(false);
-    p.set_can_set_fullscreen(false);
-
-    p.set_can_control(false);
-    p.set_can_seek(false);
-    p.set_can_go_next(false);
-    p.set_can_go_previous(false);
-    p.set_can_play(true);
-    p.set_can_pause(false);
-    p.set_playback_status(PlaybackStatus::Playing);
-
-    p
+pub async fn get_player(gui_mode: bool) -> Option<Player> {
+    match Player::builder(match std::env::var("SNAP_NAME") {
+        Ok(_) => "songrec",
+        _ => "re.fossplant.songrec",
+    })
+    .can_quit(gui_mode)
+    .can_raise(gui_mode)
+    .can_seek(false)
+    .can_go_next(false)
+    .can_go_previous(false)
+    .can_play(true)
+    .can_pause(false)
+    .playback_status(PlaybackStatus::Playing)
+    .has_track_list(true)
+    .identity("SongRec")
+    .desktop_entry(match std::env::var("SNAP_NAME") {
+        Ok(_) => "com.github.marinm.songrec",
+        _ => "re.fossplant.songrec",
+    })
+    .build()
+    .await
+    {
+        Ok(player) => {
+            glib::spawn_future_local(player.run());
+            Some(player)
+        }
+        Err(error) => {
+            error!("Could not initialize MPRIS: {:?}", error);
+            None
+        }
+    }
 }
 
-pub fn get_player() -> Option<Arc<MprisPlayer>> {
-    // MprisPlayer::new may panic if DBus is unavailable,
-    // so we need to mess around with panic::catch_unwind
-
-    let prev_hook = panic::take_hook();
-    panic::set_hook(Box::new(|_| {}));
-    let player = panic::catch_unwind(|| {
-        MprisPlayer::new(
-            match std::env::var("SNAP_NAME") {
-                Ok(_) => "songrec",
-                _ => "re.fossplant.songrec",
-            }
-            .to_string(),
-            "SongRec".to_string(),
-            "re.fossplant.songrec.desktop".to_string(),
-        )
-    });
-    panic::set_hook(prev_hook);
-
-    player.map(init_player).ok()
-}
-
-pub fn update_song(
-    p: &MprisPlayer,
-    m: &SongRecognizedMessage,
+pub async fn update_song(
+    player: &Player,
+    message: &SongRecognizedMessage,
     last_cover_path: &mut Option<std::path::PathBuf>,
 ) {
-    let mut metadata = Metadata::new();
-    metadata.title = Some(m.song_name.clone());
-    metadata.artist = Some(vec![m.artist_name.clone()]);
-    metadata.album = m.album_name.clone();
-    if let Some(ref genre) = m.genre {
-        metadata.genre = Some(vec![genre.clone()]);
+    let mut metadata = Metadata::builder()
+        .title(message.song_name.clone())
+        .artist(vec![message.artist_name.clone()]);
+    if let Some(ref album) = message.album_name {
+        metadata = metadata.album(album.clone());
+    }
+    if let Some(ref genre) = message.genre {
+        metadata = metadata.genre(vec![genre.clone()]);
     }
 
     // Clean up old cover file
@@ -70,7 +65,7 @@ pub fn update_song(
         let _ = fs::remove_file(path);
     }
 
-    if let Some(ref buf) = m.cover_image {
+    if let Some(ref buf) = message.cover_image {
         let (mime_ext, mime_type) = if buf.len() >= 4
             && buf[0] == 0x89
             && buf[1] == b'P'
@@ -87,9 +82,8 @@ pub fn update_song(
             ("jpg", "image/jpeg")
         };
         let process_uid = std::fs::metadata("/proc/self")
-            .map(|m| m.uid())
+            .map(|message| message.uid())
             .unwrap_or(0);
-        // TODO use cache dir
         let mut tmp = obtain_cache_directory().unwrap();
         let timestamp = SystemTime::now()
             .duration_since(SystemTime::UNIX_EPOCH)
@@ -102,12 +96,18 @@ pub fn update_song(
         debug!("Writing cover file to {:?}", tmp);
         if fs::write(&tmp, buf).is_ok() {
             // Use file:// URL for better compatibility with MPRIS clients
-            metadata.art_url = Some(format!("file://{}", tmp.display()));
+            metadata = metadata.art_url(format!("file://{}", tmp.display()));
             *last_cover_path = Some(tmp);
         } else {
             // Fallback to data URI (ensure we use the correct mime type)
-            metadata.art_url = Some(format!("data:{};base64,{}", mime_type, base64::encode(buf)));
+            metadata =
+                metadata.art_url(format!("data:{};base64,{}", mime_type, base64::encode(buf)));
         }
     }
-    p.set_metadata(metadata);
+    match player.set_metadata(metadata.build()).await {
+        Ok(_) => {}
+        Err(error) => {
+            error!("Could not set MPRIS metadata: {:?}", error);
+        }
+    }
 }

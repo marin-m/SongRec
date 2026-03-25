@@ -3,7 +3,7 @@ use chrono::Local;
 use gettextrs::gettext;
 use log::{debug, error, info, trace};
 #[cfg(feature = "mpris")]
-use mpris_player::PlaybackStatus;
+use mpris_server::PlaybackStatus;
 use percent_encoding::{utf8_percent_encode, NON_ALPHANUMERIC};
 use serde_json::json;
 use std::cell::RefCell;
@@ -700,7 +700,18 @@ impl App {
             #[cfg(feature = "mpris")]
             let mut mpris_obj = {
                 let player = if enable_mpris_cli && old_preferences.enable_mpris == Some(true) {
-                    get_player()
+                    let player_maybe = get_player(true).await;
+                    if let Some(ref player) = player_maybe {
+                        let application = application.clone();
+                        let window = window.clone();
+                        player.connect_quit(move |_player| {
+                            application.quit();
+                        });
+                        player.connect_raise(move |_player| {
+                            window.present();
+                        });
+                    }
+                    player_maybe
                 } else {
                     None
                 };
@@ -776,7 +787,18 @@ impl App {
 
                                 mpris_obj = {
                                     let player = if enable_mpris_cli && mpris_enabled {
-                                        get_player()
+                                        let player_maybe = get_player(true).await;
+                                        if let Some(ref player) = player_maybe {
+                                            let application = application.clone();
+                                            let window = window.clone();
+                                            player.connect_quit(move |_player| {
+                                                application.quit();
+                                            });
+                                            player.connect_raise(move |_player| {
+                                                window.present();
+                                            });
+                                        }
+                                        player_maybe
                                     } else {
                                         None
                                     };
@@ -847,9 +869,16 @@ impl App {
                                         PlaybackStatus::Paused
                                     };
 
-                                    mpris_obj
-                                        .as_ref()
-                                        .map(|p| p.set_playback_status(mpris_status));
+                                    if let Some(ref player) = mpris_obj {
+                                        if let Err(error) =
+                                            player.set_playback_status(mpris_status).await
+                                        {
+                                            error!(
+                                                "Could not set MPRIS playback status: {:?}",
+                                                error
+                                            );
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -902,9 +931,9 @@ impl App {
                                     .enable_mpris
                                     == Some(true)
                                 {
-                                    mpris_obj
-                                        .as_ref()
-                                        .map(|p| update_song(p, &message, &mut last_cover_path));
+                                    if let Some(ref player) = mpris_obj {
+                                        update_song(player, &message, &mut last_cover_path).await;
+                                    }
                                 }
 
                                 if preferences_interface_ptr

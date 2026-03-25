@@ -1,14 +1,12 @@
 use log::{error, info, warn};
-use std::cell::RefCell;
 use std::error::Error;
-use std::rc::Rc;
 use std::sync::{Arc, Mutex};
 
 use chrono::Local;
 use gettextrs::gettext;
 
 #[cfg(feature = "mpris")]
-use mpris_player::PlaybackStatus;
+use mpris_server::PlaybackStatus;
 
 use crate::core::http_task::http_task;
 use crate::core::microphone_thread::microphone_thread;
@@ -18,10 +16,9 @@ use crate::core::thread_messages::{
 };
 
 use crate::core::preferences::{Preferences, PreferencesInterface};
-use crate::utils::csv_song_history::SongHistoryRecord;
-// TODO re-implement this
 #[cfg(feature = "mpris")]
 use crate::plugins::mpris_player::{get_player, update_song};
+use crate::utils::csv_song_history::SongHistoryRecord;
 
 pub enum CLIOutputType {
     SongName,
@@ -72,39 +69,39 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
 
     glib::spawn_future_local(http_task(http_rx, gui_tx, microphone_tx_3));
 
-    // recognize once if an input file is provided
-    let do_recognize_once = parameters.recognize_once || parameters.input_file.is_some();
-
-    // do not enable mpris if recognizing one song
-
-    // TODO re-implement this with new lib
-    #[cfg(feature = "mpris")]
-    let mpris_obj = {
-        let do_enable_mpris = parameters.enable_mpris && !do_recognize_once;
-        if do_enable_mpris {
-            get_player()
-        } else {
-            None
-        }
-    };
-    #[cfg(feature = "mpris")]
-    let mut last_cover_path = None;
-
-    let last_track: Rc<RefCell<Option<String>>> = Rc::new(RefCell::new(None));
-
-    let audio_dev_name = parameters.audio_device.as_ref().map(|dev| dev.to_string());
-    let input_file_name = parameters.input_file.as_ref().map(|dev| dev.to_string());
-
-    if let Some(ref filename) = parameters.input_file {
-        processing_tx
-            .try_send(ProcessingMessage::ProcessAudioFile(filename.to_string()))
-            .unwrap();
-    }
-
     let main_loop = glib::MainLoop::new(None, false);
     let loop_inner = main_loop.clone();
 
     glib::spawn_future_local(async move {
+        // Recognize once if an input file is provided
+
+        let do_recognize_once = parameters.recognize_once || parameters.input_file.is_some();
+
+        // Do not enable mpris if recognizing one song
+
+        #[cfg(feature = "mpris")]
+        let mpris_obj = {
+            let do_enable_mpris = parameters.enable_mpris && !do_recognize_once;
+            if do_enable_mpris {
+                get_player(false).await
+            } else {
+                None
+            }
+        };
+        #[cfg(feature = "mpris")]
+        let mut last_cover_path = None;
+
+        let mut last_track: Option<String> = None;
+
+        let audio_dev_name = parameters.audio_device.as_ref().map(|dev| dev.to_string());
+        let input_file_name = parameters.input_file.as_ref().map(|dev| dev.to_string());
+
+        if let Some(ref filename) = parameters.input_file {
+            processing_tx
+                .try_send(ProcessingMessage::ProcessAudioFile(filename.to_string()))
+                .unwrap();
+        }
+
         let mut csv_writer = csv::Writer::from_writer(std::io::stdout());
 
         while let Ok(gui_message) = gui_rx.recv().await {
@@ -156,15 +153,16 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
                 GUIMessage::NetworkStatus(reachable) => {
                     #[cfg(feature = "mpris")]
                     {
-                        // TODO re-implement this
                         let mpris_status = if reachable {
                             PlaybackStatus::Playing
                         } else {
                             PlaybackStatus::Paused
                         };
-                        mpris_obj
-                            .as_ref()
-                            .map(|p| p.set_playback_status(mpris_status));
+                        if let Some(ref player) = mpris_obj {
+                            if let Err(error) = player.set_playback_status(mpris_status).await {
+                                error!("Could not set MPRIS playback status: {:?}", error);
+                            }
+                        }
                     }
 
                     if !reachable {
@@ -191,18 +189,17 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
                     }
                 }
                 GUIMessage::SongRecognized(message) => {
-                    let mut last_track_borrow = last_track.borrow_mut();
                     let track_key = Some(message.track_key.clone());
                     let song_name = format!("{} - {}", message.artist_name, message.song_name);
 
-                    if *last_track_borrow != track_key {
+                    if last_track != track_key {
                         // TODO re-implement this with new lib
                         #[cfg(feature = "mpris")]
-                        mpris_obj
-                            .as_ref()
-                            .map(|p| update_song(p, &message, &mut last_cover_path));
+                        if let Some(ref player) = mpris_obj {
+                            update_song(player, &message, &mut last_cover_path).await;
+                        }
 
-                        *last_track_borrow = track_key;
+                        last_track = track_key;
                         match parameters.output_type {
                             CLIOutputType::JSON => {
                                 println!("{}", message.shazam_json);
