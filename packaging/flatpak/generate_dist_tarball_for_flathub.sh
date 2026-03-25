@@ -19,7 +19,7 @@ cd /tmp/dist_dir
 mkdir -p .cargo
 cargo vendor --locked vendor | sed 's/^directory = ".*"/directory = "vendor"/g' > .cargo/config.toml
 
-rm -rf .git
+rm -rf .git packaging/ffmpeg/linux/
 
 cd /tmp/dist_dir
 tar zcvf ../songrec_tarball_"$1"_for_flathub_build.tar.gz .
