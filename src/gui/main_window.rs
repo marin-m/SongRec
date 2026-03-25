@@ -777,7 +777,7 @@ impl App {
                                 .unwrap()
                                 .update(new_preference);
                             #[cfg(feature = "mpris")]
-                            if mpris_obj.is_none() {
+                            if enable_mpris_cli {
                                 let mpris_enabled = preferences_interface_ptr
                                     .lock()
                                     .unwrap()
@@ -785,8 +785,8 @@ impl App {
                                     .enable_mpris
                                     == Some(true);
 
-                                mpris_obj = {
-                                    let player = if enable_mpris_cli && mpris_enabled {
+                                if mpris_enabled && mpris_obj.is_none() {
+                                    mpris_obj = {
                                         let player_maybe = get_player(true).await;
                                         if let Some(ref player) = player_maybe {
                                             let application = application.clone();
@@ -797,16 +797,19 @@ impl App {
                                             player.connect_raise(move |_player| {
                                                 window.present();
                                             });
+                                        } else {
+                                            println!(
+                                                "{}",
+                                                gettext("Unable to enable MPRIS support")
+                                            )
                                         }
                                         player_maybe
-                                    } else {
-                                        None
                                     };
-                                    if enable_mpris_cli && mpris_enabled && player.is_none() {
-                                        println!("{}", gettext("Unable to enable MPRIS support"))
+                                } else if let Some(ref player) = mpris_obj {
+                                    if mpris_enabled != player.can_play() {
+                                        player.set_can_play(mpris_enabled).await.ok();
                                     }
-                                    player
-                                };
+                                }
                             }
                         }
                         ErrorMessage(string) => {
