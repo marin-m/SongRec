@@ -58,6 +58,17 @@ https://hughsie.github.io/oars/index.html
 -->
   <content_rating type="oars-1.1" />
   <releases>
+    <release version="0.6.7" date="2026-03-25">
+      <description>
+        <p>Update dependencies, including using a non-deprecated library for the MPRIS module (issue #243)</p>
+        <p>Use a monochrome tray icon for better GNOME integration (issue #255)</p>
+        <p>Update the Brazilian translation thanks to @marcelocripe</p>
+        <p>Update the Arabic translation thanks to @mu7basha</p>
+        <p>Update the Slovak translation thanks to @dodog</p>
+        <p>Update the Spanish translation thanks to @feramirez</p>
+        <p>Allow shrinking down the window to arbitary sizes in windowed mode</p>
+      </description>
+    </release>
     <release version="0.6.6" date="2026-03-08">
       <description>
         <p>Fix translations other than fr_FR not being loaded in the Flatpak build (see issue #247)</p>

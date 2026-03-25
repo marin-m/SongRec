@@ -1,3 +1,15 @@
+songrec (0.6.7) bionic; urgency=low
+
+  * Update dependencies, including using a non-deprecated library for the MPRIS module (issue #243)
+  * Use a monochrome tray icon for better GNOME integration (issue #255)
+  * Update the Brazilian translation thanks to @marcelocripe
+  * Update the Arabic translation thanks to @mu7basha
+  * Update the Slovak translation thanks to @dodog
+  * Update the Spanish translation thanks to @feramirez
+  * Allow shrinking down the window to arbitary sizes in windowed mode
+
+ -- Marin <marin-m@users.noreply.github.com>  Wed, 25 Mar 2026 15:37:53 +0100
+
 songrec (0.6.6) bionic; urgency=low
 
   * Fix translations other than fr_FR not being loaded in the Flatpak build (see issue #247)
