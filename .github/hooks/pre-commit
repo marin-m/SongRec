@@ -8,19 +8,14 @@
 # Redirect output to stderr.
 exec 1>&2
 
-# Exit on error
-set -e
-
 REPO_DIR="$(git rev-parse --show-toplevel)"
 
 cd "${REPO_DIR}"
 
 function run {
 	echo [i] Running: "$@"
-	set +e
 	$@ >/dev/null 2>/dev/null
 	RETCODE="$?"
-	set -e
 	if [ "${RETCODE}" -ne "0" ]
 	then
 		echo [!] Command returned: "${RETCODE}"
@@ -29,8 +24,21 @@ function run {
 	fi
 }
 
-run appstreamcli validate packaging/rootfs/usr/share/metainfo/re.fossplant.songrec.metainfo.xml
+APP_ID="re.fossplant.songrec"
+METAINFO="packaging/rootfs/usr/share/metainfo/${APP_ID}.metainfo.xml"
+DESKTOP="packaging/rootfs/usr/share/applications/${APP_ID}.desktop"
 
-run cargo fmt
+git diff --cached --quiet "${METAINFO}"
+if [ "$?" -ne "0" ]; then
+	run appstreamcli validate "${METAINFO}"
+fi
 
-run desktop-file-validate packaging/rootfs/usr/share/applications/re.fossplant.songrec.desktop
+git diff --cached --quiet "src/" "build.rs"
+if [ "$?" -ne "0" ]; then
+	run cargo fmt
+fi
+
+git diff --cached --quiet "${DESKTOP}"
+if [ "$?" -ne "0" ]; then
+	run desktop-file-validate "${DESKTOP}"
+fi
