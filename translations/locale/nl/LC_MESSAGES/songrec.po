@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-18 16:38+0100\n"
+"POT-Creation-Date: 2026-03-25 12:20+0100\n"
 "PO-Revision-Date: 2026-03-09 02:16+0000\n"
 "Last-Translator: Marin <25437947+marin-m@users.noreply.github.com>\n"
 "Language-Team: Dutch <https://weblate.fossplant.re/projects/songrec/songrec/"
@@ -18,41 +18,41 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.15.2\n"
 
-#: src/cli_main.rs:120
+#: src/cli_main.rs:117
 msgid "Available device:"
 msgstr "Beschikbaar apparaat:"
 
-#: src/cli_main.rs:138
+#: src/cli_main.rs:135
 msgid "Exiting: audio device not found"
 msgstr "Geen audioapparaat aangetroffen"
 
-#: src/cli_main.rs:144
+#: src/cli_main.rs:141
 msgid "Exiting: no audio devices found!"
 msgstr "Geen audioapparaten aangetroffen!"
 
-#: src/cli_main.rs:149
+#: src/cli_main.rs:146
 msgid "Using device"
 msgstr "Gebruikmakend van"
 
-#: src/cli_main.rs:172
+#: src/cli_main.rs:170
 msgid "Error: Network unreachable"
 msgstr "Foutmelding: geen internetverbinding"
 
-#: src/cli_main.rs:175
+#: src/cli_main.rs:173
 msgid "Warning: Network unreachable"
 msgstr "Waarschuwing: geen internetverbinding"
 
-#: src/cli_main.rs:180 src/core/http_task.rs:56 src/core/http_task.rs:66
+#: src/cli_main.rs:178 src/core/http_task.rs:56 src/core/http_task.rs:66
 #: src/core/http_task.rs:79 src/core/http_task.rs:123
-#: src/gui/main_window.rs:791 src/gui/main_window.rs:803
+#: src/gui/main_window.rs:816 src/gui/main_window.rs:828
 msgid "No match for this song"
 msgstr "Er is geen overeenkomst gevonden"
 
-#: src/cli_main.rs:182
+#: src/cli_main.rs:180
 msgid "Error:"
 msgstr "Foutmelding:"
 
-#: src/cli_main.rs:190
+#: src/cli_main.rs:188
 msgid "Recording started!"
 msgstr "De opname is gestart!"
 
@@ -191,7 +191,7 @@ msgstr "Audiofout:"
 msgid "When parsing the preferences file:"
 msgstr "Tijdens verwerken van instellingenbestand:"
 
-#: src/core/preferences.rs:151
+#: src/core/preferences.rs:149
 msgid "When saving the preferences file:"
 msgstr "Tijdens opslaan van instellingenbestand:"
 
@@ -220,27 +220,27 @@ msgstr "Netwerkfout"
 msgid "Unable to enable notification icon"
 msgstr "Het systeemvakpictogram kan niet worden ingeschakeld"
 
-#: src/gui/main_window.rs:711 src/gui/main_window.rs:784
+#: src/gui/main_window.rs:722 src/gui/main_window.rs:803
 msgid "Unable to enable MPRIS support"
 msgstr "De MPRIS-ondersteuning kan niet worden ingeschakeld"
 
-#: src/gui/main_window.rs:800
+#: src/gui/main_window.rs:825
 msgid "_Ok"
 msgstr "_Ok"
 
-#: src/gui/main_window.rs:873
+#: src/gui/main_window.rs:905
 msgid "Song recognized"
 msgstr "Het nummer is herkend"
 
-#: src/gui/main_window.rs:1031
+#: src/gui/main_window.rs:1063
 msgid "Are you sure you want to wipe history?"
 msgstr "Weet je zeker dat je de geschiedenis wilt wissen?"
 
-#: src/gui/main_window.rs:1037
+#: src/gui/main_window.rs:1069
 msgid "_Yes"
 msgstr "_Ja"
 
-#: src/gui/main_window.rs:1038
+#: src/gui/main_window.rs:1070
 msgid "_No"
 msgstr "_Nee"
 
@@ -252,11 +252,11 @@ msgstr "De nummergeschiedenis op de schijf kan niet worden uitgelezen:"
 msgid "Error when reading the favorites on the disk:"
 msgstr "De favorieten op de schijf kunnen niet worden uitgelezen:"
 
-#: src/plugins/ksni.rs:30
+#: src/plugins/ksni.rs:48
 msgid "Open SongRec"
 msgstr "SongRec openen"
 
-#: src/plugins/ksni.rs:38
+#: src/plugins/ksni.rs:56
 msgid "Quit..."
 msgstr "Afsluiten…"
 

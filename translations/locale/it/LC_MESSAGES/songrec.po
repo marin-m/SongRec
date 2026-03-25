@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-18 16:38+0100\n"
+"POT-Creation-Date: 2026-03-25 12:20+0100\n"
 "PO-Revision-Date: 2023-09-08 16:03+0200\n"
 "Last-Translator: Gianluca Boiano <morf3089@gmail.com>\n"
 "Language-Team: Albano Battistella  <albano_battistella@hotmail.com>\n"
@@ -20,41 +20,41 @@ msgstr ""
 "Translator: Albano Battistella <albano_battistella@hotmail.com>\n"
 "X-Generator: Poedit 3.3.2\n"
 
-#: src/cli_main.rs:120
+#: src/cli_main.rs:117
 msgid "Available device:"
 msgstr ""
 
-#: src/cli_main.rs:138
+#: src/cli_main.rs:135
 msgid "Exiting: audio device not found"
 msgstr "In uscita: dispositivo audio non trovato"
 
-#: src/cli_main.rs:144
+#: src/cli_main.rs:141
 msgid "Exiting: no audio devices found!"
 msgstr "In uscita: nessun dispositivo audio trovato!"
 
-#: src/cli_main.rs:149
+#: src/cli_main.rs:146
 msgid "Using device"
 msgstr "Dispositivo in uso"
 
-#: src/cli_main.rs:172
+#: src/cli_main.rs:170
 msgid "Error: Network unreachable"
 msgstr "Errore: rete irraggiungibile"
 
-#: src/cli_main.rs:175
+#: src/cli_main.rs:173
 msgid "Warning: Network unreachable"
 msgstr "Avviso: rete irraggiungibile"
 
-#: src/cli_main.rs:180 src/core/http_task.rs:56 src/core/http_task.rs:66
+#: src/cli_main.rs:178 src/core/http_task.rs:56 src/core/http_task.rs:66
 #: src/core/http_task.rs:79 src/core/http_task.rs:123
-#: src/gui/main_window.rs:791 src/gui/main_window.rs:803
+#: src/gui/main_window.rs:816 src/gui/main_window.rs:828
 msgid "No match for this song"
 msgstr "Nessuna corrispondenza per questo brano"
 
-#: src/cli_main.rs:182
+#: src/cli_main.rs:180
 msgid "Error:"
 msgstr "Errore:"
 
-#: src/cli_main.rs:190
+#: src/cli_main.rs:188
 msgid "Recording started!"
 msgstr "Registrazione iniziata!"
 
@@ -191,7 +191,7 @@ msgstr ""
 msgid "When parsing the preferences file:"
 msgstr "Quando si apre il file delle preferenze:"
 
-#: src/core/preferences.rs:151
+#: src/core/preferences.rs:149
 msgid "When saving the preferences file:"
 msgstr "Quando si salva il file delle preferenze:"
 
@@ -222,27 +222,27 @@ msgstr ""
 msgid "Unable to enable notification icon"
 msgstr ""
 
-#: src/gui/main_window.rs:711 src/gui/main_window.rs:784
+#: src/gui/main_window.rs:722 src/gui/main_window.rs:803
 msgid "Unable to enable MPRIS support"
 msgstr "Impossibile abilitare il supporto MPRIS"
 
-#: src/gui/main_window.rs:800
+#: src/gui/main_window.rs:825
 msgid "_Ok"
 msgstr ""
 
-#: src/gui/main_window.rs:873
+#: src/gui/main_window.rs:905
 msgid "Song recognized"
 msgstr "Brano riconosciuto"
 
-#: src/gui/main_window.rs:1031
+#: src/gui/main_window.rs:1063
 msgid "Are you sure you want to wipe history?"
 msgstr "Sei sicuro di voler cancellare la cronologia?"
 
-#: src/gui/main_window.rs:1037
+#: src/gui/main_window.rs:1069
 msgid "_Yes"
 msgstr "_Sì"
 
-#: src/gui/main_window.rs:1038
+#: src/gui/main_window.rs:1070
 msgid "_No"
 msgstr "_No"
 
@@ -254,11 +254,11 @@ msgstr "Errore durante la lettura della cronologia dei brani sul disco:"
 msgid "Error when reading the favorites on the disk:"
 msgstr "Errore durante la lettura dei preferiti sul disco:"
 
-#: src/plugins/ksni.rs:30
+#: src/plugins/ksni.rs:48
 msgid "Open SongRec"
 msgstr ""
 
-#: src/plugins/ksni.rs:38
+#: src/plugins/ksni.rs:56
 msgid "Quit..."
 msgstr ""
 

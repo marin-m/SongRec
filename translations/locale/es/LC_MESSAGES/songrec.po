@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: SongRec\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-18 16:38+0100\n"
+"POT-Creation-Date: 2026-03-25 12:20+0100\n"
 "PO-Revision-Date: 2022-07-24 13:29+0200\n"
 "Last-Translator: Ismael Ferreras Morezuelas <swyterzone+songrec@gmail.com>\n"
 "Language-Team: Swyter <swyterzone@gmail.com>\n"
@@ -18,41 +18,41 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.1\n"
 
-#: src/cli_main.rs:120
+#: src/cli_main.rs:117
 msgid "Available device:"
 msgstr ""
 
-#: src/cli_main.rs:138
+#: src/cli_main.rs:135
 msgid "Exiting: audio device not found"
 msgstr "Saliendo: no se ha encontrado el dispositivo de sonido seleccionado"
 
-#: src/cli_main.rs:144
+#: src/cli_main.rs:141
 msgid "Exiting: no audio devices found!"
 msgstr "Saliendo: no se ha encontrado ningún dispositivo de sonido."
 
-#: src/cli_main.rs:149
+#: src/cli_main.rs:146
 msgid "Using device"
 msgstr "Utilizando el dispositivo"
 
-#: src/cli_main.rs:172
+#: src/cli_main.rs:170
 msgid "Error: Network unreachable"
 msgstr "Error: No parece haber conexión a Internet"
 
-#: src/cli_main.rs:175
+#: src/cli_main.rs:173
 msgid "Warning: Network unreachable"
 msgstr "Advertencia: No parece haber conexión a Internet"
 
-#: src/cli_main.rs:180 src/core/http_task.rs:56 src/core/http_task.rs:66
+#: src/cli_main.rs:178 src/core/http_task.rs:56 src/core/http_task.rs:66
 #: src/core/http_task.rs:79 src/core/http_task.rs:123
-#: src/gui/main_window.rs:791 src/gui/main_window.rs:803
+#: src/gui/main_window.rs:816 src/gui/main_window.rs:828
 msgid "No match for this song"
 msgstr "No se ha podido detectar la canción"
 
-#: src/cli_main.rs:182
+#: src/cli_main.rs:180
 msgid "Error:"
 msgstr "Error:"
 
-#: src/cli_main.rs:190
+#: src/cli_main.rs:188
 msgid "Recording started!"
 msgstr "Grabación en curso"
 
@@ -191,7 +191,7 @@ msgstr ""
 msgid "When parsing the preferences file:"
 msgstr "Al procesar el archivo de configuración:"
 
-#: src/core/preferences.rs:151
+#: src/core/preferences.rs:149
 msgid "When saving the preferences file:"
 msgstr "Al guardar el archivo de configuración:"
 
@@ -225,27 +225,27 @@ msgstr ""
 msgid "Unable to enable notification icon"
 msgstr ""
 
-#: src/gui/main_window.rs:711 src/gui/main_window.rs:784
+#: src/gui/main_window.rs:722 src/gui/main_window.rs:803
 msgid "Unable to enable MPRIS support"
 msgstr "No se ha podido activar la funcionalidad MPRIS"
 
-#: src/gui/main_window.rs:800
+#: src/gui/main_window.rs:825
 msgid "_Ok"
 msgstr ""
 
-#: src/gui/main_window.rs:873
+#: src/gui/main_window.rs:905
 msgid "Song recognized"
 msgstr "Canción encontrada"
 
-#: src/gui/main_window.rs:1031
+#: src/gui/main_window.rs:1063
 msgid "Are you sure you want to wipe history?"
 msgstr "¿Estás segura de que quieres borrar la historia?"
 
-#: src/gui/main_window.rs:1037
+#: src/gui/main_window.rs:1069
 msgid "_Yes"
 msgstr "_Sí"
 
-#: src/gui/main_window.rs:1038
+#: src/gui/main_window.rs:1070
 msgid "_No"
 msgstr "_No"
 
@@ -257,11 +257,11 @@ msgstr "Hubo un error al cargar el historial de canciones guardadas:"
 msgid "Error when reading the favorites on the disk:"
 msgstr "Hubo un error al leer las favoritas guardadas:"
 
-#: src/plugins/ksni.rs:30
+#: src/plugins/ksni.rs:48
 msgid "Open SongRec"
 msgstr ""
 
-#: src/plugins/ksni.rs:38
+#: src/plugins/ksni.rs:56
 msgid "Quit..."
 msgstr ""
 
