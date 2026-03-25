@@ -149,8 +149,8 @@ songrec
 
 # For the Github tree:
 git clone https://github.com/marin-m/songrec
-git config core.hooksPath .github/hooks
 cd songrec
+cp -a .github/hooks/* .git/hooks/ # Or (less secure): git config core.hooksPath .github/hooks
 cargo run --release --no-default-features -F gui,ffmpeg,pulse,mpris
 ```
 
