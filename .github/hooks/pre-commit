@@ -1,0 +1,36 @@
+#!/bin/bash
+#
+# An example hook script to verify what is about to be committed.
+# Called by "git commit" with no arguments.  The hook should
+# exit with non-zero status after issuing an appropriate message if
+# it wants to stop the commit.
+
+# Redirect output to stderr.
+exec 1>&2
+
+# Exit on error
+set -e
+
+REPO_DIR="$(git rev-parse --show-toplevel)"
+
+cd "${REPO_DIR}"
+
+function run {
+	echo [i] Running: "$@"
+	set +e
+	$@ >/dev/null 2>/dev/null
+	RETCODE="$?"
+	set -e
+	if [ "${RETCODE}" -ne "0" ]
+	then
+		echo [!] Command returned: "${RETCODE}"
+		echo [!] Aborting commit
+		exit 1
+	fi
+}
+
+run appstreamcli validate packaging/rootfs/usr/share/metainfo/re.fossplant.songrec.metainfo.xml
+
+run cargo fmt
+
+run desktop-file-validate packaging/rootfs/usr/share/applications/re.fossplant.songrec.desktop

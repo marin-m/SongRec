@@ -149,6 +149,7 @@ songrec
 
 # For the Github tree:
 git clone https://github.com/marin-m/songrec
+git config core.hooksPath .github/hooks
 cd songrec
 cargo run --release --no-default-features -F gui,ffmpeg,pulse,mpris
 ```
