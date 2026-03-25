@@ -145,11 +145,8 @@ impl PreferencesInterface {
                 .current_device_name
                 .or(current_preferences.current_device_name),
         };
-        match self.write() {
-            Ok(_) => {}
-            Err(e) => {
-                error!("{} {}", gettext("When saving the preferences file:"), e);
-            }
+        if let Err(error) = self.write() {
+            error!("{} {}", gettext("When saving the preferences file:"), error);
         }
     }
 

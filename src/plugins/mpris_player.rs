@@ -104,10 +104,7 @@ pub async fn update_song(
                 metadata.art_url(format!("data:{};base64,{}", mime_type, base64::encode(buf)));
         }
     }
-    match player.set_metadata(metadata.build()).await {
-        Ok(_) => {}
-        Err(error) => {
-            error!("Could not set MPRIS metadata: {:?}", error);
-        }
+    if let Err(error) = player.set_metadata(metadata.build()).await {
+        error!("Could not set MPRIS metadata: {:?}", error);
     }
 }
