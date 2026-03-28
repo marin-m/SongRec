@@ -92,12 +92,32 @@ You can either install Rust from the repositories, for example using Ubuntu/Debi
 
 ```bash
 sudo apt install rustc cargo
+# Or, for a more up-to-date binary:
+sudo apt install rustup
 ```
 
-Or under Fedora Linux:
+Or, under Fedora Linux:
 
 ```bash
 sudo dnf install rustc cargo
+```
+
+Under Archlinux:
+
+```bash
+sudo pacman -S cargo rust
+```
+
+With MSYS2 (MINGW64, Windows XP+):
+
+```bash
+sudo pacman -S mingw-w64-x86_64-rust
+```
+
+With MSYS2 (UCRT64, Windows 10+):
+
+```bash
+sudo pacman -S mingw-w64-ucrt-x86_64-rust
 ```
 
 Or, using any distribution:
@@ -113,11 +133,38 @@ rustup update
 
 ### Install dependent libraries (nothing exotic)
 
-Debian:
+Debian and Ubuntu:
 
 ```bash
 sudo apt install build-essential libasound2-dev libpipewire-0.3-dev libclang-dev libpulse-dev libgtk-4-dev libsoup-3.0-dev libadwaita-1-dev libdbus-1-dev intltool
 ```
+
+Archlinux:
+
+```bash
+sudo pacman -S pkgconf git gtk4 libadwaita libsoup3 alsa-lib libpulse libpipewire clang pulseaudio-alsa openssl ffmpeg intltool
+```
+
+Fedora Linux:
+
+```shell
+sudo dnf groupinstall "Development Tools"
+sudo dnf install alsa-lib-devel pipewire-devel clang-devel pulseaudio-libs-devel pkgconf-pkg-config glib gtk4-devel libsoup3-devel libadwaita-devel dbus-devel openssl-devel intltool
+```
+
+MSYS2 with MINGW64 (Windows XP+):
+
+```bash
+pacman -S mingw-w64-x86_64-gcc mingw-w64-x86_64-libadwaita mingw-w64-x86_64-adwaita-icon-theme mingw-w64-x86_64-glib2 mingw-w64-x86_64-gtk4 mingw-w64-x86_64-pkgconf mingw-w64-x86_64-dbus mingw-w64-x86_64-openssl mingw-w64-x86_64-libsoup3 mingw-w64-x86_64-ffmpeg
+```
+
+MSYS2 with UCRT64 (Windows 10+):
+
+```bash
+pacman -S mingw-w64-ucrt-x86_64-gcc mingw-w64-ucrt-x86_64-libadwaita mingw-w64-ucrt-x86_64-adwaita-icon-theme mingw-w64-ucrt-x86_64-glib2 mingw-w64-ucrt-x86_64-gtk4 mingw-w64-ucrt-x86_64-pkgconf mingw-w64-ucrt-x86_64-dbus mingw-w64-ucrt-x86_64-openssl mingw-w64-ucrt-x86_64-libsoup3 mingw-w64-ucrt-x86_64-ffmpeg
+```
+
+<!-- TODO: Brew (macOS): -->
 
 Void Linux (libressl):
 
@@ -129,13 +176,6 @@ Void Linux (openssl):
 
 ```shell
 sudo xbps-install base-devel alsa-lib-devel pipewire-devel clang-devel pulseaudio-devel gtk4-devel libsoup3-devel libadwaita-devel dbus-devel openssl-devel intltool
-```
-
-Fedora Linux:
-
-```shell
-sudo dnf groupinstall "Development Tools"
-sudo dnf install alsa-lib-devel pipewire-devel clang-devel pulseaudio-libs-devel pkgconf-pkg-config glib gtk4-devel libsoup3-devel libadwaita-devel dbus-devel openssl-devel
 ```
 
 ### Compiling the project
