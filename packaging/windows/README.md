@@ -28,10 +28,10 @@ cd ~/SongRec-main/
 GTK_APP=/tmp/windows_release
 GTK_LIBRARY=/mingw64
 mkdir -p $GTK_APP
+rm -rf $GTK_APP/*
+cp -r translations $GTK_APP
+cp target/release/songrec.exe $GTK_APP
 cd $GTK_APP
-rm -rf *
-cp -r translations .
-cp target/release/songrec.exe .
 cp $GTK_LIBRARY/bin/*.dll .
 mkdir -p share/glib-2.0/schemas
 mkdir -p share/locale
