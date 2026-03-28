@@ -29,7 +29,7 @@ GTK_LIBRARY=/mingw64
 mkdir $GTK_APP
 cp -r translations $GTK_APP
 cp target/release/songrec.exe $GTK_APP
-cp $GTK_LIBRARY/bin/*.dll $GTK_LIBRARY/lib/*.dll $GTK_APP
+cp $GTK_LIBRARY/bin/*.dll $GTK_APP
 mkdir -p $GTK_APP/share/glib-2.0/schemas
 mkdir $GTK_APP/share/icons
 cp $GTK_LIBRARY/share/glib-2.0/schemas/* $GTK_APP/share/glib-2.0/schemas
@@ -53,10 +53,12 @@ cp -r * ~/windows_release/
 # + https://github.com/phillipp/SevenZipSharp/blob/master/SevenZip/sfx/Configs.xml)
 
 rm -rf /tmp/songrec-files.7z
-7z -m0=Copy a /tmp/songrec-files.7z * # -m0=Copy = Do not compress (for self-extraction performance)
+rm -f libLLVM* rustc_driver*
+7z a /tmp/songrec-files.7z * # -m0=Copy = Do not compress (for self-extraction performance)
 # From http://www.angusj.com/resourcehacker/: use this to add a custom .ICO file to the 7-Zip stub
 /tmp/resource_hacker/ResourceHacker.exe -open ~/SongRec-main/packaging/windows/7zxSD_LZMA2_x64.sfx -save /tmp/SongRec-standalone.exe -action delete -mask ,101, -log CONSOLE
 /tmp/resource_hacker/ResourceHacker.exe -open /tmp/SongRec-standalone.exe -save /tmp/SongRec-standalone.exe -action addoverwrite -res ~/SongRec-main/packaging/windows/songrec.ico -mask ICONGROUP,MAINICON,0 -log CONSOLE
+cd /tmp/
 cat << EOF >> SongRec-standalone.exe
 ;!@Install@!UTF-8!
 ExecuteFile="songrec.exe"
