@@ -28,7 +28,6 @@ Depends: libasound2,
          libc6,
          libdbus-1-3,
          ffmpeg,
-         ${misc:Depends},
          libgtk-4-1 (>= 4.14),
          libsoup-3.0-0 (>= 3.4),
          libadwaita-1-0 (>= 1.5)
