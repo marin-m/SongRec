@@ -41,10 +41,11 @@ use std::os::windows::process::CommandExt;
 pub fn gui_main(
     log_object: Logging,
     recording: bool,
+    application_id: Option<String>,
     input_file: Option<String>,
     enable_mpris_cli: bool,
 ) -> Result<(), Box<dyn Error>> {
-    let app = App::new(log_object);
+    let app = App::new(log_object, application_id);
     app.run(recording, enable_mpris_cli, input_file);
 
     Ok(())
@@ -76,7 +77,7 @@ struct App {
 
 // #[gtk::template_callbacks(functions)]
 impl App {
-    fn new(log_object: Logging) -> App {
+    fn new(log_object: Logging, application_id: Option<String>) -> App {
         let (gui_tx, gui_rx) = async_channel::unbounded();
         let (microphone_tx, microphone_rx) = async_channel::unbounded();
         let (processing_tx, processing_rx) = async_channel::unbounded();
@@ -84,10 +85,23 @@ impl App {
 
         log_object.connect_to_gui_logger(gui_tx.clone());
 
-        glib::set_prgname(Some(match std::env::var("SNAP_NAME") {
-            Ok(_) => "com.github.marinm.songrec",
-            _ => "re.fossplant.songrec",
-        }));
+        // Set the FreeDesktop ID of the program.
+
+        // We're using a different FreeDesktop and
+        // DBus ID over Snap per request of the
+        // Snapcraft team (they don't want to
+        // allocate us the one that we had to
+        // switch to in order to get verified on Flathub)
+        glib::set_prgname(Some(
+            application_id
+                .as_deref()
+                .unwrap_or(glib::prgname().as_deref().unwrap_or(
+                    match std::env::var("SNAP_NAME") {
+                        Ok(_) => "com.github.marinm.songrec",
+                        _ => "re.fossplant.songrec",
+                    },
+                )),
+        ));
         Self::load_resources();
 
         let ctx_selected_item: Rc<RefCell<Option<HistoryEntry>>> = Rc::new(RefCell::new(None));
@@ -188,15 +202,7 @@ impl App {
 
     fn run(self, set_recording: bool, enable_mpris_cli: bool, input_file: Option<String>) {
         let application = adw::Application::new(
-            // We're using a different DBus ID over Snap
-            // per request of the Snapcraft team
-            // (they don't want to allocate us the one
-            // that we had to switch to in order to
-            // get verified on Flathub)
-            Some(match std::env::var("SNAP_NAME") {
-                Ok(_) => "com.github.marinm.songrec",
-                _ => "re.fossplant.songrec",
-            }),
+            glib::prgname().as_deref(), // Set the DBus ID of the program.
             gio::ApplicationFlags::HANDLES_OPEN,
         );
 

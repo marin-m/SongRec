@@ -84,7 +84,7 @@ icon = [
     "/home/marin/rust-shazam/packaging/rootfs/usr/share/icons/hicolor/128x128/re.fossplant.songrec.png",
     "/home/marin/rust-shazam/packaging/rootfs/usr/share/icons/hicolor/256x256/re.fossplant.songrec.png"
 ]
-linux_exec_args = "gui %f"
+linux_exec_args = "gui --application-id=songrec %f"
 linux_mime_types = ["audio/mpeg", "audio/x-wav", "audio/x-vorbis+ogg", "audio/flac"]
 long_description = """Unofficial Shazam client for Linux, written in Rust
 Features:

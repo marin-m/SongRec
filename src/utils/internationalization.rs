@@ -59,6 +59,12 @@ pub fn setup_internationalization() -> Option<PathBuf> {
                 translations_path.push("share");
                 translations_path.push("locale");
             }
+        } else {
+            // "cargo bundle" outputs a "songrec.desktop"
+            // file instead of the Flatpak-compliant
+            // "re.fossplant.songrec.desktop"
+
+            glib::set_prgname(Some("songrec"));
         }
     }
 

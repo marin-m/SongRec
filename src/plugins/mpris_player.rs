@@ -27,10 +27,7 @@ pub async fn get_player(gui_mode: bool) -> Option<Player> {
     .playback_status(PlaybackStatus::Playing)
     .has_track_list(true)
     .identity("SongRec")
-    .desktop_entry(match std::env::var("SNAP_NAME") {
-        Ok(_) => "com.github.marinm.songrec",
-        _ => "re.fossplant.songrec",
-    })
+    .desktop_entry(glib::prgname().unwrap())
     .build()
     .await
     {
