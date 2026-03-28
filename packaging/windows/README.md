@@ -1,6 +1,6 @@
 # Windows compilation
 
-This files gives commands that seem to work in order to compile this application on Windows using MSYS/MINGW64 (WIP).
+This files gives commands that seem to work in order to compile this application on Windows using MSYS/MINGW64.
 
 The following references have been used:
 * https://devinsights.iblogger.org/msys2-environment-differences/
@@ -37,7 +37,7 @@ mkdir -p share/glib-2.0/schemas
 mkdir -p share/locale
 mkdir -p share/icons
 cp $GTK_LIBRARY/share/glib-2.0/schemas/* share/glib-2.0/schemas
-cp -r $GTK_LIBRARY/share/locale/* share/locale
+# cp -r $GTK_LIBRARY/share/locale/* share/locale
 glib-compile-schemas share/glib-2.0/schemas/
 cp -r $GTK_LIBRARY/share/icons/Adwaita share/icons/
 rm -rf share/icons/Adwaita/{256x256,512x512,96x96}
