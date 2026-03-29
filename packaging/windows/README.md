@@ -55,13 +55,15 @@ rm -rf share/icons/Adwaita/{256x256,512x512,96x96}
 cp $GTK_LIBRARY/bin/gdbus.exe $GTK_LIBRARY/bin/gspawn*.exe .
 mkdir lib libexec
 cp ~/ffmpeg-*-full_build/bin/ffmpeg.exe .
-upx --force songrec.exe ffmpeg.exe libgtk-4-1.dll
+upx --force ffmpeg.exe libgtk-4-1.dll
 cp -r $GTK_LIBRARY/lib/gdk-pixbuf-2.0 $GTK_LIBRARY/lib/gio lib
 cp -r $GTK_LIBRARY/libexec/glib-* libexec
+rm -f libLLVM* rustc_driver* std-*.dll
+/tmp/resource_hacker/ResourceHacker.exe -open songrec.exe -save songrec.exe -action addoverwrite -res ~/SongRec-main/packaging/windows/songrec.ico -mask ICONGROUP,MAINICON,0 -log CONSOLE
 
-# cd $GTK_APP
-# mkdir -p ~/windows_release/
-# cp -r * ~/windows_release/
+cd $GTK_APP
+mkdir -p ~/windows_release/
+cp -r * ~/windows_release/
 
 # RUST_BACKTRACE=full songrec.exe
 
@@ -71,7 +73,6 @@ cp -r $GTK_LIBRARY/libexec/glib-* libexec
 
 cd $GTK_APP
 rm -rf /tmp/songrec-files.7z
-rm -f libLLVM* rustc_driver*
 7z a -m0=Copy /tmp/songrec-files.7z * # -m0=Copy = Do not compress (for self-extraction performance)
 # From http://www.angusj.com/resourcehacker/: use this to add a custom .ICO file to the 7-Zip stub
 /tmp/resource_hacker/ResourceHacker.exe -open ~/SongRec-main/packaging/windows/7zxSD_LZMA2_x64.sfx -save /tmp/SongRec-standalone.exe -action delete -mask ,101, -log CONSOLE
@@ -85,7 +86,7 @@ GUIMode="2"
 EOF
 cat /tmp/songrec-files.7z >> /tmp/SongRec-standalone.exe
 
-# /tmp/SongRec-standalone.exe
+/tmp/SongRec-standalone.exe
 
-# zip -r /tmp/windows_release.zip $GTK_APP
+cp /tmp/songrec-files.7z /tmp/SongRec-standalone.exe ~/
 ```

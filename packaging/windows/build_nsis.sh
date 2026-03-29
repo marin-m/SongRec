@@ -6,4 +6,8 @@
 # Requirements:
 # sudo apt install nsis
 
-# WIP
+set -ex
+
+cd "$(dirname "$0")"
+
+makensis songrec.nsi
