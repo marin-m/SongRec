@@ -41,11 +41,10 @@ use std::os::windows::process::CommandExt;
 pub fn gui_main(
     log_object: Logging,
     recording: bool,
-    application_id: Option<String>,
     input_file: Option<String>,
     enable_mpris_cli: bool,
 ) -> Result<(), Box<dyn Error>> {
-    let app = App::new(log_object, application_id);
+    let app = App::new(log_object);
     app.run(recording, enable_mpris_cli, input_file);
 
     Ok(())
@@ -77,7 +76,7 @@ struct App {
 
 // #[gtk::template_callbacks(functions)]
 impl App {
-    fn new(log_object: Logging, application_id: Option<String>) -> App {
+    fn new(log_object: Logging) -> App {
         let (gui_tx, gui_rx) = async_channel::unbounded();
         let (microphone_tx, microphone_rx) = async_channel::unbounded();
         let (processing_tx, processing_rx) = async_channel::unbounded();
@@ -92,16 +91,10 @@ impl App {
         // Snapcraft team (they don't want to
         // allocate us the one that we had to
         // switch to in order to get verified on Flathub)
-        glib::set_prgname(Some(
-            application_id
-                .as_deref()
-                .unwrap_or(glib::prgname().as_deref().unwrap_or(
-                    match std::env::var("SNAP_NAME") {
-                        Ok(_) => "com.github.marinm.songrec",
-                        _ => "re.fossplant.songrec",
-                    },
-                )),
-        ));
+        glib::set_prgname(Some(match std::env::var("SNAP_NAME") {
+            Ok(_) => "com.github.marinm.songrec",
+            _ => "re.fossplant.songrec",
+        }));
         Self::load_resources();
 
         let ctx_selected_item: Rc<RefCell<Option<HistoryEntry>>> = Rc::new(RefCell::new(None));

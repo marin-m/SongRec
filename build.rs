@@ -181,12 +181,6 @@ macro_rules! gui_app {
                         .help(gettext("An optional audio file to recognize on the launch of the application."))
                 )
                 .arg(
-                    Arg::new("application-id")
-                        .long("application-id")
-                        .required(false)
-                        .help(gettext("Custom FreeDesktop application ID/program name"))
-                )
-                .arg(
                     Arg::new("disable-mpris")
                         .long("disable-mpris")
                         .action(ArgAction::SetTrue)
@@ -200,12 +194,6 @@ macro_rules! gui_app {
                     Arg::new("input_file")
                         .required(false)
                         .help(gettext("An optional audio file to recognize on the launch of the application."))
-                )
-                .arg(
-                    Arg::new("application-id")
-                        .long("application-id")
-                        .required(false)
-                        .help(gettext("Custom FreeDesktop application ID/program name"))
                 )
                 .arg(
                     Arg::new("disable-mpris")
