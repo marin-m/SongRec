@@ -28,12 +28,12 @@ cd /tmp
 wget -nc http://www.angusj.com/resourcehacker/resource_hacker.zip
 unzip -d /tmp/resource_hacker resource_hacker.zip
 
-wget -nc https://www.gyan.dev/ffmpeg/builds/ffmpeg-release-full.7z -O /tmp/ffmpeg-release-full.7z
-7z -y x /tmp/ffmpeg-release-full.7z -o/tmp -i'r!*ffmpeg.exe'
-
 cd ~/SongRec-main/
 export GETTEXT_SYSTEM=1
 cargo build --release --no-default-features -F gui,ffmpeg
+
+wget -nc https://www.gyan.dev/ffmpeg/builds/ffmpeg-release-full.7z -O /tmp/ffmpeg-release-full.7z
+7z -y x /tmp/ffmpeg-release-full.7z -o.. -i'r!*ffmpeg.exe'
 
 cd ~/SongRec-main/
 GTK_APP=/tmp/windows_release
@@ -54,7 +54,7 @@ cp -r $GTK_LIBRARY/share/icons/Adwaita share/icons/
 rm -rf share/icons/Adwaita/{256x256,512x512,96x96}
 cp $GTK_LIBRARY/bin/gdbus.exe $GTK_LIBRARY/bin/gspawn*.exe .
 mkdir lib libexec
-cp /tmp/ffmpeg-*-full_build/bin/ffmpeg.exe .
+cp ~/ffmpeg.exe .
 upx --force songrec.exe ffmpeg.exe libgtk-4-1.dll
 cp -r $GTK_LIBRARY/lib/gdk-pixbuf-2.0 $GTK_LIBRARY/lib/gio lib
 cp -r $GTK_LIBRARY/libexec/glib-* libexec
