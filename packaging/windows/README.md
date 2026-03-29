@@ -54,7 +54,7 @@ cp -r $GTK_LIBRARY/share/icons/Adwaita share/icons/
 rm -rf share/icons/Adwaita/{256x256,512x512,96x96}
 cp $GTK_LIBRARY/bin/gdbus.exe $GTK_LIBRARY/bin/gspawn*.exe .
 mkdir lib libexec
-cp ~/ffmpeg.exe .
+cp ~/ffmpeg-*-full_build/bin/ffmpeg.exe .
 upx --force songrec.exe ffmpeg.exe libgtk-4-1.dll
 cp -r $GTK_LIBRARY/lib/gdk-pixbuf-2.0 $GTK_LIBRARY/lib/gio lib
 cp -r $GTK_LIBRARY/libexec/glib-* libexec
