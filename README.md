@@ -158,13 +158,19 @@ sudo dnf install alsa-lib-devel pipewire-devel clang-devel pulseaudio-libs-devel
 MSYS2 with MINGW64 (Windows XP+):
 
 ```bash
-pacman -S mingw-w64-x86_64-git openssh intltool curl git unzip mingw-w64-x86_64-gettext-runtime mingw-w64-x86_64-gcc mingw-w64-x86_64-libadwaita mingw-w64-x86_64-adwaita-icon-theme mingw-w64-x86_64-glib2 mingw-w64-x86_64-gtk4 mingw-w64-x86_64-pkgconf mingw-w64-x86_64-dbus mingw-w64-x86_64-openssl mingw-w64-x86_64-libsoup3 mingw-w64-x86_64-ffmpeg
+# Obtain source:
+# In PowerShell:
+#   winget install --id Git.Git -e --source winget
+# (restart PowerShell)
+#   cd C:\msys64\home\*
+#   git clone https://github.com/marin-m/SongRec.git SongRec-main
+pacman -S unzip mingw-w64-x86_64-gettext-runtime mingw-w64-x86_64-gcc mingw-w64-x86_64-libadwaita mingw-w64-x86_64-adwaita-icon-theme mingw-w64-x86_64-glib2 mingw-w64-x86_64-gtk4 mingw-w64-x86_64-pkgconf mingw-w64-x86_64-dbus mingw-w64-x86_64-openssl mingw-w64-x86_64-libsoup3 mingw-w64-x86_64-ffmpeg
 ```
 
 MSYS2 with UCRT64 (Windows 10+):
 
 ```bash
-pacman -S mingw-w64-ucrt-x86_64-git openssh mingw-w64-ucrt-x86_64-libssh intltool curl git unzip mingw-w64-ucrt-x86_64-gettext-runtime mingw-w64-ucrt-x86_64-gcc mingw-w64-ucrt-x86_64-libadwaita mingw-w64-ucrt-x86_64-adwaita-icon-theme mingw-w64-ucrt-x86_64-glib2 mingw-w64-ucrt-x86_64-gtk4 mingw-w64-ucrt-x86_64-pkgconf mingw-w64-ucrt-x86_64-dbus mingw-w64-ucrt-x86_64-openssl mingw-w64-ucrt-x86_64-libsoup3 mingw-w64-ucrt-x86_64-ffmpeg
+pacman -S unzip mingw-w64-ucrt-x86_64-gettext-runtime mingw-w64-ucrt-x86_64-gcc mingw-w64-ucrt-x86_64-libadwaita mingw-w64-ucrt-x86_64-adwaita-icon-theme mingw-w64-ucrt-x86_64-glib2 mingw-w64-ucrt-x86_64-gtk4 mingw-w64-ucrt-x86_64-pkgconf mingw-w64-ucrt-x86_64-dbus mingw-w64-ucrt-x86_64-openssl mingw-w64-ucrt-x86_64-libsoup3 mingw-w64-ucrt-x86_64-ffmpeg
 ```
 
 <!-- TODO: Brew (macOS): -->

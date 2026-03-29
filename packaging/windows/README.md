@@ -11,7 +11,7 @@ The following references have been used:
 * https://stackoverflow.com/questions/45444811/how-to-compiling-c-gtk3-program-in-linux-mint-for-windows
 
 ```console-session
-pacman -S mingw-w64-x86_64-git mingw-w64-x86_64-rust mingw-w64-x86_64-upx mingw-w64-x86_64-7zip openssh intltool curl git unzip mingw-w64-x86_64-gettext-runtime mingw-w64-x86_64-gcc mingw-w64-x86_64-libadwaita mingw-w64-x86_64-adwaita-icon-theme mingw-w64-x86_64-glib2 mingw-w64-x86_64-gtk4 mingw-w64-x86_64-pkgconf mingw-w64-x86_64-dbus mingw-w64-x86_64-openssl mingw-w64-x86_64-libsoup3 mingw-w64-x86_64-ffmpeg
+pacman -S mingw-w64-x86_64-git mingw-w64-x86_64-rust mingw-w64-x86_64-upx mingw-w64-x86_64-7zip unzip mingw-w64-x86_64-gettext-runtime mingw-w64-x86_64-gcc mingw-w64-x86_64-libadwaita mingw-w64-x86_64-adwaita-icon-theme mingw-w64-x86_64-glib2 mingw-w64-x86_64-gtk4 mingw-w64-x86_64-pkgconf mingw-w64-x86_64-dbus mingw-w64-x86_64-openssl mingw-w64-x86_64-libsoup3 mingw-w64-x86_64-ffmpeg
 
 cd /tmp
 wget -nc http://www.angusj.com/resourcehacker/resource_hacker.zip
