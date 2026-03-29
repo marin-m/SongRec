@@ -54,7 +54,7 @@ flatpak install --user flathub re.fossplant.songrec -y
 flatpak run re.fossplant.songrec
 ```
 
-Using Cargo (all distributions, dependencies given for Ubuntu/Debian, if your `rustc` version is not recent enough please refer to the instructions below):
+Using Cargo (all distributions, dependencies given for Ubuntu/Debian, won't install the translations - if your `rustc` version is not recent enough please refer to the instructions below):
 
 ```bash
 sudo apt install cargo rustc -y
@@ -63,6 +63,9 @@ source ~/.bashrc
 
 sudo apt install build-essential libasound2-dev libpipewire-0.3-dev libclang-dev libpulse-dev libgtk-4-dev libsoup-3.0-dev libadwaita-1-dev libdbus-1-dev -y
 cargo install songrec --no-default-features -F gui,ffmpeg,pulse,mpris
+mkdir -p ~/.local/share/applications/ ~/.local/share/icons/hicolor/scalable/apps/
+wget https://github.com/marin-m/SongRec/raw/refs/heads/main/packaging/rootfs/usr/share/applications/re.fossplant.songrec.desktop -O ~/.local/share/applications/re.fossplant.songrec.desktop
+wget https://github.com/marin-m/SongRec/raw/refs/heads/main/packaging/rootfs/usr/share/icons/hicolor/scalable/apps/re.fossplant.songrec.svg -O  ~/.local/share/icons/hicolor/scalable/apps/re.fossplant.songrec.svg
 songrec
 ```
 
