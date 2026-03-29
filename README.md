@@ -111,13 +111,13 @@ sudo pacman -S cargo rust
 With MSYS2 (MINGW64, Windows XP+):
 
 ```bash
-sudo pacman -S mingw-w64-x86_64-rust
+pacman -S mingw-w64-x86_64-rust
 ```
 
 With MSYS2 (UCRT64, Windows 10+):
 
 ```bash
-sudo pacman -S mingw-w64-ucrt-x86_64-rust
+pacman -S mingw-w64-ucrt-x86_64-rust
 ```
 
 Or, using any distribution:
