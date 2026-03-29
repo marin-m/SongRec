@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<!-- Created with Cambalache 0.96.3 -->
+<!-- Created with Cambalache 1.0 -->
 <interface>
   <!-- interface-name interface.ui -->
   <requires lib="gio" version="2.44"/>
@@ -465,6 +465,7 @@
                             <property name="has-tooltip">True</property>
                             <property name="subtitle" translatable="yes">MPRIS will display information about recognized songs in places like the GNOME or KDE control panel</property>
                             <property name="title" translatable="yes">Enable MPRIS</property>
+                            <property name="visible">False</property>
                           </object>
                         </child>
                         <child>
@@ -564,10 +565,6 @@
       <item>
         <attribute name="action">win.notification-setting</attribute>
         <attribute name="label" translatable="yes">Show notifications</attribute>
-      </item>
-      <item>
-        <attribute name="action">win.mpris-setting</attribute>
-        <attribute name="label" translatable="yes">Enable MPRIS</attribute>
       </item>
       <item>
         <attribute name="action">navigation.push</attribute>

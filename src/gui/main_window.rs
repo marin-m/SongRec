@@ -676,6 +676,7 @@ impl App {
 
         let window: adw::ApplicationWindow = self.builder.object("main_window").unwrap();
         let systray_setting: adw::SwitchRow = self.builder.object("systray_setting").unwrap();
+        let mpris_setting: adw::SwitchRow = self.builder.object("mpris_setting").unwrap();
         let adw_combo_row: adw::ComboRow = self.builder.object("audio_inputs").unwrap();
         let g_list_store: gio::ListStore = self.builder.object("audio_inputs_model").unwrap();
         let microphone_switch: adw::SwitchRow = self.builder.object("microphone_switch").unwrap();
@@ -695,6 +696,9 @@ impl App {
         #[cfg(target_os = "linux")]
         systray_setting.set_visible(true);
 
+        #[cfg(feature = "mpris")]
+        mpris_setting.set_visible(true);
+
         microphone_switch.set_active(set_recording);
 
         let song_history_interface = self.song_history_interface.clone();
@@ -705,7 +709,7 @@ impl App {
         glib::spawn_future_local(async move {
             #[cfg(feature = "mpris")]
             let mut mpris_obj = {
-                let player = if enable_mpris_cli && old_preferences.enable_mpris == Some(true) {
+                let player = if enable_mpris_cli && old_preferences.enable_mpris_v2 != Some(false) {
                     let player_maybe = get_player(true).await;
                     if let Some(ref player) = player_maybe {
                         let application = application.clone();
@@ -722,7 +726,7 @@ impl App {
                     None
                 };
                 if enable_mpris_cli
-                    && old_preferences.enable_mpris == Some(true)
+                    && old_preferences.enable_mpris_v2 != Some(false)
                     && player.is_none()
                 {
                     println!("{}", gettext("Unable to enable MPRIS support"))
@@ -788,8 +792,8 @@ impl App {
                                     .lock()
                                     .unwrap()
                                     .preferences
-                                    .enable_mpris
-                                    == Some(true);
+                                    .enable_mpris_v2
+                                    != Some(false);
 
                                 if mpris_enabled && mpris_obj.is_none() {
                                     mpris_obj = {
@@ -868,8 +872,8 @@ impl App {
                                     .lock()
                                     .unwrap()
                                     .preferences
-                                    .enable_mpris
-                                    == Some(true);
+                                    .enable_mpris_v2
+                                    != Some(false);
 
                                 if mpris_enabled {
                                     let mpris_status = if network_is_reachable {
@@ -937,8 +941,8 @@ impl App {
                                     .lock()
                                     .unwrap()
                                     .preferences
-                                    .enable_mpris
-                                    == Some(true)
+                                    .enable_mpris_v2
+                                    != Some(false)
                                 {
                                     if let Some(ref player) = mpris_obj {
                                         update_song(player, &message, &mut last_cover_path).await;
@@ -1291,7 +1295,7 @@ impl App {
 
         #[cfg(feature = "mpris")]
         let action_mpris_setting = gio::ActionEntry::builder("mpris-setting")
-            .state(self.old_preferences.enable_mpris.unwrap().to_variant())
+            .state(self.old_preferences.enable_mpris_v2.unwrap().to_variant())
             .activate(move |_, action, _| {
                 let state = action.state().unwrap();
                 let action_state: bool = state.get().unwrap();
@@ -1299,7 +1303,7 @@ impl App {
                 action.set_state(&new_state.to_variant());
 
                 let mut new_preference: Preferences = Preferences::new();
-                new_preference.enable_mpris = Some(new_state);
+                new_preference.enable_mpris_v2 = Some(new_state);
                 gui_tx
                     .try_send(GUIMessage::UpdatePreference(new_preference))
                     .unwrap();

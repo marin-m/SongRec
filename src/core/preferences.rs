@@ -13,7 +13,8 @@ use crate::utils::filesystem_operations::obtain_preferences_file_path;
 pub struct Preferences {
     pub enable_notifications: Option<bool>,
     pub enable_systray: Option<bool>,
-    pub enable_mpris: Option<bool>,
+    pub enable_mpris: Option<bool>, // Legacy, before setting default to true
+    pub enable_mpris_v2: Option<bool>,
     pub no_duplicates: Option<bool>,
     pub buffer_size_secs: Option<u64>,
     pub request_interval_secs: Option<u64>, // Legacy, before increasing default from 4 to 10
@@ -28,6 +29,7 @@ impl Preferences {
             enable_notifications: None,
             enable_systray: None,
             enable_mpris: None,
+            enable_mpris_v2: None,
             no_duplicates: None,
             buffer_size_secs: None,
             request_interval_secs: None,
@@ -41,7 +43,8 @@ impl Preferences {
         Preferences {
             enable_notifications: Some(true),
             enable_systray: Some(false),
-            enable_mpris: Some(false),
+            enable_mpris: None,
+            enable_mpris_v2: Some(true),
             no_duplicates: Some(false),
             buffer_size_secs: Some(12),
             request_interval_secs: None,
@@ -57,7 +60,8 @@ impl Default for Preferences {
         Preferences {
             enable_notifications: Some(true),
             enable_systray: Some(false),
-            enable_mpris: Some(false),
+            enable_mpris: None,
+            enable_mpris_v2: Some(true),
             no_duplicates: Some(false),
             buffer_size_secs: Some(12),
             request_interval_secs: None,
@@ -114,8 +118,10 @@ impl PreferencesInterface {
             enable_notifications: update_preferences
                 .enable_notifications
                 .or(current_preferences.enable_notifications),
-            enable_mpris: update_preferences
-                .enable_mpris
+            enable_mpris: None,
+            enable_mpris_v2: update_preferences
+                .enable_mpris_v2
+                .or(current_preferences.enable_mpris_v2)
                 .or(current_preferences.enable_mpris),
             enable_systray: update_preferences
                 .enable_systray
