@@ -25,10 +25,6 @@ pub fn microphone_thread(
 ) {
     // Use the default host for working with audio devices.
 
-    // #[cfg(target_os = "linux")]
-    // let host = cpal::host_from_id(cpal::HostId::PipeWire).unwrap_or(cpal::default_host());
-
-    // #[cfg(not(target_os = "linux"))]
     let host = cpal::default_host();
 
     let mut backend = get_any_backend();
@@ -108,7 +104,7 @@ pub fn microphone_thread(
                             // See https://dev.to/sgchris/returning-iterators-from-functions-4cbh
 
                             cpal::SampleFormat::F32 => match device.build_input_stream(
-                                &config.into(),
+                                config.into(),
                                 move |data, _: &_| {
                                     write_data(
                                         data.into_iter().copied().collect(),
@@ -149,7 +145,7 @@ pub fn microphone_thread(
                             },
                             $(
                                 cpal::SampleFormat::$sample_format => match device.build_input_stream(
-                                    &config.into(),
+                                    config.into(),
                                     move |data, _: &_| {
                                         write_data(
                                             SampleTypeConverter::<Copied<Iter<$generic>>, f32>::new(data.into_iter().copied()).collect(),

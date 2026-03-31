@@ -48,7 +48,6 @@ directories = {version = "6.0" }
 toml = "1.0.1"
 app_dirs = { version = "1.2.1" } # For obtaining and creating either the %APPDATA%, the dotfile path or similar
 soup3 = { version = "0.8.0", features = [ "v3_4" ] }
-cpal = "0.17.3"
 image = { version = "0.25.10", default-features = false, features = ["png"] }
 # soup3 = { git = "https://gitlab.gnome.org/World/Rust/soup3-rs.git", rev = "0bae30e", features = [ "v3_4" ] }
 
@@ -67,11 +66,11 @@ pulse = [ "pulsectl-rs", "libpulse-binding" ]
 mpris = [ "mpris-server" ]
 ffmpeg = []
 
-# [target.'cfg(not(target_os = "linux"))'.dependencies]
-# cpal = { git = "https://github.com/RustAudio/cpal.git", rev = "2da4ee1" }
+[target.'cfg(not(target_os = "linux"))'.dependencies]
+cpal = { git = "https://github.com/RustAudio/cpal.git", rev = "63ea9ff" }
 
 [target.'cfg(target_os = "linux")'.dependencies]
-# cpal = { git = "https://github.com/RustAudio/cpal.git", rev = "2da4ee1", features = ["pipewire"] }
+cpal = { git = "https://github.com/RustAudio/cpal.git", rev = "63ea9ff", features = ["pipewire", "pulseaudio"] }
 pulsectl-rs = { version = "0.3.2", optional = true }
 ksni = { version = "0.3", default-features = false, features = ["async-io"], optional = true }
 libpulse-binding = { version = "2.24.0", optional = true }
