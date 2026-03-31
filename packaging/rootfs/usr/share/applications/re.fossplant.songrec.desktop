@@ -6,6 +6,8 @@ Icon=re.fossplant.songrec
 # regarding the applicable mime types
 MimeType=audio/mpeg;audio/x-wav;audio/x-vorbis+ogg;audio/flac;
 StartupNotify=true
+DBusActivatable=true
+X-GNOME-UsesNotifications=true
 StartupWMClass=songrec
 Terminal=false
 Type=Application
