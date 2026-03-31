@@ -32,7 +32,7 @@ Here are a few ways to install and run the application:
 Using pacman (Arch Linux):
 
 ```bash
-sudo pacman -S songrec
+sudo pacman -S songrec pulseaudio-alsa
 songrec
 ```
 
