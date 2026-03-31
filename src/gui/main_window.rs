@@ -1044,7 +1044,7 @@ impl App {
                                 loopback_switch.set_visible(found_monitor_device);
 
                                 debug!(
-                                    "Initally selected audio input device: {:?} / {:?}",
+                                    "Initially selected audio input device: {:?} / {:?}",
                                     device.inner_name(),
                                     device.display_name()
                                 );
