@@ -15,9 +15,9 @@
  
   !define MUI_PRODUCT "SongRec"
   !define MUI_FILE "songrec"
-  !define MUI_VERSION "0.6.7"
+  !define MUI_VERSION "0.6.8"
   !define MUI_BRANDINGTEXT "${MUI_PRODUCT} ${MUI_VERSION}"
-  !define WIN_DIST_DIR "/home/marin/win32/songrec-0.6.7"
+  !define WIN_DIST_DIR "/home/marin/win32/songrec-0.6.8"
   !define SOURCE_DIR "/home/marin/rust-shazam"
   CRCCheck On
  
@@ -95,14 +95,14 @@ Section "${MUI_PRODUCT} ${MUI_VERSION}"
  
   ; Create shortcuts
   CreateDirectory "$SMPROGRAMS\${MUI_PRODUCT}"
-  CreateShortcut "$SMPROGRAMS\${MUI_PRODUCT}\Uninstall SongRec.lnk" "$INSTDIR\Uninstall SongRec.exe"
+  CreateShortcut "$SMPROGRAMS\${MUI_PRODUCT}\Uninstall SongRec.lnk" "$INSTDIR\Uninstall.exe"
   CreateShortCut "$SMPROGRAMS\${MUI_PRODUCT}\${MUI_PRODUCT}.lnk" "$INSTDIR\${MUI_FILE}.exe"
 
   ; Write uninstall information to the registry
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${MUI_PRODUCT}" "DisplayName" "${MUI_PRODUCT} (uninstall)"
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${MUI_PRODUCT}" "UninstallString" "$INSTDIR\Uninstall SongRec.exe"
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${MUI_PRODUCT}" "UninstallString" "$INSTDIR\Uninstall.exe"
  
-  WriteUninstaller "$INSTDIR\Uninstall SongRec.exe"
+  WriteUninstaller "$INSTDIR\Uninstall.exe"
  
 SectionEnd
  
