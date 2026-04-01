@@ -1,3 +1,4 @@
+use base64::Engine;
 use byteorder::{LittleEndian, ReadBytesExt, WriteBytesExt};
 use crc32fast::Hasher;
 use gettextrs::gettext;
@@ -188,9 +189,9 @@ impl DecodedSignature {
     pub fn decode_from_uri(uri: &str) -> Result<Self, Box<dyn Error>> {
         assert!(uri.starts_with(DATA_URI_PREFIX));
 
-        Ok(DecodedSignature::decode_from_binary(&base64::decode(
-            &uri[DATA_URI_PREFIX.len()..],
-        )?)?)
+        Ok(DecodedSignature::decode_from_binary(
+            &base64::prelude::BASE64_STANDARD.decode(&uri[DATA_URI_PREFIX.len()..])?,
+        )?)
     }
 
     pub fn encode_to_binary(&self) -> Result<Vec<u8>, Box<dyn Error>> {
@@ -289,7 +290,7 @@ impl DecodedSignature {
         Ok(format!(
             "{}{}",
             DATA_URI_PREFIX,
-            base64::encode(self.encode_to_binary()?)
+            base64::prelude::BASE64_STANDARD.encode(self.encode_to_binary()?)
         ))
     }
 }

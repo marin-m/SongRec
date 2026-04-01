@@ -1,6 +1,6 @@
 use gettextrs::gettext;
 use glib::source::Priority;
-use rand::seq::SliceRandom;
+use rand::prelude::IndexedRandom;
 use serde_json::{json, Value};
 use soup::prelude::SessionExt;
 use std::error::Error;
@@ -14,7 +14,7 @@ pub async fn recognize_song_from_signature(
     session: &soup::Session,
     signature: &DecodedSignature,
 ) -> Result<Value, Box<dyn Error>> {
-    session.set_user_agent(USER_AGENTS.choose(&mut rand::thread_rng()).unwrap());
+    session.set_user_agent(USER_AGENTS.choose(&mut rand::rng()).unwrap());
 
     let timestamp_ms = SystemTime::now()
         .duration_since(SystemTime::UNIX_EPOCH)?
@@ -35,8 +35,8 @@ pub async fn recognize_song_from_signature(
         "timezone": "Europe/Paris"
     }).to_string();
 
-    let uuid_1 = Uuid::new_v4().to_hyphenated().to_string().to_uppercase();
-    let uuid_2 = Uuid::new_v4().to_hyphenated().to_string();
+    let uuid_1 = Uuid::new_v4().hyphenated().to_string().to_uppercase();
+    let uuid_2 = Uuid::new_v4().hyphenated().to_string();
 
     let url = format!(
         "https://amp.shazam.com/discovery/v5/en/US/android/-/tag/{}/{}\
@@ -75,7 +75,7 @@ pub async fn obtain_raw_cover_image(
     url: &str,
 ) -> Result<Vec<u8>, Box<dyn Error>> {
     let message = soup::Message::new("GET", url)?;
-    session.set_user_agent(USER_AGENTS.choose(&mut rand::thread_rng()).unwrap());
+    session.set_user_agent(USER_AGENTS.choose(&mut rand::rng()).unwrap());
     let headers = message.request_headers().unwrap();
     headers.append("Content-Language", "en_US");
 

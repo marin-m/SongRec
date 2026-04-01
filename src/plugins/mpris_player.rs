@@ -1,3 +1,4 @@
+use base64::Engine;
 use log::{debug, error};
 use std::fs;
 
@@ -97,8 +98,11 @@ pub async fn update_song(
             *last_cover_path = Some(tmp);
         } else {
             // Fallback to data URI (ensure we use the correct mime type)
-            metadata =
-                metadata.art_url(format!("data:{};base64,{}", mime_type, base64::encode(buf)));
+            metadata = metadata.art_url(format!(
+                "data:{};base64,{}",
+                mime_type,
+                base64::prelude::BASE64_STANDARD.encode(buf)
+            ));
         }
     }
     if let Err(error) = player.set_metadata(metadata.build()).await {
