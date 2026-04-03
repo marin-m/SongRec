@@ -123,6 +123,18 @@ With MSYS2 (UCRT64, Windows 10+):
 pacman -S mingw-w64-ucrt-x86_64-rust
 ```
 
+Using MacPorts (macOS):
+
+```bash
+sudo port install rust cargo
+```
+
+Using Homebrew (macOS 14+):
+
+```bash
+sudo port install rust
+```
+
 Or, using any distribution:
 
 ```bash
@@ -171,6 +183,18 @@ MSYS2 with UCRT64 (Windows 10+):
 
 ```bash
 pacman -Sy unzip mingw-w64-ucrt-x86_64-gettext-runtime mingw-w64-ucrt-x86_64-gcc mingw-w64-ucrt-x86_64-libadwaita mingw-w64-ucrt-x86_64-adwaita-icon-theme mingw-w64-ucrt-x86_64-glib2 mingw-w64-ucrt-x86_64-gtk4 mingw-w64-ucrt-x86_64-pkgconf mingw-w64-ucrt-x86_64-dbus mingw-w64-ucrt-x86_64-openssl mingw-w64-ucrt-x86_64-libsoup3 mingw-w64-ucrt-x86_64-ffmpeg
+```
+
+MacPorts (macOS):
+
+```bash
+sudo port install libadwaita gtk4
+```
+
+Homebrew (macOS 14+):
+
+```bash
+brew install libadwaita gtk4
 ```
 
 <!-- TODO: Brew (macOS): -->
