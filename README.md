@@ -188,13 +188,13 @@ pacman -Sy unzip mingw-w64-ucrt-x86_64-gettext-runtime mingw-w64-ucrt-x86_64-gcc
 MacPorts (macOS):
 
 ```bash
-sudo port install libadwaita gtk4
+sudo port install libadwaita gtk4 ffmpeg
 ```
 
 Homebrew (macOS 14+):
 
 ```bash
-brew install libadwaita gtk4
+brew install libadwaita gtk4 ffmpeg
 ```
 
 <!-- TODO: Brew (macOS): -->
