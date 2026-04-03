@@ -13,7 +13,7 @@ mod core {
     mod audio_controllers {
         pub mod audio_backend;
         pub mod cpal;
-        #[cfg(feature = "pulse")]
+        #[cfg(all(target_os = "linux", feature = "pulse"))]
         pub mod pulseaudio;
     }
 
@@ -48,7 +48,7 @@ mod plugins {
     #[cfg(feature = "gui")]
     #[cfg(target_os = "linux")]
     pub mod ksni;
-    #[cfg(feature = "mpris")]
+    #[cfg(all(target_os = "linux", feature = "mpris"))]
     pub mod mpris_player;
 }
 

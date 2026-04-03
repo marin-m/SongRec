@@ -5,7 +5,7 @@ use std::sync::{Arc, Mutex};
 use chrono::Local;
 use gettextrs::gettext;
 
-#[cfg(feature = "mpris")]
+#[cfg(all(target_os = "linux", feature = "mpris"))]
 use mpris_server::PlaybackStatus;
 
 use crate::core::http_task::http_task;
@@ -16,7 +16,7 @@ use crate::core::thread_messages::{
 };
 
 use crate::core::preferences::{Preferences, PreferencesInterface};
-#[cfg(feature = "mpris")]
+#[cfg(all(target_os = "linux", feature = "mpris"))]
 use crate::plugins::mpris_player::{get_player, update_song};
 use crate::utils::csv_song_history::SongHistoryRecord;
 
@@ -79,7 +79,7 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
 
         // Do not enable mpris if recognizing one song
 
-        #[cfg(feature = "mpris")]
+        #[cfg(all(target_os = "linux", feature = "mpris"))]
         let mpris_obj = {
             let do_enable_mpris = parameters.enable_mpris && !do_recognize_once;
             if do_enable_mpris {
@@ -88,7 +88,7 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
                 None
             }
         };
-        #[cfg(feature = "mpris")]
+        #[cfg(all(target_os = "linux", feature = "mpris"))]
         let mut last_cover_path = None;
 
         let mut last_track: Option<String> = None;
@@ -151,7 +151,7 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
                         .unwrap();
                 }
                 GUIMessage::NetworkStatus(reachable) => {
-                    #[cfg(feature = "mpris")]
+                    #[cfg(all(target_os = "linux", feature = "mpris"))]
                     {
                         let mpris_status = if reachable {
                             PlaybackStatus::Playing
@@ -194,7 +194,7 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
 
                     if last_track != track_key {
                         // TODO re-implement this with new lib
-                        #[cfg(feature = "mpris")]
+                        #[cfg(all(target_os = "linux", feature = "mpris"))]
                         if let Some(ref player) = mpris_obj {
                             update_song(player, &message, &mut last_cover_path).await;
                         }

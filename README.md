@@ -217,14 +217,21 @@ This will compile and run the projet:
 
 ```bash
 # For the stable release:
+# On Linux:
 cargo install songrec --no-default-features -F gui,ffmpeg,pulse,mpris
+# On Windows or macOS:
+cargo install songrec --no-default-features -F gui,ffmpeg
 songrec
 
 # For the Github tree:
 git clone https://github.com/marin-m/songrec
 cd songrec
 cp -a .github/hooks/* .git/hooks/ # Or (less secure): git config core.hooksPath .github/hooks
+# On Linux:
 cargo run --release --no-default-features -F gui,ffmpeg,pulse,mpris
+# On macOS or Windows:
+cargo run --release --no-default-features -F gui,ffmpeg
+
 ```
 
 For the latter, you will then find the project's binary (that you will be able to move or execute directly) at `target/release/songrec`.

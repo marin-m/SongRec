@@ -2,7 +2,7 @@ use adw::prelude::*;
 use chrono::Local;
 use gettextrs::gettext;
 use log::{debug, error, info, trace};
-#[cfg(feature = "mpris")]
+#[cfg(all(target_os = "linux", feature = "mpris"))]
 use mpris_server::PlaybackStatus;
 use percent_encoding::{utf8_percent_encode, NON_ALPHANUMERIC};
 use serde_json::json;
@@ -22,7 +22,7 @@ use crate::gui::song_history_interface::FavoritesInterface;
 use crate::gui::song_history_interface::{RecognitionHistoryInterface, SongRecordInterface};
 #[cfg(target_os = "linux")]
 use crate::plugins::ksni::SystrayInterface;
-#[cfg(feature = "mpris")]
+#[cfg(all(target_os = "linux", feature = "mpris"))]
 use crate::plugins::mpris_player::{get_player, update_song};
 use crate::utils::csv_song_history::SongHistoryRecord;
 use crate::utils::filesystem_operations::{
@@ -689,7 +689,7 @@ impl App {
         #[cfg(target_os = "linux")]
         systray_setting.set_visible(true);
 
-        #[cfg(feature = "mpris")]
+        #[cfg(all(target_os = "linux", feature = "mpris"))]
         mpris_setting.set_visible(true);
 
         microphone_switch.set_active(set_recording);
@@ -700,7 +700,7 @@ impl App {
         let application = application.clone();
 
         glib::spawn_future_local(async move {
-            #[cfg(feature = "mpris")]
+            #[cfg(all(target_os = "linux", feature = "mpris"))]
             let mut mpris_obj = {
                 let player = if enable_mpris_cli && old_preferences.enable_mpris_v2 != Some(false) {
                     let player_maybe = get_player(true).await;
@@ -726,7 +726,7 @@ impl App {
                 }
                 player
             };
-            #[cfg(feature = "mpris")]
+            #[cfg(all(target_os = "linux", feature = "mpris"))]
             let mut last_cover_path = None;
 
             while let Ok(gui_message) = gui_rx.recv().await {
@@ -779,7 +779,7 @@ impl App {
                                 .lock()
                                 .unwrap()
                                 .update(new_preference);
-                            #[cfg(feature = "mpris")]
+                            #[cfg(all(target_os = "linux", feature = "mpris"))]
                             if enable_mpris_cli {
                                 let mpris_enabled = preferences_interface_ptr
                                     .lock()
@@ -859,7 +859,7 @@ impl App {
                             }
                             no_network_message.set_visible(!network_is_reachable);
 
-                            #[cfg(feature = "mpris")]
+                            #[cfg(all(target_os = "linux", feature = "mpris"))]
                             {
                                 let mpris_enabled = preferences_interface_ptr
                                     .lock()
@@ -929,7 +929,7 @@ impl App {
                                     results_image.set_visible(false);
                                 }
 
-                                #[cfg(feature = "mpris")]
+                                #[cfg(all(target_os = "linux", feature = "mpris"))]
                                 if preferences_interface_ptr
                                     .lock()
                                     .unwrap()
@@ -1286,7 +1286,7 @@ impl App {
 
         let gui_tx = self.gui_tx.clone();
 
-        #[cfg(feature = "mpris")]
+        #[cfg(all(target_os = "linux", feature = "mpris"))]
         let action_mpris_setting = gio::ActionEntry::builder("mpris-setting")
             .state(self.old_preferences.enable_mpris_v2.unwrap().to_variant())
             .activate(move |_, action, _| {
@@ -1427,7 +1427,7 @@ impl App {
             action_show_menu,
         ]);
 
-        #[cfg(feature = "mpris")]
+        #[cfg(all(target_os = "linux", feature = "mpris"))]
         if enable_mpris_cli {
             window.add_action_entries([action_mpris_setting]);
         }
