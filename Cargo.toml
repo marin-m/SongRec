@@ -31,10 +31,9 @@ serde = { version = "1.0.115", features = ["derive"] }
 csv = "1.1.3"
 regex = "1.5.4"
 rand = "0.10.0"
-# Note: gettext-sys has been intentionnally downgraded:
-# the latest versions don't link under Windows when cross-compiling
-# on certain targets.
-gettext-sys = { version = "0.21.0", features = ["gettext-system"] }
+# Note: gettext-rs and gettext-sys have been intentionnally downgraded:
+# the latest versions don't link under Windows when cross-compiling using MinGW.
+gettext-sys = { version = "0.26.0", features = ["gettext-system"] }
 gettext-rs = { version = "0.7.7" }
 tempfile = "3.24.0"
 # GUI deps
@@ -53,7 +52,7 @@ cpal = "0.17.3"
 image = { version = "0.25.10", default-features = false, features = ["png"] }
 
 [build-dependencies]
-gettext-sys = { version = "0.21.0", features = ["gettext-system"] }
+gettext-sys = { version = "0.26.0", features = ["gettext-system"] }
 gettext-rs = { version = "0.7.7" }
 clap_mangen = "0.3.0"
 clap = { version = "4.5.56", features = ["cargo"] }
