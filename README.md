@@ -189,12 +189,16 @@ MacPorts (macOS):
 
 ```bash
 sudo port install libadwaita gtk4 libsoup ffmpeg intltool gmake cctools +xcode
+# Note: always install/use gettext from brew, cf.: https://github.com/gettext-rs/gettext-rs/issues/140
+brew install gettext
+export GETTEXT_DIR=/opt/homebrew
 ```
 
 Homebrew (macOS 14+):
 
 ```bash
-brew install libadwaita gtk4 libsoup intltool ffmpeg
+brew install libadwaita gtk4 libsoup intltool ffmpeg gettext
+export GETTEXT_DIR=/opt/homebrew
 ```
 
 <!-- TODO: Brew (macOS): -->
