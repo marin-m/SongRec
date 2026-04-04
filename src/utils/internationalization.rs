@@ -1,4 +1,5 @@
 use gettextrs::{bind_textdomain_codeset, bindtextdomain, setlocale, textdomain, LocaleCategory};
+use log::warn;
 use std::path::PathBuf;
 
 /**
@@ -47,11 +48,17 @@ pub fn setup_internationalization() -> Option<PathBuf> {
     }
 
     if translations_path.is_dir() {
-        bindtextdomain("songrec", translations_path.to_str().unwrap());
+        if let Err(error) = bindtextdomain("songrec", translations_path.to_str().unwrap()) {
+            warn!("Failed to run bindtextdomain: {:?}", error);
+        }
     }
 
-    textdomain("songrec");
-    bind_textdomain_codeset("songrec", "UTF-8");
+    if let Err(error) = textdomain("songrec") {
+        warn!("Failed to run textdomain: {:?}", error);
+    }
+    if let Err(error) = bind_textdomain_codeset("songrec", "UTF-8") {
+        warn!("Failed to run bind_textdomain_codeset: {:?}", error);
+    }
 
     setlocale(LocaleCategory::LcAll, "");
 
