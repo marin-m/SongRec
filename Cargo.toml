@@ -31,8 +31,6 @@ serde = { version = "1.0.115", features = ["derive"] }
 csv = "1.1.3"
 regex = "1.5.4"
 rand = "0.10.0"
-# Note: gettext-rs and gettext-sys have been intentionnally downgraded:
-# the latest versions don't link under Windows when cross-compiling using MinGW.
 gettext-sys = { version = "0.26.0", features = ["gettext-system"] }
 gettext-rs = { version = "0.7.7" }
 tempfile = "3.24.0"
