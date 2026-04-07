@@ -8,7 +8,7 @@
 # Redirect output to stderr.
 exec 1>&2
 
-git rev-parse --show-toplevel >/dev/null 2>/dev/null || cd "$(dirname "$0")"
+git rev-parse --show-toplevel >/dev/null 2>/dev/null || cd "$(dirname "$0")"
 
 REPO_DIR="$(git rev-parse --show-toplevel)"
 
