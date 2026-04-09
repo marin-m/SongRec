@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-25 12:20+0100\n"
+"POT-Creation-Date: 2026-04-09 21:24+0200\n"
 "PO-Revision-Date: 2026-03-09 02:16+0000\n"
 "Last-Translator: Marin <25437947+marin-m@users.noreply.github.com>\n"
 "Language-Team: Russian <https://weblate.fossplant.re/projects/songrec/"
@@ -47,7 +47,7 @@ msgstr "Предупреждение: сеть недоступна"
 
 #: src/cli_main.rs:178 src/core/http_task.rs:56 src/core/http_task.rs:66
 #: src/core/http_task.rs:79 src/core/http_task.rs:123
-#: src/gui/main_window.rs:816 src/gui/main_window.rs:828
+#: src/gui/main_window.rs:819 src/gui/main_window.rs:831
 msgid "No match for this song"
 msgstr "Нет совпадений для этой песни"
 
@@ -189,63 +189,63 @@ msgstr ""
 msgid "Your IP has been rate-limited"
 msgstr "Для вашего IP-адреса установлено ограничение скорости запросов"
 
-#: src/core/microphone_thread.rs:72
+#: src/core/microphone_thread.rs:68
 msgid "Audio error:"
 msgstr "Аудиоошибка:"
 
-#: src/core/preferences.rs:82
+#: src/core/preferences.rs:86
 msgid "When parsing the preferences file:"
 msgstr "При анализе файла настроек:"
 
-#: src/core/preferences.rs:149
+#: src/core/preferences.rs:155
 msgid "When saving the preferences file:"
 msgstr "При сохранении файла настроек:"
 
-#: src/core/fingerprinting/signature_format.rs:97
+#: src/core/fingerprinting/signature_format.rs:98
 msgid "Invalid sample rate in decoded Shazam packet"
 msgstr "Неверная частота дискретизации в декодированном пакете Shazam"
 
-#: src/core/fingerprinting/signature_format.rs:139
+#: src/core/fingerprinting/signature_format.rs:140
 msgid "Invalid frequency band in decoded Shazam packet"
 msgstr "Неверный диапазон частот в декодированном пакете Shazam"
 
-#: src/core/fingerprinting/signature_format.rs:220
+#: src/core/fingerprinting/signature_format.rs:221
 msgid "Invalid sample rate passed when encoding Shazam packet"
 msgstr "При кодировании пакета Shazam передана неверная частота дискретизации"
 
-#: src/gui/main_window.rs:255
+#: src/gui/main_window.rs:254
 msgid "Application error"
 msgstr "Ошибка приложения"
 
-#: src/gui/main_window.rs:276
+#: src/gui/main_window.rs:275
 msgid "Network error"
 msgstr "Сетевая ошибка"
 
-#: src/gui/main_window.rs:317
+#: src/gui/main_window.rs:316
 msgid "Unable to enable notification icon"
 msgstr "Не удаётся включить значок уведомления"
 
-#: src/gui/main_window.rs:722 src/gui/main_window.rs:803
+#: src/gui/main_window.rs:725 src/gui/main_window.rs:806
 msgid "Unable to enable MPRIS support"
 msgstr "Невозможно включить поддержку MPRIS"
 
-#: src/gui/main_window.rs:825
+#: src/gui/main_window.rs:828
 msgid "_Ok"
 msgstr "Хорошо"
 
-#: src/gui/main_window.rs:905
+#: src/gui/main_window.rs:908
 msgid "Song recognized"
 msgstr "Песня распознана"
 
-#: src/gui/main_window.rs:1063
+#: src/gui/main_window.rs:1066
 msgid "Are you sure you want to wipe history?"
 msgstr "Вы уверены, что хотите стереть историю?"
 
-#: src/gui/main_window.rs:1069
+#: src/gui/main_window.rs:1072
 msgid "_Yes"
 msgstr "_Да"
 
-#: src/gui/main_window.rs:1070
+#: src/gui/main_window.rs:1073
 msgid "_No"
 msgstr "_Нет"
 

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: SongRec\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-25 12:20+0100\n"
+"POT-Creation-Date: 2026-04-09 21:24+0200\n"
 "PO-Revision-Date: 2026-03-09 15:02+0000\n"
 "Last-Translator: marcelo cripe <marcelocripe@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://weblate.fossplant.re/projects/"
@@ -50,7 +50,7 @@ msgstr "Atenção! Não há conexão com a internet"
 
 #: src/cli_main.rs:178 src/core/http_task.rs:56 src/core/http_task.rs:66
 #: src/core/http_task.rs:79 src/core/http_task.rs:123
-#: src/gui/main_window.rs:816 src/gui/main_window.rs:828
+#: src/gui/main_window.rs:819 src/gui/main_window.rs:831
 msgid "No match for this song"
 msgstr "A música não pôde ser identificada"
 
@@ -213,64 +213,64 @@ msgstr ""
 "O seu endereço IP (Internet Protocol ou Protocolo da Internet) foi limitado "
 "em termos da taxa de transferência"
 
-#: src/core/microphone_thread.rs:72
+#: src/core/microphone_thread.rs:68
 msgid "Audio error:"
 msgstr "Ocorreu um erro no áudio:"
 
-#: src/core/preferences.rs:82
+#: src/core/preferences.rs:86
 msgid "When parsing the preferences file:"
 msgstr "Ao analisar o arquivo das configurações:"
 
-#: src/core/preferences.rs:149
+#: src/core/preferences.rs:155
 msgid "When saving the preferences file:"
 msgstr "Ao salvar o arquivo das configurações:"
 
-#: src/core/fingerprinting/signature_format.rs:97
+#: src/core/fingerprinting/signature_format.rs:98
 msgid "Invalid sample rate in decoded Shazam packet"
 msgstr "A taxa da amostragem ao decodificar o pacote do ‘Shazam’ não é válida"
 
-#: src/core/fingerprinting/signature_format.rs:139
+#: src/core/fingerprinting/signature_format.rs:140
 msgid "Invalid frequency band in decoded Shazam packet"
 msgstr "A banda da frequência ao decodificar o pacote do ‘Shazam’ não é válida"
 
-#: src/core/fingerprinting/signature_format.rs:220
+#: src/core/fingerprinting/signature_format.rs:221
 msgid "Invalid sample rate passed when encoding Shazam packet"
 msgstr ""
 "A taxa da amostragem passada ao codificar o pacote do ‘Shazam’ não é válida"
 
-#: src/gui/main_window.rs:255
+#: src/gui/main_window.rs:254
 msgid "Application error"
 msgstr "Ocorreu um erro no programa"
 
-#: src/gui/main_window.rs:276
+#: src/gui/main_window.rs:275
 msgid "Network error"
 msgstr "Ocorreu um erro na conexão com a internet"
 
-#: src/gui/main_window.rs:317
+#: src/gui/main_window.rs:316
 msgid "Unable to enable notification icon"
 msgstr "Não foi possível ativar o ícone das notificações"
 
-#: src/gui/main_window.rs:722 src/gui/main_window.rs:803
+#: src/gui/main_window.rs:725 src/gui/main_window.rs:806
 msgid "Unable to enable MPRIS support"
 msgstr "A funcionalidade do ‘MPRIS’ não pôde ser ativada"
 
-#: src/gui/main_window.rs:825
+#: src/gui/main_window.rs:828
 msgid "_Ok"
 msgstr "_Ok"
 
-#: src/gui/main_window.rs:905
+#: src/gui/main_window.rs:908
 msgid "Song recognized"
 msgstr "A música foi identificada"
 
-#: src/gui/main_window.rs:1063
+#: src/gui/main_window.rs:1066
 msgid "Are you sure you want to wipe history?"
 msgstr "Você tem certeza de que quer apagar a histórico?"
 
-#: src/gui/main_window.rs:1069
+#: src/gui/main_window.rs:1072
 msgid "_Yes"
 msgstr "_Sim"
 
-#: src/gui/main_window.rs:1070
+#: src/gui/main_window.rs:1073
 msgid "_No"
 msgstr "_Não"
 

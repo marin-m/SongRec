@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-25 12:20+0100\n"
+"POT-Creation-Date: 2026-04-09 21:24+0200\n"
 "PO-Revision-Date: 2022-10-09 13:27+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -44,7 +44,7 @@ msgstr "Warnung: Netzwerk nicht erreichbar"
 
 #: src/cli_main.rs:178 src/core/http_task.rs:56 src/core/http_task.rs:66
 #: src/core/http_task.rs:79 src/core/http_task.rs:123
-#: src/gui/main_window.rs:816 src/gui/main_window.rs:828
+#: src/gui/main_window.rs:819 src/gui/main_window.rs:831
 msgid "No match for this song"
 msgstr "Keine Übereinstimmung für dieses Lied"
 
@@ -182,63 +182,63 @@ msgstr ""
 msgid "Your IP has been rate-limited"
 msgstr ""
 
-#: src/core/microphone_thread.rs:72
+#: src/core/microphone_thread.rs:68
 msgid "Audio error:"
 msgstr ""
 
-#: src/core/preferences.rs:82
+#: src/core/preferences.rs:86
 msgid "When parsing the preferences file:"
 msgstr "Beim Analysieren der Einstellungsdatei:"
 
-#: src/core/preferences.rs:149
+#: src/core/preferences.rs:155
 msgid "When saving the preferences file:"
 msgstr "Beim Speichern der Einstellungsdatei:"
 
-#: src/core/fingerprinting/signature_format.rs:97
+#: src/core/fingerprinting/signature_format.rs:98
 msgid "Invalid sample rate in decoded Shazam packet"
 msgstr "Ungültige Abtastrate im dekodierten Shazam Paket"
 
-#: src/core/fingerprinting/signature_format.rs:139
+#: src/core/fingerprinting/signature_format.rs:140
 msgid "Invalid frequency band in decoded Shazam packet"
 msgstr "Ungültiges Frequenzband im dekodierten Shazam Paket"
 
-#: src/core/fingerprinting/signature_format.rs:220
+#: src/core/fingerprinting/signature_format.rs:221
 msgid "Invalid sample rate passed when encoding Shazam packet"
 msgstr "Ungültige Abtastrate bei der Codierung des Shazam Pakets übergeben"
 
-#: src/gui/main_window.rs:255
+#: src/gui/main_window.rs:254
 msgid "Application error"
 msgstr ""
 
-#: src/gui/main_window.rs:276
+#: src/gui/main_window.rs:275
 msgid "Network error"
 msgstr ""
 
-#: src/gui/main_window.rs:317
+#: src/gui/main_window.rs:316
 msgid "Unable to enable notification icon"
 msgstr ""
 
-#: src/gui/main_window.rs:722 src/gui/main_window.rs:803
+#: src/gui/main_window.rs:725 src/gui/main_window.rs:806
 msgid "Unable to enable MPRIS support"
 msgstr "MPRIS Unterstützung kann nicht aktiviert werden"
 
-#: src/gui/main_window.rs:825
+#: src/gui/main_window.rs:828
 msgid "_Ok"
 msgstr ""
 
-#: src/gui/main_window.rs:905
+#: src/gui/main_window.rs:908
 msgid "Song recognized"
 msgstr "Lied erkannt"
 
-#: src/gui/main_window.rs:1063
+#: src/gui/main_window.rs:1066
 msgid "Are you sure you want to wipe history?"
 msgstr ""
 
-#: src/gui/main_window.rs:1069
+#: src/gui/main_window.rs:1072
 msgid "_Yes"
 msgstr ""
 
-#: src/gui/main_window.rs:1070
+#: src/gui/main_window.rs:1073
 msgid "_No"
 msgstr ""
 
