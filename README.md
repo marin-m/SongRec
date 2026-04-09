@@ -132,7 +132,7 @@ sudo port install rust cargo
 Using Homebrew (macOS 14+):
 
 ```bash
-sudo port install rust
+brew install rust
 ```
 
 Or, using any distribution:
