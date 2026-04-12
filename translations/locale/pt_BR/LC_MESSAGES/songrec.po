@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: SongRec\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-09 21:24+0200\n"
+"POT-Creation-Date: 2026-04-12 04:54+0200\n"
 "PO-Revision-Date: 2026-03-09 15:02+0000\n"
 "Last-Translator: marcelo cripe <marcelocripe@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://weblate.fossplant.re/projects/"
@@ -50,7 +50,7 @@ msgstr "Atenção! Não há conexão com a internet"
 
 #: src/cli_main.rs:178 src/core/http_task.rs:56 src/core/http_task.rs:66
 #: src/core/http_task.rs:79 src/core/http_task.rs:123
-#: src/gui/main_window.rs:819 src/gui/main_window.rs:831
+#: src/gui/main_window.rs:831 src/gui/main_window.rs:843
 msgid "No match for this song"
 msgstr "A música não pôde ser identificada"
 
@@ -250,27 +250,27 @@ msgstr "Ocorreu um erro na conexão com a internet"
 msgid "Unable to enable notification icon"
 msgstr "Não foi possível ativar o ícone das notificações"
 
-#: src/gui/main_window.rs:725 src/gui/main_window.rs:806
+#: src/gui/main_window.rs:737 src/gui/main_window.rs:818
 msgid "Unable to enable MPRIS support"
 msgstr "A funcionalidade do ‘MPRIS’ não pôde ser ativada"
 
-#: src/gui/main_window.rs:828
+#: src/gui/main_window.rs:840
 msgid "_Ok"
 msgstr "_Ok"
 
-#: src/gui/main_window.rs:908
+#: src/gui/main_window.rs:920
 msgid "Song recognized"
 msgstr "A música foi identificada"
 
-#: src/gui/main_window.rs:1066
+#: src/gui/main_window.rs:1086
 msgid "Are you sure you want to wipe history?"
 msgstr "Você tem certeza de que quer apagar a histórico?"
 
-#: src/gui/main_window.rs:1072
+#: src/gui/main_window.rs:1092
 msgid "_Yes"
 msgstr "_Sim"
 
-#: src/gui/main_window.rs:1073
+#: src/gui/main_window.rs:1093
 msgid "_No"
 msgstr "_Não"
 
