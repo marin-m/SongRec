@@ -1062,15 +1062,17 @@ impl App {
                                 );
 
                                 microphone_switch.set_visible(true);
-                                volume_row
-                                    .set_visible(microphone_switch.is_active() || loopback_switch.is_active());
+                                volume_row.set_visible(
+                                    microphone_switch.is_active() || loopback_switch.is_active(),
+                                );
 
                                 // Will trigger the "input_device_switched" callback
                             }
                         }
                         MicrophoneRecording => {
-                            volume_row
-                                .set_visible(microphone_switch.is_active() || loopback_switch.is_active());
+                            volume_row.set_visible(
+                                microphone_switch.is_active() || loopback_switch.is_active(),
+                            );
                             volume_gauge.set_fraction(0.0);
                         }
 
