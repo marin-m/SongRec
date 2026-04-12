@@ -435,10 +435,13 @@ impl App {
             let device_section: adw::PreferencesGroup =
                 builder.object("input_device_section").unwrap();
             let g_list_store: gio::ListStore = builder.object("audio_inputs_model").unwrap();
+            let volume_row: adw::PreferencesRow = builder.object("volume_row").unwrap();
+            let volume_gauge: gtk::ProgressBar = builder.object("volume_gauge").unwrap();
 
             if loopback_switch.is_active() {
                 microphone_switch.set_active(false);
                 device_section.set_visible(true);
+                volume_row.set_visible(true);
 
                 let adw_combo_row: adw::ComboRow = builder.object("audio_inputs").unwrap();
 
@@ -473,6 +476,8 @@ impl App {
                 }
             } else if !microphone_switch.is_active() && !loopback_switch.is_active() {
                 device_section.set_visible(false);
+                volume_row.set_visible(false);
+                volume_gauge.set_fraction(0.0);
                 microphone_tx
                     .try_send(MicrophoneMessage::MicrophoneRecordStop)
                     .unwrap();
@@ -490,10 +495,13 @@ impl App {
             let device_section: adw::PreferencesGroup =
                 builder.object("input_device_section").unwrap();
             let g_list_store: gio::ListStore = builder.object("audio_inputs_model").unwrap();
+            let volume_row: adw::PreferencesRow = builder.object("volume_row").unwrap();
+            let volume_gauge: gtk::ProgressBar = builder.object("volume_gauge").unwrap();
 
             if microphone_switch.is_active() {
                 loopback_switch.set_active(false);
                 device_section.set_visible(true);
+                volume_row.set_visible(true);
 
                 let adw_combo_row: adw::ComboRow = builder.object("audio_inputs").unwrap();
 
@@ -528,6 +536,8 @@ impl App {
                 }
             } else if !microphone_switch.is_active() && !loopback_switch.is_active() {
                 device_section.set_visible(false);
+                volume_row.set_visible(false);
+                volume_gauge.set_fraction(0.0);
                 microphone_tx
                     .try_send(MicrophoneMessage::MicrophoneRecordStop)
                     .unwrap();
@@ -543,6 +553,7 @@ impl App {
         builder_scope.add_callback("input_device_switched", move |values| {
             let microphone_switch: adw::SwitchRow = builder.object("microphone_switch").unwrap();
             let loopback_switch: adw::SwitchRow = builder.object("loopback_switch").unwrap();
+            let volume_gauge: gtk::ProgressBar = builder.object("volume_gauge").unwrap();
 
             let combo_row = values[0].get::<adw::ComboRow>().unwrap();
 
@@ -575,6 +586,7 @@ impl App {
                 // command line flags of the application)
 
                 if microphone_switch.is_active() || loopback_switch.is_active() {
+                    volume_gauge.set_fraction(0.0);
                     microphone_tx
                         .try_send(MicrophoneMessage::MicrophoneRecordStop)
                         .unwrap();
@@ -1050,15 +1062,23 @@ impl App {
                                 );
 
                                 microphone_switch.set_visible(true);
-                                volume_row.set_visible(true);
+                                volume_row.set_visible(
+                                    microphone_switch.is_active() || loopback_switch.is_active(),
+                                );
 
                                 // Will trigger the "input_device_switched" callback
                             }
                         }
-                        MicrophoneRecording => {}
+                        MicrophoneRecording => {
+                            volume_row.set_visible(
+                                microphone_switch.is_active() || loopback_switch.is_active(),
+                            );
+                            volume_gauge.set_fraction(0.0);
+                        }
 
                         MicrophoneVolumePercent(percent) => {
-                            volume_gauge.set_fraction((percent / 100.0) as f64);
+                            let clamped_percent = percent.clamp(0.0, 100.0);
+                            volume_gauge.set_fraction((clamped_percent / 100.0) as f64);
                         }
 
                         WipeSongHistory => {

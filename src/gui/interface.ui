@@ -220,7 +220,7 @@
                                         <property name="margin-end">15</property>
                                         <property name="margin-start">15</property>
                                         <property name="margin-top">15</property>
-                                        <property name="spacing">6</property>
+                                        <property name="spacing">15</property>
                                         <child>
                                           <object class="GtkLabel" id="volume_label">
                                             <property name="label" translatable="yes">Volume:</property>
@@ -228,6 +228,7 @@
                                         </child>
                                         <child>
                                           <object class="GtkProgressBar" id="volume_gauge">
+                                            <property name="hexpand">True</property>
                                             <property name="valign">center</property>
                                           </object>
                                         </child>
