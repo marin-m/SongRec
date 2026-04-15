@@ -1,3 +1,4 @@
+use cpal::device_description::{DeviceDirection, DeviceType};
 use cpal::platform::{Device, Host};
 use cpal::traits::{DeviceTrait, HostTrait};
 
@@ -12,10 +13,26 @@ impl AudioBackend for CpalBackend {
 
         for device in host.input_devices().unwrap() {
             let device_id = device.id().unwrap().to_string();
-            let mut device_description = device.description().unwrap().name().to_string();
+            let device_description = device.description().unwrap();
 
-            if &device_description == "unknown" {
-                device_description = device_id.clone();
+            let mut device_name = device_description.name().to_string();
+
+            if &device_name == "unknown" {
+                device_name = device_id.clone();
+            }
+
+            match device_description.direction() {
+                DeviceDirection::Input => {
+                    device_name += " (input)";
+                }
+                DeviceDirection::Output => {
+                    device_name += " (output)";
+                }
+                _ => {}
+            }
+
+            if device_description.device_type() != DeviceType::Unknown {
+                device_name = format!("{} {}", device_description.device_type(), device_name);
             }
 
             // Selecting the "upmix" or "vdownmix" input
@@ -29,8 +46,8 @@ impl AudioBackend for CpalBackend {
 
             device_names.push(DeviceListItem {
                 inner_name: device_id.clone(),
-                display_name: device_description.clone(),
-                is_monitor: false,
+                display_name: device_name.clone(),
+                is_monitor: device_description.direction() != DeviceDirection::Input,
             });
         }
 

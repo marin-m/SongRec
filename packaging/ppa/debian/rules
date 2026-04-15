@@ -18,7 +18,7 @@
 	dh $@
 
 override_dh_auto_build:
-	rm -f Cargo.lock
+	# rm -f Cargo.lock
 	cargo-1.89 generate-lockfile || cargo-1.88 generate-lockfile || cargo generate-lockfile
 	cargo-1.89 --offline fetch --verbose || cargo-1.88 --offline fetch --verbose || cargo --offline fetch --verbose
 	cargo-1.89 --offline build --release --verbose || cargo-1.88 --offline build --release --verbose || cargo --offline build --release --verbose

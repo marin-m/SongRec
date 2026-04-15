@@ -639,7 +639,7 @@ impl App {
         &self,
         application: &adw::Application,
         set_recording: bool,
-        enable_mpris_cli: bool,
+        _enable_mpris_cli: bool,
     ) {
         // Setup communication using threads + smol-rs/async-channel::unbounded listener
 
@@ -681,7 +681,7 @@ impl App {
 
         let window: adw::ApplicationWindow = self.builder.object("main_window").unwrap();
         let systray_setting: adw::SwitchRow = self.builder.object("systray_setting").unwrap();
-        let mpris_setting: adw::SwitchRow = self.builder.object("mpris_setting").unwrap();
+        let _mpris_setting: adw::SwitchRow = self.builder.object("mpris_setting").unwrap();
         let adw_combo_row: adw::ComboRow = self.builder.object("audio_inputs").unwrap();
         let g_list_store: gio::ListStore = self.builder.object("audio_inputs_model").unwrap();
         let microphone_switch: adw::SwitchRow = self.builder.object("microphone_switch").unwrap();
@@ -702,19 +702,20 @@ impl App {
         systray_setting.set_visible(true);
 
         #[cfg(all(target_os = "linux", feature = "mpris"))]
-        mpris_setting.set_visible(true);
+        _mpris_setting.set_visible(true);
 
         microphone_switch.set_active(set_recording);
 
         let song_history_interface = self.song_history_interface.clone();
-        let old_preferences = self.old_preferences.clone();
+        let _old_preferences = self.old_preferences.clone();
         let ctx_buffered_log = self.ctx_buffered_log.clone();
         let application = application.clone();
 
         glib::spawn_future_local(async move {
             #[cfg(all(target_os = "linux", feature = "mpris"))]
             let mut mpris_obj = {
-                let player = if enable_mpris_cli && old_preferences.enable_mpris_v2 != Some(false) {
+                let player = if _enable_mpris_cli && _old_preferences.enable_mpris_v2 != Some(false)
+                {
                     let player_maybe = get_player(true).await;
                     if let Some(ref player) = player_maybe {
                         let application = application.clone();
@@ -730,8 +731,8 @@ impl App {
                 } else {
                     None
                 };
-                if enable_mpris_cli
-                    && old_preferences.enable_mpris_v2 != Some(false)
+                if _enable_mpris_cli
+                    && _old_preferences.enable_mpris_v2 != Some(false)
                     && player.is_none()
                 {
                     println!("{}", gettext("Unable to enable MPRIS support"))
@@ -792,7 +793,7 @@ impl App {
                                 .unwrap()
                                 .update(new_preference);
                             #[cfg(all(target_os = "linux", feature = "mpris"))]
-                            if enable_mpris_cli {
+                            if _enable_mpris_cli {
                                 let mpris_enabled = preferences_interface_ptr
                                     .lock()
                                     .unwrap()
@@ -1124,7 +1125,7 @@ impl App {
         });
     }
 
-    fn setup_actions(&self, application: &adw::Application, enable_mpris_cli: bool) {
+    fn setup_actions(&self, application: &adw::Application, _enable_mpris_cli: bool) {
         let window: adw::ApplicationWindow = self.builder.object("main_window").unwrap();
         let file_picker: gtk::FileDialog = self.builder.object("file_picker").unwrap();
         let shortcuts_dialog: gtk::ShortcutsWindow =
@@ -1304,6 +1305,7 @@ impl App {
             })
             .build();
 
+        #[cfg(all(target_os = "linux", feature = "mpris"))]
         let gui_tx = self.gui_tx.clone();
 
         #[cfg(all(target_os = "linux", feature = "mpris"))]
@@ -1448,7 +1450,7 @@ impl App {
         ]);
 
         #[cfg(all(target_os = "linux", feature = "mpris"))]
-        if enable_mpris_cli {
+        if _enable_mpris_cli {
             window.add_action_entries([action_mpris_setting]);
         }
 
