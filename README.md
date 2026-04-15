@@ -157,7 +157,7 @@ sudo apt install build-essential libasound2-dev libpipewire-0.3-dev libclang-dev
 Archlinux:
 
 ```bash
-sudo pacman -S pkgconf git gtk4 libadwaita libsoup3 alsa-lib libpulse libpipewire clang pulseaudio-alsa openssl ffmpeg intltool
+sudo pacman -S pkgconf git gtk4 libadwaita libsoup3 alsa-lib libpulse libpipewire clang openssl ffmpeg intltool
 ```
 
 Fedora Linux:
