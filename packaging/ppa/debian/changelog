@@ -1,3 +1,19 @@
+songrec (0.6.8) bionic; urgency=low
+
+  * Bump audio backend to CPAL 0.18 development version (see issues #257, #261)
+  * This means that libpipewire will be used by default on Linux (and hence be a dependency), fixing ALSA-related bugs
+  * Restore the official Windows build, with a new NSIS installer
+  * Update various Rust dependencies
+  * Use a larger volume gauge (PR #262 thanks to @wandabastyle)
+  * Push a first Turkish translation thanks to @Abrifq
+  * Remove the Symphonia ISO-MP4 parser as it seems buggy (issue #263)
+  * Also replace the MP3 and WAV parsers as they seem to incur misdetection with MP4
+  * Fix an use-after-free that may cause crash after removing a song from history (issue #259)
+  * Bump Flatpak GNOME runtime from version 49 to 50
+  * Enable back MPRIS by default on Linux
+
+ -- Marin <marin-m@users.noreply.github.com>  Fri, 17 Apr 2026 21:26:06 +0200
+
 songrec (0.6.7) bionic; urgency=low
 
   * Update dependencies, including using a non-deprecated library for the MPRIS module (issue #243)

@@ -12,8 +12,8 @@ cargo vendor --locked vendor | sed 's/^directory = ".*"/directory = "vendor"/g' 
 
 # Install the required Flatpak runtime and SDK
 flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-flatpak install flathub --user org.gnome.Sdk//49 -y
-flatpak install flathub --user org.gnome.Platform//49 -y
+flatpak install flathub --user org.gnome.Sdk//50 -y
+flatpak install flathub --user org.gnome.Platform//50 -y
 flatpak install flathub --user org.freedesktop.Sdk.Extension.rust-stable//25.08 -y
 
 # Build the Flathub package

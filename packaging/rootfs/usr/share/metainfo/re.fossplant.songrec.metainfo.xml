@@ -58,6 +58,21 @@ https://hughsie.github.io/oars/index.html
 -->
   <content_rating type="oars-1.1" />
   <releases>
+    <release version="0.6.8" date="2026-04-17">
+      <description>
+        <p>Bump audio backend to CPAL 0.18 development version (see issues #257, #261)</p>
+        <p>This means that libpipewire will be used by default on Linux (and hence be a dependency), fixing ALSA-related bugs</p>
+        <p>Restore the official Windows build, with a new NSIS installer</p>
+        <p>Update various Rust dependencies</p>
+        <p>Use a larger volume gauge (PR #262 thanks to @wandabastyle)</p>
+        <p>Push a first Turkish translation thanks to @Abrifq</p>
+        <p>Remove the Symphonia ISO-MP4 parser as it seems buggy (issue #263)</p>
+        <p>Also replace the MP3 and WAV parsers as they seem to incur misdetection with MP4</p>
+        <p>Fix an use-after-free that may cause crash after removing a song from history (issue #259)</p>
+        <p>Bump Flatpak GNOME runtime from version 49 to 50</p>
+        <p>Enable back MPRIS by default on Linux</p>
+      </description>
+    </release>
     <release version="0.6.7" date="2026-03-25">
       <description>
         <p>Update dependencies, including using a non-deprecated library for the MPRIS module (issue #243)</p>
