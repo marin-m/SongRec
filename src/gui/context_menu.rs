@@ -155,6 +155,7 @@ impl ContextMenuUtil {
 
     pub fn bind_actions(
         window: adw::ApplicationWindow,
+        popover_menu: gtk::PopoverMenu,
         ctx_selected_item: Rc<RefCell<Option<HistoryEntry>>>,
         history_interface: Rc<RefCell<RecognitionHistoryInterface>>,
         favorites_interface: Rc<RefCell<FavoritesInterface>>,
@@ -257,24 +258,30 @@ impl ContextMenuUtil {
             .build();
 
         let item = ctx_selected_item.clone();
+        let popover = popover_menu.clone();
         let history = history_interface.clone();
         let action_remove_history = gio::ActionEntry::builder("remove-from-history")
             .activate(move |_, _, _| {
+                popover.unparent();
                 if let Some(entry) = &*item.borrow() {
                     history.borrow_mut().remove(entry.get_song_history_record());
                 }
+                *item.borrow_mut() = None;
             })
             .build();
 
         let item = ctx_selected_item.clone();
+        let popover = popover_menu.clone();
         let favorites = favorites_interface.clone();
         let action_remove_favorites = gio::ActionEntry::builder("remove-from-favorites")
             .activate(move |_, _, _| {
+                popover.unparent();
                 if let Some(entry) = &*item.borrow() {
                     favorites
                         .borrow_mut()
                         .remove(entry.get_song_history_record());
                 }
+                *item.borrow_mut() = None;
             })
             .build();
 

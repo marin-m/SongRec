@@ -357,6 +357,7 @@ impl App {
 
         ContextMenuUtil::bind_actions(
             self.builder.object("main_window").unwrap(),
+            self.builder.object("history_context_menu").unwrap(),
             self.ctx_selected_item.clone(),
             self.song_history_interface.clone(),
             self.favorites_interface.clone(),
