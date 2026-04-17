@@ -33,6 +33,11 @@ slots:
 parts:
   songrec:
     plugin: rust
+    rust-no-default-features: true
+    rust-features:
+      - gui
+      - mpris
+      - ffmpeg
     rust-use-global-lto: true
     source: .
 
