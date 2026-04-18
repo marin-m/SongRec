@@ -20,6 +20,7 @@ apps:
       - network
       - network-status
       - unity7
+      - pipewire
       - audio-record
       - audio-playback
     slots: [dbus-svc, mpris]
@@ -37,6 +38,7 @@ parts:
     rust-features:
       - gui
       - mpris
+      - pulse
       - ffmpeg
     rust-use-global-lto: true
     source: .
