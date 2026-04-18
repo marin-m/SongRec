@@ -58,7 +58,7 @@ https://hughsie.github.io/oars/index.html
 -->
   <content_rating type="oars-1.1" />
   <releases>
-    <release version="0.6.8" date="2026-04-17">
+    <release version="0.6.8" date="2026-04-18">
       <description>
         <p>Bump audio backend to CPAL 0.18 development version (see issues #257, #261)</p>
         <p>This means that libpipewire will be used by default on Linux (and hence be a dependency), fixing ALSA-related bugs</p>
