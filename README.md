@@ -54,29 +54,6 @@ flatpak install --user flathub re.fossplant.songrec -y
 flatpak run re.fossplant.songrec
 ```
 
-Using Cargo (all distributions, dependencies given for Ubuntu/Debian, won't install the translations - if your `rustc` version is not recent enough please refer to the instructions below):
-
-```bash
-# Install Cargo if not present
-sudo apt install cargo rustc -y
-echo 'export PATH="$HOME/.cargo/bin:$PATH"' | tee -a ~/.profile ~/.bashrc
-source ~/.bashrc
-
-# Install build dependencies (example for Ubuntu)
-sudo apt install build-essential libasound2-dev libpipewire-0.3-dev libclang-dev libpulse-dev libgtk-4-dev libsoup-3.0-dev libadwaita-1-dev libdbus-1-dev -y
-
-# Build SongRec
-cargo install songrec --no-default-features -F gui,ffmpeg,pulse,mpris
-
-# Install desktop assets
-mkdir -p ~/.local/share/applications/ ~/.local/share/icons/hicolor/scalable/apps/
-wget https://github.com/marin-m/SongRec/raw/refs/heads/main/packaging/rootfs/usr/share/applications/re.fossplant.songrec.desktop -O ~/.local/share/applications/re.fossplant.songrec.desktop
-wget https://github.com/marin-m/SongRec/raw/refs/heads/main/packaging/rootfs/usr/share/icons/hicolor/scalable/apps/re.fossplant.songrec.svg -O  ~/.local/share/icons/hicolor/scalable/apps/re.fossplant.songrec.svg
-
-# Launch SongRec
-songrec
-```
-
 Note: It is not mandatory, but if you want to be able to recognize more formats than WAV, OGG, FLAC and MP3, you should ensure that you have the `ffmpeg` package installed.
 
 Note: You may remove dependencies over GTK+, Pulseaudio/PipeWire's libpulse or DBus MPRIS through editing the `-F` flag passed to `cargo`.
