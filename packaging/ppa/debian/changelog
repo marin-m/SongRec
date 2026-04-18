@@ -1,3 +1,9 @@
+songrec (0.6.8+1) bionic; urgency=low
+
+  * Fix the build process
+
+ -- Marin <marin-m@users.noreply.github.com>  Sat, 18 Apr 2026 07:24:27 +0200
+
 songrec (0.6.8) bionic; urgency=low
 
   * Bump audio backend to CPAL 0.18 development version (see issues #257, #261)

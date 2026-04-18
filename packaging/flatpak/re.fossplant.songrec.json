@@ -15,7 +15,8 @@
         "--socket=wayland",
         "--device=all",
         "--talk-name=org.kde.StatusNotifierWatcher",
-        "--socket=pulseaudio"
+        "--socket=pulseaudio",
+        "--filesystem=xdg-run/pipewire-0"
     ],
     "build-options": {
         "append-path" : "/usr/lib/sdk/rust-stable/bin:/usr/lib/sdk/llvm22/bin",
