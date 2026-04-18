@@ -3,10 +3,11 @@
     "runtime": "org.gnome.Platform",
     "runtime-version": "50",
     "sdk": "org.gnome.Sdk",
-    "sdk-extensions" : [
-        "org.freedesktop.Sdk.Extension.rust-stable"
-    ],
     "command": "songrec",
+    "sdk-extensions" : [
+        "org.freedesktop.Sdk.Extension.rust-stable",
+        "org.freedesktop.Sdk.Extension.llvm22"
+    ],
     "finish-args": [
         "--share=network",
         "--share=ipc",
@@ -17,7 +18,8 @@
         "--socket=pulseaudio"
     ],
     "build-options": {
-        "append-path" : "/usr/lib/sdk/rust-stable/bin",
+        "append-path" : "/usr/lib/sdk/rust-stable/bin:/usr/lib/sdk/llvm22/bin",
+        "prepend-ld-library-path": "/usr/lib/sdk/llvm22/lib",
         "env" : {
             "CARGO_HOME" : "/run/build/songrec/.cargo"
         }

@@ -15,6 +15,7 @@ flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flath
 flatpak install flathub --user org.gnome.Sdk//50 -y
 flatpak install flathub --user org.gnome.Platform//50 -y
 flatpak install flathub --user org.freedesktop.Sdk.Extension.rust-stable//25.08 -y
+flatpak install flathub --user org.freedesktop.Sdk.Extension.llvm22//25.08 -y
 
 # Build the Flathub package
 rm -rf target/ # Don't copy all the planet into the Flatpak build dir
