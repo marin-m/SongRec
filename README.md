@@ -296,6 +296,20 @@ SongRec collects no data and contacts no other servers than Shazam's. SongRec do
 
 This does not suffice to represent anything hearable alone; that means that no actually hearable sound (e.g voice fragments) is sent to servers, only metadata derived on the characteristics of the sound that may only suffice to recognize a song already known by Shazam is being sent.
 
+## Known issues/FAQ
+
+**Q**: SongRec does not work correctly with Easy Effects installed, whan can I do?
+
+**A**: Unchecking "Process all input/output streams" in "Easy Effects > Preferences > Audio" should solve this issue.
+
+See: https://github.com/marin-m/SongRec/issues/207 + https://github.com/wwmm/easyeffects/issues/4517
+
+**Q**: What does "A backend-specific error has occurred: no node available" mean?
+
+**A**: You have PulseAudio and PipeWire both installed on your Linux setup and they are conflicting. I recommend uninstalling PulseAudio and installing the compatibility layer packet called `pipewire-pulse` or `pipewire-pulseaudio`, depending on your distribution, instead.
+
+See: https://github.com/marin-m/SongRec/issues/265 + https://github.com/RustAudio/cpal/issues/1170
+
 ## Contributing
 
 Please follow the [GNOME Code of conduct](https://conduct.gnome.org/) when interacting within the boundaries of the project.
