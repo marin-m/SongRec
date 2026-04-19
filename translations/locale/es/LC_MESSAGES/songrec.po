@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: SongRec\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-19 03:51+0200\n"
+"POT-Creation-Date: 2026-04-19 04:07+0200\n"
 "PO-Revision-Date: 2022-07-24 13:29+0200\n"
 "Last-Translator: Ismael Ferreras Morezuelas <swyterzone+songrec@gmail.com>\n"
 "Language-Team: Swyter <swyterzone@gmail.com>\n"
@@ -179,7 +179,7 @@ msgstr ""
 "Mostrar la interfaz, pero no empezar a grabar el audio de forma automática "
 "(hacer clic en un botón para empezar el reconocimiento)."
 
-#: src/core/http_task.rs:130 src/core/fingerprinting/communication.rs:117
+#: src/core/http_task.rs:130 src/core/fingerprinting/communication.rs:123
 msgid "Your IP has been rate-limited"
 msgstr ""
 

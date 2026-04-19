@@ -1,6 +1,6 @@
 use gettextrs::gettext;
 use glib::source::Priority;
-use log::trace;
+use log::{debug, error, trace};
 use rand::prelude::IndexedRandom;
 use serde_json::{json, Value};
 use soup::prelude::SessionExt;
@@ -37,8 +37,9 @@ fn log_response(message: &soup::Message, response: &str) {
         headers.foreach(|key, value| {
             full_headers.push((key.to_string(), value.to_string()));
         });
-        trace!(
-            "Received response from Shazam: {:?} {:?} {} {:?} {:?}",
+        let format_string = format!(
+            "Received response from for Shazam for {}: {:?} {:?} {} {:?} {:?}",
+            message.uri().unwrap().to_str(),
             message.status_code(),
             message.reason_phrase(),
             match message.http_version() {
@@ -50,6 +51,11 @@ fn log_response(message: &soup::Message, response: &str) {
             full_headers,
             response
         );
+        if message.status_code() != 200 {
+            error!("{}", format_string);
+        } else {
+            debug!("{}", format_string);
+        }
     } else {
         trace!("Received response from Shazam: {:?}", message.status_code());
     }

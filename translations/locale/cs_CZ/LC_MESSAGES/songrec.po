@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-19 03:51+0200\n"
+"POT-Creation-Date: 2026-04-19 04:07+0200\n"
 "PO-Revision-Date: 2026-03-09 02:16+0000\n"
 "Last-Translator: Marin <25437947+marin-m@users.noreply.github.com>\n"
 "Language-Team: Czech <https://weblate.fossplant.re/projects/songrec/songrec/"
@@ -178,7 +178,7 @@ msgstr ""
 "Spustit grafické rozhraní, ale nezačít okamžitě po spuštění rozpoznávat zvuk "
 "z mikrofonu (namísto čekání, než uživatel klikne na tlačítko)."
 
-#: src/core/http_task.rs:130 src/core/fingerprinting/communication.rs:117
+#: src/core/http_task.rs:130 src/core/fingerprinting/communication.rs:123
 msgid "Your IP has been rate-limited"
 msgstr "Vaše IP byla omezena"
 

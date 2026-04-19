@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-19 03:51+0200\n"
+"POT-Creation-Date: 2026-04-19 04:07+0200\n"
 "PO-Revision-Date: 2021-12-26 11:36+0100\n"
 "Last-Translator: Rafał Mikrut <qarminkrut@gmail.com>\n"
 "Language-Team: \n"
@@ -172,7 +172,7 @@ msgstr ""
 "uruchomieniu (zamiast tego oczekuj na kliknięcie przez użytkownika "
 "przycisku)."
 
-#: src/core/http_task.rs:130 src/core/fingerprinting/communication.rs:117
+#: src/core/http_task.rs:130 src/core/fingerprinting/communication.rs:123
 msgid "Your IP has been rate-limited"
 msgstr ""
 

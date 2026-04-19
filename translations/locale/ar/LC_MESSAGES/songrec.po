@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-19 03:51+0200\n"
+"POT-Creation-Date: 2026-04-19 04:07+0200\n"
 "PO-Revision-Date: 2026-03-09 12:56+0000\n"
 "Last-Translator: Mu7ammed Basha "
 "<mu7basha@users.noreply.weblate.fossplant.re>\n"
@@ -177,7 +177,7 @@ msgstr ""
 "شغّل واجهة المستخدم الرسومية، لكن لا تتعرف على الصوتيات عبر الميكروفون مباشرةً "
 "بعد التشغيل (بدلًا من ذلك توقع من المستخدم أن يضغط زرًا)."
 
-#: src/core/http_task.rs:130 src/core/fingerprinting/communication.rs:117
+#: src/core/http_task.rs:130 src/core/fingerprinting/communication.rs:123
 msgid "Your IP has been rate-limited"
 msgstr "تم تقييد استخدام عنوان IP خاصتك"
 
