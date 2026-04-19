@@ -12,10 +12,10 @@
 Features:
 - Recognize audio from an arbitrary audio file.
 - Recognize audio from the microphone.
-- Usage from both GUI and command line (for the file recognition part).
+- Usage from both GUI and command line.
 - Provide an history of the recognized songs on the GUI, exportable to CSV.
 - Continuous song detection from the microphone, with the ability to choose your input device.
-- Ability to recognize songs from your speakers rather than your microphone (on compatible PulseAudio setups).]]></description>
+- Ability to recognize songs from your speakers rather than your microphone.]]></description>
   <homepage rdf:resource="https://songrec.fossplant.re/" />
   <license rdf:resource="http://usefulinc.com/doap/licenses/gplv3" />
   <support-forum rdf:resource="https://matrix.to/#/#songrec:matrix.org" />

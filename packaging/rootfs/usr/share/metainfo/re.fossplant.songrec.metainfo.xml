@@ -14,10 +14,10 @@
     <p>Features:</p>
     <p>- Recognize audio from an arbitrary audio file.</p>
     <p>- Recognize audio from the microphone.</p>
-    <p>- Usage from both GUI and command line (for the file recognition part).</p>
+    <p>- Usage from both GUI and command line.</p>
     <p>- Provide an history of the recognized songs on the GUI, exportable to CSV.</p>
     <p>- Continuous song detection from the microphone, with the ability to choose your input device.</p>
-    <p>- Ability to recognize songs from your speakers rather than your microphone (on compatible PulseAudio setups).</p>
+    <p>- Ability to recognize songs from your speakers rather than your microphone.</p>
   </description>
   <screenshots>
     <screenshot type="default">

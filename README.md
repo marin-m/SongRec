@@ -8,10 +8,10 @@ Features:
 
 * Recognize audio from an arbitrary audio file.
 * Recognize audio from the microphone.
-* Usage from both GUI and command line (for the file recognition part).
+* Usage from both GUI and command line.
 * Provide an history of the recognized songs on the GUI, exportable to CSV.
 * Continuous song detection from the microphone, with the ability to choose your input device.
-* Ability to recognize songs from your speakers rather than your microphone (on compatible PulseAudio setups).
+* Ability to recognize songs from your speakers rather than your microphone.
 
 <p align="center"><a href="https://flathub.org/en/apps/re.fossplant.songrec"><img src="packaging/flathub_badge_black.svg?raw=true"></a></p>
 
@@ -256,7 +256,7 @@ Using the `gui-norecording` subcommand will launch the GUI without recognizing a
 ./songrec gui-norecording
 ```
 
-The GUI allows you to recognize songs either from your microphone, speakers (on compatible PulseAudio setups), or from an audio file. The MP3, FLAC, WAV and OGG formats should be accepted for audio files if FFMpeg is not installed, and any audio or video formats supported by FFMpeg should be accepted if FFMpeg is installed.
+The GUI allows you to recognize songs either from your microphone, speakers, or from an audio file. The MP3, FLAC, WAV and OGG formats should be accepted for audio files if FFMpeg is not installed, and any audio or video formats supported by FFMpeg should be accepted if FFMpeg is installed.
 
 The following commands allow to recognize sound from your microphone or from a file using the command line (`listen` runs while the microphone is usable while `recognize` recognizes only one song), use the `-h` flag in order to see all the available options:
 
