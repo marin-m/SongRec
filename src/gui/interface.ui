@@ -565,18 +565,27 @@
     <section id="menu_section">
       <item>
         <attribute name="action">win.notification-setting</attribute>
-        <attribute name="label" translatable="yes">Show notifications</attribute>
-      </item>
-      <item>
-        <attribute name="action">navigation.push</attribute>
-        <attribute name="label" translatable="yes">_Preferences...</attribute>
-        <attribute name="target">settings_tag</attribute>
+        <attribute name="label" translatable="yes">Show _Notifications</attribute>
       </item>
     </section>
     <section>
       <item>
+        <attribute name="action">app.quit</attribute>
+        <attribute name="label" translatable="yes">_Quit Application</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="action">win.display-shortcuts</attribute>
+        <attribute name="label" translatable="yes">_Keyboard Shortcuts</attribute>
+      </item>
+      <item>
+        <attribute name="action">win.show-preferences</attribute>
+        <attribute name="label" translatable="yes">_Preferences</attribute>
+      </item>
+      <item>
         <attribute name="action">win.show-about</attribute>
-        <attribute name="label" translatable="yes">About...</attribute>
+        <attribute name="label" translatable="yes">About SongRec</attribute>
       </item>
     </section>
   </menu>
@@ -701,8 +710,15 @@ Contributors https://github.com/marin-m/SongRec/graphs/contributors</property>
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="accelerator">&lt;Ctrl&gt;Q</property>
+                <property name="action-name">app.quit</property>
+                <property name="title" translatable="yes" context="In the shortcuts window">Quit the application</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="accelerator">&lt;Ctrl&gt;W</property>
                 <property name="action-name">win.close</property>
-                <property name="title" translatable="yes" context="In the shortcuts window">Close the application</property>
+                <property name="title" translatable="yes" context="In the shortcuts window">Close window or minimize to tray</property>
               </object>
             </child>
             <child>

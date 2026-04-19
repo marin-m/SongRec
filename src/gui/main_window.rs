@@ -1393,6 +1393,12 @@ impl App {
             })
             .build();
 
+        let action_quit_app = gio::ActionEntry::builder("quit")
+            .activate(move |application: &adw::Application, _, _| {
+                application.quit();
+            })
+            .build();
+
         let action_display_shortcuts = gio::ActionEntry::builder("display-shortcuts")
             .activate(move |_, _, _| {
                 shortcuts_dialog.present();
@@ -1439,6 +1445,8 @@ impl App {
             action_show_menu,
         ]);
 
+        application.add_action_entries([action_quit_app]);
+
         #[cfg(all(target_os = "linux", feature = "mpris"))]
         if _enable_mpris_cli {
             window.add_action_entries([action_mpris_setting]);
@@ -1447,7 +1455,8 @@ impl App {
         // GDK key names are available here:
         // https://gitlab.gnome.org/GNOME/gtk/-/blob/main/gdk/gdkkeysyms.h
 
-        application.set_accels_for_action("win.close", &["<Primary>Q", "<Primary>W"]);
+        application.set_accels_for_action("app.quit", &["<Primary>Q"]);
+        application.set_accels_for_action("win.close", &["<Primary>W"]);
         application.set_accels_for_action("win.recognize-file", &["<Primary>O"]);
         application.set_accels_for_action("win.display-shortcuts", &["<Primary>question"]);
         application

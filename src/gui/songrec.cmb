@@ -4,7 +4,7 @@
 <cambalache-project version="1.0.0" target_tk="gtk-4.0" depends="libadwaita-1,webkitgtk-6.0">
   <gresources filename="resources.gresource.xml" sha256="6bda0bc0ab42850af4313cbc89d1c4850f4b452c8c2fc0dea016d1b4f6100543"/>
   <css filename="style.css" sha256="03ec027684f5b669731897b431ba5a16c21172ceb3d0d87b4c1c566d6d0013ee"/>
-  <ui filename="interface.ui" sha256="c551829cb33671eea7a8f85d691960729e2bc92ba388704811f318dd3eb6b769">
+  <ui filename="interface.ui" sha256="76d453be1d2eb340eb068244af1e7d0486c46505770c4b05250f0f2fb19988da">
     <css-provider>style.css</css-provider>
   </ui>
 </cambalache-project>
