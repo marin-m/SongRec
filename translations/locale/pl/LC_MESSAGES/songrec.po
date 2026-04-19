@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-12 04:54+0200\n"
+"POT-Creation-Date: 2026-04-19 03:19+0200\n"
 "PO-Revision-Date: 2021-12-26 11:36+0100\n"
 "Last-Translator: Rafał Mikrut <qarminkrut@gmail.com>\n"
 "Language-Team: \n"
@@ -45,7 +45,7 @@ msgstr ""
 
 #: src/cli_main.rs:178 src/core/http_task.rs:56 src/core/http_task.rs:66
 #: src/core/http_task.rs:79 src/core/http_task.rs:123
-#: src/gui/main_window.rs:831 src/gui/main_window.rs:843
+#: src/gui/main_window.rs:822 src/gui/main_window.rs:834
 msgid "No match for this song"
 msgstr "Nie znaleziono piosenki"
 
@@ -172,7 +172,7 @@ msgstr ""
 "uruchomieniu (zamiast tego oczekuj na kliknięcie przez użytkownika "
 "przycisku)."
 
-#: src/core/http_task.rs:130 src/core/fingerprinting/communication.rs:66
+#: src/core/http_task.rs:130 src/core/fingerprinting/communication.rs:117
 msgid "Your IP has been rate-limited"
 msgstr ""
 
@@ -202,39 +202,39 @@ msgstr ""
 "Nieprawidłowa częstotliwość próbkowania przekazana podczas kodowania pakietu "
 "Shazam"
 
-#: src/gui/main_window.rs:254
+#: src/gui/main_window.rs:243
 msgid "Application error"
 msgstr ""
 
-#: src/gui/main_window.rs:275
+#: src/gui/main_window.rs:264
 msgid "Network error"
 msgstr ""
 
-#: src/gui/main_window.rs:316
+#: src/gui/main_window.rs:305
 msgid "Unable to enable notification icon"
 msgstr ""
 
-#: src/gui/main_window.rs:737 src/gui/main_window.rs:818
+#: src/gui/main_window.rs:728 src/gui/main_window.rs:809
 msgid "Unable to enable MPRIS support"
 msgstr ""
 
-#: src/gui/main_window.rs:840
+#: src/gui/main_window.rs:831
 msgid "_Ok"
 msgstr ""
 
-#: src/gui/main_window.rs:920
+#: src/gui/main_window.rs:911
 msgid "Song recognized"
 msgstr "Utwór rozpoznany"
 
-#: src/gui/main_window.rs:1086
+#: src/gui/main_window.rs:1077
 msgid "Are you sure you want to wipe history?"
 msgstr ""
 
-#: src/gui/main_window.rs:1092
+#: src/gui/main_window.rs:1083
 msgid "_Yes"
 msgstr ""
 
-#: src/gui/main_window.rs:1093
+#: src/gui/main_window.rs:1084
 msgid "_No"
 msgstr ""
 

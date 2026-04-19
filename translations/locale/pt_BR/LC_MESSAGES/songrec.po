@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: SongRec\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-12 04:54+0200\n"
+"POT-Creation-Date: 2026-04-19 03:19+0200\n"
 "PO-Revision-Date: 2026-03-09 15:02+0000\n"
 "Last-Translator: marcelo cripe <marcelocripe@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://weblate.fossplant.re/projects/"
@@ -50,7 +50,7 @@ msgstr "Atenção! Não há conexão com a internet"
 
 #: src/cli_main.rs:178 src/core/http_task.rs:56 src/core/http_task.rs:66
 #: src/core/http_task.rs:79 src/core/http_task.rs:123
-#: src/gui/main_window.rs:831 src/gui/main_window.rs:843
+#: src/gui/main_window.rs:822 src/gui/main_window.rs:834
 msgid "No match for this song"
 msgstr "A música não pôde ser identificada"
 
@@ -207,7 +207,7 @@ msgstr ""
 "detectado por meio do microfone, em vez de esperar que o usuário clique em "
 "um botão."
 
-#: src/core/http_task.rs:130 src/core/fingerprinting/communication.rs:66
+#: src/core/http_task.rs:130 src/core/fingerprinting/communication.rs:117
 msgid "Your IP has been rate-limited"
 msgstr ""
 "O seu endereço IP (Internet Protocol ou Protocolo da Internet) foi limitado "
@@ -238,39 +238,39 @@ msgid "Invalid sample rate passed when encoding Shazam packet"
 msgstr ""
 "A taxa da amostragem passada ao codificar o pacote do ‘Shazam’ não é válida"
 
-#: src/gui/main_window.rs:254
+#: src/gui/main_window.rs:243
 msgid "Application error"
 msgstr "Ocorreu um erro no programa"
 
-#: src/gui/main_window.rs:275
+#: src/gui/main_window.rs:264
 msgid "Network error"
 msgstr "Ocorreu um erro na conexão com a internet"
 
-#: src/gui/main_window.rs:316
+#: src/gui/main_window.rs:305
 msgid "Unable to enable notification icon"
 msgstr "Não foi possível ativar o ícone das notificações"
 
-#: src/gui/main_window.rs:737 src/gui/main_window.rs:818
+#: src/gui/main_window.rs:728 src/gui/main_window.rs:809
 msgid "Unable to enable MPRIS support"
 msgstr "A funcionalidade do ‘MPRIS’ não pôde ser ativada"
 
-#: src/gui/main_window.rs:840
+#: src/gui/main_window.rs:831
 msgid "_Ok"
 msgstr "_Ok"
 
-#: src/gui/main_window.rs:920
+#: src/gui/main_window.rs:911
 msgid "Song recognized"
 msgstr "A música foi identificada"
 
-#: src/gui/main_window.rs:1086
+#: src/gui/main_window.rs:1077
 msgid "Are you sure you want to wipe history?"
 msgstr "Você tem certeza de que quer apagar a histórico?"
 
-#: src/gui/main_window.rs:1092
+#: src/gui/main_window.rs:1083
 msgid "_Yes"
 msgstr "_Sim"
 
-#: src/gui/main_window.rs:1093
+#: src/gui/main_window.rs:1084
 msgid "_No"
 msgstr "_Não"
 

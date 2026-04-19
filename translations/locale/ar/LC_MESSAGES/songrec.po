@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-12 04:54+0200\n"
+"POT-Creation-Date: 2026-04-19 03:19+0200\n"
 "PO-Revision-Date: 2026-03-09 12:56+0000\n"
 "Last-Translator: Mu7ammed Basha "
 "<mu7basha@users.noreply.weblate.fossplant.re>\n"
@@ -48,7 +48,7 @@ msgstr "تحذير: تعذر الاتصال بالشبكة"
 
 #: src/cli_main.rs:178 src/core/http_task.rs:56 src/core/http_task.rs:66
 #: src/core/http_task.rs:79 src/core/http_task.rs:123
-#: src/gui/main_window.rs:831 src/gui/main_window.rs:843
+#: src/gui/main_window.rs:822 src/gui/main_window.rs:834
 msgid "No match for this song"
 msgstr "لم يُعثر على أغنية مُطابِقة"
 
@@ -177,7 +177,7 @@ msgstr ""
 "شغّل واجهة المستخدم الرسومية، لكن لا تتعرف على الصوتيات عبر الميكروفون مباشرةً "
 "بعد التشغيل (بدلًا من ذلك توقع من المستخدم أن يضغط زرًا)."
 
-#: src/core/http_task.rs:130 src/core/fingerprinting/communication.rs:66
+#: src/core/http_task.rs:130 src/core/fingerprinting/communication.rs:117
 msgid "Your IP has been rate-limited"
 msgstr "تم تقييد استخدام عنوان IP خاصتك"
 
@@ -205,39 +205,39 @@ msgstr "نطاق التردد غير صالح في فك ترميز حزمة Shaz
 msgid "Invalid sample rate passed when encoding Shazam packet"
 msgstr "عبَر معدل عينة غير صالح أثناء ترميز حزمة Shazam"
 
-#: src/gui/main_window.rs:254
+#: src/gui/main_window.rs:243
 msgid "Application error"
 msgstr "خطأ في التطبيق"
 
-#: src/gui/main_window.rs:275
+#: src/gui/main_window.rs:264
 msgid "Network error"
 msgstr "خطأ في الشبكة"
 
-#: src/gui/main_window.rs:316
+#: src/gui/main_window.rs:305
 msgid "Unable to enable notification icon"
 msgstr "تعذر تفعيل أيقونة الإشعار"
 
-#: src/gui/main_window.rs:737 src/gui/main_window.rs:818
+#: src/gui/main_window.rs:728 src/gui/main_window.rs:809
 msgid "Unable to enable MPRIS support"
 msgstr "تعذر تفعيل دعم MPRIS"
 
-#: src/gui/main_window.rs:840
+#: src/gui/main_window.rs:831
 msgid "_Ok"
 msgstr "_حسنًا"
 
-#: src/gui/main_window.rs:920
+#: src/gui/main_window.rs:911
 msgid "Song recognized"
 msgstr "الأغنية عُرِفت"
 
-#: src/gui/main_window.rs:1086
+#: src/gui/main_window.rs:1077
 msgid "Are you sure you want to wipe history?"
 msgstr "هل ترغب في محو السجل؟"
 
-#: src/gui/main_window.rs:1092
+#: src/gui/main_window.rs:1083
 msgid "_Yes"
 msgstr "_نعم"
 
-#: src/gui/main_window.rs:1093
+#: src/gui/main_window.rs:1084
 msgid "_No"
 msgstr "_لا"
 

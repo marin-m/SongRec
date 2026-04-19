@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-12 04:54+0200\n"
+"POT-Creation-Date: 2026-04-19 03:19+0200\n"
 "PO-Revision-Date: 2024-01-21 20:01+0100\n"
 "Last-Translator: Pau Giuli <pau@giuli.cat>\n"
 "Language-Team: \n"
@@ -44,7 +44,7 @@ msgstr "Avís: Xarxa no connectada"
 
 #: src/cli_main.rs:178 src/core/http_task.rs:56 src/core/http_task.rs:66
 #: src/core/http_task.rs:79 src/core/http_task.rs:123
-#: src/gui/main_window.rs:831 src/gui/main_window.rs:843
+#: src/gui/main_window.rs:822 src/gui/main_window.rs:834
 msgid "No match for this song"
 msgstr "No hi ha coincidències per aquesta cançó"
 
@@ -175,7 +175,7 @@ msgstr ""
 "Inicia la interfície d'usuari, però no reconeix àudio a través del micròfon "
 "en engegar-la (en comptes d'esperar que l'usuari premi un botó)"
 
-#: src/core/http_task.rs:130 src/core/fingerprinting/communication.rs:66
+#: src/core/http_task.rs:130 src/core/fingerprinting/communication.rs:117
 msgid "Your IP has been rate-limited"
 msgstr ""
 
@@ -203,39 +203,39 @@ msgstr "Banda de freqüència invàlida en el paquet Shazam descodificat"
 msgid "Invalid sample rate passed when encoding Shazam packet"
 msgstr "Freqüència de mostreig invàlida en codificar el paquet Shazam"
 
-#: src/gui/main_window.rs:254
+#: src/gui/main_window.rs:243
 msgid "Application error"
 msgstr ""
 
-#: src/gui/main_window.rs:275
+#: src/gui/main_window.rs:264
 msgid "Network error"
 msgstr ""
 
-#: src/gui/main_window.rs:316
+#: src/gui/main_window.rs:305
 msgid "Unable to enable notification icon"
 msgstr ""
 
-#: src/gui/main_window.rs:737 src/gui/main_window.rs:818
+#: src/gui/main_window.rs:728 src/gui/main_window.rs:809
 msgid "Unable to enable MPRIS support"
 msgstr "No s'ha pogut activar el suport per MPRIS"
 
-#: src/gui/main_window.rs:840
+#: src/gui/main_window.rs:831
 msgid "_Ok"
 msgstr ""
 
-#: src/gui/main_window.rs:920
+#: src/gui/main_window.rs:911
 msgid "Song recognized"
 msgstr "Cançó reconeguda"
 
-#: src/gui/main_window.rs:1086
+#: src/gui/main_window.rs:1077
 msgid "Are you sure you want to wipe history?"
 msgstr "Esteu segur que voleu esborrar l'historial?"
 
-#: src/gui/main_window.rs:1092
+#: src/gui/main_window.rs:1083
 msgid "_Yes"
 msgstr "_Sí"
 
-#: src/gui/main_window.rs:1093
+#: src/gui/main_window.rs:1084
 msgid "_No"
 msgstr "_No"
 

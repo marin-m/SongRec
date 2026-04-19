@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-12 04:54+0200\n"
+"POT-Creation-Date: 2026-04-19 03:19+0200\n"
 "PO-Revision-Date: 2026-03-09 02:16+0000\n"
 "Last-Translator: Marin <25437947+marin-m@users.noreply.github.com>\n"
 "Language-Team: Czech <https://weblate.fossplant.re/projects/songrec/songrec/"
@@ -44,7 +44,7 @@ msgstr "Varování: síť není dostupná"
 
 #: src/cli_main.rs:178 src/core/http_task.rs:56 src/core/http_task.rs:66
 #: src/core/http_task.rs:79 src/core/http_task.rs:123
-#: src/gui/main_window.rs:831 src/gui/main_window.rs:843
+#: src/gui/main_window.rs:822 src/gui/main_window.rs:834
 msgid "No match for this song"
 msgstr "Nenalezena žádná shoda s touto skladbou"
 
@@ -178,7 +178,7 @@ msgstr ""
 "Spustit grafické rozhraní, ale nezačít okamžitě po spuštění rozpoznávat zvuk "
 "z mikrofonu (namísto čekání, než uživatel klikne na tlačítko)."
 
-#: src/core/http_task.rs:130 src/core/fingerprinting/communication.rs:66
+#: src/core/http_task.rs:130 src/core/fingerprinting/communication.rs:117
 msgid "Your IP has been rate-limited"
 msgstr "Vaše IP byla omezena"
 
@@ -206,39 +206,39 @@ msgstr "Neplatný rozsah pásem v dekódovaném paketu Shazamu"
 msgid "Invalid sample rate passed when encoding Shazam packet"
 msgstr "Předána neplatná vzorkovací frekvence při kódování paketu Shazamu"
 
-#: src/gui/main_window.rs:254
+#: src/gui/main_window.rs:243
 msgid "Application error"
 msgstr "Chyba aplikace"
 
-#: src/gui/main_window.rs:275
+#: src/gui/main_window.rs:264
 msgid "Network error"
 msgstr "Chyba sítě"
 
-#: src/gui/main_window.rs:316
+#: src/gui/main_window.rs:305
 msgid "Unable to enable notification icon"
 msgstr "Nepodařilo se povolit ikonu oznámení"
 
-#: src/gui/main_window.rs:737 src/gui/main_window.rs:818
+#: src/gui/main_window.rs:728 src/gui/main_window.rs:809
 msgid "Unable to enable MPRIS support"
 msgstr "Nepodařilo se povolit podporu MPRIS"
 
-#: src/gui/main_window.rs:840
+#: src/gui/main_window.rs:831
 msgid "_Ok"
 msgstr "_Ok"
 
-#: src/gui/main_window.rs:920
+#: src/gui/main_window.rs:911
 msgid "Song recognized"
 msgstr "Skladba rozpoznána"
 
-#: src/gui/main_window.rs:1086
+#: src/gui/main_window.rs:1077
 msgid "Are you sure you want to wipe history?"
 msgstr "Opravdu chcete vymazat historii?"
 
-#: src/gui/main_window.rs:1092
+#: src/gui/main_window.rs:1083
 msgid "_Yes"
 msgstr "_Ano"
 
-#: src/gui/main_window.rs:1093
+#: src/gui/main_window.rs:1084
 msgid "_No"
 msgstr "_Ne"
 

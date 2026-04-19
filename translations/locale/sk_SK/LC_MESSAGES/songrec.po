@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: SongRec v0.6.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-12 04:54+0200\n"
+"POT-Creation-Date: 2026-04-19 03:19+0200\n"
 "PO-Revision-Date: 2026-03-08 20:02+0000\n"
 "Last-Translator: Jozef Gaal <preklady@mayday.sk>\n"
 "Language-Team: Slovak <https://weblate.fossplant.re/projects/songrec/songrec/"
@@ -44,7 +44,7 @@ msgstr "Upozornenie: Sieť nedostupná"
 
 #: src/cli_main.rs:178 src/core/http_task.rs:56 src/core/http_task.rs:66
 #: src/core/http_task.rs:79 src/core/http_task.rs:123
-#: src/gui/main_window.rs:831 src/gui/main_window.rs:843
+#: src/gui/main_window.rs:822 src/gui/main_window.rs:834
 msgid "No match for this song"
 msgstr "Žiadna zhoda pre túto skladbu"
 
@@ -183,7 +183,7 @@ msgstr ""
 "hneď po spustení (namiesto toho, aby ste očakávali, že používateľ klikne na "
 "tlačidlo)."
 
-#: src/core/http_task.rs:130 src/core/fingerprinting/communication.rs:66
+#: src/core/http_task.rs:130 src/core/fingerprinting/communication.rs:117
 msgid "Your IP has been rate-limited"
 msgstr "Vaša IP adresa bola obmedzená"
 
@@ -212,39 +212,39 @@ msgid "Invalid sample rate passed when encoding Shazam packet"
 msgstr ""
 "Pri kódovaní paketu Shazam bola odovzdaná nesprávna vzorkovacia frekvencia"
 
-#: src/gui/main_window.rs:254
+#: src/gui/main_window.rs:243
 msgid "Application error"
 msgstr "Chyba aplikácie"
 
-#: src/gui/main_window.rs:275
+#: src/gui/main_window.rs:264
 msgid "Network error"
 msgstr "Chyba siete"
 
-#: src/gui/main_window.rs:316
+#: src/gui/main_window.rs:305
 msgid "Unable to enable notification icon"
 msgstr "Nie je možné aktivovať ikonu upozornenia"
 
-#: src/gui/main_window.rs:737 src/gui/main_window.rs:818
+#: src/gui/main_window.rs:728 src/gui/main_window.rs:809
 msgid "Unable to enable MPRIS support"
 msgstr "Nie je možné zapnúť podporu MPRIS"
 
-#: src/gui/main_window.rs:840
+#: src/gui/main_window.rs:831
 msgid "_Ok"
 msgstr "_Ok"
 
-#: src/gui/main_window.rs:920
+#: src/gui/main_window.rs:911
 msgid "Song recognized"
 msgstr "Skladba rozpoznaná"
 
-#: src/gui/main_window.rs:1086
+#: src/gui/main_window.rs:1077
 msgid "Are you sure you want to wipe history?"
 msgstr "Naozaj chcete vymazať históriu?"
 
-#: src/gui/main_window.rs:1092
+#: src/gui/main_window.rs:1083
 msgid "_Yes"
 msgstr "_Áno"
 
-#: src/gui/main_window.rs:1093
+#: src/gui/main_window.rs:1084
 msgid "_No"
 msgstr "_Nie"
 
