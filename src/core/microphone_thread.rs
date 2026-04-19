@@ -1,6 +1,7 @@
 use std::iter::Copied;
 use std::num::NonZero;
 use std::slice::Iter;
+use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{Arc, Mutex};
 
 use crate::core::preferences::PreferencesInterface;
@@ -36,7 +37,7 @@ pub fn microphone_thread(
 
     let mut stream: Option<cpal::Stream> = None;
 
-    let processing_already_ongoing: Arc<Mutex<bool>> = Arc::new(Mutex::new(false)); // Whether our data is already being processed in other threads (pointer to a bool shared between this thread and the CPAL thread, hence the Arc<Mutex>)
+    let processing_already_ongoing: Arc<AtomicBool> = Arc::new(AtomicBool::new(false)); // Whether our data is already being processed in other threads (pointer to a bool shared between this thread and the CPAL thread, hence the Arc<AtomicBool>)
 
     // Send a list of the active microphone-alike devices to the GUI thread
     // (the combo box will be filed with device names when a "DevicesList"
@@ -233,9 +234,7 @@ pub fn microphone_thread(
             }
 
             ProcessingDone => {
-                let mut processing_already_ongoing_borrow =
-                    processing_already_ongoing.lock().unwrap();
-                *processing_already_ongoing_borrow = false;
+                processing_already_ongoing.store(false, Ordering::SeqCst);
             }
         }
     }
@@ -250,7 +249,7 @@ fn write_data(
     twelve_seconds_buffer: &mut [f32],
     number_unprocessed_samples: &mut usize,
     number_unmeasured_samples: &mut usize,
-    processing_already_ongoing: &Arc<Mutex<bool>>,
+    processing_already_ongoing: &AtomicBool,
     preferences_interface: &Arc<Mutex<PreferencesInterface>>,
 ) {
     // Reassemble data into a 12-second buffer, and do recognition
@@ -289,10 +288,8 @@ fn write_data(
 
     *number_unprocessed_samples += raw_pcm_samples.len();
 
-    let mut processing_already_ongoing_borrow = processing_already_ongoing.lock().unwrap();
-
     if *number_unprocessed_samples >= 16000 * request_interval_secs
-        && !*processing_already_ongoing_borrow
+        && !processing_already_ongoing.load(Ordering::SeqCst)
     {
         if !twelve_seconds_buffer.iter().all(|x| *x == 0.0) {
             processing_tx
@@ -301,7 +298,7 @@ fn write_data(
                 ))
                 .unwrap();
 
-            *processing_already_ongoing_borrow = true;
+            processing_already_ongoing.store(true, Ordering::SeqCst);
         }
 
         *number_unprocessed_samples = 0;
