@@ -1,0 +1,444 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Mejans <farga@mejans.fr>, 2026.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-19 04:07+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: oc\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+
+#: src/cli_main.rs:117
+msgid "Available device:"
+msgstr ""
+
+#: src/cli_main.rs:135
+msgid "Exiting: audio device not found"
+msgstr ""
+
+#: src/cli_main.rs:141
+msgid "Exiting: no audio devices found!"
+msgstr ""
+
+#: src/cli_main.rs:146
+msgid "Using device"
+msgstr ""
+
+#: src/cli_main.rs:170
+msgid "Error: Network unreachable"
+msgstr ""
+
+#: src/cli_main.rs:173
+msgid "Warning: Network unreachable"
+msgstr ""
+
+#: src/cli_main.rs:178 src/core/http_task.rs:56 src/core/http_task.rs:66
+#: src/core/http_task.rs:79 src/core/http_task.rs:123
+#: src/gui/main_window.rs:822 src/gui/main_window.rs:834
+msgid "No match for this song"
+msgstr ""
+
+#: src/cli_main.rs:180
+msgid "Error:"
+msgstr ""
+
+#: src/cli_main.rs:188
+msgid "Recording started!"
+msgstr ""
+
+#: src/main.rs:74
+msgid "An open-source Shazam client for Linux, written in Rust."
+msgstr ""
+
+#: src/main.rs:94
+msgid ""
+"-v: Set the log level to DEBUG instead of INFO for SongRec-related messages\n"
+"-vv: Set the log level to DEBUG for SongRec-related messages and INFO for "
+"library-related messages\n"
+"-vvv: Set the log level to TRACE"
+msgstr ""
+
+#: src/main.rs:100
+msgid ""
+"Run as a command-line program listening the microphone and printing "
+"recognized songs to stdout, exposing current song info via MPRIS"
+msgstr ""
+
+#: src/main.rs:106 src/main.rs:152 src/main.rs:207
+msgid "List available audio devices and quit"
+msgstr ""
+
+#: src/main.rs:112 src/main.rs:159 src/main.rs:213
+msgid "Specify the audio device to use"
+msgstr ""
+
+#: src/main.rs:120 src/main.rs:167 src/main.rs:221
+msgid ""
+"Shazam interval between requests in seconds (increase if you are rate-"
+"limited)"
+msgstr ""
+
+#: src/main.rs:128 src/main.rs:175
+msgid "Enable printing full song info in JSON"
+msgstr ""
+
+#: src/main.rs:135 src/main.rs:182
+msgid "Enable printing full song info in the CSV format"
+msgstr ""
+
+#: src/main.rs:141 src/main.rs:261 src/main.rs:276
+msgid "Disable MPRIS support"
+msgstr ""
+
+#: src/main.rs:146
+msgid "Recognize one song from a sound file or microphone and print its info."
+msgstr ""
+
+#: src/main.rs:187
+msgid "Recognize a file instead of using mic input"
+msgstr ""
+
+#: src/main.rs:192
+msgid ""
+"Generate a Shazam fingerprint from a sound file, perform song recognition "
+"towards Shazam's servers and print obtained information to the standard "
+"output."
+msgstr ""
+
+#: src/main.rs:196
+msgid "The audio file to recognize."
+msgstr ""
+
+#: src/main.rs:201
+msgid ""
+"Recognize a currently playing song using the microphone and print obtained "
+"information to the standard output"
+msgstr ""
+
+#: src/main.rs:226
+msgid ""
+"Generate a Shazam fingerprint from a sound file, and print it to the "
+"standard output."
+msgstr ""
+
+#: src/main.rs:230
+msgid "The .WAV or .MP3 file to generate an audio fingerprint for."
+msgstr ""
+
+#: src/main.rs:235
+msgid ""
+"Take a data-URI Shazam fingerprint, perform song recognition towards "
+"Shazam's servers and print obtained information to the standard output."
+msgstr ""
+
+#: src/main.rs:239
+msgid "The data-URI Shazam fingerprint to recognize."
+msgstr ""
+
+#: src/main.rs:251
+msgid "The default action. Display a GUI."
+msgstr ""
+
+#: src/main.rs:255 src/main.rs:270
+msgid "An optional audio file to recognize on the launch of the application."
+msgstr ""
+
+#: src/main.rs:266
+msgid ""
+"Launch the GUI, but don't recognize audio through the microphone as soon as "
+"it is launched (rather than expecting the user to click on a button)."
+msgstr ""
+
+#: src/core/http_task.rs:130 src/core/fingerprinting/communication.rs:123
+msgid "Your IP has been rate-limited"
+msgstr ""
+
+#: src/core/microphone_thread.rs:71
+msgid "Audio error:"
+msgstr ""
+
+#: src/core/preferences.rs:86
+msgid "When parsing the preferences file:"
+msgstr ""
+
+#: src/core/preferences.rs:155
+msgid "When saving the preferences file:"
+msgstr ""
+
+#: src/core/fingerprinting/signature_format.rs:98
+msgid "Invalid sample rate in decoded Shazam packet"
+msgstr ""
+
+#: src/core/fingerprinting/signature_format.rs:140
+msgid "Invalid frequency band in decoded Shazam packet"
+msgstr ""
+
+#: src/core/fingerprinting/signature_format.rs:221
+msgid "Invalid sample rate passed when encoding Shazam packet"
+msgstr ""
+
+#: src/gui/main_window.rs:243
+msgid "Application error"
+msgstr ""
+
+#: src/gui/main_window.rs:264
+msgid "Network error"
+msgstr ""
+
+#: src/gui/main_window.rs:305
+msgid "Unable to enable notification icon"
+msgstr ""
+
+#: src/gui/main_window.rs:728 src/gui/main_window.rs:809
+msgid "Unable to enable MPRIS support"
+msgstr ""
+
+#: src/gui/main_window.rs:831
+msgid "_Ok"
+msgstr ""
+
+#: src/gui/main_window.rs:911
+msgid "Song recognized"
+msgstr ""
+
+#: src/gui/main_window.rs:1077
+msgid "Are you sure you want to wipe history?"
+msgstr ""
+
+#: src/gui/main_window.rs:1083
+msgid "_Yes"
+msgstr ""
+
+#: src/gui/main_window.rs:1084
+msgid "_No"
+msgstr ""
+
+#: src/gui/song_history_interface.rs:94
+msgid "Error when reading the song history on the disk:"
+msgstr ""
+
+#: src/gui/song_history_interface.rs:169
+msgid "Error when reading the favorites on the disk:"
+msgstr ""
+
+#: src/plugins/ksni.rs:48
+msgid "Open SongRec"
+msgstr ""
+
+#: src/plugins/ksni.rs:56
+msgid "Quit..."
+msgstr ""
+
+#: translations/interface.ui.h:1
+msgid "Recognize songs"
+msgstr ""
+
+#: translations/interface.ui.h:2
+msgid "Recognize from file"
+msgstr ""
+
+#: translations/interface.ui.h:3
+msgid "Pick a file..."
+msgstr ""
+
+#: translations/interface.ui.h:4
+msgid "Recognize from microphone"
+msgstr ""
+
+#: translations/interface.ui.h:5
+msgid "Recognize from my speakers"
+msgstr ""
+
+#: translations/interface.ui.h:6
+msgid "Shazam servers are not reachable, are you connected?"
+msgstr ""
+
+#: translations/interface.ui.h:7
+msgid "ERROR: Your IP has been rate-limited"
+msgstr ""
+
+#: translations/interface.ui.h:8
+msgid "Recognition results"
+msgstr ""
+
+#: translations/interface.ui.h:9
+msgid "Search on YouTube"
+msgstr ""
+
+#: translations/interface.ui.h:10
+msgid "Search..."
+msgstr ""
+
+#: translations/interface.ui.h:11
+msgid "Refresh available devices"
+msgstr ""
+
+#: translations/interface.ui.h:12
+msgid "Audio input"
+msgstr ""
+
+#: translations/interface.ui.h:13
+msgid "Device"
+msgstr ""
+
+#: translations/interface.ui.h:14
+msgid "Volume:"
+msgstr ""
+
+#: translations/interface.ui.h:15
+msgid "History options..."
+msgstr ""
+
+#: translations/interface.ui.h:16
+msgid "Recognition history"
+msgstr ""
+
+#: translations/interface.ui.h:17
+msgid "Song name"
+msgstr ""
+
+#: translations/interface.ui.h:18
+msgid "Album"
+msgstr ""
+
+#: translations/interface.ui.h:19
+msgid "Recognition date"
+msgstr ""
+
+#: translations/interface.ui.h:20
+msgid "View favorites"
+msgstr ""
+
+#: translations/interface.ui.h:21
+msgid "Application menu"
+msgstr ""
+
+#: translations/interface.ui.h:22
+msgid "Export to CSV"
+msgstr ""
+
+#: translations/interface.ui.h:23
+msgid "Favorites"
+msgstr ""
+
+#: translations/interface.ui.h:24
+msgid "General preferences"
+msgstr ""
+
+#: translations/interface.ui.h:25
+msgid "Notify when a new song is recognized or network error is encountered"
+msgstr ""
+
+#: translations/interface.ui.h:26
+msgid "Show notifications"
+msgstr ""
+
+#: translations/interface.ui.h:27
+msgid ""
+"MPRIS will display information about recognized songs in places like the "
+"GNOME or KDE control panel"
+msgstr ""
+
+#: translations/interface.ui.h:28
+msgid "Enable MPRIS"
+msgstr ""
+
+#: translations/interface.ui.h:29
+msgid ""
+"When closing the window, minimize to system tray using KSNI instead of "
+"closing the app. Please note that you may have to increase the \"request "
+"interval\" setting when leaving SongRec running in the background to reduce "
+"your changes of getting rate-limited."
+msgstr ""
+
+#: translations/interface.ui.h:30
+msgid "Minimize to system tray"
+msgstr ""
+
+#: translations/interface.ui.h:31
+msgid ""
+"Bump a song to the top of the history list and remove the former entry when "
+"the same song is detected multiple times"
+msgstr ""
+
+#: translations/interface.ui.h:32
+msgid "No duplicates in history"
+msgstr ""
+
+#: translations/interface.ui.h:33
+msgid "Network preferences"
+msgstr ""
+
+#: translations/interface.ui.h:34
+msgid "By default 8, increase if you are rate-limited"
+msgstr ""
+
+#: translations/interface.ui.h:35
+msgid "Shazam interval between requests in seconds"
+msgstr ""
+
+#: translations/interface.ui.h:36
+msgid ""
+"By default the last 12 seconds of music are fingerprinted and sent to "
+"Shazam. Editing may have an impact on reliability"
+msgstr ""
+
+#: translations/interface.ui.h:37
+msgid "Shazam buffer size in seconds"
+msgstr ""
+
+#: translations/interface.ui.h:38
+msgid "Settings"
+msgstr ""
+
+#: translations/interface.ui.h:39
+msgid "_Preferences..."
+msgstr ""
+
+#: translations/interface.ui.h:40
+msgid "About..."
+msgstr ""
+
+#: translations/interface.ui.h:41
+msgid "Delete history"
+msgstr ""
+
+#: translations/interface.ui.h:42
+msgid "Select a file to recognize"
+msgstr ""
+
+#: translations/interface.ui.h:43
+msgid "Copy artist and track"
+msgstr ""
+
+#: translations/interface.ui.h:44
+msgid "Copy artist"
+msgstr ""
+
+#: translations/interface.ui.h:45
+msgid "Copy track name"
+msgstr ""
+
+#: translations/interface.ui.h:46
+msgid "Copy album"
+msgstr ""
+
+#: translations/interface.ui.h:47
+msgid "Delete from History"
+msgstr ""
+
+#: translations/interface.ui.h:48
+msgid "Add to Favorites"
+msgstr ""
+
+#: translations/interface.ui.h:49
+msgid "Remove from Favorites"
+msgstr ""
