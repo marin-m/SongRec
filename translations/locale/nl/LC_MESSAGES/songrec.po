@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-19 20:56+0200\n"
+"POT-Creation-Date: 2026-04-19 21:50+0200\n"
 "PO-Revision-Date: 2026-03-09 02:16+0000\n"
 "Last-Translator: Marin <25437947+marin-m@users.noreply.github.com>\n"
 "Language-Team: Dutch <https://weblate.fossplant.re/projects/songrec/songrec/"
@@ -42,17 +42,17 @@ msgstr "Foutmelding: geen internetverbinding"
 msgid "Warning: Network unreachable"
 msgstr "Waarschuwing: geen internetverbinding"
 
-#: src/cli_main.rs:178 src/core/http_task.rs:56 src/core/http_task.rs:66
-#: src/core/http_task.rs:79 src/core/http_task.rs:123
+#: src/cli_main.rs:178 src/core/http_task.rs:55 src/core/http_task.rs:64
+#: src/core/http_task.rs:76 src/core/http_task.rs:119
 #: src/gui/main_window.rs:822 src/gui/main_window.rs:834
 msgid "No match for this song"
 msgstr "Er is geen overeenkomst gevonden"
 
-#: src/cli_main.rs:180
+#: src/cli_main.rs:179
 msgid "Error:"
 msgstr "Foutmelding:"
 
-#: src/cli_main.rs:188
+#: src/cli_main.rs:186
 msgid "Recording started!"
 msgstr "De opname is gestart!"
 
@@ -179,7 +179,7 @@ msgid ""
 "it is launched (rather than expecting the user to click on a button)."
 msgstr "Toon het venster, maar wacht met het starten van de muziekherkenning."
 
-#: src/core/http_task.rs:130 src/core/fingerprinting/communication.rs:123
+#: src/core/http_task.rs:126 src/core/fingerprinting/communication.rs:123
 msgid "Your IP has been rate-limited"
 msgstr "Je ip-verzoeken zijn afgekapt"
 
@@ -187,23 +187,23 @@ msgstr "Je ip-verzoeken zijn afgekapt"
 msgid "Audio error:"
 msgstr "Audiofout:"
 
-#: src/core/preferences.rs:86
+#: src/core/preferences.rs:84
 msgid "When parsing the preferences file:"
 msgstr "Tijdens verwerken van instellingenbestand:"
 
-#: src/core/preferences.rs:155
+#: src/core/preferences.rs:147
 msgid "When saving the preferences file:"
 msgstr "Tijdens opslaan van instellingenbestand:"
 
-#: src/core/fingerprinting/signature_format.rs:97
+#: src/core/fingerprinting/signature_format.rs:84
 msgid "Invalid sample rate in decoded Shazam packet"
 msgstr "Ongeldige samplesnelheid in gedecodeerd Shazam-pakket"
 
-#: src/core/fingerprinting/signature_format.rs:138
+#: src/core/fingerprinting/signature_format.rs:125
 msgid "Invalid frequency band in decoded Shazam packet"
 msgstr "Ongeldige frequentieband in gedecodeerd Shazam-pakket"
 
-#: src/core/fingerprinting/signature_format.rs:214
+#: src/core/fingerprinting/signature_format.rs:201
 msgid "Invalid sample rate passed when encoding Shazam packet"
 msgstr ""
 "Ongeldige samplesnelheid doorgegeven tijdens encoderen van Shazam-pakket"
@@ -232,15 +232,15 @@ msgstr "_Ok"
 msgid "Song recognized"
 msgstr "Het nummer is herkend"
 
-#: src/gui/main_window.rs:1077
+#: src/gui/main_window.rs:1055
 msgid "Are you sure you want to wipe history?"
 msgstr "Weet je zeker dat je de geschiedenis wilt wissen?"
 
-#: src/gui/main_window.rs:1083
+#: src/gui/main_window.rs:1061
 msgid "_Yes"
 msgstr "_Ja"
 
-#: src/gui/main_window.rs:1084
+#: src/gui/main_window.rs:1062
 msgid "_No"
 msgstr "_Nee"
 
@@ -248,7 +248,7 @@ msgstr "_Nee"
 msgid "Error when reading the song history on the disk:"
 msgstr "De nummergeschiedenis op de schijf kan niet worden uitgelezen:"
 
-#: src/gui/song_history_interface.rs:169
+#: src/gui/song_history_interface.rs:164
 msgid "Error when reading the favorites on the disk:"
 msgstr "De favorieten op de schijf kunnen niet worden uitgelezen:"
 

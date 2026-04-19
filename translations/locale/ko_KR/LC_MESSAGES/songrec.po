@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-19 20:56+0200\n"
+"POT-Creation-Date: 2026-04-19 21:50+0200\n"
 "PO-Revision-Date: 2023-12-30 23:42+0900\n"
 "Last-Translator: 이정희 <daemul72@gmail.com>\n"
 "Language-Team: \n"
@@ -41,17 +41,17 @@ msgstr "오류: 네트워크에 연결할 수 없음"
 msgid "Warning: Network unreachable"
 msgstr "경고: 네트워크에 연결할 수 없음"
 
-#: src/cli_main.rs:178 src/core/http_task.rs:56 src/core/http_task.rs:66
-#: src/core/http_task.rs:79 src/core/http_task.rs:123
+#: src/cli_main.rs:178 src/core/http_task.rs:55 src/core/http_task.rs:64
+#: src/core/http_task.rs:76 src/core/http_task.rs:119
 #: src/gui/main_window.rs:822 src/gui/main_window.rs:834
 msgid "No match for this song"
 msgstr "이 노래와 일치하는 항목이 없습니다"
 
-#: src/cli_main.rs:180
+#: src/cli_main.rs:179
 msgid "Error:"
 msgstr "오류:"
 
-#: src/cli_main.rs:188
+#: src/cli_main.rs:186
 msgid "Recording started!"
 msgstr "녹음이 시작되었습니다!"
 
@@ -167,7 +167,7 @@ msgstr ""
 "GUI를 실행하되, (사용자가 버튼을 클릭할 것으로 예상하지 않고) 실행하자마자 마"
 "이크를 통해 오디오를 인식하지 않도록 합니다."
 
-#: src/core/http_task.rs:130 src/core/fingerprinting/communication.rs:123
+#: src/core/http_task.rs:126 src/core/fingerprinting/communication.rs:123
 msgid "Your IP has been rate-limited"
 msgstr ""
 
@@ -175,23 +175,23 @@ msgstr ""
 msgid "Audio error:"
 msgstr ""
 
-#: src/core/preferences.rs:86
+#: src/core/preferences.rs:84
 msgid "When parsing the preferences file:"
 msgstr "환경설정 파일을 구문 분석하는 경우:"
 
-#: src/core/preferences.rs:155
+#: src/core/preferences.rs:147
 msgid "When saving the preferences file:"
 msgstr "환경설정 파일을 저장하는 경우:"
 
-#: src/core/fingerprinting/signature_format.rs:97
+#: src/core/fingerprinting/signature_format.rs:84
 msgid "Invalid sample rate in decoded Shazam packet"
 msgstr "디코딩된 Shazam 패킷의 샘플 속도가 잘못되었습니다"
 
-#: src/core/fingerprinting/signature_format.rs:138
+#: src/core/fingerprinting/signature_format.rs:125
 msgid "Invalid frequency band in decoded Shazam packet"
 msgstr "디코딩된 Shazam 패킷의 주파수 대역이 잘못되었습니다"
 
-#: src/core/fingerprinting/signature_format.rs:214
+#: src/core/fingerprinting/signature_format.rs:201
 msgid "Invalid sample rate passed when encoding Shazam packet"
 msgstr "Shazam 패킷을 인코딩할 때 잘못된 샘플 속도가 전달되었습니다"
 
@@ -219,15 +219,15 @@ msgstr ""
 msgid "Song recognized"
 msgstr "인식된 노래"
 
-#: src/gui/main_window.rs:1077
+#: src/gui/main_window.rs:1055
 msgid "Are you sure you want to wipe history?"
 msgstr ""
 
-#: src/gui/main_window.rs:1083
+#: src/gui/main_window.rs:1061
 msgid "_Yes"
 msgstr ""
 
-#: src/gui/main_window.rs:1084
+#: src/gui/main_window.rs:1062
 msgid "_No"
 msgstr ""
 
@@ -235,7 +235,7 @@ msgstr ""
 msgid "Error when reading the song history on the disk:"
 msgstr "디스크에서 노래 기록을 읽는 동안 오류 발생:"
 
-#: src/gui/song_history_interface.rs:169
+#: src/gui/song_history_interface.rs:164
 msgid "Error when reading the favorites on the disk:"
 msgstr ""
 

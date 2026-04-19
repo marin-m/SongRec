@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-19 20:56+0200\n"
+"POT-Creation-Date: 2026-04-19 21:50+0200\n"
 "PO-Revision-Date: 2022-10-09 13:27+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -42,17 +42,17 @@ msgstr "Fehler: Netzwerk nicht erreichbar"
 msgid "Warning: Network unreachable"
 msgstr "Warnung: Netzwerk nicht erreichbar"
 
-#: src/cli_main.rs:178 src/core/http_task.rs:56 src/core/http_task.rs:66
-#: src/core/http_task.rs:79 src/core/http_task.rs:123
+#: src/cli_main.rs:178 src/core/http_task.rs:55 src/core/http_task.rs:64
+#: src/core/http_task.rs:76 src/core/http_task.rs:119
 #: src/gui/main_window.rs:822 src/gui/main_window.rs:834
 msgid "No match for this song"
 msgstr "Keine Übereinstimmung für dieses Lied"
 
-#: src/cli_main.rs:180
+#: src/cli_main.rs:179
 msgid "Error:"
 msgstr "Fehler:"
 
-#: src/cli_main.rs:188
+#: src/cli_main.rs:186
 msgid "Recording started!"
 msgstr "Aufnahme aktiv!"
 
@@ -178,7 +178,7 @@ msgstr ""
 "Mikrofon erkannt, sobald diese gestartet wurde (Anstatt zu erwarten, dass "
 "der Benutzer auf eine Schaltfläche klickt)."
 
-#: src/core/http_task.rs:130 src/core/fingerprinting/communication.rs:123
+#: src/core/http_task.rs:126 src/core/fingerprinting/communication.rs:123
 msgid "Your IP has been rate-limited"
 msgstr ""
 
@@ -186,23 +186,23 @@ msgstr ""
 msgid "Audio error:"
 msgstr ""
 
-#: src/core/preferences.rs:86
+#: src/core/preferences.rs:84
 msgid "When parsing the preferences file:"
 msgstr "Beim Analysieren der Einstellungsdatei:"
 
-#: src/core/preferences.rs:155
+#: src/core/preferences.rs:147
 msgid "When saving the preferences file:"
 msgstr "Beim Speichern der Einstellungsdatei:"
 
-#: src/core/fingerprinting/signature_format.rs:97
+#: src/core/fingerprinting/signature_format.rs:84
 msgid "Invalid sample rate in decoded Shazam packet"
 msgstr "Ungültige Abtastrate im dekodierten Shazam Paket"
 
-#: src/core/fingerprinting/signature_format.rs:138
+#: src/core/fingerprinting/signature_format.rs:125
 msgid "Invalid frequency band in decoded Shazam packet"
 msgstr "Ungültiges Frequenzband im dekodierten Shazam Paket"
 
-#: src/core/fingerprinting/signature_format.rs:214
+#: src/core/fingerprinting/signature_format.rs:201
 msgid "Invalid sample rate passed when encoding Shazam packet"
 msgstr "Ungültige Abtastrate bei der Codierung des Shazam Pakets übergeben"
 
@@ -230,15 +230,15 @@ msgstr ""
 msgid "Song recognized"
 msgstr "Lied erkannt"
 
-#: src/gui/main_window.rs:1077
+#: src/gui/main_window.rs:1055
 msgid "Are you sure you want to wipe history?"
 msgstr ""
 
-#: src/gui/main_window.rs:1083
+#: src/gui/main_window.rs:1061
 msgid "_Yes"
 msgstr ""
 
-#: src/gui/main_window.rs:1084
+#: src/gui/main_window.rs:1062
 msgid "_No"
 msgstr ""
 
@@ -246,7 +246,7 @@ msgstr ""
 msgid "Error when reading the song history on the disk:"
 msgstr "Fehler beim Lesen des Song Verlauf auf dem Datenträger:"
 
-#: src/gui/song_history_interface.rs:169
+#: src/gui/song_history_interface.rs:164
 msgid "Error when reading the favorites on the disk:"
 msgstr "Fehler beim Lesen der Favoriten auf dem Datenträger:"
 

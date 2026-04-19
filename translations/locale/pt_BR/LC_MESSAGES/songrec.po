@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: SongRec\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-19 20:56+0200\n"
+"POT-Creation-Date: 2026-04-19 21:50+0200\n"
 "PO-Revision-Date: 2026-03-09 15:02+0000\n"
 "Last-Translator: marcelo cripe <marcelocripe@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://weblate.fossplant.re/projects/"
@@ -48,17 +48,17 @@ msgstr "Ocorreu um erro, porque não há conexão com a internet"
 msgid "Warning: Network unreachable"
 msgstr "Atenção! Não há conexão com a internet"
 
-#: src/cli_main.rs:178 src/core/http_task.rs:56 src/core/http_task.rs:66
-#: src/core/http_task.rs:79 src/core/http_task.rs:123
+#: src/cli_main.rs:178 src/core/http_task.rs:55 src/core/http_task.rs:64
+#: src/core/http_task.rs:76 src/core/http_task.rs:119
 #: src/gui/main_window.rs:822 src/gui/main_window.rs:834
 msgid "No match for this song"
 msgstr "A música não pôde ser identificada"
 
-#: src/cli_main.rs:180
+#: src/cli_main.rs:179
 msgid "Error:"
 msgstr "Ocorreu um erro:"
 
-#: src/cli_main.rs:188
+#: src/cli_main.rs:186
 msgid "Recording started!"
 msgstr "A gravação foi iniciada!"
 
@@ -207,7 +207,7 @@ msgstr ""
 "detectado por meio do microfone, em vez de esperar que o usuário clique em "
 "um botão."
 
-#: src/core/http_task.rs:130 src/core/fingerprinting/communication.rs:123
+#: src/core/http_task.rs:126 src/core/fingerprinting/communication.rs:123
 msgid "Your IP has been rate-limited"
 msgstr ""
 "O seu endereço IP (Internet Protocol ou Protocolo da Internet) foi limitado "
@@ -217,23 +217,23 @@ msgstr ""
 msgid "Audio error:"
 msgstr "Ocorreu um erro no áudio:"
 
-#: src/core/preferences.rs:86
+#: src/core/preferences.rs:84
 msgid "When parsing the preferences file:"
 msgstr "Ao analisar o arquivo das configurações:"
 
-#: src/core/preferences.rs:155
+#: src/core/preferences.rs:147
 msgid "When saving the preferences file:"
 msgstr "Ao salvar o arquivo das configurações:"
 
-#: src/core/fingerprinting/signature_format.rs:97
+#: src/core/fingerprinting/signature_format.rs:84
 msgid "Invalid sample rate in decoded Shazam packet"
 msgstr "A taxa da amostragem ao decodificar o pacote do ‘Shazam’ não é válida"
 
-#: src/core/fingerprinting/signature_format.rs:138
+#: src/core/fingerprinting/signature_format.rs:125
 msgid "Invalid frequency band in decoded Shazam packet"
 msgstr "A banda da frequência ao decodificar o pacote do ‘Shazam’ não é válida"
 
-#: src/core/fingerprinting/signature_format.rs:214
+#: src/core/fingerprinting/signature_format.rs:201
 msgid "Invalid sample rate passed when encoding Shazam packet"
 msgstr ""
 "A taxa da amostragem passada ao codificar o pacote do ‘Shazam’ não é válida"
@@ -262,15 +262,15 @@ msgstr "_Ok"
 msgid "Song recognized"
 msgstr "A música foi identificada"
 
-#: src/gui/main_window.rs:1077
+#: src/gui/main_window.rs:1055
 msgid "Are you sure you want to wipe history?"
 msgstr "Você tem certeza de que quer apagar a histórico?"
 
-#: src/gui/main_window.rs:1083
+#: src/gui/main_window.rs:1061
 msgid "_Yes"
 msgstr "_Sim"
 
-#: src/gui/main_window.rs:1084
+#: src/gui/main_window.rs:1062
 msgid "_No"
 msgstr "_Não"
 
@@ -278,7 +278,7 @@ msgstr "_Não"
 msgid "Error when reading the song history on the disk:"
 msgstr "Ocorreu um erro ao ler o histórico das músicas salvas:"
 
-#: src/gui/song_history_interface.rs:169
+#: src/gui/song_history_interface.rs:164
 msgid "Error when reading the favorites on the disk:"
 msgstr "Ocorreu um erro ao ler os favoritos salvos:"
 

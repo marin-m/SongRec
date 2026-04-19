@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-19 20:56+0200\n"
+"POT-Creation-Date: 2026-04-19 21:50+0200\n"
 "PO-Revision-Date: 2026-03-09 12:56+0000\n"
 "Last-Translator: Mu7ammed Basha "
 "<mu7basha@users.noreply.weblate.fossplant.re>\n"
@@ -46,17 +46,17 @@ msgstr "خطأ: تعذر الاتصال بالشبكة"
 msgid "Warning: Network unreachable"
 msgstr "تحذير: تعذر الاتصال بالشبكة"
 
-#: src/cli_main.rs:178 src/core/http_task.rs:56 src/core/http_task.rs:66
-#: src/core/http_task.rs:79 src/core/http_task.rs:123
+#: src/cli_main.rs:178 src/core/http_task.rs:55 src/core/http_task.rs:64
+#: src/core/http_task.rs:76 src/core/http_task.rs:119
 #: src/gui/main_window.rs:822 src/gui/main_window.rs:834
 msgid "No match for this song"
 msgstr "لم يُعثر على أغنية مُطابِقة"
 
-#: src/cli_main.rs:180
+#: src/cli_main.rs:179
 msgid "Error:"
 msgstr "خطأ:"
 
-#: src/cli_main.rs:188
+#: src/cli_main.rs:186
 msgid "Recording started!"
 msgstr "بدأ التسجيل!"
 
@@ -177,7 +177,7 @@ msgstr ""
 "شغّل واجهة المستخدم الرسومية، لكن لا تتعرف على الصوتيات عبر الميكروفون مباشرةً "
 "بعد التشغيل (بدلًا من ذلك توقع من المستخدم أن يضغط زرًا)."
 
-#: src/core/http_task.rs:130 src/core/fingerprinting/communication.rs:123
+#: src/core/http_task.rs:126 src/core/fingerprinting/communication.rs:123
 msgid "Your IP has been rate-limited"
 msgstr "تم تقييد استخدام عنوان IP خاصتك"
 
@@ -185,23 +185,23 @@ msgstr "تم تقييد استخدام عنوان IP خاصتك"
 msgid "Audio error:"
 msgstr "خطأ في الصوت:"
 
-#: src/core/preferences.rs:86
+#: src/core/preferences.rs:84
 msgid "When parsing the preferences file:"
 msgstr "عند تحليل ملف التفضيلات:"
 
-#: src/core/preferences.rs:155
+#: src/core/preferences.rs:147
 msgid "When saving the preferences file:"
 msgstr "عند حفظ ملف التفضيلات:"
 
-#: src/core/fingerprinting/signature_format.rs:97
+#: src/core/fingerprinting/signature_format.rs:84
 msgid "Invalid sample rate in decoded Shazam packet"
 msgstr "معدل العينة غير صالح في فك ترميز حزمة Shazam"
 
-#: src/core/fingerprinting/signature_format.rs:138
+#: src/core/fingerprinting/signature_format.rs:125
 msgid "Invalid frequency band in decoded Shazam packet"
 msgstr "نطاق التردد غير صالح في فك ترميز حزمة Shazam"
 
-#: src/core/fingerprinting/signature_format.rs:214
+#: src/core/fingerprinting/signature_format.rs:201
 msgid "Invalid sample rate passed when encoding Shazam packet"
 msgstr "عبَر معدل عينة غير صالح أثناء ترميز حزمة Shazam"
 
@@ -229,15 +229,15 @@ msgstr "_حسنًا"
 msgid "Song recognized"
 msgstr "الأغنية عُرِفت"
 
-#: src/gui/main_window.rs:1077
+#: src/gui/main_window.rs:1055
 msgid "Are you sure you want to wipe history?"
 msgstr "هل ترغب في محو السجل؟"
 
-#: src/gui/main_window.rs:1083
+#: src/gui/main_window.rs:1061
 msgid "_Yes"
 msgstr "_نعم"
 
-#: src/gui/main_window.rs:1084
+#: src/gui/main_window.rs:1062
 msgid "_No"
 msgstr "_لا"
 
@@ -245,7 +245,7 @@ msgstr "_لا"
 msgid "Error when reading the song history on the disk:"
 msgstr "حدث خطأ أثناء قراءة سجل الأغاني على القرص:"
 
-#: src/gui/song_history_interface.rs:169
+#: src/gui/song_history_interface.rs:164
 msgid "Error when reading the favorites on the disk:"
 msgstr "حدث خطأ أثناء قراءة المفضلات على القرص:"
 
