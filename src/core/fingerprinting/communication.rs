@@ -38,7 +38,7 @@ fn log_response(message: &soup::Message, response: &str) {
             full_headers.push((key.to_string(), value.to_string()));
         });
         let format_string = format!(
-            "Received response from for Shazam for {}: {:?} {:?} {} {:?} {:?}",
+            "Received response from Shazam for {}: {:?} {:?} {} {:?} {:?}",
             message.uri().unwrap().to_str(),
             message.status_code(),
             message.reason_phrase(),
