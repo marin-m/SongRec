@@ -173,18 +173,18 @@ impl DecodedSignature {
         // Return the decoded object
 
         Ok(DecodedSignature {
-            sample_rate_hz: sample_rate_hz,
-            number_samples: number_samples,
-            frequency_band_to_sound_peaks: frequency_band_to_sound_peaks,
+            sample_rate_hz,
+            number_samples,
+            frequency_band_to_sound_peaks,
         })
     }
 
     pub fn decode_from_uri(uri: &str) -> Result<Self, Box<dyn Error>> {
         assert!(uri.starts_with(DATA_URI_PREFIX));
 
-        Ok(DecodedSignature::decode_from_binary(
+        DecodedSignature::decode_from_binary(
             &base64::prelude::BASE64_STANDARD.decode(&uri[DATA_URI_PREFIX.len()..])?,
-        )?)
+        )
     }
 
     pub fn encode_to_binary(&self) -> Result<Vec<u8>, Box<dyn Error>> {
@@ -229,7 +229,7 @@ impl DecodedSignature {
         for (frequency_band, frequency_peaks) in
             self.frequency_band_to_sound_peaks.iter().enumerate()
         {
-            if frequency_peaks.len() == 0 {
+            if frequency_peaks.is_empty() {
                 continue;
             }
             let mut peaks_cursor = Cursor::new(vec![]);

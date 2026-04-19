@@ -51,18 +51,16 @@ async fn try_recognize_song(
         artist_name: match &json_object["track"]["subtitle"] {
             Value::String(string) => string.to_string(),
             _ => {
-                return Err(Box::new(std::io::Error::new(
-                    std::io::ErrorKind::Other,
+                return Err(Box::new(std::io::Error::other(
                     gettext("No match for this song").as_str(),
                 )))
             }
         },
-        album_name: album_name,
+        album_name,
         song_name: match &json_object["track"]["title"] {
             Value::String(string) => string.to_string(),
             _ => {
-                return Err(Box::new(std::io::Error::new(
-                    std::io::ErrorKind::Other,
+                return Err(Box::new(std::io::Error::other(
                     gettext("No match for this song").as_str(),
                 )))
             }
@@ -74,13 +72,12 @@ async fn try_recognize_song(
         track_key: match &json_object["track"]["key"] {
             Value::String(string) => string.to_string(),
             _ => {
-                return Err(Box::new(std::io::Error::new(
-                    std::io::ErrorKind::Other,
+                return Err(Box::new(std::io::Error::other(
                     gettext("No match for this song").as_str(),
                 )))
             }
         },
-        release_year: release_year,
+        release_year,
         genre: match &json_object["track"]["genres"]["primary"] {
             Value::String(string) => Some(string.to_string()),
             _ => None,
@@ -90,8 +87,7 @@ async fn try_recognize_song(
             .replace_all(
                 &Regex::new("([,:])\n *")
                     .unwrap()
-                    .replace_all(&to_string_pretty(&json_object).unwrap(), "$1 ")
-                    .into_owned(),
+                    .replace_all(&to_string_pretty(&json_object).unwrap(), "$1 "),
                 "",
             )
             .into_owned(),

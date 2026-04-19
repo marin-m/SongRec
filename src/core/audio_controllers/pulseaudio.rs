@@ -71,16 +71,16 @@ impl AudioBackend for PulseBackend {
                     for dev in devices {
                         if let Some(desc) = &dev.description {
                             if let Some(name) = &dev.name {
-                                if &dev.name == &info.default_source_name {
+                                if dev.name == info.default_source_name {
                                     device_names.insert(
                                         0,
                                         DeviceListItem {
                                             inner_name: name.to_string(),
                                             display_name: desc.to_string(),
-                                            is_monitor: dev.monitor != None,
+                                            is_monitor: dev.monitor.is_some(),
                                         },
                                     );
-                                } else if dev.monitor != None {
+                                } else if dev.monitor.is_some() {
                                     monitor_device_names.push(DeviceListItem {
                                         inner_name: name.to_string(),
                                         display_name: desc.to_string(),

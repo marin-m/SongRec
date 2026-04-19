@@ -10,9 +10,9 @@ use std::collections::HashSet;
 use std::error::Error;
 
 trait SongHistoryRecordListStore {
-    fn add_song_history_record(self: &mut Self, to_add: &SongHistoryRecord);
-    fn remove_song(self: &mut Self, to_remove: Song);
-    fn remove_song_history_record(self: &mut Self, to_remove: SongHistoryRecord);
+    fn add_song_history_record(&mut self, to_add: &SongHistoryRecord);
+    fn remove_song(&mut self, to_remove: Song);
+    fn remove_song_history_record(&mut self, to_remove: SongHistoryRecord);
 }
 
 // Extend gio::ListStore to integrate with SongHistoryRecord
@@ -22,11 +22,11 @@ impl SongHistoryRecordListStore for gio::ListStore {
     // This function first will be the first interacting with the ListStore
     // to be called after installing a fresh copy of the app
 
-    fn add_song_history_record(self: &mut Self, to_add: &SongHistoryRecord) {
+    fn add_song_history_record(&mut self, to_add: &SongHistoryRecord) {
         self.insert(0, &HistoryEntry::new(to_add));
     }
 
-    fn remove_song(self: &mut Self, to_remove: Song) {
+    fn remove_song(&mut self, to_remove: Song) {
         // Cf. https://gtk-rs.org/gtk-rs-core/git/docs/gio/struct.ListStore.html#method.remove
         // (Note: Song is SongHistoryRecord minus the recognition date)
         // This removes all items with the matching Song footprint
@@ -36,7 +36,7 @@ impl SongHistoryRecordListStore for gio::ListStore {
         })
     }
 
-    fn remove_song_history_record(self: &mut Self, to_remove: SongHistoryRecord) {
+    fn remove_song_history_record(&mut self, to_remove: SongHistoryRecord) {
         self.remove_song(to_remove.get_song());
     }
 }
@@ -61,12 +61,12 @@ pub trait SongRecordInterface {
     where
         Self: Sized;
 
-    fn wipe_and_save(self: &mut Self);
-    fn add_row_and_save(self: &mut Self, record: SongHistoryRecord);
+    fn wipe_and_save(&mut self);
+    fn add_row_and_save(&mut self, record: SongHistoryRecord);
 
-    fn load(self: &mut Self) -> Result<(), Box<dyn Error>>;
-    fn remove(self: &mut Self, record: SongHistoryRecord);
-    fn save(self: &mut Self);
+    fn load(&mut self) -> Result<(), Box<dyn Error>>;
+    fn remove(&mut self, record: SongHistoryRecord);
+    fn save(&mut self);
 }
 
 impl dyn SongRecordInterface {}
@@ -99,7 +99,7 @@ impl SongRecordInterface for RecognitionHistoryInterface {
         Ok(interface)
     }
 
-    fn load(self: &mut Self) -> Result<(), Box<dyn Error>> {
+    fn load(&mut self) -> Result<(), Box<dyn Error>> {
         match csv::ReaderBuilder::new()
             .flexible(true)
             .from_path(&self.csv_path)
@@ -122,7 +122,7 @@ impl SongRecordInterface for RecognitionHistoryInterface {
         Ok(())
     }
 
-    fn wipe_and_save(self: &mut Self) {
+    fn wipe_and_save(&mut self) {
         self.list_store.remove_all();
 
         let mut writer = csv::Writer::from_path(&self.csv_path).unwrap();
@@ -130,13 +130,13 @@ impl SongRecordInterface for RecognitionHistoryInterface {
         writer.flush().unwrap();
     }
 
-    fn add_row_and_save(self: &mut Self, record: SongHistoryRecord) {
+    fn add_row_and_save(&mut self, record: SongHistoryRecord) {
         self.list_store.add_song_history_record(&record);
 
         self.save();
     }
 
-    fn save(self: &mut Self) {
+    fn save(&mut self) {
         let mut writer = csv::Writer::from_path(&self.csv_path).unwrap();
 
         for item in self.list_store.iter::<glib::Object>() {
@@ -146,7 +146,7 @@ impl SongRecordInterface for RecognitionHistoryInterface {
         writer.flush().unwrap();
     }
 
-    fn remove(self: &mut Self, song_record: SongHistoryRecord) {
+    fn remove(&mut self, song_record: SongHistoryRecord) {
         self.list_store.remove_song_history_record(song_record);
         self.save()
     }
@@ -174,7 +174,7 @@ impl SongRecordInterface for FavoritesInterface {
         Ok(interface)
     }
 
-    fn load(self: &mut Self) -> Result<(), Box<dyn Error>> {
+    fn load(&mut self) -> Result<(), Box<dyn Error>> {
         match csv::ReaderBuilder::new()
             .flexible(true)
             .from_path(&self.csv_path)
@@ -191,7 +191,7 @@ impl SongRecordInterface for FavoritesInterface {
         Ok(())
     }
 
-    fn wipe_and_save(self: &mut Self) {
+    fn wipe_and_save(&mut self) {
         self.list_store.remove_all();
         self.is_favorite.clear();
         let mut writer = csv::Writer::from_path(&self.csv_path).unwrap();
@@ -199,13 +199,13 @@ impl SongRecordInterface for FavoritesInterface {
         writer.flush().unwrap();
     }
 
-    fn add_row_and_save(self: &mut Self, record: SongHistoryRecord) {
+    fn add_row_and_save(&mut self, record: SongHistoryRecord) {
         self.list_store.add_song_history_record(&record);
         self.is_favorite.insert(record.get_song());
         self.save();
     }
 
-    fn save(self: &mut Self) {
+    fn save(&mut self) {
         let mut writer = csv::Writer::from_path(&self.csv_path).unwrap();
 
         for item in self.list_store.iter::<glib::Object>() {
@@ -215,7 +215,7 @@ impl SongRecordInterface for FavoritesInterface {
         writer.flush().unwrap();
     }
 
-    fn remove(self: &mut Self, song_record: SongHistoryRecord) {
+    fn remove(&mut self, song_record: SongHistoryRecord) {
         let song = song_record.get_song();
         self.is_favorite.remove(&song);
         self.list_store.remove_song(song);

@@ -45,7 +45,7 @@ impl ksni::Tray for SystrayInterface {
         use ksni::menu::*;
         vec![
             StandardItem {
-                label: gettext("Open SongRec").into(),
+                label: gettext("Open SongRec"),
                 activate: Box::new(|tray: &mut Self| {
                     tray.gui_tx.try_send(GUIMessage::ShowWindow).unwrap();
                 }),
@@ -53,7 +53,7 @@ impl ksni::Tray for SystrayInterface {
             }
             .into(),
             StandardItem {
-                label: gettext("Quit...").into(),
+                label: gettext("Quit..."),
                 activate: Box::new(|tray: &mut Self| {
                     tray.gui_tx.try_send(GUIMessage::QuitApplication).unwrap();
                 }),

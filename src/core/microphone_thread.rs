@@ -292,7 +292,7 @@ fn write_data(
     let mut processing_already_ongoing_borrow = processing_already_ongoing.lock().unwrap();
 
     if *number_unprocessed_samples >= 16000 * request_interval_secs
-        && *processing_already_ongoing_borrow == false
+        && !*processing_already_ongoing_borrow
     {
         if !twelve_seconds_buffer.iter().all(|x| *x == 0.0) {
             processing_tx

@@ -198,7 +198,7 @@ impl App {
         let processing_tx = self.processing_tx.clone();
 
         application.connect_open(move |_application, files, _hint| {
-            if files.len() >= 1 {
+            if !files.is_empty() {
                 if let Some(file_path) = files[0].path() {
                     let file_path_string = file_path.into_os_string().into_string().unwrap();
 
@@ -241,7 +241,7 @@ impl App {
             == Some(true)
         {
             let notification = gio::Notification::new(&gettext("Application error"));
-            notification.set_body(Some(&label));
+            notification.set_body(Some(label));
             notification.set_category(Some("network.error"));
             application.send_notification(Some("application-error"), &notification);
         }
@@ -262,7 +262,7 @@ impl App {
                 == Some(true)
         {
             let notification = gio::Notification::new(&gettext("Network error"));
-            notification.set_body(Some(&label));
+            notification.set_body(Some(label));
             notification.set_category(Some("network.error"));
             application.send_notification(Some("network-error"), &notification);
         }
@@ -737,7 +737,7 @@ impl App {
                     const MAX_LOG_SIZE: usize = 2 * 1024 * 1024; // 2 MB
 
                     {
-                        let buffer_ptr: &mut String = &mut *ctx_buffered_log.borrow_mut();
+                        let buffer_ptr: &mut String = &mut ctx_buffered_log.borrow_mut();
                         buffer_ptr.push_str(&log_string);
                         if buffer_ptr.len() > MAX_LOG_SIZE {
                             let to_cut: String = buffer_ptr
@@ -751,19 +751,19 @@ impl App {
                     if let MicrophoneVolumePercent(_) = gui_message {
                         trace!("Received GUI message: {:?}", gui_message);
                     } else if let SongRecognized(ref msg) = gui_message {
-                        debug!("Received GUI message: SongRecognized({})", json!({
-                            "artist_name": msg.artist_name.clone(),
-                            "album_name": msg.album_name.clone(),
-                            "song_name": msg.song_name.clone(),
-                            "cover_image": match &msg.cover_image {
-                                Some(data) => Some::<String>(format!("{:02x?}...", &data[..16]).into()),
-                                None => None
-                            },
-                            "track_key": msg.track_key.clone(),
-                            "release_year": msg.release_year.clone(),
-                            "genre": msg.genre.clone(),
-                            "shazam_json": msg.shazam_json.clone()
-                        }).to_string());
+                        debug!(
+                            "Received GUI message: SongRecognized({})",
+                            json!({
+                                "artist_name": msg.artist_name.clone(),
+                                "album_name": msg.album_name.clone(),
+                                "song_name": msg.song_name.clone(),
+                                "cover_image": msg.cover_image.as_ref().map(|data| format!("{:02x?}...", &data[..16])),
+                                "track_key": msg.track_key.clone(),
+                                "release_year": msg.release_year.clone(),
+                                "genre": msg.genre.clone(),
+                                "shazam_json": msg.shazam_json.clone()
+                            })
+                        );
                     } else {
                         debug!("Received GUI message: {:?}", gui_message);
                     }
@@ -904,7 +904,7 @@ impl App {
                             let song_name =
                                 format!("{} - {}", message.artist_name, message.song_name);
 
-                            if results_label.text().as_str() != &song_name {
+                            if results_label.text().as_str() != song_name {
                                 results_label.set_label(&song_name);
 
                                 let notification =
@@ -920,7 +920,7 @@ impl App {
 
                                         match message.album_name {
                                             Some(ref value) => {
-                                                results_image.set_tooltip_text(Some(&value))
+                                                results_image.set_tooltip_text(Some(value))
                                             }
                                             None => results_image.set_tooltip_text(None),
                                         };
@@ -957,7 +957,7 @@ impl App {
                                 }
 
                                 let new_entry = SongHistoryRecord {
-                                    song_name: song_name,
+                                    song_name,
                                     album: Some(
                                         message
                                             .album_name
@@ -1025,7 +1025,7 @@ impl App {
                                 if old_device_name == Some(device.inner_name.to_string()) {
                                     initial_device_index = current_index;
                                     initial_device = Some(listed_device);
-                                } else if old_device_name == None
+                                } else if old_device_name.is_none()
                                     && device.is_monitor
                                     && !found_monitor_device
                                 {
@@ -1074,7 +1074,7 @@ impl App {
 
                         WipeSongHistory => {
                             let dialog = adw::AlertDialog::builder()
-                                .body(&gettext("Are you sure you want to wipe history?"))
+                                .body(gettext("Are you sure you want to wipe history?"))
                                 .default_response("yes")
                                 .close_response("no")
                                 .build();
@@ -1138,7 +1138,7 @@ impl App {
                 about_dialog.set_version(env!("CARGO_PKG_VERSION"));
                 about_dialog.present(Some(window));
 
-                about_dialog.set_debug_info(&*ctx_buffered_log.borrow());
+                about_dialog.set_debug_info(&ctx_buffered_log.borrow());
 
                 // Sync the debug info with the About modal at most every
                 // 1 sec as it may require a lot of text rendering power
@@ -1148,11 +1148,11 @@ impl App {
                 let ctx_logger_source_id_2 = ctx_logger_source_id.clone();
                 let about_dialog = about_dialog.clone();
 
-                if *ctx_logger_source_id.borrow() == None {
+                if (*ctx_logger_source_id.borrow()).is_none() {
                     *ctx_logger_source_id.borrow_mut() =
                         Some(glib::source::timeout_add_seconds_local(1, move || {
                             if about_dialog.is_visible() {
-                                about_dialog.set_debug_info(&*ctx_buffered_log.borrow());
+                                about_dialog.set_debug_info(&ctx_buffered_log.borrow());
                                 glib::ControlFlow::Continue
                             } else {
                                 *ctx_logger_source_id_2.borrow_mut() = None;

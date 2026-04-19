@@ -1,6 +1,6 @@
 // From https://github.com/SaswatPadhi/FlashProfileDemo/blob/c1e3f05d09f6443568a606dc0a439d6ebb057ae1/tests/hetero/user_agents.json
 
-pub const USER_AGENTS: [&'static str; 100] = [
+pub const USER_AGENTS: [&str; 100] = [
     "Dalvik/2.1.0 (Linux; U; Android 5.0.2; VS980 4G Build/LRX22G)",
     "Dalvik/1.6.0 (Linux; U; Android 4.4.2; SM-T210 Build/KOT49H)",
     "Dalvik/2.1.0 (Linux; U; Android 5.1.1; SM-P905V Build/LMY47X)",

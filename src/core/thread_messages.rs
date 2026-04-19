@@ -6,7 +6,7 @@ use std::thread;
 
 /// This module contains code used from message-based communication between threads.
 
-pub fn spawn_big_thread<F, T>(argument: F) -> ()
+pub fn spawn_big_thread<F, T>(argument: F)
 where
     F: std::ops::FnOnce() -> T,
     F: std::marker::Send + 'static,

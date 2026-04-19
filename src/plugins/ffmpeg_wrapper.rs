@@ -61,7 +61,7 @@ pub fn decode_with_ffmpeg(file_path: &str) -> Option<rodio::Decoder<BufReader<st
 
         let mut command = Command::new(ffmpeg_path);
 
-        let command = command.args(&["-y", "-i", file_path, sink_file_path.to_str().unwrap()]);
+        let command = command.args(["-y", "-i", file_path, sink_file_path.to_str().unwrap()]);
 
         debug!("Spawning ffmpeg: {:?}", command);
 

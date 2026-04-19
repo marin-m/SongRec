@@ -81,13 +81,13 @@ pub struct PreferencesInterface {
 impl PreferencesInterface {
     pub fn new() -> Self {
         match PreferencesInterface::load() {
-            Ok(preferences_interface) => return preferences_interface,
+            Ok(preferences_interface) => preferences_interface,
             Err(e) => {
                 error!("{} {}", gettext("When parsing the preferences file:"), e);
-                return PreferencesInterface {
+                PreferencesInterface {
                     preferences_file_path: obtain_preferences_file_path().ok(),
                     preferences: Preferences::default(),
-                };
+                }
             }
         }
     }
@@ -108,11 +108,11 @@ impl PreferencesInterface {
         );
         Ok(PreferencesInterface {
             preferences_file_path: Some(preferences_file_path),
-            preferences: preferences,
+            preferences,
         })
     }
 
-    pub fn update(self: &mut Self, update_preferences: Preferences) {
+    pub fn update(&mut self, update_preferences: Preferences) {
         let current_preferences = self.preferences.clone();
         self.preferences = Preferences {
             enable_notifications: update_preferences
@@ -156,7 +156,7 @@ impl PreferencesInterface {
         }
     }
 
-    fn write(self: &mut Self) -> Result<(), Box<dyn Error>> {
+    fn write(&mut self) -> Result<(), Box<dyn Error>> {
         if let Some(preferences_file_path) = &self.preferences_file_path {
             let mut file = OpenOptions::new()
                 .write(true)

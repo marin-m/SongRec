@@ -175,18 +175,15 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
                     }
                 }
                 GUIMessage::ErrorMessage(string) => {
-                    if !(string == gettext("No match for this song") && !input_file_name.is_some())
-                    {
+                    if string != gettext("No match for this song") || input_file_name.is_some() {
                         error!("{} {}", gettext("Error:"), string);
                     }
                     if input_file_name.is_some() {
                         break;
                     }
                 }
-                GUIMessage::MicrophoneRecording => {
-                    if !do_recognize_once {
-                        info!("{}", gettext("Recording started!"));
-                    }
+                GUIMessage::MicrophoneRecording if !do_recognize_once => {
+                    info!("{}", gettext("Recording started!"));
                 }
                 GUIMessage::SongRecognized(message) => {
                     let track_key = Some(message.track_key.clone());
@@ -207,7 +204,7 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
                             CLIOutputType::CSV => {
                                 csv_writer
                                     .serialize(SongHistoryRecord {
-                                        song_name: song_name,
+                                        song_name,
                                         album: Some(
                                             message
                                                 .album_name

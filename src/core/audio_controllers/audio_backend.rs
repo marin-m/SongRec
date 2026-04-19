@@ -12,9 +12,9 @@ pub fn get_any_backend() -> Box<dyn AudioBackend> {
 
     #[cfg(all(target_os = "linux", feature = "pulse"))]
     if let Some(backend) = PulseBackend::try_init() {
-        return Box::new(backend);
+        Box::new(backend)
     } else {
-        return Box::new(CpalBackend {});
+        Box::new(CpalBackend {})
     }
 }
 
