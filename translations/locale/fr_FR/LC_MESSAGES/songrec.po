@@ -4,13 +4,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # marin <marin@marin-thinkpad-t460s>, 2021.
 # Marin <25437947+marin-m@users.noreply.github.com>, 2026.
+# Mejans <farga@mejans.fr>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-19 04:07+0200\n"
-"PO-Revision-Date: 2026-03-09 02:16+0000\n"
-"Last-Translator: Marin <25437947+marin-m@users.noreply.github.com>\n"
+"PO-Revision-Date: 2026-04-19 16:15+0000\n"
+"Last-Translator: Mejans <farga@mejans.fr>\n"
 "Language-Team: French <https://weblate.fossplant.re/projects/songrec/songrec/"
 "fr/>\n"
 "Language: fr_FR\n"
@@ -38,7 +39,7 @@ msgstr "Utilisation du périphérique"
 
 #: src/cli_main.rs:170
 msgid "Error: Network unreachable"
-msgstr "Erreur : Pas de connexion réseau"
+msgstr "Erreur : aucune connexion réseau"
 
 #: src/cli_main.rs:173
 msgid "Warning: Network unreachable"
