@@ -1,7 +1,6 @@
 use chfft::RFft1D;
 use rodio::conversions::SampleTypeConverter;
 use rodio::nz;
-use std::collections::HashMap;
 use std::error::Error;
 use std::io::BufReader;
 
@@ -102,7 +101,7 @@ impl SignatureGenerator {
             signature: DecodedSignature {
                 sample_rate_hz: 16000,
                 number_samples: f32_mono_16khz_buffer.len() as u32,
-                frequency_band_to_sound_peaks: HashMap::new(),
+                frequency_band_to_sound_peaks: Default::default(),
             },
         };
 
@@ -285,24 +284,13 @@ impl SignatureGenerator {
                             }
                         };
 
-                        // In Rust, the entry method returns an Entry object,
-                        // which represents a cell in a HashMap that is either occupied or vacant.
-                        // You can use or_default to insert a value if the key is missing,
-                        // which avoids a double search of the key in the hash map.
-                        self.signature
-                            .frequency_band_to_sound_peaks
-                            .entry(frequency_band)
-                            .or_default();
-
-                        self.signature
-                            .frequency_band_to_sound_peaks
-                            .get_mut(&frequency_band)
-                            .unwrap()
-                            .push(FrequencyPeak {
+                        self.signature.frequency_band_to_sound_peaks[frequency_band as usize].push(
+                            FrequencyPeak {
                                 fft_pass_number,
                                 peak_magnitude: peak_magnitude as u16,
                                 corrected_peak_frequency_bin,
-                            });
+                            },
+                        );
                     }
                 }
             }

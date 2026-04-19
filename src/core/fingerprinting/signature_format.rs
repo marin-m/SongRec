@@ -3,7 +3,6 @@ use byteorder::{LittleEndian, ReadBytesExt, WriteBytesExt};
 use crc32fast::Hasher;
 use gettextrs::gettext;
 use std::cmp::Ordering;
-use std::collections::HashMap;
 use std::error::Error;
 use std::io::{Cursor, Seek, SeekFrom, Write};
 
@@ -50,7 +49,7 @@ struct RawSignatureHeader {
 pub struct DecodedSignature {
     pub sample_rate_hz: u32,
     pub number_samples: u32,
-    pub frequency_band_to_sound_peaks: HashMap<FrequencyBand, Vec<FrequencyPeak>>,
+    pub frequency_band_to_sound_peaks: [Vec<FrequencyPeak>; 4],
 }
 
 impl DecodedSignature {
@@ -113,8 +112,7 @@ impl DecodedSignature {
 
         // Then, lists of frequency peaks for respective bands follow
 
-        let mut frequency_band_to_sound_peaks: HashMap<FrequencyBand, Vec<FrequencyPeak>> =
-            HashMap::new();
+        let mut frequency_band_to_sound_peaks: [Vec<FrequencyPeak>; 4] = Default::default();
 
         while cursor.position() < data.len() as u64 {
             let frequency_band_id = cursor.read_u32::<LittleEndian>()?;
@@ -154,20 +152,15 @@ impl DecodedSignature {
                     _ => {
                         fft_pass_number += fft_pass_offset as u32;
 
-                        if !frequency_band_to_sound_peaks.contains_key(&frequency_band) {
-                            frequency_band_to_sound_peaks.insert(frequency_band, vec![]);
-                        }
-
-                        frequency_band_to_sound_peaks
-                            .get_mut(&frequency_band)
-                            .unwrap()
-                            .push(FrequencyPeak {
+                        frequency_band_to_sound_peaks[frequency_band as usize].push(
+                            FrequencyPeak {
                                 fft_pass_number,
                                 peak_magnitude: frequency_peaks_cursor
                                     .read_u16::<LittleEndian>()?,
                                 corrected_peak_frequency_bin: frequency_peaks_cursor
                                     .read_u16::<LittleEndian>()?,
-                            });
+                            },
+                        );
                     }
                 };
             }
@@ -233,10 +226,9 @@ impl DecodedSignature {
         cursor.write_u32::<LittleEndian>(0x40000000)?;
         cursor.write_u32::<LittleEndian>(0)?; // size_minus_header - Will write later
 
-        let mut sorted_iterator: Vec<_> = self.frequency_band_to_sound_peaks.iter().collect();
-        sorted_iterator.sort_by(|x, y| x.0.cmp(y.0));
-
-        for (frequency_band, frequency_peaks) in sorted_iterator {
+        for (frequency_band, frequency_peaks) in
+            self.frequency_band_to_sound_peaks.iter().enumerate()
+        {
             let mut peaks_cursor = Cursor::new(vec![]);
 
             let mut fft_pass_number = 0;
@@ -262,7 +254,7 @@ impl DecodedSignature {
 
             let peaks_buffer = peaks_cursor.into_inner();
 
-            cursor.write_u32::<LittleEndian>(0x60030040 + *frequency_band as u32)?;
+            cursor.write_u32::<LittleEndian>(0x60030040 + frequency_band as u32)?;
             cursor.write_u32::<LittleEndian>(peaks_buffer.len() as u32)?;
             cursor.write_all(&peaks_buffer)?;
             for _padding_index in 0..((4 - peaks_buffer.len() as u32 % 4) % 4) {
