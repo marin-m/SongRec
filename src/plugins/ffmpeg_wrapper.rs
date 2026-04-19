@@ -9,7 +9,6 @@ use std::process::Command;
 /// This function used to decode a file with FFMpeg, if it is installed on
 /// the system, in the case where Rodio can't decode the concerned format
 /// (for example with .WMA, .M4A, etc.).
-
 pub fn decode_with_ffmpeg(file_path: &str) -> Option<rodio::Decoder<BufReader<std::fs::File>>> {
     // Find the path for FFMpeg, in the case where it is installed
 
@@ -61,7 +60,7 @@ pub fn decode_with_ffmpeg(file_path: &str) -> Option<rodio::Decoder<BufReader<st
 
         let mut command = Command::new(ffmpeg_path);
 
-        let command = command.args(&["-y", "-i", file_path, sink_file_path.to_str().unwrap()]);
+        let command = command.args(["-y", "-i", file_path, sink_file_path.to_str().unwrap()]);
 
         debug!("Spawning ffmpeg: {:?}", command);
 

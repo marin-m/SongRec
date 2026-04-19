@@ -2,7 +2,6 @@ use base64::Engine;
 use byteorder::{LittleEndian, ReadBytesExt, WriteBytesExt};
 use crc32fast::Hasher;
 use gettextrs::gettext;
-use std::cmp::Ordering;
 use std::error::Error;
 use std::io::{Cursor, Seek, SeekFrom, Write};
 
@@ -14,24 +13,12 @@ pub struct FrequencyPeak {
     pub corrected_peak_frequency_bin: u16,
 }
 
-#[derive(Hash, Eq, PartialEq, Debug, Clone, Copy)]
+#[derive(Hash, Eq, PartialEq, Ord, PartialOrd, Debug, Clone, Copy)]
 pub enum FrequencyBand {
     _250_520 = 0,
     _520_1450 = 1,
     _1450_3500 = 2,
     _3500_5500 = 3,
-}
-
-impl Ord for FrequencyBand {
-    fn cmp(&self, other: &Self) -> Ordering {
-        (*self as i32).cmp(&(*other as i32))
-    }
-}
-
-impl PartialOrd for FrequencyBand {
-    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
-        Some((*self as i32).cmp(&(*other as i32)))
-    }
 }
 
 struct RawSignatureHeader {
@@ -173,18 +160,18 @@ impl DecodedSignature {
         // Return the decoded object
 
         Ok(DecodedSignature {
-            sample_rate_hz: sample_rate_hz,
-            number_samples: number_samples,
-            frequency_band_to_sound_peaks: frequency_band_to_sound_peaks,
+            sample_rate_hz,
+            number_samples,
+            frequency_band_to_sound_peaks,
         })
     }
 
     pub fn decode_from_uri(uri: &str) -> Result<Self, Box<dyn Error>> {
         assert!(uri.starts_with(DATA_URI_PREFIX));
 
-        Ok(DecodedSignature::decode_from_binary(
+        DecodedSignature::decode_from_binary(
             &base64::prelude::BASE64_STANDARD.decode(&uri[DATA_URI_PREFIX.len()..])?,
-        )?)
+        )
     }
 
     pub fn encode_to_binary(&self) -> Result<Vec<u8>, Box<dyn Error>> {
@@ -229,7 +216,7 @@ impl DecodedSignature {
         for (frequency_band, frequency_peaks) in
             self.frequency_band_to_sound_peaks.iter().enumerate()
         {
-            if frequency_peaks.len() == 0 {
+            if frequency_peaks.is_empty() {
                 continue;
             }
             let mut peaks_cursor = Cursor::new(vec![]);

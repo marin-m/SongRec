@@ -198,7 +198,7 @@ impl App {
         let processing_tx = self.processing_tx.clone();
 
         application.connect_open(move |_application, files, _hint| {
-            if files.len() >= 1 {
+            if !files.is_empty() {
                 if let Some(file_path) = files[0].path() {
                     let file_path_string = file_path.into_os_string().into_string().unwrap();
 
@@ -241,7 +241,7 @@ impl App {
             == Some(true)
         {
             let notification = gio::Notification::new(&gettext("Application error"));
-            notification.set_body(Some(&label));
+            notification.set_body(Some(label));
             notification.set_category(Some("network.error"));
             application.send_notification(Some("application-error"), &notification);
         }
@@ -262,7 +262,7 @@ impl App {
                 == Some(true)
         {
             let notification = gio::Notification::new(&gettext("Network error"));
-            notification.set_body(Some(&label));
+            notification.set_body(Some(label));
             notification.set_category(Some("network.error"));
             application.send_notification(Some("network-error"), &notification);
         }
@@ -409,7 +409,7 @@ impl App {
 
             let text = match prop_name.as_str() {
                 "song_name" => entry.song_name(),
-                "album" => entry.album().unwrap_or(String::new()),
+                "album" => entry.album().unwrap_or_default(),
                 "recognition_date" => entry.recognition_date(),
                 _ => unreachable!(),
             };
@@ -737,7 +737,7 @@ impl App {
                     const MAX_LOG_SIZE: usize = 2 * 1024 * 1024; // 2 MB
 
                     {
-                        let buffer_ptr: &mut String = &mut *ctx_buffered_log.borrow_mut();
+                        let buffer_ptr: &mut String = &mut ctx_buffered_log.borrow_mut();
                         buffer_ptr.push_str(&log_string);
                         if buffer_ptr.len() > MAX_LOG_SIZE {
                             let to_cut: String = buffer_ptr
@@ -751,19 +751,19 @@ impl App {
                     if let MicrophoneVolumePercent(_) = gui_message {
                         trace!("Received GUI message: {:?}", gui_message);
                     } else if let SongRecognized(ref msg) = gui_message {
-                        debug!("Received GUI message: SongRecognized({})", json!({
-                            "artist_name": msg.artist_name.clone(),
-                            "album_name": msg.album_name.clone(),
-                            "song_name": msg.song_name.clone(),
-                            "cover_image": match &msg.cover_image {
-                                Some(data) => Some::<String>(format!("{:02x?}...", &data[..16]).into()),
-                                None => None
-                            },
-                            "track_key": msg.track_key.clone(),
-                            "release_year": msg.release_year.clone(),
-                            "genre": msg.genre.clone(),
-                            "shazam_json": msg.shazam_json.clone()
-                        }).to_string());
+                        debug!(
+                            "Received GUI message: SongRecognized({})",
+                            json!({
+                                "artist_name": msg.artist_name.clone(),
+                                "album_name": msg.album_name.clone(),
+                                "song_name": msg.song_name.clone(),
+                                "cover_image": msg.cover_image.as_ref().map(|data| format!("{:02x?}...", &data[..16])),
+                                "track_key": msg.track_key.clone(),
+                                "release_year": msg.release_year.clone(),
+                                "genre": msg.genre.clone(),
+                                "shazam_json": msg.shazam_json.clone()
+                            })
+                        );
                     } else {
                         debug!("Received GUI message: {:?}", gui_message);
                     }
@@ -904,7 +904,7 @@ impl App {
                             let song_name =
                                 format!("{} - {}", message.artist_name, message.song_name);
 
-                            if results_label.text().as_str() != &song_name {
+                            if results_label.text().as_str() != song_name {
                                 results_label.set_label(&song_name);
 
                                 let notification =
@@ -920,7 +920,7 @@ impl App {
 
                                         match message.album_name {
                                             Some(ref value) => {
-                                                results_image.set_tooltip_text(Some(&value))
+                                                results_image.set_tooltip_text(Some(value))
                                             }
                                             None => results_image.set_tooltip_text(None),
                                         };
@@ -957,29 +957,11 @@ impl App {
                                 }
 
                                 let new_entry = SongHistoryRecord {
-                                    song_name: song_name,
-                                    album: Some(
-                                        message
-                                            .album_name
-                                            .as_ref()
-                                            .unwrap_or(&"".to_string())
-                                            .to_string(),
-                                    ),
+                                    song_name,
+                                    album: Some(message.album_name.unwrap_or_default()),
                                     track_key: Some(message.track_key),
-                                    release_year: Some(
-                                        message
-                                            .release_year
-                                            .as_ref()
-                                            .unwrap_or(&"".to_string())
-                                            .to_string(),
-                                    ),
-                                    genre: Some(
-                                        message
-                                            .genre
-                                            .as_ref()
-                                            .unwrap_or(&"".to_string())
-                                            .to_string(),
-                                    ),
+                                    release_year: Some(message.release_year.unwrap_or_default()),
+                                    genre: Some(message.genre.unwrap_or_default()),
                                     recognition_date: Local::now().format("%c").to_string(),
                                 };
 
@@ -1006,14 +988,13 @@ impl App {
                             let mut initial_device_index: u32 = 0;
                             let mut initial_device: Option<ListedDevice> = None;
                             let mut found_monitor_device = false;
-                            let mut current_index: u32 = 0;
 
                             // Fill in the list of available devices, and
                             // set back the old device if it was recorded
 
                             g_list_store.remove_all();
 
-                            for device in devices.iter() {
+                            for (current_index, device) in devices.iter().enumerate() {
                                 // device: thread_messages::DeviceListItem
                                 let listed_device = ListedDevice::new(
                                     device.display_name.clone(),
@@ -1022,19 +1003,16 @@ impl App {
                                 );
                                 g_list_store.append(&listed_device);
 
-                                if old_device_name == Some(device.inner_name.to_string()) {
-                                    initial_device_index = current_index;
-                                    initial_device = Some(listed_device);
-                                } else if old_device_name == None
-                                    && device.is_monitor
-                                    && !found_monitor_device
+                                if (old_device_name == Some(device.inner_name.to_string()))
+                                    || (old_device_name.is_none()
+                                        && device.is_monitor
+                                        && !found_monitor_device)
                                 {
-                                    initial_device_index = current_index;
+                                    initial_device_index = current_index as u32;
                                     initial_device = Some(listed_device);
                                 } else if current_index == 0 {
                                     initial_device = Some(listed_device);
                                 }
-                                current_index += 1;
 
                                 if device.is_monitor {
                                     found_monitor_device = true;
@@ -1074,7 +1052,7 @@ impl App {
 
                         WipeSongHistory => {
                             let dialog = adw::AlertDialog::builder()
-                                .body(&gettext("Are you sure you want to wipe history?"))
+                                .body(gettext("Are you sure you want to wipe history?"))
                                 .default_response("yes")
                                 .close_response("no")
                                 .build();
@@ -1138,7 +1116,7 @@ impl App {
                 about_dialog.set_version(env!("CARGO_PKG_VERSION"));
                 about_dialog.present(Some(window));
 
-                about_dialog.set_debug_info(&*ctx_buffered_log.borrow());
+                about_dialog.set_debug_info(&ctx_buffered_log.borrow());
 
                 // Sync the debug info with the About modal at most every
                 // 1 sec as it may require a lot of text rendering power
@@ -1148,11 +1126,11 @@ impl App {
                 let ctx_logger_source_id_2 = ctx_logger_source_id.clone();
                 let about_dialog = about_dialog.clone();
 
-                if *ctx_logger_source_id.borrow() == None {
+                if (*ctx_logger_source_id.borrow()).is_none() {
                     *ctx_logger_source_id.borrow_mut() =
                         Some(glib::source::timeout_add_seconds_local(1, move || {
                             if about_dialog.is_visible() {
-                                about_dialog.set_debug_info(&*ctx_buffered_log.borrow());
+                                about_dialog.set_debug_info(&ctx_buffered_log.borrow());
                                 glib::ControlFlow::Continue
                             } else {
                                 *ctx_logger_source_id_2.borrow_mut() = None;
