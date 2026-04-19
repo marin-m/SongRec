@@ -76,7 +76,7 @@ pub fn microphone_thread(
 
                 let err_fn_2 = err_fn.clone();
                 let err_fn_3 = err_fn.clone();
-                let err_fn_cb = move |error: cpal::StreamError| {
+                let err_fn_cb = move |error: cpal::Error| {
                     err_fn_2(Box::new(error));
                 };
 
