@@ -9,6 +9,7 @@ use crate::core::thread_messages::{MicrophoneMessage::*, *};
 use cpal::platform::Device;
 use cpal::traits::{DeviceTrait, StreamTrait};
 use gettextrs::gettext;
+use log::debug;
 use rodio::conversions::SampleTypeConverter;
 use rodio::nz;
 
@@ -26,6 +27,8 @@ pub fn microphone_thread(
     // Use the default host for working with audio devices.
 
     let host = cpal::default_host();
+    #[cfg(target_os = "linux")]
+    debug!("Using audio playback backend: {:?}", host.id());
 
     let mut backend = get_any_backend();
 
