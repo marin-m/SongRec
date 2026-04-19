@@ -84,17 +84,6 @@ impl App {
 
         log_object.connect_to_gui_logger(gui_tx.clone());
 
-        // Set the FreeDesktop ID of the program.
-
-        // We're using a different FreeDesktop and
-        // DBus ID over Snap per request of the
-        // Snapcraft team (they don't want to
-        // allocate us the one that we had to
-        // switch to in order to get verified on Flathub)
-        glib::set_prgname(Some(match std::env::var("SNAP_NAME") {
-            Ok(_) => "com.github.marinm.songrec",
-            _ => "re.fossplant.songrec",
-        }));
         Self::load_resources();
 
         let ctx_selected_item: Rc<RefCell<Option<HistoryEntry>>> = Rc::new(RefCell::new(None));
