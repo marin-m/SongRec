@@ -229,6 +229,9 @@ impl DecodedSignature {
         for (frequency_band, frequency_peaks) in
             self.frequency_band_to_sound_peaks.iter().enumerate()
         {
+            if frequency_peaks.len() == 0 {
+                continue;
+            }
             let mut peaks_cursor = Cursor::new(vec![]);
 
             let mut fft_pass_number = 0;
