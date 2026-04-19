@@ -7,56 +7,58 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-19 04:07+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2026-04-19 16:15+0000\n"
+"Last-Translator: Mejans <farga@mejans.fr>\n"
+"Language-Team: Occitan <https://weblate.fossplant.re/projects/songrec/"
+"songrec/oc/>\n"
 "Language: oc\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #: src/cli_main.rs:117
 msgid "Available device:"
-msgstr ""
+msgstr "Periferic disponible :"
 
 #: src/cli_main.rs:135
 msgid "Exiting: audio device not found"
-msgstr ""
+msgstr "Sortida : periferic àudio non trobat"
 
 #: src/cli_main.rs:141
 msgid "Exiting: no audio devices found!"
-msgstr ""
+msgstr "Sortida : periferic àudio non trobat !"
 
 #: src/cli_main.rs:146
 msgid "Using device"
-msgstr ""
+msgstr "Utilizacion del periferic"
 
 #: src/cli_main.rs:170
 msgid "Error: Network unreachable"
-msgstr ""
+msgstr "Error : cap de connexion ret"
 
 #: src/cli_main.rs:173
 msgid "Warning: Network unreachable"
-msgstr ""
+msgstr "Avís : ret non accessible"
 
 #: src/cli_main.rs:178 src/core/http_task.rs:56 src/core/http_task.rs:66
 #: src/core/http_task.rs:79 src/core/http_task.rs:123
 #: src/gui/main_window.rs:822 src/gui/main_window.rs:834
 msgid "No match for this song"
-msgstr ""
+msgstr "Cap de correspondéncia per aquesta cançon"
 
 #: src/cli_main.rs:180
 msgid "Error:"
-msgstr ""
+msgstr "Error :"
 
 #: src/cli_main.rs:188
 msgid "Recording started!"
-msgstr ""
+msgstr "Enregistrament començat !"
 
 #: src/main.rs:74
 msgid "An open-source Shazam client for Linux, written in Rust."
-msgstr ""
+msgstr "Un client Shazam liure per Linux, escrich en Rust."
 
 #: src/main.rs:94
 msgid ""
