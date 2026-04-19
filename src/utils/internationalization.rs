@@ -2,10 +2,7 @@ use gettextrs::{bind_textdomain_codeset, bindtextdomain, setlocale, textdomain, 
 use log::warn;
 use std::path::PathBuf;
 
-/**
- * Set up the translation/internationalization part
- */
-
+/// Set up the translation/internationalization part
 pub fn setup_internationalization() -> Option<PathBuf> {
     // First, check for a "translations" directory in the
     // same directory as the current binary

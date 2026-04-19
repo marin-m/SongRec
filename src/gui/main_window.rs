@@ -1006,14 +1006,13 @@ impl App {
                             let mut initial_device_index: u32 = 0;
                             let mut initial_device: Option<ListedDevice> = None;
                             let mut found_monitor_device = false;
-                            let mut current_index: u32 = 0;
 
                             // Fill in the list of available devices, and
                             // set back the old device if it was recorded
 
                             g_list_store.remove_all();
 
-                            for device in devices.iter() {
+                            for (current_index, device) in devices.iter().enumerate() {
                                 // device: thread_messages::DeviceListItem
                                 let listed_device = ListedDevice::new(
                                     device.display_name.clone(),
@@ -1022,19 +1021,16 @@ impl App {
                                 );
                                 g_list_store.append(&listed_device);
 
-                                if old_device_name == Some(device.inner_name.to_string()) {
-                                    initial_device_index = current_index;
-                                    initial_device = Some(listed_device);
-                                } else if old_device_name.is_none()
-                                    && device.is_monitor
-                                    && !found_monitor_device
+                                if (old_device_name == Some(device.inner_name.to_string()))
+                                    || (old_device_name.is_none()
+                                        && device.is_monitor
+                                        && !found_monitor_device)
                                 {
-                                    initial_device_index = current_index;
+                                    initial_device_index = current_index as u32;
                                     initial_device = Some(listed_device);
                                 } else if current_index == 0 {
                                     initial_device = Some(listed_device);
                                 }
-                                current_index += 1;
 
                                 if device.is_monitor {
                                     found_monitor_device = true;

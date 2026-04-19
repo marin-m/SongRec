@@ -3,8 +3,6 @@ use log::{debug, error};
 use serde::Deserialize;
 use serde::Serialize;
 use std::error::Error;
-use std::fs::OpenOptions;
-use std::io::{Read, Write};
 
 use crate::utils::filesystem_operations::obtain_preferences_file_path;
 
@@ -94,13 +92,7 @@ impl PreferencesInterface {
 
     fn load() -> Result<PreferencesInterface, Box<dyn Error>> {
         let preferences_file_path: String = obtain_preferences_file_path()?;
-        let mut file = OpenOptions::new()
-            .write(true)
-            .read(true)
-            .create(true)
-            .open(&preferences_file_path)?;
-        let mut contents: String = String::new();
-        file.read_to_string(&mut contents)?;
+        let contents = std::fs::read_to_string(&preferences_file_path).unwrap_or_default();
         let preferences: Preferences = toml::from_str(&contents)?;
         debug!(
             "Loaded preferences from {}: {:?}",
@@ -158,14 +150,8 @@ impl PreferencesInterface {
 
     fn write(&mut self) -> Result<(), Box<dyn Error>> {
         if let Some(preferences_file_path) = &self.preferences_file_path {
-            let mut file = OpenOptions::new()
-                .write(true)
-                .truncate(true)
-                .create(true)
-                .open(preferences_file_path.as_str())?;
             let contents: String = toml::to_string(&self.preferences)?;
-            file.write_all(contents.as_bytes())?;
-            file.flush()?;
+            std::fs::write(preferences_file_path, contents)?;
         }
         Ok(())
     }

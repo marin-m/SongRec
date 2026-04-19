@@ -2,7 +2,6 @@ use base64::Engine;
 use byteorder::{LittleEndian, ReadBytesExt, WriteBytesExt};
 use crc32fast::Hasher;
 use gettextrs::gettext;
-use std::cmp::Ordering;
 use std::error::Error;
 use std::io::{Cursor, Seek, SeekFrom, Write};
 
@@ -14,24 +13,12 @@ pub struct FrequencyPeak {
     pub corrected_peak_frequency_bin: u16,
 }
 
-#[derive(Hash, Eq, PartialEq, Debug, Clone, Copy)]
+#[derive(Hash, Eq, PartialEq, Ord, PartialOrd, Debug, Clone, Copy)]
 pub enum FrequencyBand {
     _250_520 = 0,
     _520_1450 = 1,
     _1450_3500 = 2,
     _3500_5500 = 3,
-}
-
-impl Ord for FrequencyBand {
-    fn cmp(&self, other: &Self) -> Ordering {
-        (*self as i32).cmp(&(*other as i32))
-    }
-}
-
-impl PartialOrd for FrequencyBand {
-    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
-        Some((*self as i32).cmp(&(*other as i32)))
-    }
 }
 
 struct RawSignatureHeader {

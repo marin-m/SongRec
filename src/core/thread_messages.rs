@@ -1,10 +1,10 @@
+//! This module contains code used from message-based communication between threads.
+
 use crate::core::fingerprinting::signature_format::DecodedSignature;
 #[cfg(feature = "gui")]
 use crate::core::preferences::Preferences;
 
 use std::thread;
-
-/// This module contains code used from message-based communication between threads.
 
 pub fn spawn_big_thread<F, T>(argument: F)
 where
@@ -50,7 +50,7 @@ pub enum GUIMessage {
     // A list of audio devices, received from the microphone thread
     // because CPAL can't be called from the same thread as the GUI
     // under Windows
-    DevicesList(Box<Vec<DeviceListItem>>),
+    DevicesList(Vec<DeviceListItem>),
     #[cfg(feature = "gui")]
     UpdatePreference(Preferences),
     NetworkStatus(bool),  // Is the network reachable?
@@ -74,7 +74,7 @@ pub enum MicrophoneMessage {
 
 pub enum ProcessingMessage {
     ProcessAudioFile(String),
-    ProcessAudioSamples(Box<Vec<f32>>), // Prefer to use heap across threads to avoid stack overflow
+    ProcessAudioSamples(Vec<f32>), // Prefer to use heap across threads to avoid stack overflow
 }
 
 pub enum HTTPMessage {

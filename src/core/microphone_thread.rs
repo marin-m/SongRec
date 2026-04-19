@@ -49,7 +49,7 @@ pub fn microphone_thread(
     let device_names: Vec<DeviceListItem> = backend.list_devices(&host);
 
     gui_tx
-        .try_send(GUIMessage::DevicesList(Box::new(device_names)))
+        .try_send(GUIMessage::DevicesList(device_names))
         .unwrap();
 
     // Process ingress inter-thread messages (stopping or starting
@@ -220,7 +220,7 @@ pub fn microphone_thread(
                 let device_names: Vec<DeviceListItem> = backend.list_devices(&host);
 
                 gui_tx
-                    .try_send(GUIMessage::DevicesList(Box::new(device_names)))
+                    .try_send(GUIMessage::DevicesList(device_names))
                     .unwrap();
             }
 
@@ -296,9 +296,9 @@ fn write_data(
     {
         if !twelve_seconds_buffer.iter().all(|x| *x == 0.0) {
             processing_tx
-                .try_send(ProcessingMessage::ProcessAudioSamples(Box::new(
+                .try_send(ProcessingMessage::ProcessAudioSamples(
                     twelve_seconds_buffer.to_vec(),
-                )))
+                ))
                 .unwrap();
 
             *processing_already_ongoing_borrow = true;

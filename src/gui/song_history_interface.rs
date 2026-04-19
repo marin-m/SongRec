@@ -100,25 +100,20 @@ impl SongRecordInterface for RecognitionHistoryInterface {
     }
 
     fn load(&mut self) -> Result<(), Box<dyn Error>> {
-        match csv::ReaderBuilder::new()
+        if let Ok(mut reader) = csv::ReaderBuilder::new()
             .flexible(true)
             .from_path(&self.csv_path)
         {
-            Ok(mut reader) => {
-                let mut read = reader.deserialize().collect::<Vec<_>>();
-                fn item_date(
-                    item: &csv::Result<SongHistoryRecord>,
-                ) -> Option<chrono::NaiveDateTime> {
-                    let s = &item.as_ref().ok()?.recognition_date;
-                    chrono::NaiveDateTime::parse_from_str(s, "%c").ok()
-                }
-                read.sort_by_cached_key(item_date);
-                for result in read {
-                    self.list_store.add_song_history_record(&result?)
-                }
+            let mut read = reader.deserialize().collect::<Vec<_>>();
+            fn item_date(item: &csv::Result<SongHistoryRecord>) -> Option<chrono::NaiveDateTime> {
+                let s = &item.as_ref().ok()?.recognition_date;
+                chrono::NaiveDateTime::parse_from_str(s, "%c").ok()
             }
-            _ => {} // File does not exists, ignore
-        };
+            read.sort_by_cached_key(item_date);
+            for result in read {
+                self.list_store.add_song_history_record(&result?)
+            }
+        }
         Ok(())
     }
 
@@ -175,19 +170,16 @@ impl SongRecordInterface for FavoritesInterface {
     }
 
     fn load(&mut self) -> Result<(), Box<dyn Error>> {
-        match csv::ReaderBuilder::new()
+        if let Ok(mut reader) = csv::ReaderBuilder::new()
             .flexible(true)
             .from_path(&self.csv_path)
         {
-            Ok(mut reader) => {
-                for result in reader.deserialize() {
-                    let record = result?;
-                    self.list_store.add_song_history_record(&record);
-                    self.is_favorite.insert(record.get_song());
-                }
+            for result in reader.deserialize() {
+                let record = result?;
+                self.list_store.add_song_history_record(&record);
+                self.is_favorite.insert(record.get_song());
             }
-            _ => {} // File does not exists, ignore
-        };
+        }
         Ok(())
     }
 

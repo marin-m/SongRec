@@ -1,6 +1,5 @@
 /// Multipliers for applying hanning window over 2048 entries, with
 /// leading and trailing zeroes omitted.
-
 pub const HANNING_WINDOW_2048_MULTIPLIERS: [f32; 2048] = [
     0.0000023508,
     0.0000094032,
