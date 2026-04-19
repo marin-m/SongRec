@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: SongRec\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-19 03:19+0200\n"
+"POT-Creation-Date: 2026-04-19 03:51+0200\n"
 "PO-Revision-Date: 2026-03-09 15:02+0000\n"
 "Last-Translator: marcelo cripe <marcelocripe@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://weblate.fossplant.re/projects/"
@@ -213,7 +213,7 @@ msgstr ""
 "O seu endereço IP (Internet Protocol ou Protocolo da Internet) foi limitado "
 "em termos da taxa de transferência"
 
-#: src/core/microphone_thread.rs:68
+#: src/core/microphone_thread.rs:71
 msgid "Audio error:"
 msgstr "Ocorreu um erro no áudio:"
 

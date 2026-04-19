@@ -58,6 +58,15 @@ https://hughsie.github.io/oars/index.html
 -->
   <content_rating type="oars-1.1" />
   <releases>
+    <release version="0.6.9" date="2026-04-19">
+      <description>
+        <p>Skip using the PipeWire backend when no node is available (issue #265)</p>
+        <p>Avoid a crash when using the CLI with MPRIS not loaded on the system</p>
+        <p>Log network requests and responses when using the -vvv flag</p>
+        <p>Log the command used by the ffmpeg backend when used</p>
+        <p>Log the audio backend selected by CPAL on Linux</p>
+      </description>
+    </release>
     <release version="0.6.8" date="2026-04-18">
       <description>
         <p>Bump audio backend to CPAL 0.18 development version (see issues #257, #261)</p>

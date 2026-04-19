@@ -1,3 +1,13 @@
+songrec (0.6.9) bionic; urgency=low
+
+  * Skip using the PipeWire backend when no node is available (see https://github.com/RustAudio/cpal/pull/1171)
+  * Avoid a crash when using the CLI with MPRIS not loaded on the system
+  * Log network requests and responses when using the -vvv flag
+  * Log the command used by the ffmpeg backend when used
+  * Log the audio backend selected by CPAL on Linux
+
+ -- Marin <marin-m@users.noreply.github.com>  Sun, 19 Apr 2026 03:46:07 +0200
+
 songrec (0.6.8+1) bionic; urgency=low
 
   * Fix the build process

@@ -15,9 +15,9 @@
  
   !define MUI_PRODUCT "SongRec"
   !define MUI_FILE "songrec"
-  !define MUI_VERSION "0.6.8"
+  !define MUI_VERSION "0.6.9"
   !define MUI_BRANDINGTEXT "${MUI_PRODUCT} ${MUI_VERSION}"
-  !define WIN_DIST_DIR "/home/marin/win32/songrec-0.6.8"
+  !define WIN_DIST_DIR "/home/marin/win32/songrec-0.6.9"
   !define SOURCE_DIR "/home/marin/rust-shazam"
   CRCCheck On
  
