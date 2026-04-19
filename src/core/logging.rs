@@ -5,25 +5,21 @@ use log::Level;
 use std::boxed::Box;
 use std::collections::HashMap;
 use std::io::Write;
-use std::sync::{Arc, Mutex};
 
 #[cfg(feature = "gui")]
-#[derive(Clone)]
+#[derive(Clone, Default)]
 struct GUIDispatcher {
-    #[cfg(feature = "gui")]
-    gui_tx: Arc<Mutex<Option<async_channel::Sender<GUIMessage>>>>,
+    gui_tx: Option<async_channel::Sender<GUIMessage>>,
 }
 
 #[cfg(feature = "gui")]
 impl GUIDispatcher {
     fn new() -> Self {
-        Self {
-            gui_tx: Arc::new(Mutex::new(None)),
-        }
+        Self::default()
     }
 
-    fn connect_to_gui_logger(&self, gui_tx: async_channel::Sender<GUIMessage>) {
-        *self.gui_tx.lock().unwrap() = Some(gui_tx);
+    fn connect_to_gui_logger(&mut self, gui_tx: async_channel::Sender<GUIMessage>) {
+        self.gui_tx = Some(gui_tx);
     }
 }
 
@@ -31,7 +27,7 @@ impl GUIDispatcher {
 impl Write for GUIDispatcher {
     fn write(&mut self, buf: &[u8]) -> Result<usize, std::io::Error> {
         #[cfg(feature = "gui")]
-        if let Some(ref gui_tx) = *self.gui_tx.lock().unwrap() {
+        if let Some(ref gui_tx) = self.gui_tx {
             gui_tx
                 .try_send(GUIMessage::AppendToLog(
                     String::from_utf8_lossy(buf).into_owned(),
@@ -45,9 +41,6 @@ impl Write for GUIDispatcher {
         Ok(())
     }
 }
-
-#[cfg(feature = "gui")]
-unsafe impl std::marker::Send for GUIDispatcher {}
 
 pub struct Logging {
     #[cfg(feature = "gui")]
@@ -105,7 +98,7 @@ impl Logging {
     }
 
     #[cfg(feature = "gui")]
-    pub fn connect_to_gui_logger(self, gui_tx: async_channel::Sender<GUIMessage>) {
+    pub fn connect_to_gui_logger(mut self, gui_tx: async_channel::Sender<GUIMessage>) {
         self.gui_dispatcher.connect_to_gui_logger(gui_tx);
     }
 
