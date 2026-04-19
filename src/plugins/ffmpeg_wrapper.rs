@@ -1,3 +1,4 @@
+use log::{debug, error};
 use std::io::BufReader;
 
 #[cfg(windows)]
@@ -62,19 +63,28 @@ pub fn decode_with_ffmpeg(file_path: &str) -> Option<rodio::Decoder<BufReader<st
 
         let command = command.args(&["-y", "-i", file_path, sink_file_path.to_str().unwrap()]);
 
+        debug!("Spawning ffmpeg: {:?}", command);
+
         // Set "CREATE_NO_WINDOW" on Windows, see
         // https://stackoverflow.com/a/60958956/662399
         #[cfg(windows)]
         let command = command.creation_flags(0x00000008);
 
-        if let Ok(process) = command.output() {
-            if process.status.success() {
-                return Some(
-                    rodio::Decoder::new(BufReader::new(
-                        std::fs::File::open(sink_file_path.to_str().unwrap()).unwrap(),
-                    ))
-                    .unwrap(),
-                );
+        match command.output() {
+            Ok(process) => {
+                if process.status.success() {
+                    return Some(
+                        rodio::Decoder::new(BufReader::new(
+                            std::fs::File::open(sink_file_path.to_str().unwrap()).unwrap(),
+                        ))
+                        .unwrap(),
+                    );
+                } else {
+                    error!("ffmpeg returned an error: {:?}", process.status);
+                }
+            }
+            Err(err) => {
+                error!("Could not spawn ffmpeg: {:?}", err);
             }
         }
     }
