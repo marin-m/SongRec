@@ -1,5 +1,6 @@
 use gettextrs::gettext;
 use glib::source::Priority;
+use log::trace;
 use rand::prelude::IndexedRandom;
 use serde_json::{json, Value};
 use soup::prelude::SessionExt;
@@ -9,6 +10,50 @@ use uuid::Uuid;
 
 use crate::core::fingerprinting::signature_format::DecodedSignature;
 use crate::core::fingerprinting::user_agent::USER_AGENTS;
+
+fn log_request(message: &soup::Message, post_data: &str) {
+    if let Some(headers) = message.request_headers() {
+        let mut full_headers: Vec<(String, String)> = vec![];
+        headers.foreach(|key, value| {
+            full_headers.push((key.to_string(), value.to_string()));
+        });
+        trace!(
+            "Sending request to Shazam: {:?} {:?} {:?}",
+            message.uri().unwrap().to_str(),
+            full_headers,
+            post_data
+        );
+    } else {
+        trace!(
+            "Sending request to Shazam: {:?}",
+            message.uri().unwrap().to_str()
+        );
+    }
+}
+
+fn log_response(message: &soup::Message, response: &str) {
+    if let Some(headers) = message.response_headers() {
+        let mut full_headers: Vec<(String, String)> = vec![];
+        headers.foreach(|key, value| {
+            full_headers.push((key.to_string(), value.to_string()));
+        });
+        trace!(
+            "Received response from Shazam: {:?} {:?} {} {:?} {:?}",
+            message.status_code(),
+            message.reason_phrase(),
+            match message.http_version() {
+                soup::HTTPVersion::Http10 => "HTTP/1.0".to_string(),
+                soup::HTTPVersion::Http11 => "HTTP/1.1".to_string(),
+                soup::HTTPVersion::Http20 => "HTTP/2.0".to_string(),
+                _ => format!("{:?}", message.http_version()),
+            },
+            full_headers,
+            response
+        );
+    } else {
+        trace!("Received response from Shazam: {:?}", message.status_code());
+    }
+}
 
 pub async fn recognize_song_from_signature(
     session: &soup::Session,
@@ -50,15 +95,21 @@ pub async fn recognize_song_from_signature(
         uuid_1, uuid_2
     );
 
-    let message = soup::Message::from_encoded_form("POST", &url, post_data.into())?;
+    let message = soup::Message::from_encoded_form("POST", &url, post_data.clone().into())?;
 
     let headers = message.request_headers().unwrap();
     headers.append("Content-Language", "en_US");
     headers.set_content_type(Some("application/json"), None);
 
+    log_request(&message, &post_data);
+
     let response = session
         .send_and_read_future(&message, Priority::DEFAULT)
         .await?;
+
+    let decoded_resp = String::from_utf8_lossy(&response[..]);
+
+    log_response(&message, &decoded_resp);
 
     if message.status_code() == 429 {
         return Err(Box::new(std::io::Error::new(
@@ -79,9 +130,14 @@ pub async fn obtain_raw_cover_image(
     let headers = message.request_headers().unwrap();
     headers.append("Content-Language", "en_US");
 
+    log_request(&message, "");
+
     let response = session
         .send_and_read_future(&message, Priority::DEFAULT)
         .await?;
+
+    let resp_header = format!("{:?}...", &response[..32]);
+    log_response(&message, &resp_header);
 
     Ok(response[..].to_vec())
 }
