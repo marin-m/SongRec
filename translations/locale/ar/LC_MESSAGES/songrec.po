@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-19 04:07+0200\n"
+"POT-Creation-Date: 2026-04-19 20:56+0200\n"
 "PO-Revision-Date: 2026-03-09 12:56+0000\n"
 "Last-Translator: Mu7ammed Basha "
 "<mu7basha@users.noreply.weblate.fossplant.re>\n"
@@ -193,15 +193,15 @@ msgstr "عند تحليل ملف التفضيلات:"
 msgid "When saving the preferences file:"
 msgstr "عند حفظ ملف التفضيلات:"
 
-#: src/core/fingerprinting/signature_format.rs:98
+#: src/core/fingerprinting/signature_format.rs:97
 msgid "Invalid sample rate in decoded Shazam packet"
 msgstr "معدل العينة غير صالح في فك ترميز حزمة Shazam"
 
-#: src/core/fingerprinting/signature_format.rs:140
+#: src/core/fingerprinting/signature_format.rs:138
 msgid "Invalid frequency band in decoded Shazam packet"
 msgstr "نطاق التردد غير صالح في فك ترميز حزمة Shazam"
 
-#: src/core/fingerprinting/signature_format.rs:221
+#: src/core/fingerprinting/signature_format.rs:214
 msgid "Invalid sample rate passed when encoding Shazam packet"
 msgstr "عبَر معدل عينة غير صالح أثناء ترميز حزمة Shazam"
 

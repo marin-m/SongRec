@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-19 04:07+0200\n"
+"POT-Creation-Date: 2026-04-19 20:56+0200\n"
 "PO-Revision-Date: 2026-04-09 19:16+0000\n"
 "Last-Translator: Arda Aydın <arda.aydin@operationsilkscarf.com>\n"
 "Language-Team: Turkish <https://weblate.fossplant.re/projects/songrec/"
@@ -198,15 +198,15 @@ msgstr "Seçenekler dosyası okunurken şu oldu:"
 msgid "When saving the preferences file:"
 msgstr "Seçenekler dosyasını kaydederken şu oldu:"
 
-#: src/core/fingerprinting/signature_format.rs:98
+#: src/core/fingerprinting/signature_format.rs:97
 msgid "Invalid sample rate in decoded Shazam packet"
 msgstr "Çözülen Shazam paketinde geçersiz örnekleme hızı"
 
-#: src/core/fingerprinting/signature_format.rs:140
+#: src/core/fingerprinting/signature_format.rs:138
 msgid "Invalid frequency band in decoded Shazam packet"
 msgstr "Çözülen Shazam paketinde geçersiz frekans bandı"
 
-#: src/core/fingerprinting/signature_format.rs:221
+#: src/core/fingerprinting/signature_format.rs:214
 msgid "Invalid sample rate passed when encoding Shazam packet"
 msgstr "Shazam paketin kodlanırken geçersiz örnekleme hızı verildi"
 
