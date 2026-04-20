@@ -1209,13 +1209,13 @@ impl App {
 
                     glib::spawn_future_local(async move {
                         let launch_path = obtain_recognition_history_csv_path().unwrap();
-                        info!("Launching file: {}", launch_path);
+                        info!("Launching file: {}", launch_path.display());
                         let launch_file = gio::File::for_path(&launch_path);
                         if let Err(err) = gtk::FileLauncher::new(Some(&launch_file))
                             .launch_future(Some(&window))
                             .await
                         {
-                            error!("Could not launch file {}: {:?}", launch_path, err);
+                            error!("Could not launch file {}: {:?}", launch_path.display(), err);
                         }
                     });
                 }
@@ -1240,13 +1240,13 @@ impl App {
 
                     glib::spawn_future_local(async move {
                         let launch_path = obtain_favorites_csv_path().unwrap();
-                        info!("Launching file: {}", launch_path);
+                        info!("Launching file: {}", launch_path.display());
                         let launch_file = gio::File::for_path(&launch_path);
                         if let Err(err) = gtk::FileLauncher::new(Some(&launch_file))
                             .launch_future(Some(&window))
                             .await
                         {
-                            error!("Could not launch file {}: {:?}", launch_path, err);
+                            error!("Could not launch file {}: {:?}", launch_path.display(), err);
                         }
                     });
                 }
