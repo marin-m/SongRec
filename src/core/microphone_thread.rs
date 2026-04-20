@@ -8,7 +8,7 @@ use crate::core::preferences::PreferencesInterface;
 use crate::core::thread_messages::{MicrophoneMessage::*, *};
 
 use cpal::platform::Device;
-use cpal::traits::{DeviceTrait, StreamTrait};
+use cpal::traits::{DeviceTrait, HostTrait, StreamTrait};
 use gettextrs::gettext;
 use log::debug;
 use rodio::conversions::SampleTypeConverter;
@@ -79,6 +79,15 @@ pub fn microphone_thread(
                 let err_fn_3 = err_fn.clone();
                 let err_fn_cb = move |error: cpal::Error| {
                     err_fn_2(Box::new(error));
+                };
+
+                if host.default_input_device().is_none() {
+                    gui_tx
+                        .try_send(GUIMessage::ErrorMessage(gettext(
+                            "Audio error: No input device available",
+                        )))
+                        .unwrap();
+                    return;
                 };
 
                 let device: Device = backend.set_device(&host, &device_name);
