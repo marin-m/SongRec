@@ -45,8 +45,8 @@ impl AudioBackend for CpalBackend {
             }
 
             device_names.push(DeviceListItem {
-                inner_name: device_id.clone(),
-                display_name: device_name.clone(),
+                inner_name: device_id,
+                display_name: device_name,
                 is_monitor: device_description.direction() != DeviceDirection::Input,
             });
         }
