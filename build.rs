@@ -269,7 +269,28 @@ troubleshoot the error"
         .output()
     {
         if !output.status.success() {
-            println!("cargo:warning=Compiling the Blueprint resource file did not succeed:");
+            println!("cargo:warning=Compiling interface.blp did not succeed:");
+            if let Ok(stderr) = String::from_utf8(output.stderr) {
+                for line in stderr.lines() {
+                    println!("cargo:warning={line}");
+                }
+            }
+        }
+    }
+
+    #[cfg(target_os = "linux")]
+    if let Ok(output) = std::process::Command::new("blueprint-compiler")
+        .current_dir("src/gui")
+        .args([
+            "compile",
+            "--output",
+            "shortcuts-dialog.ui",
+            "shortcuts-dialog.blp",
+        ])
+        .output()
+    {
+        if !output.status.success() {
+            println!("cargo:warning=Compiling shortcuts-dialog.blp did not succeed:");
             if let Ok(stderr) = String::from_utf8(output.stderr) {
                 for line in stderr.lines() {
                     println!("cargo:warning={line}");
@@ -279,6 +300,7 @@ troubleshoot the error"
     }
 
     println!("cargo:rerun-if-changed=src/gui/interface.blp");
+    println!("cargo:rerun-if-changed=src/gui/shortcuts-dialog.blp");
 
     // Generate GLib resources
 

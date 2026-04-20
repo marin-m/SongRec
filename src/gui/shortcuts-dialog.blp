@@ -1,0 +1,33 @@
+using Gtk 4.0;
+using Adw 1;
+
+Adw.ShortcutsDialog shortcuts_dialog {
+  Adw.ShortcutsSection {
+    title: C_("General section in the Shortcuts window", "General");
+
+    Adw.ShortcutsItem {
+      action-name: "win.close";
+      title: C_("In the shortcuts window", "Close the application");
+    }
+
+    Adw.ShortcutsItem {
+      action-name: "win.recognize-file";
+      title: C_("In the shortcuts window", "Recognize from a file");
+    }
+
+    Adw.ShortcutsItem {
+      action-name: "win.show-preferences";
+      title: C_("In the shortcuts window", "Show preferences");
+    }
+
+    Adw.ShortcutsItem {
+      action-name: "app.shortcuts";
+      title: C_("In the shortcuts window", "Display shortcuts");
+    }
+
+    Adw.ShortcutsItem {
+      action-name: "win.show-menu";
+      title: C_("In the shortcuts window", "Show menu");
+    }
+  }
+}
