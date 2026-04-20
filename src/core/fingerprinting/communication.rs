@@ -102,6 +102,7 @@ pub async fn recognize_song_from_signature(
     );
 
     let message = soup::Message::from_encoded_form("POST", &url, post_data.clone().into())?;
+    message.set_force_http1(true);
 
     let headers = message.request_headers().unwrap();
     headers.append("Content-Language", "en_US");
@@ -131,8 +132,11 @@ pub async fn obtain_raw_cover_image(
     session: &soup::Session,
     url: &str,
 ) -> Result<Vec<u8>, Box<dyn Error>> {
-    let message = soup::Message::new("GET", url)?;
     session.set_user_agent(USER_AGENTS.choose(&mut rand::rng()).unwrap());
+
+    let message = soup::Message::new("GET", url)?;
+    message.set_force_http1(true);
+
     let headers = message.request_headers().unwrap();
     headers.append("Content-Language", "en_US");
 
