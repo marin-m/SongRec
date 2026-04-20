@@ -13,19 +13,19 @@ use crate::plugins::ffmpeg_wrapper::decode_with_ffmpeg;
 
 pub struct SignatureGenerator {
     // Used when processing input:
-    ring_buffer_of_samples: Vec<i16>,
+    ring_buffer_of_samples: Box<[i16; 2048]>,
     /// Ring buffer.
     ring_buffer_of_samples_index: usize,
 
-    reordered_ring_buffer_of_samples: Vec<f32>,
+    reordered_ring_buffer_of_samples: Box<[f32; 2048]>,
     /// Reordered, temporary version of the ring buffer above, with floats for precision because we applied Hanning window.
-    fft_outputs: Vec<Vec<f32>>,
+    fft_outputs: Box<[[f32; 1025]; 256]>,
     /// Ring buffer. Lists of 1025 floats, premultiplied with a Hanning function before being passed through FFT, computed from the ring buffer every new 128 samples
     fft_outputs_index: usize,
 
     fft_object: RFft1D<f32>,
 
-    spread_fft_outputs: Vec<Vec<f32>>,
+    spread_fft_outputs: Box<[[f32; 1025]; 256]>,
     /// Ring buffer.
     spread_fft_outputs_index: usize,
 
@@ -83,17 +83,17 @@ impl SignatureGenerator {
 
     pub fn make_signature_from_buffer(f32_mono_16khz_buffer: &[f32]) -> DecodedSignature {
         let mut this = SignatureGenerator {
-            ring_buffer_of_samples: vec![0i16; 2048],
+            ring_buffer_of_samples: Box::new([0i16; 2048]),
             ring_buffer_of_samples_index: 0,
 
-            reordered_ring_buffer_of_samples: vec![0.0f32; 2048],
+            reordered_ring_buffer_of_samples: Box::new([0.0f32; 2048]),
 
-            fft_outputs: vec![vec![0.0f32; 1025]; 256],
+            fft_outputs: Box::new([[0.0f32; 1025]; 256]),
             fft_outputs_index: 0,
 
             fft_object: RFft1D::<f32>::new(2048),
 
-            spread_fft_outputs: vec![vec![0.0f32; 1025]; 256],
+            spread_fft_outputs: Box::new([[0.0f32; 1025]; 256]),
             spread_fft_outputs_index: 0,
 
             num_spread_ffts_done: 0,
@@ -108,7 +108,7 @@ impl SignatureGenerator {
         let s16_buffer: Vec<i16> =
             SampleTypeConverter::<_, i16>::new(f32_mono_16khz_buffer.iter().copied()).collect();
 
-        for chunk in s16_buffer.chunks_exact(128) {
+        for chunk in s16_buffer.as_chunks::<128>().0 {
             this.do_fft(chunk);
 
             this.do_peak_spreading();
@@ -123,7 +123,7 @@ impl SignatureGenerator {
         this.signature
     }
 
-    fn do_fft(&mut self, s16_mono_16khz_buffer: &[i16]) {
+    fn do_fft(&mut self, s16_mono_16khz_buffer: &[i16; 128]) {
         // Copy the 128 input s16le samples to the local ring buffer
 
         self.ring_buffer_of_samples
@@ -146,7 +146,7 @@ impl SignatureGenerator {
 
         let complex_fft_results = self
             .fft_object
-            .forward(&self.reordered_ring_buffer_of_samples);
+            .forward(&*self.reordered_ring_buffer_of_samples);
 
         assert_eq!(complex_fft_results.len(), 1025);
 
