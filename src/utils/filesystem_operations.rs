@@ -6,38 +6,36 @@ use std::fs::create_dir_all;
 use std::os::unix::fs::symlink;
 #[cfg(windows)]
 use std::os::windows::fs::symlink_dir;
-use std::path::{Path, PathBuf};
+use std::path::PathBuf;
+use std::sync::LazyLock;
 
 const QUALIFIER: &str = "";
 const ORGANIZATION: &str = "SongRec";
 const APPLICATION: &str = "SongRec";
 
-pub fn obtain_recognition_history_csv_path() -> Result<String, Box<dyn Error>> {
-    let project_dir =
-        ProjectDirs::from(QUALIFIER, ORGANIZATION, APPLICATION).ok_or("No valid path")?;
-    let mut csv_path: PathBuf = obtain_data_directory(project_dir)?;
+static PROJECT_DIRS: LazyLock<ProjectDirs> =
+    LazyLock::new(|| ProjectDirs::from(QUALIFIER, ORGANIZATION, APPLICATION).unwrap());
+
+pub fn obtain_recognition_history_csv_path() -> Result<PathBuf, Box<dyn Error>> {
+    let mut csv_path = obtain_data_directory()?;
     csv_path.push("song_history.csv");
-    Ok(csv_path.to_str().unwrap().to_string())
+    Ok(csv_path)
 }
 
-pub fn obtain_favorites_csv_path() -> Result<String, Box<dyn Error>> {
-    let project_dir =
-        ProjectDirs::from(QUALIFIER, ORGANIZATION, APPLICATION).ok_or("No valid path")?;
-    let mut csv_path: PathBuf = obtain_data_directory(project_dir)?;
+pub fn obtain_favorites_csv_path() -> Result<PathBuf, Box<dyn Error>> {
+    let mut csv_path = obtain_data_directory()?;
     csv_path.push("favorites.csv");
-    Ok(csv_path.to_str().unwrap().to_string())
+    Ok(csv_path)
 }
 
-pub fn obtain_preferences_file_path() -> Result<String, Box<dyn Error>> {
-    let project_dir =
-        ProjectDirs::from(QUALIFIER, ORGANIZATION, APPLICATION).ok_or("No valid path")?;
-    let mut preferences_file_path: PathBuf = obtain_preferences_directory(project_dir)?;
+pub fn obtain_preferences_file_path() -> Result<PathBuf, Box<dyn Error>> {
+    let mut preferences_file_path = obtain_preferences_directory()?;
     preferences_file_path.push("preferences.toml");
-    Ok(preferences_file_path.to_str().unwrap().to_string())
+    Ok(preferences_file_path)
 }
 
-fn obtain_data_directory(project_directory: ProjectDirs) -> Result<PathBuf, Box<dyn Error>> {
-    let data_dir: &Path = project_directory.data_dir();
+fn obtain_data_directory() -> Result<PathBuf, Box<dyn Error>> {
+    let data_dir = PROJECT_DIRS.data_dir();
     if !data_dir.exists() {
         let old_dir = get_old_data_dir_path()?;
         if old_dir.exists() {
@@ -52,8 +50,8 @@ fn obtain_data_directory(project_directory: ProjectDirs) -> Result<PathBuf, Box<
     Ok(data_dir.to_path_buf())
 }
 
-fn obtain_preferences_directory(project_directory: ProjectDirs) -> Result<PathBuf, Box<dyn Error>> {
-    let preferences_dir: &Path = project_directory.preference_dir();
+fn obtain_preferences_directory() -> Result<PathBuf, Box<dyn Error>> {
+    let preferences_dir = PROJECT_DIRS.preference_dir();
     if !preferences_dir.exists() {
         create_dir_all(preferences_dir)?;
     }
@@ -61,9 +59,7 @@ fn obtain_preferences_directory(project_directory: ProjectDirs) -> Result<PathBu
 }
 
 pub fn obtain_cache_directory() -> Result<PathBuf, Box<dyn Error>> {
-    let project_dir =
-        ProjectDirs::from(QUALIFIER, ORGANIZATION, APPLICATION).ok_or("No valid path")?;
-    let cache_path = project_dir.cache_dir();
+    let cache_path = PROJECT_DIRS.cache_dir();
     if !cache_path.exists() {
         create_dir_all(cache_path)?;
     }

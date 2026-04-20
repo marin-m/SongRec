@@ -3,6 +3,7 @@ use log::{debug, error};
 use serde::Deserialize;
 use serde::Serialize;
 use std::error::Error;
+use std::path::PathBuf;
 
 use crate::utils::filesystem_operations::obtain_preferences_file_path;
 
@@ -72,7 +73,7 @@ impl Default for Preferences {
 
 #[derive(Clone, Debug)]
 pub struct PreferencesInterface {
-    pub preferences_file_path: Option<String>,
+    pub preferences_file_path: Option<PathBuf>,
     pub preferences: Preferences,
 }
 
@@ -91,12 +92,13 @@ impl PreferencesInterface {
     }
 
     fn load() -> Result<PreferencesInterface, Box<dyn Error>> {
-        let preferences_file_path: String = obtain_preferences_file_path()?;
+        let preferences_file_path = obtain_preferences_file_path()?;
         let contents = std::fs::read_to_string(&preferences_file_path).unwrap_or_default();
         let preferences: Preferences = toml::from_str(&contents)?;
         debug!(
             "Loaded preferences from {}: {:?}",
-            preferences_file_path, preferences
+            preferences_file_path.display(),
+            preferences
         );
         Ok(PreferencesInterface {
             preferences_file_path: Some(preferences_file_path),

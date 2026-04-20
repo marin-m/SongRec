@@ -8,6 +8,7 @@ use gtk::prelude::*;
 use log::error;
 use std::collections::HashSet;
 use std::error::Error;
+use std::path::PathBuf;
 
 trait SongHistoryRecordListStore {
     fn add_song_history_record(&mut self, to_add: &SongHistoryRecord);
@@ -43,12 +44,12 @@ impl SongHistoryRecordListStore for gio::ListStore {
 
 #[derive(Debug, Clone)]
 pub struct RecognitionHistoryInterface {
-    csv_path: String,
+    csv_path: PathBuf,
     list_store: gio::ListStore,
 }
 #[derive(Debug, Clone)]
 pub struct FavoritesInterface {
-    csv_path: String,
+    csv_path: PathBuf,
     list_store: gio::ListStore,
     is_favorite: HashSet<Song>,
 }
@@ -56,7 +57,7 @@ pub struct FavoritesInterface {
 pub trait SongRecordInterface {
     fn new(
         list_store: gio::ListStore,
-        get_csv_path: fn() -> Result<String, Box<dyn Error>>,
+        get_csv_path: fn() -> Result<PathBuf, Box<dyn Error>>,
     ) -> Result<Self, Box<dyn Error>>
     where
         Self: Sized;
@@ -81,7 +82,7 @@ fn test_item_date() {
 impl SongRecordInterface for RecognitionHistoryInterface {
     fn new(
         list_store: gio::ListStore,
-        get_csv_path: fn() -> Result<String, Box<dyn Error>>,
+        get_csv_path: fn() -> Result<PathBuf, Box<dyn Error>>,
     ) -> Result<Self, Box<dyn Error>> {
         let mut interface = RecognitionHistoryInterface {
             csv_path: get_csv_path()?,
@@ -150,7 +151,7 @@ impl SongRecordInterface for RecognitionHistoryInterface {
 impl SongRecordInterface for FavoritesInterface {
     fn new(
         list_store: gio::ListStore,
-        get_csv_path: fn() -> Result<String, Box<dyn Error>>,
+        get_csv_path: fn() -> Result<PathBuf, Box<dyn Error>>,
     ) -> Result<Self, Box<dyn Error>> {
         let mut interface = FavoritesInterface {
             csv_path: get_csv_path()?,
