@@ -36,7 +36,7 @@ impl PulseBackend {
 
         let applications = self.handler.list_applications().unwrap();
 
-        let criteria: Vec<String> = vec![
+        let criteria: [String; _] = [
             format!("process.id = \"{}\"", std::process::id()),
             "alsa plug-in [songrec]".to_string(),
             "songrec".to_string(),
@@ -44,7 +44,7 @@ impl PulseBackend {
         ];
 
         for criterion in criteria {
-            for app in applications.clone() {
+            for app in &applications {
                 if app
                     .proplist
                     .to_string()

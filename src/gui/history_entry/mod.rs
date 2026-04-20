@@ -9,12 +9,12 @@ glib::wrapper! {
 impl HistoryEntry {
     pub fn new(song: &SongHistoryRecord) -> Self {
         glib::Object::builder()
-            .property("song_name", song.song_name.clone())
-            .property("album", song.album.clone())
-            .property("track_key", song.track_key.clone())
-            .property("release_year", song.release_year.clone())
-            .property("genre", song.genre.clone())
-            .property("recognition_date", song.recognition_date.clone())
+            .property("song_name", &song.song_name)
+            .property("album", &song.album)
+            .property("track_key", &song.track_key)
+            .property("release_year", &song.release_year)
+            .property("genre", &song.genre)
+            .property("recognition_date", &song.recognition_date)
             .build()
 
         /*

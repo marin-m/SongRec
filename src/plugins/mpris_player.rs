@@ -49,13 +49,13 @@ pub async fn update_song(
     last_cover_path: &mut Option<std::path::PathBuf>,
 ) {
     let mut metadata = Metadata::builder()
-        .title(message.song_name.clone())
-        .artist(vec![message.artist_name.clone()]);
-    if let Some(ref album) = message.album_name {
-        metadata = metadata.album(album.clone());
+        .title(&message.song_name)
+        .artist([&message.artist_name]);
+    if let Some(album) = &message.album_name {
+        metadata = metadata.album(album);
     }
-    if let Some(ref genre) = message.genre {
-        metadata = metadata.genre(vec![genre.clone()]);
+    if let Some(genre) = &message.genre {
+        metadata = metadata.genre([genre]);
     }
 
     // Clean up old cover file

@@ -66,7 +66,7 @@ async fn try_recognize_song(
             }
         },
         cover_image: match &json_object["track"]["images"]["coverart"] {
-            Value::String(string) => Some(obtain_raw_cover_image(session.clone(), string).await?),
+            Value::String(string) => Some(obtain_raw_cover_image(session, string).await?),
             _ => None,
         },
         track_key: match &json_object["track"]["key"] {

@@ -128,7 +128,7 @@ pub async fn recognize_song_from_signature(
 }
 
 pub async fn obtain_raw_cover_image(
-    session: soup::Session,
+    session: &soup::Session,
     url: &str,
 ) -> Result<Vec<u8>, Box<dyn Error>> {
     let message = soup::Message::new("GET", url)?;

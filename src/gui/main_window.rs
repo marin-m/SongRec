@@ -316,9 +316,7 @@ impl App {
         ctx_systray_handle: Rc<RefCell<Option<ksni::Handle<SystrayInterface>>>>,
         window: adw::ApplicationWindow,
     ) {
-        let window = window.clone();
         glib::spawn_future_local(async move {
-            let ctx_systray_handle = ctx_systray_handle.clone();
             if let Some(handle) = ctx_systray_handle.take() {
                 window.set_hide_on_close(false);
                 *ctx_systray_handle.borrow_mut() = None;
@@ -754,14 +752,14 @@ impl App {
                         debug!(
                             "Received GUI message: SongRecognized({})",
                             json!({
-                                "artist_name": msg.artist_name.clone(),
-                                "album_name": msg.album_name.clone(),
-                                "song_name": msg.song_name.clone(),
+                                "artist_name": msg.artist_name,
+                                "album_name": msg.album_name,
+                                "song_name": msg.song_name,
                                 "cover_image": msg.cover_image.as_ref().map(|data| format!("{:02x?}...", &data[..16])),
-                                "track_key": msg.track_key.clone(),
-                                "release_year": msg.release_year.clone(),
-                                "genre": msg.genre.clone(),
-                                "shazam_json": msg.shazam_json.clone()
+                                "track_key": msg.track_key,
+                                "release_year": msg.release_year,
+                                "genre": msg.genre,
+                                "shazam_json": msg.shazam_json,
                             })
                         );
                     } else {
@@ -835,7 +833,7 @@ impl App {
                                     Self::notify_application_error(
                                         preferences_interface_ptr.clone(),
                                         &string,
-                                        &application.clone(),
+                                        &application,
                                     );
                                 }
                             }
@@ -845,7 +843,7 @@ impl App {
                                 Self::notify_network_error(
                                     preferences_interface_ptr.clone(),
                                     &rate_limited_message.label(),
-                                    &application.clone(),
+                                    &application,
                                     true,
                                 );
                             }
@@ -856,7 +854,7 @@ impl App {
                                 Self::notify_network_error(
                                     preferences_interface_ptr.clone(),
                                     &no_network_message.label(),
-                                    &application.clone(),
+                                    &application,
                                     false,
                                 );
                             }
@@ -1212,7 +1210,7 @@ impl App {
                     glib::spawn_future_local(async move {
                         let launch_path = obtain_recognition_history_csv_path().unwrap();
                         info!("Launching file: {}", launch_path);
-                        let launch_file = gio::File::for_path(launch_path.clone());
+                        let launch_file = gio::File::for_path(&launch_path);
                         if let Err(err) = gtk::FileLauncher::new(Some(&launch_file))
                             .launch_future(Some(&window))
                             .await
@@ -1243,7 +1241,7 @@ impl App {
                     glib::spawn_future_local(async move {
                         let launch_path = obtain_favorites_csv_path().unwrap();
                         info!("Launching file: {}", launch_path);
-                        let launch_file = gio::File::for_path(launch_path.clone());
+                        let launch_file = gio::File::for_path(&launch_path);
                         if let Err(err) = gtk::FileLauncher::new(Some(&launch_file))
                             .launch_future(Some(&window))
                             .await
