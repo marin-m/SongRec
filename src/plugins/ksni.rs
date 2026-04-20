@@ -22,7 +22,7 @@ impl ksni::Tray for SystrayInterface {
         let (width, height) = img.dimensions();
         let mut data = img.into_rgba8().into_vec();
         assert_eq!(data.len() % 4, 0);
-        for pixel in data.chunks_exact_mut(4) {
+        for pixel in data.as_chunks_mut::<4>().0 {
             pixel.rotate_right(1) // rgba to argb
         }
         vec![ksni::Icon {

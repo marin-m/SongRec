@@ -177,8 +177,9 @@ impl ContextMenuUtil {
                 if let Some(entry) = &*item.borrow() {
                     if let Some(display) = gdk::Display::default() {
                         let song_name = entry.song_name();
-                        let full_song_name_parts: Vec<&str> = song_name.splitn(2, " - ").collect();
-                        display.clipboard().set(&full_song_name_parts[0]);
+                        if let Some((ref artist, _track_name)) = song_name.split_once(" - ") {
+                            display.clipboard().set(artist);
+                        }
                     }
                 }
             })
@@ -190,8 +191,9 @@ impl ContextMenuUtil {
                 if let Some(entry) = &*item.borrow() {
                     if let Some(display) = gdk::Display::default() {
                         let song_name = entry.song_name();
-                        let full_song_name_parts: Vec<&str> = song_name.splitn(2, " - ").collect();
-                        display.clipboard().set(&full_song_name_parts[1]);
+                        if let Some((_artist, ref track_name)) = song_name.split_once(" - ") {
+                            display.clipboard().set(track_name);
+                        }
                     }
                 }
             })
