@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<interface>
+  <!-- interface-name shortcuts-dialog.ui -->
+  <requires lib="libadwaita" version="1.8"/>
+  <object class="AdwShortcutsDialog" id="shortcuts_dialog">
+    <child>
+      <object class="AdwShortcutsSection">
+        <property name="title" translatable="yes" context="&quot;General&quot; section in the Shortcuts window">General</property>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;Ctrl&gt;Q</property>
+            <property name="action-name">win.close</property>
+            <property name="title" translatable="yes" context="In the shortcuts window">Close the application</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;Ctrl&gt;O</property>
+            <property name="action-name">win.recognize-file</property>
+            <property name="title" translatable="yes" context="In the shortcuts window">Recognize from a file</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;Primary&gt;comma</property>
+            <property name="action-name">win.show-preferences</property>
+            <property name="title" translatable="yes" context="In the shortcuts window">Show preferences</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">&lt;Primary&gt;question</property>
+            <property name="action-name">app.shortcuts</property>
+            <property name="title" translatable="yes" context="In the shortcuts window">Display shortcuts</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">F10</property>
+            <property name="action-name">win.show-menu</property>
+            <property name="title" translatable="yes" context="In the shortcuts window">Show menu</property>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
