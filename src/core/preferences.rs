@@ -105,7 +105,7 @@ impl PreferencesInterface {
     }
 
     pub fn update(&mut self, update_preferences: Preferences) {
-        let current_preferences = self.preferences.clone();
+        let current_preferences = &self.preferences;
         self.preferences = Preferences {
             enable_notifications: update_preferences
                 .enable_notifications
@@ -141,7 +141,7 @@ impl PreferencesInterface {
                 .or(current_preferences.request_interval_secs_v3),
             current_device_name: update_preferences
                 .current_device_name
-                .or(current_preferences.current_device_name),
+                .or_else(|| current_preferences.current_device_name.clone()),
         };
         if let Err(error) = self.write() {
             error!("{} {}", gettext("When saving the preferences file:"), error);
