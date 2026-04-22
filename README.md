@@ -74,7 +74,7 @@ Note: You may remove dependencies over GTK+, Pulseaudio/PipeWire's libpulse or D
 
 ### Installing Rust
 
-First, you need to [install the Rust compiler and package manager](https://www.rust-lang.org/tools/install). The current minimal `rustc` required version should be at least version 1.87.
+First, you need to [install the Rust compiler and package manager](https://www.rust-lang.org/tools/install). The current minimal `rustc` required version should be at least version 1.88.
 
 You can either install Rust from the repositories, for example using Ubuntu/Debian:
 
