@@ -9,7 +9,7 @@ Build dependencies:
 ```
 sudo apt install flatpak-builder flatpak build-essential libasound2-dev \
     libpulse-dev libgtk-4-dev libsoup-3.0-dev libadwaita-1-dev libdbus-1-dev \
-    intltool appstream git cargo
+    appstream git cargo
 ```
 
 Then, run:

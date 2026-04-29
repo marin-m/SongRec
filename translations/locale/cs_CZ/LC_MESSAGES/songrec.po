@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-19 21:50+0200\n"
+"POT-Creation-Date: 2026-04-29 19:21+0200\n"
 "PO-Revision-Date: 2026-03-09 02:16+0000\n"
 "Last-Translator: Marin <25437947+marin-m@users.noreply.github.com>\n"
 "Language-Team: Czech <https://weblate.fossplant.re/projects/songrec/songrec/"
@@ -31,8 +31,9 @@ msgid "Exiting: no audio devices found!"
 msgstr "Ukončování: žádná zvuková zařízení nenalezena!"
 
 #: src/cli_main.rs:146
-msgid "Using device"
-msgstr "Používám zařízení"
+#, c-format
+msgid "Using device %s"
+msgstr ""
 
 #: src/cli_main.rs:170
 msgid "Error: Network unreachable"
@@ -44,7 +45,7 @@ msgstr "Varování: síť není dostupná"
 
 #: src/cli_main.rs:178 src/core/http_task.rs:55 src/core/http_task.rs:64
 #: src/core/http_task.rs:76 src/core/http_task.rs:119
-#: src/gui/main_window.rs:822 src/gui/main_window.rs:834
+#: src/gui/main_window.rs:820 src/gui/main_window.rs:832
 msgid "No match for this song"
 msgstr "Nenalezena žádná shoda s touto skladbou"
 
@@ -178,19 +179,23 @@ msgstr ""
 "Spustit grafické rozhraní, ale nezačít okamžitě po spuštění rozpoznávat zvuk "
 "z mikrofonu (namísto čekání, než uživatel klikne na tlačítko)."
 
-#: src/core/http_task.rs:126 src/core/fingerprinting/communication.rs:123
+#: src/core/http_task.rs:126 src/core/fingerprinting/communication.rs:124
 msgid "Your IP has been rate-limited"
 msgstr "Vaše IP byla omezena"
 
-#: src/core/microphone_thread.rs:71
+#: src/core/microphone_thread.rs:72
 msgid "Audio error:"
 msgstr "Chyba zvuku:"
 
-#: src/core/preferences.rs:84
+#: src/core/microphone_thread.rs:87
+msgid "Audio error: No input device available"
+msgstr ""
+
+#: src/core/preferences.rs:85
 msgid "When parsing the preferences file:"
 msgstr "Při zpracování souboru předvoleb:"
 
-#: src/core/preferences.rs:147
+#: src/core/preferences.rs:149
 msgid "When saving the preferences file:"
 msgstr "Při ukládání souboru předvoleb:"
 
@@ -218,35 +223,35 @@ msgstr "Chyba sítě"
 msgid "Unable to enable notification icon"
 msgstr "Nepodařilo se povolit ikonu oznámení"
 
-#: src/gui/main_window.rs:728 src/gui/main_window.rs:809
+#: src/gui/main_window.rs:726 src/gui/main_window.rs:807
 msgid "Unable to enable MPRIS support"
 msgstr "Nepodařilo se povolit podporu MPRIS"
 
-#: src/gui/main_window.rs:831
+#: src/gui/main_window.rs:829
 msgid "_Ok"
 msgstr "_Ok"
 
-#: src/gui/main_window.rs:911
+#: src/gui/main_window.rs:909
 msgid "Song recognized"
 msgstr "Skladba rozpoznána"
 
-#: src/gui/main_window.rs:1055
+#: src/gui/main_window.rs:1053
 msgid "Are you sure you want to wipe history?"
 msgstr "Opravdu chcete vymazat historii?"
 
-#: src/gui/main_window.rs:1061
+#: src/gui/main_window.rs:1059
 msgid "_Yes"
 msgstr "_Ano"
 
-#: src/gui/main_window.rs:1062
+#: src/gui/main_window.rs:1060
 msgid "_No"
 msgstr "_Ne"
 
-#: src/gui/song_history_interface.rs:94
+#: src/gui/song_history_interface.rs:95
 msgid "Error when reading the song history on the disk:"
 msgstr "Chyba při čtení historie skladeb z disku:"
 
-#: src/gui/song_history_interface.rs:164
+#: src/gui/song_history_interface.rs:165
 msgid "Error when reading the favorites on the disk:"
 msgstr "Chyba při čtení oblíbených z disku:"
 
@@ -258,111 +263,123 @@ msgstr "Otevřít SongRec"
 msgid "Quit..."
 msgstr "Ukončit…"
 
-#: translations/interface.ui.h:1
+#: packaging/freedesktop/re.fossplant.songrec.desktop.in:15
+msgid "SongRec"
+msgstr "SongRec"
+
+#: packaging/freedesktop/re.fossplant.songrec.desktop.in:18
+msgid "An open-source Shazam client for Linux, written in Rust"
+msgstr ""
+
+#: packaging/freedesktop/re.fossplant.songrec.desktop.in:21
+msgid "Rust;GTK;Shazam;Client;Audio;Song;Recognition;Fingerprinting;"
+msgstr ""
+
+#: src/gui/interface.ui:32
 msgid "Recognize songs"
 msgstr "Rozpoznat skladby"
 
-#: translations/interface.ui.h:2
+#: src/gui/interface.ui:38
 msgid "Recognize from file"
 msgstr "Rozpoznat ze souboru"
 
-#: translations/interface.ui.h:3
+#: src/gui/interface.ui:45
 msgid "Pick a file..."
 msgstr "Vyberte soubor…"
 
-#: translations/interface.ui.h:4
+#: src/gui/interface.ui:72
 msgid "Recognize from microphone"
 msgstr "Rozpoznávat z mikrofonu"
 
-#: translations/interface.ui.h:5
+#: src/gui/interface.ui:81
 msgid "Recognize from my speakers"
 msgstr "Rozpoznávat z reproduktorů"
 
-#: translations/interface.ui.h:6
+#: src/gui/interface.ui:88
 msgid "Shazam servers are not reachable, are you connected?"
 msgstr "Servery Shazamu nejsou dostupné, jste připojeni k síti?"
 
-#: translations/interface.ui.h:7
+#: src/gui/interface.ui:99
 msgid "ERROR: Your IP has been rate-limited"
 msgstr "CHYBA: Vaše IP byla omezena"
 
-#: translations/interface.ui.h:8
+#: src/gui/interface.ui:112
 msgid "Recognition results"
 msgstr "Výsledky rozpoznání"
 
-#: translations/interface.ui.h:9
+#: src/gui/interface.ui:151 src/gui/interface.ui:640 src/gui/interface.ui:683
 msgid "Search on YouTube"
 msgstr "Vyhledat na YouTube"
 
-#: translations/interface.ui.h:10
+#: src/gui/interface.ui:158
 msgid "Search..."
 msgstr "Hledat…"
 
-#: translations/interface.ui.h:11
+#: src/gui/interface.ui:179
 msgid "Refresh available devices"
 msgstr "Obnovit všechna dostupná zařízení"
 
-#: translations/interface.ui.h:12
+#: src/gui/interface.ui:182
 msgid "Audio input"
 msgstr "Zvukový vstup"
 
-#: translations/interface.ui.h:13
+#: src/gui/interface.ui:208
 msgid "Device"
 msgstr "Zařízení"
 
-#: translations/interface.ui.h:14
+#: src/gui/interface.ui:226
 msgid "Volume:"
 msgstr "Hlasitost:"
 
-#: translations/interface.ui.h:15
+#: src/gui/interface.ui:248
 msgid "History options..."
 msgstr "Nastavení historie…"
 
-#: translations/interface.ui.h:16
+#: src/gui/interface.ui:251
 msgid "Recognition history"
 msgstr "Historie rozpoznávání"
 
-#: translations/interface.ui.h:17
+#: src/gui/interface.ui:279 src/gui/interface.ui:389
 msgid "Song name"
 msgstr "Název skladby"
 
-#: translations/interface.ui.h:18
+#: src/gui/interface.ui:292 src/gui/interface.ui:402
 msgid "Album"
 msgstr "Album"
 
-#: translations/interface.ui.h:19
+#: src/gui/interface.ui:306 src/gui/interface.ui:416
 msgid "Recognition date"
 msgstr "Datum rozpoznání"
 
-#: translations/interface.ui.h:20
+#: src/gui/interface.ui:323
 msgid "View favorites"
 msgstr "Zobrazit oblíbené"
 
-#: translations/interface.ui.h:21
+#: src/gui/interface.ui:350
 msgid "Application menu"
 msgstr "Nabídka aplikace"
 
-#: translations/interface.ui.h:22
+#: src/gui/interface.ui:434 src/gui/interface.ui:600
 msgid "Export to CSV"
 msgstr "Exportovat do CSV"
 
-#: translations/interface.ui.h:23
+#: src/gui/interface.ui:444
 msgid "Favorites"
 msgstr "Oblíbené"
 
-#: translations/interface.ui.h:24
+#: src/gui/interface.ui:455
 msgid "General preferences"
 msgstr "Obecné předvolby"
 
-#: translations/interface.ui.h:25
+#: src/gui/interface.ui:459
 msgid "Notify when a new song is recognized or network error is encountered"
 msgstr "Oznámit při rozpoznání nové skladby nebo objevení chyby"
 
-#: translations/interface.ui.h:26
+#: src/gui/interface.ui:460 src/gui/interface.ui:568
 msgid "Show notifications"
 msgstr "Zobrazit oznámení"
 
-#: translations/interface.ui.h:27
+#: src/gui/interface.ui:467
 msgid ""
 "MPRIS will display information about recognized songs in places like the "
 "GNOME or KDE control panel"
@@ -370,11 +387,11 @@ msgstr ""
 "MPRIS zobrazí informace o rozpoznaných skladbách na místech, jako je "
 "ovládací panel GNOME nebo KDE"
 
-#: translations/interface.ui.h:28
+#: src/gui/interface.ui:468
 msgid "Enable MPRIS"
 msgstr "Povolit MPRIS"
 
-#: translations/interface.ui.h:29
+#: src/gui/interface.ui:475
 msgid ""
 "When closing the window, minimize to system tray using KSNI instead of "
 "closing the app. Please note that you may have to increase the \"request "
@@ -386,11 +403,11 @@ msgstr ""
 "SongRec běžet na pozadí, možná budete muset zvýšit nastavení „intervalu "
 "požadavků“, abyste snížili pravděpodobnost omezení vaší rychlosti."
 
-#: translations/interface.ui.h:30
+#: src/gui/interface.ui:476
 msgid "Minimize to system tray"
 msgstr "Minimalizovat do systémové lišty"
 
-#: translations/interface.ui.h:31
+#: src/gui/interface.ui:483
 msgid ""
 "Bump a song to the top of the history list and remove the former entry when "
 "the same song is detected multiple times"
@@ -398,23 +415,23 @@ msgstr ""
 "Přesunout skladbu na začátek seznamu historie a odstranit předchozí záznam, "
 "pokud je stejná skladba detekována vícekrát"
 
-#: translations/interface.ui.h:32
+#: src/gui/interface.ui:484
 msgid "No duplicates in history"
 msgstr "Žádné duplicitní záznamy v historii"
 
-#: translations/interface.ui.h:33
+#: src/gui/interface.ui:491
 msgid "Network preferences"
 msgstr "Předvolby sítě"
 
-#: translations/interface.ui.h:34
+#: src/gui/interface.ui:508
 msgid "By default 8, increase if you are rate-limited"
 msgstr "Výchozí hodnota je 8, zvyšte, pokud jste byli omezeni"
 
-#: translations/interface.ui.h:35
+#: src/gui/interface.ui:509
 msgid "Shazam interval between requests in seconds"
 msgstr "Interval Shazamu mezi žádostmi v sekundách"
 
-#: translations/interface.ui.h:36
+#: src/gui/interface.ui:529
 msgid ""
 "By default the last 12 seconds of music are fingerprinted and sent to "
 "Shazam. Editing may have an impact on reliability"
@@ -422,57 +439,144 @@ msgstr ""
 "Ve výchozím nastavení je posledních 12 sekund hudby identifikováno a "
 "odesláno Shazamu. Úprava může mít vliv na spolehlivost"
 
-#: translations/interface.ui.h:37
+#: src/gui/interface.ui:530
 msgid "Shazam buffer size in seconds"
 msgstr "Velikost mezipaměti pro Shazam v sekundách"
 
-#: translations/interface.ui.h:38
+#: src/gui/interface.ui:544
 msgid "Settings"
 msgstr "Nastavení"
 
-#: translations/interface.ui.h:39
+#: src/gui/interface.ui:572
 msgid "_Preferences..."
 msgstr "_Předvolby…"
 
-#: translations/interface.ui.h:40
+#: src/gui/interface.ui:579
 msgid "About..."
 msgstr "O aplikaci…"
 
-#: translations/interface.ui.h:41
+#: src/gui/interface.ui:604
 msgid "Delete history"
 msgstr "Smazat historii"
 
-#: translations/interface.ui.h:42
+#: src/gui/interface.ui:608
 msgid "Select a file to recognize"
 msgstr "Vyberte soubor k rozpoznání"
 
-#: translations/interface.ui.h:43
+#: src/gui/interface.ui:618 src/gui/interface.ui:661
 msgid "Copy artist and track"
 msgstr "Kopírovat umělce a skladbu"
 
-#: translations/interface.ui.h:44
+#: src/gui/interface.ui:623 src/gui/interface.ui:666
 msgid "Copy artist"
 msgstr "Kopírovat umělce"
 
-#: translations/interface.ui.h:45
+#: src/gui/interface.ui:628 src/gui/interface.ui:671
 msgid "Copy track name"
 msgstr "Kopírovat název skladby"
 
-#: translations/interface.ui.h:46
+#: src/gui/interface.ui:633 src/gui/interface.ui:676
 msgid "Copy album"
 msgstr "Kopírovat album"
 
-#: translations/interface.ui.h:47
+#: src/gui/interface.ui:647
 msgid "Delete from History"
 msgstr "Odstranit z historie"
 
-#: translations/interface.ui.h:48
+#: src/gui/interface.ui:652
 msgid "Add to Favorites"
 msgstr "Přidat do oblíbených"
 
-#: translations/interface.ui.h:49
+#: src/gui/interface.ui:690
 msgid "Remove from Favorites"
 msgstr "Odstranit z oblíbených"
+
+#: src/gui/interface.ui:700
+msgctxt "\"General\" section in the Shortcuts window"
+msgid "General"
+msgstr ""
+
+#: src/gui/interface.ui:705
+msgctxt "In the shortcuts window"
+msgid "Close the application"
+msgstr ""
+
+#: src/gui/interface.ui:712
+msgctxt "In the shortcuts window"
+msgid "Recognize from a file"
+msgstr ""
+
+#: src/gui/interface.ui:719
+msgctxt "In the shortcuts window"
+msgid "Show preferences"
+msgstr ""
+
+#: src/gui/interface.ui:726
+msgctxt "In the shortcuts window"
+msgid "Display shortcuts"
+msgstr ""
+
+#: src/gui/interface.ui:733
+msgctxt "win.show-menu"
+msgid "Show menu"
+msgstr ""
+
+#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:11
+msgid "Recognize songs from audio easily"
+msgstr ""
+
+#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:13
+msgid ""
+"SongRec is an unofficial Shazam client for Linux, written in Rust. It allows "
+"you to easily recognize songs from your speakers, microphone or audio files."
+msgstr ""
+
+#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:14
+msgid "Features:"
+msgstr ""
+
+#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:15
+msgid "- Recognize audio from an arbitrary audio file."
+msgstr ""
+
+#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:16
+msgid "- Recognize audio from the microphone."
+msgstr ""
+
+#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:17
+msgid "- Usage from both GUI and command line."
+msgstr ""
+
+#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:18
+msgid ""
+"- Provide an history of the recognized songs on the GUI, exportable to CSV."
+msgstr ""
+
+#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:19
+msgid ""
+"- Continuous song detection from the microphone, with the ability to choose "
+"your input device."
+msgstr ""
+
+#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:20
+msgid ""
+"- Ability to recognize songs from your speakers rather than your microphone."
+msgstr ""
+
+#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:25
+msgid "SongRec's main window"
+msgstr ""
+
+#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:29
+msgid "SongRec's favourites window"
+msgstr ""
+
+#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:33
+msgid "SongRec's main window, on GNOME in dark mode"
+msgstr ""
+
+#~ msgid "Using device"
+#~ msgstr "Používám zařízení"
 
 #~ msgid ""
 #~ "-v: Set the log level to DEBUG instead of WARN for SongRec-related "
@@ -557,6 +661,3 @@ msgstr "Odstranit z oblíbených"
 
 #~ msgid "Wipe history"
 #~ msgstr "Vymazat historii"
-
-#~ msgid "SongRec"
-#~ msgstr "SongRec"

@@ -136,20 +136,20 @@ rustup update
 Debian and Ubuntu:
 
 ```bash
-sudo apt install build-essential libasound2-dev libpipewire-0.3-dev libclang-dev libpulse-dev libgtk-4-dev libsoup-3.0-dev libadwaita-1-dev libdbus-1-dev intltool
+sudo apt install build-essential libasound2-dev libpipewire-0.3-dev libclang-dev libpulse-dev libgtk-4-dev libsoup-3.0-dev libadwaita-1-dev libdbus-1-dev gettext
 ```
 
 Archlinux:
 
 ```bash
-sudo pacman -S pkgconf git gtk4 libadwaita libsoup3 alsa-lib libpulse libpipewire clang openssl ffmpeg intltool
+sudo pacman -S pkgconf git gtk4 libadwaita libsoup3 alsa-lib libpulse libpipewire clang openssl ffmpeg gettext
 ```
 
 Fedora Linux:
 
 ```shell
 sudo dnf groupinstall "Development Tools"
-sudo dnf install alsa-lib-devel pipewire-devel clang-devel pulseaudio-libs-devel pkgconf-pkg-config glib gtk4-devel libsoup3-devel libadwaita-devel dbus-devel openssl-devel intltool
+sudo dnf install alsa-lib-devel pipewire-devel clang-devel pulseaudio-libs-devel pkgconf-pkg-config glib gtk4-devel libsoup3-devel libadwaita-devel dbus-devel openssl-devel gettext
 ```
 
 MSYS2 with MINGW64 (Windows XP+):
@@ -175,7 +175,7 @@ NOTE: macOS is not officially supported. You may have to first install [XQuartz]
 MacPorts (macOS):
 
 ```bash
-sudo port install libadwaita gtk4 libsoup ffmpeg intltool gmake cctools +xcode
+sudo port install libadwaita gtk4 libsoup ffmpeg gmake cctools +xcode
 # Note: always install/use gettext from brew, cf.: https://github.com/gettext-rs/gettext-rs/issues/140
 brew install gettext
 export GETTEXT_DIR=/opt/homebrew
@@ -184,20 +184,20 @@ export GETTEXT_DIR=/opt/homebrew
 Homebrew (macOS 14+):
 
 ```bash
-brew install libadwaita gtk4 libsoup intltool ffmpeg gettext
+brew install libadwaita gtk4 libsoup ffmpeg gettext
 export GETTEXT_DIR=/opt/homebrew
 ```
 
 Void Linux (libressl):
 
 ```shell
-sudo xbps-install base-devel alsa-lib-devel pipewire-devel clang-devel pulseaudio-devel gtk4-devel libsoup3-devel libadwaita-devel dbus-devel libressl-devel intltool
+sudo xbps-install base-devel alsa-lib-devel pipewire-devel clang-devel pulseaudio-devel gtk4-devel libsoup3-devel libadwaita-devel dbus-devel libressl-devel
 ```
 
 Void Linux (openssl):
 
 ```shell
-sudo xbps-install base-devel alsa-lib-devel pipewire-devel clang-devel pulseaudio-devel gtk4-devel libsoup3-devel libadwaita-devel dbus-devel openssl-devel intltool
+sudo xbps-install base-devel alsa-lib-devel pipewire-devel clang-devel pulseaudio-devel gtk4-devel libsoup3-devel libadwaita-devel dbus-devel openssl-devel
 ```
 
 ### Compiling the project
