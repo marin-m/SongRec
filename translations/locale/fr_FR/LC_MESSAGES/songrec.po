@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-19 21:50+0200\n"
+"POT-Creation-Date: 2026-04-29 19:09+0200\n"
 "PO-Revision-Date: 2026-04-19 16:15+0000\n"
 "Last-Translator: Mejans <farga@mejans.fr>\n"
 "Language-Team: French <https://weblate.fossplant.re/projects/songrec/songrec/"
@@ -47,7 +47,7 @@ msgstr "Avertissement : Pas de connexion réseau"
 
 #: src/cli_main.rs:178 src/core/http_task.rs:55 src/core/http_task.rs:64
 #: src/core/http_task.rs:76 src/core/http_task.rs:119
-#: src/gui/main_window.rs:822 src/gui/main_window.rs:834
+#: src/gui/main_window.rs:820 src/gui/main_window.rs:832
 msgid "No match for this song"
 msgstr "Chanson non reconnue"
 
@@ -191,19 +191,23 @@ msgstr ""
 "microphone dès que celle-ci est lancée (au lieu de cela, attendre que "
 "l'utilisateur clique sur un bouton)."
 
-#: src/core/http_task.rs:126 src/core/fingerprinting/communication.rs:123
+#: src/core/http_task.rs:126 src/core/fingerprinting/communication.rs:124
 msgid "Your IP has been rate-limited"
 msgstr "Votre adresse IP fait l'objet d'une rate-limit"
 
-#: src/core/microphone_thread.rs:71
+#: src/core/microphone_thread.rs:72
 msgid "Audio error:"
 msgstr "Erreur audio :"
 
-#: src/core/preferences.rs:84
+#: src/core/microphone_thread.rs:87
+msgid "Audio error: No input device available"
+msgstr ""
+
+#: src/core/preferences.rs:85
 msgid "When parsing the preferences file:"
 msgstr "Lors de la lecture du fichier de préférences :"
 
-#: src/core/preferences.rs:147
+#: src/core/preferences.rs:149
 msgid "When saving the preferences file:"
 msgstr "Lors de la sauvegarde du fichier de préférences :"
 
@@ -233,37 +237,37 @@ msgstr "Erreur réseau"
 msgid "Unable to enable notification icon"
 msgstr "Impossible d'activer l'icône de notification"
 
-#: src/gui/main_window.rs:728 src/gui/main_window.rs:809
+#: src/gui/main_window.rs:726 src/gui/main_window.rs:807
 msgid "Unable to enable MPRIS support"
 msgstr "Impossible d'activer le support de MRPIS"
 
-#: src/gui/main_window.rs:831
+#: src/gui/main_window.rs:829
 msgid "_Ok"
 msgstr "_Ok"
 
-#: src/gui/main_window.rs:911
+#: src/gui/main_window.rs:909
 msgid "Song recognized"
 msgstr "Chanson identifiée"
 
-#: src/gui/main_window.rs:1055
+#: src/gui/main_window.rs:1053
 msgid "Are you sure you want to wipe history?"
 msgstr "Êtes-vous sûr⋅e de vouloir supprimer l'historique ?"
 
-#: src/gui/main_window.rs:1061
+#: src/gui/main_window.rs:1059
 msgid "_Yes"
 msgstr "_Oui"
 
-#: src/gui/main_window.rs:1062
+#: src/gui/main_window.rs:1060
 msgid "_No"
 msgstr "_Non"
 
-#: src/gui/song_history_interface.rs:94
+#: src/gui/song_history_interface.rs:95
 msgid "Error when reading the song history on the disk:"
 msgstr ""
 "Erreur lors de la lecture de l'historique des chansons reconnues sur le "
 "disque :"
 
-#: src/gui/song_history_interface.rs:164
+#: src/gui/song_history_interface.rs:165
 msgid "Error when reading the favorites on the disk:"
 msgstr "Erreur lors de la lecture des favoris sur le disque :"
 
@@ -275,113 +279,125 @@ msgstr "Ouvrir SongRec"
 msgid "Quit..."
 msgstr "Quitter..."
 
-#: translations/interface.ui.h:1
+#: packaging/freedesktop/re.fossplant.songrec.desktop.in:15
+msgid "SongRec"
+msgstr "SongRec"
+
+#: packaging/freedesktop/re.fossplant.songrec.desktop.in:18
+msgid "An open-source Shazam client for Linux, written in Rust"
+msgstr ""
+
+#: packaging/freedesktop/re.fossplant.songrec.desktop.in:21
+msgid "Rust;GTK;Shazam;Client;Audio;Song;Recognition;Fingerprinting;"
+msgstr ""
+
+#: src/gui/interface.ui:32
 msgid "Recognize songs"
 msgstr "Reconnaître un morceau"
 
-#: translations/interface.ui.h:2
+#: src/gui/interface.ui:38
 msgid "Recognize from file"
 msgstr "Reconnaître depuis un fichier"
 
-#: translations/interface.ui.h:3
+#: src/gui/interface.ui:45
 msgid "Pick a file..."
 msgstr "Sélectionner..."
 
-#: translations/interface.ui.h:4
+#: src/gui/interface.ui:72
 msgid "Recognize from microphone"
 msgstr "Reconnaître depuis le microphone"
 
-#: translations/interface.ui.h:5
+#: src/gui/interface.ui:81
 msgid "Recognize from my speakers"
 msgstr "Reconnaître depuis les haut-parleurs"
 
-#: translations/interface.ui.h:6
+#: src/gui/interface.ui:88
 msgid "Shazam servers are not reachable, are you connected?"
 msgstr "Les serveurs de Shazam sont injoignables, êtes-vous connecté ?"
 
-#: translations/interface.ui.h:7
+#: src/gui/interface.ui:99
 msgid "ERROR: Your IP has been rate-limited"
 msgstr "ERREUR : Votre adresse IP fait l'objet d'une rate-limit"
 
-#: translations/interface.ui.h:8
+#: src/gui/interface.ui:112
 msgid "Recognition results"
 msgstr "Chanson identifiée"
 
-#: translations/interface.ui.h:9
+#: src/gui/interface.ui:151 src/gui/interface.ui:640 src/gui/interface.ui:683
 msgid "Search on YouTube"
 msgstr "Rechercher sur YouTube"
 
-#: translations/interface.ui.h:10
+#: src/gui/interface.ui:158
 msgid "Search..."
 msgstr "Rechercher..."
 
-#: translations/interface.ui.h:11
+#: src/gui/interface.ui:179
 msgid "Refresh available devices"
 msgstr "Actualiser les périphériques disponibles"
 
-#: translations/interface.ui.h:12
+#: src/gui/interface.ui:182
 msgid "Audio input"
 msgstr "Entrée sonore"
 
-#: translations/interface.ui.h:13
+#: src/gui/interface.ui:208
 msgid "Device"
 msgstr "Périphérique"
 
-#: translations/interface.ui.h:14
+#: src/gui/interface.ui:226
 msgid "Volume:"
 msgstr "Volume :"
 
-#: translations/interface.ui.h:15
+#: src/gui/interface.ui:248
 msgid "History options..."
 msgstr "Options de l'historique..."
 
-#: translations/interface.ui.h:16
+#: src/gui/interface.ui:251
 msgid "Recognition history"
 msgstr "Historique de la reconnaissance"
 
-#: translations/interface.ui.h:17
+#: src/gui/interface.ui:279 src/gui/interface.ui:389
 msgid "Song name"
 msgstr "Nom de la chanson"
 
-#: translations/interface.ui.h:18
+#: src/gui/interface.ui:292 src/gui/interface.ui:402
 msgid "Album"
 msgstr "Album"
 
-#: translations/interface.ui.h:19
+#: src/gui/interface.ui:306 src/gui/interface.ui:416
 msgid "Recognition date"
 msgstr "Date de reconnaissance"
 
-#: translations/interface.ui.h:20
+#: src/gui/interface.ui:323
 msgid "View favorites"
 msgstr "Voir les favoris"
 
-#: translations/interface.ui.h:21
+#: src/gui/interface.ui:350
 msgid "Application menu"
 msgstr "Menu de l'application"
 
-#: translations/interface.ui.h:22
+#: src/gui/interface.ui:434 src/gui/interface.ui:600
 msgid "Export to CSV"
 msgstr "Exporter au format CSV"
 
-#: translations/interface.ui.h:23
+#: src/gui/interface.ui:444
 msgid "Favorites"
 msgstr "Mes favoris"
 
-#: translations/interface.ui.h:24
+#: src/gui/interface.ui:455
 msgid "General preferences"
 msgstr "Préférences générales"
 
-#: translations/interface.ui.h:25
+#: src/gui/interface.ui:459
 msgid "Notify when a new song is recognized or network error is encountered"
 msgstr ""
 "Notifier lorsqu'une nouvelle chanson est reconnue ou une erreur réseau est "
 "rencontrée"
 
-#: translations/interface.ui.h:26
+#: src/gui/interface.ui:460 src/gui/interface.ui:568
 msgid "Show notifications"
 msgstr "Afficher les notifications"
 
-#: translations/interface.ui.h:27
+#: src/gui/interface.ui:467
 msgid ""
 "MPRIS will display information about recognized songs in places like the "
 "GNOME or KDE control panel"
@@ -389,11 +405,11 @@ msgstr ""
 "MPRIS va afficher des informations à propos des chansons reconnues à des "
 "endroits comme le panneau de contrôle KDE ou GNOME"
 
-#: translations/interface.ui.h:28
+#: src/gui/interface.ui:468
 msgid "Enable MPRIS"
 msgstr "Activer MPRIS"
 
-#: translations/interface.ui.h:29
+#: src/gui/interface.ui:475
 msgid ""
 "When closing the window, minimize to system tray using KSNI instead of "
 "closing the app. Please note that you may have to increase the \"request "
@@ -406,11 +422,11 @@ msgstr ""
 "SongRec fonctionne en arrière-plain afin de réduire les risques de rate-"
 "limit."
 
-#: translations/interface.ui.h:30
+#: src/gui/interface.ui:476
 msgid "Minimize to system tray"
 msgstr "Minimiser dans la zone de notifications"
 
-#: translations/interface.ui.h:31
+#: src/gui/interface.ui:483
 msgid ""
 "Bump a song to the top of the history list and remove the former entry when "
 "the same song is detected multiple times"
@@ -418,23 +434,23 @@ msgstr ""
 "Faire remonter une chanson en haut de l'historique et enlever les autres "
 "entrées quand une chanson est détectée plusieurs fois"
 
-#: translations/interface.ui.h:32
+#: src/gui/interface.ui:484
 msgid "No duplicates in history"
 msgstr "Empêcher les doublons dans l'historique"
 
-#: translations/interface.ui.h:33
+#: src/gui/interface.ui:491
 msgid "Network preferences"
 msgstr "Préférences réseau"
 
-#: translations/interface.ui.h:34
+#: src/gui/interface.ui:508
 msgid "By default 8, increase if you are rate-limited"
 msgstr "Par défaut 8, augmenter en cas de rate-limit"
 
-#: translations/interface.ui.h:35
+#: src/gui/interface.ui:509
 msgid "Shazam interval between requests in seconds"
 msgstr "Intervalle en secondes entre les requêtes vers Shazam"
 
-#: translations/interface.ui.h:36
+#: src/gui/interface.ui:529
 msgid ""
 "By default the last 12 seconds of music are fingerprinted and sent to "
 "Shazam. Editing may have an impact on reliability"
@@ -443,57 +459,141 @@ msgstr ""
 "sont envoyées à Shazam. Modifier ce paramètre peut avoir un impact sur la "
 "fiabilité du processus"
 
-#: translations/interface.ui.h:37
+#: src/gui/interface.ui:530
 msgid "Shazam buffer size in seconds"
 msgstr "Taille du tampon audio en secondes"
 
-#: translations/interface.ui.h:38
+#: src/gui/interface.ui:544
 msgid "Settings"
 msgstr "Paramètres"
 
-#: translations/interface.ui.h:39
+#: src/gui/interface.ui:572
 msgid "_Preferences..."
 msgstr "_Préférences..."
 
-#: translations/interface.ui.h:40
+#: src/gui/interface.ui:579
 msgid "About..."
 msgstr "À propos..."
 
-#: translations/interface.ui.h:41
+#: src/gui/interface.ui:604
 msgid "Delete history"
 msgstr "Supprimer l'historique"
 
-#: translations/interface.ui.h:42
+#: src/gui/interface.ui:608
 msgid "Select a file to recognize"
 msgstr "Sélectionner un fichier à reconnaître"
 
-#: translations/interface.ui.h:43
+#: src/gui/interface.ui:618 src/gui/interface.ui:661
 msgid "Copy artist and track"
 msgstr "Copier l'artiste et le morceau"
 
-#: translations/interface.ui.h:44
+#: src/gui/interface.ui:623 src/gui/interface.ui:666
 msgid "Copy artist"
 msgstr "Copier l'artiste"
 
-#: translations/interface.ui.h:45
+#: src/gui/interface.ui:628 src/gui/interface.ui:671
 msgid "Copy track name"
 msgstr "Copier le nom du morceau"
 
-#: translations/interface.ui.h:46
+#: src/gui/interface.ui:633 src/gui/interface.ui:676
 msgid "Copy album"
 msgstr "Copier l'album"
 
-#: translations/interface.ui.h:47
+#: src/gui/interface.ui:647
 msgid "Delete from History"
 msgstr "Supprimer de l'historique"
 
-#: translations/interface.ui.h:48
+#: src/gui/interface.ui:652
 msgid "Add to Favorites"
 msgstr "Ajouter aux favoris"
 
-#: translations/interface.ui.h:49
+#: src/gui/interface.ui:690
 msgid "Remove from Favorites"
 msgstr "Supprimer des favoris"
+
+#: src/gui/interface.ui:700
+msgctxt "\"General\" section in the Shortcuts window"
+msgid "General"
+msgstr ""
+
+#: src/gui/interface.ui:705
+msgctxt "In the shortcuts window"
+msgid "Close the application"
+msgstr ""
+
+#: src/gui/interface.ui:712
+msgctxt "In the shortcuts window"
+msgid "Recognize from a file"
+msgstr ""
+
+#: src/gui/interface.ui:719
+msgctxt "In the shortcuts window"
+msgid "Show preferences"
+msgstr ""
+
+#: src/gui/interface.ui:726
+msgctxt "In the shortcuts window"
+msgid "Display shortcuts"
+msgstr ""
+
+#: src/gui/interface.ui:733
+msgctxt "win.show-menu"
+msgid "Show menu"
+msgstr ""
+
+#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:11
+msgid "Recognize songs from audio easily"
+msgstr ""
+
+#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:13
+msgid ""
+"SongRec is an unofficial Shazam client for Linux, written in Rust. It allows "
+"you to easily recognize songs from your speakers, microphone or audio files."
+msgstr ""
+
+#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:14
+msgid "Features:"
+msgstr ""
+
+#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:15
+msgid "- Recognize audio from an arbitrary audio file."
+msgstr ""
+
+#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:16
+msgid "- Recognize audio from the microphone."
+msgstr ""
+
+#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:17
+msgid "- Usage from both GUI and command line."
+msgstr ""
+
+#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:18
+msgid ""
+"- Provide an history of the recognized songs on the GUI, exportable to CSV."
+msgstr ""
+
+#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:19
+msgid ""
+"- Continuous song detection from the microphone, with the ability to choose "
+"your input device."
+msgstr ""
+
+#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:20
+msgid ""
+"- Ability to recognize songs from your speakers rather than your microphone."
+msgstr ""
+
+#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:25
+msgid "SongRec's main window"
+msgstr ""
+
+#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:29
+msgid "SongRec's favourites window"
+msgstr ""
+
+#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:33
+msgid "SongRec's main window, on GNOME in dark mode"
+msgstr ""
 
 #~ msgid ""
 #~ "When closing the window, minimize to system tray using libayatana-"
@@ -593,9 +693,6 @@ msgstr "Supprimer des favoris"
 
 #~ msgid "Wipe history"
 #~ msgstr "Supprimer l'historique"
-
-#~ msgid "SongRec"
-#~ msgstr "SongRec"
 
 #~ msgid ""
 #~ "Convert a data-URI Shazam fingerprint into hearable tones, played back "
