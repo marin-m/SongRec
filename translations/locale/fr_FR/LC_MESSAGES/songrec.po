@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-29 19:21+0200\n"
+"POT-Creation-Date: 2026-04-29 20:26+0200\n"
 "PO-Revision-Date: 2026-04-29 17:40+0000\n"
 "Last-Translator: Marin <25437947+marin-m@users.noreply.github.com>\n"
 "Language-Team: French <https://weblate.fossplant.re/projects/songrec/songrec/"
@@ -284,14 +284,13 @@ msgstr "Quitter..."
 msgid "SongRec"
 msgstr "SongRec"
 
-#: packaging/freedesktop/re.fossplant.songrec.desktop.in:18
+#: packaging/freedesktop/re.fossplant.songrec.desktop.in:17
 msgid "An open-source Shazam client for Linux, written in Rust"
 msgstr "Un client Shazam open-source pour Linux, écrit en Rust"
 
-#: packaging/freedesktop/re.fossplant.songrec.desktop.in:21
+#: packaging/freedesktop/re.fossplant.songrec.desktop.in:19
 msgid "Rust;GTK;Shazam;Client;Audio;Song;Recognition;Fingerprinting;"
-msgstr ""
-"Rust;GTK;Shazam;Client;Audio;Chanson;Morceau;Reconnaissance;Fingerprinting;"
+msgstr "Rust;GTK;Shazam;Client;Audio;Chanson;Morceau;Reconnaissance;Fingerprinting;"
 
 #: src/gui/interface.ui:32
 msgid "Recognize songs"

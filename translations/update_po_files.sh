@@ -8,7 +8,7 @@ cd "$(dirname "$0")/.."
 # https://stackoverflow.com/questions/55981602/internationalize-python-project-using-pygtk3-and-glade
 
 # Dependencies:
-# sudo apt install gettext poedit
+# sudo apt install gettext sed poedit
 
 # Extract the translation strings present in the Glade file
 
@@ -36,14 +36,33 @@ done
 # as needed, if a tool like "poedit" didn't already
 # do it automatically
 
+cp packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in \
+    packaging/rootfs/usr/share/metainfo/re.fossplant.songrec.metainfo.xml
+
+cp packaging/freedesktop/re.fossplant.songrec.desktop.in \
+    packaging/rootfs/usr/share/applications/re.fossplant.songrec.desktop
+
 for locale in translations/locale/*; do
     msgfmt ${locale}/LC_MESSAGES/songrec.po -o ${locale}/LC_MESSAGES/songrec.mo
 
-    msgfmt --xml ${locale}/LC_MESSAGES/songrec.po -l ${locale} \
-        --template packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in \
-        -o packaging/rootfs/usr/share/metainfo/re.fossplant.songrec.metainfo.xml
+    msgfmt --xml ${locale}/LC_MESSAGES/songrec.po -l "$(basename ${locale})" \
+        --template packaging/rootfs/usr/share/metainfo/re.fossplant.songrec.metainfo.xml \
+        -o packaging/rootfs/usr/share/metainfo/re.fossplant.songrec.metainfo.xml.new
 
-    msgfmt --desktop ${locale}/LC_MESSAGES/songrec.po -l ${locale} \
-        --template packaging/freedesktop/re.fossplant.songrec.desktop.in \
-        -o packaging/rootfs/usr/share/applications/re.fossplant.songrec.desktop
+    mv packaging/rootfs/usr/share/metainfo/re.fossplant.songrec.metainfo.xml.new \
+        packaging/rootfs/usr/share/metainfo/re.fossplant.songrec.metainfo.xml
+
+    msgfmt --desktop ${locale}/LC_MESSAGES/songrec.po -l "$(basename ${locale})" \
+        --template packaging/rootfs/usr/share/applications/re.fossplant.songrec.desktop \
+        -o packaging/rootfs/usr/share/applications/re.fossplant.songrec.desktop.new
+
+    mv packaging/rootfs/usr/share/applications/re.fossplant.songrec.desktop.new \
+        packaging/rootfs/usr/share/applications/re.fossplant.songrec.desktop
 done
+
+sed -z 's/  <name xml:[^\n]*\n//g' \
+    packaging/rootfs/usr/share/metainfo/re.fossplant.songrec.metainfo.xml > \
+    packaging/rootfs/usr/share/metainfo/re.fossplant.songrec.metainfo.xml.new
+
+mv packaging/rootfs/usr/share/metainfo/re.fossplant.songrec.metainfo.xml.new \
+    packaging/rootfs/usr/share/metainfo/re.fossplant.songrec.metainfo.xml

@@ -9,28 +9,40 @@
     <color type="primary" scheme_preference="dark">#664D96</color>
   </branding>
   <summary>Recognize songs from audio easily</summary>
+  <summary xml:lang="fr-FR">Reconnaître de la musique à partir d'audio facilement</summary>
   <description>
     <p>SongRec is an unofficial Shazam client for Linux, written in Rust. It allows you to easily recognize songs from your speakers, microphone or audio files.</p>
+    <p xml:lang="fr-FR">SongRec est un client Shazam non-officiel pour Linux, écrit en Rust. Il vous permet de reconnaître facilement des chansons à partir de vos hauts-parleurs, microphones ou fichiers audio.</p>
     <p>Features:</p>
+    <p xml:lang="fr-FR">Fonctionnalités :</p>
     <p>- Recognize audio from an arbitrary audio file.</p>
+    <p xml:lang="fr-FR">- Reconnaître des chansons à partir d'un fichier audio arbitraire.</p>
     <p>- Recognize audio from the microphone.</p>
+    <p xml:lang="fr-FR">- Reconnaître des chansons à partir du microphone.</p>
     <p>- Usage from both GUI and command line.</p>
+    <p xml:lang="fr-FR">- Utilisable en mode graphique et depuis la ligne de commande.</p>
     <p>- Provide an history of the recognized songs on the GUI, exportable to CSV.</p>
+    <p xml:lang="fr-FR">- Fournit un historique des chansons reconnues via l'interface graphique, exportable au format CSV.</p>
     <p>- Continuous song detection from the microphone, with the ability to choose your input device.</p>
+    <p xml:lang="fr-FR">- Reconnaissance continue de l'audio à partir du microphone, avec la possibilité de choisir votre périphérique d'entrée.</p>
     <p>- Ability to recognize songs from your speakers rather than your microphone.</p>
+    <p xml:lang="fr-FR">- Possibilité de reconnaître les chansons à partir de vos hauts-parleurs plutôt que votre microphone.</p>
   </description>
   <screenshots>
     <screenshot type="default">
       <image type="source" scale="2">https://raw.githubusercontent.com/marin-m/SongRec/57bfe25/packaging/Screenshot_hires_light.png</image>
       <caption>SongRec's main window</caption>
+      <caption xml:lang="fr-FR">La fenêtre principale de SongRec</caption>
     </screenshot>
     <screenshot>
       <image type="source" scale="2">https://raw.githubusercontent.com/marin-m/SongRec/57bfe25/packaging/Screenshot_favourites_light.png</image>
       <caption>SongRec's favourites window</caption>
+      <caption xml:lang="fr-FR">La fenêtre des favoris de SongRec</caption>
     </screenshot>
     <screenshot environment="gnome:dark">
       <image type="source" scale="2">https://raw.githubusercontent.com/marin-m/SongRec/57bfe25/packaging/Screenshot_hires_dark.png</image>
       <caption>SongRec's main window, on GNOME in dark mode</caption>
+      <caption xml:lang="fr-FR">La fenêtre principale de SongRec, avec GNOME en mode sombre</caption>
     </screenshot>
   </screenshots>
   <translation type="gettext">songrec</translation>

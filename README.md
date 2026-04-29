@@ -136,20 +136,20 @@ rustup update
 Debian and Ubuntu:
 
 ```bash
-sudo apt install build-essential libasound2-dev libpipewire-0.3-dev libclang-dev libpulse-dev libgtk-4-dev libsoup-3.0-dev libadwaita-1-dev libdbus-1-dev gettext
+sudo apt install build-essential libasound2-dev libpipewire-0.3-dev libclang-dev libpulse-dev libgtk-4-dev libsoup-3.0-dev libadwaita-1-dev libdbus-1-dev gettext sed
 ```
 
 Archlinux:
 
 ```bash
-sudo pacman -S pkgconf git gtk4 libadwaita libsoup3 alsa-lib libpulse libpipewire clang openssl ffmpeg gettext
+sudo pacman -S pkgconf git gtk4 libadwaita libsoup3 alsa-lib libpulse libpipewire clang openssl ffmpeg gettext sed
 ```
 
 Fedora Linux:
 
 ```shell
 sudo dnf groupinstall "Development Tools"
-sudo dnf install alsa-lib-devel pipewire-devel clang-devel pulseaudio-libs-devel pkgconf-pkg-config glib gtk4-devel libsoup3-devel libadwaita-devel dbus-devel openssl-devel gettext
+sudo dnf install alsa-lib-devel pipewire-devel clang-devel pulseaudio-libs-devel pkgconf-pkg-config glib gtk4-devel libsoup3-devel libadwaita-devel dbus-devel openssl-devel gettext sed
 ```
 
 MSYS2 with MINGW64 (Windows XP+):
