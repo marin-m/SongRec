@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-29 19:09+0200\n"
+"POT-Creation-Date: 2026-04-29 19:21+0200\n"
 "PO-Revision-Date: 2026-04-09 19:16+0000\n"
 "Last-Translator: Arda Aydın <arda.aydin@operationsilkscarf.com>\n"
 "Language-Team: Turkish <https://weblate.fossplant.re/projects/songrec/"
@@ -31,8 +31,9 @@ msgid "Exiting: no audio devices found!"
 msgstr "Çıkılıyor: Hiçbir ses cihazı bulunamadı!"
 
 #: src/cli_main.rs:146
-msgid "Using device"
-msgstr "Kullanılan cihaz"
+#, c-format
+msgid "Using device %s"
+msgstr ""
 
 #: src/cli_main.rs:170
 msgid "Error: Network unreachable"
@@ -577,3 +578,6 @@ msgstr ""
 #: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:33
 msgid "SongRec's main window, on GNOME in dark mode"
 msgstr ""
+
+#~ msgid "Using device"
+#~ msgstr "Kullanılan cihaz"

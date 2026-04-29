@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-29 19:09+0200\n"
+"POT-Creation-Date: 2026-04-29 19:21+0200\n"
 "PO-Revision-Date: 2023-12-30 23:42+0900\n"
 "Last-Translator: 이정희 <daemul72@gmail.com>\n"
 "Language-Team: \n"
@@ -30,8 +30,9 @@ msgid "Exiting: no audio devices found!"
 msgstr "종료 중: 오디오 장치를 찾을 수 없습니다!"
 
 #: src/cli_main.rs:146
-msgid "Using device"
-msgstr "장치 사용 중"
+#, c-format
+msgid "Using device %s"
+msgstr ""
 
 #: src/cli_main.rs:170
 msgid "Error: Network unreachable"
@@ -552,6 +553,9 @@ msgstr ""
 #: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:33
 msgid "SongRec's main window, on GNOME in dark mode"
 msgstr ""
+
+#~ msgid "Using device"
+#~ msgstr "장치 사용 중"
 
 #~ msgid "Microphone error:"
 #~ msgstr "마이크 오류:"

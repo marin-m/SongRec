@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: SongRec\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-29 19:09+0200\n"
+"POT-Creation-Date: 2026-04-29 19:21+0200\n"
 "PO-Revision-Date: 2022-07-24 13:29+0200\n"
 "Last-Translator: Ismael Ferreras Morezuelas <swyterzone+songrec@gmail.com>\n"
 "Language-Team: Swyter <swyterzone@gmail.com>\n"
@@ -31,8 +31,9 @@ msgid "Exiting: no audio devices found!"
 msgstr "Saliendo: no se ha encontrado ningún dispositivo de sonido."
 
 #: src/cli_main.rs:146
-msgid "Using device"
-msgstr "Utilizando el dispositivo"
+#, c-format
+msgid "Using device %s"
+msgstr ""
 
 #: src/cli_main.rs:170
 msgid "Error: Network unreachable"
@@ -570,6 +571,9 @@ msgstr ""
 #: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:33
 msgid "SongRec's main window, on GNOME in dark mode"
 msgstr ""
+
+#~ msgid "Using device"
+#~ msgstr "Utilizando el dispositivo"
 
 #~ msgid "Microphone error:"
 #~ msgstr "Hubo un problema con el micrófono:"

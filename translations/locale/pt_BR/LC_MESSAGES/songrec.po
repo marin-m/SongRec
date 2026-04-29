@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: SongRec\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-29 19:09+0200\n"
+"POT-Creation-Date: 2026-04-29 19:21+0200\n"
 "PO-Revision-Date: 2026-03-09 15:02+0000\n"
 "Last-Translator: marcelo cripe <marcelocripe@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://weblate.fossplant.re/projects/"
@@ -37,8 +37,9 @@ msgstr ""
 "O programa será fechado, porque nenhum dispositivo de áudio foi encontrado"
 
 #: src/cli_main.rs:146
-msgid "Using device"
-msgstr "Utilizando o dispositivo"
+#, c-format
+msgid "Using device %s"
+msgstr ""
 
 #: src/cli_main.rs:170
 msgid "Error: Network unreachable"
@@ -615,6 +616,9 @@ msgstr ""
 #: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:33
 msgid "SongRec's main window, on GNOME in dark mode"
 msgstr ""
+
+#~ msgid "Using device"
+#~ msgstr "Utilizando o dispositivo"
 
 #~ msgid "Microphone error:"
 #~ msgstr "Ocorreu um problema com o microfone:"

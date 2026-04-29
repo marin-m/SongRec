@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-29 19:09+0200\n"
+"POT-Creation-Date: 2026-04-29 19:21+0200\n"
 "PO-Revision-Date: 2026-04-19 16:15+0000\n"
 "Last-Translator: Mejans <farga@mejans.fr>\n"
 "Language-Team: French <https://weblate.fossplant.re/projects/songrec/songrec/"
@@ -34,8 +34,9 @@ msgid "Exiting: no audio devices found!"
 msgstr "Fin de l'exécution : aucun périphérique audio disponible !"
 
 #: src/cli_main.rs:146
-msgid "Using device"
-msgstr "Utilisation du périphérique"
+#, c-format
+msgid "Using device %s"
+msgstr ""
 
 #: src/cli_main.rs:170
 msgid "Error: Network unreachable"
@@ -594,6 +595,9 @@ msgstr ""
 #: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:33
 msgid "SongRec's main window, on GNOME in dark mode"
 msgstr ""
+
+#~ msgid "Using device"
+#~ msgstr "Utilisation du périphérique"
 
 #~ msgid ""
 #~ "When closing the window, minimize to system tray using libayatana-"

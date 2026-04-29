@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-29 19:09+0200\n"
+"POT-Creation-Date: 2026-04-29 19:21+0200\n"
 "PO-Revision-Date: 2026-03-09 12:56+0000\n"
 "Last-Translator: Mu7ammed Basha "
 "<mu7basha@users.noreply.weblate.fossplant.re>\n"
@@ -35,8 +35,9 @@ msgid "Exiting: no audio devices found!"
 msgstr "جارٍ المغادرة: لم يُعثر على أجهزة صوت!"
 
 #: src/cli_main.rs:146
-msgid "Using device"
-msgstr "الجهاز المُستخدَم"
+#, c-format
+msgid "Using device %s"
+msgstr ""
 
 #: src/cli_main.rs:170
 msgid "Error: Network unreachable"
@@ -571,3 +572,6 @@ msgstr ""
 #: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:33
 msgid "SongRec's main window, on GNOME in dark mode"
 msgstr ""
+
+#~ msgid "Using device"
+#~ msgstr "الجهاز المُستخدَم"

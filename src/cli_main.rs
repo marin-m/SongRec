@@ -143,7 +143,7 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
                         }
                         &device_names[0].inner_name
                     };
-                    info!("{} {}", gettext("Using device"), dev_name);
+                    info!("{}", gettext("Using device %s").replace("%s", dev_name));
                     microphone_tx
                         .try_send(MicrophoneMessage::MicrophoneRecordStart(
                             dev_name.to_owned(),
