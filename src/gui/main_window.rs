@@ -356,12 +356,14 @@ impl App {
             self.favorites_interface.clone(),
         );
 
+        let prefs_rc = Rc::new(RefCell::new(self.preferences_interface.lock().unwrap().preferences.clone()));
         ContextMenuUtil::bind_actions(
             self.builder.object("main_window").unwrap(),
             self.builder.object("history_context_menu").unwrap(),
             self.ctx_selected_item.clone(),
             self.song_history_interface.clone(),
             self.favorites_interface.clone(),
+            prefs_rc,
         );
 
         // See:
@@ -1206,7 +1208,7 @@ impl App {
                 };
 
                 // If a custom search URL was provided, use it instead of YouTube;
-                // attach the search term at the end of the provided strign.
+                // attach the search term at the end of the provided string.
                 let search_url = if let Some(url) = website_search_url.filter(|s| !s.is_empty()) {
                     format!("{}{}", url, encoded_search_term)
                 } else {
