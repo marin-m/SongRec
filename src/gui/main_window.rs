@@ -268,6 +268,19 @@ impl App {
         }
     }
 
+    fn update_website_search_text(&self) {
+        let search_row: adw::ActionRow = self.builder.object("search_youtube_row").expect("UI is missing search_youtube_row");
+        let preferences = &self.preferences_interface.lock().unwrap().preferences;
+
+        let label = preferences.website_search_text
+            .as_ref()
+            .filter(|s| !s.is_empty())
+            .map(|s| s.to_string())
+            .unwrap_or_else(|| gettext("Search on YouTube"));
+
+        search_row.set_title(&label);
+    }
+
     fn on_startup(
         &self,
         application: &adw::Application,
@@ -283,6 +296,7 @@ impl App {
             Self::setup_systray(self.ctx_systray_handle.clone(), window, self.gui_tx.clone());
         }
         self.setup_context_menus();
+        self.update_website_search_text();
         self.show_window(application);
     }
 
@@ -1174,6 +1188,8 @@ impl App {
             })
             .build();
 
+        let preferences_interface_ptr = self.preferences_interface.clone();
+
         let action_search_youtube = gio::ActionEntry::builder("search-youtube")
             .activate(move |window: &adw::ApplicationWindow, _, _| {
                 let window = window.clone();
@@ -1184,10 +1200,21 @@ impl App {
                     utf8_percent_encode(results_label.as_str(), NON_ALPHANUMERIC).to_string();
                 encoded_search_term = encoded_search_term.replace("%20", "+");
 
-                let search_url = format!(
-                    "https://www.youtube.com/results?search_query={}",
-                    encoded_search_term
-                );
+                let website_search_url = {
+                    let lock = preferences_interface_ptr.lock().unwrap();
+                    lock.preferences.website_search_url.clone()
+                };
+
+                // If a custom search URL was provided, use it instead of YouTube;
+                // attach the search term at the end of the provided strign.
+                let search_url = if let Some(url) = website_search_url.filter(|s| !s.is_empty()) {
+                    format!("{}{}", url, encoded_search_term)
+                } else {
+                    format!(
+                        "https://www.youtube.com/results?search_query={}",
+                        encoded_search_term
+                    )
+                };
 
                 glib::spawn_future_local(async move {
                     info!("Launching URL: {}", search_url);
