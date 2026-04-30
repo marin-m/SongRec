@@ -8,7 +8,7 @@ readme = "README.md"
 keywords = ["shazam", "audio", "audio-fingerprinting"]
 categories = ["multimedia::audio", "command-line-utilities"]
 version = "0.6.9"
-rust-version = "1.87"
+rust-version = "1.88"
 authors = ["marin-m"]
 edition = "2018"
 

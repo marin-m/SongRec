@@ -12,9 +12,9 @@ Build-Depends: debhelper (>= 10),
                libgtk-4-dev (>= 4.14),
                libsoup-3.0-dev (>= 3.4),
                libadwaita-1-dev (>= 1.5),
-               cargo-1.89 | cargo-1.88 | cargo (>= 1.87) | rustup,
+               cargo-1.89 | cargo-1.88 | cargo (>= 1.88) | rustup,
                rsync,
-               rustc-1.89 | rustc-1.88 | rustc (>= 1.87) | rustup
+               rustc-1.89 | rustc-1.88 | rustc (>= 1.88) | rustup
 Homepage: https://songrec.fossplant.re/
 Vcs-Git: https://github.com/marin-m/songrec.git
 Vcs-Browser: https://github.com/marin-m/SongRec
