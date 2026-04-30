@@ -269,10 +269,14 @@ impl App {
     }
 
     fn update_website_search_text(&self) {
-        let search_row: adw::ActionRow = self.builder.object("search_youtube_row").expect("UI is missing search_youtube_row");
+        let search_row: adw::ActionRow = self
+            .builder
+            .object("search_youtube_row")
+            .expect("UI is missing search_youtube_row");
         let preferences = &self.preferences_interface.lock().unwrap().preferences;
 
-        let label = preferences.website_search_text
+        let label = preferences
+            .website_search_text
             .as_ref()
             .filter(|s| !s.is_empty())
             .map(|s| s.to_string())
@@ -356,7 +360,13 @@ impl App {
             self.favorites_interface.clone(),
         );
 
-        let prefs_rc = Rc::new(RefCell::new(self.preferences_interface.lock().unwrap().preferences.clone()));
+        let prefs_rc = Rc::new(RefCell::new(
+            self.preferences_interface
+                .lock()
+                .unwrap()
+                .preferences
+                .clone(),
+        ));
         ContextMenuUtil::bind_actions(
             self.builder.object("main_window").unwrap(),
             self.builder.object("history_context_menu").unwrap(),
