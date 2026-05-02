@@ -20,6 +20,8 @@ pub struct Preferences {
     pub request_interval_secs_v2: Option<u64>, // before decreasing from 10 to 8
     pub request_interval_secs_v3: Option<u64>,
     pub current_device_name: Option<String>,
+    pub website_search_url: Option<String>,
+    pub website_search_text: Option<String>,
 }
 
 impl Preferences {
@@ -35,6 +37,8 @@ impl Preferences {
             request_interval_secs_v2: None,
             request_interval_secs_v3: None,
             current_device_name: None,
+            website_search_url: None,
+            website_search_text: None,
         }
     }
 
@@ -50,6 +54,8 @@ impl Preferences {
             request_interval_secs_v2: None,
             request_interval_secs_v3: Some(interval),
             current_device_name: None,
+            website_search_url: None,
+            website_search_text: None,
         }
     }
 }
@@ -67,6 +73,8 @@ impl Default for Preferences {
             request_interval_secs_v2: None,
             request_interval_secs_v3: Some(8),
             current_device_name: None,
+            website_search_url: None,
+            website_search_text: None,
         }
     }
 }
@@ -144,6 +152,12 @@ impl PreferencesInterface {
             current_device_name: update_preferences
                 .current_device_name
                 .or_else(|| current_preferences.current_device_name.clone()),
+            website_search_url: update_preferences
+                .website_search_url
+                .or_else(|| current_preferences.website_search_url.clone()),
+            website_search_text: update_preferences
+                .website_search_text
+                .or_else(|| current_preferences.website_search_text.clone()),
         };
         if let Err(error) = self.write() {
             error!("{} {}", gettext("When saving the preferences file:"), error);

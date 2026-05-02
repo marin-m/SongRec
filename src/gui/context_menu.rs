@@ -11,6 +11,7 @@ use std::rc::Rc;
 
 use crate::gui::song_history_interface::FavoritesInterface;
 
+use crate::core::preferences::Preferences;
 use crate::gui::history_entry::HistoryEntry;
 use crate::gui::song_history_interface::{RecognitionHistoryInterface, SongRecordInterface};
 
@@ -159,6 +160,7 @@ impl ContextMenuUtil {
         ctx_selected_item: Rc<RefCell<Option<HistoryEntry>>>,
         history_interface: Rc<RefCell<RecognitionHistoryInterface>>,
         favorites_interface: Rc<RefCell<FavoritesInterface>>,
+        preferences: Rc<RefCell<Preferences>>,
     ) {
         let item = ctx_selected_item.clone();
         let action_copy_artist_track = gio::ActionEntry::builder("copy-artist-track")
@@ -215,6 +217,7 @@ impl ContextMenuUtil {
             .build();
 
         let item = ctx_selected_item.clone();
+        let prefs = preferences.clone();
         let action_search_youtube = gio::ActionEntry::builder("search-on-youtube")
             .activate(clone!(
                 #[weak]
@@ -228,10 +231,20 @@ impl ContextMenuUtil {
                                 .to_string();
                         encoded_search_term = encoded_search_term.replace("%20", "+");
 
-                        let search_url = format!(
-                            "https://www.youtube.com/results?search_query={}",
-                            encoded_search_term
-                        );
+                        let p = prefs.borrow();
+                        let website_search_url = p.website_search_url.as_deref();
+
+                        // If a custom search URL was provided, use it instead of YouTube;
+                        // attach the search term at the end of the provided string.
+                        let search_url =
+                            if let Some(url) = website_search_url.filter(|s| !s.is_empty()) {
+                                format!("{}{}", url, encoded_search_term)
+                            } else {
+                                format!(
+                                    "https://www.youtube.com/results?search_query={}",
+                                    encoded_search_term
+                                )
+                            };
 
                         glib::spawn_future_local(async move {
                             info!("Launching URL: {}", search_url);
