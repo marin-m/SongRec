@@ -112,12 +112,17 @@ impl App {
         // Self::add_callbacks_to_scope(&scope);
         builder.set_scope(Some(&builder_scope));
 
+        let preferences_interface: PreferencesInterface = PreferencesInterface::new();
+        let old_preferences: Preferences = preferences_interface.preferences.clone();
+        let preferences_interface = Arc::new(Mutex::new(preferences_interface));
+
         Self::setup_callbacks(
             microphone_tx.clone(),
             gui_tx.clone(),
             builder.clone(),
             builder_scope,
             favorites_interface.clone(),
+            preferences_interface.clone(),
             ctx_selected_item.clone(),
         );
         builder
@@ -130,10 +135,6 @@ impl App {
         let favorites_selection: gtk::SingleSelection =
             builder.object("favorites_selection").unwrap();
         favorites_selection.set_model(Some(&favorites_list_store));
-
-        let preferences_interface: PreferencesInterface = PreferencesInterface::new();
-        let old_preferences: Preferences = preferences_interface.preferences.clone();
-        let preferences_interface = Arc::new(Mutex::new(preferences_interface));
 
         let buffer_size_value: gtk::Adjustment = builder.object("buffer_size_value").unwrap();
         buffer_size_value.set_value(old_preferences.buffer_size_secs.unwrap() as f64);
@@ -268,6 +269,32 @@ impl App {
         }
     }
 
+    fn update_website_search_text(&self) {
+        let search_row: adw::ActionRow = self.builder.object("search_youtube_row").unwrap();
+        let search_name_row: adw::EntryRow = self.builder.object("search_engine_name").unwrap();
+        let search_url_row: adw::EntryRow = self.builder.object("search_engine_url").unwrap();
+
+        let preferences = self
+            .preferences_interface
+            .lock()
+            .unwrap()
+            .preferences
+            .clone();
+
+        let label = preferences
+            .website_search_text
+            .unwrap_or(gettext("Search on YouTube"));
+
+        let url = preferences
+            .website_search_url
+            .unwrap_or("https://www.youtube.com/results?search_query=".to_string());
+
+        search_name_row.set_text(&label);
+        search_url_row.set_text(&url);
+
+        search_row.set_title(&label);
+    }
+
     fn on_startup(
         &self,
         application: &adw::Application,
@@ -283,6 +310,7 @@ impl App {
             Self::setup_systray(self.ctx_systray_handle.clone(), window, self.gui_tx.clone());
         }
         self.setup_context_menus();
+        self.update_website_search_text();
         self.show_window(application);
     }
 
@@ -348,6 +376,7 @@ impl App {
             self.ctx_selected_item.clone(),
             self.song_history_interface.clone(),
             self.favorites_interface.clone(),
+            self.preferences_interface.clone(),
         );
 
         // See:
@@ -362,8 +391,49 @@ impl App {
         builder_shared: gtk::Builder,
         builder_scope: gtk::BuilderRustScope,
         favorites: Rc<RefCell<FavoritesInterface>>,
+        preferences_shared: Arc<Mutex<PreferencesInterface>>,
         ctx_selected_item: Rc<RefCell<Option<HistoryEntry>>>,
     ) {
+        let gui_tx = gui_tx_shared.clone();
+        let builder = builder_shared.clone();
+        let preferences = preferences_shared.clone();
+
+        builder_scope.add_callback("search_engine_action_changed", move |values| {
+            let entry_row = values[0].get::<adw::EntryRow>().unwrap();
+
+            let search_row: adw::ActionRow = builder.object("search_youtube_row").unwrap();
+            search_row.set_title(&entry_row.text().to_string());
+
+            let lock = preferences.lock().unwrap();
+            if lock.preferences.website_search_text != Some(entry_row.text().to_string()) {
+                let mut new_preference = Preferences::new();
+                new_preference.website_search_text = Some(entry_row.text().to_string());
+                gui_tx
+                    .try_send(GUIMessage::UpdatePreference(new_preference))
+                    .unwrap();
+            }
+
+            None
+        });
+
+        let gui_tx = gui_tx_shared.clone();
+        let preferences = preferences_shared.clone();
+
+        builder_scope.add_callback("search_engine_url_changed", move |values| {
+            let entry_row = values[0].get::<adw::EntryRow>().unwrap();
+
+            let lock = preferences.lock().unwrap();
+            if lock.preferences.website_search_url != Some(entry_row.text().to_string()) {
+                let mut new_preference = Preferences::new();
+                new_preference.website_search_url = Some(entry_row.text().to_string());
+                gui_tx
+                    .try_send(GUIMessage::UpdatePreference(new_preference))
+                    .unwrap();
+            }
+
+            None
+        });
+
         let microphone_tx = microphone_tx_shared.clone();
         let builder = builder_shared.clone();
 
@@ -1174,6 +1244,8 @@ impl App {
             })
             .build();
 
+        let preferences_interface_ptr = self.preferences_interface.clone();
+
         let action_search_youtube = gio::ActionEntry::builder("search-youtube")
             .activate(move |window: &adw::ApplicationWindow, _, _| {
                 let window = window.clone();
@@ -1184,10 +1256,16 @@ impl App {
                     utf8_percent_encode(results_label.as_str(), NON_ALPHANUMERIC).to_string();
                 encoded_search_term = encoded_search_term.replace("%20", "+");
 
-                let search_url = format!(
-                    "https://www.youtube.com/results?search_query={}",
-                    encoded_search_term
-                );
+                let website_search_url = {
+                    let lock = preferences_interface_ptr.lock().unwrap();
+                    lock.preferences.website_search_url.clone()
+                };
+
+                // If a custom search URL was provided, use it instead of YouTube;
+                // attach the search term at the end of the provided string.
+                let mut search_url = website_search_url
+                    .unwrap_or("https://www.youtube.com/results?search_query=".to_string());
+                search_url = format!("{}{}", search_url, encoded_search_term);
 
                 glib::spawn_future_local(async move {
                     info!("Launching URL: {}", search_url);

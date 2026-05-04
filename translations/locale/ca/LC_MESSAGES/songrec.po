@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-04 11:28+0200\n"
+"POT-Creation-Date: 2026-05-04 22:31+0200\n"
 "PO-Revision-Date: 2024-01-21 20:01+0100\n"
 "Last-Translator: Pau Giuli <pau@giuli.cat>\n"
 "Language-Team: \n"
@@ -45,7 +45,7 @@ msgstr "Avís: Xarxa no connectada"
 
 #: src/cli_main.rs:178 src/core/http_task.rs:55 src/core/http_task.rs:64
 #: src/core/http_task.rs:76 src/core/http_task.rs:119
-#: src/gui/main_window.rs:820 src/gui/main_window.rs:832
+#: src/gui/main_window.rs:890 src/gui/main_window.rs:902
 msgid "No match for this song"
 msgstr "No hi ha coincidències per aquesta cançó"
 
@@ -188,11 +188,17 @@ msgstr ""
 msgid "Audio error: No input device available"
 msgstr ""
 
-#: src/core/preferences.rs:85
+#: src/core/preferences.rs:58 src/core/preferences.rs:77
+#: src/gui/main_window.rs:286 src/gui/interface.ui:151 src/gui/interface.ui:657
+#: src/gui/interface.ui:700
+msgid "Search on YouTube"
+msgstr "Cerca a YouTube"
+
+#: src/core/preferences.rs:93
 msgid "When parsing the preferences file:"
 msgstr "En llegir l'arxiu d'ajustaments:"
 
-#: src/core/preferences.rs:149
+#: src/core/preferences.rs:163
 msgid "When saving the preferences file:"
 msgstr "En guardar l'arxiu d'ajustaments:"
 
@@ -208,39 +214,39 @@ msgstr "Banda de freqüència invàlida en el paquet Shazam descodificat"
 msgid "Invalid sample rate passed when encoding Shazam packet"
 msgstr "Freqüència de mostreig invàlida en codificar el paquet Shazam"
 
-#: src/gui/main_window.rs:243
+#: src/gui/main_window.rs:244
 msgid "Application error"
 msgstr ""
 
-#: src/gui/main_window.rs:264
+#: src/gui/main_window.rs:265
 msgid "Network error"
 msgstr ""
 
-#: src/gui/main_window.rs:305
+#: src/gui/main_window.rs:333
 msgid "Unable to enable notification icon"
 msgstr ""
 
-#: src/gui/main_window.rs:726 src/gui/main_window.rs:807
+#: src/gui/main_window.rs:796 src/gui/main_window.rs:877
 msgid "Unable to enable MPRIS support"
 msgstr "No s'ha pogut activar el suport per MPRIS"
 
-#: src/gui/main_window.rs:829
+#: src/gui/main_window.rs:899
 msgid "_Ok"
 msgstr ""
 
-#: src/gui/main_window.rs:909
+#: src/gui/main_window.rs:979
 msgid "Song recognized"
 msgstr "Cançó reconeguda"
 
-#: src/gui/main_window.rs:1053
+#: src/gui/main_window.rs:1123
 msgid "Are you sure you want to wipe history?"
 msgstr "Esteu segur que voleu esborrar l'historial?"
 
-#: src/gui/main_window.rs:1059
+#: src/gui/main_window.rs:1129
 msgid "_Yes"
 msgstr "_Sí"
 
-#: src/gui/main_window.rs:1060
+#: src/gui/main_window.rs:1130
 msgid "_No"
 msgstr "_No"
 
@@ -304,10 +310,6 @@ msgstr ""
 msgid "Recognition results"
 msgstr "Resultats del reconeixement"
 
-#: src/gui/interface.ui:151 src/gui/interface.ui:640 src/gui/interface.ui:683
-msgid "Search on YouTube"
-msgstr "Cerca a YouTube"
-
 #: src/gui/interface.ui:158
 msgid "Search..."
 msgstr "Buscar..."
@@ -356,7 +358,7 @@ msgstr "Veure preferits"
 msgid "Application menu"
 msgstr ""
 
-#: src/gui/interface.ui:434 src/gui/interface.ui:600
+#: src/gui/interface.ui:434 src/gui/interface.ui:617
 msgid "Export to CSV"
 msgstr "Exportar a CSV"
 
@@ -372,7 +374,7 @@ msgstr ""
 msgid "Notify when a new song is recognized or network error is encountered"
 msgstr ""
 
-#: src/gui/interface.ui:460 src/gui/interface.ui:568
+#: src/gui/interface.ui:460 src/gui/interface.ui:585
 msgid "Show notifications"
 msgstr "Mostra les notificacions"
 
@@ -430,80 +432,92 @@ msgstr ""
 msgid "Shazam buffer size in seconds"
 msgstr ""
 
-#: src/gui/interface.ui:544
+#: src/gui/interface.ui:538
+msgid "Search preferences"
+msgstr ""
+
+#: src/gui/interface.ui:541
+msgid "Custom search engine action"
+msgstr ""
+
+#: src/gui/interface.ui:547
+msgid "Custom search engine URL"
+msgstr ""
+
+#: src/gui/interface.ui:561
 msgid "Settings"
 msgstr ""
 
-#: src/gui/interface.ui:572
+#: src/gui/interface.ui:589
 msgid "_Preferences..."
 msgstr ""
 
-#: src/gui/interface.ui:579
+#: src/gui/interface.ui:596
 msgid "About..."
 msgstr "Quant a..."
 
-#: src/gui/interface.ui:604
+#: src/gui/interface.ui:621
 msgid "Delete history"
 msgstr "Suprimeix l'historial"
 
-#: src/gui/interface.ui:608
+#: src/gui/interface.ui:625
 msgid "Select a file to recognize"
 msgstr "Escull un arxiu a reconèixer"
 
-#: src/gui/interface.ui:618 src/gui/interface.ui:661
+#: src/gui/interface.ui:635 src/gui/interface.ui:678
 msgid "Copy artist and track"
 msgstr "Copiar nom de cançó i artista"
 
-#: src/gui/interface.ui:623 src/gui/interface.ui:666
+#: src/gui/interface.ui:640 src/gui/interface.ui:683
 msgid "Copy artist"
 msgstr "Copiar Artista"
 
-#: src/gui/interface.ui:628 src/gui/interface.ui:671
+#: src/gui/interface.ui:645 src/gui/interface.ui:688
 msgid "Copy track name"
 msgstr "Copiar nom de cançó"
 
-#: src/gui/interface.ui:633 src/gui/interface.ui:676
+#: src/gui/interface.ui:650 src/gui/interface.ui:693
 msgid "Copy album"
 msgstr "Copiar Àlbum"
 
-#: src/gui/interface.ui:647
+#: src/gui/interface.ui:664
 msgid "Delete from History"
 msgstr ""
 
-#: src/gui/interface.ui:652
+#: src/gui/interface.ui:669
 msgid "Add to Favorites"
 msgstr "Afegir a preferits"
 
-#: src/gui/interface.ui:690
+#: src/gui/interface.ui:707
 msgid "Remove from Favorites"
 msgstr "Eliminar de preferits"
 
-#: src/gui/interface.ui:700
+#: src/gui/interface.ui:717
 msgctxt "\"General\" section in the Shortcuts window"
 msgid "General"
 msgstr ""
 
-#: src/gui/interface.ui:705
+#: src/gui/interface.ui:722
 msgctxt "In the shortcuts window"
 msgid "Close the application"
 msgstr ""
 
-#: src/gui/interface.ui:712
+#: src/gui/interface.ui:729
 msgctxt "In the shortcuts window"
 msgid "Recognize from a file"
 msgstr ""
 
-#: src/gui/interface.ui:719
+#: src/gui/interface.ui:736
 msgctxt "In the shortcuts window"
 msgid "Show preferences"
 msgstr ""
 
-#: src/gui/interface.ui:726
+#: src/gui/interface.ui:743
 msgctxt "In the shortcuts window"
 msgid "Display shortcuts"
 msgstr ""
 
-#: src/gui/interface.ui:733
+#: src/gui/interface.ui:750
 msgctxt "win.show-menu"
 msgid "Show menu"
 msgstr ""
