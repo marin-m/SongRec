@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-04 22:28+0200\n"
+"POT-Creation-Date: 2026-05-04 22:31+0200\n"
 "PO-Revision-Date: 2026-03-09 02:16+0000\n"
 "Last-Translator: Marin <25437947+marin-m@users.noreply.github.com>\n"
 "Language-Team: Russian <https://weblate.fossplant.re/projects/songrec/"
@@ -198,8 +198,9 @@ msgstr "Аудиоошибка:"
 msgid "Audio error: No input device available"
 msgstr ""
 
-#: src/core/preferences.rs:58 src/gui/main_window.rs:286
-#: src/gui/interface.ui:151 src/gui/interface.ui:657 src/gui/interface.ui:700
+#: src/core/preferences.rs:58 src/core/preferences.rs:77
+#: src/gui/main_window.rs:286 src/gui/interface.ui:151 src/gui/interface.ui:657
+#: src/gui/interface.ui:700
 msgid "Search on YouTube"
 msgstr "Поиск на YouTube"
 

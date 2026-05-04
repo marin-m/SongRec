@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: SongRec\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-04 22:28+0200\n"
+"POT-Creation-Date: 2026-05-04 22:31+0200\n"
 "PO-Revision-Date: 2026-05-04 13:33+0000\n"
 "Last-Translator: marcelo cripe <marcelocripe@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://weblate.fossplant.re/projects/"
@@ -226,8 +226,9 @@ msgstr ""
 "Ocorreu um erro no áudio, porque nenhum dispositivo de entrada está "
 "disponível"
 
-#: src/core/preferences.rs:58 src/gui/main_window.rs:286
-#: src/gui/interface.ui:151 src/gui/interface.ui:657 src/gui/interface.ui:700
+#: src/core/preferences.rs:58 src/core/preferences.rs:77
+#: src/gui/main_window.rs:286 src/gui/interface.ui:151 src/gui/interface.ui:657
+#: src/gui/interface.ui:700
 msgid "Search on YouTube"
 msgstr "Pesquisar no YouTube"
 

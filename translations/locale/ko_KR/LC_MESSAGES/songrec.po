@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-04 22:28+0200\n"
+"POT-Creation-Date: 2026-05-04 22:31+0200\n"
 "PO-Revision-Date: 2023-12-30 23:42+0900\n"
 "Last-Translator: 이정희 <daemul72@gmail.com>\n"
 "Language-Team: \n"
@@ -180,8 +180,9 @@ msgstr ""
 msgid "Audio error: No input device available"
 msgstr ""
 
-#: src/core/preferences.rs:58 src/gui/main_window.rs:286
-#: src/gui/interface.ui:151 src/gui/interface.ui:657 src/gui/interface.ui:700
+#: src/core/preferences.rs:58 src/core/preferences.rs:77
+#: src/gui/main_window.rs:286 src/gui/interface.ui:151 src/gui/interface.ui:657
+#: src/gui/interface.ui:700
 msgid "Search on YouTube"
 msgstr "YouTube에서 검색하기"
 
