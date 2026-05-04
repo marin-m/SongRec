@@ -538,14 +538,14 @@
                         <property name="title" translatable="yes">Search preferences</property>
                         <child>
                           <object class="AdwEntryRow" id="search_engine_name">
-                            <property name="text">Search on YouTube</property>
                             <property name="title" translatable="yes">Custom search engine action</property>
+                            <signal name="changed" handler="search_engine_action_changed"/>
                           </object>
                         </child>
                         <child>
                           <object class="AdwEntryRow" id="search_engine_url">
-                            <property name="text">https://www.youtube.com/results?search_query=</property>
                             <property name="title" translatable="yes">Custom search engine URL</property>
+                            <signal name="changed" handler="search_engine_url_changed"/>
                           </object>
                         </child>
                       </object>

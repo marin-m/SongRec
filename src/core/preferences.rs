@@ -54,8 +54,8 @@ impl Preferences {
             request_interval_secs_v2: None,
             request_interval_secs_v3: Some(interval),
             current_device_name: None,
-            website_search_url: None,
-            website_search_text: None,
+            website_search_url: Some("https://www.youtube.com/results?search_query=".to_string()),
+            website_search_text: Some(gettext("Search on YouTube".to_string())),
         }
     }
 }
