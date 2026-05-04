@@ -12,7 +12,7 @@
   <description>
     <p>SongRec is an unofficial Shazam client for Linux, written in Rust. It allows you to easily recognize songs from your speakers, microphone or audio files.</p>
     <p>Features:</p>
-    <p>- Recognize audio from an arbitrary audio file.</p>
+    <p>- Recognize tracks from an arbitrary audio file.</p>
     <p>- Recognize audio from the microphone.</p>
     <p>- Usage from both GUI and command line.</p>
     <p>- Provide an history of the recognized songs on the GUI, exportable to CSV.</p>

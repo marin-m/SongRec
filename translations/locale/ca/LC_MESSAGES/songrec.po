@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-29 20:26+0200\n"
+"POT-Creation-Date: 2026-05-04 11:28+0200\n"
 "PO-Revision-Date: 2024-01-21 20:01+0100\n"
 "Last-Translator: Pau Giuli <pau@giuli.cat>\n"
 "Language-Team: \n"
@@ -523,7 +523,7 @@ msgid "Features:"
 msgstr ""
 
 #: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:15
-msgid "- Recognize audio from an arbitrary audio file."
+msgid "- Recognize tracks from an arbitrary audio file."
 msgstr ""
 
 #: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:16

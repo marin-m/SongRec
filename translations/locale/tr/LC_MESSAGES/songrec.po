@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-29 20:26+0200\n"
-"PO-Revision-Date: 2026-04-09 19:16+0000\n"
+"POT-Creation-Date: 2026-05-04 11:29+0200\n"
+"PO-Revision-Date: 2026-05-04 13:33+0000\n"
 "Last-Translator: Arda Aydın <arda.aydin@operationsilkscarf.com>\n"
 "Language-Team: Turkish <https://weblate.fossplant.re/projects/songrec/"
 "songrec/tr/>\n"
@@ -33,7 +33,7 @@ msgstr "Çıkılıyor: Hiçbir ses cihazı bulunamadı!"
 #: src/cli_main.rs:146
 #, c-format
 msgid "Using device %s"
-msgstr ""
+msgstr "%s cihazı kullanılıyor"
 
 #: src/cli_main.rs:170
 msgid "Error: Network unreachable"
@@ -193,7 +193,7 @@ msgstr "Ses hatası:"
 
 #: src/core/microphone_thread.rs:87
 msgid "Audio error: No input device available"
-msgstr ""
+msgstr "Ses hatası: Mevcut bir giriş cihazı yok"
 
 #: src/core/preferences.rs:85
 msgid "When parsing the preferences file:"
@@ -269,15 +269,15 @@ msgstr "Programdan çık"
 
 #: packaging/freedesktop/re.fossplant.songrec.desktop.in:15
 msgid "SongRec"
-msgstr ""
+msgstr "SongRec"
 
 #: packaging/freedesktop/re.fossplant.songrec.desktop.in:17
 msgid "An open-source Shazam client for Linux, written in Rust"
-msgstr ""
+msgstr "Linux için bir açık kaynak Shazam istemcisi, Rust ile yazıldı"
 
 #: packaging/freedesktop/re.fossplant.songrec.desktop.in:19
 msgid "Rust;GTK;Shazam;Client;Audio;Song;Recognition;Fingerprinting;"
-msgstr ""
+msgstr "Rust;GTK;Shazam;İstemci;Ses;Şarkı;Tanıma;Parmakizi;"
 
 #: src/gui/interface.ui:32
 msgid "Recognize songs"
@@ -498,86 +498,93 @@ msgstr "Favorilerden çıkar"
 #: src/gui/interface.ui:700
 msgctxt "\"General\" section in the Shortcuts window"
 msgid "General"
-msgstr ""
+msgstr "Genel"
 
 #: src/gui/interface.ui:705
 msgctxt "In the shortcuts window"
 msgid "Close the application"
-msgstr ""
+msgstr "Uygulamayı kapat"
 
 #: src/gui/interface.ui:712
 msgctxt "In the shortcuts window"
 msgid "Recognize from a file"
-msgstr ""
+msgstr "Bir dosyadan tanı"
 
 #: src/gui/interface.ui:719
 msgctxt "In the shortcuts window"
 msgid "Show preferences"
-msgstr ""
+msgstr "Tercihleri göster"
 
 #: src/gui/interface.ui:726
 msgctxt "In the shortcuts window"
 msgid "Display shortcuts"
-msgstr ""
+msgstr "Kısayolları göster"
 
 #: src/gui/interface.ui:733
 msgctxt "win.show-menu"
 msgid "Show menu"
-msgstr ""
+msgstr "Menüyü göster"
 
 #: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:11
 msgid "Recognize songs from audio easily"
-msgstr ""
+msgstr "Bir sesten şarkıları kolayca tanıyın"
 
 #: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:13
 msgid ""
 "SongRec is an unofficial Shazam client for Linux, written in Rust. It allows "
 "you to easily recognize songs from your speakers, microphone or audio files."
 msgstr ""
+"SongRec, Rust ile yazılmış gayri-resmi bir Shazam istemcisidir. "
+"Hoparlörünüzden, mikrofonunuzdan veya ses dosyalarınızdan kolayca şarkıları "
+"bulmanıza yardımcı olur."
 
 #: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:14
 msgid "Features:"
-msgstr ""
+msgstr "Özellikler:"
 
 #: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:15
-msgid "- Recognize audio from an arbitrary audio file."
-msgstr ""
+msgid "- Recognize tracks from an arbitrary audio file."
+msgstr "- Herhangi bir ses dosyasından şarkı tanıyabilir."
 
 #: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:16
 msgid "- Recognize audio from the microphone."
-msgstr ""
+msgstr "- Mikrofondan şarkı tanır."
 
 #: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:17
 msgid "- Usage from both GUI and command line."
-msgstr ""
+msgstr "- Hem komut satırı hem de grafiksel kullanım."
 
 #: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:18
 msgid ""
 "- Provide an history of the recognized songs on the GUI, exportable to CSV."
 msgstr ""
+"- Grafiksel ortamda tanınan şarkıların CSV formatında dışa alınabilen bir "
+"geçmişini sunar."
 
 #: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:19
 msgid ""
 "- Continuous song detection from the microphone, with the ability to choose "
 "your input device."
 msgstr ""
+"- Hangi cihazı dinleyeceğini seçebileceğiniz mikrofondan sürekli şarkı "
+"tanıma modu."
 
 #: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:20
 msgid ""
 "- Ability to recognize songs from your speakers rather than your microphone."
-msgstr ""
+msgstr "- Mikrofon yerine hoparlörünüzden çıkan müziği tanıma özelliği."
 
 #: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:25
 msgid "SongRec's main window"
-msgstr ""
+msgstr "SongRec'in ana penceresi"
 
 #: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:29
 msgid "SongRec's favourites window"
-msgstr ""
+msgstr "SongRec'in favoriler penceresi"
 
 #: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:33
 msgid "SongRec's main window, on GNOME in dark mode"
-msgstr ""
+msgstr "SongRec'in ana penceresi, GNOME'da karanlık modda"
 
 #~ msgid "Using device"
 #~ msgstr "Kullanılan cihaz"
