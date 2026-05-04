@@ -9,16 +9,20 @@
     <color type="primary" scheme_preference="dark">#664D96</color>
   </branding>
   <summary>Recognize songs from audio easily</summary>
+  <summary xml:lang="tr">Bir sesten şarkıları kolayca tanıyın</summary>
   <summary xml:lang="sk-SK">Ľahko rozpoznávajte skladby zo zvukových záznamov</summary>
   <summary xml:lang="fr-FR">Reconnaître de la musique à partir d'audio facilement</summary>
   <description>
     <p>SongRec is an unofficial Shazam client for Linux, written in Rust. It allows you to easily recognize songs from your speakers, microphone or audio files.</p>
+    <p xml:lang="tr">SongRec, Rust ile yazılmış gayri-resmi bir Shazam istemcisidir. Hoparlörünüzden, mikrofonunuzdan veya ses dosyalarınızdan kolayca şarkıları bulmanıza yardımcı olur.</p>
     <p xml:lang="sk-SK">SongRec je neoficiálny klient pre Shazam určený pre Linux, napísaný v jazyku Rust. Umožňuje vám jednoducho rozpoznávať skladby z reproduktorov, mikrofónu alebo zvukových súborov.</p>
     <p xml:lang="fr-FR">SongRec est un client Shazam non-officiel pour Linux, écrit en Rust. Il vous permet de reconnaître facilement des chansons à partir de vos hauts-parleurs, microphones ou fichiers audio.</p>
     <p>Features:</p>
+    <p xml:lang="tr">Özellikler:</p>
     <p xml:lang="sk-SK">Funkcie:</p>
     <p xml:lang="fr-FR">Fonctionnalités :</p>
-    <p>- Recognize audio from an arbitrary audio file.</p>
+    <p>- Recognize tracks from an arbitrary audio file.</p>
+    <p xml:lang="tr">- Herhangi bir ses dosyasından şarkı tanıyabilir.</p>
     <p xml:lang="sk-SK">- Rozpozná zvuk z ľubovoľného zvukového súboru.</p>
     <p xml:lang="fr-FR">- Reconnaître des chansons à partir d'un fichier audio arbitraire.</p>
     <p>- Recognize audio from the microphone.</p>

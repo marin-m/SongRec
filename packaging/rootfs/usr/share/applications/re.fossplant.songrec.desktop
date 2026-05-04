@@ -24,11 +24,13 @@ Name[nl]=SongRec
 Name[pl]=SongRec
 Name[pt_BR]=Identificador de Músicas SongRec
 Name[sk_SK]=SongRec
+Name[tr]=SongRec
 Name=SongRec
 
 Comment[fr_FR]=Un client Shazam open-source pour Linux, écrit en Rust
 Comment[pt_BR]=O ‘SongRec’ é um identificador de músicas de código aberto para o GNU/Linux, semelhante ao ‘Shazam’, que foi escrito com a linguagem de programação ‘Rust’
 Comment[sk_SK]=Klient Shazam s otvoreným zdrojovým kódom pre Linux, napísaný v jazyku Rust
+Comment[tr]=Linux için bir açık kaynak Shazam istemcisi, Rust ile yazıldı
 Comment=An open-source Shazam client for Linux, written in Rust
 
 Keywords[fr_FR]=Rust;GTK;Shazam;Client;Audio;Chanson;Morceau;Reconnaissance;Fingerprinting;

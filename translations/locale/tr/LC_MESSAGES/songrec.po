@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-29 20:26+0200\n"
+"POT-Creation-Date: 2026-05-04 11:29+0200\n"
 "PO-Revision-Date: 2026-05-04 05:55+0000\n"
 "Last-Translator: Arda Aydın <arda.aydin@operationsilkscarf.com>\n"
 "Language-Team: Turkish <https://weblate.fossplant.re/projects/songrec/"
@@ -544,7 +544,7 @@ msgid "Features:"
 msgstr "Özellikler:"
 
 #: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:15
-msgid "- Recognize audio from an arbitrary audio file."
+msgid "- Recognize tracks from an arbitrary audio file."
 msgstr "- Herhangi bir ses dosyasından şarkı tanıyabilir."
 
 #: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:16
