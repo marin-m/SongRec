@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-04 11:28+0200\n"
+"POT-Creation-Date: 2026-05-04 22:28+0200\n"
 "PO-Revision-Date: 2026-03-09 02:16+0000\n"
 "Last-Translator: Marin <25437947+marin-m@users.noreply.github.com>\n"
 "Language-Team: Czech <https://weblate.fossplant.re/projects/songrec/songrec/"
@@ -45,7 +45,7 @@ msgstr "Varování: síť není dostupná"
 
 #: src/cli_main.rs:178 src/core/http_task.rs:55 src/core/http_task.rs:64
 #: src/core/http_task.rs:76 src/core/http_task.rs:119
-#: src/gui/main_window.rs:820 src/gui/main_window.rs:832
+#: src/gui/main_window.rs:890 src/gui/main_window.rs:902
 msgid "No match for this song"
 msgstr "Nenalezena žádná shoda s touto skladbou"
 
@@ -191,11 +191,16 @@ msgstr "Chyba zvuku:"
 msgid "Audio error: No input device available"
 msgstr ""
 
-#: src/core/preferences.rs:85
+#: src/core/preferences.rs:58 src/gui/main_window.rs:286
+#: src/gui/interface.ui:151 src/gui/interface.ui:657 src/gui/interface.ui:700
+msgid "Search on YouTube"
+msgstr "Vyhledat na YouTube"
+
+#: src/core/preferences.rs:93
 msgid "When parsing the preferences file:"
 msgstr "Při zpracování souboru předvoleb:"
 
-#: src/core/preferences.rs:149
+#: src/core/preferences.rs:163
 msgid "When saving the preferences file:"
 msgstr "Při ukládání souboru předvoleb:"
 
@@ -211,39 +216,39 @@ msgstr "Neplatný rozsah pásem v dekódovaném paketu Shazamu"
 msgid "Invalid sample rate passed when encoding Shazam packet"
 msgstr "Předána neplatná vzorkovací frekvence při kódování paketu Shazamu"
 
-#: src/gui/main_window.rs:243
+#: src/gui/main_window.rs:244
 msgid "Application error"
 msgstr "Chyba aplikace"
 
-#: src/gui/main_window.rs:264
+#: src/gui/main_window.rs:265
 msgid "Network error"
 msgstr "Chyba sítě"
 
-#: src/gui/main_window.rs:305
+#: src/gui/main_window.rs:333
 msgid "Unable to enable notification icon"
 msgstr "Nepodařilo se povolit ikonu oznámení"
 
-#: src/gui/main_window.rs:726 src/gui/main_window.rs:807
+#: src/gui/main_window.rs:796 src/gui/main_window.rs:877
 msgid "Unable to enable MPRIS support"
 msgstr "Nepodařilo se povolit podporu MPRIS"
 
-#: src/gui/main_window.rs:829
+#: src/gui/main_window.rs:899
 msgid "_Ok"
 msgstr "_Ok"
 
-#: src/gui/main_window.rs:909
+#: src/gui/main_window.rs:979
 msgid "Song recognized"
 msgstr "Skladba rozpoznána"
 
-#: src/gui/main_window.rs:1053
+#: src/gui/main_window.rs:1123
 msgid "Are you sure you want to wipe history?"
 msgstr "Opravdu chcete vymazat historii?"
 
-#: src/gui/main_window.rs:1059
+#: src/gui/main_window.rs:1129
 msgid "_Yes"
 msgstr "_Ano"
 
-#: src/gui/main_window.rs:1060
+#: src/gui/main_window.rs:1130
 msgid "_No"
 msgstr "_Ne"
 
@@ -307,10 +312,6 @@ msgstr "CHYBA: Vaše IP byla omezena"
 msgid "Recognition results"
 msgstr "Výsledky rozpoznání"
 
-#: src/gui/interface.ui:151 src/gui/interface.ui:640 src/gui/interface.ui:683
-msgid "Search on YouTube"
-msgstr "Vyhledat na YouTube"
-
 #: src/gui/interface.ui:158
 msgid "Search..."
 msgstr "Hledat…"
@@ -359,7 +360,7 @@ msgstr "Zobrazit oblíbené"
 msgid "Application menu"
 msgstr "Nabídka aplikace"
 
-#: src/gui/interface.ui:434 src/gui/interface.ui:600
+#: src/gui/interface.ui:434 src/gui/interface.ui:617
 msgid "Export to CSV"
 msgstr "Exportovat do CSV"
 
@@ -375,7 +376,7 @@ msgstr "Obecné předvolby"
 msgid "Notify when a new song is recognized or network error is encountered"
 msgstr "Oznámit při rozpoznání nové skladby nebo objevení chyby"
 
-#: src/gui/interface.ui:460 src/gui/interface.ui:568
+#: src/gui/interface.ui:460 src/gui/interface.ui:585
 msgid "Show notifications"
 msgstr "Zobrazit oznámení"
 
@@ -443,80 +444,92 @@ msgstr ""
 msgid "Shazam buffer size in seconds"
 msgstr "Velikost mezipaměti pro Shazam v sekundách"
 
-#: src/gui/interface.ui:544
+#: src/gui/interface.ui:538
+msgid "Search preferences"
+msgstr ""
+
+#: src/gui/interface.ui:541
+msgid "Custom search engine action"
+msgstr ""
+
+#: src/gui/interface.ui:547
+msgid "Custom search engine URL"
+msgstr ""
+
+#: src/gui/interface.ui:561
 msgid "Settings"
 msgstr "Nastavení"
 
-#: src/gui/interface.ui:572
+#: src/gui/interface.ui:589
 msgid "_Preferences..."
 msgstr "_Předvolby…"
 
-#: src/gui/interface.ui:579
+#: src/gui/interface.ui:596
 msgid "About..."
 msgstr "O aplikaci…"
 
-#: src/gui/interface.ui:604
+#: src/gui/interface.ui:621
 msgid "Delete history"
 msgstr "Smazat historii"
 
-#: src/gui/interface.ui:608
+#: src/gui/interface.ui:625
 msgid "Select a file to recognize"
 msgstr "Vyberte soubor k rozpoznání"
 
-#: src/gui/interface.ui:618 src/gui/interface.ui:661
+#: src/gui/interface.ui:635 src/gui/interface.ui:678
 msgid "Copy artist and track"
 msgstr "Kopírovat umělce a skladbu"
 
-#: src/gui/interface.ui:623 src/gui/interface.ui:666
+#: src/gui/interface.ui:640 src/gui/interface.ui:683
 msgid "Copy artist"
 msgstr "Kopírovat umělce"
 
-#: src/gui/interface.ui:628 src/gui/interface.ui:671
+#: src/gui/interface.ui:645 src/gui/interface.ui:688
 msgid "Copy track name"
 msgstr "Kopírovat název skladby"
 
-#: src/gui/interface.ui:633 src/gui/interface.ui:676
+#: src/gui/interface.ui:650 src/gui/interface.ui:693
 msgid "Copy album"
 msgstr "Kopírovat album"
 
-#: src/gui/interface.ui:647
+#: src/gui/interface.ui:664
 msgid "Delete from History"
 msgstr "Odstranit z historie"
 
-#: src/gui/interface.ui:652
+#: src/gui/interface.ui:669
 msgid "Add to Favorites"
 msgstr "Přidat do oblíbených"
 
-#: src/gui/interface.ui:690
+#: src/gui/interface.ui:707
 msgid "Remove from Favorites"
 msgstr "Odstranit z oblíbených"
 
-#: src/gui/interface.ui:700
+#: src/gui/interface.ui:717
 msgctxt "\"General\" section in the Shortcuts window"
 msgid "General"
 msgstr ""
 
-#: src/gui/interface.ui:705
+#: src/gui/interface.ui:722
 msgctxt "In the shortcuts window"
 msgid "Close the application"
 msgstr ""
 
-#: src/gui/interface.ui:712
+#: src/gui/interface.ui:729
 msgctxt "In the shortcuts window"
 msgid "Recognize from a file"
 msgstr ""
 
-#: src/gui/interface.ui:719
+#: src/gui/interface.ui:736
 msgctxt "In the shortcuts window"
 msgid "Show preferences"
 msgstr ""
 
-#: src/gui/interface.ui:726
+#: src/gui/interface.ui:743
 msgctxt "In the shortcuts window"
 msgid "Display shortcuts"
 msgstr ""
 
-#: src/gui/interface.ui:733
+#: src/gui/interface.ui:750
 msgctxt "win.show-menu"
 msgid "Show menu"
 msgstr ""
