@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-05-04 22:31+0200\n"
-"PO-Revision-Date: 2026-04-29 17:40+0000\n"
+"PO-Revision-Date: 2026-05-04 23:02+0000\n"
 "Last-Translator: Marin <25437947+marin-m@users.noreply.github.com>\n"
 "Language-Team: French <https://weblate.fossplant.re/projects/songrec/songrec/"
 "fr/>\n"
@@ -468,15 +468,15 @@ msgstr "Taille du tampon audio en secondes"
 
 #: src/gui/interface.ui:538
 msgid "Search preferences"
-msgstr ""
+msgstr "Préférences de recherche"
 
 #: src/gui/interface.ui:541
 msgid "Custom search engine action"
-msgstr ""
+msgstr "Action de recherche personnalisée"
 
 #: src/gui/interface.ui:547
 msgid "Custom search engine URL"
-msgstr ""
+msgstr "URL de recherche personnalisée"
 
 #: src/gui/interface.ui:561
 msgid "Settings"
