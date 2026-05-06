@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: SongRec v0.6.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-05-04 22:31+0200\n"
-"PO-Revision-Date: 2026-05-01 00:02+0000\n"
+"PO-Revision-Date: 2026-05-06 15:58+0200\n"
 "Last-Translator: Jozef Gaal <preklady@mayday.sk>\n"
 "Language-Team: Slovak <https://weblate.fossplant.re/projects/songrec/songrec/"
 "sk/>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Poedit 3.8\n"
 
 #: src/cli_main.rs:117
 msgid "Available device:"
@@ -455,15 +455,15 @@ msgstr "Veľkosť vyrovnávacej pamäte Shazam v sekundách"
 
 #: src/gui/interface.ui:538
 msgid "Search preferences"
-msgstr ""
+msgstr "Predvoľby vyhľadávania"
 
 #: src/gui/interface.ui:541
 msgid "Custom search engine action"
-msgstr ""
+msgstr "Akcia vlastného vyhľadávača"
 
 #: src/gui/interface.ui:547
 msgid "Custom search engine URL"
-msgstr ""
+msgstr "URL adresa vlastného vyhľadávača"
 
 #: src/gui/interface.ui:561
 msgid "Settings"
