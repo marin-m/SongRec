@@ -19,7 +19,7 @@ function cleanup_dirs {
 
 trap cleanup_dirs INT TERM
 
-for version in noble questing resolute; do
+for version in noble questing resolute stonking; do
 
     cp -ra ../../ "${temp_dir}/songrec-${PKGVER}${version}"
 
