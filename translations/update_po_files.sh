@@ -45,7 +45,7 @@ cp packaging/freedesktop/re.fossplant.songrec.desktop.in \
 for locale in translations/locale/*; do
     msgfmt ${locale}/LC_MESSAGES/songrec.po -o ${locale}/LC_MESSAGES/songrec.mo
 
-    msgfmt --xml ${locale}/LC_MESSAGES/songrec.po -l "$(basename ${locale})" \
+    msgfmt --xml ${locale}/LC_MESSAGES/songrec.po -l "$(basename ${locale} | cut -c1-2)" \
         --template packaging/rootfs/usr/share/metainfo/re.fossplant.songrec.metainfo.xml \
         -o packaging/rootfs/usr/share/metainfo/re.fossplant.songrec.metainfo.xml.new
 
