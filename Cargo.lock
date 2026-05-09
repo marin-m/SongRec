@@ -599,7 +599,7 @@ dependencies = [
 [[package]]
 name = "cpal"
 version = "0.18.0"
-source = "git+https://github.com/RustAudio/cpal.git?rev=bce156d#bce156d8a3ea5999f763bb831342fb2f6ed23db1"
+source = "git+https://github.com/RustAudio/cpal.git?rev=f5532e5#f5532e5cab56a7c89d39cd730149aad111e16113"
 dependencies = [
  "alsa",
  "audio_thread_priority",
