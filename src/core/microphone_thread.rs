@@ -83,7 +83,13 @@ pub fn microphone_thread(
                 let gui_tx_4 = gui_tx.clone();
 
                 let err_fn = move |location: &'static str, error: cpal::Error| {
-                    if error.kind() != cpal::ErrorKind::DeviceChanged {
+                    if error.kind() == cpal::ErrorKind::DeviceChanged {
+                        microphone_tx_2
+                            .try_send(MicrophoneMessage::RefreshDevices)
+                            .unwrap();
+                    } else if error.kind() != cpal::ErrorKind::RealtimeDenied
+                        && error.kind() != cpal::ErrorKind::Xrun
+                    {
                         gui_tx_2
                             .try_send(GUIMessage::ErrorMessage(format!(
                                 "{} {}: {:?} - {} - {}",
@@ -95,9 +101,6 @@ pub fn microphone_thread(
                             )))
                             .unwrap();
                     }
-                    microphone_tx_2
-                        .try_send(MicrophoneMessage::RefreshDevices)
-                        .unwrap();
                 };
 
                 let err_fn_2 = err_fn.clone();
