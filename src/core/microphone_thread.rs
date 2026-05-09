@@ -28,6 +28,13 @@ pub fn microphone_thread(
     // Use the default host for working with audio devices.
 
     debug!("Trying to initialize CPAL...");
+    #[cfg(all(target_os = "linux", feature = "pipewire"))]
+    let host = cpal::default_host();
+    #[cfg(all(target_os = "linux", not(feature = "pipewire")))]
+    let host: cpal::Host = cpal::platform::AlsaHost::new()
+        .expect("ALSA driver not available")
+        .into();
+    #[cfg(not(target_os = "linux"))]
     let host = cpal::default_host();
     #[cfg(target_os = "linux")]
     debug!("Using audio playback backend: {:?}", host.id());

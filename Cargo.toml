@@ -61,10 +61,11 @@ flate2 = "1.1.9"
 glib-build-tools = "0.21.0"
 
 [features]
-default = ["gui", "ffmpeg", "pulse", "mpris" ]
+default = ["gui", "ffmpeg", "pulse", "mpris", "pipewire" ]
 gui = ["gtk", "adw", "gdk", "gio", "percent-encoding", "ksni", "gdk-pixbuf"]
 pulse = [ "pulsectl-rs", "libpulse-binding" ]
 mpris = [ "mpris-server" ]
+pipewire = []
 ffmpeg = []
 
 [target.'cfg(target_os = "linux")'.dependencies]

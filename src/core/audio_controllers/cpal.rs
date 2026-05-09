@@ -40,7 +40,10 @@ impl AudioBackend for CpalBackend {
             // crash our underlying sound library.
 
             #[cfg(target_os = "linux")]
-            if device_id.contains("upmix") || device_id.contains("downmix") {
+            if device_id.contains("upmix")
+                || device_id.contains("downmix")
+                || device_id.contains("null")
+            {
                 continue;
             }
 

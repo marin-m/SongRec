@@ -207,7 +207,7 @@ This will compile and run the projet:
 ```bash
 # For the stable release:
 # On Linux:
-cargo install songrec --no-default-features -F gui,ffmpeg,pulse,mpris
+cargo install songrec --no-default-features -F gui,ffmpeg,pulse,pipewire,mpris
 # On Windows or macOS:
 cargo install songrec --no-default-features -F gui,ffmpeg
 songrec
@@ -217,7 +217,7 @@ git clone https://github.com/marin-m/songrec
 cd songrec
 cp -a .github/hooks/* .git/hooks/ # Or (less secure): git config core.hooksPath .github/hooks
 # On Linux:
-cargo run --release --no-default-features -F gui,ffmpeg,pulse,mpris
+cargo run --release --no-default-features -F gui,ffmpeg,pulse,pipewire,mpris
 # On macOS or Windows:
 cargo run --release --no-default-features -F gui,ffmpeg
 
