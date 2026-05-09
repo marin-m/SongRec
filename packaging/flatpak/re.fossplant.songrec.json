@@ -31,7 +31,7 @@
             "buildsystem": "simple",
             "build-commands": [
                 "cargo --offline fetch --verbose",
-                "cargo --offline build --release --verbose",
+                "cargo --offline build --release --verbose --no-default-features -F gui,ffmpeg,pulse,mpris",
                 "install -Dm755 ./target/release/songrec -t /app/bin/",
                 "cp -r ./packaging/rootfs/usr/share /app/",
                 "cp -r ./translations/locale /app/share/"
