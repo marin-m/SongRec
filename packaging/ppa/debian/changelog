@@ -1,3 +1,9 @@
+songrec (0.7.0+1) bionic; urgency=low
+
+  * Fix building with MSRV
+
+ -- Marin <marin-m@users.noreply.github.com>  Sat, 9 May 2026 12:31:56 +0200
+
 songrec (0.7.0) bionic; urgency=low
 
   * Add preferences to customize the search engine URL thanks to @leandrotlz (PR #286)
