@@ -1,3 +1,20 @@
+songrec (0.7.0) bionic; urgency=low
+
+  * Add preferences to customize the search engine URL thanks to @leandrotlz (PR #286)
+  * Add build and CLI options to enable or disable native PipeWire support (issue #297)
+  * Disable native PipeWire support in the Flatpak build in an attempt to prevent Furiphone-related issues (#276, #296)
+  * Update Occitan translation thanks to @Mejans
+  * Update Turkish translation thanks to @Abrifq
+  * Update Brazilian translation thanks to @marcelocripe
+  * Update Slovak translation thanks to @dodog
+  * Update dependencies and cross-platform building process
+  * Optimize and refactor Rust code thanks to @linkmauve
+  * Make the .desktop file and Flathub description translatable
+  * Improve audio capture-related debugging and error handling
+  * Bump CPAL development version to current upstream
+
+ -- Marin <marin-m@users.noreply.github.com>  Sat, 9 May 2026 11:58:57 +0200
+
 songrec (0.6.9) bionic; urgency=low
 
   * Skip using the PipeWire backend when no node is available (see https://github.com/RustAudio/cpal/pull/1171)

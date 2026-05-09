@@ -420,7 +420,7 @@ impl App {
             let entry_row = values[0].get::<adw::EntryRow>().unwrap();
 
             let search_row: adw::ActionRow = builder.object("search_youtube_row").unwrap();
-            search_row.set_title(&entry_row.text().to_string());
+            search_row.set_title(&entry_row.text());
 
             let lock = preferences.lock().unwrap();
             if lock.preferences.website_search_text != Some(entry_row.text().to_string()) {

@@ -106,6 +106,22 @@ https://hughsie.github.io/oars/index.html
 -->
   <content_rating type="oars-1.1"/>
   <releases>
+    <release version="0.7.0" date="2026-05-09">
+      <description>
+        <p>Add preferences to customize the search engine URL thanks to @leandrotlz (PR #286)</p>
+        <p>Add build and CLI options to enable or disable native PipeWire support (issue #297)</p>
+        <p>Disable native PipeWire support in the Flatpak build in an attempt to prevent Furiphone-related issues (#276, #296)</p>
+        <p>Update Occitan translation thanks to @Mejans</p>
+        <p>Update Turkish translation thanks to @Abrifq</p>
+        <p>Update Brazilian translation thanks to @marcelocripe</p>
+        <p>Update Slovak translation thanks to @dodog</p>
+        <p>Update dependencies and cross-platform building process</p>
+        <p>Optimize and refactor Rust code thanks to @linkmauve</p>
+        <p>Make the .desktop file and Flathub description translatable</p>
+        <p>Improve audio capture-related debugging and error handling</p>
+        <p>Bump CPAL development version to current upstream</p>
+      </description>
+    </release>
     <release version="0.6.9" date="2026-04-19">
       <description>
         <p>Skip using the PipeWire backend when no node is available (issue #265)</p>
