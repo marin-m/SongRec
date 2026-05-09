@@ -260,6 +260,12 @@ macro_rules! gui_app {
                         .action(ArgAction::SetTrue)
                         .help(gettext("Disable MPRIS support"))
                 )
+                .arg(
+                    Arg::new("disable-pipewire")
+                        .long("disable-pipewire")
+                        .action(ArgAction::SetTrue)
+                        .help(gettext("Disable PipeWire native support"))
+                )
         )
         .subcommand(
             Command::new("gui-norecording")
@@ -274,6 +280,12 @@ macro_rules! gui_app {
                         .long("disable-mpris")
                         .action(ArgAction::SetTrue)
                         .help(gettext("Disable MPRIS support"))
+                )
+                .arg(
+                    Arg::new("disable-pipewire")
+                        .long("disable-pipewire")
+                        .action(ArgAction::SetTrue)
+                        .help(gettext("Disable PipeWire native support"))
                 )
         )
     };
@@ -494,6 +506,7 @@ fn main() -> Result<(), Box<dyn Error>> {
                 false,
                 subcommand_args.get_one::<String>("input_file").cloned(),
                 !subcommand_args.get_flag("disable-mpris"),
+                !subcommand_args.get_flag("disable-pipewire"),
             )?;
         }
         #[cfg(feature = "gui")]
@@ -504,9 +517,10 @@ fn main() -> Result<(), Box<dyn Error>> {
                     true,
                     subcommand_args.get_one::<String>("input_file").cloned(),
                     !subcommand_args.get_flag("disable-mpris"),
+                    !subcommand_args.get_flag("disable-pipewire"),
                 )?;
             } else {
-                gui_main(log_object, true, None, true)?;
+                gui_main(log_object, true, None, true, true)?;
             }
         }
         #[cfg(not(feature = "gui"))]

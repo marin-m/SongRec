@@ -60,6 +60,7 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
             processing_tx_2,
             gui_tx_2,
             preferences_interface,
+            true,
         );
     });
 

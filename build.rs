@@ -186,6 +186,12 @@ macro_rules! gui_app {
                         .action(ArgAction::SetTrue)
                         .help(gettext("Disable MPRIS support"))
                 )
+                .arg(
+                    Arg::new("disable-pipewire")
+                        .long("disable-pipewire")
+                        .action(ArgAction::SetTrue)
+                        .help(gettext("Disable PipeWire native support"))
+                )
         )
         .subcommand(
             Command::new("gui-norecording")
@@ -200,6 +206,12 @@ macro_rules! gui_app {
                         .long("disable-mpris")
                         .action(ArgAction::SetTrue)
                         .help(gettext("Disable MPRIS support"))
+                )
+                .arg(
+                    Arg::new("disable-pipewire")
+                        .long("disable-pipewire")
+                        .action(ArgAction::SetTrue)
+                        .help(gettext("Disable PipeWire native support"))
                 )
         )
     };

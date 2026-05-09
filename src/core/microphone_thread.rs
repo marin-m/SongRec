@@ -24,12 +24,19 @@ pub fn microphone_thread(
     processing_tx: async_channel::Sender<ProcessingMessage>,
     gui_tx: async_channel::Sender<GUIMessage>,
     preferences_interface: Arc<Mutex<PreferencesInterface>>,
+    _enable_pipewire_cli: bool,
 ) {
     // Use the default host for working with audio devices.
 
     debug!("Trying to initialize CPAL...");
     #[cfg(all(target_os = "linux", feature = "pipewire"))]
-    let host = cpal::default_host();
+    let host: cpal::Host = if _enable_pipewire_cli {
+        cpal::default_host()
+    } else {
+        cpal::platform::AlsaHost::new()
+            .expect("ALSA driver not available")
+            .into()
+    };
     #[cfg(all(target_os = "linux", not(feature = "pipewire")))]
     let host: cpal::Host = cpal::platform::AlsaHost::new()
         .expect("ALSA driver not available")

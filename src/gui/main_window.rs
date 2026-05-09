@@ -43,9 +43,10 @@ pub fn gui_main(
     recording: bool,
     input_file: Option<String>,
     enable_mpris_cli: bool,
+    enable_pipewire_cli: bool,
 ) -> Result<(), Box<dyn Error>> {
     let app = App::new(log_object);
-    app.run(recording, enable_mpris_cli, input_file);
+    app.run(recording, enable_mpris_cli, enable_pipewire_cli, input_file);
 
     Ok(())
 }
@@ -183,7 +184,13 @@ impl App {
         css_theme.load_from_resource("/re/fossplant/songrec/style.css");
     }
 
-    fn run(self, set_recording: bool, enable_mpris_cli: bool, input_file: Option<String>) {
+    fn run(
+        self,
+        set_recording: bool,
+        enable_mpris_cli: bool,
+        enable_pipewire_cli: bool,
+        input_file: Option<String>,
+    ) {
         let application = adw::Application::new(
             glib::prgname().as_deref(), // Set the DBus ID of the program.
             gio::ApplicationFlags::HANDLES_OPEN,
@@ -219,7 +226,12 @@ impl App {
         });
 
         application.connect_startup(move |application| {
-            self.on_startup(application, set_recording, enable_mpris_cli);
+            self.on_startup(
+                application,
+                set_recording,
+                enable_mpris_cli,
+                enable_pipewire_cli,
+            );
         });
 
         if let Some(input_file_string) = input_file {
@@ -300,9 +312,15 @@ impl App {
         application: &adw::Application,
         set_recording: bool,
         enable_mpris_cli: bool,
+        enable_pipewire_cli: bool,
     ) {
         clear_cache();
-        self.setup_intercom(application, set_recording, enable_mpris_cli);
+        self.setup_intercom(
+            application,
+            set_recording,
+            enable_mpris_cli,
+            enable_pipewire_cli,
+        );
         self.setup_actions(application, enable_mpris_cli);
         #[cfg(target_os = "linux")]
         if self.old_preferences.enable_systray == Some(true) {
@@ -698,6 +716,7 @@ impl App {
         application: &adw::Application,
         set_recording: bool,
         _enable_mpris_cli: bool,
+        enable_pipewire_cli: bool,
     ) {
         // Setup communication using threads + smol-rs/async-channel::unbounded listener
 
@@ -717,6 +736,7 @@ impl App {
                 processing_tx,
                 gui_tx,
                 preferences_interface,
+                enable_pipewire_cli,
             );
         });
 
