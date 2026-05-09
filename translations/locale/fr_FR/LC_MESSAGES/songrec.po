@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-05-09 13:58+0200\n"
-"PO-Revision-Date: 2026-05-09 10:06+0000\n"
+"PO-Revision-Date: 2026-05-09 17:02+0000\n"
 "Last-Translator: Marin <25437947+marin-m@users.noreply.github.com>\n"
 "Language-Team: French <https://weblate.fossplant.re/projects/songrec/songrec/"
 "fr/>\n"
@@ -575,7 +575,7 @@ msgstr ""
 
 #: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:14
 msgid "Features:"
-msgstr "Fonctionnalités :"
+msgstr "Il vous permet aussi de :"
 
 #: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:15
 msgid "- Recognize tracks from an arbitrary audio file."
