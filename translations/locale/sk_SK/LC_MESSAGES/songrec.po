@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: SongRec v0.6.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-04 22:31+0200\n"
+"POT-Creation-Date: 2026-05-09 12:02+0200\n"
 "PO-Revision-Date: 2026-05-06 15:58+0200\n"
 "Last-Translator: Jozef Gaal <preklady@mayday.sk>\n"
 "Language-Team: Slovak <https://weblate.fossplant.re/projects/songrec/songrec/"
@@ -18,42 +18,42 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Generator: Poedit 3.8\n"
 
-#: src/cli_main.rs:117
+#: src/cli_main.rs:118
 msgid "Available device:"
 msgstr "Dostupné zariadenie:"
 
-#: src/cli_main.rs:135
+#: src/cli_main.rs:136
 msgid "Exiting: audio device not found"
 msgstr "Ukončenie: zvukové zariadenie nebolo nájdené"
 
-#: src/cli_main.rs:141
+#: src/cli_main.rs:142
 msgid "Exiting: no audio devices found!"
 msgstr "Ukončenie: neboli nájdené žiadne zvukové zariadenia!"
 
-#: src/cli_main.rs:146
+#: src/cli_main.rs:147
 #, c-format
 msgid "Using device %s"
 msgstr "Používa sa zariadenie %s"
 
-#: src/cli_main.rs:170
+#: src/cli_main.rs:171
 msgid "Error: Network unreachable"
 msgstr "Chyba: Sieť nedostupná"
 
-#: src/cli_main.rs:173
+#: src/cli_main.rs:174
 msgid "Warning: Network unreachable"
 msgstr "Upozornenie: Sieť nedostupná"
 
-#: src/cli_main.rs:178 src/core/http_task.rs:55 src/core/http_task.rs:64
+#: src/cli_main.rs:179 src/core/http_task.rs:55 src/core/http_task.rs:64
 #: src/core/http_task.rs:76 src/core/http_task.rs:119
-#: src/gui/main_window.rs:890 src/gui/main_window.rs:902
+#: src/gui/main_window.rs:910 src/gui/main_window.rs:922
 msgid "No match for this song"
 msgstr "Žiadna zhoda pre túto skladbu"
 
-#: src/cli_main.rs:179
+#: src/cli_main.rs:180
 msgid "Error:"
 msgstr "Chyba:"
 
-#: src/cli_main.rs:186
+#: src/cli_main.rs:187
 msgid "Recording started!"
 msgstr "Nahrávanie spustené!"
 
@@ -108,7 +108,7 @@ msgstr "Zapnúť tlač úplných informácií o skladbe v JSON"
 msgid "Enable printing full song info in the CSV format"
 msgstr "Zapnúť tlač úplných informácií o skladbe v CSV formáte"
 
-#: src/main.rs:141 src/main.rs:261 src/main.rs:276
+#: src/main.rs:141 src/main.rs:261 src/main.rs:282
 msgid "Disable MPRIS support"
 msgstr "Vypnúť podporu MPRIS"
 
@@ -171,11 +171,15 @@ msgstr "Data-URI odtlačok Shazam na rozpoznanie."
 msgid "The default action. Display a GUI."
 msgstr "Predvolená akcia. Zobrazenie grafického rozhrania."
 
-#: src/main.rs:255 src/main.rs:270
+#: src/main.rs:255 src/main.rs:276
 msgid "An optional audio file to recognize on the launch of the application."
 msgstr "Voliteľný zvukový súbor, ktorý sa rozpozná pri spustení aplikácie."
 
-#: src/main.rs:266
+#: src/main.rs:267 src/main.rs:288
+msgid "Disable PipeWire native support"
+msgstr ""
+
+#: src/main.rs:272
 msgid ""
 "Launch the GUI, but don't recognize audio through the microphone as soon as "
 "it is launched (rather than expecting the user to click on a button)."
@@ -188,16 +192,16 @@ msgstr ""
 msgid "Your IP has been rate-limited"
 msgstr "Vaša IP adresa bola obmedzená"
 
-#: src/core/microphone_thread.rs:72
+#: src/core/microphone_thread.rs:90
 msgid "Audio error:"
 msgstr "Chyba zvuku:"
 
-#: src/core/microphone_thread.rs:87
+#: src/core/microphone_thread.rs:111
 msgid "Audio error: No input device available"
 msgstr "Chyba zvuku: Nie je k dispozícii žiadne vstupné zariadenie"
 
 #: src/core/preferences.rs:58 src/core/preferences.rs:77
-#: src/gui/main_window.rs:286 src/gui/interface.ui:151 src/gui/interface.ui:657
+#: src/gui/main_window.rs:298 src/gui/interface.ui:151 src/gui/interface.ui:657
 #: src/gui/interface.ui:700
 msgid "Search on YouTube"
 msgstr "Vyhľadať na YouTube"
@@ -223,39 +227,39 @@ msgid "Invalid sample rate passed when encoding Shazam packet"
 msgstr ""
 "Pri kódovaní paketu Shazam bola odovzdaná nesprávna vzorkovacia frekvencia"
 
-#: src/gui/main_window.rs:244
+#: src/gui/main_window.rs:256
 msgid "Application error"
 msgstr "Chyba aplikácie"
 
-#: src/gui/main_window.rs:265
+#: src/gui/main_window.rs:277
 msgid "Network error"
 msgstr "Chyba siete"
 
-#: src/gui/main_window.rs:333
+#: src/gui/main_window.rs:351
 msgid "Unable to enable notification icon"
 msgstr "Nie je možné aktivovať ikonu upozornenia"
 
-#: src/gui/main_window.rs:796 src/gui/main_window.rs:877
+#: src/gui/main_window.rs:816 src/gui/main_window.rs:897
 msgid "Unable to enable MPRIS support"
 msgstr "Nie je možné zapnúť podporu MPRIS"
 
-#: src/gui/main_window.rs:899
+#: src/gui/main_window.rs:919
 msgid "_Ok"
 msgstr "_Ok"
 
-#: src/gui/main_window.rs:979
+#: src/gui/main_window.rs:999
 msgid "Song recognized"
 msgstr "Skladba rozpoznaná"
 
-#: src/gui/main_window.rs:1123
+#: src/gui/main_window.rs:1140
 msgid "Are you sure you want to wipe history?"
 msgstr "Naozaj chcete vymazať históriu?"
 
-#: src/gui/main_window.rs:1129
+#: src/gui/main_window.rs:1146
 msgid "_Yes"
 msgstr "_Áno"
 
-#: src/gui/main_window.rs:1130
+#: src/gui/main_window.rs:1147
 msgid "_No"
 msgstr "_Nie"
 

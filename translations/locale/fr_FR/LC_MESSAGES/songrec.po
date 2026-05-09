@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-04 22:31+0200\n"
+"POT-Creation-Date: 2026-05-09 12:02+0200\n"
 "PO-Revision-Date: 2026-05-04 23:02+0000\n"
 "Last-Translator: Marin <25437947+marin-m@users.noreply.github.com>\n"
 "Language-Team: French <https://weblate.fossplant.re/projects/songrec/songrec/"
@@ -21,42 +21,42 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
 "X-Generator: Weblate 5.15.2\n"
 
-#: src/cli_main.rs:117
+#: src/cli_main.rs:118
 msgid "Available device:"
 msgstr "Périphérique disponible :"
 
-#: src/cli_main.rs:135
+#: src/cli_main.rs:136
 msgid "Exiting: audio device not found"
 msgstr "Fin de l'exécution : périphérique audio introuvable"
 
-#: src/cli_main.rs:141
+#: src/cli_main.rs:142
 msgid "Exiting: no audio devices found!"
 msgstr "Fin de l'exécution : aucun périphérique audio disponible !"
 
-#: src/cli_main.rs:146
+#: src/cli_main.rs:147
 #, c-format
 msgid "Using device %s"
 msgstr "Utilisation du périphérique %s"
 
-#: src/cli_main.rs:170
+#: src/cli_main.rs:171
 msgid "Error: Network unreachable"
 msgstr "Erreur : aucune connexion réseau"
 
-#: src/cli_main.rs:173
+#: src/cli_main.rs:174
 msgid "Warning: Network unreachable"
 msgstr "Avertissement : Pas de connexion réseau"
 
-#: src/cli_main.rs:178 src/core/http_task.rs:55 src/core/http_task.rs:64
+#: src/cli_main.rs:179 src/core/http_task.rs:55 src/core/http_task.rs:64
 #: src/core/http_task.rs:76 src/core/http_task.rs:119
-#: src/gui/main_window.rs:890 src/gui/main_window.rs:902
+#: src/gui/main_window.rs:910 src/gui/main_window.rs:922
 msgid "No match for this song"
 msgstr "Chanson non reconnue"
 
-#: src/cli_main.rs:179
+#: src/cli_main.rs:180
 msgid "Error:"
 msgstr "Erreur :"
 
-#: src/cli_main.rs:186
+#: src/cli_main.rs:187
 msgid "Recording started!"
 msgstr "Enregistrement en cours..."
 
@@ -114,7 +114,7 @@ msgid "Enable printing full song info in the CSV format"
 msgstr ""
 "Utiliser le format CSV pour afficher des informations à propos de la chanson"
 
-#: src/main.rs:141 src/main.rs:261 src/main.rs:276
+#: src/main.rs:141 src/main.rs:261 src/main.rs:282
 msgid "Disable MPRIS support"
 msgstr "Désactiver le support de MPRIS"
 
@@ -179,11 +179,15 @@ msgstr "L'empreinte Shazam au format data-URI à reconnaître."
 msgid "The default action. Display a GUI."
 msgstr "L'action par défaut. Affiche l'interface graphique."
 
-#: src/main.rs:255 src/main.rs:270
+#: src/main.rs:255 src/main.rs:276
 msgid "An optional audio file to recognize on the launch of the application."
 msgstr "Un éventuel fichier audio à reconnaître au lancement de l'application."
 
-#: src/main.rs:266
+#: src/main.rs:267 src/main.rs:288
+msgid "Disable PipeWire native support"
+msgstr ""
+
+#: src/main.rs:272
 msgid ""
 "Launch the GUI, but don't recognize audio through the microphone as soon as "
 "it is launched (rather than expecting the user to click on a button)."
@@ -196,16 +200,16 @@ msgstr ""
 msgid "Your IP has been rate-limited"
 msgstr "Votre adresse IP fait l'objet d'une rate-limit"
 
-#: src/core/microphone_thread.rs:72
+#: src/core/microphone_thread.rs:90
 msgid "Audio error:"
 msgstr "Erreur audio :"
 
-#: src/core/microphone_thread.rs:87
+#: src/core/microphone_thread.rs:111
 msgid "Audio error: No input device available"
 msgstr "Erreur audio : pas de périphérique d'entrée disponible"
 
 #: src/core/preferences.rs:58 src/core/preferences.rs:77
-#: src/gui/main_window.rs:286 src/gui/interface.ui:151 src/gui/interface.ui:657
+#: src/gui/main_window.rs:298 src/gui/interface.ui:151 src/gui/interface.ui:657
 #: src/gui/interface.ui:700
 msgid "Search on YouTube"
 msgstr "Rechercher sur YouTube"
@@ -232,39 +236,39 @@ msgstr ""
 "Fréquence d'échantillonnage invalide passée lors de l'encodage du paquet "
 "Shazam"
 
-#: src/gui/main_window.rs:244
+#: src/gui/main_window.rs:256
 msgid "Application error"
 msgstr "Erreur de l'application"
 
-#: src/gui/main_window.rs:265
+#: src/gui/main_window.rs:277
 msgid "Network error"
 msgstr "Erreur réseau"
 
-#: src/gui/main_window.rs:333
+#: src/gui/main_window.rs:351
 msgid "Unable to enable notification icon"
 msgstr "Impossible d'activer l'icône de notification"
 
-#: src/gui/main_window.rs:796 src/gui/main_window.rs:877
+#: src/gui/main_window.rs:816 src/gui/main_window.rs:897
 msgid "Unable to enable MPRIS support"
 msgstr "Impossible d'activer le support de MRPIS"
 
-#: src/gui/main_window.rs:899
+#: src/gui/main_window.rs:919
 msgid "_Ok"
 msgstr "_Ok"
 
-#: src/gui/main_window.rs:979
+#: src/gui/main_window.rs:999
 msgid "Song recognized"
 msgstr "Chanson identifiée"
 
-#: src/gui/main_window.rs:1123
+#: src/gui/main_window.rs:1140
 msgid "Are you sure you want to wipe history?"
 msgstr "Êtes-vous sûr⋅e de vouloir supprimer l'historique ?"
 
-#: src/gui/main_window.rs:1129
+#: src/gui/main_window.rs:1146
 msgid "_Yes"
 msgstr "_Oui"
 
-#: src/gui/main_window.rs:1130
+#: src/gui/main_window.rs:1147
 msgid "_No"
 msgstr "_Non"
 
