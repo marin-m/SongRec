@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-05-09 12:02+0200\n"
-"PO-Revision-Date: 2026-05-04 23:02+0000\n"
+"PO-Revision-Date: 2026-05-09 10:06+0000\n"
 "Last-Translator: Marin <25437947+marin-m@users.noreply.github.com>\n"
 "Language-Team: French <https://weblate.fossplant.re/projects/songrec/songrec/"
 "fr/>\n"
@@ -185,7 +185,7 @@ msgstr "Un éventuel fichier audio à reconnaître au lancement de l'application
 
 #: src/main.rs:267 src/main.rs:288
 msgid "Disable PipeWire native support"
-msgstr ""
+msgstr "Désactiver le support natif de PipeWire"
 
 #: src/main.rs:272
 msgid ""
