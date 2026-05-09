@@ -81,7 +81,7 @@ pub fn clear_cache() {
     }
 }
 
-//Backwards compatibility
+// Backwards compatibility
 fn get_old_data_dir_path() -> Result<PathBuf, Box<dyn Error>> {
     let app_info = AppInfo {
         name: "SongRec",

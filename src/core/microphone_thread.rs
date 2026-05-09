@@ -27,9 +27,11 @@ pub fn microphone_thread(
 ) {
     // Use the default host for working with audio devices.
 
+    debug!("Trying to initialize CPAL...");
     let host = cpal::default_host();
     #[cfg(target_os = "linux")]
     debug!("Using audio playback backend: {:?}", host.id());
+    debug!("CPAL initialized");
 
     let mut backend = get_any_backend();
 
@@ -61,24 +63,32 @@ pub fn microphone_thread(
         match message {
             MicrophoneRecordStart(device_name) => {
                 let processing_tx_2 = processing_tx.clone();
+                let microphone_tx_2 = microphone_tx.clone();
                 let gui_tx_2 = gui_tx.clone();
                 let gui_tx_3 = gui_tx.clone();
                 let gui_tx_4 = gui_tx.clone();
 
-                let err_fn = move |error: Box<dyn std::error::Error>| {
-                    gui_tx_2
-                        .try_send(GUIMessage::ErrorMessage(format!(
-                            "{} {}",
-                            gettext("Audio error:"),
-                            error
-                        )))
+                let err_fn = move |location: &'static str, error: cpal::Error| {
+                    if error.kind() != cpal::ErrorKind::DeviceChanged {
+                        gui_tx_2
+                            .try_send(GUIMessage::ErrorMessage(format!(
+                                "{} {}: {:?} - {} - {}",
+                                gettext("Audio error:"),
+                                location,
+                                error.kind(),
+                                error.message().unwrap_or_default(),
+                                error.kind()
+                            )))
+                            .unwrap();
+                    }
+                    microphone_tx_2
+                        .try_send(MicrophoneMessage::RefreshDevices)
                         .unwrap();
                 };
 
                 let err_fn_2 = err_fn.clone();
-                let err_fn_3 = err_fn.clone();
                 let err_fn_cb = move |error: cpal::Error| {
-                    err_fn_2(Box::new(error));
+                    err_fn_2("stream error", error);
                 };
 
                 if host.default_input_device().is_none() {
@@ -95,7 +105,7 @@ pub fn microphone_thread(
                 let config = match device.default_input_config() {
                     Ok(res) => res,
                     Err(err) => {
-                        err_fn_3(Box::new(err));
+                        err_fn("default_input_config", err);
                         return;
                     }
                 };
@@ -152,7 +162,7 @@ pub fn microphone_thread(
                                     res
                                 },
                                 Err(err) => {
-                                    err_fn_3(Box::new(err));
+                                    err_fn("build_input_stream", err);
                                     return;
                                 }
                             },
@@ -193,7 +203,7 @@ pub fn microphone_thread(
                                         res
                                     },
                                     Err(err) => {
-                                        err_fn_3(Box::new(err));
+                                        err_fn("build_input_stream", err);
                                         return;
                                     }
                                 },
@@ -227,6 +237,8 @@ pub fn microphone_thread(
             }
 
             RefreshDevices => {
+                debug!("Refreshing audio devices...");
+
                 let device_names: Vec<DeviceListItem> = backend.list_devices(&host);
 
                 gui_tx

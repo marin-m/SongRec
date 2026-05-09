@@ -1049,9 +1049,6 @@ impl App {
                                     .add_row_and_save(new_entry);
                             }
                         }
-                        // This message is sent once in the program execution for
-                        // the moment (maybe it should be updated automatically
-                        // later?):
                         DevicesList(devices) => {
                             let mut initial_device_index: u32 = 0;
                             let mut initial_device: Option<ListedDevice> = None;
@@ -1063,7 +1060,7 @@ impl App {
                             g_list_store.remove_all();
 
                             for (current_index, device) in devices.iter().enumerate() {
-                                // device: thread_messages::DeviceListItem
+                                // device here is a: thread_messages::DeviceListItem
                                 let listed_device = ListedDevice::new(
                                     device.display_name.clone(),
                                     device.inner_name.clone(),
@@ -1088,7 +1085,7 @@ impl App {
                             }
 
                             if let Some(device) = initial_device {
-                                // device: ListedDevice
+                                // device here is a: ListedDevice
                                 adw_combo_row.set_selected(initial_device_index);
                                 loopback_switch.set_visible(found_monitor_device);
 
