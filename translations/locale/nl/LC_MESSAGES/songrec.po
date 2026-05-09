@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-09 12:02+0200\n"
+"POT-Creation-Date: 2026-05-09 13:58+0200\n"
 "PO-Revision-Date: 2026-03-09 02:16+0000\n"
 "Last-Translator: Marin <25437947+marin-m@users.noreply.github.com>\n"
 "Language-Team: Dutch <https://weblate.fossplant.re/projects/songrec/songrec/"
@@ -188,11 +188,11 @@ msgstr "Toon het venster, maar wacht met het starten van de muziekherkenning."
 msgid "Your IP has been rate-limited"
 msgstr "Je ip-verzoeken zijn afgekapt"
 
-#: src/core/microphone_thread.rs:90
+#: src/core/microphone_thread.rs:96
 msgid "Audio error:"
 msgstr "Audiofout:"
 
-#: src/core/microphone_thread.rs:111
+#: src/core/microphone_thread.rs:114
 msgid "Audio error: No input device available"
 msgstr ""
 

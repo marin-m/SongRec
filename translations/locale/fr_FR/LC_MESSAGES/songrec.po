@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-09 12:02+0200\n"
+"POT-Creation-Date: 2026-05-09 13:58+0200\n"
 "PO-Revision-Date: 2026-05-09 10:06+0000\n"
 "Last-Translator: Marin <25437947+marin-m@users.noreply.github.com>\n"
 "Language-Team: French <https://weblate.fossplant.re/projects/songrec/songrec/"
@@ -200,11 +200,11 @@ msgstr ""
 msgid "Your IP has been rate-limited"
 msgstr "Votre adresse IP fait l'objet d'une rate-limit"
 
-#: src/core/microphone_thread.rs:90
+#: src/core/microphone_thread.rs:96
 msgid "Audio error:"
 msgstr "Erreur audio :"
 
-#: src/core/microphone_thread.rs:111
+#: src/core/microphone_thread.rs:114
 msgid "Audio error: No input device available"
 msgstr "Erreur audio : pas de périphérique d'entrée disponible"
 

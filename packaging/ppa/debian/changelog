@@ -1,3 +1,9 @@
+songrec (0.7.1) bionic; urgency=low
+
+  * Disable the new realtime audio flag in CPAL on Linux as it will spam errors with Flatpak sandboxing
+
+ -- Marin <marin-m@users.noreply.github.com>  Sat, 9 May 2026 13:57:43 +0200
+
 songrec (0.7.0+1) bionic; urgency=low
 
   * Fix building with MSRV

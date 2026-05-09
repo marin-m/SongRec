@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: SongRec\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-09 12:02+0200\n"
+"POT-Creation-Date: 2026-05-09 13:58+0200\n"
 "PO-Revision-Date: 2026-05-04 13:33+0000\n"
 "Last-Translator: marcelo cripe <marcelocripe@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://weblate.fossplant.re/projects/"
@@ -220,11 +220,11 @@ msgstr ""
 "O seu endereço IP (Internet Protocol ou Protocolo da Internet) foi limitado "
 "em termos da taxa de transferência"
 
-#: src/core/microphone_thread.rs:90
+#: src/core/microphone_thread.rs:96
 msgid "Audio error:"
 msgstr "Ocorreu um erro no áudio:"
 
-#: src/core/microphone_thread.rs:111
+#: src/core/microphone_thread.rs:114
 msgid "Audio error: No input device available"
 msgstr ""
 "Ocorreu um erro no áudio, porque nenhum dispositivo de entrada está "

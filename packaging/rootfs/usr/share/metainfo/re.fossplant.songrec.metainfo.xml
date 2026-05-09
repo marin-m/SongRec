@@ -106,6 +106,11 @@ https://hughsie.github.io/oars/index.html
 -->
   <content_rating type="oars-1.1"/>
   <releases>
+    <release version="0.7.1" date="2026-05-09">
+      <description>
+        <p>Disable the new realtime audio flag in CPAL on Linux as it will spam errors with Flatpak sandboxing</p>
+      </description>
+    </release>
     <release version="0.7.0" date="2026-05-09">
       <description>
         <p>Add preferences to customize the search engine URL thanks to @leandrotlz (PR #286)</p>

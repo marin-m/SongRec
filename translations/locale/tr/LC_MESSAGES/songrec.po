@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-09 12:02+0200\n"
+"POT-Creation-Date: 2026-05-09 13:58+0200\n"
 "PO-Revision-Date: 2026-05-04 13:33+0000\n"
 "Last-Translator: Arda Aydın <arda.aydin@operationsilkscarf.com>\n"
 "Language-Team: Turkish <https://weblate.fossplant.re/projects/songrec/"
@@ -191,11 +191,11 @@ msgstr ""
 msgid "Your IP has been rate-limited"
 msgstr "IP'niz hız aşımına yakalanmış"
 
-#: src/core/microphone_thread.rs:90
+#: src/core/microphone_thread.rs:96
 msgid "Audio error:"
 msgstr "Ses hatası:"
 
-#: src/core/microphone_thread.rs:111
+#: src/core/microphone_thread.rs:114
 msgid "Audio error: No input device available"
 msgstr "Ses hatası: Mevcut bir giriş cihazı yok"
 
