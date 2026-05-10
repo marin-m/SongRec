@@ -136,20 +136,20 @@ rustup update
 Debian and Ubuntu:
 
 ```bash
-sudo apt install build-essential libasound2-dev libpipewire-0.3-dev libclang-dev libpulse-dev libgtk-4-dev libsoup-3.0-dev libadwaita-1-dev libdbus-1-dev gettext sed
+sudo apt install build-essential libasound2-dev libpipewire-0.3-dev libclang-dev libpulse-dev libgtk-4-dev libsoup-3.0-dev libadwaita-1-dev blueprint-compiler libdbus-1-dev gettext sed
 ```
 
 Archlinux:
 
 ```bash
-sudo pacman -S pkgconf git gtk4 libadwaita libsoup3 alsa-lib libpulse libpipewire clang openssl ffmpeg gettext sed
+sudo pacman -S pkgconf blueprint-compiler git gtk4 libadwaita libsoup3 alsa-lib libpulse libpipewire clang openssl ffmpeg gettext sed
 ```
 
 Fedora Linux:
 
 ```shell
 sudo dnf groupinstall "Development Tools"
-sudo dnf install alsa-lib-devel pipewire-devel clang-devel pulseaudio-libs-devel pkgconf-pkg-config glib gtk4-devel libsoup3-devel libadwaita-devel dbus-devel openssl-devel gettext sed
+sudo dnf install alsa-lib-devel blueprint-compiler pipewire-devel clang-devel pulseaudio-libs-devel pkgconf-pkg-config glib gtk4-devel libsoup3-devel libadwaita-devel dbus-devel openssl-devel gettext sed
 ```
 
 MSYS2 with MINGW64 (Windows XP+):
@@ -161,13 +161,13 @@ MSYS2 with MINGW64 (Windows XP+):
 # (restart PowerShell)
 #   cd C:\msys64\home\*
 #   git clone https://github.com/marin-m/SongRec.git SongRec-main
-pacman -Sy unzip mingw-w64-x86_64-gettext-runtime mingw-w64-x86_64-gcc mingw-w64-x86_64-libadwaita mingw-w64-x86_64-adwaita-icon-theme mingw-w64-x86_64-glib2 mingw-w64-x86_64-gtk4 mingw-w64-x86_64-pkgconf mingw-w64-x86_64-dbus mingw-w64-x86_64-openssl mingw-w64-x86_64-libsoup3 mingw-w64-x86_64-ffmpeg
+pacman -Sy unzip mingw-w64-x86_64-gettext-runtime mingw-w64-x86_64-blueprint-compiler mingw-w64-x86_64-gcc mingw-w64-x86_64-libadwaita mingw-w64-x86_64-adwaita-icon-theme mingw-w64-x86_64-glib2 mingw-w64-x86_64-gtk4 mingw-w64-x86_64-pkgconf mingw-w64-x86_64-dbus mingw-w64-x86_64-openssl mingw-w64-x86_64-libsoup3 mingw-w64-x86_64-ffmpeg
 ```
 
 MSYS2 with UCRT64 (Windows 10+):
 
 ```bash
-pacman -Sy unzip mingw-w64-ucrt-x86_64-gettext-runtime mingw-w64-ucrt-x86_64-gcc mingw-w64-ucrt-x86_64-libadwaita mingw-w64-ucrt-x86_64-adwaita-icon-theme mingw-w64-ucrt-x86_64-glib2 mingw-w64-ucrt-x86_64-gtk4 mingw-w64-ucrt-x86_64-pkgconf mingw-w64-ucrt-x86_64-dbus mingw-w64-ucrt-x86_64-openssl mingw-w64-ucrt-x86_64-libsoup3 mingw-w64-ucrt-x86_64-ffmpeg
+pacman -Sy unzip mingw-w64-ucrt-x86_64-gettext-runtime mingw-w64-ucrt-x86_64-blueprint-compiler mingw-w64-ucrt-x86_64-gcc mingw-w64-ucrt-x86_64-libadwaita mingw-w64-ucrt-x86_64-adwaita-icon-theme mingw-w64-ucrt-x86_64-glib2 mingw-w64-ucrt-x86_64-gtk4 mingw-w64-ucrt-x86_64-pkgconf mingw-w64-ucrt-x86_64-dbus mingw-w64-ucrt-x86_64-openssl mingw-w64-ucrt-x86_64-libsoup3 mingw-w64-ucrt-x86_64-ffmpeg
 ```
 
 NOTE: macOS is not officially supported. You may have to first install [XQuartz](https://www.xquartz.org/), export the `GSK_RENDERER=cairo` environment variable, and other tricks to have the application working.
@@ -175,7 +175,7 @@ NOTE: macOS is not officially supported. You may have to first install [XQuartz]
 MacPorts (macOS):
 
 ```bash
-sudo port install libadwaita gtk4 libsoup ffmpeg gmake cctools +xcode
+sudo port install libadwaita blueprint-compiler gtk4 libsoup ffmpeg gmake cctools +xcode
 # Note: always install/use gettext from brew, cf.: https://github.com/gettext-rs/gettext-rs/issues/140
 brew install gettext
 export GETTEXT_DIR=/opt/homebrew
@@ -184,20 +184,20 @@ export GETTEXT_DIR=/opt/homebrew
 Homebrew (macOS 14+):
 
 ```bash
-brew install libadwaita gtk4 libsoup ffmpeg gettext
+brew install libadwaita blueprint-compiler gtk4 libsoup ffmpeg gettext
 export GETTEXT_DIR=/opt/homebrew
 ```
 
 Void Linux (libressl):
 
 ```shell
-sudo xbps-install base-devel alsa-lib-devel pipewire-devel clang-devel pulseaudio-devel gtk4-devel libsoup3-devel libadwaita-devel dbus-devel libressl-devel
+sudo xbps-install base-devel blueprint-compiler alsa-lib-devel pipewire-devel clang-devel pulseaudio-devel gtk4-devel libsoup3-devel libadwaita-devel dbus-devel libressl-devel
 ```
 
 Void Linux (openssl):
 
 ```shell
-sudo xbps-install base-devel alsa-lib-devel pipewire-devel clang-devel pulseaudio-devel gtk4-devel libsoup3-devel libadwaita-devel dbus-devel openssl-devel
+sudo xbps-install base-devel blueprint-compiler alsa-lib-devel pipewire-devel clang-devel pulseaudio-devel gtk4-devel libsoup3-devel libadwaita-devel dbus-devel openssl-devel
 ```
 
 ### Compiling the project

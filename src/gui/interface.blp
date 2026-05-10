@@ -1,0 +1,698 @@
+using Gtk 4.0;
+using Adw 1;
+using Gio 2.0;
+
+Adw.ApplicationWindow main_window {
+  accessible-role: application;
+
+  content: Adw.NavigationView main_window_pages {
+    Adw.NavigationPage main_page {
+      child: Adw.ToolbarView {
+        content: ScrolledWindow main_scrollview {
+          child: Box layout_box {
+            homogeneous: true;
+            margin-bottom: 15;
+            margin-end: 15;
+            margin-start: 15;
+            margin-top: 15;
+            spacing: 15;
+
+            [primary]
+            Box left_column {
+              orientation: vertical;
+              spacing: 15;
+
+              Adw.PreferencesGroup identify_section {
+                title: _("Recognize songs");
+
+                Adw.ActionRow recognize_file_row {
+                  activatable: true;
+                  activatable-widget: recognize_file_button;
+                  selectable: false;
+                  title: _("Recognize from file");
+
+                  Button recognize_file_button {
+                    action-name: "win.recognize-file";
+
+                    child: Adw.ButtonContent {
+                      icon-name: "folder-new-symbolic";
+                      label: _("Pick a file...");
+                    };
+                  }
+                }
+
+                Adw.PreferencesRow spinner_row {
+                  activatable: false;
+                  margin-end: 7;
+                  margin-start: 7;
+                  margin-top: 7;
+                  selectable: false;
+                  visible: false;
+
+                  Spinner {
+                    margin-bottom: 7;
+                    spinning: true;
+                  }
+                }
+
+                Adw.SwitchRow microphone_switch {
+                  activatable: true;
+                  selectable: false;
+                  title: _("Recognize from microphone");
+                  visible: false;
+                  notify::active => $microphone_option_switched();
+                }
+
+                Adw.SwitchRow loopback_switch {
+                  activatable: true;
+                  selectable: false;
+                  title: _("Recognize from my speakers");
+                  visible: false;
+                  notify::active => $loopback_options_switched();
+                }
+
+                Label no_network_message {
+                  attributes: "0 -1 weight medium 0 -1 foreground #a4a400000000";
+                  label: _("Shazam servers are not reachable, are you connected?");
+                  margin-top: 5;
+                  visible: false;
+                }
+
+                Label rate_limited_message {
+                  attributes: "0 -1 weight bold 0 -1 foreground #a4a400000000";
+                  label: _("ERROR: Your IP has been rate-limited");
+                  margin-top: 5;
+                  visible: false;
+                }
+              }
+
+              Adw.PreferencesGroup results_section {
+                title: _("Recognition results");
+                visible: false;
+
+                Adw.PreferencesRow results_row {
+                  activatable: false;
+                  selectable: false;
+
+                  Box {
+                    margin-bottom: 7;
+                    margin-end: 7;
+                    margin-start: 7;
+                    margin-top: 7;
+                    orientation: vertical;
+                    spacing: 7;
+
+                    Label results_label {
+                      attributes: "0 -1 weight bold";
+                      ellipsize: end;
+                      label: "Artist - Song name";
+                      natural-wrap-mode: word;
+                      selectable: true;
+                    }
+
+                    Image results_image {
+                      pixel-size: 160;
+                    }
+                  }
+                }
+
+                Adw.ActionRow search_youtube_row {
+                  activatable: true;
+                  activatable-widget: search_youtube_button;
+                  selectable: false;
+                  title: _("Search on YouTube");
+
+                  Button search_youtube_button {
+                    action-name: "win.search-youtube";
+
+                    child: Adw.ButtonContent {
+                      icon-name: "search-symbolic";
+                      label: _("Search...");
+                    };
+                  }
+                }
+              }
+            }
+
+            [secondary]
+            Box right_column {
+              orientation: vertical;
+              spacing: 15;
+
+              Adw.PreferencesGroup input_device_section {
+                header-suffix: Button refresh_devices {
+                  action-name: "win.refresh-devices";
+                  icon-name: "view-refresh-symbolic";
+                  tooltip-text: _("Refresh available devices");
+                };
+
+                title: _("Audio input");
+                visible: false;
+
+                Adw.ComboRow audio_inputs {
+                  factory: BuilderListItemFactory audio_inputs_factory {
+                    template ListItem {
+                      child: Label {
+                        xalign: 0;
+                        ellipsize: end;
+                        label: bind template.item as <$ListedDevice>.display_name;
+                      };
+                    }
+                  };
+
+                  model: Gio.ListStore audio_inputs_model {};
+
+                  title: _("Device");
+                  title-lines: 1;
+                  notify::selected-item => $input_device_switched();
+                }
+
+                Adw.PreferencesRow volume_row {
+                  activatable: false;
+                  selectable: false;
+
+                  Box {
+                    margin-bottom: 15;
+                    margin-end: 15;
+                    margin-start: 15;
+                    margin-top: 15;
+                    spacing: 15;
+
+                    Label volume_label {
+                      label: _("Volume:");
+                    }
+
+                    ProgressBar volume_gauge {
+                      hexpand: true;
+                      valign: center;
+                    }
+                  }
+                }
+              }
+
+              Adw.PreferencesGroup history_section {
+                header-suffix: MenuButton history_params {
+                  has-tooltip: true;
+                  icon-name: "preferences-system";
+                  menu-model: history_menu_model;
+                  tooltip-text: _("History options...");
+                };
+
+                title: _("Recognition history");
+
+                Adw.PreferencesRow history_row {
+                  child: ScrolledWindow {
+                    child: history_view;
+
+                    ColumnView history_view {
+                      accessible-role: list;
+
+                      css-classes: [
+                        "column_view",
+                      ];
+
+                      model: SingleSelection history_selection {
+                        autoselect: false;
+                        can-unselect: true;
+                      };
+
+                      show-column-separators: true;
+                      show-row-separators: true;
+
+                      ColumnViewColumn song_name_cell {
+                        factory: SignalListItemFactory {
+                          setup => $history_cell_setup_cb(song_name_cell);
+                          bind => $history_cell_bind_cb(song_name_cell);
+                        };
+
+                        id: "song_name";
+                        resizable: true;
+                        title: _("Song name");
+                      }
+
+                      ColumnViewColumn album_cell {
+                        factory: SignalListItemFactory {
+                          bind => $history_cell_bind_cb(album_cell);
+                          setup => $history_cell_setup_cb(album_cell);
+                        };
+
+                        id: "album";
+                        resizable: true;
+                        title: _("Album");
+                      }
+
+                      ColumnViewColumn recognition_date_cell {
+                        expand: true;
+
+                        factory: SignalListItemFactory {
+                          bind => $history_cell_bind_cb(recognition_date_cell);
+                          setup => $history_cell_setup_cb(recognition_date_cell);
+                        };
+
+                        id: "recognition_date";
+                        resizable: true;
+                        title: _("Recognition date");
+                      }
+                    }
+                  };
+
+                  height-request: 200;
+                }
+
+                Adw.PreferencesRow favorites_button {
+                  accessible-role: button;
+                  action-name: "navigation.push";
+                  action-target: "'favorites_tag'";
+
+                  child: Label {
+                    attributes: "0 -1 weight medium";
+                    label: _("View favorites");
+                    margin-bottom: 10;
+                    margin-top: 10;
+                  };
+                }
+              }
+            }
+          };
+        };
+
+        [top]
+        Adw.HeaderBar title_bar {
+          [end]
+          MenuButton menu_button {
+            accessible-role: menu;
+            has-tooltip: true;
+            icon-name: "open-menu-symbolic";
+            menu-model: main_menu_model;
+            primary: true;
+            tooltip-text: _("Application menu");
+          }
+        }
+      };
+
+      title: "SongRec";
+    }
+
+    Adw.NavigationPage favorites_page {
+      child: Adw.ToolbarView {
+        content: ScrolledWindow {
+          child: favorites_view;
+
+          ColumnView favorites_view {
+            accessible-role: list;
+
+            css-classes: [
+              "column_view",
+            ];
+
+            model: SingleSelection favorites_selection {
+              autoselect: false;
+              can-unselect: true;
+            };
+
+            show-column-separators: true;
+            show-row-separators: true;
+
+            ColumnViewColumn favorites_song_name_cell {
+              factory: SignalListItemFactory {
+                bind => $history_cell_bind_cb(favorites_song_name_cell);
+                setup => $history_cell_setup_cb(favorites_song_name_cell);
+              };
+
+              id: "song_name";
+              resizable: true;
+              title: _("Song name");
+            }
+
+            ColumnViewColumn favorites_album_cell {
+              factory: SignalListItemFactory {
+                bind => $history_cell_bind_cb(favorites_album_cell);
+                setup => $history_cell_setup_cb(favorites_album_cell);
+              };
+
+              id: "album";
+              resizable: true;
+              title: _("Album");
+            }
+
+            ColumnViewColumn favorites_recognition_date_cell {
+              expand: true;
+
+              factory: SignalListItemFactory {
+                bind => $history_cell_bind_cb(favorites_recognition_date_cell);
+                setup => $history_cell_setup_cb(favorites_recognition_date_cell);
+              };
+
+              id: "recognition_date";
+              resizable: true;
+              title: _("Recognition date");
+            }
+          }
+        };
+
+        [top]
+        Adw.HeaderBar favorites_titlebar {}
+
+        [bottom]
+        ActionBar favorites_actions {
+          Button favorites_export_csv {
+            action-name: "win.export-favorites-to-csv";
+
+            Adw.ButtonContent {
+              icon-name: "x-office-spreadsheet-symbolic";
+              label: _("Export to CSV");
+            }
+          }
+        }
+      };
+
+      tag: "favorites_tag";
+      title: _("Favorites");
+    }
+
+    Adw.NavigationPage settings_page {
+      child: Adw.ToolbarView {
+        content: Adw.PreferencesPage {
+          Adw.PreferencesGroup general_preferences {
+            title: _("General preferences");
+
+            Adw.SwitchRow notification_setting {
+              action-name: "win.notification-setting";
+              subtitle: _("Notify when a new song is recognized or network error is encountered");
+              title: _("Show notifications");
+            }
+
+            Adw.SwitchRow mpris_setting {
+              action-name: "win.mpris-setting";
+              has-tooltip: true;
+              subtitle: _(
+                "MPRIS will display information about recognized songs in places like the GNOME or KDE control panel"
+              );
+              title: _("Enable MPRIS");
+              visible: false;
+            }
+
+            Adw.SwitchRow systray_setting {
+              action-name: "win.systray-setting";
+              subtitle: _(
+                "When closing the window, minimize to system tray using KSNI instead of closing the app. Please note that you may have to increase the \"request interval\" setting when leaving SongRec running in the background to reduce your changes of getting rate-limited."
+              );
+              title: _("Minimize to system tray");
+              visible: false;
+            }
+
+            Adw.SwitchRow no_dupes_setting {
+              action-name: "win.no-dupes-setting";
+              subtitle: _(
+                "Bump a song to the top of the history list and remove the former entry when the same song is detected multiple times"
+              );
+              title: _("No duplicates in history");
+            }
+          }
+
+          Adw.PreferencesGroup network_preferences {
+            title: _("Network preferences");
+
+            Adw.SpinRow interval_setting {
+              adjustment: Adjustment interval_value {
+                lower: 1;
+                page-increment: 1;
+                page-size: 1;
+                step-increment: 1;
+                upper: 513;
+                value: 10;
+                value-changed => $interval_changed();
+              };
+
+              climb-rate: 1;
+              numeric: true;
+              snap-to-ticks: true;
+              subtitle: _("By default 8, increase if you are rate-limited");
+              title: _("Shazam interval between requests in seconds");
+              update-policy: if_valid;
+            }
+
+            Adw.SpinRow buffer_size_setting {
+              adjustment: Adjustment buffer_size_value {
+                lower: 1;
+                page-increment: 1;
+                page-size: 1;
+                step-increment: 1;
+                upper: 513;
+                value: 12;
+                value-changed => $buffer_size_changed();
+              };
+
+              climb-rate: 1;
+              numeric: true;
+              snap-to-ticks: true;
+              subtitle: _(
+                "By default the last 12 seconds of music are fingerprinted and sent to Shazam. Editing may have an impact on reliability"
+              );
+              title: _("Shazam buffer size in seconds");
+              update-policy: if_valid;
+            }
+          }
+
+          Adw.PreferencesGroup search_preferences {
+            title: _("Search preferences");
+
+            Adw.EntryRow search_engine_name {
+              title: _("Custom search engine action");
+              changed => $search_engine_action_changed();
+            }
+
+            Adw.EntryRow search_engine_url {
+              title: _("Custom search engine URL");
+              changed => $search_engine_url_changed();
+            }
+          }
+        };
+
+        [top]
+        Adw.HeaderBar {}
+      };
+
+      tag: "settings_tag";
+      title: _("Settings");
+    }
+  };
+
+  default-height: 570;
+  default-width: 977;
+  icon-name: "re.fossplant.songrec";
+  startup-id: "re.fossplant.songrec";
+  title: "SongRec";
+  visible: true;
+
+  Adw.Breakpoint main_page_breakpoint {
+    condition ("max-width: 800px")
+
+    setters {
+      layout_box.orientation: 1;
+      layout_box.homogeneous: false;
+    }
+  }
+}
+
+menu main_menu_model {
+  section menu_section {
+    item {
+      action: "win.notification-setting";
+      label: _("Show notifications");
+    }
+
+    item {
+      action: "navigation.push";
+      label: _("_Preferences...");
+      target: "settings_tag";
+    }
+  }
+
+  section {
+    item {
+      action: "win.show-about";
+      label: _("About...");
+    }
+  }
+}
+
+Adw.AboutDialog about_dialog {
+  application-icon: "custom_icon";
+  application-name: "SongRec";
+  debug-info-filename: "songrec-debug-info.txt";
+  developer-name: "Marin Moulinier - Fossplant.re";
+
+  developers: [
+    "Marin Moulinier https://moulinier.dev/",
+    "Contributors https://github.com/marin-m/SongRec/graphs/contributors",
+  ];
+
+  issue-url: "https://github.com/marin-m/SongRec/issues/new/choose";
+  license-type: gpl_3_0;
+  support-url: "https://matrix.to/#/#songrec:matrix.org";
+  translator-credits: "SongRec translators https://github.com/marin-m/SongRec/tree/main/translations";
+  visible: false;
+  website: "https://songrec.fossplant.re/";
+  closed => $about_dialog_closed();
+}
+
+menu history_menu_model {
+  item {
+    action: "win.export-to-csv";
+    label: _("Export to CSV");
+  }
+
+  item {
+    action: "win.wipe-history";
+    label: _("Delete history");
+  }
+}
+
+FileDialog file_picker {
+  title: _("Select a file to recognize");
+}
+
+PopoverMenu history_context_menu {
+  menu-model: history_context_model;
+}
+
+menu history_context_model {
+  section {
+    item {
+      action: "history-menu.copy-artist-track";
+      icon: "edit-copy-symbolic";
+      label: _("Copy artist and track");
+    }
+
+    item {
+      action: "history-menu.copy-artist";
+      icon: "edit-copy-symbolic";
+      label: _("Copy artist");
+    }
+
+    item {
+      action: "history-menu.copy-track-name";
+      icon: "edit-copy-symbolic";
+      label: _("Copy track name");
+    }
+
+    item {
+      action: "history-menu.copy-album";
+      icon: "edit-copy-symbolic";
+      label: _("Copy album");
+    }
+  }
+
+  section {
+    item {
+      action: "history-menu.search-on-youtube";
+      icon: "search-symbolic";
+      label: _("Search on YouTube");
+    }
+  }
+
+  section {
+    item {
+      action: "history-menu.remove-from-history";
+      icon: "edit-delete-symbolic";
+      label: _("Delete from History");
+    }
+
+    item {
+      action: "history-menu.add-to-favorites";
+      icon: "favorite-new-symbolic";
+      label: _("Add to Favorites");
+    }
+  }
+}
+
+menu history_context_model_faved {
+  section {
+    item {
+      action: "history-menu.copy-artist-track";
+      icon: "edit-copy-symbolic";
+      label: _("Copy artist and track");
+    }
+
+    item {
+      action: "history-menu.copy-artist";
+      icon: "edit-copy-symbolic";
+      label: _("Copy artist");
+    }
+
+    item {
+      action: "history-menu.copy-track-name";
+      icon: "edit-copy-symbolic";
+      label: _("Copy track name");
+    }
+
+    item {
+      action: "history-menu.copy-album";
+      icon: "edit-copy-symbolic";
+      label: _("Copy album");
+    }
+  }
+
+  section {
+    item {
+      action: "history-menu.search-on-youtube";
+      icon: "search-symbolic";
+      label: _("Search on YouTube");
+    }
+  }
+
+  section {
+    item {
+      action: "history-menu.remove-from-favorites";
+      icon: "edit-delete-symbolic";
+      label: _("Remove from Favorites");
+    }
+  }
+}
+
+ShortcutsWindow shortcuts_window {
+  child: ShortcutsSection {
+    title: "shortcuts";
+
+    ShortcutsGroup {
+      title: C_("General section in the Shortcuts window", "General");
+
+      ShortcutsShortcut {
+        accelerator: "<Ctrl>Q";
+        action-name: "win.close";
+        title: C_("In the shortcuts window", "Close the application");
+      }
+
+      ShortcutsShortcut {
+        accelerator: "<Ctrl>O";
+        action-name: "win.recognize-file";
+        title: C_("In the shortcuts window", "Recognize from a file");
+      }
+
+      ShortcutsShortcut {
+        accelerator: "<Primary>comma";
+        action-name: "win.show-preferences";
+        title: C_("In the shortcuts window", "Show preferences");
+      }
+
+      ShortcutsShortcut {
+        accelerator: "<Primary>question";
+        action-name: "win.display-shortcuts";
+        title: C_("In the shortcuts window", "Display shortcuts");
+      }
+
+      ShortcutsShortcut {
+        accelerator: "F10";
+        action-name: "win.show-menu";
+        title: C_("win.show-menu", "Show menu");
+      }
+    }
+  };
+
+  destroy-with-parent: true;
+  focus-visible: false;
+  hide-on-close: true;
+  modal: true;
+  transient-for: main_window;
+}

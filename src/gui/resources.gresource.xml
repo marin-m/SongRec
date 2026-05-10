@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<!-- Created with Cambalache 0.96.3 -->
+<!-- Created with Cambalache 1.0 -->
 <gresources>
   <gresource prefix="/re/fossplant/songrec/">
-    <file compressed="true" preprocess="xml-stripblanks">interface.ui</file>
+    <file compressed="true">interface.blp</file>
     <file compressed="true">style.css</file>
     <file compressed="true" preprocess="xml-stripblanks" alias="re.fossplant.songrec.svg">custom_icon.svg</file>
     <file compressed="true" preprocess="xml-stripblanks" alias="scalable/apps/re.fossplant.songrec.svg">custom_icon.svg</file>
