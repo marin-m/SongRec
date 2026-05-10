@@ -18,7 +18,8 @@ edition = "2018"
 fern = "0.7"
 humantime = "2.3"
 log = { version = "0.4.29", features = ["kv", "kv_std"] }
-chfft = "0.3.4" # Fast Fourier transform
+realfft = "3.5.0" # Fast Fourier transform
+rustfft = { version = "6.4.0", default-features = false }
 async-channel = "2.5.0"
 byteorder = "1.3.4" # Used for reading and writing binary structures
 crc32fast = "1.2.0" # Used for the CRC-32 checksum in the binary signature

@@ -1,6 +1,8 @@
-use chfft::RFft1D;
+use realfft::RealFftPlanner;
 use rodio::conversions::SampleTypeConverter;
 use rodio::nz;
+use rustfft::num_complex::Complex;
+use rustfft::num_traits::Zero;
 use std::error::Error;
 use std::io::BufReader;
 
@@ -13,20 +15,27 @@ use crate::plugins::ffmpeg_wrapper::decode_with_ffmpeg;
 
 pub struct SignatureGenerator {
     // Used when processing input:
-    ring_buffer_of_samples: Box<[i16; 2048]>,
     /// Ring buffer.
+    ring_buffer_of_samples: Box<[i16; 2048]>,
     ring_buffer_of_samples_index: usize,
 
+    /// Reordered, temporary version of the ring buffer above, with floats for
+    /// precision because we applied Hanning window.
     reordered_ring_buffer_of_samples: Box<[f32; 2048]>,
-    /// Reordered, temporary version of the ring buffer above, with floats for precision because we applied Hanning window.
+
+    /// Temporary work buffer
+    complex_fft_output: Box<[Complex<f32>; 1025]>,
+
+    /// Ring buffer. Lists of 1025 floats, premultiplied with a Hanning
+    /// function before being passed through FFT, computed from the ring
+    /// buffer every new 128 samples
     fft_outputs: Box<[[f32; 1025]; 256]>,
-    /// Ring buffer. Lists of 1025 floats, premultiplied with a Hanning function before being passed through FFT, computed from the ring buffer every new 128 samples
     fft_outputs_index: usize,
 
-    fft_object: RFft1D<f32>,
+    fft_object: RealFftPlanner<f32>,
 
-    spread_fft_outputs: Box<[[f32; 1025]; 256]>,
     /// Ring buffer.
+    spread_fft_outputs: Box<[[f32; 1025]; 256]>,
     spread_fft_outputs_index: usize,
 
     num_spread_ffts_done: u32,
@@ -97,11 +106,12 @@ impl SignatureGenerator {
             ring_buffer_of_samples_index: 0,
 
             reordered_ring_buffer_of_samples: Box::new([0.0f32; 2048]),
+            complex_fft_output: Box::new([Complex::zero(); 1025]),
 
             fft_outputs: Box::new([[0.0f32; 1025]; 256]),
             fft_outputs_index: 0,
 
-            fft_object: RFft1D::<f32>::new(2048),
+            fft_object: RealFftPlanner::<f32>::new(),
 
             spread_fft_outputs: Box::new([[0.0f32; 1025]; 256]),
             spread_fft_outputs_index: 0,
@@ -154,19 +164,21 @@ impl SignatureGenerator {
 
         // Perform Fast Fourier transform
 
-        let complex_fft_results = self
-            .fft_object
-            .forward(&*self.reordered_ring_buffer_of_samples);
-
-        assert_eq!(complex_fft_results.len(), 1025);
+        self.fft_object
+            .plan_fft_forward(2048)
+            .process(
+                &mut *self.reordered_ring_buffer_of_samples,
+                &mut *self.complex_fft_output,
+            )
+            .unwrap();
 
         // Turn complex into reals, and put the results into a local array
 
         let real_fft_results = &mut self.fft_outputs[self.fft_outputs_index];
 
         for index in 0..=1024 {
-            real_fft_results[index] = ((complex_fft_results[index].re.powi(2)
-                + complex_fft_results[index].im.powi(2))
+            real_fft_results[index] = ((self.complex_fft_output[index].re.powi(2)
+                + self.complex_fft_output[index].im.powi(2))
                 / ((1 << 17) as f32))
                 .max(0.0000000001);
         }
