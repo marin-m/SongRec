@@ -1,0 +1,51 @@
+
+[build-system]
+requires = ["uv_build>=0.10.3,<0.11.0"]
+build-backend = "uv_build"
+
+[project]
+name = "songrec"
+version = "0.1.0"
+authors = [
+    {name = "Marin Moulinier"},
+]
+description = """A partial, pure Python, command-line only version \
+    of SongRec"""
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "audioop-lts>=0.2.2",
+    "numpy>=2.4.4",
+    "pydub>=0.25.1",
+    "pytz>=2026.2",
+    "requests>=2.33.1",
+    "sounddevice>=0.5.5",
+]
+classifiers = [
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3",
+    "Topic :: Multimedia :: Sound/Audio :: Analysis",
+    "Topic :: Multimedia :: Sound/Audio :: Capture/Recording",
+    "Environment :: Console"
+]
+license = "GPL-3.0-or-later"
+
+[project.urls]
+Homepage = "https://songrec.fossplant.re/"
+Repository = "https://github.com/marin-m/SongRec/tree/main/python-version"
+Issues = "https://github.com/marin-m/SongRec/issues"
+
+[project.scripts]
+songrec-audio-file-to-fingerprint = "songrec.utils.audio_file_to_fingerprint:main"
+songrec-audio-file-to-recognized-song = "songrec.utils.audio_file_to_recognized_song:main"
+songrec-fingerprint-to-json = "songrec.utils.fingerprint_to_json:main"
+songrec-fingerprint-to-recognized-song = "songrec.utils.fingerprint_to_recognized_song:main"
+songrec-fingerprint-to-sound = "songrec.utils.fingerprint_to_sound:main"
+
+[tool.ruff]
+line-length = 79
+
+[tool.ruff.format]
+quote-style = "single"
+
