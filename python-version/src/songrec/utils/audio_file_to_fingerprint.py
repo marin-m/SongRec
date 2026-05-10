@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # -*- encoding: Utf-8 -*-
-from numpy import array as nparray, sin, pi, arange, concatenate
 from os.path import dirname, realpath
 from argparse import ArgumentParser
 from pydub import AudioSegment
+from numpy import zeros, int16
 
 SCRIPT_DIR = dirname(realpath(__file__))
 MODULE_DIR = dirname(realpath(SCRIPT_DIR))
@@ -41,8 +41,14 @@ def main():
     audio = audio.set_frame_rate(16000)
     audio = audio.set_channels(1)
 
+    min_samples = 12 * 16000
+    samples_arr = audio.get_array_of_samples()
+    array_len = samples_arr.buffer_info()[1]
+    if array_len < min_samples:
+        samples_arr.extend(zeros(min_samples - array_len, int16))
+
     signature_generator = SignatureGenerator()
-    signature_generator.feed_input(audio.get_array_of_samples())
+    signature_generator.feed_input(samples_arr)
 
     # Prefer starting at the middle at the song, and with a
     # substantial bit of music to provide.
