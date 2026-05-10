@@ -2,13 +2,14 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Marin <25437947+marin-m@users.noreply.github.com>, 2026.
+# Fjuro <fjuro@users.noreply.weblate.fossplant.re>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-05-09 13:58+0200\n"
-"PO-Revision-Date: 2026-03-09 02:16+0000\n"
-"Last-Translator: Marin <25437947+marin-m@users.noreply.github.com>\n"
+"PO-Revision-Date: 2026-05-11 00:02+0000\n"
+"Last-Translator: Fjuro <fjuro@users.noreply.weblate.fossplant.re>\n"
 "Language-Team: Czech <https://weblate.fossplant.re/projects/songrec/songrec/"
 "cs/>\n"
 "Language: cs_CZ\n"
@@ -33,7 +34,7 @@ msgstr "Ukončování: žádná zvuková zařízení nenalezena!"
 #: src/cli_main.rs:147
 #, c-format
 msgid "Using device %s"
-msgstr ""
+msgstr "Používání zařízení %s"
 
 #: src/cli_main.rs:171
 msgid "Error: Network unreachable"
@@ -173,7 +174,7 @@ msgstr "Volitelný zvukový soubor, který rozpoznat při spuštění aplikace."
 
 #: src/main.rs:267 src/main.rs:288
 msgid "Disable PipeWire native support"
-msgstr ""
+msgstr "Zakázat nativní podporu PipeWire"
 
 #: src/main.rs:272
 msgid ""
@@ -193,7 +194,7 @@ msgstr "Chyba zvuku:"
 
 #: src/core/microphone_thread.rs:114
 msgid "Audio error: No input device available"
-msgstr ""
+msgstr "Chyba zvuku: Není dostupné žádné vstupní zařízení"
 
 #: src/core/preferences.rs:58 src/core/preferences.rs:77
 #: src/gui/main_window.rs:298 src/gui/interface.ui:151 src/gui/interface.ui:657
@@ -279,11 +280,11 @@ msgstr "SongRec"
 
 #: packaging/freedesktop/re.fossplant.songrec.desktop.in:17
 msgid "An open-source Shazam client for Linux, written in Rust"
-msgstr ""
+msgstr "Open-source Shazam klient pro Linux, napsaný v Rustu"
 
 #: packaging/freedesktop/re.fossplant.songrec.desktop.in:19
 msgid "Rust;GTK;Shazam;Client;Audio;Song;Recognition;Fingerprinting;"
-msgstr ""
+msgstr "Rust;GTK;Shazam;Klient;Zvuk;Skladba;Rozpoznání;Rozpoznat;Skladbu;"
 
 #: src/gui/interface.ui:32
 msgid "Recognize songs"
@@ -451,15 +452,15 @@ msgstr "Velikost mezipaměti pro Shazam v sekundách"
 
 #: src/gui/interface.ui:538
 msgid "Search preferences"
-msgstr ""
+msgstr "Předvolby vyhledávání"
 
 #: src/gui/interface.ui:541
 msgid "Custom search engine action"
-msgstr ""
+msgstr "Vlastní akce tlačítka vyhledávání"
 
 #: src/gui/interface.ui:547
 msgid "Custom search engine URL"
-msgstr ""
+msgstr "Vlastní adresa vyhledávače"
 
 #: src/gui/interface.ui:561
 msgid "Settings"
@@ -512,86 +513,92 @@ msgstr "Odstranit z oblíbených"
 #: src/gui/interface.ui:717
 msgctxt "\"General\" section in the Shortcuts window"
 msgid "General"
-msgstr ""
+msgstr "Obecné"
 
 #: src/gui/interface.ui:722
 msgctxt "In the shortcuts window"
 msgid "Close the application"
-msgstr ""
+msgstr "Zavřít aplikaci"
 
 #: src/gui/interface.ui:729
 msgctxt "In the shortcuts window"
 msgid "Recognize from a file"
-msgstr ""
+msgstr "Rozpoznat ze souboru"
 
 #: src/gui/interface.ui:736
 msgctxt "In the shortcuts window"
 msgid "Show preferences"
-msgstr ""
+msgstr "Zobrazit předvolby"
 
 #: src/gui/interface.ui:743
 msgctxt "In the shortcuts window"
 msgid "Display shortcuts"
-msgstr ""
+msgstr "Zobrazit zkratky"
 
 #: src/gui/interface.ui:750
 msgctxt "win.show-menu"
 msgid "Show menu"
-msgstr ""
+msgstr "Zobrazit nabídku"
 
 #: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:11
 msgid "Recognize songs from audio easily"
-msgstr ""
+msgstr "Jednoduché rozpoznávání skladeb ze zvuku"
 
 #: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:13
 msgid ""
 "SongRec is an unofficial Shazam client for Linux, written in Rust. It allows "
 "you to easily recognize songs from your speakers, microphone or audio files."
 msgstr ""
+"SongRec je neoficiální Shazam klient pro Linux, napsaný v Rustu. Umožňuje "
+"jednoduché rozpoznávání skladeb z vašich reproduktorů, mikrofonu nebo "
+"zvukových souborů."
 
 #: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:14
 msgid "Features:"
-msgstr ""
+msgstr "Funkce:"
 
 #: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:15
 msgid "- Recognize tracks from an arbitrary audio file."
-msgstr ""
+msgstr "- Rozpoznání skladeb ze zvukových souborů."
 
 #: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:16
 msgid "- Recognize audio from the microphone."
-msgstr ""
+msgstr "- Rozpoznávání zvuku z mikrofonu."
 
 #: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:17
 msgid "- Usage from both GUI and command line."
-msgstr ""
+msgstr "- Použití z grafického rozhraní i z příkazového řádku."
 
 #: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:18
 msgid ""
 "- Provide an history of the recognized songs on the GUI, exportable to CSV."
 msgstr ""
+"- Poskytování historie rozpoznaných skladeb v rozhraní, exportovatelné do "
+"souboru CSV."
 
 #: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:19
 msgid ""
 "- Continuous song detection from the microphone, with the ability to choose "
 "your input device."
 msgstr ""
+"- Průběžná detekce skladeb z mikrofonu, s možností výběru vstupního zařízení."
 
 #: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:20
 msgid ""
 "- Ability to recognize songs from your speakers rather than your microphone."
-msgstr ""
+msgstr "- Schopnost rozpoznávat skladby z reproduktorů namísto mikrofonu."
 
 #: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:25
 msgid "SongRec's main window"
-msgstr ""
+msgstr "Hlavní okno aplikace SongRec"
 
 #: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:29
 msgid "SongRec's favourites window"
-msgstr ""
+msgstr "Okno oblíbených aplikace SongRec"
 
 #: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:33
 msgid "SongRec's main window, on GNOME in dark mode"
-msgstr ""
+msgstr "Hlavní okno aplikace SongRec v rozhraní GNOME ve tmavém režimu"
 
 #~ msgid "Using device"
 #~ msgstr "Používám zařízení"
