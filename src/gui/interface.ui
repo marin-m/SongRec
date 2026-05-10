@@ -604,7 +604,7 @@
     <property name="developer-name">Marin Moulinier - Fossplant.re</property>
     <property name="developers">Marin Moulinier https://moulinier.dev/
 Contributors https://github.com/marin-m/SongRec/graphs/contributors</property>
-    <property name="issue-url">https://github.com/marin-m/SongRec/issues</property>
+    <property name="issue-url">https://github.com/marin-m/SongRec/issues/new/choose</property>
     <property name="license-type">gpl-3-0</property>
     <property name="support-url">https://matrix.to/#/#songrec:matrix.org</property>
     <property name="translator-credits">SongRec translators https://github.com/marin-m/SongRec/tree/main/translations</property>
