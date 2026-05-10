@@ -600,6 +600,7 @@
   <object class="AdwAboutDialog" id="about_dialog">
     <property name="application-icon">custom_icon</property>
     <property name="application-name">SongRec</property>
+    <property name="debug-info-filename">songrec-debug-info.txt</property>
     <property name="developer-name">Marin Moulinier - Fossplant.re</property>
     <property name="developers">Marin Moulinier https://moulinier.dev/
 Contributors https://github.com/marin-m/SongRec/graphs/contributors</property>
