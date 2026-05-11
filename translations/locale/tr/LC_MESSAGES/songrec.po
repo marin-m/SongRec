@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-05-11 02:37+0200\n"
-"PO-Revision-Date: 2026-05-04 13:33+0000\n"
+"PO-Revision-Date: 2026-05-11 08:02+0000\n"
 "Last-Translator: Arda Aydın <arda.aydin@operationsilkscarf.com>\n"
 "Language-Team: Turkish <https://weblate.fossplant.re/projects/songrec/"
 "songrec/tr/>\n"
@@ -177,7 +177,7 @@ msgstr ""
 
 #: src/main.rs:267 src/main.rs:288
 msgid "Disable PipeWire native support"
-msgstr ""
+msgstr "PipeWire desteğini kapa"
 
 #: src/main.rs:272
 msgid ""
@@ -422,12 +422,12 @@ msgid ""
 "Bump a song to the top of the history list and remove the former entry when "
 "the same song is detected multiple times"
 msgstr ""
-"Aynı şarkı birden kez tanınınca şarkıyı geçmişin en üstüne çıkar ve önceki "
-"kayıtları sil"
+"Geçmişte aynı şarkıdan varsa, önceki kopyaları sil ve sadece yeni tanımayı "
+"kaydet"
 
 #: src/gui/interface.ui:484
 msgid "No duplicates in history"
-msgstr "Geçmişte tekrar eden kayıt yok"
+msgstr "Geçmişte kopya şarkı bırakma"
 
 #: src/gui/interface.ui:491
 msgid "Network preferences"
@@ -455,15 +455,15 @@ msgstr "Saniye cinsinden Shazam kayıt süresi"
 
 #: src/gui/interface.ui:538
 msgid "Search preferences"
-msgstr ""
+msgstr "Arama Tercihleri"
 
 #: src/gui/interface.ui:541
 msgid "Custom search engine action"
-msgstr ""
+msgstr "Özel arama motoru aksiyonu"
 
 #: src/gui/interface.ui:547
 msgid "Custom search engine URL"
-msgstr ""
+msgstr "Özel arama motoru URL'si"
 
 #: src/gui/interface.ui:561
 msgid "Settings"
