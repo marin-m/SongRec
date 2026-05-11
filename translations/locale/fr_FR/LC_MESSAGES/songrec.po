@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-09 13:58+0200\n"
+"POT-Creation-Date: 2026-05-11 02:37+0200\n"
 "PO-Revision-Date: 2026-05-09 17:02+0000\n"
 "Last-Translator: Marin <25437947+marin-m@users.noreply.github.com>\n"
 "Language-Team: French <https://weblate.fossplant.re/projects/songrec/songrec/"
@@ -209,8 +209,8 @@ msgid "Audio error: No input device available"
 msgstr "Erreur audio : pas de périphérique d'entrée disponible"
 
 #: src/core/preferences.rs:58 src/core/preferences.rs:77
-#: src/gui/main_window.rs:298 src/gui/interface.ui:151 src/gui/interface.ui:657
-#: src/gui/interface.ui:700
+#: src/gui/main_window.rs:298 src/gui/interface.ui:151 src/gui/interface.ui:658
+#: src/gui/interface.ui:701
 msgid "Search on YouTube"
 msgstr "Rechercher sur YouTube"
 
@@ -382,7 +382,7 @@ msgstr "Voir les favoris"
 msgid "Application menu"
 msgstr "Menu de l'application"
 
-#: src/gui/interface.ui:434 src/gui/interface.ui:617
+#: src/gui/interface.ui:434 src/gui/interface.ui:618
 msgid "Export to CSV"
 msgstr "Exporter au format CSV"
 
@@ -494,68 +494,68 @@ msgstr "_Préférences..."
 msgid "About..."
 msgstr "À propos..."
 
-#: src/gui/interface.ui:621
+#: src/gui/interface.ui:622
 msgid "Delete history"
 msgstr "Supprimer l'historique"
 
-#: src/gui/interface.ui:625
+#: src/gui/interface.ui:626
 msgid "Select a file to recognize"
 msgstr "Sélectionner un fichier à reconnaître"
 
-#: src/gui/interface.ui:635 src/gui/interface.ui:678
+#: src/gui/interface.ui:636 src/gui/interface.ui:679
 msgid "Copy artist and track"
 msgstr "Copier l'artiste et le morceau"
 
-#: src/gui/interface.ui:640 src/gui/interface.ui:683
+#: src/gui/interface.ui:641 src/gui/interface.ui:684
 msgid "Copy artist"
 msgstr "Copier l'artiste"
 
-#: src/gui/interface.ui:645 src/gui/interface.ui:688
+#: src/gui/interface.ui:646 src/gui/interface.ui:689
 msgid "Copy track name"
 msgstr "Copier le nom du morceau"
 
-#: src/gui/interface.ui:650 src/gui/interface.ui:693
+#: src/gui/interface.ui:651 src/gui/interface.ui:694
 msgid "Copy album"
 msgstr "Copier l'album"
 
-#: src/gui/interface.ui:664
+#: src/gui/interface.ui:665
 msgid "Delete from History"
 msgstr "Supprimer de l'historique"
 
-#: src/gui/interface.ui:669
+#: src/gui/interface.ui:670
 msgid "Add to Favorites"
 msgstr "Ajouter aux favoris"
 
-#: src/gui/interface.ui:707
+#: src/gui/interface.ui:708
 msgid "Remove from Favorites"
 msgstr "Supprimer des favoris"
 
-#: src/gui/interface.ui:717
+#: src/gui/interface.ui:718
 msgctxt "\"General\" section in the Shortcuts window"
 msgid "General"
 msgstr "Général"
 
-#: src/gui/interface.ui:722
+#: src/gui/interface.ui:723
 msgctxt "In the shortcuts window"
 msgid "Close the application"
 msgstr "Fermer l'application"
 
-#: src/gui/interface.ui:729
+#: src/gui/interface.ui:730
 msgctxt "In the shortcuts window"
 msgid "Recognize from a file"
 msgstr "Reconnaître à partir d'un fichier"
 
-#: src/gui/interface.ui:736
+#: src/gui/interface.ui:737
 msgctxt "In the shortcuts window"
 msgid "Show preferences"
 msgstr "Afficher les préférences"
 
-#: src/gui/interface.ui:743
+#: src/gui/interface.ui:744
 msgctxt "In the shortcuts window"
 msgid "Display shortcuts"
 msgstr "Afficher les raccourcis clavier"
 
-#: src/gui/interface.ui:750
+#: src/gui/interface.ui:751
 msgctxt "win.show-menu"
 msgid "Show menu"
 msgstr "Afficher le menu"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: SongRec\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-09 13:58+0200\n"
+"POT-Creation-Date: 2026-05-11 02:37+0200\n"
 "PO-Revision-Date: 2026-05-04 13:33+0000\n"
 "Last-Translator: marcelo cripe <marcelocripe@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://weblate.fossplant.re/projects/"
@@ -231,8 +231,8 @@ msgstr ""
 "disponível"
 
 #: src/core/preferences.rs:58 src/core/preferences.rs:77
-#: src/gui/main_window.rs:298 src/gui/interface.ui:151 src/gui/interface.ui:657
-#: src/gui/interface.ui:700
+#: src/gui/main_window.rs:298 src/gui/interface.ui:151 src/gui/interface.ui:658
+#: src/gui/interface.ui:701
 msgid "Search on YouTube"
 msgstr "Pesquisar no YouTube"
 
@@ -412,7 +412,7 @@ msgstr "Exibir os favoritos"
 msgid "Application menu"
 msgstr "Menu do programa"
 
-#: src/gui/interface.ui:434 src/gui/interface.ui:617
+#: src/gui/interface.ui:434 src/gui/interface.ui:618
 msgid "Export to CSV"
 msgstr "Exportar para o formato ‘CSV’"
 
@@ -525,68 +525,68 @@ msgstr "_Preferências..."
 msgid "About..."
 msgstr "Sobre..."
 
-#: src/gui/interface.ui:621
+#: src/gui/interface.ui:622
 msgid "Delete history"
 msgstr "Excluir o histórico"
 
-#: src/gui/interface.ui:625
+#: src/gui/interface.ui:626
 msgid "Select a file to recognize"
 msgstr "Escolha um arquivo de áudio que você quer identificar"
 
-#: src/gui/interface.ui:635 src/gui/interface.ui:678
+#: src/gui/interface.ui:636 src/gui/interface.ui:679
 msgid "Copy artist and track"
 msgstr "Copiar o nome do artista e o título da música"
 
-#: src/gui/interface.ui:640 src/gui/interface.ui:683
+#: src/gui/interface.ui:641 src/gui/interface.ui:684
 msgid "Copy artist"
 msgstr "Copiar o nome do artista"
 
-#: src/gui/interface.ui:645 src/gui/interface.ui:688
+#: src/gui/interface.ui:646 src/gui/interface.ui:689
 msgid "Copy track name"
 msgstr "Copiar o título da música"
 
-#: src/gui/interface.ui:650 src/gui/interface.ui:693
+#: src/gui/interface.ui:651 src/gui/interface.ui:694
 msgid "Copy album"
 msgstr "Copiar o nome do álbum"
 
-#: src/gui/interface.ui:664
+#: src/gui/interface.ui:665
 msgid "Delete from History"
 msgstr "Excluir do histórico"
 
-#: src/gui/interface.ui:669
+#: src/gui/interface.ui:670
 msgid "Add to Favorites"
 msgstr "Adicionar aos favoritos"
 
-#: src/gui/interface.ui:707
+#: src/gui/interface.ui:708
 msgid "Remove from Favorites"
 msgstr "Remover dos favoritos"
 
-#: src/gui/interface.ui:717
+#: src/gui/interface.ui:718
 msgctxt "\"General\" section in the Shortcuts window"
 msgid "General"
 msgstr "Geral"
 
-#: src/gui/interface.ui:722
+#: src/gui/interface.ui:723
 msgctxt "In the shortcuts window"
 msgid "Close the application"
 msgstr "Fechar o programa"
 
-#: src/gui/interface.ui:729
+#: src/gui/interface.ui:730
 msgctxt "In the shortcuts window"
 msgid "Recognize from a file"
 msgstr "Identificar a música a partir de um arquivo"
 
-#: src/gui/interface.ui:736
+#: src/gui/interface.ui:737
 msgctxt "In the shortcuts window"
 msgid "Show preferences"
 msgstr "Exibir as preferências"
 
-#: src/gui/interface.ui:743
+#: src/gui/interface.ui:744
 msgctxt "In the shortcuts window"
 msgid "Display shortcuts"
 msgstr "Exibir os atalhos"
 
-#: src/gui/interface.ui:750
+#: src/gui/interface.ui:751
 msgctxt "win.show-menu"
 msgid "Show menu"
 msgstr "Exibir o menu"
