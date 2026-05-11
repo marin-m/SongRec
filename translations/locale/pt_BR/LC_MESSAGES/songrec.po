@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: SongRec\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-05-11 02:37+0200\n"
-"PO-Revision-Date: 2026-05-04 13:33+0000\n"
+"PO-Revision-Date: 2026-05-11 12:15+0000\n"
 "Last-Translator: marcelo cripe <marcelocripe@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://weblate.fossplant.re/projects/"
 "songrec/songrec/pt_BR/>\n"
@@ -203,7 +203,7 @@ msgstr ""
 
 #: src/main.rs:267 src/main.rs:288
 msgid "Disable PipeWire native support"
-msgstr ""
+msgstr "Desativar o suporte nativo ao PipeWire"
 
 #: src/main.rs:272
 msgid ""
@@ -503,15 +503,15 @@ msgstr "Tamanho em segundos do ‘buffer’ do Shazam"
 
 #: src/gui/interface.ui:538
 msgid "Search preferences"
-msgstr ""
+msgstr "Preferências da pesquisa"
 
 #: src/gui/interface.ui:541
 msgid "Custom search engine action"
-msgstr ""
+msgstr "Ações do mecanismo da pesquisa personalizada"
 
 #: src/gui/interface.ui:547
 msgid "Custom search engine URL"
-msgstr ""
+msgstr "Endereço do URL do mecanismo da pesquisa personalizada"
 
 #: src/gui/interface.ui:561
 msgid "Settings"
