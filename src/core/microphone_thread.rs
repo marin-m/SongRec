@@ -39,6 +39,36 @@ pub fn microphone_thread(
     #[cfg(not(target_os = "linux"))]
     let preference_order: [bool; 2] = [false];
 
+    let gui_tx_2 = gui_tx.clone();
+    let microphone_tx_2 = microphone_tx.clone();
+
+    let err_fn = move |location: &'static str, error: cpal::Error, popup: bool| {
+        if error.kind() == cpal::ErrorKind::DeviceChanged {
+            microphone_tx_2
+                .try_send(MicrophoneMessage::RefreshDevices)
+                .unwrap();
+        } else if error.kind() != cpal::ErrorKind::RealtimeDenied
+            && error.kind() != cpal::ErrorKind::Xrun
+        {
+            let error_string = format!(
+                "{} {}: {:?} - {} - {}",
+                gettext("Audio error:"),
+                location,
+                error.kind(),
+                error.message().unwrap_or_default(),
+                error.kind()
+            );
+
+            if popup {
+                gui_tx_2
+                    .try_send(GUIMessage::ErrorMessage(error_string))
+                    .unwrap();
+            } else {
+                warn!("{}", error_string);
+            }
+        }
+    };
+
     'pipewire_switch: for prefer_pipewire in preference_order {
         // Use the default host for working with audio devices.
 
@@ -51,25 +81,9 @@ pub fn microphone_thread(
                 Ok(host) => host.into(),
                 Err(err) => {
                     if prefer_pipewire == preference_order[0] {
-                        warn!(
-                            "{} {}: {:?} - {} - {}",
-                            gettext("Audio error:"),
-                            "ALSA driver not available",
-                            err.kind(),
-                            err.message().unwrap_or_default(),
-                            err.kind()
-                        );
+                        err_fn("ALSA driver not available", err, false);
                     } else {
-                        gui_tx
-                            .try_send(GUIMessage::ErrorMessage(format!(
-                                "{} {}: {:?} - {} - {}",
-                                gettext("Audio error:"),
-                                "ALSA driver not available",
-                                err.kind(),
-                                err.message().unwrap_or_default(),
-                                err.kind()
-                            )))
-                            .unwrap();
+                        err_fn("ALSA driver not available", err, true);
                     }
                     continue;
                 }
@@ -115,35 +129,12 @@ pub fn microphone_thread(
             match message {
                 MicrophoneRecordStart(device_name) => {
                     let processing_tx_2 = processing_tx.clone();
-                    let microphone_tx_2 = microphone_tx.clone();
-                    let gui_tx_2 = gui_tx.clone();
                     let gui_tx_3 = gui_tx.clone();
                     let gui_tx_4 = gui_tx.clone();
 
-                    let err_fn = move |location: &'static str, error: cpal::Error| {
-                        if error.kind() == cpal::ErrorKind::DeviceChanged {
-                            microphone_tx_2
-                                .try_send(MicrophoneMessage::RefreshDevices)
-                                .unwrap();
-                        } else if error.kind() != cpal::ErrorKind::RealtimeDenied
-                            && error.kind() != cpal::ErrorKind::Xrun
-                        {
-                            gui_tx_2
-                                .try_send(GUIMessage::ErrorMessage(format!(
-                                    "{} {}: {:?} - {} - {}",
-                                    gettext("Audio error:"),
-                                    location,
-                                    error.kind(),
-                                    error.message().unwrap_or_default(),
-                                    error.kind()
-                                )))
-                                .unwrap();
-                        }
-                    };
-
                     let err_fn_2 = err_fn.clone();
                     let err_fn_cb = move |error: cpal::Error| {
-                        err_fn_2("stream error", error);
+                        err_fn_2("stream error", error, true);
                     };
 
                     if host.default_input_device().is_none() {
@@ -167,17 +158,10 @@ pub fn microphone_thread(
                         Err(err) => {
                             #[cfg(all(target_os = "linux"))]
                             if prefer_pipewire == preference_order[0] {
-                                warn!(
-                                    "{} {}: {:?} - {} - {}",
-                                    gettext("Audio error:"),
-                                    "default_input_config",
-                                    err.kind(),
-                                    err.message().unwrap_or_default(),
-                                    err.kind()
-                                );
+                                err_fn("default_input_config", err, false);
                                 continue 'pipewire_switch;
                             }
-                            err_fn("default_input_config", err);
+                            err_fn("default_input_config", err, true);
                             return;
                         }
                     };
@@ -236,17 +220,10 @@ pub fn microphone_thread(
                                     Err(err) => {
                                         #[cfg(all(target_os = "linux"))]
                                         if prefer_pipewire == preference_order[0] {
-                                            warn!(
-                                                "{} {}: {:?} - {} - {}",
-                                                gettext("Audio error:"),
-                                                "build_input_stream",
-                                                err.kind(),
-                                                err.message().unwrap_or_default(),
-                                                err.kind()
-                                            );
+                                            err_fn("build_input_stream", err, false);
                                             continue 'pipewire_switch;
                                         }
-                                        err_fn("build_input_stream", err);
+                                        err_fn("build_input_stream", err, true);
                                         return;
                                     }
                                 },
@@ -289,17 +266,10 @@ pub fn microphone_thread(
                                         Err(err) => {
                                             #[cfg(all(target_os = "linux"))]
                                             if prefer_pipewire == preference_order[0] {
-                                                warn!(
-                                                    "{} {}: {:?} - {} - {}",
-                                                    gettext("Audio error:"),
-                                                    "build_input_stream",
-                                                    err.kind(),
-                                                    err.message().unwrap_or_default(),
-                                                    err.kind()
-                                                );
+                                                err_fn("build_input_stream", err, false);
                                                 continue 'pipewire_switch;
                                             }
-                                            err_fn("build_input_stream", err);
+                                            err_fn("build_input_stream", err, true);
                                             return;
                                         }
                                     },
