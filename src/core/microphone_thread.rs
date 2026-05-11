@@ -10,7 +10,7 @@ use crate::core::thread_messages::{MicrophoneMessage::*, *};
 use cpal::platform::Device;
 use cpal::traits::{DeviceTrait, HostTrait, StreamTrait};
 use gettextrs::gettext;
-use log::debug;
+use log::{debug, warn};
 use rodio::conversions::SampleTypeConverter;
 use rodio::nz;
 
@@ -26,169 +26,183 @@ pub fn microphone_thread(
     preferences_interface: Arc<Mutex<PreferencesInterface>>,
     _enable_pipewire_cli: bool,
 ) {
-    // Use the default host for working with audio devices.
-
-    debug!("Trying to initialize CPAL...");
     #[cfg(all(target_os = "linux", feature = "pipewire"))]
-    let host: cpal::Host = if _enable_pipewire_cli {
-        cpal::default_host()
+    let preference_order: [bool; 2] = if _enable_pipewire_cli {
+        [true, false]
     } else {
-        cpal::platform::AlsaHost::new()
-            .expect("ALSA driver not available")
-            .into()
+        [false, true]
     };
+
     #[cfg(all(target_os = "linux", not(feature = "pipewire")))]
-    let host: cpal::Host = cpal::platform::AlsaHost::new()
-        .expect("ALSA driver not available")
-        .into();
+    let preference_order: [bool; 2] = [false, true];
+
     #[cfg(not(target_os = "linux"))]
-    let host = cpal::default_host();
-    #[cfg(target_os = "linux")]
-    debug!("Using audio playback backend: {:?}", host.id());
-    debug!("CPAL initialized");
+    let preference_order: [bool; 2] = [false];
 
-    let mut backend = get_any_backend();
+    'pipewire_switch: for prefer_pipewire in preference_order {
+        // Use the default host for working with audio devices.
 
-    // Run the input stream on a separate thread.
-
-    let mut stream: Option<cpal::Stream> = None;
-
-    let processing_already_ongoing: Arc<AtomicBool> = Arc::new(AtomicBool::new(false)); // Whether our data is already being processed in other threads (pointer to a bool shared between this thread and the CPAL thread, hence the Arc<AtomicBool>)
-
-    // Send a list of the active microphone-alike devices to the GUI thread
-    // (the combo box will be filed with device names when a "DevicesList"
-    // inter-thread message will be received at the initialization of the
-    // microphone thread, because CPAL which underlies Rodio can't be called
-    // from the same thread as the microphone thread under Windows, see:
-    //  - https://github.com/RustAudio/rodio/issues/270
-    //  - https://github.com/RustAudio/rodio/issues/214 )
-
-    let device_names: Vec<DeviceListItem> = backend.list_devices(&host);
-
-    gui_tx
-        .try_send(GUIMessage::DevicesList(device_names))
-        .unwrap();
-
-    // Process ingress inter-thread messages (stopping or starting
-    // recording from the microphone, and knowing from which device
-    // in particular)
-
-    while let Ok(message) = microphone_rx.recv_blocking() {
-        match message {
-            MicrophoneRecordStart(device_name) => {
-                let processing_tx_2 = processing_tx.clone();
-                let microphone_tx_2 = microphone_tx.clone();
-                let gui_tx_2 = gui_tx.clone();
-                let gui_tx_3 = gui_tx.clone();
-                let gui_tx_4 = gui_tx.clone();
-
-                let err_fn = move |location: &'static str, error: cpal::Error| {
-                    if error.kind() == cpal::ErrorKind::DeviceChanged {
-                        microphone_tx_2
-                            .try_send(MicrophoneMessage::RefreshDevices)
-                            .unwrap();
-                    } else if error.kind() != cpal::ErrorKind::RealtimeDenied
-                        && error.kind() != cpal::ErrorKind::Xrun
-                    {
-                        gui_tx_2
+        debug!("Trying to initialize CPAL...");
+        #[cfg(all(target_os = "linux"))]
+        let host: cpal::Host = if prefer_pipewire {
+            cpal::default_host()
+        } else {
+            match cpal::platform::AlsaHost::new() {
+                Ok(host) => host.into(),
+                Err(err) => {
+                    if prefer_pipewire == preference_order[0] {
+                        warn!(
+                            "{} {}: {:?} - {} - {}",
+                            gettext("Audio error:"),
+                            "ALSA driver not available",
+                            err.kind(),
+                            err.message().unwrap_or_default(),
+                            err.kind()
+                        );
+                    } else {
+                        gui_tx
                             .try_send(GUIMessage::ErrorMessage(format!(
                                 "{} {}: {:?} - {} - {}",
                                 gettext("Audio error:"),
-                                location,
-                                error.kind(),
-                                error.message().unwrap_or_default(),
-                                error.kind()
+                                "ALSA driver not available",
+                                err.kind(),
+                                err.message().unwrap_or_default(),
+                                err.kind()
                             )))
                             .unwrap();
                     }
-                };
+                    continue;
+                }
+            }
+        };
+        #[cfg(not(target_os = "linux"))]
+        let host = cpal::default_host();
+        #[cfg(target_os = "linux")]
+        debug!("Using audio playback backend: {:?}", host.id());
+        debug!("CPAL initialized");
 
-                let err_fn_2 = err_fn.clone();
-                let err_fn_cb = move |error: cpal::Error| {
-                    err_fn_2("stream error", error);
-                };
+        let mut backend = get_any_backend();
 
-                if host.default_input_device().is_none() {
-                    gui_tx
-                        .try_send(GUIMessage::ErrorMessage(gettext(
-                            "Audio error: No input device available",
-                        )))
-                        .unwrap();
-                    return;
-                };
+        // Run the input stream on a separate thread.
 
-                let device: Device = backend.set_device(&host, &device_name);
+        let mut stream: Option<cpal::Stream> = None;
 
-                let config = match device.default_input_config() {
-                    Ok(res) => res,
-                    Err(err) => {
-                        err_fn("default_input_config", err);
+        // Whether our data is already being processed in
+        // other threads (pointer to a bool shared between
+        // this thread and the CPAL thread, hence the Arc<AtomicBool>)
+
+        let processing_already_ongoing: Arc<AtomicBool> = Arc::new(AtomicBool::new(false));
+
+        // Send a list of the active microphone-alike devices to the GUI thread
+        // (the combo box will be filed with device names when a "DevicesList"
+        // inter-thread message will be received at the initialization of the
+        // microphone thread, because CPAL which underlies Rodio can't be called
+        // from the same thread as the microphone thread under Windows, see:
+        //  - https://github.com/RustAudio/rodio/issues/270
+        //  - https://github.com/RustAudio/rodio/issues/214 )
+
+        let device_names: Vec<DeviceListItem> = backend.list_devices(&host);
+
+        gui_tx
+            .try_send(GUIMessage::DevicesList(device_names))
+            .unwrap();
+
+        // Process ingress inter-thread messages (stopping or starting
+        // recording from the microphone, and knowing from which device
+        // in particular)
+
+        while let Ok(message) = microphone_rx.recv_blocking() {
+            match message {
+                MicrophoneRecordStart(device_name) => {
+                    let processing_tx_2 = processing_tx.clone();
+                    let microphone_tx_2 = microphone_tx.clone();
+                    let gui_tx_2 = gui_tx.clone();
+                    let gui_tx_3 = gui_tx.clone();
+                    let gui_tx_4 = gui_tx.clone();
+
+                    let err_fn = move |location: &'static str, error: cpal::Error| {
+                        if error.kind() == cpal::ErrorKind::DeviceChanged {
+                            microphone_tx_2
+                                .try_send(MicrophoneMessage::RefreshDevices)
+                                .unwrap();
+                        } else if error.kind() != cpal::ErrorKind::RealtimeDenied
+                            && error.kind() != cpal::ErrorKind::Xrun
+                        {
+                            gui_tx_2
+                                .try_send(GUIMessage::ErrorMessage(format!(
+                                    "{} {}: {:?} - {} - {}",
+                                    gettext("Audio error:"),
+                                    location,
+                                    error.kind(),
+                                    error.message().unwrap_or_default(),
+                                    error.kind()
+                                )))
+                                .unwrap();
+                        }
+                    };
+
+                    let err_fn_2 = err_fn.clone();
+                    let err_fn_cb = move |error: cpal::Error| {
+                        err_fn_2("stream error", error);
+                    };
+
+                    if host.default_input_device().is_none() {
+                        #[cfg(all(target_os = "linux"))]
+                        if prefer_pipewire == preference_order[0] {
+                            warn!("{}", gettext("Audio error: No input device available"));
+                            continue 'pipewire_switch;
+                        }
+                        gui_tx
+                            .try_send(GUIMessage::ErrorMessage(gettext(
+                                "Audio error: No input device available",
+                            )))
+                            .unwrap();
                         return;
-                    }
-                };
-                let channels = config.channels();
-                let sample_rate = config.sample_rate();
+                    };
 
-                let mut twelve_seconds_buffer: Vec<f32> = vec![0.0f32; 16000 * MAX_BUFFER_SIZE];
-                let mut number_unprocessed_samples: usize = 0; // Sample count for the interval of doing Shazam recognition (every 4 seconds)
-                let mut number_unmeasured_samples: usize = 0; // Sample count for doing volume measurement (every 24th of second)
+                    let device: Device = backend.set_device(&host, &device_name);
 
-                let processing_already_ongoing_2 = processing_already_ongoing.clone();
+                    let config = match device.default_input_config() {
+                        Ok(res) => res,
+                        Err(err) => {
+                            #[cfg(all(target_os = "linux"))]
+                            if prefer_pipewire == preference_order[0] {
+                                warn!(
+                                    "{} {}: {:?} - {} - {}",
+                                    gettext("Audio error:"),
+                                    "default_input_config",
+                                    err.kind(),
+                                    err.message().unwrap_or_default(),
+                                    err.kind()
+                                );
+                                continue 'pipewire_switch;
+                            }
+                            err_fn("default_input_config", err);
+                            return;
+                        }
+                    };
+                    let channels = config.channels();
+                    let sample_rate = config.sample_rate();
 
-                let preferences_interface = preferences_interface.clone();
-                macro_rules! build_input_streams {
-                    ($($sample_format:tt, $generic:ty);+) => {
-                        match config.sample_format() {
+                    let mut twelve_seconds_buffer: Vec<f32> = vec![0.0f32; 16000 * MAX_BUFFER_SIZE];
+                    let mut number_unprocessed_samples: usize = 0; // Sample count for the interval of doing Shazam recognition (every 4 seconds)
+                    let mut number_unmeasured_samples: usize = 0; // Sample count for doing volume measurement (every 24th of second)
 
-                            // See https://github.com/RustAudio/rodio/blob/a352fb53846b47523d828b276b6d625f251aabb2/src/microphone.rs#L280
-                            // See https://dev.to/sgchris/returning-iterators-from-functions-4cbh
+                    let processing_already_ongoing_2 = processing_already_ongoing.clone();
 
-                            cpal::SampleFormat::F32 => match device.build_input_stream(
-                                config.into(),
-                                move |data, _: &_| {
-                                    write_data(
-                                        data.into_iter().copied().collect(),
-                                        &processing_tx_2,
-                                        gui_tx_3.clone(),
-                                        channels,
-                                        sample_rate,
-                                        &mut twelve_seconds_buffer,
-                                        &mut number_unprocessed_samples,
-                                        &mut number_unmeasured_samples,
-                                        &processing_already_ongoing_2,
-                                        &preferences_interface,
-                                    )
-                                },
-                                err_fn_cb,
-                                None,
-                            ) {
-                                Ok(res) => {
-                                    // Re-call the function in the case the backend is PulseBackend,
-                                    // because we may have appeared in the list of PulseAudio's
-                                    // source outputs now
-                                    let microphone_tx = microphone_tx.clone();
-                                    let device_name = device_name.clone();
-                                    glib::source::timeout_add_once(std::time::Duration::from_millis(50), move || {
-                                        microphone_tx
-                                            .try_send(MicrophoneMessage::MicrophoneRecordSetDevice(
-                                                device_name
-                                            ))
-                                            .unwrap();
-                                    });
+                    let preferences_interface = preferences_interface.clone();
+                    macro_rules! build_input_streams {
+                        ($($sample_format:tt, $generic:ty);+) => {
+                            match config.sample_format() {
 
-                                    res
-                                },
-                                Err(err) => {
-                                    err_fn("build_input_stream", err);
-                                    return;
-                                }
-                            },
-                            $(
-                                cpal::SampleFormat::$sample_format => match device.build_input_stream(
+                                // See https://github.com/RustAudio/rodio/blob/a352fb53846b47523d828b276b6d625f251aabb2/src/microphone.rs#L280
+                                // See https://dev.to/sgchris/returning-iterators-from-functions-4cbh
+
+                                cpal::SampleFormat::F32 => match device.build_input_stream(
                                     config.into(),
                                     move |data, _: &_| {
                                         write_data(
-                                            SampleTypeConverter::<Copied<Iter<$generic>>, f32>::new(data.into_iter().copied()).collect(),
+                                            data.into_iter().copied().collect(),
                                             &processing_tx_2,
                                             gui_tx_3.clone(),
                                             channels,
@@ -220,61 +234,128 @@ pub fn microphone_thread(
                                         res
                                     },
                                     Err(err) => {
+                                        #[cfg(all(target_os = "linux"))]
+                                        if prefer_pipewire == preference_order[0] {
+                                            warn!(
+                                                "{} {}: {:?} - {} - {}",
+                                                gettext("Audio error:"),
+                                                "build_input_stream",
+                                                err.kind(),
+                                                err.message().unwrap_or_default(),
+                                                err.kind()
+                                            );
+                                            continue 'pipewire_switch;
+                                        }
                                         err_fn("build_input_stream", err);
                                         return;
                                     }
                                 },
-                            )+
-                            _ => unreachable!(),
-                        }
-                    };
+                                $(
+                                    cpal::SampleFormat::$sample_format => match device.build_input_stream(
+                                        config.into(),
+                                        move |data, _: &_| {
+                                            write_data(
+                                                SampleTypeConverter::<Copied<Iter<$generic>>, f32>::new(data.into_iter().copied()).collect(),
+                                                &processing_tx_2,
+                                                gui_tx_3.clone(),
+                                                channels,
+                                                sample_rate,
+                                                &mut twelve_seconds_buffer,
+                                                &mut number_unprocessed_samples,
+                                                &mut number_unmeasured_samples,
+                                                &processing_already_ongoing_2,
+                                                &preferences_interface,
+                                            )
+                                        },
+                                        err_fn_cb,
+                                        None,
+                                    ) {
+                                        Ok(res) => {
+                                            // Re-call the function in the case the backend is PulseBackend,
+                                            // because we may have appeared in the list of PulseAudio's
+                                            // source outputs now
+                                            let microphone_tx = microphone_tx.clone();
+                                            let device_name = device_name.clone();
+                                            glib::source::timeout_add_once(std::time::Duration::from_millis(50), move || {
+                                                microphone_tx
+                                                    .try_send(MicrophoneMessage::MicrophoneRecordSetDevice(
+                                                        device_name
+                                                    ))
+                                                    .unwrap();
+                                            });
+
+                                            res
+                                        },
+                                        Err(err) => {
+                                            #[cfg(all(target_os = "linux"))]
+                                            if prefer_pipewire == preference_order[0] {
+                                                warn!(
+                                                    "{} {}: {:?} - {} - {}",
+                                                    gettext("Audio error:"),
+                                                    "build_input_stream",
+                                                    err.kind(),
+                                                    err.message().unwrap_or_default(),
+                                                    err.kind()
+                                                );
+                                                continue 'pipewire_switch;
+                                            }
+                                            err_fn("build_input_stream", err);
+                                            return;
+                                        }
+                                    },
+                                )+
+                                _ => unreachable!(),
+                            }
+                        };
+                    }
+
+                    stream = Some(build_input_streams!(
+                        F64, f64;
+                        I8, i8;
+                        I16, i16;
+                        I24, cpal::I24;
+                        I32, i32;
+                        I64, i64;
+                        U8, u8;
+                        U16, u16;
+                        U24, cpal::U24;
+                        U32, u32;
+                        U64, u64
+                    ));
+
+                    stream.as_ref().unwrap().play().unwrap();
+
+                    gui_tx_4.try_send(GUIMessage::MicrophoneRecording).unwrap();
                 }
 
-                stream = Some(build_input_streams!(
-                    F64, f64;
-                    I8, i8;
-                    I16, i16;
-                    I24, cpal::I24;
-                    I32, i32;
-                    I64, i64;
-                    U8, u8;
-                    U16, u16;
-                    U24, cpal::U24;
-                    U32, u32;
-                    U64, u64
-                ));
-
-                stream.as_ref().unwrap().play().unwrap();
-
-                gui_tx_4.try_send(GUIMessage::MicrophoneRecording).unwrap();
-            }
-
-            MicrophoneRecordSetDevice(device_name) => {
-                backend.set_device(&host, &device_name);
-            }
-
-            RefreshDevices => {
-                debug!("Refreshing audio devices...");
-
-                let device_names: Vec<DeviceListItem> = backend.list_devices(&host);
-
-                gui_tx
-                    .try_send(GUIMessage::DevicesList(device_names))
-                    .unwrap();
-            }
-
-            MicrophoneRecordStop => {
-                if let Some(some_stream) = stream {
-                    drop(some_stream);
+                MicrophoneRecordSetDevice(device_name) => {
+                    backend.set_device(&host, &device_name);
                 }
 
-                stream = None;
-            }
+                RefreshDevices => {
+                    debug!("Refreshing audio devices...");
 
-            ProcessingDone => {
-                processing_already_ongoing.store(false, Ordering::SeqCst);
+                    let device_names: Vec<DeviceListItem> = backend.list_devices(&host);
+
+                    gui_tx
+                        .try_send(GUIMessage::DevicesList(device_names))
+                        .unwrap();
+                }
+
+                MicrophoneRecordStop => {
+                    if let Some(some_stream) = stream {
+                        drop(some_stream);
+                    }
+
+                    stream = None;
+                }
+
+                ProcessingDone => {
+                    processing_already_ongoing.store(false, Ordering::SeqCst);
+                }
             }
         }
+        break;
     }
 }
 
