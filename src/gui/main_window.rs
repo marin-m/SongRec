@@ -1181,8 +1181,6 @@ impl App {
     fn setup_actions(&self, application: &adw::Application, _enable_mpris_cli: bool) {
         let window: adw::ApplicationWindow = self.builder.object("main_window").unwrap();
         let file_picker: gtk::FileDialog = self.builder.object("file_picker").unwrap();
-        let shortcuts_dialog: gtk::ShortcutsWindow =
-            self.builder.object("shortcuts_window").unwrap();
         let about_dialog: adw::AboutDialog = self.builder.object("about_dialog").unwrap();
         let results_label: gtk::Label = self.builder.object("results_label").unwrap();
         let menu_button: gtk::MenuButton = self.builder.object("menu_button").unwrap();
@@ -1464,12 +1462,6 @@ impl App {
             })
             .build();
 
-        let action_display_shortcuts = gio::ActionEntry::builder("display-shortcuts")
-            .activate(move |_, _, _| {
-                shortcuts_dialog.present();
-            })
-            .build();
-
         let action_show_preferences = gio::ActionEntry::builder("show-preferences")
             .activate(move |_, _, _| {
                 navigation_view.push_by_tag("settings_tag");
@@ -1499,7 +1491,6 @@ impl App {
             action_export_to_csv,
             action_export_favorites_to_csv,
             action_wipe_history,
-            action_display_shortcuts,
             action_show_preferences,
             action_notification_setting,
             #[cfg(target_os = "linux")]
@@ -1520,7 +1511,6 @@ impl App {
 
         application.set_accels_for_action("win.close", &["<Primary>Q", "<Primary>W"]);
         application.set_accels_for_action("win.recognize-file", &["<Primary>O"]);
-        application.set_accels_for_action("win.display-shortcuts", &["<Primary>question"]);
         application
             .set_accels_for_action("win.show-preferences", &["<Primary>comma", "<Primary>P"]);
         application.set_accels_for_action("win.show-menu", &["F10"]);
