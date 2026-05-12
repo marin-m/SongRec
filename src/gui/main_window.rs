@@ -1203,6 +1203,28 @@ impl App {
 
                 about_dialog.set_debug_info(&ctx_buffered_log.borrow());
 
+                about_dialog.set_release_notes_version(
+                    include_str!(
+                        "../../packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in"
+                    )
+                    .split("<release version=\"")
+                    .collect::<Vec<_>>()[1]
+                        .split("\"")
+                        .collect::<Vec<_>>()[0],
+                );
+
+                about_dialog.set_release_notes(
+                    include_str!(
+                        "../../packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in"
+                    )
+                    .split("<release ")
+                    .collect::<Vec<_>>()[1]
+                        .split("<description>")
+                        .collect::<Vec<_>>()[1]
+                        .split("</description>")
+                        .collect::<Vec<_>>()[0],
+                );
+
                 // Sync the debug info with the About modal at most every
                 // 1 sec as it may require a lot of text rendering power
                 // each time
