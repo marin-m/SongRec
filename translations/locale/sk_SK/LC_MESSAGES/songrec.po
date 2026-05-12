@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: SongRec v0.6.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-05-11 02:37+0200\n"
-"PO-Revision-Date: 2026-05-06 15:58+0200\n"
+"PO-Revision-Date: 2026-05-12 20:12+0000\n"
 "Last-Translator: Jozef Gaal <preklady@mayday.sk>\n"
 "Language-Team: Slovak <https://weblate.fossplant.re/projects/songrec/songrec/"
 "sk/>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Poedit 3.8\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #: src/cli_main.rs:118
 msgid "Available device:"
@@ -177,7 +177,7 @@ msgstr "Voliteľný zvukový súbor, ktorý sa rozpozná pri spustení aplikáci
 
 #: src/main.rs:267 src/main.rs:288
 msgid "Disable PipeWire native support"
-msgstr ""
+msgstr "Vypnúť natívnu podporu PipeWire"
 
 #: src/main.rs:272
 msgid ""
