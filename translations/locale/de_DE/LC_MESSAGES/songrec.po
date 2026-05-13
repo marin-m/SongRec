@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-11 02:37+0200\n"
+"POT-Creation-Date: 2026-05-13 03:59+0200\n"
 "PO-Revision-Date: 2022-10-09 13:27+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -187,11 +187,11 @@ msgstr ""
 msgid "Your IP has been rate-limited"
 msgstr ""
 
-#: src/core/microphone_thread.rs:96
+#: src/core/microphone_thread.rs:55
 msgid "Audio error:"
 msgstr ""
 
-#: src/core/microphone_thread.rs:114
+#: src/core/microphone_thread.rs:143 src/core/microphone_thread.rs:148
 msgid "Audio error: No input device available"
 msgstr ""
 

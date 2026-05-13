@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: SongRec v0.6.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-11 02:37+0200\n"
+"POT-Creation-Date: 2026-05-13 03:59+0200\n"
 "PO-Revision-Date: 2026-05-12 20:12+0000\n"
 "Last-Translator: Jozef Gaal <preklady@mayday.sk>\n"
 "Language-Team: Slovak <https://weblate.fossplant.re/projects/songrec/songrec/"
@@ -192,11 +192,11 @@ msgstr ""
 msgid "Your IP has been rate-limited"
 msgstr "Vaša IP adresa bola obmedzená"
 
-#: src/core/microphone_thread.rs:96
+#: src/core/microphone_thread.rs:55
 msgid "Audio error:"
 msgstr "Chyba zvuku:"
 
-#: src/core/microphone_thread.rs:114
+#: src/core/microphone_thread.rs:143 src/core/microphone_thread.rs:148
 msgid "Audio error: No input device available"
 msgstr "Chyba zvuku: Nie je k dispozícii žiadne vstupné zariadenie"
 

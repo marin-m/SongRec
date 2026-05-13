@@ -589,7 +589,7 @@ dependencies = [
 [[package]]
 name = "cpal"
 version = "0.18.0"
-source = "git+https://github.com/RustAudio/cpal.git?rev=f5532e5#f5532e5cab56a7c89d39cd730149aad111e16113"
+source = "git+https://github.com/RustAudio/cpal.git?rev=9c55a43#9c55a431470ded532b0a5012b4741bf15aaf8432"
 dependencies = [
  "alsa",
  "audio_thread_priority",
@@ -2465,7 +2465,7 @@ checksum = "67b1b7a3b5fe4f1376887184045fcf45c69e92af734b7aaddc05fb777b6fbd03"
 
 [[package]]
 name = "songrec"
-version = "0.7.1"
+version = "0.7.2"
 dependencies = [
  "app_dirs",
  "async-channel",

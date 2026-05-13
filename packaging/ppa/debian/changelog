@@ -1,3 +1,18 @@
+songrec (0.7.2) bionic; urgency=low
+
+  * Update audio handling in order to fallback from PipeWire to ALSA or vice-versa, to improve platform support (#265, #306, #309)
+  * Update Czech translation thanks to @Fjuro
+  * Update Turkish translation thanks to @Abrifq
+  * Update Brazilian translation thanks to @marcelocripe
+  * Update Slovak translation thanks to @dodog
+  * Bundle release notes in the About dialog
+  * Fix a regression that had not to display the "Troubleshooting" page in the About dialogs
+  * Use RustFFT instead of ChFFT in order to use SIMD optimizations on compatible platforms (issue #288)
+  * Pad input files audio lesser than 12 secondes in order to gather more fingerpriting output (issue #288)
+  * Merge a patch from the CPAL library allowing to bypass defective PipeWire setups (https://github.com/RustAudio/cpal/pull/1194)
+
+ -- Marin <marin-m@users.noreply.github.com>  Wed, 13 May 2026 03:57:13 +0200
+
 songrec (0.7.1) bionic; urgency=low
 
   * Disable the new realtime audio flag in CPAL on Linux as it will spam errors with Flatpak sandboxing

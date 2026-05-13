@@ -58,6 +58,20 @@ https://hughsie.github.io/oars/index.html
 -->
   <content_rating type="oars-1.1"/>
   <releases>
+    <release version="0.7.2" date="2026-05-13">
+      <description>
+        <p>Update audio handling in order to fallback from PipeWire to ALSA or vice-versa, to improve platform support (#265, #306, #309)</p>
+        <p>Update Czech translation thanks to @Fjuro</p>
+        <p>Update Turkish translation thanks to @Abrifq</p>
+        <p>Update Brazilian translation thanks to @marcelocripe</p>
+        <p>Update Slovak translation thanks to @dodog</p>
+        <p>Bundle release notes in the About dialog</p>
+        <p>Fix a regression that had not to display the "Troubleshooting" page in the About dialogs</p>
+        <p>Use RustFFT instead of ChFFT in order to use SIMD optimizations on compatible platforms (issue #288)</p>
+        <p>Pad input files audio lesser than 12 secondes in order to gather more fingerpriting output (issue #288)</p>
+        <p>Merge a patch from the CPAL library allowing to bypass defective PipeWire setups (RustAudio/cpal#1194)</p>
+      </description>
+    </release>
     <release version="0.7.1" date="2026-05-09">
       <description>
         <p>Disable the new realtime audio flag in CPAL on Linux as it will spam errors with Flatpak sandboxing</p>

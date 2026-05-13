@@ -30,7 +30,7 @@ Github editor.
 **Environment (please complete the following information):**
  - Operating system: [e.g. Ubuntu 26.04 LTS, Manjaro]
  - How did you install SongRec? [e.g. Flatpak, Snap, Ubuntu PPA, crates.io, Github source]
- - Version: [e.g. SongRec 0.7.1, git main tree, git commit `abefc5`]
+ - Version: [e.g. SongRec 0.7.2, git main tree, git commit `abefc5`]
 
 **Additional context**
 Anything additional about the problem here.
