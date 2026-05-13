@@ -37,7 +37,7 @@ pub fn microphone_thread(
     let preference_order: [bool; 2] = [false, true];
 
     #[cfg(not(target_os = "linux"))]
-    let preference_order: [bool; 2] = [false];
+    let preference_order: [bool; 1] = [false];
 
     let gui_tx_2 = gui_tx.clone();
     let microphone_tx_2 = microphone_tx.clone();
