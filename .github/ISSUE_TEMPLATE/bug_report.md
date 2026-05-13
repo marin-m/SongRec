@@ -15,7 +15,11 @@ A clear and concise description of what you expected to happen.
 
 **Program output**
 ```
-Please run SongRec with the "songrec -v" command (or with
+If possible, go to "SongRec ☰ menu → About... → Troubleshooting →
+Debugging information" and share the obtained information here
+(or through an attachment using the "📎" icon of the Github editor)
+
+You can also SongRec with the "songrec -v" command (or with
 the "flatpak run re.fossplant.songrec -v" command if you installed
 from Flatpak), and copy-paste terminal output here.
 
