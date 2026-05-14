@@ -42,7 +42,7 @@ pub fn microphone_thread(
     let gui_tx_2 = gui_tx.clone();
     let microphone_tx_2 = microphone_tx.clone();
 
-    let err_fn = move |location: &'static str, error: cpal::Error, popup: bool| {
+    let err_fn = move |location: &'static str, error: cpal::Error, mut popup: bool| {
         if error.kind() == cpal::ErrorKind::DeviceChanged {
             microphone_tx_2
                 .try_send(MicrophoneMessage::RefreshDevices)
@@ -58,6 +58,10 @@ pub fn microphone_thread(
                 error.message().unwrap_or_default(),
                 error.kind()
             );
+
+            if error.message().unwrap_or_default() == "no target node available" {
+                popup = false;
+            }
 
             if popup {
                 gui_tx_2
