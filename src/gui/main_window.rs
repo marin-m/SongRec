@@ -127,7 +127,7 @@ impl App {
             ctx_selected_item.clone(),
         );
         builder
-            .add_from_resource("/re/fossplant/songrec/interface.ui")
+            .add_from_resource("/re/fossplant/songrec/interface.blp")
             .unwrap();
 
         let history_selection: gtk::SingleSelection = builder.object("history_selection").unwrap();
