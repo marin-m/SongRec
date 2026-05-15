@@ -477,18 +477,11 @@
                             <property name="visible">False</property>
                           </object>
                         </child>
-                        <child>
-                          <object class="AdwSwitchRow" id="no_dupes_setting">
-                            <property name="action-name">win.no-dupes-setting</property>
-                            <property name="subtitle" translatable="yes">Bump a song to the top of the history list and remove the former entry when the same song is detected multiple times</property>
-                            <property name="title" translatable="yes">No duplicates in history</property>
-                          </object>
-                        </child>
                       </object>
                     </child>
                     <child>
-                      <object class="AdwPreferencesGroup" id="network_preferences">
-                        <property name="title" translatable="yes">Network preferences</property>
+                      <object class="AdwPreferencesGroup" id="recognition_preferences">
+                        <property name="title" translatable="yes">Recognition preferences</property>
                         <child>
                           <object class="AdwSpinRow" id="interval_setting">
                             <property name="adjustment">
@@ -508,6 +501,13 @@
                             <property name="subtitle" translatable="yes">By default 8, increase if you are rate-limited</property>
                             <property name="title" translatable="yes">Shazam interval between requests in seconds</property>
                             <property name="update-policy">if-valid</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="AdwSwitchRow" id="no_dupes_setting">
+                            <property name="action-name">win.no-dupes-setting</property>
+                            <property name="subtitle" translatable="yes">Bump a song to the top of the history list and remove the former entry when the same song is detected multiple times</property>
+                            <property name="title" translatable="yes">No duplicates in history</property>
                           </object>
                         </child>
                       </object>
