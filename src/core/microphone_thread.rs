@@ -361,14 +361,17 @@ fn write_data(state: ProcessingState) {
 
     let raw_pcm_samples: Vec<f32> = converted_file.collect();
 
-    let preferences = state
-        .preferences_interface
-        .lock()
-        .unwrap()
-        .preferences
-        .clone();
-    let buffer_size_secs = preferences.buffer_size_secs.unwrap() as usize;
-    let request_interval_secs = preferences.request_interval_secs_v3.unwrap() as usize;
+    let buffer_size_secs;
+    let request_interval_secs;
+    {
+      let preferences = &state
+          .preferences_interface
+          .lock()
+          .unwrap()
+          .preferences;
+        buffer_size_secs = preferences.buffer_size_secs.unwrap() as usize;
+        request_interval_secs = preferences.request_interval_secs_v3.unwrap() as usize;
+    }
 
     let twelve_seconds_buffer = &mut state.twelve_seconds_buffer[..16000 * buffer_size_secs];
 
