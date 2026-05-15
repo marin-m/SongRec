@@ -176,8 +176,8 @@ impl SignatureGenerator {
 
         let real_fft_results = &mut self.fft_outputs[self.fft_outputs_index];
 
-        for index in 0..=1024 {
-            real_fft_results[index] = ((self.complex_fft_output[index].re.powi(2)
+        for (index, cell) in real_fft_results.iter_mut().enumerate() {
+            *cell = ((self.complex_fft_output[index].re.powi(2)
                 + self.complex_fft_output[index].im.powi(2))
                 / ((1 << 17) as f32))
                 .max(0.0000000001);
@@ -205,12 +205,12 @@ impl SignatureGenerator {
 
         // Perform time-domain spreading of peak values
 
-        let spread_fft_results_copy = spread_fft_results.clone(); // Avoid mutable+mutable borrow of self.spread_fft_outputs
+        let spread_fft_results_copy = *spread_fft_results; // Avoid mutable+mutable borrow of self.spread_fft_outputs
 
         for position in 0..=1024 {
-            for former_fft_number in &[1, 3, 6] {
+            for former_fft_number in [1, 3, 6] {
                 let former_fft_output = &mut self.spread_fft_outputs
-                    [((self.spread_fft_outputs_index as i32 - *former_fft_number) & 255) as usize];
+                    [((self.spread_fft_outputs_index as i32 - former_fft_number) & 255) as usize];
 
                 former_fft_output[position] =
                     former_fft_output[position].max(spread_fft_results_copy[position]);

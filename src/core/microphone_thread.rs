@@ -77,7 +77,7 @@ pub fn microphone_thread(
         // Use the default host for working with audio devices.
 
         debug!("Trying to initialize CPAL...");
-        #[cfg(all(target_os = "linux"))]
+        #[cfg(target_os = "linux")]
         let host: cpal::Host = if prefer_pipewire {
             cpal::default_host()
         } else {
@@ -142,7 +142,7 @@ pub fn microphone_thread(
                     };
 
                     if host.default_input_device().is_none() {
-                        #[cfg(all(target_os = "linux"))]
+                        #[cfg(target_os = "linux")]
                         if prefer_pipewire == preference_order[0] {
                             warn!("{}", gettext("Audio error: No input device available"));
                             continue 'pipewire_switch;
@@ -160,7 +160,7 @@ pub fn microphone_thread(
                     let config = match device.default_input_config() {
                         Ok(res) => res,
                         Err(err) => {
-                            #[cfg(all(target_os = "linux"))]
+                            #[cfg(target_os = "linux")]
                             if prefer_pipewire == preference_order[0] {
                                 err_fn("default_input_config", err, false);
                                 continue 'pipewire_switch;
@@ -406,9 +406,13 @@ fn write_data(
     if *number_unmeasured_samples >= 16000 / 24 {
         let mut max_f32_amplitude = 0.0f32;
 
-        for index in 16000 * buffer_size_secs - 16000 / 100 * 2..16000 * buffer_size_secs {
-            if twelve_seconds_buffer[index].abs() > max_f32_amplitude {
-                max_f32_amplitude = twelve_seconds_buffer[index].abs();
+        for item in twelve_seconds_buffer
+            .iter()
+            .take(16000 * buffer_size_secs)
+            .skip(16000 * buffer_size_secs - 16000 / 100 * 2)
+        {
+            if item.abs() > max_f32_amplitude {
+                max_f32_amplitude = item.abs();
             }
         }
 
