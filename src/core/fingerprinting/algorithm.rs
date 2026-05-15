@@ -30,13 +30,13 @@ pub struct SignatureGenerator {
     /// function before being passed through FFT, computed from the ring
     /// buffer every new 128 samples
     fft_outputs: Box<[[f32; 1025]; 256]>,
-    fft_outputs_index: usize,
+    fft_outputs_index: u8,
 
     fft_object: RealFftPlanner<f32>,
 
     /// Ring buffer.
     spread_fft_outputs: Box<[[f32; 1025]; 256]>,
-    spread_fft_outputs_index: usize,
+    spread_fft_outputs_index: u8,
 
     num_spread_ffts_done: u32,
 
@@ -109,12 +109,12 @@ impl SignatureGenerator {
             complex_fft_output: Box::new([Complex::zero(); 1025]),
 
             fft_outputs: Box::new([[0.0f32; 1025]; 256]),
-            fft_outputs_index: 0,
+            fft_outputs_index: 0u8,
 
             fft_object: RealFftPlanner::<f32>::new(),
 
             spread_fft_outputs: Box::new([[0.0f32; 1025]; 256]),
-            spread_fft_outputs_index: 0,
+            spread_fft_outputs_index: 0u8,
 
             num_spread_ffts_done: 0,
 
@@ -174,7 +174,7 @@ impl SignatureGenerator {
 
         // Turn complex into reals, and put the results into a local array
 
-        let real_fft_results = &mut self.fft_outputs[self.fft_outputs_index];
+        let real_fft_results = &mut self.fft_outputs[self.fft_outputs_index as usize];
 
         for (result, complex) in real_fft_results
             .iter_mut()
@@ -184,15 +184,14 @@ impl SignatureGenerator {
                 ((complex.re.powi(2) + complex.im.powi(2)) / ((1 << 17) as f32)).max(0.0000000001);
         }
 
-        self.fft_outputs_index += 1;
-        self.fft_outputs_index &= 255;
+        self.fft_outputs_index = self.fft_outputs_index.wrapping_add(1);
     }
 
     fn do_peak_spreading(&mut self) {
-        let real_fft_results =
-            &self.fft_outputs[((self.fft_outputs_index as i32 - 1) & 255) as usize];
+        let real_fft_results = &self.fft_outputs[self.fft_outputs_index.wrapping_sub(1) as usize];
 
-        let spread_fft_results = &mut self.spread_fft_outputs[self.spread_fft_outputs_index];
+        let spread_fft_results =
+            &mut self.spread_fft_outputs[self.spread_fft_outputs_index as usize];
 
         // Perform frequency-domain spreading of peak values
 
@@ -210,25 +209,26 @@ impl SignatureGenerator {
 
         for position in 0..=1024 {
             for former_fft_number in [1, 3, 6] {
-                let former_fft_output = &mut self.spread_fft_outputs
-                    [((self.spread_fft_outputs_index as i32 - former_fft_number) & 255) as usize];
+                let former_fft_output = &mut self.spread_fft_outputs[self
+                    .spread_fft_outputs_index
+                    .wrapping_sub(former_fft_number)
+                    as usize];
 
                 former_fft_output[position] =
                     former_fft_output[position].max(spread_fft_results_copy[position]);
             }
         }
 
-        self.spread_fft_outputs_index += 1;
-        self.spread_fft_outputs_index &= 255;
+        self.spread_fft_outputs_index = self.spread_fft_outputs_index.wrapping_add(1);
     }
 
     fn do_peak_recognition(&mut self) {
         // Note: when substracting an array index, casting to signed is needed
         // to avoid underflow panics at runtime.
 
-        let fft_minus_46 = &self.fft_outputs[((self.fft_outputs_index as i32 - 46) & 255) as usize];
+        let fft_minus_46 = &self.fft_outputs[self.fft_outputs_index.wrapping_sub(46) as usize];
         let fft_minus_49 =
-            &self.spread_fft_outputs[((self.spread_fft_outputs_index as i32 - 49) & 255) as usize];
+            &self.spread_fft_outputs[self.spread_fft_outputs_index.wrapping_sub(49) as usize];
 
         for bin_position in 10..=1014 {
             // Ensure that the bin is large enough to be a peak
@@ -250,7 +250,7 @@ impl SignatureGenerator {
 
                     let mut max_neighbor_in_other_adjacent_ffts = max_neighbor_in_fft_minus_49;
 
-                    for other_offset in &[
+                    for other_offset in [
                         -53, -45, 165, 172, 179, 186, 193, 200, 214, 221, 228, 235, 242, 249,
                     ] {
                         let other_fft = &self.spread_fft_outputs[((self.spread_fft_outputs_index
