@@ -497,7 +497,7 @@
                                 <property name="page-increment">1.0</property>
                                 <property name="page-size">1.0</property>
                                 <property name="step-increment">1.0</property>
-                                <property name="upper">513.0</property>
+                                <property name="upper">13.0</property>
                                 <property name="value">10.0</property>
                                 <signal name="value-changed" handler="interval_changed"/>
                               </object>
@@ -507,27 +507,6 @@
                             <property name="snap-to-ticks">True</property>
                             <property name="subtitle" translatable="yes">By default 8, increase if you are rate-limited</property>
                             <property name="title" translatable="yes">Shazam interval between requests in seconds</property>
-                            <property name="update-policy">if-valid</property>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="AdwSpinRow" id="buffer_size_setting">
-                            <property name="adjustment">
-                              <object class="GtkAdjustment" id="buffer_size_value">
-                                <property name="lower">1.0</property>
-                                <property name="page-increment">1.0</property>
-                                <property name="page-size">1.0</property>
-                                <property name="step-increment">1.0</property>
-                                <property name="upper">513.0</property>
-                                <property name="value">12.0</property>
-                                <signal name="value-changed" handler="buffer_size_changed"/>
-                              </object>
-                            </property>
-                            <property name="climb-rate">1.0</property>
-                            <property name="numeric">True</property>
-                            <property name="snap-to-ticks">True</property>
-                            <property name="subtitle" translatable="yes">By default the last 12 seconds of music are fingerprinted and sent to Shazam. Editing may have an impact on reliability</property>
-                            <property name="title" translatable="yes">Shazam buffer size in seconds</property>
                             <property name="update-policy">if-valid</property>
                           </object>
                         </child>

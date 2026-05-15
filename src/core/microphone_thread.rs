@@ -16,7 +16,7 @@ use rodio::nz;
 
 use crate::core::audio_controllers::audio_backend::get_any_backend;
 
-const MAX_BUFFER_SIZE: usize = 512;
+const MAX_SECONDS: usize = 12;
 
 struct ProcessingState<'a> {
     input_samples: Vec<f32>,
@@ -24,7 +24,7 @@ struct ProcessingState<'a> {
     gui_tx: async_channel::Sender<GUIMessage>,
     channels: u16,
     sample_rate: u32,
-    twelve_seconds_buffer: &'a mut Box<[f32; 16000 * MAX_BUFFER_SIZE]>,
+    twelve_seconds_buffer: &'a mut [f32; 16000 * MAX_SECONDS],
     number_unprocessed_samples: &'a mut usize,
     number_unmeasured_samples: &'a mut usize,
     processing_already_ongoing: &'a AtomicBool,
@@ -185,7 +185,7 @@ pub fn microphone_thread(
                     let channels = config.channels();
                     let sample_rate = config.sample_rate();
 
-                    let mut twelve_seconds_buffer = Box::new([0.0f32; 16000 * MAX_BUFFER_SIZE]);
+                    let mut twelve_seconds_buffer = Box::new([0.0f32; 16000 * MAX_SECONDS]);
                     let mut number_unprocessed_samples: usize = 0; // Sample count for the interval of doing Shazam recognition (every 4 seconds)
                     let mut number_unmeasured_samples: usize = 0; // Sample count for doing volume measurement (every 24th of second)
 

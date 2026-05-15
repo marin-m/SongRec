@@ -137,9 +137,6 @@ impl App {
             builder.object("favorites_selection").unwrap();
         favorites_selection.set_model(Some(&favorites_list_store));
 
-        let buffer_size_value: gtk::Adjustment = builder.object("buffer_size_value").unwrap();
-        buffer_size_value.set_value(old_preferences.buffer_size_secs.unwrap() as f64);
-
         let request_interval_value: gtk::Adjustment = builder.object("interval_value").unwrap();
         request_interval_value.set_value(old_preferences.request_interval_secs_v3.unwrap() as f64);
 

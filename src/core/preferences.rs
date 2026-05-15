@@ -49,7 +49,7 @@ impl Preferences {
             enable_mpris: None,
             enable_mpris_v2: Some(true),
             no_duplicates: Some(false),
-            buffer_size_secs: Some(12),
+            buffer_size_secs: None,
             request_interval_secs: None,
             request_interval_secs_v2: None,
             request_interval_secs_v3: Some(interval),
@@ -68,7 +68,7 @@ impl Default for Preferences {
             enable_mpris: None,
             enable_mpris_v2: Some(true),
             no_duplicates: Some(false),
-            buffer_size_secs: Some(12),
+            buffer_size_secs: None,
             request_interval_secs: None,
             request_interval_secs_v2: None,
             request_interval_secs_v3: Some(8),
@@ -131,9 +131,7 @@ impl PreferencesInterface {
             no_duplicates: update_preferences
                 .no_duplicates
                 .or(current_preferences.no_duplicates),
-            buffer_size_secs: update_preferences
-                .buffer_size_secs
-                .or(current_preferences.buffer_size_secs),
+            buffer_size_secs: None,
             request_interval_secs: None,
             request_interval_secs_v2: None,
             request_interval_secs_v3: update_preferences
