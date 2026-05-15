@@ -675,19 +675,6 @@ impl App {
 
         let gui_tx = gui_tx_shared.clone();
 
-        builder_scope.add_callback("buffer_size_changed", move |values| {
-            let adjustment = values[0].get::<gtk::Adjustment>().unwrap();
-            debug!("Buffer size set to: {}", adjustment.value());
-            let mut new_preference = Preferences::new();
-            new_preference.buffer_size_secs = Some(adjustment.value() as u64);
-            gui_tx
-                .try_send(GUIMessage::UpdatePreference(new_preference))
-                .unwrap();
-            None
-        });
-
-        let gui_tx = gui_tx_shared.clone();
-
         builder_scope.add_callback("interval_changed", move |values| {
             let adjustment = values[0].get::<gtk::Adjustment>().unwrap();
             debug!("Request interval set to: {}", adjustment.value());
