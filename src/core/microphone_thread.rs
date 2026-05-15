@@ -361,7 +361,12 @@ fn write_data(state: ProcessingState) {
 
     let raw_pcm_samples: Vec<f32> = converted_file.collect();
 
-    let preferences = state.preferences_interface.lock().unwrap().preferences.clone();
+    let preferences = state
+        .preferences_interface
+        .lock()
+        .unwrap()
+        .preferences
+        .clone();
     let buffer_size_secs = preferences.buffer_size_secs.unwrap() as usize;
     let request_interval_secs = preferences.request_interval_secs_v3.unwrap() as usize;
 
@@ -387,13 +392,16 @@ fn write_data(state: ProcessingState) {
         && !state.processing_already_ongoing.load(Ordering::SeqCst)
     {
         if !twelve_seconds_buffer.iter().all(|x| *x == 0.0) {
-            state.processing_tx
+            state
+                .processing_tx
                 .try_send(ProcessingMessage::ProcessAudioSamples(
                     twelve_seconds_buffer.to_vec(),
                 ))
                 .unwrap();
 
-            state.processing_already_ongoing.store(true, Ordering::SeqCst);
+            state
+                .processing_already_ongoing
+                .store(true, Ordering::SeqCst);
         }
 
         *state.number_unprocessed_samples = 0;
@@ -418,7 +426,8 @@ fn write_data(state: ProcessingState) {
             }
         }
 
-        state.gui_tx
+        state
+            .gui_tx
             .try_send(GUIMessage::MicrophoneVolumePercent(
                 max_f32_amplitude * 100.0,
             ))
