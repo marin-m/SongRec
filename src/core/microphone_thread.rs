@@ -18,6 +18,19 @@ use crate::core::audio_controllers::audio_backend::get_any_backend;
 
 const MAX_BUFFER_SIZE: usize = 512;
 
+struct ProcessingState<'a> {
+    input_samples: Vec<f32>,
+    processing_tx: &'a async_channel::Sender<ProcessingMessage>,
+    gui_tx: async_channel::Sender<GUIMessage>,
+    channels: u16,
+    sample_rate: u32,
+    twelve_seconds_buffer: &'a mut [f32],
+    number_unprocessed_samples: &'a mut usize,
+    number_unmeasured_samples: &'a mut usize,
+    processing_already_ongoing: &'a AtomicBool,
+    preferences_interface: &'a Arc<Mutex<PreferencesInterface>>,
+}
+
 pub fn microphone_thread(
     microphone_rx: async_channel::Receiver<MicrophoneMessage>,
     microphone_tx: async_channel::Sender<MicrophoneMessage>,
@@ -189,18 +202,18 @@ pub fn microphone_thread(
                                 cpal::SampleFormat::F32 => match device.build_input_stream(
                                     config.into(),
                                     move |data, _: &_| {
-                                        write_data(
-                                            data.into_iter().copied().collect(),
-                                            &processing_tx_2,
-                                            gui_tx_3.clone(),
+                                        write_data(ProcessingState {
+                                            input_samples: data.into_iter().copied().collect(),
+                                            processing_tx: &processing_tx_2,
+                                            gui_tx: gui_tx_3.clone(),
                                             channels,
                                             sample_rate,
-                                            &mut twelve_seconds_buffer,
-                                            &mut number_unprocessed_samples,
-                                            &mut number_unmeasured_samples,
-                                            &processing_already_ongoing_2,
-                                            &preferences_interface,
-                                        )
+                                            twelve_seconds_buffer: &mut twelve_seconds_buffer,
+                                            number_unprocessed_samples: &mut number_unprocessed_samples,
+                                            number_unmeasured_samples: &mut number_unmeasured_samples,
+                                            processing_already_ongoing: &processing_already_ongoing_2,
+                                            preferences_interface: &preferences_interface,
+                                        })
                                     },
                                     err_fn_cb,
                                     None,
@@ -235,18 +248,18 @@ pub fn microphone_thread(
                                     cpal::SampleFormat::$sample_format => match device.build_input_stream(
                                         config.into(),
                                         move |data, _: &_| {
-                                            write_data(
-                                                SampleTypeConverter::<Copied<Iter<$generic>>, f32>::new(data.into_iter().copied()).collect(),
-                                                &processing_tx_2,
-                                                gui_tx_3.clone(),
+                                            write_data(ProcessingState {
+                                                input_samples: SampleTypeConverter::<Copied<Iter<$generic>>, f32>::new(data.into_iter().copied()).collect(),
+                                                processing_tx: &processing_tx_2,
+                                                gui_tx: gui_tx_3.clone(),
                                                 channels,
                                                 sample_rate,
-                                                &mut twelve_seconds_buffer,
-                                                &mut number_unprocessed_samples,
-                                                &mut number_unmeasured_samples,
-                                                &processing_already_ongoing_2,
-                                                &preferences_interface,
-                                            )
+                                                twelve_seconds_buffer: &mut twelve_seconds_buffer,
+                                                number_unprocessed_samples: &mut number_unprocessed_samples,
+                                                number_unmeasured_samples: &mut number_unmeasured_samples,
+                                                processing_already_ongoing: &processing_already_ongoing_2,
+                                                preferences_interface: &preferences_interface,
+                                            })
                                         },
                                         err_fn_cb,
                                         None,
@@ -333,25 +346,14 @@ pub fn microphone_thread(
     }
 }
 
-fn write_data(
-    input_samples: Vec<f32>,
-    processing_tx: &async_channel::Sender<ProcessingMessage>,
-    gui_tx: async_channel::Sender<GUIMessage>,
-    channels: u16,
-    sample_rate: u32,
-    twelve_seconds_buffer: &mut [f32],
-    number_unprocessed_samples: &mut usize,
-    number_unmeasured_samples: &mut usize,
-    processing_already_ongoing: &AtomicBool,
-    preferences_interface: &Arc<Mutex<PreferencesInterface>>,
-) {
+fn write_data(state: ProcessingState) {
     // Reassemble data into a 12-second buffer, and do recognition
     // every 4 seconds if the queue to "processing_tx" is empty
 
     let input_buffer = rodio::buffer::SamplesBuffer::new(
-        NonZero::new(channels).unwrap(),
-        NonZero::new(sample_rate).unwrap(),
-        input_samples,
+        NonZero::new(state.channels).unwrap(),
+        NonZero::new(state.sample_rate).unwrap(),
+        state.input_samples,
     );
 
     let converted_file =
@@ -359,11 +361,11 @@ fn write_data(
 
     let raw_pcm_samples: Vec<f32> = converted_file.collect();
 
-    let preferences = preferences_interface.lock().unwrap().preferences.clone();
+    let preferences = state.preferences_interface.lock().unwrap().preferences.clone();
     let buffer_size_secs = preferences.buffer_size_secs.unwrap() as usize;
     let request_interval_secs = preferences.request_interval_secs_v3.unwrap() as usize;
 
-    let twelve_seconds_buffer = &mut twelve_seconds_buffer[..16000 * buffer_size_secs];
+    let twelve_seconds_buffer = &mut state.twelve_seconds_buffer[..16000 * buffer_size_secs];
 
     // Update our buffer with data from CPAL
 
@@ -379,31 +381,31 @@ fn write_data(
             .copy_from_slice(&raw_pcm_samples);
     }
 
-    *number_unprocessed_samples += raw_pcm_samples.len();
+    *state.number_unprocessed_samples += raw_pcm_samples.len();
 
-    if *number_unprocessed_samples >= 16000 * request_interval_secs
-        && !processing_already_ongoing.load(Ordering::SeqCst)
+    if *state.number_unprocessed_samples >= 16000 * request_interval_secs
+        && !state.processing_already_ongoing.load(Ordering::SeqCst)
     {
         if !twelve_seconds_buffer.iter().all(|x| *x == 0.0) {
-            processing_tx
+            state.processing_tx
                 .try_send(ProcessingMessage::ProcessAudioSamples(
                     twelve_seconds_buffer.to_vec(),
                 ))
                 .unwrap();
 
-            processing_already_ongoing.store(true, Ordering::SeqCst);
+            state.processing_already_ongoing.store(true, Ordering::SeqCst);
         }
 
-        *number_unprocessed_samples = 0;
+        *state.number_unprocessed_samples = 0;
     }
 
     // Do microphone volume measurement every 24th of second (so that we can
     // update it at 24 FPS) and over the last two 100th of second (so that we
     // can be sure to measure volume for at most 100 Hz)
 
-    *number_unmeasured_samples += raw_pcm_samples.len();
+    *state.number_unmeasured_samples += raw_pcm_samples.len();
 
-    if *number_unmeasured_samples >= 16000 / 24 {
+    if *state.number_unmeasured_samples >= 16000 / 24 {
         let mut max_f32_amplitude = 0.0f32;
 
         for item in twelve_seconds_buffer
@@ -416,12 +418,12 @@ fn write_data(
             }
         }
 
-        gui_tx
+        state.gui_tx
             .try_send(GUIMessage::MicrophoneVolumePercent(
                 max_f32_amplitude * 100.0,
             ))
             .unwrap();
 
-        *number_unmeasured_samples = 0;
+        *state.number_unmeasured_samples = 0;
     }
 }
