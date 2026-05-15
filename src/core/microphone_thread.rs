@@ -16,7 +16,7 @@ use rodio::nz;
 
 use crate::core::audio_controllers::audio_backend::get_any_backend;
 
-const MAX_SECONDS: usize = 12;
+const BUFFER_SIZE_SECS: usize = 12;
 
 struct ProcessingState<'a> {
     input_samples: Vec<f32>,
@@ -24,7 +24,7 @@ struct ProcessingState<'a> {
     gui_tx: async_channel::Sender<GUIMessage>,
     channels: u16,
     sample_rate: u32,
-    twelve_seconds_buffer: &'a mut [f32; 16000 * MAX_SECONDS],
+    twelve_seconds_buffer: &'a mut [f32; 16000 * BUFFER_SIZE_SECS],
     number_unprocessed_samples: &'a mut usize,
     number_unmeasured_samples: &'a mut usize,
     processing_already_ongoing: &'a AtomicBool,
@@ -185,7 +185,7 @@ pub fn microphone_thread(
                     let channels = config.channels();
                     let sample_rate = config.sample_rate();
 
-                    let mut twelve_seconds_buffer = Box::new([0.0f32; 16000 * MAX_SECONDS]);
+                    let mut twelve_seconds_buffer = Box::new([0.0f32; 16000 * BUFFER_SIZE_SECS]);
                     let mut number_unprocessed_samples: usize = 0; // Sample count for the interval of doing Shazam recognition (every 4 seconds)
                     let mut number_unmeasured_samples: usize = 0; // Sample count for doing volume measurement (every 24th of second)
 
@@ -361,27 +361,25 @@ fn write_data(state: ProcessingState) {
 
     let raw_pcm_samples: Vec<f32> = converted_file.collect();
 
-    let buffer_size_secs;
     let request_interval_secs;
     {
         let preferences = &state.preferences_interface.lock().unwrap().preferences;
-        buffer_size_secs = preferences.buffer_size_secs.unwrap() as usize;
         request_interval_secs = preferences.request_interval_secs_v3.unwrap() as usize;
     }
 
-    let twelve_seconds_buffer = &mut state.twelve_seconds_buffer[..16000 * buffer_size_secs];
+    let twelve_seconds_buffer = &mut state.twelve_seconds_buffer[..16000 * BUFFER_SIZE_SECS];
 
     // Update our buffer with data from CPAL
 
-    if raw_pcm_samples.len() >= 16000 * buffer_size_secs {
+    if raw_pcm_samples.len() >= 16000 * BUFFER_SIZE_SECS {
         twelve_seconds_buffer
-            .copy_from_slice(&raw_pcm_samples[raw_pcm_samples.len() - 16000 * buffer_size_secs..]);
+            .copy_from_slice(&raw_pcm_samples[raw_pcm_samples.len() - 16000 * BUFFER_SIZE_SECS..]);
     } else {
         let latter_data = twelve_seconds_buffer[raw_pcm_samples.len()..].to_vec();
 
-        twelve_seconds_buffer[..16000 * buffer_size_secs - raw_pcm_samples.len()]
+        twelve_seconds_buffer[..16000 * BUFFER_SIZE_SECS - raw_pcm_samples.len()]
             .copy_from_slice(&latter_data);
-        twelve_seconds_buffer[16000 * buffer_size_secs - raw_pcm_samples.len()..]
+        twelve_seconds_buffer[16000 * BUFFER_SIZE_SECS - raw_pcm_samples.len()..]
             .copy_from_slice(&raw_pcm_samples);
     }
 
@@ -417,8 +415,8 @@ fn write_data(state: ProcessingState) {
 
         for item in twelve_seconds_buffer
             .iter()
-            .take(16000 * buffer_size_secs)
-            .skip(16000 * buffer_size_secs - 16000 / 100 * 2)
+            .take(16000 * BUFFER_SIZE_SECS)
+            .skip(16000 * BUFFER_SIZE_SECS - 16000 / 100 * 2)
         {
             if item.abs() > max_f32_amplitude {
                 max_f32_amplitude = item.abs();
