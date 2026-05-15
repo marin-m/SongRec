@@ -2498,7 +2498,6 @@ dependencies = [
  "pulsectl-rs",
  "rand",
  "realfft",
- "regex",
  "rodio",
  "rustfft",
  "serde",
