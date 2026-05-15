@@ -1,6 +1,5 @@
 use gettextrs::gettext;
-use regex::Regex;
-use serde_json::{to_string_pretty, Value};
+use serde_json::Value;
 use soup::prelude::SessionExt;
 use std::error::Error;
 
@@ -82,15 +81,7 @@ async fn try_recognize_song(
             Value::String(string) => Some(string.to_string()),
             _ => None,
         },
-        shazam_json: Regex::new("\n *")
-            .unwrap()
-            .replace_all(
-                &Regex::new("([,:])\n *")
-                    .unwrap()
-                    .replace_all(&to_string_pretty(&json_object).unwrap(), "$1 "),
-                "",
-            )
-            .into_owned(),
+        shazam_json: serde_json::to_string(&json_object).unwrap(),
     })
 }
 

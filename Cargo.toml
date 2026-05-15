@@ -34,7 +34,6 @@ uuid = { version = "1.23.0", features = ["v4"] }
 glib = { version = "0.21", features = ["log", "v2_66"] }
 serde = { version = "1.0.115", features = ["derive"] }
 csv = "1.1.3"
-regex = "1.5.4"
 rand = "0.10.0"
 gettext-sys = { version = "0.26.0", features = ["gettext-system"] }
 gettext-rs = { version = "0.7.7" }
