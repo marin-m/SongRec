@@ -176,11 +176,12 @@ impl SignatureGenerator {
 
         let real_fft_results = &mut self.fft_outputs[self.fft_outputs_index];
 
-        for (index, cell) in real_fft_results.iter_mut().enumerate() {
-            *cell = ((self.complex_fft_output[index].re.powi(2)
-                + self.complex_fft_output[index].im.powi(2))
-                / ((1 << 17) as f32))
-                .max(0.0000000001);
+        for (result, complex) in real_fft_results
+            .iter_mut()
+            .zip(self.complex_fft_output.iter())
+        {
+            *result =
+                ((complex.re.powi(2) + complex.im.powi(2)) / ((1 << 17) as f32)).max(0.0000000001);
         }
 
         self.fft_outputs_index += 1;
