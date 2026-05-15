@@ -15,8 +15,8 @@ pub struct Preferences {
     pub enable_mpris: Option<bool>, // Legacy, before setting default to true
     pub enable_mpris_v2: Option<bool>,
     pub no_duplicates: Option<bool>,
-    pub buffer_size_secs: Option<u64>, // Removed in 0.7.3
-    pub request_interval_secs: Option<u64>, // Legacy, before increasing default from 4 to 10
+    pub buffer_size_secs: Option<u64>,         // Removed in 0.7.3
+    pub request_interval_secs: Option<u64>,    // Legacy, before increasing default from 4 to 10
     pub request_interval_secs_v2: Option<u64>, // before decreasing from 10 to 8
     pub request_interval_secs_v3: Option<u64>,
     pub current_device_name: Option<String>,
