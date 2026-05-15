@@ -15,8 +15,8 @@ pub struct Preferences {
     pub enable_mpris: Option<bool>, // Legacy, before setting default to true
     pub enable_mpris_v2: Option<bool>,
     pub no_duplicates: Option<bool>,
-    pub buffer_size_secs: Option<u64>,
-    pub request_interval_secs: Option<u64>, // Legacy, before increasing default from 4 to 10
+    pub buffer_size_secs: Option<u64>,         // Removed in 0.7.3
+    pub request_interval_secs: Option<u64>,    // Legacy, before increasing default from 4 to 10
     pub request_interval_secs_v2: Option<u64>, // before decreasing from 10 to 8
     pub request_interval_secs_v3: Option<u64>,
     pub current_device_name: Option<String>,
@@ -49,7 +49,7 @@ impl Preferences {
             enable_mpris: None,
             enable_mpris_v2: Some(true),
             no_duplicates: Some(false),
-            buffer_size_secs: Some(12),
+            buffer_size_secs: None,
             request_interval_secs: None,
             request_interval_secs_v2: None,
             request_interval_secs_v3: Some(interval),
@@ -68,7 +68,7 @@ impl Default for Preferences {
             enable_mpris: None,
             enable_mpris_v2: Some(true),
             no_duplicates: Some(false),
-            buffer_size_secs: Some(12),
+            buffer_size_secs: None,
             request_interval_secs: None,
             request_interval_secs_v2: None,
             request_interval_secs_v3: Some(8),
@@ -131,9 +131,7 @@ impl PreferencesInterface {
             no_duplicates: update_preferences
                 .no_duplicates
                 .or(current_preferences.no_duplicates),
-            buffer_size_secs: update_preferences
-                .buffer_size_secs
-                .or(current_preferences.buffer_size_secs),
+            buffer_size_secs: None,
             request_interval_secs: None,
             request_interval_secs_v2: None,
             request_interval_secs_v3: update_preferences

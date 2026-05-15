@@ -137,9 +137,6 @@ impl App {
             builder.object("favorites_selection").unwrap();
         favorites_selection.set_model(Some(&favorites_list_store));
 
-        let buffer_size_value: gtk::Adjustment = builder.object("buffer_size_value").unwrap();
-        buffer_size_value.set_value(old_preferences.buffer_size_secs.unwrap() as f64);
-
         let request_interval_value: gtk::Adjustment = builder.object("interval_value").unwrap();
         request_interval_value.set_value(old_preferences.request_interval_secs_v3.unwrap() as f64);
 
@@ -673,19 +670,6 @@ impl App {
                         .unwrap();
                 }
             }
-            None
-        });
-
-        let gui_tx = gui_tx_shared.clone();
-
-        builder_scope.add_callback("buffer_size_changed", move |values| {
-            let adjustment = values[0].get::<gtk::Adjustment>().unwrap();
-            debug!("Buffer size set to: {}", adjustment.value());
-            let mut new_preference = Preferences::new();
-            new_preference.buffer_size_secs = Some(adjustment.value() as u64);
-            gui_tx
-                .try_send(GUIMessage::UpdatePreference(new_preference))
-                .unwrap();
             None
         });
 
