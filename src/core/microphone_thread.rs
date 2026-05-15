@@ -364,11 +364,7 @@ fn write_data(state: ProcessingState) {
     let buffer_size_secs;
     let request_interval_secs;
     {
-      let preferences = &state
-          .preferences_interface
-          .lock()
-          .unwrap()
-          .preferences;
+        let preferences = &state.preferences_interface.lock().unwrap().preferences;
         buffer_size_secs = preferences.buffer_size_secs.unwrap() as usize;
         request_interval_secs = preferences.request_interval_secs_v3.unwrap() as usize;
     }
