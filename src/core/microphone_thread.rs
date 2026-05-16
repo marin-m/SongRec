@@ -94,8 +94,8 @@ pub fn microphone_thread(
         let host: cpal::Host = if prefer_pipewire {
             cpal::default_host()
         } else {
-            match cpal::platform::AlsaHost::new() {
-                Ok(host) => host.into(),
+            match cpal::host_from_id(cpal::HostId::Alsa) {
+                Ok(host) => host,
                 Err(err) => {
                     if prefer_pipewire == preference_order[0] {
                         err_fn("ALSA driver not available", err, false);
@@ -108,7 +108,6 @@ pub fn microphone_thread(
         };
         #[cfg(not(target_os = "linux"))]
         let host = cpal::default_host();
-        #[cfg(target_os = "linux")]
         debug!("Using audio playback backend: {:?}", host.id());
         debug!("CPAL initialized");
 
