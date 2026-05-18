@@ -1,4 +1,4 @@
-songrec (0.7.2) bionic; urgency=low
+songrec (0.7.3) bionic; urgency=low
 
   * Update Russian translation thanks to @AlexanderShad
   * Update CPAL to the latest upstream version
