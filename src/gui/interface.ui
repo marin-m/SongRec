@@ -461,12 +461,10 @@
                           </object>
                         </child>
                         <child>
-                          <object class="AdwSwitchRow" id="mpris_setting">
-                            <property name="action-name">win.mpris-setting</property>
-                            <property name="has-tooltip">True</property>
-                            <property name="subtitle" translatable="yes">MPRIS will display information about recognized songs in places like the GNOME or KDE control panel</property>
-                            <property name="title" translatable="yes">Enable MPRIS</property>
-                            <property name="visible">False</property>
+                          <object class="AdwSwitchRow" id="no_dupes_setting">
+                            <property name="action-name">win.no-dupes-setting</property>
+                            <property name="subtitle" translatable="yes">Bump a song to the top of the history list and remove the former entry when the same song is detected multiple times</property>
+                            <property name="title" translatable="yes">No duplicates in history</property>
                           </object>
                         </child>
                         <child>
@@ -480,8 +478,8 @@
                       </object>
                     </child>
                     <child>
-                      <object class="AdwPreferencesGroup" id="recognition_preferences">
-                        <property name="title" translatable="yes">Recognition preferences</property>
+                      <object class="AdwPreferencesGroup" id="network_preferences">
+                        <property name="title" translatable="yes">Network preferences</property>
                         <child>
                           <object class="AdwSpinRow" id="interval_setting">
                             <property name="adjustment">
@@ -504,10 +502,12 @@
                           </object>
                         </child>
                         <child>
-                          <object class="AdwSwitchRow" id="no_dupes_setting">
-                            <property name="action-name">win.no-dupes-setting</property>
-                            <property name="subtitle" translatable="yes">Bump a song to the top of the history list and remove the former entry when the same song is detected multiple times</property>
-                            <property name="title" translatable="yes">No duplicates in history</property>
+                          <object class="AdwSwitchRow" id="mpris_setting">
+                            <property name="action-name">win.mpris-setting</property>
+                            <property name="has-tooltip">True</property>
+                            <property name="subtitle" translatable="yes">MPRIS will display information about recognized songs in places like the GNOME or KDE control panel</property>
+                            <property name="title" translatable="yes">Enable MPRIS</property>
+                            <property name="visible">False</property>
                           </object>
                         </child>
                       </object>
