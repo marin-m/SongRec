@@ -56,21 +56,21 @@
     <p xml:lang="sk">- Zobrazuje históriu prehrávaných skladieb v grafickom rozhraní, ktorú je možné exportovať do formátu CSV.</p>
     <p xml:lang="ru">- Предоставление истории распознанных песен в графическом интерфейсе пользователя с возможностью экспорта в формат CSV.</p>
     <p xml:lang="pt">- Permite o acesso a um histórico das músicas que foram identificadas por meio da interface gráfica e possibilita a exportação para um arquivo no formato CSV.</p>
-    <p xml:lang="fr">- Fournit un historique des chansons reconnues via l'interface graphique, exportable au format CSV.</p>
+    <p xml:lang="fr">- Visualiser un historique des chansons reconnues via l'interface graphique, exportable au format CSV.</p>
     <p xml:lang="cs">- Poskytování historie rozpoznaných skladeb v rozhraní, exportovatelné do souboru CSV.</p>
     <p>- Continuous song detection from the microphone, with the ability to choose your input device.</p>
     <p xml:lang="tr">- Hangi cihazı dinleyeceğini seçebileceğiniz mikrofondan sürekli şarkı tanıma modu.</p>
     <p xml:lang="sk">- Nepretržité rozpoznávanie piesní z mikrofónu s možnosťou výberu vstupného zariadenia.</p>
     <p xml:lang="ru">- Непрерывное распознавание песен с микрофона с возможностью выбора устройства ввода.</p>
     <p xml:lang="pt">- Permite realizar a identificação contínua das músicas a partir do microfone com a possibilidade de escolher o dispositivo de entrada.</p>
-    <p xml:lang="fr">- Reconnaissance continue de l'audio à partir du microphone, avec la possibilité de choisir votre périphérique d'entrée.</p>
+    <p xml:lang="fr">- Reconnaître en continu de l'audio à partir du microphone, avec la possibilité de choisir votre périphérique d'entrée.</p>
     <p xml:lang="cs">- Průběžná detekce skladeb z mikrofonu, s možností výběru vstupního zařízení.</p>
     <p>- Ability to recognize songs from your speakers rather than your microphone.</p>
     <p xml:lang="tr">- Mikrofon yerine hoparlörünüzden çıkan müziği tanıma özelliği.</p>
     <p xml:lang="sk">- Schopnosť rozpoznávať skladby z reproduktorov namiesto mikrofónu.</p>
     <p xml:lang="ru">- Способность распознавать песни с ваших колонок, а не из микрофона.</p>
     <p xml:lang="pt">- Permite identificar as músicas a partir das suas caixas de som em vez do seu microfone.</p>
-    <p xml:lang="fr">- Possibilité de reconnaître les chansons à partir de vos hauts-parleurs plutôt que votre microphone.</p>
+    <p xml:lang="fr">- Reconnaître les chansons à partir de vos hauts-parleurs plutôt que votre microphone.</p>
     <p xml:lang="cs">- Schopnost rozpoznávat skladby z reproduktorů namísto mikrofonu.</p>
   </description>
   <screenshots>

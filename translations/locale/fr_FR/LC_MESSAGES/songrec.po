@@ -580,7 +580,7 @@ msgstr "- Utilisable en mode graphique et depuis la ligne de commande."
 msgid ""
 "- Provide an history of the recognized songs on the GUI, exportable to CSV."
 msgstr ""
-"- Fournit un historique des chansons reconnues via l'interface graphique, "
+"- Visualiser un historique des chansons reconnues via l'interface graphique, "
 "exportable au format CSV."
 
 #: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:19
@@ -588,14 +588,14 @@ msgid ""
 "- Continuous song detection from the microphone, with the ability to choose "
 "your input device."
 msgstr ""
-"- Reconnaissance continue de l'audio à partir du microphone, avec la "
+"- Reconnaître en continu de l'audio à partir du microphone, avec la "
 "possibilité de choisir votre périphérique d'entrée."
 
 #: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:20
 msgid ""
 "- Ability to recognize songs from your speakers rather than your microphone."
 msgstr ""
-"- Possibilité de reconnaître les chansons à partir de vos hauts-parleurs "
+"- Reconnaître les chansons à partir de vos hauts-parleurs "
 "plutôt que votre microphone."
 
 #: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:25
