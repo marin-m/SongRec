@@ -130,6 +130,14 @@ https://hughsie.github.io/oars/index.html
 -->
   <content_rating type="oars-1.1"/>
   <releases>
+    <release version="0.7.3" date="2026-05-18">
+      <description>
+        <p>Update Russian translation thanks to @AlexanderShad</p>
+        <p>Update CPAL to the latest upstream version</p>
+        <p>Don't display an error for the "no target node available" message from WirePlumber which id non-fatal (issue #256)</p>
+        <p>Push code optimizations thank to @linkmauve</p>
+      </description>
+    </release>
     <release version="0.7.2" date="2026-05-13">
       <description>
         <p>Update audio handling in order to fallback from PipeWire to ALSA or vice-versa, to improve platform support (#265, #306, #309)</p>
