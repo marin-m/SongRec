@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-15 18:53+0200\n"
+"POT-Creation-Date: 2026-05-18 03:47+0200\n"
 "PO-Revision-Date: 2026-05-11 08:02+0000\n"
 "Last-Translator: Arda Aydın <arda.aydin@operationsilkscarf.com>\n"
 "Language-Team: Turkish <https://weblate.fossplant.re/projects/songrec/"
@@ -43,8 +43,8 @@ msgstr "Hata: Ağa ulaşılamıyor"
 msgid "Warning: Network unreachable"
 msgstr "Uyarı: Ağa ulaşılamıyor"
 
-#: src/cli_main.rs:179 src/core/http_task.rs:55 src/core/http_task.rs:64
-#: src/core/http_task.rs:76 src/core/http_task.rs:119
+#: src/cli_main.rs:179 src/core/http_task.rs:54 src/core/http_task.rs:63
+#: src/core/http_task.rs:75 src/core/http_task.rs:110
 #: src/gui/main_window.rs:894 src/gui/main_window.rs:906
 msgid "No match for this song"
 msgstr "Bu şarkı için eşleşme yok"
@@ -187,7 +187,7 @@ msgstr ""
 "GUI'yi başlat, ama açıldığı gibi mikrofondan ses tanımayı açma. (Bunun "
 "yerine kullanıcının butona basmasını bekle)"
 
-#: src/core/http_task.rs:126 src/core/fingerprinting/communication.rs:124
+#: src/core/http_task.rs:117 src/core/fingerprinting/communication.rs:124
 msgid "Your IP has been rate-limited"
 msgstr "IP'niz hız aşımına yakalanmış"
 
@@ -195,7 +195,7 @@ msgstr "IP'niz hız aşımına yakalanmış"
 msgid "Audio error:"
 msgstr "Ses hatası:"
 
-#: src/core/microphone_thread.rs:160 src/core/microphone_thread.rs:165
+#: src/core/microphone_thread.rs:159 src/core/microphone_thread.rs:164
 msgid "Audio error: No input device available"
 msgstr "Ses hatası: Mevcut bir giriş cihazı yok"
 
@@ -389,19 +389,19 @@ msgstr "Yeni bir şarkı tanındığında ya da ağ hatasıyla karşılaşınca 
 msgid "Show notifications"
 msgstr "Bildirimleri göster"
 
-#: src/gui/interface.ui:467
+#: src/gui/interface.ui:466
 msgid ""
-"MPRIS will display information about recognized songs in places like the "
-"GNOME or KDE control panel"
+"Bump a song to the top of the history list and remove the former entry when "
+"the same song is detected multiple times"
 msgstr ""
-"MPRIS, GNOME veya KDE kontrol paneli gibi yerlerde tanınan şarkılar hakkında "
-"bilgiler göstersin"
+"Geçmişte aynı şarkıdan varsa, önceki kopyaları sil ve sadece yeni tanımayı "
+"kaydet"
 
-#: src/gui/interface.ui:468
-msgid "Enable MPRIS"
-msgstr "MPRIS'i etkinleştir"
+#: src/gui/interface.ui:467
+msgid "No duplicates in history"
+msgstr "Geçmişte kopya şarkı bırakma"
 
-#: src/gui/interface.ui:475
+#: src/gui/interface.ui:473
 msgid ""
 "When closing the window, minimize to system tray using KSNI instead of "
 "closing the app. Please note that you may have to increase the \"request "
@@ -413,33 +413,33 @@ msgstr ""
 "yakalanmamak için \"istek aralığı\" ayarını arttırmanız gerekebileceğini not "
 "edin."
 
-#: src/gui/interface.ui:476
+#: src/gui/interface.ui:474
 msgid "Minimize to system tray"
 msgstr "Sistem tepsisine küçült"
 
-#: src/gui/interface.ui:483
-msgid ""
-"Bump a song to the top of the history list and remove the former entry when "
-"the same song is detected multiple times"
-msgstr ""
-"Geçmişte aynı şarkıdan varsa, önceki kopyaları sil ve sadece yeni tanımayı "
-"kaydet"
-
-#: src/gui/interface.ui:484
-msgid "No duplicates in history"
-msgstr "Geçmişte kopya şarkı bırakma"
-
-#: src/gui/interface.ui:491
+#: src/gui/interface.ui:482
 msgid "Network preferences"
 msgstr "Ağ tercihleri"
 
-#: src/gui/interface.ui:508
+#: src/gui/interface.ui:499
 msgid "By default 8, increase if you are rate-limited"
 msgstr "8 varsayılandır, hız aşımına uğrarsanız arttırın"
 
-#: src/gui/interface.ui:509
+#: src/gui/interface.ui:500
 msgid "Shazam interval between requests in seconds"
 msgstr "Shazam istekleri arasındaki kaç saniye bekler"
+
+#: src/gui/interface.ui:508
+msgid ""
+"MPRIS will display information about recognized songs in places like the "
+"GNOME or KDE control panel"
+msgstr ""
+"MPRIS, GNOME veya KDE kontrol paneli gibi yerlerde tanınan şarkılar hakkında "
+"bilgiler göstersin"
+
+#: src/gui/interface.ui:509
+msgid "Enable MPRIS"
+msgstr "MPRIS'i etkinleştir"
 
 #: src/gui/interface.ui:517
 msgid "Search preferences"

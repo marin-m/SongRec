@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-15 18:53+0200\n"
+"POT-Creation-Date: 2026-05-18 03:47+0200\n"
 "PO-Revision-Date: 2026-05-09 17:02+0000\n"
 "Last-Translator: Marin <25437947+marin-m@users.noreply.github.com>\n"
 "Language-Team: French <https://weblate.fossplant.re/projects/songrec/songrec/"
@@ -46,8 +46,8 @@ msgstr "Erreur : aucune connexion réseau"
 msgid "Warning: Network unreachable"
 msgstr "Avertissement : Pas de connexion réseau"
 
-#: src/cli_main.rs:179 src/core/http_task.rs:55 src/core/http_task.rs:64
-#: src/core/http_task.rs:76 src/core/http_task.rs:119
+#: src/cli_main.rs:179 src/core/http_task.rs:54 src/core/http_task.rs:63
+#: src/core/http_task.rs:75 src/core/http_task.rs:110
 #: src/gui/main_window.rs:894 src/gui/main_window.rs:906
 msgid "No match for this song"
 msgstr "Chanson non reconnue"
@@ -196,7 +196,7 @@ msgstr ""
 "microphone dès que celle-ci est lancée (au lieu de cela, attendre que "
 "l'utilisateur clique sur un bouton)."
 
-#: src/core/http_task.rs:126 src/core/fingerprinting/communication.rs:124
+#: src/core/http_task.rs:117 src/core/fingerprinting/communication.rs:124
 msgid "Your IP has been rate-limited"
 msgstr "Votre adresse IP fait l'objet d'une rate-limit"
 
@@ -204,7 +204,7 @@ msgstr "Votre adresse IP fait l'objet d'une rate-limit"
 msgid "Audio error:"
 msgstr "Erreur audio :"
 
-#: src/core/microphone_thread.rs:160 src/core/microphone_thread.rs:165
+#: src/core/microphone_thread.rs:159 src/core/microphone_thread.rs:164
 msgid "Audio error: No input device available"
 msgstr "Erreur audio : pas de périphérique d'entrée disponible"
 
@@ -404,19 +404,19 @@ msgstr ""
 msgid "Show notifications"
 msgstr "Afficher les notifications"
 
-#: src/gui/interface.ui:467
+#: src/gui/interface.ui:466
 msgid ""
-"MPRIS will display information about recognized songs in places like the "
-"GNOME or KDE control panel"
+"Bump a song to the top of the history list and remove the former entry when "
+"the same song is detected multiple times"
 msgstr ""
-"MPRIS va afficher des informations à propos des chansons reconnues à des "
-"endroits comme le panneau de contrôle KDE ou GNOME"
+"Faire remonter une chanson en haut de l'historique et enlever les autres "
+"entrées quand une chanson est détectée plusieurs fois"
 
-#: src/gui/interface.ui:468
-msgid "Enable MPRIS"
-msgstr "Activer MPRIS"
+#: src/gui/interface.ui:467
+msgid "No duplicates in history"
+msgstr "Empêcher les doublons dans l'historique"
 
-#: src/gui/interface.ui:475
+#: src/gui/interface.ui:473
 msgid ""
 "When closing the window, minimize to system tray using KSNI instead of "
 "closing the app. Please note that you may have to increase the \"request "
@@ -429,33 +429,33 @@ msgstr ""
 "SongRec fonctionne en arrière-plain afin de réduire les risques de rate-"
 "limit."
 
-#: src/gui/interface.ui:476
+#: src/gui/interface.ui:474
 msgid "Minimize to system tray"
 msgstr "Minimiser dans la zone de notifications"
 
-#: src/gui/interface.ui:483
-msgid ""
-"Bump a song to the top of the history list and remove the former entry when "
-"the same song is detected multiple times"
-msgstr ""
-"Faire remonter une chanson en haut de l'historique et enlever les autres "
-"entrées quand une chanson est détectée plusieurs fois"
-
-#: src/gui/interface.ui:484
-msgid "No duplicates in history"
-msgstr "Empêcher les doublons dans l'historique"
-
-#: src/gui/interface.ui:491
+#: src/gui/interface.ui:482
 msgid "Network preferences"
 msgstr "Préférences réseau"
 
-#: src/gui/interface.ui:508
+#: src/gui/interface.ui:499
 msgid "By default 8, increase if you are rate-limited"
 msgstr "Par défaut 8, augmenter en cas de rate-limit"
 
-#: src/gui/interface.ui:509
+#: src/gui/interface.ui:500
 msgid "Shazam interval between requests in seconds"
 msgstr "Intervalle en secondes entre les requêtes vers Shazam"
+
+#: src/gui/interface.ui:508
+msgid ""
+"MPRIS will display information about recognized songs in places like the "
+"GNOME or KDE control panel"
+msgstr ""
+"MPRIS va afficher des informations à propos des chansons reconnues à des "
+"endroits comme le panneau de contrôle KDE ou GNOME"
+
+#: src/gui/interface.ui:509
+msgid "Enable MPRIS"
+msgstr "Activer MPRIS"
 
 #: src/gui/interface.ui:517
 msgid "Search preferences"
