@@ -3,7 +3,7 @@ songrec (0.7.2) bionic; urgency=low
   * Update Russian translation thanks to @AlexanderShad
   * Update CPAL to the latest upstream version
   * Don't display an error for the "no target node available" message from WirePlumber which id non-fatal (issue #256)
-  * Push code optimizations thank to @linkmauve
+  * Push code optimizations thanks to @linkmauve
 
  -- Marin <marin-m@users.noreply.github.com>  Wed, 13 May 2026 04:34:17 +0200
 
