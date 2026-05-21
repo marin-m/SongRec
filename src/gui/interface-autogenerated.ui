@@ -685,7 +685,7 @@ Contributors https://github.com/marin-m/SongRec/graphs/contributors</property>
         <property name="title">shortcuts</property>
         <child>
           <object class="GtkShortcutsGroup">
-            <property name="title" translatable="yes" context="&quot;General&quot; section in the Shortcuts window">General</property>
+            <property name="title" translatable="yes" context="General section in the Shortcuts window">General</property>
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="accelerator">&lt;Ctrl&gt;Q</property>
