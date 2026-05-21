@@ -245,7 +245,7 @@ fn main() {
     assert!(std::process::Command::new("sh")
         .current_dir("src/gui")
         .args([
-            "-c",
+            "-lc",
             "blueprint-compiler",
             "compile",
             "--output",
