@@ -65,7 +65,7 @@ parts:
       mkdir -p bin/translations
       rm -rf bin/translations/locale
       mv locale bin/translations/
-      rm -f README.md interface.ui.h songrec.pot update_po_files.sh
+      rm -f README.md songrec.pot songrec.its update_po_files.sh
 
   ffmpeg:
     plugin: dump

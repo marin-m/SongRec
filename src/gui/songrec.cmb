@@ -2,9 +2,9 @@
 <!DOCTYPE cambalache-project SYSTEM "cambalache-project.dtd">
 <!-- Created with Cambalache 1.0.1 -->
 <cambalache-project version="1.0.0" target_tk="gtk-4.0" depends="libadwaita-1,webkitgtk-6.0">
-  <gresources filename="resources.gresource.xml" sha256="c3d7ab6bebb4d45e186c9666f51e01ad41c9b3ccc6dfab9e25a346803490038d"/>
-    <css filename="style.css" sha256="03ec027684f5b669731897b431ba5a16c21172ceb3d0d87b4c1c566d6d0013ee"/>
-    <ui filename="interface.ui" sha256="18251af8541324282173137705e5bf514d8e7f1ce7016b9e6a889bc16530b31f">
+  <gresources filename="resources.gresource.xml" sha256="438a46076d395fb2978910ce8b44e226f54d2f692d1efd39641f416cc00a7390"/>
+  <css filename="style.css" sha256="03ec027684f5b669731897b431ba5a16c21172ceb3d0d87b4c1c566d6d0013ee"/>
+  <ui filename="interface.blp" sha256="9954be29a78de5d678668adb73748848670fbedfff73a7bc340a41b1ae926ef3">
     <css-provider>style.css</css-provider>
   </ui>
 </cambalache-project>
