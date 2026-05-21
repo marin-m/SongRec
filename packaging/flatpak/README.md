@@ -7,9 +7,9 @@ This directory contains a script that will build a Flatpak package for `SongRec`
 Build dependencies:
 
 ```
-sudo apt install flatpak-builder flatpak build-essential libasound2-dev \
+sudo apt install flatpak-builder blueprint-compiler flatpak build-essential \
     libpulse-dev libgtk-4-dev libsoup-3.0-dev libadwaita-1-dev libdbus-1-dev \
-    appstream git cargo
+    libasound2-dev appstream git cargo
 ```
 
 Then, run:

@@ -22,7 +22,7 @@ git clone https://github.com/marin-m/SongRec.git SongRec-main
 In MSYS2 MINGW64:
 
 ```console-session
-pacman -Sy mingw-w64-x86_64-rust mingw-w64-x86_64-upx mingw-w64-x86_64-7zip unzip mingw-w64-x86_64-gettext-runtime mingw-w64-x86_64-gcc mingw-w64-x86_64-libadwaita mingw-w64-x86_64-adwaita-icon-theme mingw-w64-x86_64-glib2 mingw-w64-x86_64-gtk4 mingw-w64-x86_64-pkgconf mingw-w64-x86_64-dbus mingw-w64-x86_64-openssl mingw-w64-x86_64-libsoup3
+pacman -Sy mingw-w64-x86_64-rust mingw-w64-x86_64-blueprint-compiler mingw-w64-x86_64-upx mingw-w64-x86_64-7zip unzip mingw-w64-x86_64-gettext-runtime mingw-w64-x86_64-gcc mingw-w64-x86_64-libadwaita mingw-w64-x86_64-adwaita-icon-theme mingw-w64-x86_64-glib2 mingw-w64-x86_64-gtk4 mingw-w64-x86_64-pkgconf mingw-w64-x86_64-dbus mingw-w64-x86_64-openssl mingw-w64-x86_64-libsoup3
 
 cd /tmp
 wget -nc http://www.angusj.com/resourcehacker/resource_hacker.zip
