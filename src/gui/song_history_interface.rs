@@ -75,7 +75,7 @@ impl dyn SongRecordInterface {}
 #[test]
 fn test_item_date() {
     let s = "Sat Aug 17 22:44:43 2024";
-    let parsed = chrono::NaiveDateTime::parse_from_str(&s, "%c").unwrap();
+    let parsed = chrono::NaiveDateTime::parse_from_str(s, "%c").unwrap();
     assert_eq!(&parsed.format("%c").to_string(), s);
 }
 

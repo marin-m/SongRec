@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-09 14:52+0200\n"
+"POT-Creation-Date: 2026-05-18 04:43+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,9 +42,9 @@ msgstr ""
 msgid "Warning: Network unreachable"
 msgstr ""
 
-#: src/cli_main.rs:179 src/core/http_task.rs:55 src/core/http_task.rs:64
-#: src/core/http_task.rs:76 src/core/http_task.rs:119
-#: src/gui/main_window.rs:910 src/gui/main_window.rs:922
+#: src/cli_main.rs:179 src/core/http_task.rs:54 src/core/http_task.rs:63
+#: src/core/http_task.rs:75 src/core/http_task.rs:110
+#: src/gui/main_window.rs:894 src/gui/main_window.rs:906
 msgid "No match for this song"
 msgstr ""
 
@@ -163,21 +163,21 @@ msgid ""
 "it is launched (rather than expecting the user to click on a button)."
 msgstr ""
 
-#: src/core/http_task.rs:126 src/core/fingerprinting/communication.rs:124
+#: src/core/http_task.rs:117 src/core/fingerprinting/communication.rs:124
 msgid "Your IP has been rate-limited"
 msgstr ""
 
-#: src/core/microphone_thread.rs:96
+#: src/core/microphone_thread.rs:68
 msgid "Audio error:"
 msgstr ""
 
-#: src/core/microphone_thread.rs:114
+#: src/core/microphone_thread.rs:159 src/core/microphone_thread.rs:164
 msgid "Audio error: No input device available"
 msgstr ""
 
 #: src/core/preferences.rs:58 src/core/preferences.rs:77
-#: src/gui/main_window.rs:298 src/gui/interface.ui:151 src/gui/interface.ui:657
-#: src/gui/interface.ui:700
+#: src/gui/main_window.rs:295 src/gui/interface.ui:151 src/gui/interface.ui:637
+#: src/gui/interface.ui:680
 msgid "Search on YouTube"
 msgstr ""
 
@@ -185,7 +185,7 @@ msgstr ""
 msgid "When parsing the preferences file:"
 msgstr ""
 
-#: src/core/preferences.rs:163
+#: src/core/preferences.rs:161
 msgid "When saving the preferences file:"
 msgstr ""
 
@@ -201,39 +201,39 @@ msgstr ""
 msgid "Invalid sample rate passed when encoding Shazam packet"
 msgstr ""
 
-#: src/gui/main_window.rs:256
+#: src/gui/main_window.rs:253
 msgid "Application error"
 msgstr ""
 
-#: src/gui/main_window.rs:277
+#: src/gui/main_window.rs:274
 msgid "Network error"
 msgstr ""
 
-#: src/gui/main_window.rs:351
+#: src/gui/main_window.rs:348
 msgid "Unable to enable notification icon"
 msgstr ""
 
-#: src/gui/main_window.rs:816 src/gui/main_window.rs:897
+#: src/gui/main_window.rs:800 src/gui/main_window.rs:881
 msgid "Unable to enable MPRIS support"
 msgstr ""
 
-#: src/gui/main_window.rs:919
+#: src/gui/main_window.rs:903
 msgid "_Ok"
 msgstr ""
 
-#: src/gui/main_window.rs:999
+#: src/gui/main_window.rs:983
 msgid "Song recognized"
 msgstr ""
 
-#: src/gui/main_window.rs:1140
+#: src/gui/main_window.rs:1124
 msgid "Are you sure you want to wipe history?"
 msgstr ""
 
-#: src/gui/main_window.rs:1146
+#: src/gui/main_window.rs:1130
 msgid "_Yes"
 msgstr ""
 
-#: src/gui/main_window.rs:1147
+#: src/gui/main_window.rs:1131
 msgid "_No"
 msgstr ""
 
@@ -345,7 +345,7 @@ msgstr ""
 msgid "Application menu"
 msgstr ""
 
-#: src/gui/interface.ui:434 src/gui/interface.ui:617
+#: src/gui/interface.ui:434 src/gui/interface.ui:597
 msgid "Export to CSV"
 msgstr ""
 
@@ -361,21 +361,21 @@ msgstr ""
 msgid "Notify when a new song is recognized or network error is encountered"
 msgstr ""
 
-#: src/gui/interface.ui:460 src/gui/interface.ui:585
+#: src/gui/interface.ui:460 src/gui/interface.ui:564
 msgid "Show notifications"
 msgstr ""
 
-#: src/gui/interface.ui:467
+#: src/gui/interface.ui:466
 msgid ""
-"MPRIS will display information about recognized songs in places like the "
-"GNOME or KDE control panel"
+"Bump a song to the top of the history list and remove the former entry when "
+"the same song is detected multiple times"
 msgstr ""
 
-#: src/gui/interface.ui:468
-msgid "Enable MPRIS"
+#: src/gui/interface.ui:467
+msgid "No duplicates in history"
 msgstr ""
 
-#: src/gui/interface.ui:475
+#: src/gui/interface.ui:473
 msgid ""
 "When closing the window, minimize to system tray using KSNI instead of "
 "closing the app. Please note that you may have to increase the \"request "
@@ -383,128 +383,118 @@ msgid ""
 "your changes of getting rate-limited."
 msgstr ""
 
-#: src/gui/interface.ui:476
+#: src/gui/interface.ui:474
 msgid "Minimize to system tray"
 msgstr ""
 
-#: src/gui/interface.ui:483
-msgid ""
-"Bump a song to the top of the history list and remove the former entry when "
-"the same song is detected multiple times"
-msgstr ""
-
-#: src/gui/interface.ui:484
-msgid "No duplicates in history"
-msgstr ""
-
-#: src/gui/interface.ui:491
+#: src/gui/interface.ui:482
 msgid "Network preferences"
 msgstr ""
 
-#: src/gui/interface.ui:508
+#: src/gui/interface.ui:499
 msgid "By default 8, increase if you are rate-limited"
 msgstr ""
 
-#: src/gui/interface.ui:509
+#: src/gui/interface.ui:500
 msgid "Shazam interval between requests in seconds"
 msgstr ""
 
-#: src/gui/interface.ui:529
+#: src/gui/interface.ui:508
 msgid ""
-"By default the last 12 seconds of music are fingerprinted and sent to "
-"Shazam. Editing may have an impact on reliability"
+"MPRIS will display information about recognized songs in places like the "
+"GNOME or KDE control panel"
 msgstr ""
 
-#: src/gui/interface.ui:530
-msgid "Shazam buffer size in seconds"
+#: src/gui/interface.ui:509
+msgid "Enable MPRIS"
 msgstr ""
 
-#: src/gui/interface.ui:538
+#: src/gui/interface.ui:517
 msgid "Search preferences"
 msgstr ""
 
-#: src/gui/interface.ui:541
+#: src/gui/interface.ui:520
 msgid "Custom search engine action"
 msgstr ""
 
-#: src/gui/interface.ui:547
+#: src/gui/interface.ui:526
 msgid "Custom search engine URL"
 msgstr ""
 
-#: src/gui/interface.ui:561
+#: src/gui/interface.ui:540
 msgid "Settings"
 msgstr ""
 
-#: src/gui/interface.ui:589
+#: src/gui/interface.ui:568
 msgid "_Preferences..."
 msgstr ""
 
-#: src/gui/interface.ui:596
+#: src/gui/interface.ui:575
 msgid "About..."
 msgstr ""
 
-#: src/gui/interface.ui:621
+#: src/gui/interface.ui:601
 msgid "Delete history"
 msgstr ""
 
-#: src/gui/interface.ui:625
+#: src/gui/interface.ui:605
 msgid "Select a file to recognize"
 msgstr ""
 
-#: src/gui/interface.ui:635 src/gui/interface.ui:678
+#: src/gui/interface.ui:615 src/gui/interface.ui:658
 msgid "Copy artist and track"
 msgstr ""
 
-#: src/gui/interface.ui:640 src/gui/interface.ui:683
+#: src/gui/interface.ui:620 src/gui/interface.ui:663
 msgid "Copy artist"
 msgstr ""
 
-#: src/gui/interface.ui:645 src/gui/interface.ui:688
+#: src/gui/interface.ui:625 src/gui/interface.ui:668
 msgid "Copy track name"
 msgstr ""
 
-#: src/gui/interface.ui:650 src/gui/interface.ui:693
+#: src/gui/interface.ui:630 src/gui/interface.ui:673
 msgid "Copy album"
 msgstr ""
 
-#: src/gui/interface.ui:664
+#: src/gui/interface.ui:644
 msgid "Delete from History"
 msgstr ""
 
-#: src/gui/interface.ui:669
+#: src/gui/interface.ui:649
 msgid "Add to Favorites"
 msgstr ""
 
-#: src/gui/interface.ui:707
+#: src/gui/interface.ui:687
 msgid "Remove from Favorites"
 msgstr ""
 
-#: src/gui/interface.ui:717
+#: src/gui/interface.ui:697
 msgctxt "\"General\" section in the Shortcuts window"
 msgid "General"
 msgstr ""
 
-#: src/gui/interface.ui:722
+#: src/gui/interface.ui:702
 msgctxt "In the shortcuts window"
 msgid "Close the application"
 msgstr ""
 
-#: src/gui/interface.ui:729
+#: src/gui/interface.ui:709
 msgctxt "In the shortcuts window"
 msgid "Recognize from a file"
 msgstr ""
 
-#: src/gui/interface.ui:736
+#: src/gui/interface.ui:716
 msgctxt "In the shortcuts window"
 msgid "Show preferences"
 msgstr ""
 
-#: src/gui/interface.ui:743
+#: src/gui/interface.ui:723
 msgctxt "In the shortcuts window"
 msgid "Display shortcuts"
 msgstr ""
 
-#: src/gui/interface.ui:750
+#: src/gui/interface.ui:730
 msgctxt "win.show-menu"
 msgid "Show menu"
 msgstr ""

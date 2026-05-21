@@ -72,17 +72,17 @@ Adw.ApplicationWindow main_window {
                 }
 
                 Label no_network_message {
-                  attributes: "0 -1 weight medium 0 -1 foreground #a4a400000000";
                   label: _("Shazam servers are not reachable, are you connected?");
                   margin-top: 5;
                   visible: false;
+                  attributes: "0 -1 weight medium, 0 -1 foreground #a4a400000000";
                 }
 
                 Label rate_limited_message {
-                  attributes: "0 -1 weight bold 0 -1 foreground #a4a400000000";
                   label: _("ERROR: Your IP has been rate-limited");
                   margin-top: 5;
                   visible: false;
+                  attributes: "0 -1 weight bold, 0 -1 foreground #a4a400000000";
                 }
               }
 
@@ -103,11 +103,11 @@ Adw.ApplicationWindow main_window {
                     spacing: 7;
 
                     Label results_label {
-                      attributes: "0 -1 weight bold";
                       ellipsize: end;
                       label: "Artist - Song name";
                       natural-wrap-mode: word;
                       selectable: true;
+                      attributes: "0 -1 weight bold";
                     }
 
                     Image results_image {
@@ -265,10 +265,10 @@ Adw.ApplicationWindow main_window {
                   action-target: "'favorites_tag'";
 
                   child: Label {
-                    attributes: "0 -1 weight medium";
                     label: _("View favorites");
                     margin-bottom: 10;
                     margin-top: 10;
+                    attributes: "0 -1 weight medium";
                   };
                 }
               }
@@ -382,14 +382,12 @@ Adw.ApplicationWindow main_window {
               title: _("Show notifications");
             }
 
-            Adw.SwitchRow mpris_setting {
-              action-name: "win.mpris-setting";
-              has-tooltip: true;
+            Adw.SwitchRow no_dupes_setting {
+              action-name: "win.no-dupes-setting";
               subtitle: _(
-                "MPRIS will display information about recognized songs in places like the GNOME or KDE control panel"
+                "Bump a song to the top of the history list and remove the former entry when the same song is detected multiple times"
               );
-              title: _("Enable MPRIS");
-              visible: false;
+              title: _("No duplicates in history");
             }
 
             Adw.SwitchRow systray_setting {
@@ -400,14 +398,6 @@ Adw.ApplicationWindow main_window {
               title: _("Minimize to system tray");
               visible: false;
             }
-
-            Adw.SwitchRow no_dupes_setting {
-              action-name: "win.no-dupes-setting";
-              subtitle: _(
-                "Bump a song to the top of the history list and remove the former entry when the same song is detected multiple times"
-              );
-              title: _("No duplicates in history");
-            }
           }
 
           Adw.PreferencesGroup network_preferences {
@@ -415,16 +405,16 @@ Adw.ApplicationWindow main_window {
 
             Adw.SpinRow interval_setting {
               adjustment: Adjustment interval_value {
-                lower: 1;
-                page-increment: 1;
-                page-size: 1;
-                step-increment: 1;
-                upper: 513;
-                value: 10;
+                lower: 1.0;
+                page-increment: 1.0;
+                page-size: 1.0;
+                step-increment: 1.0;
+                upper: 513.0;
+                value: 8.0;
                 value-changed => $interval_changed();
               };
 
-              climb-rate: 1;
+              climb-rate: 1.0;
               numeric: true;
               snap-to-ticks: true;
               subtitle: _("By default 8, increase if you are rate-limited");
@@ -432,25 +422,14 @@ Adw.ApplicationWindow main_window {
               update-policy: if_valid;
             }
 
-            Adw.SpinRow buffer_size_setting {
-              adjustment: Adjustment buffer_size_value {
-                lower: 1;
-                page-increment: 1;
-                page-size: 1;
-                step-increment: 1;
-                upper: 513;
-                value: 12;
-                value-changed => $buffer_size_changed();
-              };
-
-              climb-rate: 1;
-              numeric: true;
-              snap-to-ticks: true;
+            Adw.SwitchRow mpris_setting {
+              action-name: "win.mpris-setting";
+              has-tooltip: true;
               subtitle: _(
-                "By default the last 12 seconds of music are fingerprinted and sent to Shazam. Editing may have an impact on reliability"
+                "MPRIS will display information about recognized songs in places like the GNOME or KDE control panel"
               );
-              title: _("Shazam buffer size in seconds");
-              update-policy: if_valid;
+              title: _("Enable MPRIS");
+              visible: false;
             }
           }
 
@@ -489,7 +468,7 @@ Adw.ApplicationWindow main_window {
     condition ("max-width: 800px")
 
     setters {
-      layout_box.orientation: 1;
+      layout_box.orientation: vertical;
       layout_box.homogeneous: false;
     }
   }
@@ -656,7 +635,7 @@ ShortcutsWindow shortcuts_window {
     title: "shortcuts";
 
     ShortcutsGroup {
-      title: C_("General section in the Shortcuts window", "General");
+      title: C_("\"General\" section in the Shortcuts window", "General");
 
       ShortcutsShortcut {
         accelerator: "<Ctrl>Q";

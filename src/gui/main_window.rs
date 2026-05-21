@@ -127,7 +127,7 @@ impl App {
             ctx_selected_item.clone(),
         );
         builder
-            .add_from_resource("/re/fossplant/songrec/interface.blp")
+            .add_from_resource("/re/fossplant/songrec/interface.ui")
             .unwrap();
 
         let history_selection: gtk::SingleSelection = builder.object("history_selection").unwrap();
@@ -136,9 +136,6 @@ impl App {
         let favorites_selection: gtk::SingleSelection =
             builder.object("favorites_selection").unwrap();
         favorites_selection.set_model(Some(&favorites_list_store));
-
-        let buffer_size_value: gtk::Adjustment = builder.object("buffer_size_value").unwrap();
-        buffer_size_value.set_value(old_preferences.buffer_size_secs.unwrap() as f64);
 
         let request_interval_value: gtk::Adjustment = builder.object("interval_value").unwrap();
         request_interval_value.set_value(old_preferences.request_interval_secs_v3.unwrap() as f64);
@@ -678,19 +675,6 @@ impl App {
 
         let gui_tx = gui_tx_shared.clone();
 
-        builder_scope.add_callback("buffer_size_changed", move |values| {
-            let adjustment = values[0].get::<gtk::Adjustment>().unwrap();
-            debug!("Buffer size set to: {}", adjustment.value());
-            let mut new_preference = Preferences::new();
-            new_preference.buffer_size_secs = Some(adjustment.value() as u64);
-            gui_tx
-                .try_send(GUIMessage::UpdatePreference(new_preference))
-                .unwrap();
-            None
-        });
-
-        let gui_tx = gui_tx_shared.clone();
-
         builder_scope.add_callback("interval_changed", move |values| {
             let adjustment = values[0].get::<gtk::Adjustment>().unwrap();
             debug!("Request interval set to: {}", adjustment.value());
@@ -1202,6 +1186,28 @@ impl App {
                 about_dialog.present(Some(window));
 
                 about_dialog.set_debug_info(&ctx_buffered_log.borrow());
+
+                about_dialog.set_release_notes_version(
+                    include_str!(
+                        "../../packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in"
+                    )
+                    .split("<release version=\"")
+                    .collect::<Vec<_>>()[1]
+                        .split("\"")
+                        .collect::<Vec<_>>()[0],
+                );
+
+                about_dialog.set_release_notes(
+                    include_str!(
+                        "../../packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in"
+                    )
+                    .split("<release ")
+                    .collect::<Vec<_>>()[1]
+                        .split("<description>")
+                        .collect::<Vec<_>>()[1]
+                        .split("</description>")
+                        .collect::<Vec<_>>()[0],
+                );
 
                 // Sync the debug info with the About modal at most every
                 // 1 sec as it may require a lot of text rendering power
