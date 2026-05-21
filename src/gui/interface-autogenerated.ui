@@ -86,18 +86,18 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
                                 </child>
                                 <child>
                                   <object class="GtkLabel" id="no_network_message">
+                                    <property name="attributes">0 -1 weight medium, 0 -1 foreground #a4a400000000</property>
                                     <property name="label" translatable="yes">Shazam servers are not reachable, are you connected?</property>
                                     <property name="margin-top">5</property>
                                     <property name="visible">false</property>
-                                    <property name="attributes">0 -1 weight medium, 0 -1 foreground #a4a400000000</property>
                                   </object>
                                 </child>
                                 <child>
                                   <object class="GtkLabel" id="rate_limited_message">
+                                    <property name="attributes">0 -1 weight bold, 0 -1 foreground #a4a400000000</property>
                                     <property name="label" translatable="yes">ERROR: Your IP has been rate-limited</property>
                                     <property name="margin-top">5</property>
                                     <property name="visible">false</property>
-                                    <property name="attributes">0 -1 weight bold, 0 -1 foreground #a4a400000000</property>
                                   </object>
                                 </child>
                               </object>
@@ -120,11 +120,11 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
                                         <property name="spacing">7</property>
                                         <child>
                                           <object class="GtkLabel" id="results_label">
+                                            <property name="attributes">0 -1 weight bold</property>
                                             <property name="ellipsize">3</property>
                                             <property name="label">Artist - Song name</property>
                                             <property name="natural-wrap-mode">2</property>
                                             <property name="selectable">true</property>
-                                            <property name="attributes">0 -1 weight bold</property>
                                           </object>
                                         </child>
                                         <child>
@@ -314,10 +314,10 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
                                     <property name="action-target">'favorites_tag'</property>
                                     <property name="child">
                                       <object class="GtkLabel">
+                                        <property name="attributes">0 -1 weight medium</property>
                                         <property name="label" translatable="yes">View favorites</property>
                                         <property name="margin-bottom">10</property>
                                         <property name="margin-top">10</property>
-                                        <property name="attributes">0 -1 weight medium</property>
                                       </object>
                                     </property>
                                   </object>
