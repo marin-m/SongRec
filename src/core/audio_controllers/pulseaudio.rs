@@ -36,8 +36,9 @@ impl PulseBackend {
 
         let applications = self.handler.list_applications().unwrap();
 
-        let criteria: [String; 4] = [
+        let criteria: [String; 5] = [
             format!("process.id = \"{}\"", std::process::id()),
+            format!("cpal-capture-{}", std::process::id()),
             "alsa plug-in [songrec]".to_string(),
             "songrec".to_string(),
             format!("{}", std::process::id()),
