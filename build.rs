@@ -244,6 +244,13 @@ fn main() {
 
     #[cfg(target_os = "linux")]
     assert!(std::process::Command::new("sh")
+        .args(["-lc", "cargo fmt",])
+        .status()
+        .unwrap()
+        .success());
+
+    #[cfg(target_os = "linux")]
+    assert!(std::process::Command::new("sh")
         .current_dir("translations")
         .args(["-lc", "./update_po_files.sh",])
         .status()
