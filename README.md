@@ -191,13 +191,13 @@ export GETTEXT_DIR=/opt/homebrew
 Void Linux (libressl):
 
 ```shell
-sudo xbps-install base-devel blueprint-compiler alsa-lib-devel pipewire-devel clang-devel pulseaudio-devel gtk4-devel libsoup3-devel libadwaita-devel dbus-devel libressl-devel
+sudo xbps-install base-devel blueprint-compiler alsa-lib-devel pipewire-devel clang-devel pulseaudio-devel gtk4-devel libsoup3-devel libadwaita-devel dbus-devel libressl-devel sed
 ```
 
 Void Linux (openssl):
 
 ```shell
-sudo xbps-install base-devel blueprint-compiler alsa-lib-devel pipewire-devel clang-devel pulseaudio-devel gtk4-devel libsoup3-devel libadwaita-devel dbus-devel openssl-devel
+sudo xbps-install base-devel blueprint-compiler alsa-lib-devel pipewire-devel clang-devel pulseaudio-devel gtk4-devel libsoup3-devel libadwaita-devel dbus-devel openssl-devel sed
 ```
 
 ### Compiling the project
