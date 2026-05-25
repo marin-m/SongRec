@@ -14,6 +14,8 @@ Build-Depends: debhelper (>= 10),
                libadwaita-1-dev (>= 1.8),
                cargo (>= 1.88) | rustup,
                rsync,
+               sed,
+               grep,
                rustc (>= 1.88) | rustup
 Homepage: https://songrec.fossplant.re/
 Vcs-Git: https://github.com/marin-m/songrec.git
