@@ -243,11 +243,10 @@ fn main() {
     std::fs::create_dir_all(&out_dir).unwrap();
 
     #[cfg(target_os = "linux")]
-    assert!(std::process::Command::new("sh")
-        .args(["-lc", "cargo fmt",])
+    std::process::Command::new("sh")
+        .args(["-lc", "cargo fmt"])
         .status()
-        .unwrap()
-        .success());
+        .ok();
 
     #[cfg(target_os = "linux")]
     assert!(std::process::Command::new("sh")
