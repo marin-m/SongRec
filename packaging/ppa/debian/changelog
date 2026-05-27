@@ -1,3 +1,9 @@
+songrec (0.7.3+1) bionic; urgency=low
+
+  * Fix the binary package specification for the PPA distribution
+
+ -- Marin <marin-m@users.noreply.github.com>  Wed, 27 May 2026 13:06:24 +0200
+
 songrec (0.7.3) bionic; urgency=low
 
   * Update Russian translation thanks to @AlexanderShad
