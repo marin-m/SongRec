@@ -249,12 +249,19 @@ fn main() {
         .ok();
 
     #[cfg(target_os = "linux")]
-    assert!(std::process::Command::new("sh")
+    if !std::process::Command::new("sh")
         .current_dir("translations")
-        .args(["-lc", "./update_po_files.sh",])
+        .args(["-lc", "./update_po_files.sh"])
         .status()
         .unwrap()
-        .success());
+        .success()
+    {
+        println!(
+            "cargo:warning=Running \"./translations/./update_po_files.sh\" \
+did not succeed, please think about running it yourself in order to \
+troubleshoot the error"
+        );
+    }
 
     #[cfg(target_os = "linux")]
     if !std::process::Command::new("sh")
@@ -267,7 +274,11 @@ fn main() {
         .unwrap()
         .success()
     {
-        eprintln!("WARNING: Compiling the Blueprint resource file did not succeed");
+        println!(
+            "cargo:warning=Compiling the Blueprint resource file did not succeed, \
+please ensure that your version of \"blueprint-compiler\" is recent enough \
+and try out of this build process"
+        );
     }
 
     println!("cargo:rerun-if-changed=src/gui/interface.blp");
