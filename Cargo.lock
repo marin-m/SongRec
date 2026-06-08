@@ -2440,6 +2440,7 @@ dependencies = [
  "directories",
  "fern",
  "flate2",
+ "gdk-pixbuf",
  "gdk4",
  "gettext-rs",
  "gettext-sys",
