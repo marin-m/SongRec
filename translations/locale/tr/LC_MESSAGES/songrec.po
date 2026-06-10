@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-23 06:28+0200\n"
+"POT-Creation-Date: 2026-06-10 11:10+0200\n"
 "PO-Revision-Date: 2026-05-11 08:02+0000\n"
 "Last-Translator: Arda Aydın <arda.aydin@operationsilkscarf.com>\n"
 "Language-Team: Turkish <https://weblate.fossplant.re/projects/songrec/"
@@ -45,7 +45,7 @@ msgstr "Uyarı: Ağa ulaşılamıyor"
 
 #: src/cli_main.rs:179 src/core/http_task.rs:54 src/core/http_task.rs:63
 #: src/core/http_task.rs:75 src/core/http_task.rs:110
-#: src/gui/main_window.rs:894 src/gui/main_window.rs:906
+#: src/gui/main_window.rs:898 src/gui/main_window.rs:910
 msgid "No match for this song"
 msgstr "Bu şarkı için eşleşme yok"
 
@@ -237,27 +237,27 @@ msgstr "Ağ hatası"
 msgid "Unable to enable notification icon"
 msgstr "Bildirim ikonu etkinleştirilemedi"
 
-#: src/gui/main_window.rs:800 src/gui/main_window.rs:881
+#: src/gui/main_window.rs:804 src/gui/main_window.rs:885
 msgid "Unable to enable MPRIS support"
 msgstr "MPRIS desteği etkinleştirilemedi"
 
-#: src/gui/main_window.rs:903
+#: src/gui/main_window.rs:907
 msgid "_Ok"
 msgstr "Tamam"
 
-#: src/gui/main_window.rs:983
+#: src/gui/main_window.rs:987
 msgid "Song recognized"
 msgstr "Şarkı tanındı"
 
-#: src/gui/main_window.rs:1124
+#: src/gui/main_window.rs:1128
 msgid "Are you sure you want to wipe history?"
 msgstr "Geçmişi temizlemek istediğinizden emin misiniz?"
 
-#: src/gui/main_window.rs:1130
+#: src/gui/main_window.rs:1134
 msgid "_Yes"
 msgstr "Evet"
 
-#: src/gui/main_window.rs:1131
+#: src/gui/main_window.rs:1135
 msgid "_No"
 msgstr "Hayır"
 

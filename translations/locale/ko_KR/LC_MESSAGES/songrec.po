@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-23 06:28+0200\n"
+"POT-Creation-Date: 2026-06-10 11:10+0200\n"
 "PO-Revision-Date: 2023-12-30 23:42+0900\n"
 "Last-Translator: 이정희 <daemul72@gmail.com>\n"
 "Language-Team: \n"
@@ -44,7 +44,7 @@ msgstr "경고: 네트워크에 연결할 수 없음"
 
 #: src/cli_main.rs:179 src/core/http_task.rs:54 src/core/http_task.rs:63
 #: src/core/http_task.rs:75 src/core/http_task.rs:110
-#: src/gui/main_window.rs:894 src/gui/main_window.rs:906
+#: src/gui/main_window.rs:898 src/gui/main_window.rs:910
 msgid "No match for this song"
 msgstr "이 노래와 일치하는 항목이 없습니다"
 
@@ -222,27 +222,27 @@ msgstr ""
 msgid "Unable to enable notification icon"
 msgstr ""
 
-#: src/gui/main_window.rs:800 src/gui/main_window.rs:881
+#: src/gui/main_window.rs:804 src/gui/main_window.rs:885
 msgid "Unable to enable MPRIS support"
 msgstr "MPRIS 지원을 활성화할 수 없습니다"
 
-#: src/gui/main_window.rs:903
+#: src/gui/main_window.rs:907
 msgid "_Ok"
 msgstr ""
 
-#: src/gui/main_window.rs:983
+#: src/gui/main_window.rs:987
 msgid "Song recognized"
 msgstr "인식된 노래"
 
-#: src/gui/main_window.rs:1124
+#: src/gui/main_window.rs:1128
 msgid "Are you sure you want to wipe history?"
 msgstr ""
 
-#: src/gui/main_window.rs:1130
+#: src/gui/main_window.rs:1134
 msgid "_Yes"
 msgstr ""
 
-#: src/gui/main_window.rs:1131
+#: src/gui/main_window.rs:1135
 msgid "_No"
 msgstr ""
 

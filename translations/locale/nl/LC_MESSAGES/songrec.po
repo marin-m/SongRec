@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-23 06:28+0200\n"
+"POT-Creation-Date: 2026-06-10 11:10+0200\n"
 "PO-Revision-Date: 2026-03-09 02:16+0000\n"
 "Last-Translator: Marin <25437947+marin-m@users.noreply.github.com>\n"
 "Language-Team: Dutch <https://weblate.fossplant.re/projects/songrec/songrec/"
@@ -45,7 +45,7 @@ msgstr "Waarschuwing: geen internetverbinding"
 
 #: src/cli_main.rs:179 src/core/http_task.rs:54 src/core/http_task.rs:63
 #: src/core/http_task.rs:75 src/core/http_task.rs:110
-#: src/gui/main_window.rs:894 src/gui/main_window.rs:906
+#: src/gui/main_window.rs:898 src/gui/main_window.rs:910
 msgid "No match for this song"
 msgstr "Er is geen overeenkomst gevonden"
 
@@ -235,27 +235,27 @@ msgstr "Netwerkfout"
 msgid "Unable to enable notification icon"
 msgstr "Het systeemvakpictogram kan niet worden ingeschakeld"
 
-#: src/gui/main_window.rs:800 src/gui/main_window.rs:881
+#: src/gui/main_window.rs:804 src/gui/main_window.rs:885
 msgid "Unable to enable MPRIS support"
 msgstr "De MPRIS-ondersteuning kan niet worden ingeschakeld"
 
-#: src/gui/main_window.rs:903
+#: src/gui/main_window.rs:907
 msgid "_Ok"
 msgstr "_Ok"
 
-#: src/gui/main_window.rs:983
+#: src/gui/main_window.rs:987
 msgid "Song recognized"
 msgstr "Het nummer is herkend"
 
-#: src/gui/main_window.rs:1124
+#: src/gui/main_window.rs:1128
 msgid "Are you sure you want to wipe history?"
 msgstr "Weet je zeker dat je de geschiedenis wilt wissen?"
 
-#: src/gui/main_window.rs:1130
+#: src/gui/main_window.rs:1134
 msgid "_Yes"
 msgstr "_Ja"
 
-#: src/gui/main_window.rs:1131
+#: src/gui/main_window.rs:1135
 msgid "_No"
 msgstr "_Nee"
 
