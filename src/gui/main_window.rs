@@ -1307,10 +1307,10 @@ impl App {
             .build();
 
         let action_export_to_csv = gio::ActionEntry::builder("export-to-csv")
-            .activate(move |window: &adw::ApplicationWindow, _action, _obj| {
+            .activate(move |_window: &adw::ApplicationWindow, _action, _obj| {
                 #[cfg(not(windows))]
                 {
-                    let window = window.clone();
+                    let window = _window.clone();
 
                     glib::spawn_future_local(async move {
                         let launch_path = obtain_recognition_history_csv_path().unwrap();
@@ -1341,10 +1341,10 @@ impl App {
             .build();
 
         let action_export_favorites_to_csv = gio::ActionEntry::builder("export-favorites-to-csv")
-            .activate(move |window: &adw::ApplicationWindow, _action, _obj| {
+            .activate(move |_window: &adw::ApplicationWindow, _action, _obj| {
                 #[cfg(not(windows))]
                 {
-                    let window = window.clone();
+                    let window = _window.clone();
 
                     glib::spawn_future_local(async move {
                         let launch_path = obtain_favorites_csv_path().unwrap();
@@ -1422,7 +1422,7 @@ impl App {
             })
             .build();
 
-        let gui_tx = self.gui_tx.clone();
+        let _gui_tx = self.gui_tx.clone();
         #[cfg(target_os = "linux")]
         let ctx_systray_handle = self.ctx_systray_handle.clone();
 
@@ -1439,14 +1439,14 @@ impl App {
                     let ctx_systray_handle = ctx_systray_handle.clone();
 
                     if new_state {
-                        Self::setup_systray(ctx_systray_handle, window.clone(), gui_tx.clone());
+                        Self::setup_systray(ctx_systray_handle, window.clone(), _gui_tx.clone());
                     } else {
                         Self::unsetup_systray(ctx_systray_handle, window.clone());
                     }
 
                     let mut new_preference: Preferences = Preferences::new();
                     new_preference.enable_systray = Some(new_state);
-                    gui_tx
+                    _gui_tx
                         .try_send(GUIMessage::UpdatePreference(new_preference))
                         .unwrap();
                 },
