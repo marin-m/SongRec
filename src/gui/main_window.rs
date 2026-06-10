@@ -741,9 +741,13 @@ impl App {
 
         let old_device_name = self.old_preferences.current_device_name.clone();
 
-        let window: adw::ApplicationWindow = self.builder.object("main_window").unwrap();
+        #[cfg(target_os = "linux")]
         let systray_setting: adw::SwitchRow = self.builder.object("systray_setting").unwrap();
-        let _mpris_setting: adw::SwitchRow = self.builder.object("mpris_setting").unwrap();
+
+        #[cfg(all(target_os = "linux", feature = "mpris"))]
+        let mpris_setting: adw::SwitchRow = self.builder.object("mpris_setting").unwrap();
+
+        let window: adw::ApplicationWindow = self.builder.object("main_window").unwrap();
         let adw_combo_row: adw::ComboRow = self.builder.object("audio_inputs").unwrap();
         let g_list_store: gio::ListStore = self.builder.object("audio_inputs_model").unwrap();
         let microphone_switch: adw::SwitchRow = self.builder.object("microphone_switch").unwrap();
@@ -764,7 +768,7 @@ impl App {
         systray_setting.set_visible(true);
 
         #[cfg(all(target_os = "linux", feature = "mpris"))]
-        _mpris_setting.set_visible(true);
+        mpris_setting.set_visible(true);
 
         microphone_switch.set_active(set_recording);
 
@@ -1325,7 +1329,10 @@ impl App {
                 std::process::Command::new("cmd")
                     .args(&[
                         "/c",
-                        &format!("start {}", obtain_recognition_history_csv_path().unwrap()),
+                        &format!(
+                            "start {}",
+                            obtain_recognition_history_csv_path().unwrap().display()
+                        ),
                     ])
                     .creation_flags(0x00000008) // Set "CREATE_NO_WINDOW" on Windows
                     .output()
@@ -1356,7 +1363,7 @@ impl App {
                 std::process::Command::new("cmd")
                     .args(&[
                         "/c",
-                        &format!("start {}", obtain_favorites_csv_path().unwrap()),
+                        &format!("start {}", obtain_favorites_csv_path().unwrap().display()),
                     ])
                     .creation_flags(0x00000008) // Set "CREATE_NO_WINDOW" on Windows
                     .output()

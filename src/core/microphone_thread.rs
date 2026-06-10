@@ -86,18 +86,18 @@ pub fn microphone_thread(
         }
     };
 
-    'pipewire_switch: for prefer_pipewire in preference_order {
+    '_pipewire_switch: for _prefer_pipewire in preference_order {
         // Use the default host for working with audio devices.
 
         debug!("Trying to initialize CPAL...");
         #[cfg(target_os = "linux")]
-        let host: cpal::Host = if prefer_pipewire {
+        let host: cpal::Host = if _prefer_pipewire {
             cpal::default_host()
         } else {
             match cpal::host_from_id(cpal::HostId::Alsa) {
                 Ok(host) => host,
                 Err(err) => {
-                    if prefer_pipewire == preference_order[0] {
+                    if _prefer_pipewire == preference_order[0] {
                         err_fn("ALSA driver not available", err, false);
                     } else {
                         err_fn("ALSA driver not available", err, true);
@@ -155,9 +155,9 @@ pub fn microphone_thread(
 
                     if host.default_input_device().is_none() {
                         #[cfg(target_os = "linux")]
-                        if prefer_pipewire == preference_order[0] {
+                        if _prefer_pipewire == preference_order[0] {
                             warn!("{}", gettext("Audio error: No input device available"));
-                            continue 'pipewire_switch;
+                            continue '_pipewire_switch;
                         }
                         gui_tx
                             .try_send(GUIMessage::ErrorMessage(gettext(
@@ -173,9 +173,9 @@ pub fn microphone_thread(
                         Ok(res) => res,
                         Err(err) => {
                             #[cfg(target_os = "linux")]
-                            if prefer_pipewire == preference_order[0] {
+                            if _prefer_pipewire == preference_order[0] {
                                 err_fn("default_input_config", err, false);
-                                continue 'pipewire_switch;
+                                continue '_pipewire_switch;
                             }
                             err_fn("default_input_config", err, true);
                             return;
@@ -235,9 +235,9 @@ pub fn microphone_thread(
                                     },
                                     Err(err) => {
                                         #[cfg(all(target_os = "linux"))]
-                                        if prefer_pipewire == preference_order[0] {
+                                        if _prefer_pipewire == preference_order[0] {
                                             err_fn("build_input_stream", err, false);
-                                            continue 'pipewire_switch;
+                                            continue '_pipewire_switch;
                                         }
                                         err_fn("build_input_stream", err, true);
                                         return;
@@ -281,9 +281,9 @@ pub fn microphone_thread(
                                         },
                                         Err(err) => {
                                             #[cfg(all(target_os = "linux"))]
-                                            if prefer_pipewire == preference_order[0] {
+                                            if _prefer_pipewire == preference_order[0] {
                                                 err_fn("build_input_stream", err, false);
-                                                continue 'pipewire_switch;
+                                                continue '_pipewire_switch;
                                             }
                                             err_fn("build_input_stream", err, true);
                                             return;
