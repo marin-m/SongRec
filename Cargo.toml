@@ -7,7 +7,7 @@ repository = "https://github.com/marin-m/SongRec"
 readme = "README.md"
 keywords = ["shazam", "audio", "audio-fingerprinting"]
 categories = ["multimedia::audio", "command-line-utilities"]
-version = "0.7.3"
+version = "0.7.4"
 rust-version = "1.88"
 authors = ["marin-m"]
 edition = "2018"
@@ -68,11 +68,11 @@ pipewire = []
 ffmpeg = []
 
 [target.'cfg(target_os = "linux")'.dependencies]
-cpal = { version = "0.18.0", features = ["pipewire"] }
+cpal = { version = "0.18.1", features = ["pipewire"] }
 pulsectl-rs = { version = "0.3.2", optional = true }
 ksni = { version = "0.3", default-features = false, features = ["async-io"], optional = true }
 libpulse-binding = { version = "2.24.0", optional = true }
 mpris-server = { version = "0.9.0", optional = true }
 
 [target.'cfg(not(target_os = "linux"))'.dependencies]
-cpal = { version = "0.18.0" }
+cpal = { version = "0.18.1" }

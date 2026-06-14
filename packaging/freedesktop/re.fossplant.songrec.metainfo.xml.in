@@ -58,6 +58,16 @@ https://hughsie.github.io/oars/index.html
 -->
   <content_rating type="oars-1.1"/>
   <releases>
+    <release version="0.7.4" date="2026-06-14">
+      <description>
+        <ul>
+          <li>Fix the request interval UI setting not being saved (#321)</li>
+          <li>Update the CPAL dependency to stable 0.18.1</li>
+          <li>Use GNOME Blueprint instead of GTK Builder in Cambalache and for UI design</li>
+          <li>Update the build pipeline to continually update translation files</li>
+        </ul>
+      </description>
+    </release>
     <release version="0.7.3" date="2026-05-18">
       <description>
         <ul>

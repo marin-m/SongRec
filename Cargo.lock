@@ -553,9 +553,9 @@ dependencies = [
 
 [[package]]
 name = "cpal"
-version = "0.18.0"
+version = "0.18.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d9dd2b2151ebb4d5866c804d89fe28244bfb6b74481b9b4d406e4ec4d7f88ce5"
+checksum = "5f77b11176c37874be37e8d691c946e31b2b8c357abce9526f6a99eb469e1028"
 dependencies = [
  "alsa",
  "block2",
@@ -2425,7 +2425,7 @@ checksum = "67b1b7a3b5fe4f1376887184045fcf45c69e92af734b7aaddc05fb777b6fbd03"
 
 [[package]]
 name = "songrec"
-version = "0.7.3"
+version = "0.7.4"
 dependencies = [
  "app_dirs",
  "async-channel",
