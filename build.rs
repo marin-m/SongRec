@@ -232,21 +232,16 @@ macro_rules! app {
 }
 
 fn main() {
-    let out_dir = std::path::PathBuf::from(".")
-        .join("packaging")
-        .join("rootfs")
-        .join("usr")
-        .join("share")
-        .join("man")
-        .join("man1");
-
-    std::fs::create_dir_all(&out_dir).unwrap();
+    // Lint source code
 
     #[cfg(target_os = "linux")]
     std::process::Command::new("sh")
         .args(["-lc", "cargo fmt"])
         .status()
         .ok();
+
+    // Regenerate .po, .mo, .pot translation
+    // files from the source tree
 
     #[cfg(target_os = "linux")]
     if !std::process::Command::new("sh")
@@ -262,6 +257,9 @@ did not succeed, please think about running it yourself in order to \
 troubleshoot the error"
         );
     }
+
+    // Regenerate GTK Builder .ui files from
+    // GNOME Builder .blp files
 
     #[cfg(target_os = "linux")]
     if !std::process::Command::new("sh")
@@ -283,22 +281,54 @@ and try out of this build process"
 
     println!("cargo:rerun-if-changed=src/gui/interface.blp");
 
+    // Generate GLib resources
+
     glib_build_tools::compile_resources(
         &["src/gui"],
         "src/gui/resources.gresource.xml",
         "compiled.gresource",
     );
 
-    clap_mangen::generate_to(app!(), &out_dir).unwrap();
+    // Generate manpages
 
-    for path in std::fs::read_dir(out_dir).unwrap() {
+    let temp_out_dir = tempfile::tempdir().unwrap();
+
+    let real_out_dir = std::path::PathBuf::from(".")
+        .join("packaging")
+        .join("rootfs")
+        .join("usr")
+        .join("share")
+        .join("man")
+        .join("man1");
+
+    std::fs::create_dir_all(&real_out_dir).unwrap();
+
+    clap_mangen::generate_to(app!(), temp_out_dir.path()).unwrap();
+
+    // Compress the man pages
+
+    for path in std::fs::read_dir(temp_out_dir.path()).unwrap() {
         let path_str = path.unwrap().path().display().to_string();
+
         if path_str.ends_with(".1") {
-            let f = std::fs::File::create(format!("{}.gz", path_str)).unwrap();
-            let mut gz = GzBuilder::new().write(f, Compression::best());
-            gz.write_all(&std::fs::read(&path_str).unwrap()).unwrap();
-            gz.finish().unwrap();
+            let out_file = std::fs::File::create(format!("{}.gz", path_str)).unwrap();
+
+            let mut gzipper = GzBuilder::new().write(out_file, Compression::best());
+            gzipper
+                .write_all(&std::fs::read(&path_str).unwrap())
+                .unwrap();
+            gzipper.finish().unwrap();
+
             std::fs::remove_file(path_str).unwrap();
+        }
+    }
+
+    // Mode the modified or added man pages to the source tree
+
+    for in_path in std::fs::read_dir(temp_out_dir.path()).unwrap() {
+        if let Ok(in_path) = in_path {
+            let out_path = real_out_dir.join(in_path.file_name());
+            std::fs::copy(in_path.path(), out_path).unwrap();
         }
     }
 }
