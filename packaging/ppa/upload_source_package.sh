@@ -26,6 +26,7 @@ for version in noble questing resolute stonking; do
     cd "${temp_dir}/songrec-${PKGVER}${version}"
 
     rm -rf target/ vendor/ .flatpak-builder packaging/flatpak/.flatpak-builder repo .cargo
+    rm -rf python-version/.ruff_cache python-version/.venv .ruff_cache
 
     mkdir -p .cargo
     cargo vendor --locked vendor | sed 's/^directory = ".*"/directory = "vendor"/g' > .cargo/config.toml

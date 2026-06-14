@@ -19,6 +19,7 @@ cp -a "${REPO_DIR}" /tmp/dist_dir
 cd /tmp/dist_dir
 
 rm -rf target/ vendor/ .flatpak-builder packaging/flatpak/.flatpak-builder repo .cargo
+rm -rf python-version/.ruff_cache python-version/.venv .ruff_cache
 
 
 # Fetch dependency sources to be bundled with the applicaiton
