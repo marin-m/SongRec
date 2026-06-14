@@ -135,7 +135,7 @@ impl PreferencesInterface {
             request_interval_secs: None,
             request_interval_secs_v2: None,
             request_interval_secs_v3: update_preferences
-                .request_interval_secs_v2
+                .request_interval_secs_v3
                 .or(match current_preferences.request_interval_secs {
                     Some(4) => None,
                     Some(val) => Some(val),
