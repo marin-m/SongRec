@@ -13,7 +13,6 @@ build/
 
 # The following is related to Rust
 target/
-Cargo.lock
 
 # The following is related to building packages
 vendor/
