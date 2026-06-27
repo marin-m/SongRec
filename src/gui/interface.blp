@@ -490,6 +490,11 @@ menu main_menu_model {
 
   section {
     item {
+      action: "app.shortcuts";
+      label: _("_Keyboard Shortcuts");
+    }
+
+    item {
       action: "win.show-about";
       label: _("About...");
     }
@@ -628,50 +633,4 @@ menu history_context_model_faved {
       label: _("Remove from Favorites");
     }
   }
-}
-
-ShortcutsWindow shortcuts_window {
-  child: ShortcutsSection {
-    title: "shortcuts";
-
-    ShortcutsGroup {
-      title: C_("General section in the Shortcuts window", "General");
-
-      ShortcutsShortcut {
-        accelerator: "<Ctrl>Q";
-        action-name: "win.close";
-        title: C_("In the shortcuts window", "Close the application");
-      }
-
-      ShortcutsShortcut {
-        accelerator: "<Ctrl>O";
-        action-name: "win.recognize-file";
-        title: C_("In the shortcuts window", "Recognize from a file");
-      }
-
-      ShortcutsShortcut {
-        accelerator: "<Primary>comma";
-        action-name: "win.show-preferences";
-        title: C_("In the shortcuts window", "Show preferences");
-      }
-
-      ShortcutsShortcut {
-        accelerator: "<Primary>question";
-        action-name: "win.display-shortcuts";
-        title: C_("In the shortcuts window", "Display shortcuts");
-      }
-
-      ShortcutsShortcut {
-        accelerator: "F10";
-        action-name: "win.show-menu";
-        title: C_("win.show-menu", "Show menu");
-      }
-    }
-  };
-
-  destroy-with-parent: true;
-  focus-visible: false;
-  hide-on-close: true;
-  modal: true;
-  transient-for: main_window;
 }

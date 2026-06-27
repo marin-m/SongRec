@@ -24,7 +24,7 @@ xgettext --join-existing -L desktop -o translations/songrec.pot.new \
 
 xgettext --join-existing --from-code=UTF-8 --add-comments \
     --keyword=_ --keyword=C_:1c,2 -o translations/songrec.pot.new \
-    src/gui/interface.blp
+    src/gui/*.blp
 
 xgettext --join-existing --its translations/songrec.its -o translations/songrec.pot.new \
     packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in

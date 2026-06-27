@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-10 11:10+0200\n"
+"POT-Creation-Date: 2026-06-27 19:09+0200\n"
 "PO-Revision-Date: 2023-12-30 23:42+0900\n"
 "Last-Translator: 이정희 <daemul72@gmail.com>\n"
 "Language-Team: \n"
@@ -186,7 +186,7 @@ msgstr ""
 
 #: src/core/preferences.rs:58 src/core/preferences.rs:77
 #: src/gui/main_window.rs:295 src/gui/interface.blp:123
-#: src/gui/interface.blp:570 src/gui/interface.blp:620
+#: src/gui/interface.blp:575 src/gui/interface.blp:625
 msgid "Search on YouTube"
 msgstr "YouTube에서 검색하기"
 
@@ -354,7 +354,7 @@ msgstr ""
 msgid "Application menu"
 msgstr ""
 
-#: src/gui/interface.blp:363 src/gui/interface.blp:522
+#: src/gui/interface.blp:363 src/gui/interface.blp:527
 msgid "Export to CSV"
 msgstr "CSV로 내보내기"
 
@@ -439,72 +439,76 @@ msgid "_Preferences..."
 msgstr ""
 
 #: src/gui/interface.blp:494
+msgid "_Keyboard Shortcuts"
+msgstr ""
+
+#: src/gui/interface.blp:499
 msgid "About..."
 msgstr ""
 
-#: src/gui/interface.blp:527
+#: src/gui/interface.blp:532
 msgid "Delete history"
 msgstr ""
 
-#: src/gui/interface.blp:532
+#: src/gui/interface.blp:537
 msgid "Select a file to recognize"
 msgstr "인식할 파일을 선택합니다"
 
-#: src/gui/interface.blp:544 src/gui/interface.blp:594
+#: src/gui/interface.blp:549 src/gui/interface.blp:599
 msgid "Copy artist and track"
 msgstr "아티스트 및 트랙 복사하기"
 
-#: src/gui/interface.blp:550 src/gui/interface.blp:600
+#: src/gui/interface.blp:555 src/gui/interface.blp:605
 msgid "Copy artist"
 msgstr "아티스트 복사하기"
 
-#: src/gui/interface.blp:556 src/gui/interface.blp:606
+#: src/gui/interface.blp:561 src/gui/interface.blp:611
 msgid "Copy track name"
 msgstr "트랙 이름 복사하기"
 
-#: src/gui/interface.blp:562 src/gui/interface.blp:612
+#: src/gui/interface.blp:567 src/gui/interface.blp:617
 msgid "Copy album"
 msgstr "앨범 복사하기"
 
-#: src/gui/interface.blp:578
+#: src/gui/interface.blp:583
 msgid "Delete from History"
 msgstr ""
 
-#: src/gui/interface.blp:584
+#: src/gui/interface.blp:589
 msgid "Add to Favorites"
 msgstr ""
 
-#: src/gui/interface.blp:628
+#: src/gui/interface.blp:633
 msgid "Remove from Favorites"
 msgstr ""
 
-#: src/gui/interface.blp:638
+#: src/gui/shortcuts-dialog.blp:6
 msgctxt "General section in the Shortcuts window"
 msgid "General"
 msgstr ""
 
-#: src/gui/interface.blp:643
+#: src/gui/shortcuts-dialog.blp:10
 msgctxt "In the shortcuts window"
 msgid "Close the application"
 msgstr ""
 
-#: src/gui/interface.blp:649
+#: src/gui/shortcuts-dialog.blp:15
 msgctxt "In the shortcuts window"
 msgid "Recognize from a file"
 msgstr ""
 
-#: src/gui/interface.blp:655
+#: src/gui/shortcuts-dialog.blp:20
 msgctxt "In the shortcuts window"
 msgid "Show preferences"
 msgstr ""
 
-#: src/gui/interface.blp:661
+#: src/gui/shortcuts-dialog.blp:25
 msgctxt "In the shortcuts window"
 msgid "Display shortcuts"
 msgstr ""
 
-#: src/gui/interface.blp:667
-msgctxt "win.show-menu"
+#: src/gui/shortcuts-dialog.blp:30
+msgctxt "In the shortcuts window"
 msgid "Show menu"
 msgstr ""
 
