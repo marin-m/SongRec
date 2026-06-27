@@ -10,7 +10,7 @@ categories = ["multimedia::audio", "command-line-utilities"]
 version = "0.7.4"
 rust-version = "1.88"
 authors = ["marin-m"]
-edition = "2018"
+edition = "2024"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

@@ -1,10 +1,10 @@
 use std::cell::RefCell;
 
+use glib::Properties;
 use glib::object::ObjectExt;
 use glib::subclass::object::DerivedObjectProperties;
 use glib::subclass::prelude::ObjectImpl;
 use glib::subclass::prelude::ObjectSubclass;
-use glib::Properties;
 
 #[derive(Properties, Default)]
 #[properties(wrapper_type = super::HistoryEntry)]

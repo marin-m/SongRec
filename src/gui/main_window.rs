@@ -4,7 +4,7 @@ use gettextrs::gettext;
 use log::{debug, error, info, trace};
 #[cfg(all(target_os = "linux", feature = "mpris"))]
 use mpris_server::PlaybackStatus;
-use percent_encoding::{utf8_percent_encode, NON_ALPHANUMERIC};
+use percent_encoding::{NON_ALPHANUMERIC, utf8_percent_encode};
 use serde_json::json;
 use std::cell::RefCell;
 use std::error::Error;

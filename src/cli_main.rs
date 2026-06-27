@@ -12,7 +12,7 @@ use crate::core::http_task::http_task;
 use crate::core::microphone_thread::microphone_thread;
 use crate::core::processing_thread::processing_thread;
 use crate::core::thread_messages::{
-    spawn_big_thread, GUIMessage, MicrophoneMessage, ProcessingMessage,
+    GUIMessage, MicrophoneMessage, ProcessingMessage, spawn_big_thread,
 };
 
 use crate::core::preferences::{Preferences, PreferencesInterface};
