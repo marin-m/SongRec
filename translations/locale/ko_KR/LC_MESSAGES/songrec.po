@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-27 19:09+0200\n"
+"POT-Creation-Date: 2026-06-27 20:06+0200\n"
 "PO-Revision-Date: 2023-12-30 23:42+0900\n"
 "Last-Translator: 이정희 <daemul72@gmail.com>\n"
 "Language-Team: \n"
@@ -230,19 +230,19 @@ msgstr "MPRIS 지원을 활성화할 수 없습니다"
 msgid "_Ok"
 msgstr ""
 
-#: src/gui/main_window.rs:987
+#: src/gui/main_window.rs:983
 msgid "Song recognized"
 msgstr "인식된 노래"
 
-#: src/gui/main_window.rs:1128
+#: src/gui/main_window.rs:1120
 msgid "Are you sure you want to wipe history?"
 msgstr ""
 
-#: src/gui/main_window.rs:1134
+#: src/gui/main_window.rs:1126
 msgid "_Yes"
 msgstr ""
 
-#: src/gui/main_window.rs:1135
+#: src/gui/main_window.rs:1127
 msgid "_No"
 msgstr ""
 

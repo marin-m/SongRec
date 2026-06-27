@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: SongRec\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-27 19:09+0200\n"
+"POT-Creation-Date: 2026-06-27 20:06+0200\n"
 "PO-Revision-Date: 2026-05-11 12:15+0000\n"
 "Last-Translator: marcelo cripe <marcelocripe@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://weblate.fossplant.re/projects/"
@@ -277,19 +277,19 @@ msgstr "A funcionalidade do ‘MPRIS’ não pôde ser ativada"
 msgid "_Ok"
 msgstr "_Ok"
 
-#: src/gui/main_window.rs:987
+#: src/gui/main_window.rs:983
 msgid "Song recognized"
 msgstr "A música foi identificada"
 
-#: src/gui/main_window.rs:1128
+#: src/gui/main_window.rs:1120
 msgid "Are you sure you want to wipe history?"
 msgstr "Você tem certeza de que quer apagar a histórico?"
 
-#: src/gui/main_window.rs:1134
+#: src/gui/main_window.rs:1126
 msgid "_Yes"
 msgstr "_Sim"
 
-#: src/gui/main_window.rs:1135
+#: src/gui/main_window.rs:1127
 msgid "_No"
 msgstr "_Não"
 

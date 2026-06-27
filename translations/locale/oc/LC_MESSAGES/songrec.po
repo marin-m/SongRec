@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-27 19:09+0200\n"
+"POT-Creation-Date: 2026-06-27 20:06+0200\n"
 "PO-Revision-Date: 2026-04-19 16:15+0000\n"
 "Last-Translator: Mejans <farga@mejans.fr>\n"
 "Language-Team: Occitan <https://weblate.fossplant.re/projects/songrec/"
@@ -222,19 +222,19 @@ msgstr ""
 msgid "_Ok"
 msgstr ""
 
-#: src/gui/main_window.rs:987
+#: src/gui/main_window.rs:983
 msgid "Song recognized"
 msgstr ""
 
-#: src/gui/main_window.rs:1128
+#: src/gui/main_window.rs:1120
 msgid "Are you sure you want to wipe history?"
 msgstr ""
 
-#: src/gui/main_window.rs:1134
+#: src/gui/main_window.rs:1126
 msgid "_Yes"
 msgstr ""
 
-#: src/gui/main_window.rs:1135
+#: src/gui/main_window.rs:1127
 msgid "_No"
 msgstr ""
 

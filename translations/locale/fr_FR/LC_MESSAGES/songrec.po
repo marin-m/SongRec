@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-27 19:09+0200\n"
+"POT-Creation-Date: 2026-06-27 20:06+0200\n"
 "PO-Revision-Date: 2026-06-27 17:34+0000\n"
 "Last-Translator: Marin <25437947+marin-m@users.noreply.github.com>\n"
 "Language-Team: French <https://weblate.fossplant.re/projects/songrec/songrec/"
@@ -256,19 +256,19 @@ msgstr "Impossible d'activer le support de MRPIS"
 msgid "_Ok"
 msgstr "_Ok"
 
-#: src/gui/main_window.rs:987
+#: src/gui/main_window.rs:983
 msgid "Song recognized"
 msgstr "Chanson identifiée"
 
-#: src/gui/main_window.rs:1128
+#: src/gui/main_window.rs:1120
 msgid "Are you sure you want to wipe history?"
 msgstr "Êtes-vous sûr⋅e de vouloir supprimer l'historique ?"
 
-#: src/gui/main_window.rs:1134
+#: src/gui/main_window.rs:1126
 msgid "_Yes"
 msgstr "_Oui"
 
-#: src/gui/main_window.rs:1135
+#: src/gui/main_window.rs:1127
 msgid "_No"
 msgstr "_Non"
 

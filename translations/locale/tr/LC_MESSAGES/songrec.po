@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-27 19:09+0200\n"
+"POT-Creation-Date: 2026-06-27 20:06+0200\n"
 "PO-Revision-Date: 2026-05-11 08:02+0000\n"
 "Last-Translator: Arda Aydın <arda.aydin@operationsilkscarf.com>\n"
 "Language-Team: Turkish <https://weblate.fossplant.re/projects/songrec/"
@@ -245,19 +245,19 @@ msgstr "MPRIS desteği etkinleştirilemedi"
 msgid "_Ok"
 msgstr "Tamam"
 
-#: src/gui/main_window.rs:987
+#: src/gui/main_window.rs:983
 msgid "Song recognized"
 msgstr "Şarkı tanındı"
 
-#: src/gui/main_window.rs:1128
+#: src/gui/main_window.rs:1120
 msgid "Are you sure you want to wipe history?"
 msgstr "Geçmişi temizlemek istediğinizden emin misiniz?"
 
-#: src/gui/main_window.rs:1134
+#: src/gui/main_window.rs:1126
 msgid "_Yes"
 msgstr "Evet"
 
-#: src/gui/main_window.rs:1135
+#: src/gui/main_window.rs:1127
 msgid "_No"
 msgstr "Hayır"
 
