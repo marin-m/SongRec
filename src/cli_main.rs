@@ -159,10 +159,10 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
                         } else {
                             PlaybackStatus::Paused
                         };
-                        if let Some(ref player) = mpris_obj {
-                            if let Err(error) = player.set_playback_status(mpris_status).await {
-                                error!("Could not set MPRIS playback status: {:?}", error);
-                            }
+                        if let Some(ref player) = mpris_obj
+                            && let Err(error) = player.set_playback_status(mpris_status).await
+                        {
+                            error!("Could not set MPRIS playback status: {:?}", error);
                         }
                     }
 

@@ -23,24 +23,24 @@ async fn try_recognize_song(
 
     if let Value::Array(sections) = &json_object["track"]["sections"] {
         for section in sections {
-            if let Value::String(string) = &section["type"] {
-                if string == "SONG" {
-                    if let Value::Array(metadata) = &section["metadata"] {
-                        for metadatum in metadata {
-                            if let Value::String(title) = &metadatum["title"] {
-                                if title == "Album" {
-                                    if let Value::String(text) = &metadatum["text"] {
-                                        album_name = Some(text.to_string());
-                                    }
-                                } else if title == "Released" {
-                                    if let Value::String(text) = &metadatum["text"] {
-                                        release_year = Some(text.to_string());
-                                    }
-                                }
+            if let Value::String(string) = &section["type"]
+                && string == "SONG"
+            {
+                if let Value::Array(metadata) = &section["metadata"] {
+                    for metadatum in metadata {
+                        if let Value::String(title) = &metadatum["title"] {
+                            if title == "Album"
+                                && let Value::String(text) = &metadatum["text"]
+                            {
+                                album_name = Some(text.to_string());
+                            } else if title == "Released"
+                                && let Value::String(text) = &metadatum["text"]
+                            {
+                                release_year = Some(text.to_string());
                             }
                         }
-                        break;
                     }
+                    break;
                 }
             }
         }

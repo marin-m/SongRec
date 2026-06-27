@@ -70,30 +70,30 @@ impl AudioBackend for PulseBackend {
             Ok(info) => match self.handler.list_devices() {
                 Ok(devices) => {
                     for dev in devices {
-                        if let Some(desc) = &dev.description {
-                            if let Some(name) = &dev.name {
-                                if dev.name == info.default_source_name {
-                                    device_names.insert(
-                                        0,
-                                        DeviceListItem {
-                                            inner_name: name.to_string(),
-                                            display_name: desc.to_string(),
-                                            is_monitor: dev.monitor.is_some(),
-                                        },
-                                    );
-                                } else if dev.monitor.is_some() {
-                                    monitor_device_names.push(DeviceListItem {
+                        if let Some(desc) = &dev.description
+                            && let Some(name) = &dev.name
+                        {
+                            if dev.name == info.default_source_name {
+                                device_names.insert(
+                                    0,
+                                    DeviceListItem {
                                         inner_name: name.to_string(),
                                         display_name: desc.to_string(),
-                                        is_monitor: true,
-                                    });
-                                } else {
-                                    device_names.push(DeviceListItem {
-                                        inner_name: name.to_string(),
-                                        display_name: desc.to_string(),
-                                        is_monitor: false,
-                                    });
-                                }
+                                        is_monitor: dev.monitor.is_some(),
+                                    },
+                                );
+                            } else if dev.monitor.is_some() {
+                                monitor_device_names.push(DeviceListItem {
+                                    inner_name: name.to_string(),
+                                    display_name: desc.to_string(),
+                                    is_monitor: true,
+                                });
+                            } else {
+                                device_names.push(DeviceListItem {
+                                    inner_name: name.to_string(),
+                                    display_name: desc.to_string(),
+                                    is_monitor: false,
+                                });
                             }
                         }
                     }

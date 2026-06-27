@@ -33,11 +33,11 @@ pub fn decode_with_ffmpeg(file_path: &str) -> Option<rodio::Decoder<BufReader<st
         #[cfg(windows)]
         let command = command.creation_flags(0x00000008); // Set "CREATE_NO_WINDOW" on Windows
 
-        if let Ok(process) = command.output() {
-            if process.status.success() {
-                actual_ffmpeg_path = Some(possible_path);
-                break;
-            }
+        if let Ok(process) = command.output()
+            && process.status.success()
+        {
+            actual_ffmpeg_path = Some(possible_path);
+            break;
         }
     }
 

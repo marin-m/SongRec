@@ -133,11 +133,11 @@ impl ContextMenuUtil {
                     && (modifier.contains(ModifierType::CONTROL_MASK)
                         || modifier.contains(ModifierType::META_MASK))
                 {
-                    if let Some(display) = gdk::Display::default() {
-                        if let Some(record) = selection.selected_item() {
-                            let record = record.downcast::<HistoryEntry>().unwrap();
-                            display.clipboard().set(&record.song_name());
-                        }
+                    if let Some(display) = gdk::Display::default()
+                        && let Some(record) = selection.selected_item()
+                    {
+                        let record = record.downcast::<HistoryEntry>().unwrap();
+                        display.clipboard().set(&record.song_name());
                     }
                     Propagation::Stop
                 } else {
@@ -167,10 +167,10 @@ impl ContextMenuUtil {
         let item = ctx_selected_item.clone();
         let action_copy_artist_track = gio::ActionEntry::builder("copy-artist-track")
             .activate(move |_, _, _| {
-                if let Some(entry) = &*item.borrow() {
-                    if let Some(display) = gdk::Display::default() {
-                        display.clipboard().set(&entry.song_name());
-                    }
+                if let Some(entry) = &*item.borrow()
+                    && let Some(display) = gdk::Display::default()
+                {
+                    display.clipboard().set(&entry.song_name());
                 }
             })
             .build();
@@ -178,12 +178,12 @@ impl ContextMenuUtil {
         let item = ctx_selected_item.clone();
         let action_copy_artist = gio::ActionEntry::builder("copy-artist")
             .activate(move |_, _, _| {
-                if let Some(entry) = &*item.borrow() {
-                    if let Some(display) = gdk::Display::default() {
-                        let song_name = entry.song_name();
-                        if let Some((ref artist, _track_name)) = song_name.split_once(" - ") {
-                            display.clipboard().set(artist);
-                        }
+                if let Some(entry) = &*item.borrow()
+                    && let Some(display) = gdk::Display::default()
+                {
+                    let song_name = entry.song_name();
+                    if let Some((ref artist, _track_name)) = song_name.split_once(" - ") {
+                        display.clipboard().set(artist);
                     }
                 }
             })
@@ -192,12 +192,12 @@ impl ContextMenuUtil {
         let item = ctx_selected_item.clone();
         let action_copy_track = gio::ActionEntry::builder("copy-track-name")
             .activate(move |_, _, _| {
-                if let Some(entry) = &*item.borrow() {
-                    if let Some(display) = gdk::Display::default() {
-                        let song_name = entry.song_name();
-                        if let Some((_artist, ref track_name)) = song_name.split_once(" - ") {
-                            display.clipboard().set(track_name);
-                        }
+                if let Some(entry) = &*item.borrow()
+                    && let Some(display) = gdk::Display::default()
+                {
+                    let song_name = entry.song_name();
+                    if let Some((_artist, ref track_name)) = song_name.split_once(" - ") {
+                        display.clipboard().set(track_name);
                     }
                 }
             })
@@ -206,13 +206,13 @@ impl ContextMenuUtil {
         let item = ctx_selected_item.clone();
         let action_copy_album = gio::ActionEntry::builder("copy-album")
             .activate(move |_, _, _| {
-                if let Some(entry) = &*item.borrow() {
-                    if let Some(display) = gdk::Display::default() {
-                        if let Some(album) = entry.album() {
-                            display.clipboard().set(&album);
-                        } else {
-                            display.clipboard().set(&"");
-                        }
+                if let Some(entry) = &*item.borrow()
+                    && let Some(display) = gdk::Display::default()
+                {
+                    if let Some(album) = entry.album() {
+                        display.clipboard().set(&album);
+                    } else {
+                        display.clipboard().set(&"");
                     }
                 }
             })
