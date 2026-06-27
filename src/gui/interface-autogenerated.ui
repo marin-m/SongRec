@@ -555,9 +555,8 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
         <attribute name="label" translatable="yes">Show notifications</attribute>
       </item>
       <item>
-        <attribute name="action">navigation.push</attribute>
+        <attribute name="action">win.show-preferences</attribute>
         <attribute name="label" translatable="yes">_Preferences...</attribute>
-        <attribute name="target">settings_tag</attribute>
       </item>
     </section>
     <section>
