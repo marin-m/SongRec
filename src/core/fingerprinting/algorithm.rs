@@ -54,14 +54,14 @@ impl SignatureGenerator {
         let decoder = {
             let mut decoder = rodio::Decoder::new(BufReader::new(std::fs::File::open(file_path)?));
 
-            if let Err(ref _decoding_error) = decoder {
+            if let Err(ref _decoding_error) = decoder &&
                 // Try to decode with FFMpeg, if available, in case of failure with
                 // Rodio (most likely due to the use of a format unsupported by
                 // Rodio, such as .WMA or .MP4/.AAC)
 
-                if let Some(new_decoder) = decode_with_ffmpeg(file_path) {
-                    decoder = Ok(new_decoder);
-                }
+                let Some(new_decoder) = decode_with_ffmpeg(file_path)
+            {
+                decoder = Ok(new_decoder);
             }
 
             decoder

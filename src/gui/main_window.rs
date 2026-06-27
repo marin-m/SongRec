@@ -887,10 +887,10 @@ impl App {
                                         }
                                         player_maybe
                                     };
-                                } else if let Some(ref player) = mpris_obj {
-                                    if mpris_enabled != player.can_play() {
-                                        player.set_can_play(mpris_enabled).await.ok();
-                                    }
+                                } else if let Some(ref player) = mpris_obj
+                                    && mpris_enabled != player.can_play()
+                                {
+                                    player.set_can_play(mpris_enabled).await.ok();
                                 }
                             }
                         }
@@ -954,15 +954,11 @@ impl App {
                                         PlaybackStatus::Paused
                                     };
 
-                                    if let Some(ref player) = mpris_obj {
-                                        if let Err(error) =
+                                    if let Some(ref player) = mpris_obj
+                                        && let Err(error) =
                                             player.set_playback_status(mpris_status).await
-                                        {
-                                            error!(
-                                                "Could not set MPRIS playback status: {:?}",
-                                                error
-                                            );
-                                        }
+                                    {
+                                        error!("Could not set MPRIS playback status: {:?}", error);
                                     }
                                 }
                             }
@@ -987,23 +983,20 @@ impl App {
                                     gio::Notification::new(&gettext("Song recognized"));
                                 notification.set_body(Some(&song_name));
 
-                                if let Some(ref cover_image) = message.cover_image {
-                                    if let Ok(texture) =
+                                if let Some(ref cover_image) = message.cover_image
+                                    && let Ok(texture) =
                                         gdk::Texture::from_bytes(&glib::Bytes::from(cover_image))
-                                    {
-                                        results_image.set_visible(true);
-                                        results_image.set_paintable(Some(&texture));
+                                {
+                                    results_image.set_visible(true);
+                                    results_image.set_paintable(Some(&texture));
 
-                                        match message.album_name {
-                                            Some(ref value) => {
-                                                results_image.set_tooltip_text(Some(value))
-                                            }
-                                            None => results_image.set_tooltip_text(None),
-                                        };
-                                        notification.set_icon(&texture);
-                                    } else {
-                                        results_image.set_visible(false);
-                                    }
+                                    match message.album_name {
+                                        Some(ref value) => {
+                                            results_image.set_tooltip_text(Some(value))
+                                        }
+                                        None => results_image.set_tooltip_text(None),
+                                    };
+                                    notification.set_icon(&texture);
                                 } else {
                                     results_image.set_visible(false);
                                 }
@@ -1015,10 +1008,9 @@ impl App {
                                     .preferences
                                     .enable_mpris_v2
                                     != Some(false)
+                                    && let Some(ref player) = mpris_obj
                                 {
-                                    if let Some(ref player) = mpris_obj {
-                                        update_song(player, &message, &mut last_cover_path).await;
-                                    }
+                                    update_song(player, &message, &mut last_cover_path).await;
                                 }
 
                                 if preferences_interface_ptr
