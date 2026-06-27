@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-10 11:10+0200\n"
+"POT-Creation-Date: 2026-06-27 19:09+0200\n"
 "PO-Revision-Date: 2026-05-09 17:02+0000\n"
 "Last-Translator: Marin <25437947+marin-m@users.noreply.github.com>\n"
 "Language-Team: French <https://weblate.fossplant.re/projects/songrec/songrec/"
@@ -210,7 +210,7 @@ msgstr "Erreur audio : pas de périphérique d'entrée disponible"
 
 #: src/core/preferences.rs:58 src/core/preferences.rs:77
 #: src/gui/main_window.rs:295 src/gui/interface.blp:123
-#: src/gui/interface.blp:570 src/gui/interface.blp:620
+#: src/gui/interface.blp:575 src/gui/interface.blp:625
 msgid "Search on YouTube"
 msgstr "Rechercher sur YouTube"
 
@@ -382,7 +382,7 @@ msgstr "Voir les favoris"
 msgid "Application menu"
 msgstr "Menu de l'application"
 
-#: src/gui/interface.blp:363 src/gui/interface.blp:522
+#: src/gui/interface.blp:363 src/gui/interface.blp:527
 msgid "Export to CSV"
 msgstr "Exporter au format CSV"
 
@@ -478,74 +478,78 @@ msgid "_Preferences..."
 msgstr "_Préférences..."
 
 #: src/gui/interface.blp:494
+msgid "_Keyboard Shortcuts"
+msgstr ""
+
+#: src/gui/interface.blp:499
 msgid "About..."
 msgstr "À propos..."
 
-#: src/gui/interface.blp:527
+#: src/gui/interface.blp:532
 msgid "Delete history"
 msgstr "Supprimer l'historique"
 
-#: src/gui/interface.blp:532
+#: src/gui/interface.blp:537
 msgid "Select a file to recognize"
 msgstr "Sélectionner un fichier à reconnaître"
 
-#: src/gui/interface.blp:544 src/gui/interface.blp:594
+#: src/gui/interface.blp:549 src/gui/interface.blp:599
 msgid "Copy artist and track"
 msgstr "Copier l'artiste et le morceau"
 
-#: src/gui/interface.blp:550 src/gui/interface.blp:600
+#: src/gui/interface.blp:555 src/gui/interface.blp:605
 msgid "Copy artist"
 msgstr "Copier l'artiste"
 
-#: src/gui/interface.blp:556 src/gui/interface.blp:606
+#: src/gui/interface.blp:561 src/gui/interface.blp:611
 msgid "Copy track name"
 msgstr "Copier le nom du morceau"
 
-#: src/gui/interface.blp:562 src/gui/interface.blp:612
+#: src/gui/interface.blp:567 src/gui/interface.blp:617
 msgid "Copy album"
 msgstr "Copier l'album"
 
-#: src/gui/interface.blp:578
+#: src/gui/interface.blp:583
 msgid "Delete from History"
 msgstr "Supprimer de l'historique"
 
-#: src/gui/interface.blp:584
+#: src/gui/interface.blp:589
 msgid "Add to Favorites"
 msgstr "Ajouter aux favoris"
 
-#: src/gui/interface.blp:628
+#: src/gui/interface.blp:633
 msgid "Remove from Favorites"
 msgstr "Supprimer des favoris"
 
-#: src/gui/interface.blp:638
+#: src/gui/shortcuts-dialog.blp:6
 msgctxt "General section in the Shortcuts window"
 msgid "General"
 msgstr "Général"
 
-#: src/gui/interface.blp:643
+#: src/gui/shortcuts-dialog.blp:10
 msgctxt "In the shortcuts window"
 msgid "Close the application"
 msgstr "Fermer l'application"
 
-#: src/gui/interface.blp:649
+#: src/gui/shortcuts-dialog.blp:15
 msgctxt "In the shortcuts window"
 msgid "Recognize from a file"
 msgstr "Reconnaître à partir d'un fichier"
 
-#: src/gui/interface.blp:655
+#: src/gui/shortcuts-dialog.blp:20
 msgctxt "In the shortcuts window"
 msgid "Show preferences"
 msgstr "Afficher les préférences"
 
-#: src/gui/interface.blp:661
+#: src/gui/shortcuts-dialog.blp:25
 msgctxt "In the shortcuts window"
 msgid "Display shortcuts"
 msgstr "Afficher les raccourcis clavier"
 
-#: src/gui/interface.blp:667
-msgctxt "win.show-menu"
+#: src/gui/shortcuts-dialog.blp:30
+msgctxt "In the shortcuts window"
 msgid "Show menu"
-msgstr "Afficher le menu"
+msgstr ""
 
 #: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:11
 msgid "Recognize songs from audio easily"
@@ -609,6 +613,10 @@ msgstr "La fenêtre des favoris de SongRec"
 #: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:33
 msgid "SongRec's main window, on GNOME in dark mode"
 msgstr "La fenêtre principale de SongRec, avec GNOME en mode sombre"
+
+#~ msgctxt "win.show-menu"
+#~ msgid "Show menu"
+#~ msgstr "Afficher le menu"
 
 #~ msgid ""
 #~ "By default the last 12 seconds of music are fingerprinted and sent to "

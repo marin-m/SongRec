@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-10 11:10+0200\n"
+"POT-Creation-Date: 2026-06-27 19:09+0200\n"
 "PO-Revision-Date: 2026-05-11 08:02+0000\n"
 "Last-Translator: Arda Aydın <arda.aydin@operationsilkscarf.com>\n"
 "Language-Team: Turkish <https://weblate.fossplant.re/projects/songrec/"
@@ -201,7 +201,7 @@ msgstr "Ses hatası: Mevcut bir giriş cihazı yok"
 
 #: src/core/preferences.rs:58 src/core/preferences.rs:77
 #: src/gui/main_window.rs:295 src/gui/interface.blp:123
-#: src/gui/interface.blp:570 src/gui/interface.blp:620
+#: src/gui/interface.blp:575 src/gui/interface.blp:625
 msgid "Search on YouTube"
 msgstr "YouTube'da ara"
 
@@ -369,7 +369,7 @@ msgstr "Favorileri göster"
 msgid "Application menu"
 msgstr "Uygulama menüsü"
 
-#: src/gui/interface.blp:363 src/gui/interface.blp:522
+#: src/gui/interface.blp:363 src/gui/interface.blp:527
 msgid "Export to CSV"
 msgstr "CSV halinde dışarı aktar"
 
@@ -462,74 +462,78 @@ msgid "_Preferences..."
 msgstr "Tercihler..."
 
 #: src/gui/interface.blp:494
+msgid "_Keyboard Shortcuts"
+msgstr ""
+
+#: src/gui/interface.blp:499
 msgid "About..."
 msgstr "Hakkında..."
 
-#: src/gui/interface.blp:527
+#: src/gui/interface.blp:532
 msgid "Delete history"
 msgstr "Geçmişi sil"
 
-#: src/gui/interface.blp:532
+#: src/gui/interface.blp:537
 msgid "Select a file to recognize"
 msgstr "Tanınacak bir dosya seç"
 
-#: src/gui/interface.blp:544 src/gui/interface.blp:594
+#: src/gui/interface.blp:549 src/gui/interface.blp:599
 msgid "Copy artist and track"
 msgstr "Sanatçı ve parça adını kopyala"
 
-#: src/gui/interface.blp:550 src/gui/interface.blp:600
+#: src/gui/interface.blp:555 src/gui/interface.blp:605
 msgid "Copy artist"
 msgstr "Sanatçı adını kopyala"
 
-#: src/gui/interface.blp:556 src/gui/interface.blp:606
+#: src/gui/interface.blp:561 src/gui/interface.blp:611
 msgid "Copy track name"
 msgstr "Şarkı adını kopyala"
 
-#: src/gui/interface.blp:562 src/gui/interface.blp:612
+#: src/gui/interface.blp:567 src/gui/interface.blp:617
 msgid "Copy album"
 msgstr "Albüm adını kopyala"
 
-#: src/gui/interface.blp:578
+#: src/gui/interface.blp:583
 msgid "Delete from History"
 msgstr "Geçmişten sil"
 
-#: src/gui/interface.blp:584
+#: src/gui/interface.blp:589
 msgid "Add to Favorites"
 msgstr "Favorilere ekle"
 
-#: src/gui/interface.blp:628
+#: src/gui/interface.blp:633
 msgid "Remove from Favorites"
 msgstr "Favorilerden çıkar"
 
-#: src/gui/interface.blp:638
+#: src/gui/shortcuts-dialog.blp:6
 msgctxt "General section in the Shortcuts window"
 msgid "General"
 msgstr "Genel"
 
-#: src/gui/interface.blp:643
+#: src/gui/shortcuts-dialog.blp:10
 msgctxt "In the shortcuts window"
 msgid "Close the application"
 msgstr "Uygulamayı kapat"
 
-#: src/gui/interface.blp:649
+#: src/gui/shortcuts-dialog.blp:15
 msgctxt "In the shortcuts window"
 msgid "Recognize from a file"
 msgstr "Bir dosyadan tanı"
 
-#: src/gui/interface.blp:655
+#: src/gui/shortcuts-dialog.blp:20
 msgctxt "In the shortcuts window"
 msgid "Show preferences"
 msgstr "Tercihleri göster"
 
-#: src/gui/interface.blp:661
+#: src/gui/shortcuts-dialog.blp:25
 msgctxt "In the shortcuts window"
 msgid "Display shortcuts"
 msgstr "Kısayolları göster"
 
-#: src/gui/interface.blp:667
-msgctxt "win.show-menu"
+#: src/gui/shortcuts-dialog.blp:30
+msgctxt "In the shortcuts window"
 msgid "Show menu"
-msgstr "Menüyü göster"
+msgstr ""
 
 #: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:11
 msgid "Recognize songs from audio easily"
@@ -591,6 +595,10 @@ msgstr "SongRec'in favoriler penceresi"
 #: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:33
 msgid "SongRec's main window, on GNOME in dark mode"
 msgstr "SongRec'in ana penceresi, GNOME'da karanlık modda"
+
+#~ msgctxt "win.show-menu"
+#~ msgid "Show menu"
+#~ msgstr "Menüyü göster"
 
 #~ msgid ""
 #~ "By default the last 12 seconds of music are fingerprinted and sent to "

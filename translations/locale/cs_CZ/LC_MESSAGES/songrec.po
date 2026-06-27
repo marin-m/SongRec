@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-10 11:10+0200\n"
+"POT-Creation-Date: 2026-06-27 19:09+0200\n"
 "PO-Revision-Date: 2026-05-11 00:02+0000\n"
 "Last-Translator: Fjuro <fjuro@users.noreply.weblate.fossplant.re>\n"
 "Language-Team: Czech <https://weblate.fossplant.re/projects/songrec/songrec/"
@@ -198,7 +198,7 @@ msgstr "Chyba zvuku: Není dostupné žádné vstupní zařízení"
 
 #: src/core/preferences.rs:58 src/core/preferences.rs:77
 #: src/gui/main_window.rs:295 src/gui/interface.blp:123
-#: src/gui/interface.blp:570 src/gui/interface.blp:620
+#: src/gui/interface.blp:575 src/gui/interface.blp:625
 msgid "Search on YouTube"
 msgstr "Vyhledat na YouTube"
 
@@ -366,7 +366,7 @@ msgstr "Zobrazit oblíbené"
 msgid "Application menu"
 msgstr "Nabídka aplikace"
 
-#: src/gui/interface.blp:363 src/gui/interface.blp:522
+#: src/gui/interface.blp:363 src/gui/interface.blp:527
 msgid "Export to CSV"
 msgstr "Exportovat do CSV"
 
@@ -459,74 +459,78 @@ msgid "_Preferences..."
 msgstr "_Předvolby…"
 
 #: src/gui/interface.blp:494
+msgid "_Keyboard Shortcuts"
+msgstr ""
+
+#: src/gui/interface.blp:499
 msgid "About..."
 msgstr "O aplikaci…"
 
-#: src/gui/interface.blp:527
+#: src/gui/interface.blp:532
 msgid "Delete history"
 msgstr "Smazat historii"
 
-#: src/gui/interface.blp:532
+#: src/gui/interface.blp:537
 msgid "Select a file to recognize"
 msgstr "Vyberte soubor k rozpoznání"
 
-#: src/gui/interface.blp:544 src/gui/interface.blp:594
+#: src/gui/interface.blp:549 src/gui/interface.blp:599
 msgid "Copy artist and track"
 msgstr "Kopírovat umělce a skladbu"
 
-#: src/gui/interface.blp:550 src/gui/interface.blp:600
+#: src/gui/interface.blp:555 src/gui/interface.blp:605
 msgid "Copy artist"
 msgstr "Kopírovat umělce"
 
-#: src/gui/interface.blp:556 src/gui/interface.blp:606
+#: src/gui/interface.blp:561 src/gui/interface.blp:611
 msgid "Copy track name"
 msgstr "Kopírovat název skladby"
 
-#: src/gui/interface.blp:562 src/gui/interface.blp:612
+#: src/gui/interface.blp:567 src/gui/interface.blp:617
 msgid "Copy album"
 msgstr "Kopírovat album"
 
-#: src/gui/interface.blp:578
+#: src/gui/interface.blp:583
 msgid "Delete from History"
 msgstr "Odstranit z historie"
 
-#: src/gui/interface.blp:584
+#: src/gui/interface.blp:589
 msgid "Add to Favorites"
 msgstr "Přidat do oblíbených"
 
-#: src/gui/interface.blp:628
+#: src/gui/interface.blp:633
 msgid "Remove from Favorites"
 msgstr "Odstranit z oblíbených"
 
-#: src/gui/interface.blp:638
+#: src/gui/shortcuts-dialog.blp:6
 msgctxt "General section in the Shortcuts window"
 msgid "General"
 msgstr "Obecné"
 
-#: src/gui/interface.blp:643
+#: src/gui/shortcuts-dialog.blp:10
 msgctxt "In the shortcuts window"
 msgid "Close the application"
 msgstr "Zavřít aplikaci"
 
-#: src/gui/interface.blp:649
+#: src/gui/shortcuts-dialog.blp:15
 msgctxt "In the shortcuts window"
 msgid "Recognize from a file"
 msgstr "Rozpoznat ze souboru"
 
-#: src/gui/interface.blp:655
+#: src/gui/shortcuts-dialog.blp:20
 msgctxt "In the shortcuts window"
 msgid "Show preferences"
 msgstr "Zobrazit předvolby"
 
-#: src/gui/interface.blp:661
+#: src/gui/shortcuts-dialog.blp:25
 msgctxt "In the shortcuts window"
 msgid "Display shortcuts"
 msgstr "Zobrazit zkratky"
 
-#: src/gui/interface.blp:667
-msgctxt "win.show-menu"
+#: src/gui/shortcuts-dialog.blp:30
+msgctxt "In the shortcuts window"
 msgid "Show menu"
-msgstr "Zobrazit nabídku"
+msgstr ""
 
 #: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:11
 msgid "Recognize songs from audio easily"
@@ -587,6 +591,10 @@ msgstr "Okno oblíbených aplikace SongRec"
 #: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:33
 msgid "SongRec's main window, on GNOME in dark mode"
 msgstr "Hlavní okno aplikace SongRec v rozhraní GNOME ve tmavém režimu"
+
+#~ msgctxt "win.show-menu"
+#~ msgid "Show menu"
+#~ msgstr "Zobrazit nabídku"
 
 #~ msgid ""
 #~ "By default the last 12 seconds of music are fingerprinted and sent to "
