@@ -1,10 +1,11 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
 <!DOCTYPE cambalache-project SYSTEM "cambalache-project.dtd">
-<!-- Created with Cambalache 1.0.1 -->
+<!-- Created with Cambalache 1.0.3 -->
 <cambalache-project version="1.0.0" target_tk="gtk-4.0" depends="libadwaita-1,webkitgtk-6.0">
-  <gresources filename="resources.gresource.xml" sha256="438a46076d395fb2978910ce8b44e226f54d2f692d1efd39641f416cc00a7390"/>
+  <gresources filename="resources.gresource.xml" sha256="09322ed2fbc282bf9c269e45c14e5aa61b1def11f753e403685a687258d39a1a"/>
   <css filename="style.css" sha256="03ec027684f5b669731897b431ba5a16c21172ceb3d0d87b4c1c566d6d0013ee"/>
-  <ui filename="interface.blp" sha256="3d93df91eb4b550d81fe14df10ddb4386d01f02cf9d1c87f304165e5159f4cd9">
+  <ui filename="interface.blp" sha256="9190cd4aceae4ca3d103a31b32bd73ce4b638bb5662424c90ddd06e920326910">
     <css-provider>style.css</css-provider>
   </ui>
+  <ui filename="shortcuts-dialog.blp" sha256="4504f995755d8d1933325f0630fb7292f90dfb1dbf4904840f3942a03743df3a"/>
 </cambalache-project>
