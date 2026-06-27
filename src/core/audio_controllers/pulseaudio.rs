@@ -73,27 +73,15 @@ impl AudioBackend for PulseBackend {
                         if let Some(desc) = &dev.description
                             && let Some(name) = &dev.name
                         {
+                            let item = DeviceListItem {
+                                inner_name: name.to_string(),
+                                display_name: desc.to_string(),
+                                is_monitor: dev.monitor.is_some(),
+                            };
                             if dev.name == info.default_source_name {
-                                device_names.insert(
-                                    0,
-                                    DeviceListItem {
-                                        inner_name: name.to_string(),
-                                        display_name: desc.to_string(),
-                                        is_monitor: dev.monitor.is_some(),
-                                    },
-                                );
-                            } else if dev.monitor.is_some() {
-                                monitor_device_names.push(DeviceListItem {
-                                    inner_name: name.to_string(),
-                                    display_name: desc.to_string(),
-                                    is_monitor: true,
-                                });
+                                device_names.insert(0, item);
                             } else {
-                                device_names.push(DeviceListItem {
-                                    inner_name: name.to_string(),
-                                    display_name: desc.to_string(),
-                                    is_monitor: false,
-                                });
+                                monitor_device_names.push(item);
                             }
                         }
                     }
