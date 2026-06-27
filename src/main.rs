@@ -56,13 +56,13 @@ use crate::core::fingerprinting::algorithm::SignatureGenerator;
 use crate::core::fingerprinting::communication::recognize_song_from_signature;
 use crate::core::fingerprinting::signature_format::DecodedSignature;
 
-use crate::cli_main::{cli_main, CLIOutputType, CLIParameters};
+use crate::cli_main::{CLIOutputType, CLIParameters, cli_main};
 use crate::core::logging::Logging;
 #[cfg(feature = "gui")]
 use crate::gui::main_window::gui_main;
 use crate::utils::internationalization::setup_internationalization;
 
-use clap::{command, Arg, ArgAction, Command};
+use clap::{Arg, ArgAction, Command, command};
 use gettextrs::gettext;
 use log::debug;
 use soup::prelude::SessionExt;

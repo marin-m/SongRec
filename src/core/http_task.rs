@@ -52,7 +52,7 @@ async fn try_recognize_song(
             _ => {
                 return Err(Box::new(std::io::Error::other(
                     gettext("No match for this song").as_str(),
-                )))
+                )));
             }
         },
         album_name,
@@ -61,7 +61,7 @@ async fn try_recognize_song(
             _ => {
                 return Err(Box::new(std::io::Error::other(
                     gettext("No match for this song").as_str(),
-                )))
+                )));
             }
         },
         cover_image: match &json_object["track"]["images"]["coverart"] {
@@ -73,7 +73,7 @@ async fn try_recognize_song(
             _ => {
                 return Err(Box::new(std::io::Error::other(
                     gettext("No match for this song").as_str(),
-                )))
+                )));
             }
         },
         release_year,

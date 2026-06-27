@@ -1,4 +1,4 @@
-use app_dirs::{get_app_root, AppDataType::*, AppInfo};
+use app_dirs::{AppDataType::*, AppInfo, get_app_root};
 use directories::ProjectDirs;
 use std::error::Error;
 use std::fs::create_dir_all;

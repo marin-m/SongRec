@@ -1,4 +1,4 @@
-use clap::{command, Arg, ArgAction, Command};
+use clap::{Arg, ArgAction, Command, command};
 use flate2::Compression;
 use flate2::GzBuilder;
 use gettextrs::gettext;
@@ -267,13 +267,12 @@ troubleshoot the error"
             "interface.blp",
         ])
         .output()
+        && !output.status.success()
     {
-        if !output.status.success() {
-            println!("cargo:warning=Compiling interface.blp did not succeed:");
-            if let Ok(stderr) = String::from_utf8(output.stderr) {
-                for line in stderr.lines() {
-                    println!("cargo:warning={line}");
-                }
+        println!("cargo:warning=Compiling interface.blp did not succeed:");
+        if let Ok(stderr) = String::from_utf8(output.stderr) {
+            for line in stderr.lines() {
+                println!("cargo:warning={line}");
             }
         }
     }
@@ -288,13 +287,12 @@ troubleshoot the error"
             "shortcuts-dialog.blp",
         ])
         .output()
+        && !output.status.success()
     {
-        if !output.status.success() {
-            println!("cargo:warning=Compiling shortcuts-dialog.blp did not succeed:");
-            if let Ok(stderr) = String::from_utf8(output.stderr) {
-                for line in stderr.lines() {
-                    println!("cargo:warning={line}");
-                }
+        println!("cargo:warning=Compiling shortcuts-dialog.blp did not succeed:");
+        if let Ok(stderr) = String::from_utf8(output.stderr) {
+            for line in stderr.lines() {
+                println!("cargo:warning={line}");
             }
         }
     }

@@ -1,4 +1,4 @@
-use gettextrs::{bind_textdomain_codeset, bindtextdomain, setlocale, textdomain, LocaleCategory};
+use gettextrs::{LocaleCategory, bind_textdomain_codeset, bindtextdomain, setlocale, textdomain};
 use log::warn;
 use std::path::PathBuf;
 

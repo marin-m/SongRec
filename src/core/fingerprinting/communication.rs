@@ -2,7 +2,7 @@ use gettextrs::gettext;
 use glib::source::Priority;
 use log::{debug, error, trace};
 use rand::prelude::IndexedRandom;
-use serde_json::{json, Value};
+use serde_json::{Value, json};
 use soup::prelude::SessionExt;
 use std::error::Error;
 use std::time::SystemTime;

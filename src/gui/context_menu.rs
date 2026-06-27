@@ -5,7 +5,7 @@ use gtk::glib::clone;
 use gtk::prelude::*;
 
 use log::{debug, error, info};
-use percent_encoding::{utf8_percent_encode, NON_ALPHANUMERIC};
+use percent_encoding::{NON_ALPHANUMERIC, utf8_percent_encode};
 use std::cell::RefCell;
 use std::rc::Rc;
 use std::sync::Arc;
