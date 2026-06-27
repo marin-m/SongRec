@@ -538,7 +538,7 @@ msgstr "Отобразить ярлыки"
 #: src/gui/shortcuts-dialog.blp:30
 msgctxt "In the shortcuts window"
 msgid "Show menu"
-msgstr ""
+msgstr "Показать меню"
 
 #: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:11
 msgid "Recognize songs from audio easily"
@@ -602,10 +602,6 @@ msgstr "Окно избранных песен SongRec"
 #: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:33
 msgid "SongRec's main window, on GNOME in dark mode"
 msgstr "Главное окно SongRec в темном режиме GNOME"
-
-#~ msgctxt "win.show-menu"
-#~ msgid "Show menu"
-#~ msgstr "Показать меню"
 
 #~ msgid ""
 #~ "By default the last 12 seconds of music are fingerprinted and sent to "

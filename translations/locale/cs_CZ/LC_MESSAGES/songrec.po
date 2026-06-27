@@ -530,7 +530,7 @@ msgstr "Zobrazit zkratky"
 #: src/gui/shortcuts-dialog.blp:30
 msgctxt "In the shortcuts window"
 msgid "Show menu"
-msgstr ""
+msgstr "Zobrazit nabídku"
 
 #: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:11
 msgid "Recognize songs from audio easily"
@@ -591,10 +591,6 @@ msgstr "Okno oblíbených aplikace SongRec"
 #: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:33
 msgid "SongRec's main window, on GNOME in dark mode"
 msgstr "Hlavní okno aplikace SongRec v rozhraní GNOME ve tmavém režimu"
-
-#~ msgctxt "win.show-menu"
-#~ msgid "Show menu"
-#~ msgstr "Zobrazit nabídku"
 
 #~ msgid ""
 #~ "By default the last 12 seconds of music are fingerprinted and sent to "
