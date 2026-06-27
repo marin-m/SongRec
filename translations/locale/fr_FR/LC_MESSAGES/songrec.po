@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-27 19:09+0200\n"
-"PO-Revision-Date: 2026-05-09 17:02+0000\n"
+"PO-Revision-Date: 2026-06-27 17:34+0000\n"
 "Last-Translator: Marin <25437947+marin-m@users.noreply.github.com>\n"
 "Language-Team: French <https://weblate.fossplant.re/projects/songrec/songrec/"
 "fr/>\n"
@@ -479,7 +479,7 @@ msgstr "_Préférences..."
 
 #: src/gui/interface.blp:494
 msgid "_Keyboard Shortcuts"
-msgstr ""
+msgstr "_Raccourcis clavier"
 
 #: src/gui/interface.blp:499
 msgid "About..."
