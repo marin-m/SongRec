@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-27 20:06+0200\n"
+"POT-Creation-Date: 2026-06-27 20:20+0200\n"
 "PO-Revision-Date: 2021-12-26 11:36+0100\n"
 "Last-Translator: Rafał Mikrut <qarminkrut@gmail.com>\n"
 "Language-Team: \n"
@@ -191,7 +191,7 @@ msgstr ""
 
 #: src/core/preferences.rs:58 src/core/preferences.rs:77
 #: src/gui/main_window.rs:295 src/gui/interface.blp:123
-#: src/gui/interface.blp:575 src/gui/interface.blp:625
+#: src/gui/interface.blp:574 src/gui/interface.blp:624
 msgid "Search on YouTube"
 msgstr "Wyszukaj na YouTube"
 
@@ -361,7 +361,7 @@ msgstr ""
 msgid "Application menu"
 msgstr ""
 
-#: src/gui/interface.blp:363 src/gui/interface.blp:527
+#: src/gui/interface.blp:363 src/gui/interface.blp:526
 msgid "Export to CSV"
 msgstr "Wyeksportuj do CSV"
 
@@ -445,47 +445,47 @@ msgstr ""
 msgid "_Preferences..."
 msgstr ""
 
-#: src/gui/interface.blp:494
+#: src/gui/interface.blp:493
 msgid "_Keyboard Shortcuts"
 msgstr ""
 
-#: src/gui/interface.blp:499
+#: src/gui/interface.blp:498
 msgid "About..."
 msgstr ""
 
-#: src/gui/interface.blp:532
+#: src/gui/interface.blp:531
 msgid "Delete history"
 msgstr ""
 
-#: src/gui/interface.blp:537
+#: src/gui/interface.blp:536
 msgid "Select a file to recognize"
 msgstr "Wybierz plik do rozpoznania"
 
-#: src/gui/interface.blp:549 src/gui/interface.blp:599
+#: src/gui/interface.blp:548 src/gui/interface.blp:598
 msgid "Copy artist and track"
 msgstr "Skopiuj wykonawcę i utwór"
 
-#: src/gui/interface.blp:555 src/gui/interface.blp:605
+#: src/gui/interface.blp:554 src/gui/interface.blp:604
 msgid "Copy artist"
 msgstr "Skopiuj wykonawcę"
 
-#: src/gui/interface.blp:561 src/gui/interface.blp:611
+#: src/gui/interface.blp:560 src/gui/interface.blp:610
 msgid "Copy track name"
 msgstr "Skopiuj nazwę utworu"
 
-#: src/gui/interface.blp:567 src/gui/interface.blp:617
+#: src/gui/interface.blp:566 src/gui/interface.blp:616
 msgid "Copy album"
 msgstr "Skopiuj nazwę albumu"
 
-#: src/gui/interface.blp:583
+#: src/gui/interface.blp:582
 msgid "Delete from History"
 msgstr ""
 
-#: src/gui/interface.blp:589
+#: src/gui/interface.blp:588
 msgid "Add to Favorites"
 msgstr ""
 
-#: src/gui/interface.blp:633
+#: src/gui/interface.blp:632
 msgid "Remove from Favorites"
 msgstr ""
 
