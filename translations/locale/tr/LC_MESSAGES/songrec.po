@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-27 20:20+0200\n"
-"PO-Revision-Date: 2026-07-01 11:46+0000\n"
+"PO-Revision-Date: 2026-07-01 13:27+0000\n"
 "Last-Translator: Arda Aydın <arda.aydin@operationsilkscarf.com>\n"
 "Language-Team: Turkish <https://weblate.fossplant.re/projects/songrec/"
 "songrec/tr/>\n"
@@ -243,7 +243,7 @@ msgstr "MPRIS desteği etkinleştirilemedi"
 
 #: src/gui/main_window.rs:907
 msgid "_Ok"
-msgstr "Tamam"
+msgstr "_Tamam"
 
 #: src/gui/main_window.rs:983
 msgid "Song recognized"
@@ -255,11 +255,11 @@ msgstr "Geçmişi temizlemek istediğinizden emin misiniz?"
 
 #: src/gui/main_window.rs:1126
 msgid "_Yes"
-msgstr "Evet"
+msgstr "_Evet"
 
 #: src/gui/main_window.rs:1127
 msgid "_No"
-msgstr "Hayır"
+msgstr "_Hayır"
 
 #: src/gui/song_history_interface.rs:95
 msgid "Error when reading the song history on the disk:"
@@ -459,7 +459,7 @@ msgstr "Ayarlar"
 
 #: src/gui/interface.blp:486
 msgid "_Preferences..."
-msgstr "Tercihler..."
+msgstr "_Tercihler..."
 
 #: src/gui/interface.blp:493
 msgid "_Keyboard Shortcuts"
