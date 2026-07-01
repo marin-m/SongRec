@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-27 20:20+0200\n"
-"PO-Revision-Date: 2026-05-11 08:02+0000\n"
+"PO-Revision-Date: 2026-07-01 11:46+0000\n"
 "Last-Translator: Arda Aydın <arda.aydin@operationsilkscarf.com>\n"
 "Language-Team: Turkish <https://weblate.fossplant.re/projects/songrec/"
 "songrec/tr/>\n"
@@ -463,7 +463,7 @@ msgstr "Tercihler..."
 
 #: src/gui/interface.blp:493
 msgid "_Keyboard Shortcuts"
-msgstr ""
+msgstr "_Klavye Kısayolları"
 
 #: src/gui/interface.blp:498
 msgid "About..."
