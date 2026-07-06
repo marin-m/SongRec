@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-27 20:20+0200\n"
-"PO-Revision-Date: 2026-07-01 13:27+0000\n"
+"PO-Revision-Date: 2026-07-06 14:05+0000\n"
 "Last-Translator: Arda Aydın <arda.aydin@operationsilkscarf.com>\n"
 "Language-Team: Turkish <https://weblate.fossplant.re/projects/songrec/"
 "songrec/tr/>\n"
@@ -275,7 +275,7 @@ msgstr "SongRec'i aç"
 
 #: src/plugins/ksni.rs:56
 msgid "Quit..."
-msgstr "Programdan çık"
+msgstr "Çık..."
 
 #: packaging/freedesktop/re.fossplant.songrec.desktop.in:15
 msgid "SongRec"
