@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-27 20:20+0200\n"
-"PO-Revision-Date: 2026-05-11 00:02+0000\n"
+"PO-Revision-Date: 2026-07-09 20:02+0000\n"
 "Last-Translator: Fjuro <fjuro@users.noreply.weblate.fossplant.re>\n"
 "Language-Team: Czech <https://weblate.fossplant.re/projects/songrec/songrec/"
 "cs/>\n"
@@ -460,7 +460,7 @@ msgstr "_Předvolby…"
 
 #: src/gui/interface.blp:493
 msgid "_Keyboard Shortcuts"
-msgstr ""
+msgstr "_Klávesové zkratky"
 
 #: src/gui/interface.blp:498
 msgid "About..."
