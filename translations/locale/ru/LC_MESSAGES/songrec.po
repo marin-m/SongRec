@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-27 20:20+0200\n"
+"POT-Creation-Date: 2026-08-11 14:04+0200\n"
 "PO-Revision-Date: 2026-05-18 12:07+1100\n"
 "Last-Translator: Aleksandr Shamaraev <shad@altlinux.org>\n"
 "Language-Team: Russian <https://weblate.fossplant.re/projects/songrec/"
@@ -261,8 +261,8 @@ msgid "_Yes"
 msgstr "_Да"
 
 #: src/gui/main_window.rs:1127
-msgid "_No"
-msgstr "_Нет"
+msgid "_Cancel"
+msgstr "_Отменить"
 
 #: src/gui/song_history_interface.rs:95
 msgid "Error when reading the song history on the disk:"
@@ -603,6 +603,9 @@ msgstr "Окно избранных песен SongRec"
 msgid "SongRec's main window, on GNOME in dark mode"
 msgstr "Главное окно SongRec в темном режиме GNOME"
 
+#~ msgid "_No"
+#~ msgstr "_Нет"
+
 #~ msgid ""
 #~ "By default the last 12 seconds of music are fingerprinted and sent to "
 #~ "Shazam. Editing may have an impact on reliability"
@@ -639,9 +642,6 @@ msgstr "Главное окно SongRec в темном режиме GNOME"
 
 #~ msgid "_Open"
 #~ msgstr "_Открыть"
-
-#~ msgid "_Cancel"
-#~ msgstr "_Отменить"
 
 #~ msgid "Couldn't get filename"
 #~ msgstr "Не удалось получить имя файла"

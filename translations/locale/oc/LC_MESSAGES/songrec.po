@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-27 20:20+0200\n"
+"POT-Creation-Date: 2026-08-11 14:04+0200\n"
 "PO-Revision-Date: 2026-04-19 16:15+0000\n"
 "Last-Translator: Mejans <farga@mejans.fr>\n"
 "Language-Team: Occitan <https://weblate.fossplant.re/projects/songrec/"
@@ -235,7 +235,7 @@ msgid "_Yes"
 msgstr ""
 
 #: src/gui/main_window.rs:1127
-msgid "_No"
+msgid "_Cancel"
 msgstr ""
 
 #: src/gui/song_history_interface.rs:95

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-27 20:20+0200\n"
+"POT-Creation-Date: 2026-08-11 14:04+0200\n"
 "PO-Revision-Date: 2021-08-23 21:02+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -235,8 +235,8 @@ msgid "_Yes"
 msgstr ""
 
 #: src/gui/main_window.rs:1127
-msgid "_No"
-msgstr ""
+msgid "_Cancel"
+msgstr "_キャンセル"
 
 #: src/gui/song_history_interface.rs:95
 msgid "Error when reading the song history on the disk:"
@@ -579,9 +579,6 @@ msgstr ""
 
 #~ msgid "_Open"
 #~ msgstr "_開く"
-
-#~ msgid "_Cancel"
-#~ msgstr "_キャンセル"
 
 #~ msgid "Couldn't get filename"
 #~ msgstr "ファイル名を取得できませんでした"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: SongRec v0.6.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-27 20:20+0200\n"
+"POT-Creation-Date: 2026-08-11 14:04+0200\n"
 "PO-Revision-Date: 2026-06-28 00:30+0000\n"
 "Last-Translator: Jozef Gaal <preklady@mayday.sk>\n"
 "Language-Team: Slovak <https://weblate.fossplant.re/projects/songrec/songrec/"
@@ -260,8 +260,8 @@ msgid "_Yes"
 msgstr "_Áno"
 
 #: src/gui/main_window.rs:1127
-msgid "_No"
-msgstr "_Nie"
+msgid "_Cancel"
+msgstr "_Zrušiť"
 
 #: src/gui/song_history_interface.rs:95
 msgid "Error when reading the song history on the disk:"
@@ -601,6 +601,9 @@ msgstr "Okno obľúbených položiek v aplikácii SongRec"
 msgid "SongRec's main window, on GNOME in dark mode"
 msgstr "Hlavné okno aplikácie SongRec v prostredí GNOME v tmavom režime"
 
+#~ msgid "_No"
+#~ msgstr "_Nie"
+
 #~ msgid ""
 #~ "By default the last 12 seconds of music are fingerprinted and sent to "
 #~ "Shazam. Editing may have an impact on reliability"
@@ -637,9 +640,6 @@ msgstr "Hlavné okno aplikácie SongRec v prostredí GNOME v tmavom režime"
 
 #~ msgid "_Open"
 #~ msgstr "_Otvoriť"
-
-#~ msgid "_Cancel"
-#~ msgstr "_Zrušiť"
 
 #~ msgid "Couldn't get filename"
 #~ msgstr "Nepodarilo sa získať názov súboru"

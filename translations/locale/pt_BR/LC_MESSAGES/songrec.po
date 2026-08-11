@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: SongRec\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-27 20:20+0200\n"
+"POT-Creation-Date: 2026-08-11 14:04+0200\n"
 "PO-Revision-Date: 2026-05-11 12:15+0000\n"
 "Last-Translator: marcelo cripe <marcelocripe@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://weblate.fossplant.re/projects/"
@@ -290,8 +290,8 @@ msgid "_Yes"
 msgstr "_Sim"
 
 #: src/gui/main_window.rs:1127
-msgid "_No"
-msgstr "_Não"
+msgid "_Cancel"
+msgstr "_Cancelar"
 
 #: src/gui/song_history_interface.rs:95
 msgid "Error when reading the song history on the disk:"
@@ -653,6 +653,9 @@ msgstr ""
 "Janela principal do SongRec no ambiente de área de trabalho GNOME com o modo "
 "escuro"
 
+#~ msgid "_No"
+#~ msgstr "_Não"
+
 #~ msgid ""
 #~ "By default the last 12 seconds of music are fingerprinted and sent to "
 #~ "Shazam. Editing may have an impact on reliability"
@@ -701,9 +704,6 @@ msgstr ""
 
 #~ msgid "_Open"
 #~ msgstr "_Abrir"
-
-#~ msgid "_Cancel"
-#~ msgstr "_Cancelar"
 
 #~ msgid "Couldn't get filename"
 #~ msgstr "Não foi possível obter o nome do arquivo"

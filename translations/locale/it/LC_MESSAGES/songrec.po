@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-27 20:20+0200\n"
+"POT-Creation-Date: 2026-08-11 14:04+0200\n"
 "PO-Revision-Date: 2023-09-08 16:03+0200\n"
 "Last-Translator: Gianluca Boiano <morf3089@gmail.com>\n"
 "Language-Team: Albano Battistella  <albano_battistella@hotmail.com>\n"
@@ -258,8 +258,8 @@ msgid "_Yes"
 msgstr "_Sì"
 
 #: src/gui/main_window.rs:1127
-msgid "_No"
-msgstr "_No"
+msgid "_Cancel"
+msgstr "A_nnulla"
 
 #: src/gui/song_history_interface.rs:95
 msgid "Error when reading the song history on the disk:"
@@ -581,6 +581,9 @@ msgstr ""
 msgid "SongRec's main window, on GNOME in dark mode"
 msgstr ""
 
+#~ msgid "_No"
+#~ msgstr "_No"
+
 #~ msgid "Using device"
 #~ msgstr "Dispositivo in uso"
 
@@ -607,9 +610,6 @@ msgstr ""
 
 #~ msgid "_Open"
 #~ msgstr "_Apri"
-
-#~ msgid "_Cancel"
-#~ msgstr "A_nnulla"
 
 #~ msgid "Couldn't get filename"
 #~ msgstr "Impossibile ottenere il nome del file"
