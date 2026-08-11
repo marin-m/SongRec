@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-27 20:20+0200\n"
+"POT-Creation-Date: 2026-08-11 14:04+0200\n"
 "PO-Revision-Date: 2021-12-26 11:36+0100\n"
 "Last-Translator: Rafał Mikrut <qarminkrut@gmail.com>\n"
 "Language-Team: \n"
@@ -250,8 +250,8 @@ msgid "_Yes"
 msgstr ""
 
 #: src/gui/main_window.rs:1127
-msgid "_No"
-msgstr ""
+msgid "_Cancel"
+msgstr "_Wyjdź"
 
 #: src/gui/song_history_interface.rs:95
 msgid "Error when reading the song history on the disk:"
@@ -596,9 +596,6 @@ msgstr ""
 
 #~ msgid "_Open"
 #~ msgstr "_Otwórz"
-
-#~ msgid "_Cancel"
-#~ msgstr "_Wyjdź"
 
 #~ msgid "Couldn't get filename"
 #~ msgstr "Nie można uzyskać nazwy pliku"

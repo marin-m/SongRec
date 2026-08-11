@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-27 20:20+0200\n"
+"POT-Creation-Date: 2026-08-11 14:04+0200\n"
 "PO-Revision-Date: 2026-03-09 12:56+0000\n"
 "Last-Translator: Mu7ammed Basha "
 "<mu7basha@users.noreply.weblate.fossplant.re>\n"
@@ -253,8 +253,8 @@ msgid "_Yes"
 msgstr "_نعم"
 
 #: src/gui/main_window.rs:1127
-msgid "_No"
-msgstr "_لا"
+msgid "_Cancel"
+msgstr ""
 
 #: src/gui/song_history_interface.rs:95
 msgid "Error when reading the song history on the disk:"
@@ -582,6 +582,9 @@ msgstr ""
 #: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:33
 msgid "SongRec's main window, on GNOME in dark mode"
 msgstr ""
+
+#~ msgid "_No"
+#~ msgstr "_لا"
 
 #~ msgid ""
 #~ "By default the last 12 seconds of music are fingerprinted and sent to "

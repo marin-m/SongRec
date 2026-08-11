@@ -1119,13 +1119,18 @@ impl App {
                             let dialog = adw::AlertDialog::builder()
                                 .body(gettext("Are you sure you want to wipe history?"))
                                 .default_response("yes")
-                                .close_response("no")
+                                .close_response("cancel")
                                 .build();
 
                             dialog.add_responses(&[
                                 ("yes", &gettext("_Yes")),
-                                ("no", &gettext("_No")),
+                                ("cancel", &gettext("_Cancel")),
                             ]);
+
+                            dialog.set_response_appearance(
+                                "yes",
+                                adw::ResponseAppearance::Destructive,
+                            );
 
                             let song_history_interface = song_history_interface.clone();
                             dialog.choose(

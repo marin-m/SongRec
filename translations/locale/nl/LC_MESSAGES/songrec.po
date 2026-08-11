@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-27 20:20+0200\n"
+"POT-Creation-Date: 2026-08-11 14:04+0200\n"
 "PO-Revision-Date: 2026-03-09 02:16+0000\n"
 "Last-Translator: Marin <25437947+marin-m@users.noreply.github.com>\n"
 "Language-Team: Dutch <https://weblate.fossplant.re/projects/songrec/songrec/"
@@ -256,8 +256,8 @@ msgid "_Yes"
 msgstr "_Ja"
 
 #: src/gui/main_window.rs:1127
-msgid "_No"
-msgstr "_Nee"
+msgid "_Cancel"
+msgstr "_Annuleren"
 
 #: src/gui/song_history_interface.rs:95
 msgid "Error when reading the song history on the disk:"
@@ -589,6 +589,9 @@ msgstr ""
 msgid "SongRec's main window, on GNOME in dark mode"
 msgstr ""
 
+#~ msgid "_No"
+#~ msgstr "_Nee"
+
 #~ msgid ""
 #~ "By default the last 12 seconds of music are fingerprinted and sent to "
 #~ "Shazam. Editing may have an impact on reliability"
@@ -625,9 +628,6 @@ msgstr ""
 
 #~ msgid "_Open"
 #~ msgstr "_Openen"
-
-#~ msgid "_Cancel"
-#~ msgstr "_Annuleren"
 
 #~ msgid "Couldn't get filename"
 #~ msgstr "De bestandsnaam kan niet worden bepaald"

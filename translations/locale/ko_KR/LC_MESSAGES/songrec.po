@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-27 20:20+0200\n"
+"POT-Creation-Date: 2026-08-11 14:04+0200\n"
 "PO-Revision-Date: 2023-12-30 23:42+0900\n"
 "Last-Translator: 이정희 <daemul72@gmail.com>\n"
 "Language-Team: \n"
@@ -243,8 +243,8 @@ msgid "_Yes"
 msgstr ""
 
 #: src/gui/main_window.rs:1127
-msgid "_No"
-msgstr ""
+msgid "_Cancel"
+msgstr "취소하기(_C)"
 
 #: src/gui/song_history_interface.rs:95
 msgid "Error when reading the song history on the disk:"
@@ -586,9 +586,6 @@ msgstr ""
 
 #~ msgid "_Open"
 #~ msgstr "열기(_O)"
-
-#~ msgid "_Cancel"
-#~ msgstr "취소하기(_C)"
 
 #~ msgid "Couldn't get filename"
 #~ msgstr "파일 이름을 가져올 수 없습니다"
