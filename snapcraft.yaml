@@ -51,8 +51,13 @@ parts:
       - libdrm-common
       - libproxy1v5
   
-    after: [share, alsa-mixin]
-  
+    after: [share, alsa-mixin, rust-deps]
+
+  rust-deps:
+    plugin: nil
+    build-packages:
+      - rustup
+
   translations:
     plugin: dump
     source: translations/
