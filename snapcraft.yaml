@@ -44,7 +44,6 @@ parts:
     source: .
 
     build-packages:
-      - rustup
       - libpipewire-0.3-dev
       - libclang-dev
       - libasound2-dev
