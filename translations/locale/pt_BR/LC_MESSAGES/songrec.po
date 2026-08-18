@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: SongRec\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-11 14:04+0200\n"
+"POT-Creation-Date: 2026-08-18 04:28+0200\n"
 "PO-Revision-Date: 2026-08-17 11:36+0000\n"
 "Last-Translator: marcelo cripe <marcelocripe@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://weblate.fossplant.re/projects/"
@@ -309,11 +309,11 @@ msgstr "Abrir o SongRec"
 msgid "Quit..."
 msgstr "Sair..."
 
-#: packaging/freedesktop/re.fossplant.songrec.desktop.in:15
+#: packaging/freedesktop/re.fossplant.songrec.desktop.in:16
 msgid "SongRec"
 msgstr "Identificador de Músicas SongRec"
 
-#: packaging/freedesktop/re.fossplant.songrec.desktop.in:17
+#: packaging/freedesktop/re.fossplant.songrec.desktop.in:18
 msgid "An open-source Shazam client for Linux, written in Rust"
 msgstr ""
 "O ‘SongRec’ é um identificador de músicas gratuito e de código aberto para o "
@@ -321,7 +321,7 @@ msgstr ""
 "programação ‘Rust’, permite identificar facilmente as músicas a partir dos "
 "seus alto-falantes, microfone ou arquivos de áudio."
 
-#: packaging/freedesktop/re.fossplant.songrec.desktop.in:19
+#: packaging/freedesktop/re.fossplant.songrec.desktop.in:20
 msgid "Rust;GTK;Shazam;Client;Audio;Song;Recognition;Fingerprinting;"
 msgstr ""
 "Rust;GTK;Shazam;Cliente;Áudio;Som;Música;Trilha;Faixa;Identificador;Identificação;Identificar;Reconhecimento;Reconhecer;Detecção;Detectar;Descoberta;Descobrir;Impressão "
