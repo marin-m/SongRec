@@ -56,7 +56,8 @@ parts:
   rust-deps:
     plugin: nil
     build-packages:
-      - rustup
+      - cargo
+      - rustc
 
   translations:
     plugin: dump
