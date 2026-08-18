@@ -1,3 +1,13 @@
+songrec (0.7.5) bionic; urgency=low
+
+  * Update .desktop file in order to list SongRec in the Phosh app store (#337)
+  * Use AdwShortcutsDialog instead of GtkShortcutsWindow for displaying the shortcuts dialog (#274)
+  * Move target to libadwaita 1.8 on compatible platforms (#274)
+  * Improve UX when deleting history (PR #334 thanks to @linkmauve)
+  * Update translations (thanks to @marcelocripe, @Abrifq, @dodog)
+
+ -- Marin <marin-m@users.noreply.github.com>  Tue, 18 Aug 2026 05:17:20 +0200
+
 songrec (0.7.4) bionic; urgency=low
 
   * Fix the request interval UI setting not being saved (#321)

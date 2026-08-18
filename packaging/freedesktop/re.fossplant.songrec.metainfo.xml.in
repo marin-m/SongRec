@@ -58,6 +58,17 @@ https://hughsie.github.io/oars/index.html
 -->
   <content_rating type="oars-1.1"/>
   <releases>
+    <release version="0.7.5" date="2026-08-18">
+      <description>
+        <ul>
+          <li>Update .desktop file in order to list SongRec in the Phosh app store (#337)</li>
+          <li>Use AdwShortcutsDialog instead of GtkShortcutsWindow for displaying the shortcuts dialog (#274)</li>
+          <li>Move target to libadwaita 1.8 on compatible platforms (#274)</li>
+          <li>Improve UX when deleting history (PR #334 thanks to @linkmauve)</li>
+          <li>Update translations (thanks to @marcelocripe, @Abrifq, @dodog)</li>
+        </ul>
+      </description>
+    </release>
     <release version="0.7.4" date="2026-06-14">
       <description>
         <ul>
