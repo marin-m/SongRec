@@ -13,6 +13,22 @@ use crate::core::fingerprinting::signature_format::{
 #[cfg(feature = "ffmpeg")]
 use crate::plugins::ffmpeg_wrapper::decode_with_ffmpeg;
 
+/// Collect decoded samples without trusting the iterator's `size_hint()`.
+///
+/// Rodio's WAV decoder (at least up to 0.22.2) keeps incrementing its read
+/// counter when polled past EOF, which the resampler does, so its `size_hint()`
+/// underflows to ~2^32 right at the end of the stream. `collect()` and
+/// `extend()` reserve from that hint, and a file whose length makes the `Vec`
+/// reallocate at that moment aborts with a ~5.7 GB allocation request.
+/// Pushing one by one only relies on the `Vec`'s own amortized growth.
+fn collect_samples<I: Iterator<Item = f32>>(samples: I) -> Vec<f32> {
+    let mut buffer = Vec::new();
+    for sample in samples {
+        buffer.push(sample);
+    }
+    buffer
+}
+
 pub struct SignatureGenerator {
     // Used when processing input:
     /// Ring buffer.
@@ -72,7 +88,7 @@ impl SignatureGenerator {
         let converted_file =
             rodio::source::UniformSourceIterator::new(decoder?, nz!(1), nz!(16000));
 
-        let mut raw_pcm_samples: Vec<f32> = converted_file.collect();
+        let mut raw_pcm_samples: Vec<f32> = collect_samples(converted_file);
 
         // Pad the input to at least 12 seconds in order to avoid missing data
         // at the end of the input
@@ -318,5 +334,53 @@ impl SignatureGenerator {
                 }
             }
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn write_mono_48khz_wav(path: &std::path::Path, num_samples: u32) {
+        let data_len = num_samples * 2;
+        let mut bytes = Vec::with_capacity(44 + data_len as usize);
+        bytes.extend_from_slice(b"RIFF");
+        bytes.extend_from_slice(&(36 + data_len).to_le_bytes());
+        bytes.extend_from_slice(b"WAVEfmt ");
+        bytes.extend_from_slice(&16u32.to_le_bytes());
+        bytes.extend_from_slice(&1u16.to_le_bytes()); // PCM
+        bytes.extend_from_slice(&1u16.to_le_bytes()); // Mono
+        bytes.extend_from_slice(&48000u32.to_le_bytes());
+        bytes.extend_from_slice(&(48000u32 * 2).to_le_bytes());
+        bytes.extend_from_slice(&2u16.to_le_bytes());
+        bytes.extend_from_slice(&16u16.to_le_bytes());
+        bytes.extend_from_slice(b"data");
+        bytes.extend_from_slice(&data_len.to_le_bytes());
+        for index in 0..num_samples {
+            bytes.extend_from_slice(&((index % 200) as i16 * 100).to_le_bytes());
+        }
+        std::fs::write(path, bytes).unwrap();
+    }
+
+    fn uniform_source(path: &std::path::Path) -> impl Iterator<Item = f32> {
+        let decoder = rodio::Decoder::new(BufReader::new(std::fs::File::open(path).unwrap()));
+        rodio::source::UniformSourceIterator::new(decoder.unwrap(), nz!(1), nz!(16000))
+    }
+
+    #[test]
+    fn collecting_samples_does_not_trust_size_hint() {
+        let path = std::env::temp_dir().join(format!("songrec-test-{}.wav", std::process::id()));
+
+        // Cover every residue of the 3:1 resampling ratio around a few lengths,
+        // including 474067 samples which made collect() request 5727255148 bytes
+        for num_samples in (47990..48010).chain(96000..96010).chain(474060..474070) {
+            write_mono_48khz_wav(&path, num_samples);
+
+            let samples = collect_samples(uniform_source(&path));
+            assert!(samples.len() <= num_samples as usize / 3 + 2);
+            assert!(samples.capacity() <= 2 * (num_samples as usize / 3 + 2));
+        }
+
+        let _ = std::fs::remove_file(&path);
     }
 }
