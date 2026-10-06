@@ -72,7 +72,7 @@ parts:
     source-type: local
 
     override-pull: |
-      snapcraftctl pull
+      craftctl default
 
       mkdir -p bin/translations
       rm -rf bin/translations/locale
@@ -85,7 +85,7 @@ parts:
     source-type: local
 
     override-pull: |
-      snapcraftctl pull
+      craftctl default
 
       mkdir -p bin
       if [ "$SNAP_ARCH" == "amd64" ]; then
@@ -103,7 +103,7 @@ parts:
     source-type: local
 
     override-pull: |
-      snapcraftctl pull
+      craftctl default
 
       # Point icon to the correct location
       mv usr/share/applications/re.fossplant.songrec.desktop usr/share/applications/com.github.marinm.songrec.desktop
