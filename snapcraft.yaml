@@ -49,7 +49,6 @@ parts:
       - libasound2-dev
     stage-packages:
       - libdrm-common
-      - libproxy1v5
   
     after: [share, alsa-mixin, rust-deps]
 
@@ -132,8 +131,6 @@ parts:
       - usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/pulseaudio
 
 layout:
-  /usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libproxy:
-    bind: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libproxy
   /usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/alsa-lib:
     bind: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/alsa-lib
   /usr/share/alsa:
