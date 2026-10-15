@@ -5,8 +5,8 @@
   <project_license>GPL-3.0+</project_license>
   <name>SongRec</name>
   <branding>
-    <color type="primary" scheme_preference="light">#DCB3E7</color>
-    <color type="primary" scheme_preference="dark">#664D96</color>
+    <color type="primary" scheme_preference="light">#F5EEFF</color>
+    <color type="primary" scheme_preference="dark">#270064</color>
   </branding>
   <summary>Recognize songs from audio easily</summary>
   <description>
