@@ -57,7 +57,9 @@ pub fn setup_internationalization() -> Option<PathBuf> {
         warn!("Failed to run bind_textdomain_codeset: {:?}", error);
     }
 
-    setlocale(LocaleCategory::LcAll, "");
+    unsafe {
+        setlocale(LocaleCategory::LcAll, "");
+    }
 
     if translations_path.is_dir() {
         Some(translations_path)
