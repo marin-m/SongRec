@@ -131,7 +131,9 @@ source $HOME/.cargo/env
 rustup update
 ```
 
-### Install dependent libraries (nothing exotic)
+### Install dependent libraries
+
+As of today, SongRec requires `libadwaita` 1.8 or higher to build the GUI.
 
 Debian and Ubuntu:
 

@@ -1,3 +1,10 @@
+songrec (0.7.6) bionic; urgency=low
+
+  * Add a fix for a case that produced very large memory allocations when recognizing songs from a file (PR #341 thanks to @SepiRosho)
+  * Update Snap compatibility to use the core26 runtime for supporting Adwaita 1.8
+
+ -- Marin <marin-m@users.noreply.github.com>  Tue, 15 Oct 2026 09:36:04 +0200
+
 songrec (0.7.5) bionic; urgency=low
 
   * Update .desktop file in order to list SongRec in the Phosh app store (#337)
