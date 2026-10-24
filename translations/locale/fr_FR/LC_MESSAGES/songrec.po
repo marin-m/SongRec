@@ -553,7 +553,7 @@ msgstr "Afficher le menu"
 
 #: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:11
 msgid "Recognize songs from audio easily"
-msgstr "Reconnaître de la musique à partir d'audio facilement"
+msgstr "Identifier des chansons à partir d'audio facilement"
 
 #: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:13
 msgid ""
@@ -562,7 +562,7 @@ msgid ""
 msgstr ""
 "SongRec est un client Shazam non-officiel pour Linux, écrit en Rust. Il vous "
 "permet de reconnaître facilement des chansons à partir de vos hauts-"
-"parleurs, microphones ou fichiers audio."
+"parleurs, d'un microphone ou de fichiers audio."
 
 #: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:14
 msgid "Features:"

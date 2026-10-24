@@ -13,7 +13,7 @@
   <summary xml:lang="sk">Ľahko rozpoznávajte skladby zo zvukových záznamov</summary>
   <summary xml:lang="ru">Легко распознавать песни по аудиозаписям</summary>
   <summary xml:lang="pt">Identificar facilmente as músicas a partir do áudio</summary>
-  <summary xml:lang="fr">Reconnaître de la musique à partir d'audio facilement</summary>
+  <summary xml:lang="fr">Identifier des chansons à partir d'audio facilement</summary>
   <summary xml:lang="cs">Jednoduché rozpoznávání skladeb ze zvuku</summary>
   <description>
     <p>SongRec is an unofficial Shazam client for Linux, written in Rust. It allows you to easily recognize songs from your speakers, microphone or audio files.</p>
@@ -21,7 +21,7 @@
     <p xml:lang="sk">SongRec je neoficiálny klient pre Shazam určený pre Linux, napísaný v jazyku Rust. Umožňuje vám jednoducho rozpoznávať skladby z reproduktorov, mikrofónu alebo zvukových súborov.</p>
     <p xml:lang="ru">SongRec - это неофициальный клиент Shazam для Linux, написанный на Rust. Он позволяет вам легко распознавать песни из ваших динамиков, микрофона или аудиофайлов.</p>
     <p xml:lang="pt">O ‘SongRec’ é um identificador de músicas gratuito e de código aberto para o GNU/Linux, semelhante ao ‘Shazam’, que foi escrito com a linguagem de programação ‘Rust’, permite identificar facilmente as músicas a partir dos seus alto-falantes, microfone ou arquivos de áudio.</p>
-    <p xml:lang="fr">SongRec est un client Shazam non-officiel pour Linux, écrit en Rust. Il vous permet de reconnaître facilement des chansons à partir de vos hauts-parleurs, microphones ou fichiers audio.</p>
+    <p xml:lang="fr">SongRec est un client Shazam non-officiel pour Linux, écrit en Rust. Il vous permet de reconnaître facilement des chansons à partir de vos hauts-parleurs, d'un microphone ou de fichiers audio.</p>
     <p xml:lang="cs">SongRec je neoficiální Shazam klient pro Linux, napsaný v Rustu. Umožňuje jednoduché rozpoznávání skladeb z vašich reproduktorů, mikrofonu nebo zvukových souborů.</p>
     <p>Features:</p>
     <p xml:lang="tr">Özellikler:</p>
