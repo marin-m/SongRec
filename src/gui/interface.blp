@@ -418,6 +418,13 @@ Adw.ApplicationWindow main_window {
               title: _("Minimize to system tray");
               visible: false;
             }
+
+            Adw.SwitchRow autostart_setting {
+              action-name: "win.autostart-setting";
+              subtitle: _("Launch SongRec minimized in the background when launching your desktop session.");
+              title: _("Launch at startup");
+              visible: false;
+            }
           }
 
           Adw.PreferencesGroup network_preferences {
