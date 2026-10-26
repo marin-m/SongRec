@@ -1,7 +1,8 @@
 use adw::prelude::*;
+use ashpd::desktop::background::BackgroundProxy;
 use chrono::Local;
 use gettextrs::gettext;
-use log::{debug, error, info, trace};
+use log::{debug, error, info, trace, warn};
 #[cfg(all(target_os = "linux", feature = "mpris"))]
 use mpris_server::PlaybackStatus;
 use percent_encoding::{NON_ALPHANUMERIC, utf8_percent_encode};
@@ -61,6 +62,8 @@ struct App {
 
     ctx_selected_item: Rc<RefCell<Option<HistoryEntry>>>,
     ctx_buffered_log: Rc<RefCell<String>>,
+    #[cfg(target_os = "linux")]
+    ctx_background_handle: Rc<RefCell<Option<BackgroundProxy>>>,
     #[cfg(target_os = "linux")]
     ctx_systray_handle: Rc<RefCell<Option<ksni::Handle<SystrayInterface>>>>,
     ctx_logger_source_id: Rc<RefCell<Option<glib::source::SourceId>>>,
@@ -148,6 +151,8 @@ impl App {
             preferences_interface,
             old_preferences,
 
+            #[cfg(target_os = "linux")]
+            ctx_background_handle: Rc::new(RefCell::new(None)),
             #[cfg(target_os = "linux")]
             ctx_systray_handle: Rc::new(RefCell::new(None)),
 
@@ -319,11 +324,32 @@ impl App {
             enable_pipewire_cli,
         );
         self.setup_actions(application, enable_mpris_cli);
-        /* #[cfg(target_os = "linux")]
+        #[cfg(target_os = "linux")]
         {
-            let window: adw::ApplicationWindow = self.builder.object("main_window").unwrap();
-            Self::setup_background(XX, window); // ⚠️ TODO?
-        } */
+            let background_enabled = self.old_preferences.enable_background == Some(true);
+            let _window: adw::ApplicationWindow = self.builder.object("main_window").unwrap();
+            let background_setting: adw::SwitchRow =
+                self.builder.object("background_setting").unwrap();
+            let ctx_background_handle = self.ctx_background_handle.clone();
+            glib::spawn_future_local(async move {
+                match BackgroundProxy::new().await {
+                    Ok(background_proxy) => {
+                        debug!(
+                            "Background portal is reachable: version {}",
+                            background_proxy.version()
+                        );
+                        *ctx_background_handle.borrow_mut() = Some(background_proxy);
+                        background_setting.set_visible(true);
+                        if background_enabled {
+                            // Self::setup_background(XX, window); // ⚠️ TODO?
+                        }
+                    }
+                    Err(error) => {
+                        warn!("Background portal is not reachable: {}", error);
+                    }
+                };
+            });
+        }
         #[cfg(target_os = "linux")]
         if self.old_preferences.enable_systray == Some(true) {
             let window: adw::ApplicationWindow = self.builder.object("main_window").unwrap();
@@ -746,9 +772,6 @@ impl App {
 
         let old_device_name = self.old_preferences.current_device_name.clone();
 
-        /* #[cfg(target_os = "linux")]
-        let background_setting: adw::SwitchRow = self.builder.object("background_setting").unwrap(); */
-
         #[cfg(target_os = "linux")]
         let systray_setting: adw::SwitchRow = self.builder.object("systray_setting").unwrap();
 
@@ -771,12 +794,6 @@ impl App {
         let results_image: gtk::Image = self.builder.object("results_image").unwrap();
         let results_label: gtk::Label = self.builder.object("results_label").unwrap();
         let loopback_switch: adw::SwitchRow = self.builder.object("loopback_switch").unwrap();
-
-        /* #[cfg(target_os = "linux")]
-        if XX {
-            // ⚠️ TODO
-            background_setting.set_visible(XY);
-        } */
 
         #[cfg(target_os = "linux")]
         systray_setting.set_visible(true);
