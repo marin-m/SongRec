@@ -429,7 +429,6 @@ impl App {
                 }
             } else if !systray_enabled {
                 if let Some(handle) = ctx_systray_handle.take() {
-                    window.set_hide_on_close(false);
                     *ctx_systray_handle.borrow_mut() = None;
                     SystrayInterface::disable(&handle).await;
                 }
@@ -1499,6 +1498,7 @@ impl App {
             let ctx_background_handle = self.ctx_background_handle.clone();
             let background_setting: adw::SwitchRow =
                 self.builder.object("background_setting").unwrap();
+            let systray_setting: adw::SwitchRow = self.builder.object("systray_setting").unwrap();
 
             gio::ActionEntry::builder("background-setting")
                 .state(self.old_preferences.enable_background.unwrap().to_variant())
@@ -1512,7 +1512,7 @@ impl App {
                         let background_setting = background_setting.clone();
                         let ctx_systray_handle = ctx_systray_handle.clone();
                         let ctx_background_handle = ctx_background_handle.clone();
-                        let systray_enabled = background_setting.is_active();
+                        let systray_enabled = systray_setting.is_active();
 
                         Self::setup_background(
                             new_state,
