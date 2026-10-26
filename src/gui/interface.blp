@@ -288,6 +288,17 @@ Adw.ApplicationWindow main_window {
             tooltip-text: _("Application menu");
           }
         }
+
+        [bottom]
+        ActionBar {
+          visible: false;
+
+          Button {
+            action-name: "navigation.push";
+            action-target: "\"settings_tag\"";
+            label: "DEBUG: Show preferences";
+          }
+        }
       };
 
       title: "SongRec";
@@ -388,6 +399,15 @@ Adw.ApplicationWindow main_window {
                 "Bump a song to the top of the history list and remove the former entry when the same song is detected multiple times"
               );
               title: _("No duplicates in history");
+            }
+
+            Adw.SwitchRow background_setting {
+              action-name: "win.background-setting";
+              subtitle: _(
+                "When closing the window, minimize to background (as visible under the system menu on GNOME) instead of closing the app."
+              );
+              title: _("Minimize to background");
+              visible: false;
             }
 
             Adw.SwitchRow systray_setting {

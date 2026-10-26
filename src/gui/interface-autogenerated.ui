@@ -344,6 +344,18 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
                     </child>
                   </object>
                 </child>
+                <child type="bottom">
+                  <object class="GtkActionBar">
+                    <property name="visible">false</property>
+                    <child>
+                      <object class="GtkButton">
+                        <property name="action-name">navigation.push</property>
+                        <property name="action-target">"settings_tag"</property>
+                        <property name="label">DEBUG: Show preferences</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
               </object>
             </property>
             <property name="title">SongRec</property>
@@ -457,6 +469,14 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
                             <property name="action-name">win.no-dupes-setting</property>
                             <property name="subtitle" translatable="yes">Bump a song to the top of the history list and remove the former entry when the same song is detected multiple times</property>
                             <property name="title" translatable="yes">No duplicates in history</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="AdwSwitchRow" id="background_setting">
+                            <property name="action-name">win.background-setting</property>
+                            <property name="subtitle" translatable="yes">When closing the window, minimize to background (as visible under the system menu on GNOME) instead of closing the app.</property>
+                            <property name="title" translatable="yes">Minimize to background</property>
+                            <property name="visible">false</property>
                           </object>
                         </child>
                         <child>

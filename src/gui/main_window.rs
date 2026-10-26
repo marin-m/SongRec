@@ -319,6 +319,11 @@ impl App {
             enable_pipewire_cli,
         );
         self.setup_actions(application, enable_mpris_cli);
+        /* #[cfg(target_os = "linux")]
+        {
+            let window: adw::ApplicationWindow = self.builder.object("main_window").unwrap();
+            Self::setup_background(XX, window); // ⚠️ TODO?
+        } */
         #[cfg(target_os = "linux")]
         if self.old_preferences.enable_systray == Some(true) {
             let window: adw::ApplicationWindow = self.builder.object("main_window").unwrap();
@@ -741,6 +746,9 @@ impl App {
 
         let old_device_name = self.old_preferences.current_device_name.clone();
 
+        /* #[cfg(target_os = "linux")]
+        let background_setting: adw::SwitchRow = self.builder.object("background_setting").unwrap(); */
+
         #[cfg(target_os = "linux")]
         let systray_setting: adw::SwitchRow = self.builder.object("systray_setting").unwrap();
 
@@ -763,6 +771,12 @@ impl App {
         let results_image: gtk::Image = self.builder.object("results_image").unwrap();
         let results_label: gtk::Label = self.builder.object("results_label").unwrap();
         let loopback_switch: adw::SwitchRow = self.builder.object("loopback_switch").unwrap();
+
+        /* #[cfg(target_os = "linux")]
+        if XX {
+            // ⚠️ TODO
+            background_setting.set_visible(XY);
+        } */
 
         #[cfg(target_os = "linux")]
         systray_setting.set_visible(true);
@@ -1419,6 +1433,32 @@ impl App {
 
         let _gui_tx = self.gui_tx.clone();
         #[cfg(target_os = "linux")]
+        let action_background_setting = gio::ActionEntry::builder("background-setting")
+            .state(self.old_preferences.enable_background.unwrap().to_variant())
+            .activate(
+                move |_window: &adw::ApplicationWindow, action: &gio::SimpleAction, _| {
+                    let state = action.state().unwrap();
+                    let action_state: bool = state.get().unwrap();
+                    let new_state = !action_state; // toggle
+                    action.set_state(&new_state.to_variant());
+
+                    /* if new_state {
+                        Self::setup_background(XX);
+                    } else {
+                        Self::unsetup_background(XX); // ⚠️ WIP
+                    } */
+
+                    let mut new_preference: Preferences = Preferences::new();
+                    new_preference.enable_background = Some(new_state);
+                    _gui_tx
+                        .try_send(GUIMessage::UpdatePreference(new_preference))
+                        .unwrap();
+                },
+            )
+            .build();
+
+        let _gui_tx = self.gui_tx.clone();
+        #[cfg(target_os = "linux")]
         let ctx_systray_handle = self.ctx_systray_handle.clone();
 
         #[cfg(target_os = "linux")]
@@ -1503,6 +1543,8 @@ impl App {
             action_wipe_history,
             action_show_preferences,
             action_notification_setting,
+            #[cfg(target_os = "linux")]
+            action_background_setting,
             #[cfg(target_os = "linux")]
             action_systray_setting,
             action_no_dupes_setting,
