@@ -329,21 +329,19 @@ impl App {
             let background_enabled = self.old_preferences.enable_background == Some(true);
             let systray_enabled = self.old_preferences.enable_systray == Some(true);
 
-            if background_enabled || systray_enabled {
-                let window: adw::ApplicationWindow = self.builder.object("main_window").unwrap();
-                let background_setting: adw::SwitchRow =
-                    self.builder.object("background_setting").unwrap();
+            let window: adw::ApplicationWindow = self.builder.object("main_window").unwrap();
+            let background_setting: adw::SwitchRow =
+                self.builder.object("background_setting").unwrap();
 
-                Self::setup_background(
-                    background_enabled,
-                    systray_enabled,
-                    self.ctx_systray_handle.clone(),
-                    self.ctx_background_handle.clone(),
-                    window,
-                    background_setting,
-                    self.gui_tx.clone(),
-                );
-            }
+            Self::setup_background(
+                background_enabled,
+                systray_enabled,
+                self.ctx_systray_handle.clone(),
+                self.ctx_background_handle.clone(),
+                window,
+                background_setting,
+                self.gui_tx.clone(),
+            );
         }
         self.setup_context_menus();
         self.update_website_search_text();
@@ -368,8 +366,14 @@ impl App {
                             "Background portal is reachable: version {}",
                             background_proxy.version()
                         );
-                        *ctx_background_handle.borrow_mut() = Some(background_proxy);
-                        background_setting.set_visible(true);
+                        let options = ashpd::desktop::background::SetStatusOptions::default()
+                            .set_message(&gettext("Recognizing songs"));
+                        if let Err(error) = background_proxy.set_status(options).await {
+                            warn!("Error setting background status: {:?}", error);
+                        } else {
+                            background_setting.set_visible(true);
+                            *ctx_background_handle.borrow_mut() = Some(background_proxy);
+                        }
                     }
                     Err(error) => {
                         warn!("Background portal is not reachable: {:?}", error);
@@ -379,12 +383,15 @@ impl App {
 
             if let Some(ref background_proxy) = *ctx_background_handle.borrow() {
                 if background_enabled {
+                    let window_id =
+                        ashpd::WindowIdentifier::from_native(&window.native().unwrap()).await;
+                    info!("Window ID: {:?}", window_id);
+
                     match background_proxy
                         .request_background(
-                            ashpd::WindowIdentifier::from_native(&window.native().unwrap())
-                                .await
-                                .as_ref(),
-                            BackgroundRequestOptions::default(),
+                            window_id.as_ref(),
+                            BackgroundRequestOptions::default()
+                                .set_reason(&*gettext("Recognizing songs")),
                         )
                         .await
                     {
