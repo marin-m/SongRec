@@ -13,6 +13,7 @@
   <summary xml:lang="sk">Ľahko rozpoznávajte skladby zo zvukových záznamov</summary>
   <summary xml:lang="ru">Легко распознавать песни по аудиозаписям</summary>
   <summary xml:lang="pt">Identificar facilmente as músicas a partir do áudio</summary>
+  <summary xml:lang="it">Riconosci facilmente i brani dall'audio</summary>
   <summary xml:lang="fr">Identifier des chansons à partir d'audio facilement</summary>
   <summary xml:lang="cs">Jednoduché rozpoznávání skladeb ze zvuku</summary>
   <description>
@@ -21,6 +22,7 @@
     <p xml:lang="sk">SongRec je neoficiálny klient pre Shazam určený pre Linux, napísaný v jazyku Rust. Umožňuje vám jednoducho rozpoznávať skladby z reproduktorov, mikrofónu alebo zvukových súborov.</p>
     <p xml:lang="ru">SongRec - это неофициальный клиент Shazam для Linux, написанный на Rust. Он позволяет вам легко распознавать песни из ваших динамиков, микрофона или аудиофайлов.</p>
     <p xml:lang="pt">O ‘SongRec’ é um identificador de músicas gratuito e de código aberto para o GNU/Linux, semelhante ao ‘Shazam’, que foi escrito com a linguagem de programação ‘Rust’, permite identificar facilmente as músicas a partir dos seus alto-falantes, microfone ou arquivos de áudio.</p>
+    <p xml:lang="it">SongRec è un client non ufficiale di Shazam per Linux, scritto in Rust. Consente di riconoscere facilmente i brani provenienti dagli altoparlanti, dal microfono o da file audio.</p>
     <p xml:lang="fr">SongRec est un client Shazam non-officiel pour Linux, écrit en Rust. Il vous permet de reconnaître facilement des chansons à partir de vos hauts-parleurs, d'un microphone ou de fichiers audio.</p>
     <p xml:lang="cs">SongRec je neoficiální Shazam klient pro Linux, napsaný v Rustu. Umožňuje jednoduché rozpoznávání skladeb z vašich reproduktorů, mikrofonu nebo zvukových souborů.</p>
     <p>Features:</p>
@@ -28,6 +30,7 @@
     <p xml:lang="sk">Funkcie:</p>
     <p xml:lang="ru">Особенности:</p>
     <p xml:lang="pt">As principais características são:</p>
+    <p xml:lang="it">Caratteristiche:</p>
     <p xml:lang="fr">Il vous permet aussi de :</p>
     <p xml:lang="cs">Funkce:</p>
     <p>- Recognize tracks from an arbitrary audio file.</p>
@@ -35,6 +38,7 @@
     <p xml:lang="sk">- Rozpozná zvuk z ľubovoľného zvukového súboru.</p>
     <p xml:lang="ru">- Распознавать треки из произвольного аудиофайла.</p>
     <p xml:lang="pt">- Permite identificar as faixas de áudio a partir de um arquivo qualquer.</p>
+    <p xml:lang="it">- Riconosce i brani a partire da un file audio qualsiasi.</p>
     <p xml:lang="fr">- Reconnaître des chansons à partir d'un fichier audio arbitraire.</p>
     <p xml:lang="cs">- Rozpoznání skladeb ze zvukových souborů.</p>
     <p>- Recognize audio from the microphone.</p>
@@ -42,6 +46,7 @@
     <p xml:lang="sk">- Rozpozná zvuk z mikrofónu.</p>
     <p xml:lang="ru">- Распознавание звука с микрофона.</p>
     <p xml:lang="pt">- Permite identificar o áudio a partir do microfone.</p>
+    <p xml:lang="it">- Riconosce l'audio dal microfono.</p>
     <p xml:lang="fr">- Reconnaître des chansons à partir du microphone.</p>
     <p xml:lang="cs">- Rozpoznávání zvuku z mikrofonu.</p>
     <p>- Usage from both GUI and command line.</p>
@@ -49,6 +54,7 @@
     <p xml:lang="sk">- Použitie prostredníctvom grafického rozhrania a aj z príkazového riadku.</p>
     <p xml:lang="ru">- Использование как из графического интерфейса пользователя, так и из командной строки.</p>
     <p xml:lang="pt">- Permite utilizar o programa tanto por meio da interface gráfica quanto por meio da linha de comando.</p>
+    <p xml:lang="it">- Utilizzo sia tramite interfaccia grafica (GUI) che da riga di comando.</p>
     <p xml:lang="fr">- Utilisable en mode graphique et depuis la ligne de commande.</p>
     <p xml:lang="cs">- Použití z grafického rozhraní i z příkazového řádku.</p>
     <p>- Provide an history of the recognized songs on the GUI, exportable to CSV.</p>
@@ -56,6 +62,7 @@
     <p xml:lang="sk">- Zobrazuje históriu prehrávaných skladieb v grafickom rozhraní, ktorú je možné exportovať do formátu CSV.</p>
     <p xml:lang="ru">- Предоставление истории распознанных песен в графическом интерфейсе пользователя с возможностью экспорта в формат CSV.</p>
     <p xml:lang="pt">- Permite o acesso a um histórico das músicas que foram identificadas por meio da interface gráfica e possibilita a exportação para um arquivo no formato CSV.</p>
+    <p xml:lang="it">- Fornisce una cronologia dei brani riconosciuti nell'interfaccia grafica, esportabile in formato CSV.</p>
     <p xml:lang="fr">- Visualiser un historique des chansons reconnues via l'interface graphique, exportable au format CSV.</p>
     <p xml:lang="cs">- Poskytování historie rozpoznaných skladeb v rozhraní, exportovatelné do souboru CSV.</p>
     <p>- Continuous song detection from the microphone, with the ability to choose your input device.</p>
@@ -63,6 +70,7 @@
     <p xml:lang="sk">- Nepretržité rozpoznávanie piesní z mikrofónu s možnosťou výberu vstupného zariadenia.</p>
     <p xml:lang="ru">- Непрерывное распознавание песен с микрофона с возможностью выбора устройства ввода.</p>
     <p xml:lang="pt">- Permite realizar a identificação contínua das músicas a partir do microfone com a possibilidade de escolher o dispositivo de entrada.</p>
+    <p xml:lang="it">- Rilevamento continuo dei brani tramite il microfono, con la possibilità di scegliere il dispositivo di input.</p>
     <p xml:lang="fr">- Reconnaître en continu de l'audio à partir du microphone, avec la possibilité de choisir votre périphérique d'entrée.</p>
     <p xml:lang="cs">- Průběžná detekce skladeb z mikrofonu, s možností výběru vstupního zařízení.</p>
     <p>- Ability to recognize songs from your speakers rather than your microphone.</p>
@@ -70,6 +78,7 @@
     <p xml:lang="sk">- Schopnosť rozpoznávať skladby z reproduktorov namiesto mikrofónu.</p>
     <p xml:lang="ru">- Способность распознавать песни с ваших колонок, а не из микрофона.</p>
     <p xml:lang="pt">- Permite identificar as músicas a partir das suas caixas de som em vez do seu microfone.</p>
+    <p xml:lang="it">- Capacità di riconoscere i brani provenienti dagli altoparlanti anziché dal microfono.</p>
     <p xml:lang="fr">- Reconnaître les chansons à partir de vos hauts-parleurs plutôt que votre microphone.</p>
     <p xml:lang="cs">- Schopnost rozpoznávat skladby z reproduktorů namísto mikrofonu.</p>
   </description>
@@ -81,6 +90,7 @@
       <caption xml:lang="sk">Hlavné okno aplikácie SongRec</caption>
       <caption xml:lang="ru">Главное окно SongRec</caption>
       <caption xml:lang="pt">Janela principal do SongRec</caption>
+      <caption xml:lang="it">Finestra principale di SongRec</caption>
       <caption xml:lang="fr">La fenêtre principale de SongRec</caption>
       <caption xml:lang="cs">Hlavní okno aplikace SongRec</caption>
     </screenshot>
@@ -91,6 +101,7 @@
       <caption xml:lang="sk">Okno obľúbených položiek v aplikácii SongRec</caption>
       <caption xml:lang="ru">Окно избранных песен SongRec</caption>
       <caption xml:lang="pt">Janela dos favoritos do SongRec</caption>
+      <caption xml:lang="it">Finestra dei preferiti di SongRec</caption>
       <caption xml:lang="fr">La fenêtre des favoris de SongRec</caption>
       <caption xml:lang="cs">Okno oblíbených aplikace SongRec</caption>
     </screenshot>
@@ -101,6 +112,7 @@
       <caption xml:lang="sk">Hlavné okno aplikácie SongRec v prostredí GNOME v tmavom režime</caption>
       <caption xml:lang="ru">Главное окно SongRec в темном режиме GNOME</caption>
       <caption xml:lang="pt">Janela principal do SongRec no ambiente de área de trabalho GNOME com o modo escuro</caption>
+      <caption xml:lang="it">Finestra principale di SongRec, su GNOME in modalità scura</caption>
       <caption xml:lang="fr">La fenêtre principale de SongRec, avec GNOME en mode sombre</caption>
       <caption xml:lang="cs">Hlavní okno aplikace SongRec v rozhraní GNOME ve tmavém režimu</caption>
     </screenshot>
