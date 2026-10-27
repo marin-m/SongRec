@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-27 08:35+0100\n"
+"POT-Creation-Date: 2026-10-27 08:51+0100\n"
 "PO-Revision-Date: 2026-10-27 07:41+0000\n"
 "Last-Translator: Marin <25437947+marin-m@users.noreply.github.com>\n"
 "Language-Team: French <https://weblate.fossplant.re/projects/songrec/songrec/"
@@ -48,7 +48,7 @@ msgstr "Avertissement : Pas de connexion réseau"
 
 #: src/cli_main.rs:179 src/core/http_task.rs:54 src/core/http_task.rs:63
 #: src/core/http_task.rs:75 src/core/http_task.rs:110
-#: src/gui/main_window.rs:1018 src/gui/main_window.rs:1030
+#: src/gui/main_window.rs:1027 src/gui/main_window.rs:1039
 msgid "No match for this song"
 msgstr "Chanson non reconnue"
 
@@ -255,27 +255,27 @@ msgstr "Reconnaissance de morceaux"
 msgid "Unable to enable notification icon"
 msgstr "Impossible d'activer l'icône de notification"
 
-#: src/gui/main_window.rs:924 src/gui/main_window.rs:1005
+#: src/gui/main_window.rs:933 src/gui/main_window.rs:1014
 msgid "Unable to enable MPRIS support"
 msgstr "Impossible d'activer le support de MRPIS"
 
-#: src/gui/main_window.rs:1027
+#: src/gui/main_window.rs:1036
 msgid "_Ok"
 msgstr "_Ok"
 
-#: src/gui/main_window.rs:1103
+#: src/gui/main_window.rs:1112
 msgid "Song recognized"
 msgstr "Chanson identifiée"
 
-#: src/gui/main_window.rs:1240
+#: src/gui/main_window.rs:1249
 msgid "Are you sure you want to wipe history?"
 msgstr "Êtes-vous sûr⋅e de vouloir supprimer l'historique ?"
 
-#: src/gui/main_window.rs:1246
+#: src/gui/main_window.rs:1255
 msgid "_Yes"
 msgstr "_Oui"
 
-#: src/gui/main_window.rs:1247
+#: src/gui/main_window.rs:1256
 msgid "_Cancel"
 msgstr "_Annuler"
 
@@ -470,7 +470,8 @@ msgstr "Minimiser dans la zone de notifications"
 
 #: src/gui/interface.blp:438
 msgid "Launch SongRec automatically when launching your desktop session."
-msgstr "Lancer SongRec automatiquement au démarrage de votre session de bureau."
+msgstr ""
+"Lancer SongRec automatiquement au démarrage de votre session de bureau."
 
 #: src/gui/interface.blp:439
 msgid "Launch at startup"

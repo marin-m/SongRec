@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-27 08:35+0100\n"
+"POT-Creation-Date: 2026-10-27 08:51+0100\n"
 "PO-Revision-Date: 2026-10-26 17:08+0000\n"
 "Last-Translator: albanobattistella <albano_battistella@hotmail.com>\n"
 "Language-Team: Italian <https://weblate.fossplant.re/projects/songrec/"
@@ -48,7 +48,7 @@ msgstr "Avviso: rete irraggiungibile"
 
 #: src/cli_main.rs:179 src/core/http_task.rs:54 src/core/http_task.rs:63
 #: src/core/http_task.rs:75 src/core/http_task.rs:110
-#: src/gui/main_window.rs:1018 src/gui/main_window.rs:1030
+#: src/gui/main_window.rs:1027 src/gui/main_window.rs:1039
 msgid "No match for this song"
 msgstr "Nessuna corrispondenza per questo brano"
 
@@ -252,27 +252,27 @@ msgstr ""
 msgid "Unable to enable notification icon"
 msgstr "Impossibile abilitare l'icona di notifica"
 
-#: src/gui/main_window.rs:924 src/gui/main_window.rs:1005
+#: src/gui/main_window.rs:933 src/gui/main_window.rs:1014
 msgid "Unable to enable MPRIS support"
 msgstr "Impossibile abilitare il supporto MPRIS"
 
-#: src/gui/main_window.rs:1027
+#: src/gui/main_window.rs:1036
 msgid "_Ok"
 msgstr "_Ok"
 
-#: src/gui/main_window.rs:1103
+#: src/gui/main_window.rs:1112
 msgid "Song recognized"
 msgstr "Brano riconosciuto"
 
-#: src/gui/main_window.rs:1240
+#: src/gui/main_window.rs:1249
 msgid "Are you sure you want to wipe history?"
 msgstr "Sei sicuro di voler cancellare la cronologia?"
 
-#: src/gui/main_window.rs:1246
+#: src/gui/main_window.rs:1255
 msgid "_Yes"
 msgstr "_Sì"
 
-#: src/gui/main_window.rs:1247
+#: src/gui/main_window.rs:1256
 msgid "_Cancel"
 msgstr "A_nnulla"
 

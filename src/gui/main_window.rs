@@ -479,6 +479,15 @@ impl App {
             window.set_hide_on_close(can_minimize);
             start_minimized_setting.set_visible(can_minimize);
 
+            if is_starting_app
+                && background_setting.is_visible()
+                && !background_enabled
+                && systray_enabled
+                && can_minimize
+            {
+                background_setting.set_active(true);
+            }
+
             if is_starting_app && start_minimized && can_minimize {
                 window.close();
             }
