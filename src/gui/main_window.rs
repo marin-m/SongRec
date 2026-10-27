@@ -328,18 +328,25 @@ impl App {
         {
             let background_enabled = self.old_preferences.enable_background == Some(true);
             let systray_enabled = self.old_preferences.enable_systray == Some(true);
+            let autostart_enabled = self.old_preferences.enable_autostart == Some(true);
 
             let window: adw::ApplicationWindow = self.builder.object("main_window").unwrap();
             let background_setting: adw::SwitchRow =
                 self.builder.object("background_setting").unwrap();
+            let systray_setting: adw::SwitchRow = self.builder.object("systray_setting").unwrap();
+            let autostart_setting: adw::SwitchRow =
+                self.builder.object("autostart_setting").unwrap();
 
             Self::setup_background(
                 background_enabled,
                 systray_enabled,
+                autostart_enabled,
                 self.ctx_systray_handle.clone(),
                 self.ctx_background_handle.clone(),
                 window,
                 background_setting,
+                systray_setting,
+                autostart_setting,
                 self.gui_tx.clone(),
             );
         }
@@ -352,10 +359,13 @@ impl App {
     fn setup_background(
         background_enabled: bool,
         systray_enabled: bool,
+        autostart_enabled: bool,
         ctx_systray_handle: Rc<RefCell<Option<ksni::Handle<SystrayInterface>>>>,
         ctx_background_handle: Rc<RefCell<Option<BackgroundProxy>>>,
         window: adw::ApplicationWindow,
         background_setting: adw::SwitchRow,
+        systray_setting: adw::SwitchRow,
+        autostart_setting: adw::SwitchRow,
         gui_tx: async_channel::Sender<GUIMessage>,
     ) {
         glib::spawn_future_local(async move {
@@ -382,6 +392,8 @@ impl App {
             }
 
             if let Some(ref background_proxy) = *ctx_background_handle.borrow() {
+                systray_setting.set_visible(background_enabled);
+                autostart_setting.set_visible(background_enabled);
                 if background_enabled {
                     let window_id =
                         ashpd::WindowIdentifier::from_native(&window.native().unwrap()).await;
@@ -391,7 +403,8 @@ impl App {
                         .request_background(
                             window_id.as_ref(),
                             BackgroundRequestOptions::default()
-                                .set_reason(&*gettext("Recognizing songs")),
+                                .set_reason(&*gettext("Recognizing songs"))
+                                .set_auto_start(Some(autostart_enabled)),
                         )
                         .await
                     {
@@ -1499,6 +1512,8 @@ impl App {
             let background_setting: adw::SwitchRow =
                 self.builder.object("background_setting").unwrap();
             let systray_setting: adw::SwitchRow = self.builder.object("systray_setting").unwrap();
+            let autostart_setting: adw::SwitchRow =
+                self.builder.object("autostart_setting").unwrap();
 
             gio::ActionEntry::builder("background-setting")
                 .state(self.old_preferences.enable_background.unwrap().to_variant())
@@ -1510,17 +1525,22 @@ impl App {
                         action.set_state(&new_state.to_variant());
 
                         let background_setting = background_setting.clone();
+                        let autostart_setting = autostart_setting.clone();
                         let ctx_systray_handle = ctx_systray_handle.clone();
                         let ctx_background_handle = ctx_background_handle.clone();
                         let systray_enabled = systray_setting.is_active();
+                        let autostart_enabled = autostart_setting.is_active();
 
                         Self::setup_background(
                             new_state,
                             systray_enabled,
+                            autostart_enabled,
                             ctx_systray_handle,
                             ctx_background_handle,
                             window.clone(),
                             background_setting,
+                            systray_setting.clone(),
+                            autostart_setting,
                             gui_tx.clone(),
                         );
 
@@ -1529,6 +1549,10 @@ impl App {
                         gui_tx
                             .try_send(GUIMessage::UpdatePreference(new_preference))
                             .unwrap();
+
+                        if new_state && !systray_enabled {
+                            systray_setting.set_active(true);
+                        }
                     },
                 )
                 .build()
@@ -1541,6 +1565,9 @@ impl App {
             let ctx_background_handle = self.ctx_background_handle.clone();
             let background_setting: adw::SwitchRow =
                 self.builder.object("background_setting").unwrap();
+            let systray_setting: adw::SwitchRow = self.builder.object("systray_setting").unwrap();
+            let autostart_setting: adw::SwitchRow =
+                self.builder.object("autostart_setting").unwrap();
 
             #[cfg(target_os = "linux")]
             gio::ActionEntry::builder("systray-setting")
@@ -1553,22 +1580,80 @@ impl App {
                         action.set_state(&new_state.to_variant());
 
                         let background_setting = background_setting.clone();
+                        let systray_setting = systray_setting.clone();
+                        let autostart_setting = autostart_setting.clone();
                         let ctx_systray_handle = ctx_systray_handle.clone();
                         let ctx_background_handle = ctx_background_handle.clone();
                         let background_enabled = background_setting.is_active();
+                        let autostart_enabled = autostart_setting.is_active();
 
                         Self::setup_background(
                             background_enabled,
                             new_state,
+                            autostart_enabled,
                             ctx_systray_handle,
                             ctx_background_handle,
                             window.clone(),
                             background_setting,
+                            systray_setting,
+                            autostart_setting,
                             gui_tx.clone(),
                         );
 
                         let mut new_preference: Preferences = Preferences::new();
                         new_preference.enable_systray = Some(new_state);
+                        gui_tx
+                            .try_send(GUIMessage::UpdatePreference(new_preference))
+                            .unwrap();
+                    },
+                )
+                .build()
+        };
+
+        #[cfg(target_os = "linux")]
+        let action_autostart_setting = {
+            let gui_tx = self.gui_tx.clone();
+            let ctx_systray_handle = self.ctx_systray_handle.clone();
+            let ctx_background_handle = self.ctx_background_handle.clone();
+            let background_setting: adw::SwitchRow =
+                self.builder.object("background_setting").unwrap();
+            let systray_setting: adw::SwitchRow = self.builder.object("systray_setting").unwrap();
+            let autostart_setting: adw::SwitchRow =
+                self.builder.object("autostart_setting").unwrap();
+
+            #[cfg(target_os = "linux")]
+            gio::ActionEntry::builder("autostart-setting")
+                .state(self.old_preferences.enable_autostart.unwrap().to_variant())
+                .activate(
+                    move |window: &adw::ApplicationWindow, action: &gio::SimpleAction, _| {
+                        let state = action.state().unwrap();
+                        let action_state: bool = state.get().unwrap();
+                        let new_state = !action_state; // toggle
+                        action.set_state(&new_state.to_variant());
+
+                        let background_setting = background_setting.clone();
+                        let systray_setting = systray_setting.clone();
+                        let autostart_setting = autostart_setting.clone();
+                        let ctx_systray_handle = ctx_systray_handle.clone();
+                        let ctx_background_handle = ctx_background_handle.clone();
+                        let background_enabled = background_setting.is_active();
+                        let systray_enabled = systray_setting.is_active();
+
+                        Self::setup_background(
+                            background_enabled,
+                            systray_enabled,
+                            new_state,
+                            ctx_systray_handle,
+                            ctx_background_handle,
+                            window.clone(),
+                            background_setting,
+                            systray_setting,
+                            autostart_setting,
+                            gui_tx.clone(),
+                        );
+
+                        let mut new_preference: Preferences = Preferences::new();
+                        new_preference.enable_autostart = Some(new_state);
                         gui_tx
                             .try_send(GUIMessage::UpdatePreference(new_preference))
                             .unwrap();
@@ -1636,6 +1721,8 @@ impl App {
             action_background_setting,
             #[cfg(target_os = "linux")]
             action_systray_setting,
+            #[cfg(target_os = "linux")]
+            action_autostart_setting,
             action_no_dupes_setting,
             action_refresh_devices,
             action_close,
