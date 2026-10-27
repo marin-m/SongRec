@@ -58,6 +58,15 @@ https://hughsie.github.io/oars/index.html
 -->
   <content_rating type="oars-1.1"/>
   <releases>
+    <release version="0.8.0" date="2026-10-27">
+      <description>
+        <ul>
+          <li>Add support for Background Apps on the Flatpak target (#339)</li>
+          <li>Add an option to start SongRec minimized (#246)</li>
+          <li>Update Italian translation thanks to @albanobattistella</li>
+        </ul>
+      </description>
+    </release>
     <release version="0.7.6" date="2026-10-15">
       <description>
         <ul>

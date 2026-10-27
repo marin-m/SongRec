@@ -1,3 +1,11 @@
+songrec (0.8.0) bionic; urgency=low
+
+  * Add support for Background Apps on the Flatpak target (#339)
+  * Add an option to start SongRec minimized (#246)
+  * Update Italian translation thanks to @albanobattistella
+
+ -- Marin <marin-m@users.noreply.github.com>  Tue, 27 Oct 2026 09:24:47 +0200
+
 songrec (0.7.6) bionic; urgency=low
 
   * Add a fix for a case that produced very large memory allocations when recognizing songs from a file (PR #341 thanks to @SepiRosho)
