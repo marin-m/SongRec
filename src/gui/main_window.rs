@@ -2,7 +2,7 @@ use adw::prelude::*;
 use ashpd::desktop::background::{BackgroundProxy, BackgroundRequestOptions};
 use async_lock::Semaphore;
 use chrono::Local;
-use gettextrs::gettext;
+use gettextrs::{gettext, pgettext};
 use log::{debug, error, info, trace, warn};
 #[cfg(all(target_os = "linux", feature = "mpris"))]
 use mpris_server::PlaybackStatus;
@@ -389,6 +389,11 @@ impl App {
         gui_tx: async_channel::Sender<GUIMessage>,
     ) {
         glib::spawn_future_local(async move {
+            let background_msg = pgettext(
+                "Status of the app displayed in the Background Apps section of GNOME system menu when using Flatpak",
+                "Recognizing songs",
+            );
+
             let semaphore = background_mutex.acquire().await;
             if ctx_background_handle.borrow().is_none() {
                 match BackgroundProxy::new().await {
@@ -398,7 +403,7 @@ impl App {
                             background_proxy.version()
                         );
                         let options = ashpd::desktop::background::SetStatusOptions::default()
-                            .set_message(&gettext("Recognizing songs"));
+                            .set_message(&background_msg);
                         if let Err(error) = background_proxy.set_status(options).await {
                             warn!("Error setting background status: {:?}", error);
                         } else {
@@ -424,7 +429,7 @@ impl App {
                         .request_background(
                             window_id.as_ref(),
                             BackgroundRequestOptions::default()
-                                .set_reason(&*gettext("Recognizing songs"))
+                                .set_reason(&*background_msg)
                                 .set_auto_start(Some(autostart_enabled)),
                         )
                         .await

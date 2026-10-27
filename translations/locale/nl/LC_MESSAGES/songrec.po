@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-27 08:22+0100\n"
+"POT-Creation-Date: 2026-10-27 08:35+0100\n"
 "PO-Revision-Date: 2026-03-09 02:16+0000\n"
 "Last-Translator: Marin <25437947+marin-m@users.noreply.github.com>\n"
 "Language-Team: Dutch <https://weblate.fossplant.re/projects/songrec/songrec/"
@@ -45,7 +45,7 @@ msgstr "Waarschuwing: geen internetverbinding"
 
 #: src/cli_main.rs:179 src/core/http_task.rs:54 src/core/http_task.rs:63
 #: src/core/http_task.rs:75 src/core/http_task.rs:110
-#: src/gui/main_window.rs:1013 src/gui/main_window.rs:1025
+#: src/gui/main_window.rs:1018 src/gui/main_window.rs:1030
 msgid "No match for this song"
 msgstr "Er is geen overeenkomst gevonden"
 
@@ -231,35 +231,38 @@ msgstr "Programmafout"
 msgid "Network error"
 msgstr "Netwerkfout"
 
-#: src/gui/main_window.rs:401 src/gui/main_window.rs:427
+#: src/gui/main_window.rs:394
+msgctxt ""
+"Status of the app displayed in the Background Apps section of GNOME system "
+"menu when using Flatpak"
 msgid "Recognizing songs"
 msgstr ""
 
-#: src/gui/main_window.rs:459
+#: src/gui/main_window.rs:464
 msgid "Unable to enable notification icon"
 msgstr "Het systeemvakpictogram kan niet worden ingeschakeld"
 
-#: src/gui/main_window.rs:919 src/gui/main_window.rs:1000
+#: src/gui/main_window.rs:924 src/gui/main_window.rs:1005
 msgid "Unable to enable MPRIS support"
 msgstr "De MPRIS-ondersteuning kan niet worden ingeschakeld"
 
-#: src/gui/main_window.rs:1022
+#: src/gui/main_window.rs:1027
 msgid "_Ok"
 msgstr "_Ok"
 
-#: src/gui/main_window.rs:1098
+#: src/gui/main_window.rs:1103
 msgid "Song recognized"
 msgstr "Het nummer is herkend"
 
-#: src/gui/main_window.rs:1235
+#: src/gui/main_window.rs:1240
 msgid "Are you sure you want to wipe history?"
 msgstr "Weet je zeker dat je de geschiedenis wilt wissen?"
 
-#: src/gui/main_window.rs:1241
+#: src/gui/main_window.rs:1246
 msgid "_Yes"
 msgstr "_Ja"
 
-#: src/gui/main_window.rs:1242
+#: src/gui/main_window.rs:1247
 msgid "_Cancel"
 msgstr "_Annuleren"
 

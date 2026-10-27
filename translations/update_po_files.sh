@@ -14,7 +14,7 @@ cd "$(dirname "$0")/.."
 
 # Regenerate the base ".pot" (translation template) file
 
-xgettext --c++ -kgettext --from-code utf-8 -o translations/songrec.pot.new \
+xgettext --c++ -kgettext -kpgettext --from-code utf-8 -o translations/songrec.pot.new \
     src/*.rs src/core/audio_controllers/*.rs src/core/*.rs \
     src/core/fingerprinting/*.rs src/gui/*.rs src/gui/*/*.rs src/plugins/*.rs \
     src/utils/*.rs \
