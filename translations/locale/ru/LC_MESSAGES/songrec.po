@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-18 04:28+0200\n"
+"POT-Creation-Date: 2026-10-27 07:13+0100\n"
 "PO-Revision-Date: 2026-05-18 12:07+1100\n"
 "Last-Translator: Aleksandr Shamaraev <shad@altlinux.org>\n"
 "Language-Team: Russian <https://weblate.fossplant.re/projects/songrec/"
@@ -48,7 +48,7 @@ msgstr "Предупреждение: сеть недоступна"
 
 #: src/cli_main.rs:179 src/core/http_task.rs:54 src/core/http_task.rs:63
 #: src/core/http_task.rs:75 src/core/http_task.rs:110
-#: src/gui/main_window.rs:898 src/gui/main_window.rs:910
+#: src/gui/main_window.rs:994 src/gui/main_window.rs:1006
 msgid "No match for this song"
 msgstr "Нет совпадений для этой песни"
 
@@ -202,17 +202,17 @@ msgstr "Аудиоошибка:"
 msgid "Audio error: No input device available"
 msgstr "Аудиоошибка: Нет доступного устройства ввода"
 
-#: src/core/preferences.rs:58 src/core/preferences.rs:77
-#: src/gui/main_window.rs:295 src/gui/interface.blp:123
-#: src/gui/interface.blp:574 src/gui/interface.blp:624
+#: src/core/preferences.rs:64 src/core/preferences.rs:85
+#: src/gui/main_window.rs:305 src/gui/interface.blp:123
+#: src/gui/interface.blp:601 src/gui/interface.blp:651
 msgid "Search on YouTube"
 msgstr "Поиск на YouTube"
 
-#: src/core/preferences.rs:93
+#: src/core/preferences.rs:101
 msgid "When parsing the preferences file:"
 msgstr "При анализе файла настроек:"
 
-#: src/core/preferences.rs:161
+#: src/core/preferences.rs:175
 msgid "When saving the preferences file:"
 msgstr "При сохранении файла настроек:"
 
@@ -228,39 +228,43 @@ msgstr "Неверный диапазон частот в декодирован
 msgid "Invalid sample rate passed when encoding Shazam packet"
 msgstr "При кодировании пакета Shazam передана неверная частота дискретизации"
 
-#: src/gui/main_window.rs:253
+#: src/gui/main_window.rs:263
 msgid "Application error"
 msgstr "Ошибка приложения"
 
-#: src/gui/main_window.rs:274
+#: src/gui/main_window.rs:284
 msgid "Network error"
 msgstr "Сетевая ошибка"
 
-#: src/gui/main_window.rs:348
+#: src/gui/main_window.rs:388 src/gui/main_window.rs:414
+msgid "Recognizing songs"
+msgstr ""
+
+#: src/gui/main_window.rs:446
 msgid "Unable to enable notification icon"
 msgstr "Не удаётся включить значок уведомления"
 
-#: src/gui/main_window.rs:804 src/gui/main_window.rs:885
+#: src/gui/main_window.rs:900 src/gui/main_window.rs:981
 msgid "Unable to enable MPRIS support"
 msgstr "Невозможно включить поддержку MPRIS"
 
-#: src/gui/main_window.rs:907
+#: src/gui/main_window.rs:1003
 msgid "_Ok"
 msgstr "Хорошо"
 
-#: src/gui/main_window.rs:983
+#: src/gui/main_window.rs:1079
 msgid "Song recognized"
 msgstr "Песня распознана"
 
-#: src/gui/main_window.rs:1120
+#: src/gui/main_window.rs:1216
 msgid "Are you sure you want to wipe history?"
 msgstr "Вы уверены, что хотите стереть историю?"
 
-#: src/gui/main_window.rs:1126
+#: src/gui/main_window.rs:1222
 msgid "_Yes"
 msgstr "_Да"
 
-#: src/gui/main_window.rs:1127
+#: src/gui/main_window.rs:1223
 msgid "_Cancel"
 msgstr "_Отменить"
 
@@ -352,15 +356,15 @@ msgstr "Опции истории..."
 msgid "Recognition history"
 msgstr "История распознавания"
 
-#: src/gui/interface.blp:230 src/gui/interface.blp:324
+#: src/gui/interface.blp:230 src/gui/interface.blp:335
 msgid "Song name"
 msgstr "Название песни"
 
-#: src/gui/interface.blp:241 src/gui/interface.blp:335
+#: src/gui/interface.blp:241 src/gui/interface.blp:346
 msgid "Album"
 msgstr "Альбом"
 
-#: src/gui/interface.blp:254 src/gui/interface.blp:348
+#: src/gui/interface.blp:254 src/gui/interface.blp:359
 msgid "Recognition date"
 msgstr "Дата распознавания"
 
@@ -372,27 +376,27 @@ msgstr "Посмотреть избранное"
 msgid "Application menu"
 msgstr "Меню приложения"
 
-#: src/gui/interface.blp:363 src/gui/interface.blp:526
+#: src/gui/interface.blp:374 src/gui/interface.blp:553
 msgid "Export to CSV"
 msgstr "Экспорт в CSV"
 
-#: src/gui/interface.blp:370
+#: src/gui/interface.blp:381
 msgid "Favorites"
 msgstr "Избранное"
 
-#: src/gui/interface.blp:377
+#: src/gui/interface.blp:388
 msgid "General preferences"
 msgstr "Общие предпочтения"
 
-#: src/gui/interface.blp:381
+#: src/gui/interface.blp:392
 msgid "Notify when a new song is recognized or network error is encountered"
 msgstr "Уведомлять о появлении новой песни или возникновении сетевой ошибки"
 
-#: src/gui/interface.blp:382 src/gui/interface.blp:481
+#: src/gui/interface.blp:393 src/gui/interface.blp:508
 msgid "Show notifications"
 msgstr "Показывать уведомления"
 
-#: src/gui/interface.blp:388
+#: src/gui/interface.blp:399
 msgid ""
 "Bump a song to the top of the history list and remove the former entry when "
 "the same song is detected multiple times"
@@ -400,11 +404,21 @@ msgstr ""
 "Переместить песню в начало списка истории и удалить предыдущую запись, если "
 "одна и та же песня обнаружена несколько раз"
 
-#: src/gui/interface.blp:390
+#: src/gui/interface.blp:401
 msgid "No duplicates in history"
 msgstr "Без дубликатов в истории"
 
-#: src/gui/interface.blp:396
+#: src/gui/interface.blp:407
+msgid ""
+"When closing the window, minimize to background (as visible under the system "
+"menu on GNOME) instead of closing the app."
+msgstr ""
+
+#: src/gui/interface.blp:409
+msgid "Minimize to background"
+msgstr ""
+
+#: src/gui/interface.blp:416
 msgid ""
 "When closing the window, minimize to system tray using KSNI instead of "
 "closing the app. Please note that you may have to increase the \"request "
@@ -416,25 +430,33 @@ msgstr ""
 "режиме может потребоваться увеличить параметр «интервал запросов», чтобы "
 "снизить вероятность ограничения скорости запросов."
 
-#: src/gui/interface.blp:398
+#: src/gui/interface.blp:418
 msgid "Minimize to system tray"
 msgstr "Свернуть в системный трей"
 
-#: src/gui/interface.blp:404
+#: src/gui/interface.blp:424
+msgid "Launch SongRec automatically when launching your desktop session."
+msgstr ""
+
+#: src/gui/interface.blp:425
+msgid "Launch at startup"
+msgstr ""
+
+#: src/gui/interface.blp:431
 msgid "Network preferences"
 msgstr "Сетевые настройки"
 
-#: src/gui/interface.blp:420
+#: src/gui/interface.blp:447
 msgid "By default 8, increase if you are rate-limited"
 msgstr ""
 "По умолчанию установлено значение 8; увеличьте его, если у вас установлено "
 "ограничение на количество запросов"
 
-#: src/gui/interface.blp:421
+#: src/gui/interface.blp:448
 msgid "Shazam interval between requests in seconds"
 msgstr "Интервал между запросами Shazam в секундах"
 
-#: src/gui/interface.blp:429
+#: src/gui/interface.blp:456
 msgid ""
 "MPRIS will display information about recognized songs in places like the "
 "GNOME or KDE control panel"
@@ -442,71 +464,71 @@ msgstr ""
 "MPRIS будет отображать информацию об распознанных песнях в таких местах, как "
 "панель управления GNOME или KDE"
 
-#: src/gui/interface.blp:431
+#: src/gui/interface.blp:458
 msgid "Enable MPRIS"
 msgstr "Включить MPRIS"
 
-#: src/gui/interface.blp:437
+#: src/gui/interface.blp:464
 msgid "Search preferences"
 msgstr "Настройки поиска"
 
-#: src/gui/interface.blp:440
+#: src/gui/interface.blp:467
 msgid "Custom search engine action"
 msgstr "Пользовательская поисковая система"
 
-#: src/gui/interface.blp:445
+#: src/gui/interface.blp:472
 msgid "Custom search engine URL"
 msgstr "Пользовательский URL поисковой системы"
 
-#: src/gui/interface.blp:456
+#: src/gui/interface.blp:483
 msgid "Settings"
 msgstr "Настройки"
 
-#: src/gui/interface.blp:486
+#: src/gui/interface.blp:513
 msgid "_Preferences..."
 msgstr "_Настройки..."
 
-#: src/gui/interface.blp:493
+#: src/gui/interface.blp:520
 msgid "_Keyboard Shortcuts"
 msgstr ""
 
-#: src/gui/interface.blp:498
+#: src/gui/interface.blp:525
 msgid "About..."
 msgstr "О SongRec..."
 
-#: src/gui/interface.blp:531
+#: src/gui/interface.blp:558
 msgid "Delete history"
 msgstr "Удалить историю"
 
-#: src/gui/interface.blp:536
+#: src/gui/interface.blp:563
 msgid "Select a file to recognize"
 msgstr "Выберите файл для распознавания"
 
-#: src/gui/interface.blp:548 src/gui/interface.blp:598
+#: src/gui/interface.blp:575 src/gui/interface.blp:625
 msgid "Copy artist and track"
 msgstr "Копировать исполнителя и трек"
 
-#: src/gui/interface.blp:554 src/gui/interface.blp:604
+#: src/gui/interface.blp:581 src/gui/interface.blp:631
 msgid "Copy artist"
 msgstr "Копировать исполнителя"
 
-#: src/gui/interface.blp:560 src/gui/interface.blp:610
+#: src/gui/interface.blp:587 src/gui/interface.blp:637
 msgid "Copy track name"
 msgstr "Копировать название трека"
 
-#: src/gui/interface.blp:566 src/gui/interface.blp:616
+#: src/gui/interface.blp:593 src/gui/interface.blp:643
 msgid "Copy album"
 msgstr "Копировать альбом"
 
-#: src/gui/interface.blp:582
+#: src/gui/interface.blp:609
 msgid "Delete from History"
 msgstr "Удалить из истории"
 
-#: src/gui/interface.blp:588
+#: src/gui/interface.blp:615
 msgid "Add to Favorites"
 msgstr "Добавить в Избранное"
 
-#: src/gui/interface.blp:632
+#: src/gui/interface.blp:659
 msgid "Remove from Favorites"
 msgstr "Удалить из Избранного"
 
