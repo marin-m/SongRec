@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-27 09:09+0100\n"
+"POT-Creation-Date: 2026-10-27 09:34+0100\n"
 "PO-Revision-Date: 2023-12-30 23:42+0900\n"
 "Last-Translator: 이정희 <daemul72@gmail.com>\n"
 "Language-Team: \n"
@@ -44,7 +44,7 @@ msgstr "경고: 네트워크에 연결할 수 없음"
 
 #: src/cli_main.rs:179 src/core/http_task.rs:54 src/core/http_task.rs:63
 #: src/core/http_task.rs:75 src/core/http_task.rs:110
-#: src/gui/main_window.rs:1029 src/gui/main_window.rs:1041
+#: src/gui/main_window.rs:1040 src/gui/main_window.rs:1052
 msgid "No match for this song"
 msgstr "이 노래와 일치하는 항목이 없습니다"
 
@@ -185,7 +185,7 @@ msgid "Audio error: No input device available"
 msgstr ""
 
 #: src/core/preferences.rs:67 src/core/preferences.rs:89
-#: src/gui/main_window.rs:305 src/gui/interface.blp:123
+#: src/gui/main_window.rs:313 src/gui/interface.blp:123
 #: src/gui/interface.blp:612 src/gui/interface.blp:662
 msgid "Search on YouTube"
 msgstr "YouTube에서 검색하기"
@@ -210,46 +210,46 @@ msgstr "디코딩된 Shazam 패킷의 주파수 대역이 잘못되었습니다"
 msgid "Invalid sample rate passed when encoding Shazam packet"
 msgstr "Shazam 패킷을 인코딩할 때 잘못된 샘플 속도가 전달되었습니다"
 
-#: src/gui/main_window.rs:263
+#: src/gui/main_window.rs:271
 msgid "Application error"
 msgstr ""
 
-#: src/gui/main_window.rs:284
+#: src/gui/main_window.rs:292
 msgid "Network error"
 msgstr ""
 
-#: src/gui/main_window.rs:396
+#: src/gui/main_window.rs:405
 msgctxt ""
 "Status of the app displayed in the Background Apps section of GNOME system "
 "menu when using Flatpak"
 msgid "Recognizing songs"
 msgstr ""
 
-#: src/gui/main_window.rs:466
+#: src/gui/main_window.rs:475
 msgid "Unable to enable notification icon"
 msgstr ""
 
-#: src/gui/main_window.rs:935 src/gui/main_window.rs:1016
+#: src/gui/main_window.rs:946 src/gui/main_window.rs:1027
 msgid "Unable to enable MPRIS support"
 msgstr "MPRIS 지원을 활성화할 수 없습니다"
 
-#: src/gui/main_window.rs:1038
+#: src/gui/main_window.rs:1049
 msgid "_Ok"
 msgstr ""
 
-#: src/gui/main_window.rs:1114
+#: src/gui/main_window.rs:1125
 msgid "Song recognized"
 msgstr "인식된 노래"
 
-#: src/gui/main_window.rs:1251
+#: src/gui/main_window.rs:1262
 msgid "Are you sure you want to wipe history?"
 msgstr ""
 
-#: src/gui/main_window.rs:1257
+#: src/gui/main_window.rs:1268
 msgid "_Yes"
 msgstr ""
 
-#: src/gui/main_window.rs:1258
+#: src/gui/main_window.rs:1269
 msgid "_Cancel"
 msgstr "취소하기(_C)"
 

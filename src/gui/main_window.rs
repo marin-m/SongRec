@@ -224,12 +224,20 @@ impl App {
             }
         });
 
+        let start_minimized = self.old_preferences.start_minimized == Some(true);
+        let initial_activation: Rc<RefCell<bool>> = Rc::new(RefCell::new(true));
+
         application.connect_activate(move |application| {
             let main_window = &application.windows()[0];
 
+            let mut initial_activation = initial_activation.borrow_mut();
+
             // Raise/highlight the existing window whenever a second
             // GUI instance is attempted to be launched
-            main_window.present();
+            if !*initial_activation || !start_minimized {
+                main_window.present();
+            }
+            *initial_activation = false;
         });
 
         application.connect_startup(move |application| {
@@ -334,7 +342,9 @@ impl App {
 
         self.setup_context_menus();
         self.update_website_search_text();
-        self.show_window(application);
+
+        let window: adw::ApplicationWindow = self.builder.object("main_window").unwrap();
+        window.set_application(Some(application));
 
         #[cfg(target_os = "linux")]
         {
@@ -343,7 +353,6 @@ impl App {
             let autostart_enabled = self.old_preferences.enable_autostart == Some(true);
             let start_minimized = self.old_preferences.start_minimized == Some(true);
 
-            let window: adw::ApplicationWindow = self.builder.object("main_window").unwrap();
             let background_setting: adw::SwitchRow =
                 self.builder.object("background_setting").unwrap();
             let systray_setting: adw::SwitchRow = self.builder.object("systray_setting").unwrap();
@@ -492,6 +501,8 @@ impl App {
 
             if is_starting_app && start_minimized && can_minimize {
                 window.close();
+            } else if is_starting_app {
+                window.present();
             }
 
             drop(semaphore);
@@ -1846,12 +1857,5 @@ impl App {
         application
             .set_accels_for_action("win.show-preferences", &["<Primary>comma", "<Primary>P"]);
         application.set_accels_for_action("win.show-menu", &["F10"]);
-    }
-
-    fn show_window(&self, application: &adw::Application) {
-        let window: adw::ApplicationWindow = self.builder.object("main_window").unwrap();
-        window.set_application(Some(application));
-
-        window.present();
     }
 }

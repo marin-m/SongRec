@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-27 09:09+0100\n"
+"POT-Creation-Date: 2026-10-27 09:34+0100\n"
 "PO-Revision-Date: 2026-07-09 20:02+0000\n"
 "Last-Translator: Fjuro <fjuro@users.noreply.weblate.fossplant.re>\n"
 "Language-Team: Czech <https://weblate.fossplant.re/projects/songrec/songrec/"
@@ -46,7 +46,7 @@ msgstr "Varování: síť není dostupná"
 
 #: src/cli_main.rs:179 src/core/http_task.rs:54 src/core/http_task.rs:63
 #: src/core/http_task.rs:75 src/core/http_task.rs:110
-#: src/gui/main_window.rs:1029 src/gui/main_window.rs:1041
+#: src/gui/main_window.rs:1040 src/gui/main_window.rs:1052
 msgid "No match for this song"
 msgstr "Nenalezena žádná shoda s touto skladbou"
 
@@ -197,7 +197,7 @@ msgid "Audio error: No input device available"
 msgstr "Chyba zvuku: Není dostupné žádné vstupní zařízení"
 
 #: src/core/preferences.rs:67 src/core/preferences.rs:89
-#: src/gui/main_window.rs:305 src/gui/interface.blp:123
+#: src/gui/main_window.rs:313 src/gui/interface.blp:123
 #: src/gui/interface.blp:612 src/gui/interface.blp:662
 msgid "Search on YouTube"
 msgstr "Vyhledat na YouTube"
@@ -222,46 +222,46 @@ msgstr "Neplatný rozsah pásem v dekódovaném paketu Shazamu"
 msgid "Invalid sample rate passed when encoding Shazam packet"
 msgstr "Předána neplatná vzorkovací frekvence při kódování paketu Shazamu"
 
-#: src/gui/main_window.rs:263
+#: src/gui/main_window.rs:271
 msgid "Application error"
 msgstr "Chyba aplikace"
 
-#: src/gui/main_window.rs:284
+#: src/gui/main_window.rs:292
 msgid "Network error"
 msgstr "Chyba sítě"
 
-#: src/gui/main_window.rs:396
+#: src/gui/main_window.rs:405
 msgctxt ""
 "Status of the app displayed in the Background Apps section of GNOME system "
 "menu when using Flatpak"
 msgid "Recognizing songs"
 msgstr ""
 
-#: src/gui/main_window.rs:466
+#: src/gui/main_window.rs:475
 msgid "Unable to enable notification icon"
 msgstr "Nepodařilo se povolit ikonu oznámení"
 
-#: src/gui/main_window.rs:935 src/gui/main_window.rs:1016
+#: src/gui/main_window.rs:946 src/gui/main_window.rs:1027
 msgid "Unable to enable MPRIS support"
 msgstr "Nepodařilo se povolit podporu MPRIS"
 
-#: src/gui/main_window.rs:1038
+#: src/gui/main_window.rs:1049
 msgid "_Ok"
 msgstr "_Ok"
 
-#: src/gui/main_window.rs:1114
+#: src/gui/main_window.rs:1125
 msgid "Song recognized"
 msgstr "Skladba rozpoznána"
 
-#: src/gui/main_window.rs:1251
+#: src/gui/main_window.rs:1262
 msgid "Are you sure you want to wipe history?"
 msgstr "Opravdu chcete vymazat historii?"
 
-#: src/gui/main_window.rs:1257
+#: src/gui/main_window.rs:1268
 msgid "_Yes"
 msgstr "_Ano"
 
-#: src/gui/main_window.rs:1258
+#: src/gui/main_window.rs:1269
 msgid "_Cancel"
 msgstr "_Zrušit"
 
