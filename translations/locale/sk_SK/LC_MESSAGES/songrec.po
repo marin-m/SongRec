@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: SongRec v0.6.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-27 09:34+0100\n"
-"PO-Revision-Date: 2026-06-28 00:30+0000\n"
+"PO-Revision-Date: 2026-10-27 21:14+0000\n"
 "Last-Translator: Jozef Gaal <preklady@mayday.sk>\n"
 "Language-Team: Slovak <https://weblate.fossplant.re/projects/songrec/songrec/"
 "sk/>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 #: src/cli_main.rs:118
 msgid "Available device:"
@@ -240,7 +240,7 @@ msgctxt ""
 "Status of the app displayed in the Background Apps section of GNOME system "
 "menu when using Flatpak"
 msgid "Recognizing songs"
-msgstr ""
+msgstr "Rozpoznávanie skladieb"
 
 #: src/gui/main_window.rs:475
 msgid "Unable to enable notification icon"
@@ -426,17 +426,19 @@ msgstr "Povoliť MPRIS"
 
 #: src/gui/interface.blp:416
 msgid "Background settings"
-msgstr ""
+msgstr "Nastavenia pozadia"
 
 #: src/gui/interface.blp:422
 msgid ""
 "When closing the window, minimize to background (as visible under the system "
 "menu on GNOME) instead of closing the app."
 msgstr ""
+"Pri zatváraní okna minimalizovať do pozadia (ako viditeľné v systémovom menu "
+"v prostredí GNOME) namiesto zatvorenia aplikácie."
 
 #: src/gui/interface.blp:424
 msgid "Minimize to background"
-msgstr ""
+msgstr "Minimalizovať do pozadia"
 
 #: src/gui/interface.blp:431
 msgid ""
@@ -456,19 +458,19 @@ msgstr "Minimalizovať do systémovej lišty"
 
 #: src/gui/interface.blp:438
 msgid "Launch SongRec automatically when launching your desktop session."
-msgstr ""
+msgstr "Spustiť aplikáciu SongRec automaticky pri spustení počítača."
 
 #: src/gui/interface.blp:439
 msgid "Launch at startup"
-msgstr ""
+msgstr "Spustiť pri štarte systému"
 
 #: src/gui/interface.blp:445
 msgid "Launch the app minimized at startup."
-msgstr ""
+msgstr "Spustiť aplikáciu minimalizovanú pri štarte systému."
 
 #: src/gui/interface.blp:446
 msgid "Start minimized"
-msgstr ""
+msgstr "Spustiť minimalizované"
 
 #: src/gui/interface.blp:452
 msgid "Network preferences"
