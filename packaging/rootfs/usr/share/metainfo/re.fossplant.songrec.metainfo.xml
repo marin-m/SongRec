@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- NOTE: ⚠️ This file was generated when building with cargo, please do not edit directory.
+     Find the original *.in file in packaging/freedesktop/ -->
 <component type="desktop-application">
   <id>re.fossplant.songrec</id>
   <metadata_license>CC0-1.0</metadata_license>

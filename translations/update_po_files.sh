@@ -75,6 +75,10 @@ for locale in translations/locale/*; do
         packaging/rootfs/usr/share/applications/re.fossplant.songrec.desktop
 done
 
+sed -i '2i <!-- NOTE: ⚠️ This file was generated when building with cargo, please do not edit directory.\n     Find the original *.in file in packaging/freedesktop/ -->' packaging/rootfs/usr/share/metainfo/re.fossplant.songrec.metainfo.xml
+
+sed -i '2i # NOTE: ⚠️ This file was generated when building with cargo, please do not edit directory.\n# Find the original *.in file in packaging/freedesktop/\n' packaging/rootfs/usr/share/applications/re.fossplant.songrec.desktop
+
 sed -z 's/  <name xml:[^\n]*\n//g' \
     packaging/rootfs/usr/share/metainfo/re.fossplant.songrec.metainfo.xml > \
     packaging/rootfs/usr/share/metainfo/re.fossplant.songrec.metainfo.xml.new

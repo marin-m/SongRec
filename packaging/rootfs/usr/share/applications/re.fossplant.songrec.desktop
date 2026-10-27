@@ -1,4 +1,7 @@
 [Desktop Entry]
+# NOTE: ⚠️ This file was generated when building with cargo, please do not edit directory.
+# Find the original *.in file in packaging/freedesktop/
+
 Categories=GTK;Audio;AudioVideo;
 Exec=songrec gui %f
 Icon=re.fossplant.songrec
