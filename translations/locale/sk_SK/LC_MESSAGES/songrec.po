@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: SongRec v0.6.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-27 08:51+0100\n"
+"POT-Creation-Date: 2026-10-27 09:09+0100\n"
 "PO-Revision-Date: 2026-06-28 00:30+0000\n"
 "Last-Translator: Jozef Gaal <preklady@mayday.sk>\n"
 "Language-Team: Slovak <https://weblate.fossplant.re/projects/songrec/songrec/"
@@ -45,7 +45,7 @@ msgstr "Upozornenie: Sieť nedostupná"
 
 #: src/cli_main.rs:179 src/core/http_task.rs:54 src/core/http_task.rs:63
 #: src/core/http_task.rs:75 src/core/http_task.rs:110
-#: src/gui/main_window.rs:1027 src/gui/main_window.rs:1039
+#: src/gui/main_window.rs:1029 src/gui/main_window.rs:1041
 msgid "No match for this song"
 msgstr "Žiadna zhoda pre túto skladbu"
 
@@ -235,38 +235,38 @@ msgstr "Chyba aplikácie"
 msgid "Network error"
 msgstr "Chyba siete"
 
-#: src/gui/main_window.rs:394
+#: src/gui/main_window.rs:396
 msgctxt ""
 "Status of the app displayed in the Background Apps section of GNOME system "
 "menu when using Flatpak"
 msgid "Recognizing songs"
 msgstr ""
 
-#: src/gui/main_window.rs:464
+#: src/gui/main_window.rs:466
 msgid "Unable to enable notification icon"
 msgstr "Nie je možné aktivovať ikonu upozornenia"
 
-#: src/gui/main_window.rs:933 src/gui/main_window.rs:1014
+#: src/gui/main_window.rs:935 src/gui/main_window.rs:1016
 msgid "Unable to enable MPRIS support"
 msgstr "Nie je možné zapnúť podporu MPRIS"
 
-#: src/gui/main_window.rs:1036
+#: src/gui/main_window.rs:1038
 msgid "_Ok"
 msgstr "_Ok"
 
-#: src/gui/main_window.rs:1112
+#: src/gui/main_window.rs:1114
 msgid "Song recognized"
 msgstr "Skladba rozpoznaná"
 
-#: src/gui/main_window.rs:1249
+#: src/gui/main_window.rs:1251
 msgid "Are you sure you want to wipe history?"
 msgstr "Naozaj chcete vymazať históriu?"
 
-#: src/gui/main_window.rs:1255
+#: src/gui/main_window.rs:1257
 msgid "_Yes"
 msgstr "_Áno"
 
-#: src/gui/main_window.rs:1256
+#: src/gui/main_window.rs:1258
 msgid "_Cancel"
 msgstr "_Zrušiť"
 

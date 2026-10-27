@@ -355,6 +355,7 @@ impl App {
             Self::setup_background(
                 self.background_mutex.clone(),
                 true,
+                false,
                 start_minimized,
                 background_enabled,
                 systray_enabled,
@@ -375,6 +376,7 @@ impl App {
     fn setup_background(
         background_mutex: Rc<Semaphore>,
         is_starting_app: bool,
+        update_autostart: bool,
         start_minimized: bool,
         background_enabled: bool,
         systray_enabled: bool,
@@ -420,7 +422,7 @@ impl App {
             if let Some(ref background_proxy) = *ctx_background_handle.borrow() {
                 systray_setting.set_visible(background_enabled);
                 autostart_setting.set_visible(background_enabled);
-                if background_enabled {
+                if background_enabled || update_autostart {
                     let window_id =
                         ashpd::WindowIdentifier::from_native(&window.native().unwrap()).await;
                     info!("Window ID: {:?}", window_id);
@@ -1583,6 +1585,7 @@ impl App {
                         Self::setup_background(
                             background_mutex,
                             false,
+                            false,
                             start_minimized,
                             new_state,
                             systray_enabled,
@@ -1592,7 +1595,7 @@ impl App {
                             window.clone(),
                             background_setting,
                             systray_setting.clone(),
-                            autostart_setting,
+                            autostart_setting.clone(),
                             start_minimized_setting,
                             gui_tx.clone(),
                         );
@@ -1605,6 +1608,9 @@ impl App {
 
                         if new_state != systray_enabled {
                             systray_setting.set_active(new_state);
+                        }
+                        if !new_state && autostart_enabled {
+                            autostart_setting.set_active(false);
                         }
                     },
                 )
@@ -1647,6 +1653,7 @@ impl App {
 
                         Self::setup_background(
                             background_mutex,
+                            false,
                             false,
                             start_minimized,
                             background_enabled,
@@ -1709,6 +1716,7 @@ impl App {
                         Self::setup_background(
                             background_mutex,
                             false,
+                            true,
                             start_minimized,
                             background_enabled,
                             systray_enabled,

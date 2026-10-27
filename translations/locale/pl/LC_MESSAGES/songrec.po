@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-27 08:51+0100\n"
+"POT-Creation-Date: 2026-10-27 09:09+0100\n"
 "PO-Revision-Date: 2021-12-26 11:36+0100\n"
 "Last-Translator: Rafał Mikrut <qarminkrut@gmail.com>\n"
 "Language-Team: \n"
@@ -46,7 +46,7 @@ msgstr ""
 
 #: src/cli_main.rs:179 src/core/http_task.rs:54 src/core/http_task.rs:63
 #: src/core/http_task.rs:75 src/core/http_task.rs:110
-#: src/gui/main_window.rs:1027 src/gui/main_window.rs:1039
+#: src/gui/main_window.rs:1029 src/gui/main_window.rs:1041
 msgid "No match for this song"
 msgstr "Nie znaleziono piosenki"
 
@@ -225,38 +225,38 @@ msgstr ""
 msgid "Network error"
 msgstr ""
 
-#: src/gui/main_window.rs:394
+#: src/gui/main_window.rs:396
 msgctxt ""
 "Status of the app displayed in the Background Apps section of GNOME system "
 "menu when using Flatpak"
 msgid "Recognizing songs"
 msgstr ""
 
-#: src/gui/main_window.rs:464
+#: src/gui/main_window.rs:466
 msgid "Unable to enable notification icon"
 msgstr ""
 
-#: src/gui/main_window.rs:933 src/gui/main_window.rs:1014
+#: src/gui/main_window.rs:935 src/gui/main_window.rs:1016
 msgid "Unable to enable MPRIS support"
 msgstr ""
 
-#: src/gui/main_window.rs:1036
+#: src/gui/main_window.rs:1038
 msgid "_Ok"
 msgstr ""
 
-#: src/gui/main_window.rs:1112
+#: src/gui/main_window.rs:1114
 msgid "Song recognized"
 msgstr "Utwór rozpoznany"
 
-#: src/gui/main_window.rs:1249
+#: src/gui/main_window.rs:1251
 msgid "Are you sure you want to wipe history?"
 msgstr ""
 
-#: src/gui/main_window.rs:1255
+#: src/gui/main_window.rs:1257
 msgid "_Yes"
 msgstr ""
 
-#: src/gui/main_window.rs:1256
+#: src/gui/main_window.rs:1258
 msgid "_Cancel"
 msgstr "_Wyjdź"
 
