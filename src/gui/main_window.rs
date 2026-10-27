@@ -1,7 +1,9 @@
 use adw::prelude::*;
+use ashpd::desktop::background::{BackgroundProxy, BackgroundRequestOptions};
+use async_lock::Semaphore;
 use chrono::Local;
 use gettextrs::gettext;
-use log::{debug, error, info, trace};
+use log::{debug, error, info, trace, warn};
 #[cfg(all(target_os = "linux", feature = "mpris"))]
 use mpris_server::PlaybackStatus;
 use percent_encoding::{NON_ALPHANUMERIC, utf8_percent_encode};
@@ -61,6 +63,10 @@ struct App {
 
     ctx_selected_item: Rc<RefCell<Option<HistoryEntry>>>,
     ctx_buffered_log: Rc<RefCell<String>>,
+    #[cfg(target_os = "linux")]
+    background_mutex: Rc<Semaphore>,
+    #[cfg(target_os = "linux")]
+    ctx_background_handle: Rc<RefCell<Option<BackgroundProxy>>>,
     #[cfg(target_os = "linux")]
     ctx_systray_handle: Rc<RefCell<Option<ksni::Handle<SystrayInterface>>>>,
     ctx_logger_source_id: Rc<RefCell<Option<glib::source::SourceId>>>,
@@ -148,6 +154,10 @@ impl App {
             preferences_interface,
             old_preferences,
 
+            #[cfg(target_os = "linux")]
+            background_mutex: Rc::new(Semaphore::new(1)),
+            #[cfg(target_os = "linux")]
+            ctx_background_handle: Rc::new(RefCell::new(None)),
             #[cfg(target_os = "linux")]
             ctx_systray_handle: Rc::new(RefCell::new(None)),
 
@@ -320,9 +330,31 @@ impl App {
         );
         self.setup_actions(application, enable_mpris_cli);
         #[cfg(target_os = "linux")]
-        if self.old_preferences.enable_systray == Some(true) {
+        {
+            let background_enabled = self.old_preferences.enable_background == Some(true);
+            let systray_enabled = self.old_preferences.enable_systray == Some(true);
+            let autostart_enabled = self.old_preferences.enable_autostart == Some(true);
+
             let window: adw::ApplicationWindow = self.builder.object("main_window").unwrap();
-            Self::setup_systray(self.ctx_systray_handle.clone(), window, self.gui_tx.clone());
+            let background_setting: adw::SwitchRow =
+                self.builder.object("background_setting").unwrap();
+            let systray_setting: adw::SwitchRow = self.builder.object("systray_setting").unwrap();
+            let autostart_setting: adw::SwitchRow =
+                self.builder.object("autostart_setting").unwrap();
+
+            Self::setup_background(
+                self.background_mutex.clone(),
+                background_enabled,
+                systray_enabled,
+                autostart_enabled,
+                self.ctx_systray_handle.clone(),
+                self.ctx_background_handle.clone(),
+                window,
+                background_setting,
+                systray_setting,
+                autostart_setting,
+                self.gui_tx.clone(),
+            );
         }
         self.setup_context_menus();
         self.update_website_search_text();
@@ -330,17 +362,83 @@ impl App {
     }
 
     #[cfg(target_os = "linux")]
-    fn setup_systray(
+    fn setup_background(
+        background_mutex: Rc<Semaphore>,
+        background_enabled: bool,
+        systray_enabled: bool,
+        autostart_enabled: bool,
         ctx_systray_handle: Rc<RefCell<Option<ksni::Handle<SystrayInterface>>>>,
+        ctx_background_handle: Rc<RefCell<Option<BackgroundProxy>>>,
         window: adw::ApplicationWindow,
+        background_setting: adw::SwitchRow,
+        systray_setting: adw::SwitchRow,
+        autostart_setting: adw::SwitchRow,
         gui_tx: async_channel::Sender<GUIMessage>,
     ) {
         glib::spawn_future_local(async move {
-            if ctx_systray_handle.take().is_none() {
+            let semaphore = background_mutex.acquire().await;
+            if ctx_background_handle.borrow().is_none() {
+                match BackgroundProxy::new().await {
+                    Ok(background_proxy) => {
+                        debug!(
+                            "Background portal is reachable: version {}",
+                            background_proxy.version()
+                        );
+                        let options = ashpd::desktop::background::SetStatusOptions::default()
+                            .set_message(&gettext("Recognizing songs"));
+                        if let Err(error) = background_proxy.set_status(options).await {
+                            warn!("Error setting background status: {:?}", error);
+                        } else {
+                            background_setting.set_visible(true);
+                            *ctx_background_handle.borrow_mut() = Some(background_proxy);
+                        }
+                    }
+                    Err(error) => {
+                        warn!("Background portal is not reachable: {:?}", error);
+                    }
+                };
+            }
+
+            if let Some(ref background_proxy) = *ctx_background_handle.borrow() {
+                systray_setting.set_visible(background_enabled);
+                autostart_setting.set_visible(background_enabled);
+                if background_enabled {
+                    let window_id =
+                        ashpd::WindowIdentifier::from_native(&window.native().unwrap()).await;
+                    info!("Window ID: {:?}", window_id);
+
+                    match background_proxy
+                        .request_background(
+                            window_id.as_ref(),
+                            BackgroundRequestOptions::default()
+                                .set_reason(&*gettext("Recognizing songs"))
+                                .set_auto_start(Some(autostart_enabled)),
+                        )
+                        .await
+                    {
+                        Ok(req) => match req.response() {
+                            Ok(resp) => {
+                                if resp.run_in_background() {
+                                    info!("Background request succeeded: {:?}", resp);
+                                } else {
+                                    error!("Background request failed: {:?}", resp);
+                                }
+                            }
+                            Err(error) => {
+                                error!("Background request failed: {:?}", error);
+                            }
+                        },
+                        Err(error) => {
+                            error!("Background request failed: {:?}", error);
+                        }
+                    }
+                }
+            }
+
+            if systray_enabled && ctx_systray_handle.borrow().is_none() {
                 match SystrayInterface::try_enable(gui_tx).await {
                     Ok(handle) => {
                         *ctx_systray_handle.borrow_mut() = Some(handle);
-                        window.set_hide_on_close(true);
                     }
                     Err(err) => {
                         error!(
@@ -350,21 +448,19 @@ impl App {
                         );
                     }
                 }
+            } else if !systray_enabled {
+                if let Some(handle) = ctx_systray_handle.take() {
+                    *ctx_systray_handle.borrow_mut() = None;
+                    SystrayInterface::disable(&handle).await;
+                }
             }
-        });
-    }
 
-    #[cfg(target_os = "linux")]
-    fn unsetup_systray(
-        ctx_systray_handle: Rc<RefCell<Option<ksni::Handle<SystrayInterface>>>>,
-        window: adw::ApplicationWindow,
-    ) {
-        glib::spawn_future_local(async move {
-            if let Some(handle) = ctx_systray_handle.take() {
-                window.set_hide_on_close(false);
-                *ctx_systray_handle.borrow_mut() = None;
-                SystrayInterface::disable(&handle).await;
-            }
+            window.set_hide_on_close(
+                (systray_enabled && ctx_systray_handle.borrow().is_some())
+                    || (background_enabled && ctx_background_handle.borrow().is_some()),
+            );
+
+            drop(semaphore);
         });
     }
 
@@ -1417,36 +1513,171 @@ impl App {
             })
             .build();
 
-        let _gui_tx = self.gui_tx.clone();
         #[cfg(target_os = "linux")]
-        let ctx_systray_handle = self.ctx_systray_handle.clone();
+        let action_background_setting = {
+            let gui_tx = self.gui_tx.clone();
+            let background_mutex = self.background_mutex.clone();
+            let ctx_systray_handle = self.ctx_systray_handle.clone();
+            let ctx_background_handle = self.ctx_background_handle.clone();
+            let background_setting: adw::SwitchRow =
+                self.builder.object("background_setting").unwrap();
+            let systray_setting: adw::SwitchRow = self.builder.object("systray_setting").unwrap();
+            let autostart_setting: adw::SwitchRow =
+                self.builder.object("autostart_setting").unwrap();
+
+            gio::ActionEntry::builder("background-setting")
+                .state(self.old_preferences.enable_background.unwrap().to_variant())
+                .activate(
+                    move |window: &adw::ApplicationWindow, action: &gio::SimpleAction, _| {
+                        let state = action.state().unwrap();
+                        let action_state: bool = state.get().unwrap();
+                        let new_state = !action_state; // toggle
+                        action.set_state(&new_state.to_variant());
+
+                        let background_mutex = background_mutex.clone();
+                        let background_setting = background_setting.clone();
+                        let systray_setting = systray_setting.clone();
+                        let autostart_setting = autostart_setting.clone();
+                        let ctx_systray_handle = ctx_systray_handle.clone();
+                        let ctx_background_handle = ctx_background_handle.clone();
+                        let systray_enabled = systray_setting.is_active();
+                        let autostart_enabled = autostart_setting.is_active();
+
+                        Self::setup_background(
+                            background_mutex,
+                            new_state,
+                            systray_enabled,
+                            autostart_enabled,
+                            ctx_systray_handle,
+                            ctx_background_handle,
+                            window.clone(),
+                            background_setting,
+                            systray_setting.clone(),
+                            autostart_setting,
+                            gui_tx.clone(),
+                        );
+
+                        let mut new_preference: Preferences = Preferences::new();
+                        new_preference.enable_background = Some(new_state);
+                        gui_tx
+                            .try_send(GUIMessage::UpdatePreference(new_preference))
+                            .unwrap();
+
+                        if new_state != systray_enabled {
+                            systray_setting.set_active(new_state);
+                        }
+                    },
+                )
+                .build()
+        };
 
         #[cfg(target_os = "linux")]
-        let action_systray_setting = gio::ActionEntry::builder("systray-setting")
-            .state(self.old_preferences.enable_systray.unwrap().to_variant())
-            .activate(
-                move |window: &adw::ApplicationWindow, action: &gio::SimpleAction, _| {
-                    let state = action.state().unwrap();
-                    let action_state: bool = state.get().unwrap();
-                    let new_state = !action_state; // toggle
-                    action.set_state(&new_state.to_variant());
+        let action_systray_setting = {
+            let gui_tx = self.gui_tx.clone();
+            let background_mutex = self.background_mutex.clone();
+            let ctx_systray_handle = self.ctx_systray_handle.clone();
+            let ctx_background_handle = self.ctx_background_handle.clone();
+            let background_setting: adw::SwitchRow =
+                self.builder.object("background_setting").unwrap();
+            let systray_setting: adw::SwitchRow = self.builder.object("systray_setting").unwrap();
+            let autostart_setting: adw::SwitchRow =
+                self.builder.object("autostart_setting").unwrap();
 
-                    let ctx_systray_handle = ctx_systray_handle.clone();
+            gio::ActionEntry::builder("systray-setting")
+                .state(self.old_preferences.enable_systray.unwrap().to_variant())
+                .activate(
+                    move |window: &adw::ApplicationWindow, action: &gio::SimpleAction, _| {
+                        let state = action.state().unwrap();
+                        let action_state: bool = state.get().unwrap();
+                        let new_state = !action_state; // toggle
+                        action.set_state(&new_state.to_variant());
 
-                    if new_state {
-                        Self::setup_systray(ctx_systray_handle, window.clone(), _gui_tx.clone());
-                    } else {
-                        Self::unsetup_systray(ctx_systray_handle, window.clone());
-                    }
+                        let background_mutex = background_mutex.clone();
+                        let background_setting = background_setting.clone();
+                        let systray_setting = systray_setting.clone();
+                        let autostart_setting = autostart_setting.clone();
+                        let ctx_systray_handle = ctx_systray_handle.clone();
+                        let ctx_background_handle = ctx_background_handle.clone();
+                        let background_enabled = background_setting.is_active();
+                        let autostart_enabled = autostart_setting.is_active();
 
-                    let mut new_preference: Preferences = Preferences::new();
-                    new_preference.enable_systray = Some(new_state);
-                    _gui_tx
-                        .try_send(GUIMessage::UpdatePreference(new_preference))
-                        .unwrap();
-                },
-            )
-            .build();
+                        Self::setup_background(
+                            background_mutex,
+                            background_enabled,
+                            new_state,
+                            autostart_enabled,
+                            ctx_systray_handle,
+                            ctx_background_handle,
+                            window.clone(),
+                            background_setting,
+                            systray_setting,
+                            autostart_setting,
+                            gui_tx.clone(),
+                        );
+
+                        let mut new_preference: Preferences = Preferences::new();
+                        new_preference.enable_systray = Some(new_state);
+                        gui_tx
+                            .try_send(GUIMessage::UpdatePreference(new_preference))
+                            .unwrap();
+                    },
+                )
+                .build()
+        };
+
+        #[cfg(target_os = "linux")]
+        let action_autostart_setting = {
+            let gui_tx = self.gui_tx.clone();
+            let background_mutex = self.background_mutex.clone();
+            let ctx_systray_handle = self.ctx_systray_handle.clone();
+            let ctx_background_handle = self.ctx_background_handle.clone();
+            let background_setting: adw::SwitchRow =
+                self.builder.object("background_setting").unwrap();
+            let systray_setting: adw::SwitchRow = self.builder.object("systray_setting").unwrap();
+            let autostart_setting: adw::SwitchRow =
+                self.builder.object("autostart_setting").unwrap();
+
+            gio::ActionEntry::builder("autostart-setting")
+                .state(self.old_preferences.enable_autostart.unwrap().to_variant())
+                .activate(
+                    move |window: &adw::ApplicationWindow, action: &gio::SimpleAction, _| {
+                        let state = action.state().unwrap();
+                        let action_state: bool = state.get().unwrap();
+                        let new_state = !action_state; // toggle
+                        action.set_state(&new_state.to_variant());
+
+                        let background_mutex = background_mutex.clone();
+                        let background_setting = background_setting.clone();
+                        let systray_setting = systray_setting.clone();
+                        let autostart_setting = autostart_setting.clone();
+                        let ctx_systray_handle = ctx_systray_handle.clone();
+                        let ctx_background_handle = ctx_background_handle.clone();
+                        let background_enabled = background_setting.is_active();
+                        let systray_enabled = systray_setting.is_active();
+
+                        Self::setup_background(
+                            background_mutex,
+                            background_enabled,
+                            systray_enabled,
+                            new_state,
+                            ctx_systray_handle,
+                            ctx_background_handle,
+                            window.clone(),
+                            background_setting,
+                            systray_setting,
+                            autostart_setting,
+                            gui_tx.clone(),
+                        );
+
+                        let mut new_preference: Preferences = Preferences::new();
+                        new_preference.enable_autostart = Some(new_state);
+                        gui_tx
+                            .try_send(GUIMessage::UpdatePreference(new_preference))
+                            .unwrap();
+                    },
+                )
+                .build()
+        };
 
         let gui_tx = self.gui_tx.clone();
 
@@ -1504,7 +1735,11 @@ impl App {
             action_show_preferences,
             action_notification_setting,
             #[cfg(target_os = "linux")]
+            action_background_setting,
+            #[cfg(target_os = "linux")]
             action_systray_setting,
+            #[cfg(target_os = "linux")]
+            action_autostart_setting,
             action_no_dupes_setting,
             action_refresh_devices,
             action_close,

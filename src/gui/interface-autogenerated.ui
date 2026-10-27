@@ -344,6 +344,18 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
                     </child>
                   </object>
                 </child>
+                <child type="bottom">
+                  <object class="GtkActionBar">
+                    <property name="visible">false</property>
+                    <child>
+                      <object class="GtkButton">
+                        <property name="action-name">navigation.push</property>
+                        <property name="action-target">"settings_tag"</property>
+                        <property name="label">DEBUG: Show preferences</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
               </object>
             </property>
             <property name="title">SongRec</property>
@@ -460,10 +472,26 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
                           </object>
                         </child>
                         <child>
+                          <object class="AdwSwitchRow" id="background_setting">
+                            <property name="action-name">win.background-setting</property>
+                            <property name="subtitle" translatable="yes">When closing the window, minimize to background (as visible under the system menu on GNOME) instead of closing the app.</property>
+                            <property name="title" translatable="yes">Minimize to background</property>
+                            <property name="visible">false</property>
+                          </object>
+                        </child>
+                        <child>
                           <object class="AdwSwitchRow" id="systray_setting">
                             <property name="action-name">win.systray-setting</property>
                             <property name="subtitle" translatable="yes">When closing the window, minimize to system tray using KSNI instead of closing the app. Please note that you may have to increase the "request interval" setting when leaving SongRec running in the background to reduce your changes of getting rate-limited.</property>
                             <property name="title" translatable="yes">Minimize to system tray</property>
+                            <property name="visible">false</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="AdwSwitchRow" id="autostart_setting">
+                            <property name="action-name">win.autostart-setting</property>
+                            <property name="subtitle" translatable="yes">Launch SongRec automatically when launching your desktop session.</property>
+                            <property name="title" translatable="yes">Launch at startup</property>
                             <property name="visible">false</property>
                           </object>
                         </child>

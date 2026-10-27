@@ -11,7 +11,9 @@ use crate::utils::filesystem_operations::obtain_preferences_file_path;
 #[serde(default)]
 pub struct Preferences {
     pub enable_notifications: Option<bool>,
+    pub enable_background: Option<bool>,
     pub enable_systray: Option<bool>,
+    pub enable_autostart: Option<bool>,
     pub enable_mpris: Option<bool>, // Legacy, before setting default to true
     pub enable_mpris_v2: Option<bool>,
     pub no_duplicates: Option<bool>,
@@ -28,7 +30,9 @@ impl Preferences {
     pub fn new() -> Self {
         Preferences {
             enable_notifications: None,
+            enable_background: None,
             enable_systray: None,
+            enable_autostart: None,
             enable_mpris: None,
             enable_mpris_v2: None,
             no_duplicates: None,
@@ -45,7 +49,9 @@ impl Preferences {
     pub fn with_interval(interval: u64) -> Self {
         Preferences {
             enable_notifications: Some(true),
+            enable_background: Some(false),
             enable_systray: Some(false),
+            enable_autostart: Some(false),
             enable_mpris: None,
             enable_mpris_v2: Some(true),
             no_duplicates: Some(false),
@@ -64,7 +70,9 @@ impl Default for Preferences {
     fn default() -> Self {
         Preferences {
             enable_notifications: Some(true),
+            enable_background: Some(false),
             enable_systray: Some(false),
+            enable_autostart: Some(false),
             enable_mpris: None,
             enable_mpris_v2: Some(true),
             no_duplicates: Some(false),
@@ -125,9 +133,15 @@ impl PreferencesInterface {
                 .enable_mpris_v2
                 .or(current_preferences.enable_mpris_v2)
                 .or(current_preferences.enable_mpris),
+            enable_background: update_preferences
+                .enable_background
+                .or(current_preferences.enable_background),
             enable_systray: update_preferences
                 .enable_systray
                 .or(current_preferences.enable_systray),
+            enable_autostart: update_preferences
+                .enable_autostart
+                .or(current_preferences.enable_autostart),
             no_duplicates: update_preferences
                 .no_duplicates
                 .or(current_preferences.no_duplicates),

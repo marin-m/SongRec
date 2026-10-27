@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-18 04:28+0200\n"
+"POT-Creation-Date: 2026-10-27 07:13+0100\n"
 "PO-Revision-Date: 2026-03-09 12:56+0000\n"
 "Last-Translator: Mu7ammed Basha "
 "<mu7basha@users.noreply.weblate.fossplant.re>\n"
@@ -49,7 +49,7 @@ msgstr "تحذير: تعذر الاتصال بالشبكة"
 
 #: src/cli_main.rs:179 src/core/http_task.rs:54 src/core/http_task.rs:63
 #: src/core/http_task.rs:75 src/core/http_task.rs:110
-#: src/gui/main_window.rs:898 src/gui/main_window.rs:910
+#: src/gui/main_window.rs:994 src/gui/main_window.rs:1006
 msgid "No match for this song"
 msgstr "لم يُعثر على أغنية مُطابِقة"
 
@@ -194,17 +194,17 @@ msgstr "خطأ في الصوت:"
 msgid "Audio error: No input device available"
 msgstr ""
 
-#: src/core/preferences.rs:58 src/core/preferences.rs:77
-#: src/gui/main_window.rs:295 src/gui/interface.blp:123
-#: src/gui/interface.blp:574 src/gui/interface.blp:624
+#: src/core/preferences.rs:64 src/core/preferences.rs:85
+#: src/gui/main_window.rs:305 src/gui/interface.blp:123
+#: src/gui/interface.blp:601 src/gui/interface.blp:651
 msgid "Search on YouTube"
 msgstr "ابحث على YouTube"
 
-#: src/core/preferences.rs:93
+#: src/core/preferences.rs:101
 msgid "When parsing the preferences file:"
 msgstr "عند تحليل ملف التفضيلات:"
 
-#: src/core/preferences.rs:161
+#: src/core/preferences.rs:175
 msgid "When saving the preferences file:"
 msgstr "عند حفظ ملف التفضيلات:"
 
@@ -220,39 +220,43 @@ msgstr "نطاق التردد غير صالح في فك ترميز حزمة Shaz
 msgid "Invalid sample rate passed when encoding Shazam packet"
 msgstr "عبَر معدل عينة غير صالح أثناء ترميز حزمة Shazam"
 
-#: src/gui/main_window.rs:253
+#: src/gui/main_window.rs:263
 msgid "Application error"
 msgstr "خطأ في التطبيق"
 
-#: src/gui/main_window.rs:274
+#: src/gui/main_window.rs:284
 msgid "Network error"
 msgstr "خطأ في الشبكة"
 
-#: src/gui/main_window.rs:348
+#: src/gui/main_window.rs:388 src/gui/main_window.rs:414
+msgid "Recognizing songs"
+msgstr ""
+
+#: src/gui/main_window.rs:446
 msgid "Unable to enable notification icon"
 msgstr "تعذر تفعيل أيقونة الإشعار"
 
-#: src/gui/main_window.rs:804 src/gui/main_window.rs:885
+#: src/gui/main_window.rs:900 src/gui/main_window.rs:981
 msgid "Unable to enable MPRIS support"
 msgstr "تعذر تفعيل دعم MPRIS"
 
-#: src/gui/main_window.rs:907
+#: src/gui/main_window.rs:1003
 msgid "_Ok"
 msgstr "_حسنًا"
 
-#: src/gui/main_window.rs:983
+#: src/gui/main_window.rs:1079
 msgid "Song recognized"
 msgstr "الأغنية عُرِفت"
 
-#: src/gui/main_window.rs:1120
+#: src/gui/main_window.rs:1216
 msgid "Are you sure you want to wipe history?"
 msgstr "هل ترغب في محو السجل؟"
 
-#: src/gui/main_window.rs:1126
+#: src/gui/main_window.rs:1222
 msgid "_Yes"
 msgstr "_نعم"
 
-#: src/gui/main_window.rs:1127
+#: src/gui/main_window.rs:1223
 msgid "_Cancel"
 msgstr ""
 
@@ -344,15 +348,15 @@ msgstr "خيارات السجل..."
 msgid "Recognition history"
 msgstr "سجل التعرف"
 
-#: src/gui/interface.blp:230 src/gui/interface.blp:324
+#: src/gui/interface.blp:230 src/gui/interface.blp:335
 msgid "Song name"
 msgstr "اسم الأغنية"
 
-#: src/gui/interface.blp:241 src/gui/interface.blp:335
+#: src/gui/interface.blp:241 src/gui/interface.blp:346
 msgid "Album"
 msgstr "الألبوم"
 
-#: src/gui/interface.blp:254 src/gui/interface.blp:348
+#: src/gui/interface.blp:254 src/gui/interface.blp:359
 msgid "Recognition date"
 msgstr "تاريخ التعرف"
 
@@ -364,27 +368,27 @@ msgstr "عرض المفضلات"
 msgid "Application menu"
 msgstr "قائمة التطبيق"
 
-#: src/gui/interface.blp:363 src/gui/interface.blp:526
+#: src/gui/interface.blp:374 src/gui/interface.blp:553
 msgid "Export to CSV"
 msgstr "تصدير إلى ملف CSV"
 
-#: src/gui/interface.blp:370
+#: src/gui/interface.blp:381
 msgid "Favorites"
 msgstr "المفضلات"
 
-#: src/gui/interface.blp:377
+#: src/gui/interface.blp:388
 msgid "General preferences"
 msgstr "التفضيلات العامة"
 
-#: src/gui/interface.blp:381
+#: src/gui/interface.blp:392
 msgid "Notify when a new song is recognized or network error is encountered"
 msgstr "نبهني عند التعرف على أغنية جديدة أو عند حدوث خطأ في الاتصال"
 
-#: src/gui/interface.blp:382 src/gui/interface.blp:481
+#: src/gui/interface.blp:393 src/gui/interface.blp:508
 msgid "Show notifications"
 msgstr "إرسال الإشعارات"
 
-#: src/gui/interface.blp:388
+#: src/gui/interface.blp:399
 msgid ""
 "Bump a song to the top of the history list and remove the former entry when "
 "the same song is detected multiple times"
@@ -392,11 +396,21 @@ msgstr ""
 "ضع أغنيةً أعلى قائمة السجل واحذف العنصر السابق عند العثور على نفس الأغنية "
 "لعدة مرات"
 
-#: src/gui/interface.blp:390
+#: src/gui/interface.blp:401
 msgid "No duplicates in history"
 msgstr "لا تطابقات في السجل"
 
-#: src/gui/interface.blp:396
+#: src/gui/interface.blp:407
+msgid ""
+"When closing the window, minimize to background (as visible under the system "
+"menu on GNOME) instead of closing the app."
+msgstr ""
+
+#: src/gui/interface.blp:409
+msgid "Minimize to background"
+msgstr ""
+
+#: src/gui/interface.blp:416
 msgid ""
 "When closing the window, minimize to system tray using KSNI instead of "
 "closing the app. Please note that you may have to increase the \"request "
@@ -407,23 +421,31 @@ msgstr ""
 "بالكامل. خذ في الاعتبار زيادة إعداد «الفاصل الزمني بين الطلبات» عند تشغيل "
 "SongRec في الخلفية؛ لتقليل احتمالية تقييد استخدامك."
 
-#: src/gui/interface.blp:398
+#: src/gui/interface.blp:418
 msgid "Minimize to system tray"
 msgstr "تصغير إلى لوحة النظام"
 
-#: src/gui/interface.blp:404
+#: src/gui/interface.blp:424
+msgid "Launch SongRec automatically when launching your desktop session."
+msgstr ""
+
+#: src/gui/interface.blp:425
+msgid "Launch at startup"
+msgstr ""
+
+#: src/gui/interface.blp:431
 msgid "Network preferences"
 msgstr "تفضيلات الشبكة"
 
-#: src/gui/interface.blp:420
+#: src/gui/interface.blp:447
 msgid "By default 8, increase if you are rate-limited"
 msgstr "القيمة الإفتراضية 8، زودها أن تم تقييد استخدامك"
 
-#: src/gui/interface.blp:421
+#: src/gui/interface.blp:448
 msgid "Shazam interval between requests in seconds"
 msgstr "الفاصل الزمني بين طلبات Shazam بالثواني"
 
-#: src/gui/interface.blp:429
+#: src/gui/interface.blp:456
 msgid ""
 "MPRIS will display information about recognized songs in places like the "
 "GNOME or KDE control panel"
@@ -431,71 +453,71 @@ msgstr ""
 "سيعرض MPRIS معلومات حول الأغاني التي تم التعرف عليها في أماكن مثل قائمة "
 "الإشعارات في جنوم أو كِيدِي"
 
-#: src/gui/interface.blp:431
+#: src/gui/interface.blp:458
 msgid "Enable MPRIS"
 msgstr "تفعيل MPRIS"
 
-#: src/gui/interface.blp:437
+#: src/gui/interface.blp:464
 msgid "Search preferences"
 msgstr ""
 
-#: src/gui/interface.blp:440
+#: src/gui/interface.blp:467
 msgid "Custom search engine action"
 msgstr ""
 
-#: src/gui/interface.blp:445
+#: src/gui/interface.blp:472
 msgid "Custom search engine URL"
 msgstr ""
 
-#: src/gui/interface.blp:456
+#: src/gui/interface.blp:483
 msgid "Settings"
 msgstr "الإعدادات"
 
-#: src/gui/interface.blp:486
+#: src/gui/interface.blp:513
 msgid "_Preferences..."
 msgstr "ال_تفضيلات..."
 
-#: src/gui/interface.blp:493
+#: src/gui/interface.blp:520
 msgid "_Keyboard Shortcuts"
 msgstr ""
 
-#: src/gui/interface.blp:498
+#: src/gui/interface.blp:525
 msgid "About..."
 msgstr "_حول..."
 
-#: src/gui/interface.blp:531
+#: src/gui/interface.blp:558
 msgid "Delete history"
 msgstr "محو السجل"
 
-#: src/gui/interface.blp:536
+#: src/gui/interface.blp:563
 msgid "Select a file to recognize"
 msgstr "اختر ملفًا لبدء التعرف"
 
-#: src/gui/interface.blp:548 src/gui/interface.blp:598
+#: src/gui/interface.blp:575 src/gui/interface.blp:625
 msgid "Copy artist and track"
 msgstr "انسخ اسم الفنان والألبوم"
 
-#: src/gui/interface.blp:554 src/gui/interface.blp:604
+#: src/gui/interface.blp:581 src/gui/interface.blp:631
 msgid "Copy artist"
 msgstr "انسخ اسم الفنان"
 
-#: src/gui/interface.blp:560 src/gui/interface.blp:610
+#: src/gui/interface.blp:587 src/gui/interface.blp:637
 msgid "Copy track name"
 msgstr "انسخ اسم المسار"
 
-#: src/gui/interface.blp:566 src/gui/interface.blp:616
+#: src/gui/interface.blp:593 src/gui/interface.blp:643
 msgid "Copy album"
 msgstr "انسخ اسم الألبوم"
 
-#: src/gui/interface.blp:582
+#: src/gui/interface.blp:609
 msgid "Delete from History"
 msgstr "محو من السجل"
 
-#: src/gui/interface.blp:588
+#: src/gui/interface.blp:615
 msgid "Add to Favorites"
 msgstr "إضافة للمفضلات"
 
-#: src/gui/interface.blp:632
+#: src/gui/interface.blp:659
 msgid "Remove from Favorites"
 msgstr "محو من المفضلات"
 

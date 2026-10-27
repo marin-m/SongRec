@@ -288,6 +288,17 @@ Adw.ApplicationWindow main_window {
             tooltip-text: _("Application menu");
           }
         }
+
+        [bottom]
+        ActionBar {
+          visible: false;
+
+          Button {
+            action-name: "navigation.push";
+            action-target: "\"settings_tag\"";
+            label: "DEBUG: Show preferences";
+          }
+        }
       };
 
       title: "SongRec";
@@ -390,12 +401,28 @@ Adw.ApplicationWindow main_window {
               title: _("No duplicates in history");
             }
 
+            Adw.SwitchRow background_setting {
+              action-name: "win.background-setting";
+              subtitle: _(
+                "When closing the window, minimize to background (as visible under the system menu on GNOME) instead of closing the app."
+              );
+              title: _("Minimize to background");
+              visible: false;
+            }
+
             Adw.SwitchRow systray_setting {
               action-name: "win.systray-setting";
               subtitle: _(
                 "When closing the window, minimize to system tray using KSNI instead of closing the app. Please note that you may have to increase the \"request interval\" setting when leaving SongRec running in the background to reduce your changes of getting rate-limited."
               );
               title: _("Minimize to system tray");
+              visible: false;
+            }
+
+            Adw.SwitchRow autostart_setting {
+              action-name: "win.autostart-setting";
+              subtitle: _("Launch SongRec automatically when launching your desktop session.");
+              title: _("Launch at startup");
               visible: false;
             }
           }
