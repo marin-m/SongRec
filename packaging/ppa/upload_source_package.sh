@@ -19,7 +19,7 @@ function cleanup_dirs {
 
 trap cleanup_dirs INT TERM
 
-for version in resolute stonking; do
+for version in resolute stonking tenacious; do
 
     cp -ra ../../ "${temp_dir}/songrec-${PKGVER}${version}"
 
