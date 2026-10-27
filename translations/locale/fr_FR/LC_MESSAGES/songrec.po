@@ -249,7 +249,7 @@ msgctxt ""
 "Status of the app displayed in the Background Apps section of GNOME system "
 "menu when using Flatpak"
 msgid "Recognizing songs"
-msgstr "Reconnaissance de morceaux"
+msgstr "Reconnaissance de chansons"
 
 #: src/gui/main_window.rs:475
 msgid "Unable to enable notification icon"
