@@ -2514,6 +2514,7 @@ dependencies = [
  "app_dirs",
  "ashpd",
  "async-channel",
+ "async-lock",
  "base64",
  "byteorder",
  "chrono",

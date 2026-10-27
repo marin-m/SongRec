@@ -490,7 +490,7 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
                         <child>
                           <object class="AdwSwitchRow" id="autostart_setting">
                             <property name="action-name">win.autostart-setting</property>
-                            <property name="subtitle" translatable="yes">Launch SongRec minimized in the background when launching your desktop session.</property>
+                            <property name="subtitle" translatable="yes">Launch SongRec automatically when launching your desktop session.</property>
                             <property name="title" translatable="yes">Launch at startup</property>
                             <property name="visible">false</property>
                           </object>
