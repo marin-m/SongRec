@@ -14,6 +14,7 @@ pub struct Preferences {
     pub enable_background: Option<bool>,
     pub enable_systray: Option<bool>,
     pub enable_autostart: Option<bool>,
+    pub start_minimized: Option<bool>,
     pub enable_mpris: Option<bool>, // Legacy, before setting default to true
     pub enable_mpris_v2: Option<bool>,
     pub no_duplicates: Option<bool>,
@@ -33,6 +34,7 @@ impl Preferences {
             enable_background: None,
             enable_systray: None,
             enable_autostart: None,
+            start_minimized: None,
             enable_mpris: None,
             enable_mpris_v2: None,
             no_duplicates: None,
@@ -52,6 +54,7 @@ impl Preferences {
             enable_background: Some(false),
             enable_systray: Some(false),
             enable_autostart: Some(false),
+            start_minimized: Some(false),
             enable_mpris: None,
             enable_mpris_v2: Some(true),
             no_duplicates: Some(false),
@@ -73,6 +76,7 @@ impl Default for Preferences {
             enable_background: Some(false),
             enable_systray: Some(false),
             enable_autostart: Some(false),
+            start_minimized: Some(false),
             enable_mpris: None,
             enable_mpris_v2: Some(true),
             no_duplicates: Some(false),
@@ -142,6 +146,9 @@ impl PreferencesInterface {
             enable_autostart: update_preferences
                 .enable_autostart
                 .or(current_preferences.enable_autostart),
+            start_minimized: update_preferences
+                .start_minimized
+                .or(current_preferences.start_minimized),
             no_duplicates: update_preferences
                 .no_duplicates
                 .or(current_preferences.no_duplicates),

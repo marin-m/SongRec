@@ -401,6 +401,21 @@ Adw.ApplicationWindow main_window {
               title: _("No duplicates in history");
             }
 
+            Adw.SwitchRow mpris_setting {
+              action-name: "win.mpris-setting";
+              has-tooltip: true;
+              subtitle: _(
+                "MPRIS will display information about recognized songs in places like the GNOME or KDE control panel"
+              );
+              title: _("Enable MPRIS");
+              visible: false;
+            }
+          }
+
+          Adw.PreferencesGroup background_settings {
+            title: _("Background settings");
+            visible: false;
+
             Adw.SwitchRow background_setting {
               action-name: "win.background-setting";
               subtitle: _(
@@ -416,13 +431,19 @@ Adw.ApplicationWindow main_window {
                 "When closing the window, minimize to system tray using KSNI instead of closing the app. Please note that you may have to increase the \"request interval\" setting when leaving SongRec running in the background to reduce your changes of getting rate-limited."
               );
               title: _("Minimize to system tray");
-              visible: false;
             }
 
             Adw.SwitchRow autostart_setting {
               action-name: "win.autostart-setting";
               subtitle: _("Launch SongRec automatically when launching your desktop session.");
               title: _("Launch at startup");
+              visible: false;
+            }
+
+            Adw.SwitchRow start_minimized_setting {
+              action-name: "win.start-minimized-setting";
+              subtitle: _("Launch the app minimized at startup.");
+              title: _("Start minimized");
               visible: false;
             }
           }
@@ -447,16 +468,6 @@ Adw.ApplicationWindow main_window {
               subtitle: _("By default 8, increase if you are rate-limited");
               title: _("Shazam interval between requests in seconds");
               update-policy: if_valid;
-            }
-
-            Adw.SwitchRow mpris_setting {
-              action-name: "win.mpris-setting";
-              has-tooltip: true;
-              subtitle: _(
-                "MPRIS will display information about recognized songs in places like the GNOME or KDE control panel"
-              );
-              title: _("Enable MPRIS");
-              visible: false;
             }
           }
 

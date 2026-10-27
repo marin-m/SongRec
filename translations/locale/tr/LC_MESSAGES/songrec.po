@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-27 07:13+0100\n"
+"POT-Creation-Date: 2026-10-27 08:22+0100\n"
 "PO-Revision-Date: 2026-07-06 14:05+0000\n"
 "Last-Translator: Arda Aydın <arda.aydin@operationsilkscarf.com>\n"
 "Language-Team: Turkish <https://weblate.fossplant.re/projects/songrec/"
@@ -45,7 +45,7 @@ msgstr "Uyarı: Ağa ulaşılamıyor"
 
 #: src/cli_main.rs:179 src/core/http_task.rs:54 src/core/http_task.rs:63
 #: src/core/http_task.rs:75 src/core/http_task.rs:110
-#: src/gui/main_window.rs:994 src/gui/main_window.rs:1006
+#: src/gui/main_window.rs:1013 src/gui/main_window.rs:1025
 msgid "No match for this song"
 msgstr "Bu şarkı için eşleşme yok"
 
@@ -199,17 +199,17 @@ msgstr "Ses hatası:"
 msgid "Audio error: No input device available"
 msgstr "Ses hatası: Mevcut bir giriş cihazı yok"
 
-#: src/core/preferences.rs:64 src/core/preferences.rs:85
+#: src/core/preferences.rs:67 src/core/preferences.rs:89
 #: src/gui/main_window.rs:305 src/gui/interface.blp:123
-#: src/gui/interface.blp:601 src/gui/interface.blp:651
+#: src/gui/interface.blp:612 src/gui/interface.blp:662
 msgid "Search on YouTube"
 msgstr "YouTube'da ara"
 
-#: src/core/preferences.rs:101
+#: src/core/preferences.rs:105
 msgid "When parsing the preferences file:"
 msgstr "Seçenekler dosyası okunurken şu oldu:"
 
-#: src/core/preferences.rs:175
+#: src/core/preferences.rs:182
 msgid "When saving the preferences file:"
 msgstr "Seçenekler dosyasını kaydederken şu oldu:"
 
@@ -233,35 +233,35 @@ msgstr "Uygulama hatası"
 msgid "Network error"
 msgstr "Ağ hatası"
 
-#: src/gui/main_window.rs:388 src/gui/main_window.rs:414
+#: src/gui/main_window.rs:401 src/gui/main_window.rs:427
 msgid "Recognizing songs"
 msgstr ""
 
-#: src/gui/main_window.rs:446
+#: src/gui/main_window.rs:459
 msgid "Unable to enable notification icon"
 msgstr "Bildirim ikonu etkinleştirilemedi"
 
-#: src/gui/main_window.rs:900 src/gui/main_window.rs:981
+#: src/gui/main_window.rs:919 src/gui/main_window.rs:1000
 msgid "Unable to enable MPRIS support"
 msgstr "MPRIS desteği etkinleştirilemedi"
 
-#: src/gui/main_window.rs:1003
+#: src/gui/main_window.rs:1022
 msgid "_Ok"
 msgstr "_Tamam"
 
-#: src/gui/main_window.rs:1079
+#: src/gui/main_window.rs:1098
 msgid "Song recognized"
 msgstr "Şarkı tanındı"
 
-#: src/gui/main_window.rs:1216
+#: src/gui/main_window.rs:1235
 msgid "Are you sure you want to wipe history?"
 msgstr "Geçmişi temizlemek istediğinizden emin misiniz?"
 
-#: src/gui/main_window.rs:1222
+#: src/gui/main_window.rs:1241
 msgid "_Yes"
 msgstr "_Evet"
 
-#: src/gui/main_window.rs:1223
+#: src/gui/main_window.rs:1242
 msgid "_Cancel"
 msgstr ""
 
@@ -373,7 +373,7 @@ msgstr "Favorileri göster"
 msgid "Application menu"
 msgstr "Uygulama menüsü"
 
-#: src/gui/interface.blp:374 src/gui/interface.blp:553
+#: src/gui/interface.blp:374 src/gui/interface.blp:564
 msgid "Export to CSV"
 msgstr "CSV halinde dışarı aktar"
 
@@ -389,7 +389,7 @@ msgstr "Genel seçenekler"
 msgid "Notify when a new song is recognized or network error is encountered"
 msgstr "Yeni bir şarkı tanındığında ya da ağ hatasıyla karşılaşınca bildir"
 
-#: src/gui/interface.blp:393 src/gui/interface.blp:508
+#: src/gui/interface.blp:393 src/gui/interface.blp:519
 msgid "Show notifications"
 msgstr "Bildirimleri göster"
 
@@ -405,17 +405,33 @@ msgstr ""
 msgid "No duplicates in history"
 msgstr "Geçmişte kopya şarkı bırakma"
 
-#: src/gui/interface.blp:407
+#: src/gui/interface.blp:408
+msgid ""
+"MPRIS will display information about recognized songs in places like the "
+"GNOME or KDE control panel"
+msgstr ""
+"MPRIS, GNOME veya KDE kontrol paneli gibi yerlerde tanınan şarkılar hakkında "
+"bilgiler göstersin"
+
+#: src/gui/interface.blp:410
+msgid "Enable MPRIS"
+msgstr "MPRIS'i etkinleştir"
+
+#: src/gui/interface.blp:416
+msgid "Background settings"
+msgstr ""
+
+#: src/gui/interface.blp:422
 msgid ""
 "When closing the window, minimize to background (as visible under the system "
 "menu on GNOME) instead of closing the app."
 msgstr ""
 
-#: src/gui/interface.blp:409
+#: src/gui/interface.blp:424
 msgid "Minimize to background"
 msgstr ""
 
-#: src/gui/interface.blp:416
+#: src/gui/interface.blp:431
 msgid ""
 "When closing the window, minimize to system tray using KSNI instead of "
 "closing the app. Please note that you may have to increase the \"request "
@@ -427,103 +443,99 @@ msgstr ""
 "yakalanmamak için \"istek aralığı\" ayarını arttırmanız gerekebileceğini not "
 "edin."
 
-#: src/gui/interface.blp:418
+#: src/gui/interface.blp:433
 msgid "Minimize to system tray"
 msgstr "Sistem tepsisine küçült"
 
-#: src/gui/interface.blp:424
+#: src/gui/interface.blp:438
 msgid "Launch SongRec automatically when launching your desktop session."
 msgstr ""
 
-#: src/gui/interface.blp:425
+#: src/gui/interface.blp:439
 msgid "Launch at startup"
 msgstr ""
 
-#: src/gui/interface.blp:431
+#: src/gui/interface.blp:445
+msgid "Launch the app minimized at startup."
+msgstr ""
+
+#: src/gui/interface.blp:446
+msgid "Start minimized"
+msgstr ""
+
+#: src/gui/interface.blp:452
 msgid "Network preferences"
 msgstr "Ağ tercihleri"
 
-#: src/gui/interface.blp:447
+#: src/gui/interface.blp:468
 msgid "By default 8, increase if you are rate-limited"
 msgstr "8 varsayılandır, hız aşımına uğrarsanız arttırın"
 
-#: src/gui/interface.blp:448
+#: src/gui/interface.blp:469
 msgid "Shazam interval between requests in seconds"
 msgstr "Shazam istekleri arasındaki kaç saniye bekler"
 
-#: src/gui/interface.blp:456
-msgid ""
-"MPRIS will display information about recognized songs in places like the "
-"GNOME or KDE control panel"
-msgstr ""
-"MPRIS, GNOME veya KDE kontrol paneli gibi yerlerde tanınan şarkılar hakkında "
-"bilgiler göstersin"
-
-#: src/gui/interface.blp:458
-msgid "Enable MPRIS"
-msgstr "MPRIS'i etkinleştir"
-
-#: src/gui/interface.blp:464
+#: src/gui/interface.blp:475
 msgid "Search preferences"
 msgstr "Arama Tercihleri"
 
-#: src/gui/interface.blp:467
+#: src/gui/interface.blp:478
 msgid "Custom search engine action"
 msgstr "Özel arama motoru aksiyonu"
 
-#: src/gui/interface.blp:472
+#: src/gui/interface.blp:483
 msgid "Custom search engine URL"
 msgstr "Özel arama motoru URL'si"
 
-#: src/gui/interface.blp:483
+#: src/gui/interface.blp:494
 msgid "Settings"
 msgstr "Ayarlar"
 
-#: src/gui/interface.blp:513
+#: src/gui/interface.blp:524
 msgid "_Preferences..."
 msgstr "_Tercihler..."
 
-#: src/gui/interface.blp:520
+#: src/gui/interface.blp:531
 msgid "_Keyboard Shortcuts"
 msgstr "_Klavye Kısayolları"
 
-#: src/gui/interface.blp:525
+#: src/gui/interface.blp:536
 msgid "About..."
 msgstr "Hakkında..."
 
-#: src/gui/interface.blp:558
+#: src/gui/interface.blp:569
 msgid "Delete history"
 msgstr "Geçmişi sil"
 
-#: src/gui/interface.blp:563
+#: src/gui/interface.blp:574
 msgid "Select a file to recognize"
 msgstr "Tanınacak bir dosya seç"
 
-#: src/gui/interface.blp:575 src/gui/interface.blp:625
+#: src/gui/interface.blp:586 src/gui/interface.blp:636
 msgid "Copy artist and track"
 msgstr "Sanatçı ve parça adını kopyala"
 
-#: src/gui/interface.blp:581 src/gui/interface.blp:631
+#: src/gui/interface.blp:592 src/gui/interface.blp:642
 msgid "Copy artist"
 msgstr "Sanatçı adını kopyala"
 
-#: src/gui/interface.blp:587 src/gui/interface.blp:637
+#: src/gui/interface.blp:598 src/gui/interface.blp:648
 msgid "Copy track name"
 msgstr "Şarkı adını kopyala"
 
-#: src/gui/interface.blp:593 src/gui/interface.blp:643
+#: src/gui/interface.blp:604 src/gui/interface.blp:654
 msgid "Copy album"
 msgstr "Albüm adını kopyala"
 
-#: src/gui/interface.blp:609
+#: src/gui/interface.blp:620
 msgid "Delete from History"
 msgstr "Geçmişten sil"
 
-#: src/gui/interface.blp:615
+#: src/gui/interface.blp:626
 msgid "Add to Favorites"
 msgstr "Favorilere ekle"
 
-#: src/gui/interface.blp:659
+#: src/gui/interface.blp:670
 msgid "Remove from Favorites"
 msgstr "Favorilerden çıkar"
 

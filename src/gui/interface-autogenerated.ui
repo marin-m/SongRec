@@ -472,6 +472,21 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
                           </object>
                         </child>
                         <child>
+                          <object class="AdwSwitchRow" id="mpris_setting">
+                            <property name="action-name">win.mpris-setting</property>
+                            <property name="has-tooltip">true</property>
+                            <property name="subtitle" translatable="yes">MPRIS will display information about recognized songs in places like the GNOME or KDE control panel</property>
+                            <property name="title" translatable="yes">Enable MPRIS</property>
+                            <property name="visible">false</property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="AdwPreferencesGroup" id="background_settings">
+                        <property name="title" translatable="yes">Background settings</property>
+                        <property name="visible">false</property>
+                        <child>
                           <object class="AdwSwitchRow" id="background_setting">
                             <property name="action-name">win.background-setting</property>
                             <property name="subtitle" translatable="yes">When closing the window, minimize to background (as visible under the system menu on GNOME) instead of closing the app.</property>
@@ -484,7 +499,6 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
                             <property name="action-name">win.systray-setting</property>
                             <property name="subtitle" translatable="yes">When closing the window, minimize to system tray using KSNI instead of closing the app. Please note that you may have to increase the "request interval" setting when leaving SongRec running in the background to reduce your changes of getting rate-limited.</property>
                             <property name="title" translatable="yes">Minimize to system tray</property>
-                            <property name="visible">false</property>
                           </object>
                         </child>
                         <child>
@@ -492,6 +506,14 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
                             <property name="action-name">win.autostart-setting</property>
                             <property name="subtitle" translatable="yes">Launch SongRec automatically when launching your desktop session.</property>
                             <property name="title" translatable="yes">Launch at startup</property>
+                            <property name="visible">false</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="AdwSwitchRow" id="start_minimized_setting">
+                            <property name="action-name">win.start-minimized-setting</property>
+                            <property name="subtitle" translatable="yes">Launch the app minimized at startup.</property>
+                            <property name="title" translatable="yes">Start minimized</property>
                             <property name="visible">false</property>
                           </object>
                         </child>
@@ -519,15 +541,6 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
                             <property name="subtitle" translatable="yes">By default 8, increase if you are rate-limited</property>
                             <property name="title" translatable="yes">Shazam interval between requests in seconds</property>
                             <property name="update-policy">1</property>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="AdwSwitchRow" id="mpris_setting">
-                            <property name="action-name">win.mpris-setting</property>
-                            <property name="has-tooltip">true</property>
-                            <property name="subtitle" translatable="yes">MPRIS will display information about recognized songs in places like the GNOME or KDE control panel</property>
-                            <property name="title" translatable="yes">Enable MPRIS</property>
-                            <property name="visible">false</property>
                           </object>
                         </child>
                       </object>

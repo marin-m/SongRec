@@ -322,18 +322,26 @@ impl App {
         enable_pipewire_cli: bool,
     ) {
         clear_cache();
+
         self.setup_intercom(
             application,
             set_recording,
             enable_mpris_cli,
             enable_pipewire_cli,
         );
+
         self.setup_actions(application, enable_mpris_cli);
+
+        self.setup_context_menus();
+        self.update_website_search_text();
+        self.show_window(application);
+
         #[cfg(target_os = "linux")]
         {
             let background_enabled = self.old_preferences.enable_background == Some(true);
             let systray_enabled = self.old_preferences.enable_systray == Some(true);
             let autostart_enabled = self.old_preferences.enable_autostart == Some(true);
+            let start_minimized = self.old_preferences.start_minimized == Some(true);
 
             let window: adw::ApplicationWindow = self.builder.object("main_window").unwrap();
             let background_setting: adw::SwitchRow =
@@ -341,29 +349,33 @@ impl App {
             let systray_setting: adw::SwitchRow = self.builder.object("systray_setting").unwrap();
             let autostart_setting: adw::SwitchRow =
                 self.builder.object("autostart_setting").unwrap();
+            let start_minimized_setting: adw::SwitchRow =
+                self.builder.object("start_minimized_setting").unwrap();
 
             Self::setup_background(
                 self.background_mutex.clone(),
+                true,
+                start_minimized,
                 background_enabled,
                 systray_enabled,
                 autostart_enabled,
                 self.ctx_systray_handle.clone(),
                 self.ctx_background_handle.clone(),
-                window,
+                window.clone(),
                 background_setting,
                 systray_setting,
                 autostart_setting,
+                start_minimized_setting,
                 self.gui_tx.clone(),
             );
         }
-        self.setup_context_menus();
-        self.update_website_search_text();
-        self.show_window(application);
     }
 
     #[cfg(target_os = "linux")]
     fn setup_background(
         background_mutex: Rc<Semaphore>,
+        is_starting_app: bool,
+        start_minimized: bool,
         background_enabled: bool,
         systray_enabled: bool,
         autostart_enabled: bool,
@@ -373,6 +385,7 @@ impl App {
         background_setting: adw::SwitchRow,
         systray_setting: adw::SwitchRow,
         autostart_setting: adw::SwitchRow,
+        start_minimized_setting: adw::SwitchRow,
         gui_tx: async_channel::Sender<GUIMessage>,
     ) {
         glib::spawn_future_local(async move {
@@ -455,10 +468,15 @@ impl App {
                 }
             }
 
-            window.set_hide_on_close(
-                (systray_enabled && ctx_systray_handle.borrow().is_some())
-                    || (background_enabled && ctx_background_handle.borrow().is_some()),
-            );
+            let can_minimize = (systray_enabled && ctx_systray_handle.borrow().is_some())
+                || (background_enabled && ctx_background_handle.borrow().is_some());
+
+            window.set_hide_on_close(can_minimize);
+            start_minimized_setting.set_visible(can_minimize);
+
+            if is_starting_app && start_minimized && can_minimize {
+                window.close();
+            }
 
             drop(semaphore);
         });
@@ -838,7 +856,8 @@ impl App {
         let old_device_name = self.old_preferences.current_device_name.clone();
 
         #[cfg(target_os = "linux")]
-        let systray_setting: adw::SwitchRow = self.builder.object("systray_setting").unwrap();
+        let background_settings: adw::PreferencesGroup =
+            self.builder.object("background_settings").unwrap();
 
         #[cfg(all(target_os = "linux", feature = "mpris"))]
         let mpris_setting: adw::SwitchRow = self.builder.object("mpris_setting").unwrap();
@@ -861,7 +880,7 @@ impl App {
         let loopback_switch: adw::SwitchRow = self.builder.object("loopback_switch").unwrap();
 
         #[cfg(target_os = "linux")]
-        systray_setting.set_visible(true);
+        background_settings.set_visible(true);
 
         #[cfg(all(target_os = "linux", feature = "mpris"))]
         mpris_setting.set_visible(true);
@@ -1524,6 +1543,8 @@ impl App {
             let systray_setting: adw::SwitchRow = self.builder.object("systray_setting").unwrap();
             let autostart_setting: adw::SwitchRow =
                 self.builder.object("autostart_setting").unwrap();
+            let start_minimized_setting: adw::SwitchRow =
+                self.builder.object("start_minimized_setting").unwrap();
 
             gio::ActionEntry::builder("background-setting")
                 .state(self.old_preferences.enable_background.unwrap().to_variant())
@@ -1538,13 +1559,17 @@ impl App {
                         let background_setting = background_setting.clone();
                         let systray_setting = systray_setting.clone();
                         let autostart_setting = autostart_setting.clone();
+                        let start_minimized_setting = start_minimized_setting.clone();
                         let ctx_systray_handle = ctx_systray_handle.clone();
                         let ctx_background_handle = ctx_background_handle.clone();
                         let systray_enabled = systray_setting.is_active();
                         let autostart_enabled = autostart_setting.is_active();
+                        let start_minimized = start_minimized_setting.is_active();
 
                         Self::setup_background(
                             background_mutex,
+                            false,
+                            start_minimized,
                             new_state,
                             systray_enabled,
                             autostart_enabled,
@@ -1554,6 +1579,7 @@ impl App {
                             background_setting,
                             systray_setting.clone(),
                             autostart_setting,
+                            start_minimized_setting,
                             gui_tx.clone(),
                         );
 
@@ -1582,6 +1608,8 @@ impl App {
             let systray_setting: adw::SwitchRow = self.builder.object("systray_setting").unwrap();
             let autostart_setting: adw::SwitchRow =
                 self.builder.object("autostart_setting").unwrap();
+            let start_minimized_setting: adw::SwitchRow =
+                self.builder.object("start_minimized_setting").unwrap();
 
             gio::ActionEntry::builder("systray-setting")
                 .state(self.old_preferences.enable_systray.unwrap().to_variant())
@@ -1596,13 +1624,17 @@ impl App {
                         let background_setting = background_setting.clone();
                         let systray_setting = systray_setting.clone();
                         let autostart_setting = autostart_setting.clone();
+                        let start_minimized_setting = start_minimized_setting.clone();
                         let ctx_systray_handle = ctx_systray_handle.clone();
                         let ctx_background_handle = ctx_background_handle.clone();
                         let background_enabled = background_setting.is_active();
                         let autostart_enabled = autostart_setting.is_active();
+                        let start_minimized = start_minimized_setting.is_active();
 
                         Self::setup_background(
                             background_mutex,
+                            false,
+                            start_minimized,
                             background_enabled,
                             new_state,
                             autostart_enabled,
@@ -1612,6 +1644,7 @@ impl App {
                             background_setting,
                             systray_setting,
                             autostart_setting,
+                            start_minimized_setting,
                             gui_tx.clone(),
                         );
 
@@ -1636,6 +1669,8 @@ impl App {
             let systray_setting: adw::SwitchRow = self.builder.object("systray_setting").unwrap();
             let autostart_setting: adw::SwitchRow =
                 self.builder.object("autostart_setting").unwrap();
+            let start_minimized_setting: adw::SwitchRow =
+                self.builder.object("start_minimized_setting").unwrap();
 
             gio::ActionEntry::builder("autostart-setting")
                 .state(self.old_preferences.enable_autostart.unwrap().to_variant())
@@ -1650,13 +1685,17 @@ impl App {
                         let background_setting = background_setting.clone();
                         let systray_setting = systray_setting.clone();
                         let autostart_setting = autostart_setting.clone();
+                        let start_minimized_setting = start_minimized_setting.clone();
                         let ctx_systray_handle = ctx_systray_handle.clone();
                         let ctx_background_handle = ctx_background_handle.clone();
                         let background_enabled = background_setting.is_active();
                         let systray_enabled = systray_setting.is_active();
+                        let start_minimized = start_minimized_setting.is_active();
 
                         Self::setup_background(
                             background_mutex,
+                            false,
+                            start_minimized,
                             background_enabled,
                             systray_enabled,
                             new_state,
@@ -1666,11 +1705,35 @@ impl App {
                             background_setting,
                             systray_setting,
                             autostart_setting,
+                            start_minimized_setting,
                             gui_tx.clone(),
                         );
 
                         let mut new_preference: Preferences = Preferences::new();
                         new_preference.enable_autostart = Some(new_state);
+                        gui_tx
+                            .try_send(GUIMessage::UpdatePreference(new_preference))
+                            .unwrap();
+                    },
+                )
+                .build()
+        };
+
+        #[cfg(target_os = "linux")]
+        let action_start_minimized_setting = {
+            let gui_tx = self.gui_tx.clone();
+
+            gio::ActionEntry::builder("start-minimized-setting")
+                .state(self.old_preferences.start_minimized.unwrap().to_variant())
+                .activate(
+                    move |_window: &adw::ApplicationWindow, action: &gio::SimpleAction, _| {
+                        let state = action.state().unwrap();
+                        let action_state: bool = state.get().unwrap();
+                        let new_state = !action_state; // toggle
+                        action.set_state(&new_state.to_variant());
+
+                        let mut new_preference: Preferences = Preferences::new();
+                        new_preference.start_minimized = Some(new_state);
                         gui_tx
                             .try_send(GUIMessage::UpdatePreference(new_preference))
                             .unwrap();
@@ -1740,6 +1803,8 @@ impl App {
             action_systray_setting,
             #[cfg(target_os = "linux")]
             action_autostart_setting,
+            #[cfg(target_os = "linux")]
+            action_start_minimized_setting,
             action_no_dupes_setting,
             action_refresh_devices,
             action_close,
