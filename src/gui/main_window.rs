@@ -1,4 +1,5 @@
 use adw::prelude::*;
+#[cfg(target_os = "linux")]
 use ashpd::desktop::background::{BackgroundProxy, BackgroundRequestOptions};
 use async_lock::Semaphore;
 use chrono::Local;
@@ -379,6 +380,8 @@ impl App {
                 self.gui_tx.clone(),
             );
         }
+        #[cfg(not(target_os = "linux"))]
+        window.present();
     }
 
     #[cfg(target_os = "linux")]
