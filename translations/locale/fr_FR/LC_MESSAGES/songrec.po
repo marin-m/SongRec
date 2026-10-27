@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-27 08:35+0100\n"
-"PO-Revision-Date: 2026-06-27 17:34+0000\n"
+"PO-Revision-Date: 2026-10-27 07:41+0000\n"
 "Last-Translator: Marin <25437947+marin-m@users.noreply.github.com>\n"
 "Language-Team: French <https://weblate.fossplant.re/projects/songrec/songrec/"
 "fr/>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 #: src/cli_main.rs:118
 msgid "Available device:"
@@ -249,7 +249,7 @@ msgctxt ""
 "Status of the app displayed in the Background Apps section of GNOME system "
 "menu when using Flatpak"
 msgid "Recognizing songs"
-msgstr ""
+msgstr "Reconnaissance de morceaux"
 
 #: src/gui/main_window.rs:464
 msgid "Unable to enable notification icon"
@@ -437,17 +437,19 @@ msgstr "Activer MPRIS"
 
 #: src/gui/interface.blp:416
 msgid "Background settings"
-msgstr ""
+msgstr "Paramètres d'arrière-plan"
 
 #: src/gui/interface.blp:422
 msgid ""
 "When closing the window, minimize to background (as visible under the system "
 "menu on GNOME) instead of closing the app."
 msgstr ""
+"Lorsque la fenêtre est fermée, minimiser l'application (qui sera visible au "
+"sein du menu système de GNOME) au lieu fermer l'application."
 
 #: src/gui/interface.blp:424
 msgid "Minimize to background"
-msgstr ""
+msgstr "Minimiser en arrière-plan"
 
 #: src/gui/interface.blp:431
 msgid ""
@@ -468,19 +470,19 @@ msgstr "Minimiser dans la zone de notifications"
 
 #: src/gui/interface.blp:438
 msgid "Launch SongRec automatically when launching your desktop session."
-msgstr ""
+msgstr "Lancer SongRec automatiquement au démarrage de votre session de bureau."
 
 #: src/gui/interface.blp:439
 msgid "Launch at startup"
-msgstr ""
+msgstr "Lancer au démarrage"
 
 #: src/gui/interface.blp:445
 msgid "Launch the app minimized at startup."
-msgstr ""
+msgstr "Lancer l'application minimisée au démarrage."
 
 #: src/gui/interface.blp:446
 msgid "Start minimized"
-msgstr ""
+msgstr "Lancer minimisée"
 
 #: src/gui/interface.blp:452
 msgid "Network preferences"
