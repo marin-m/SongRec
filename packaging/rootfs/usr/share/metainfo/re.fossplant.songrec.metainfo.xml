@@ -6,7 +6,7 @@
   <name>SongRec</name>
   <branding>
     <color type="primary" scheme_preference="light">#9141ac</color>
-    <color type="primary" scheme_preference="dark">#410F8F</color>
+    <color type="primary" scheme_preference="dark">#613583</color>
   </branding>
   <summary>Recognize songs from audio easily</summary>
   <summary xml:lang="tr">Bir sesten şarkıları kolayca tanıyın</summary>
