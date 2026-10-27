@@ -4,7 +4,7 @@ Exec=songrec gui %f
 Icon=re.fossplant.songrec
 # See https://github.com/lemenkov/shared-mime-info/blob/master/freedesktop.org.xml.in
 # regarding the applicable mime types
-MimeType=audio/mpeg;audio/x-wav;audio/x-vorbis+ogg;audio/flac;
+MimeType=audio/mpeg;audio/x-wav;audio/x-vorbis+ogg;audio/flac;audio/mp4;audio/ogg;audio/opus;audio/aac;
 StartupNotify=true
 X-GNOME-UsesNotifications=true
 X-Purism-FormFactor=Workstation;Mobile;

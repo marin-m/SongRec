@@ -63,6 +63,7 @@ https://hughsie.github.io/oars/index.html
         <ul>
           <li>Add support for Background Apps on the Flatpak target (#339)</li>
           <li>Add an option to start SongRec minimized (#246)</li>
+          <li>Add support for opening more common audio mimetypes in the app</li>
           <li>Update Italian translation thanks to @albanobattistella</li>
         </ul>
       </description>
@@ -434,5 +435,9 @@ https://hughsie.github.io/oars/index.html
     <mediatype>audio/x-wav</mediatype>
     <mediatype>audio/x-vorbis+ogg</mediatype>
     <mediatype>audio/flac</mediatype>
+    <mediatype>audio/mp4</mediatype>
+    <mediatype>audio/ogg</mediatype>
+    <mediatype>audio/opus</mediatype>
+    <mediatype>audio/aac</mediatype>
   </provides>
 </component>
