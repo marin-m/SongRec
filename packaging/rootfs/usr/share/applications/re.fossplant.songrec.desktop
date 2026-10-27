@@ -1,5 +1,5 @@
 [Desktop Entry]
-# NOTE: ⚠️ This file was generated when building with cargo, please do not edit directory.
+# NOTE: ⚠️ This file was generated when building with cargo, please do not edit directly.
 # Find the original *.in file in packaging/freedesktop/
 
 Categories=GTK;Audio;AudioVideo;
