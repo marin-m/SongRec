@@ -5,7 +5,7 @@ songrec (0.8.0) bionic; urgency=low
   * Add support for opening more common audio mimetypes in the app
   * Update Italian translation thanks to @albanobattistella
 
- -- Marin <marin-m@users.noreply.github.com>  Tue, 27 Oct 2026 09:24:47 +0200
+ -- Marin <marin-m@users.noreply.github.com>  Tue, 27 Oct 2026 09:24:47 +0100
 
 songrec (0.7.6) bionic; urgency=low
 
