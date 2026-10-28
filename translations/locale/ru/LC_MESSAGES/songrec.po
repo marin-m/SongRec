@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-27 09:34+0100\n"
-"PO-Revision-Date: 2026-05-18 12:07+1100\n"
+"PO-Revision-Date: 2026-10-28 16:03+1100\n"
 "Last-Translator: Aleksandr Shamaraev <shad@altlinux.org>\n"
 "Language-Team: Russian <https://weblate.fossplant.re/projects/songrec/"
 "songrec/ru/>\n"
@@ -241,7 +241,7 @@ msgctxt ""
 "Status of the app displayed in the Background Apps section of GNOME system "
 "menu when using Flatpak"
 msgid "Recognizing songs"
-msgstr ""
+msgstr "Распознавание песен"
 
 #: src/gui/main_window.rs:475
 msgid "Unable to enable notification icon"
@@ -425,17 +425,19 @@ msgstr "Включить MPRIS"
 
 #: src/gui/interface.blp:416
 msgid "Background settings"
-msgstr ""
+msgstr "Настройки работы в фоне"
 
 #: src/gui/interface.blp:422
 msgid ""
 "When closing the window, minimize to background (as visible under the system "
 "menu on GNOME) instead of closing the app."
 msgstr ""
+"При закрытии окна сворачивать его в фоновый режим (как это отображается в "
+"системном меню в GNOME), а не закрывать приложение полностью."
 
 #: src/gui/interface.blp:424
 msgid "Minimize to background"
-msgstr ""
+msgstr "Свернуть в фоновый режим"
 
 #: src/gui/interface.blp:431
 msgid ""
@@ -455,19 +457,19 @@ msgstr "Свернуть в системный трей"
 
 #: src/gui/interface.blp:438
 msgid "Launch SongRec automatically when launching your desktop session."
-msgstr ""
+msgstr "Автоматически запускать SongRec при каждом входе в систему."
 
 #: src/gui/interface.blp:439
 msgid "Launch at startup"
-msgstr ""
+msgstr "Запускать при старте"
 
 #: src/gui/interface.blp:445
 msgid "Launch the app minimized at startup."
-msgstr ""
+msgstr "Запускать приложение свернутым при запуске."
 
 #: src/gui/interface.blp:446
 msgid "Start minimized"
-msgstr ""
+msgstr "Запускать свернутым"
 
 #: src/gui/interface.blp:452
 msgid "Network preferences"
@@ -505,7 +507,7 @@ msgstr "_Настройки..."
 
 #: src/gui/interface.blp:531
 msgid "_Keyboard Shortcuts"
-msgstr ""
+msgstr "_Сочетания клавиш"
 
 #: src/gui/interface.blp:536
 msgid "About..."
@@ -639,77 +641,3 @@ msgstr "Окно избранных песен SongRec"
 #: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:33
 msgid "SongRec's main window, on GNOME in dark mode"
 msgstr "Главное окно SongRec в темном режиме GNOME"
-
-#~ msgid "_No"
-#~ msgstr "_Нет"
-
-#~ msgid ""
-#~ "By default the last 12 seconds of music are fingerprinted and sent to "
-#~ "Shazam. Editing may have an impact on reliability"
-#~ msgstr ""
-#~ "По умолчанию последние 12 секунд музыки маркируются и отправляются в "
-#~ "Shazam. Редактирование может повлиять на надежность распознавания"
-
-#~ msgid "Shazam buffer size in seconds"
-#~ msgstr "Размер буфера Shazam в секундах"
-
-#~ msgid "Using device"
-#~ msgstr "Используется устройство"
-
-#~ msgid "Microphone error:"
-#~ msgstr "Ошибка микрофона:"
-
-#~ msgid "Failed to get default input config"
-#~ msgstr "Не удалось получить конфигурацию ввода по умолчанию"
-
-#~ msgid "Application::new failed"
-#~ msgstr "Не удалось запустить Application::new"
-
-#~ msgid "Turn on speakers recognition"
-#~ msgstr "Включить распознавание динамиков"
-
-#~ msgid "Turn off speakers recognition"
-#~ msgstr "Отключить распознавание динамиков"
-
-#~ msgid "Turn on microphone recognition"
-#~ msgstr "Включить распознавание микрофона"
-
-#~ msgid "Turn off microphone recognition"
-#~ msgstr "Отключить распознавание микрофона"
-
-#~ msgid "_Open"
-#~ msgstr "_Открыть"
-
-#~ msgid "Couldn't get filename"
-#~ msgstr "Не удалось получить имя файла"
-
-#~ msgid "Preferences"
-#~ msgstr "Предпочтения"
-
-#~ msgid ""
-#~ "Enable MPRIS (display playing song information in the GNOME control panel)"
-#~ msgstr ""
-#~ "Включить MPRIS (отображение информации о воспроизводимой песне на панели "
-#~ "управления GNOME)"
-
-#~ msgid "About"
-#~ msgstr "О"
-
-#~ msgid ""
-#~ "Help translating https://github.com/marin-m/SongRec/tree/master/"
-#~ "translations#readme"
-#~ msgstr ""
-#~ "Помочь с переводом https://github.com/marin-m/SongRec/tree/master/"
-#~ "translations#readme"
-
-#~ msgid "Enable notifications"
-#~ msgstr "Включить уведомления"
-
-#~ msgid "Recognize from my speakers instead of microphone"
-#~ msgstr "Распознавать через динамики вместо микрофона"
-
-#~ msgid "Current volume:"
-#~ msgstr "Текущая громкость:"
-
-#~ msgid "Wipe history"
-#~ msgstr "Стереть историю"
