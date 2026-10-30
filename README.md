@@ -150,7 +150,7 @@ sudo pacman -S pkgconf blueprint-compiler git gtk4 libadwaita libsoup3 alsa-lib 
 Fedora Linux:
 
 ```shell
-sudo dnf groupinstall "Development Tools"
+sudo dnf group install development-tools
 sudo dnf install alsa-lib-devel blueprint-compiler pipewire-devel clang-devel pulseaudio-libs-devel pkgconf-pkg-config glib gtk4-devel libsoup3-devel libadwaita-devel dbus-devel openssl-devel gettext sed grep
 ```
 
