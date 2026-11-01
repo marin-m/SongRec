@@ -12,11 +12,11 @@ impl ksni::Tray for SystrayInterface {
         "songrec".into()
     }
     /* fn icon_name(&self) -> String {
-        "re.fossplant.songrec-symbolic".into()
+        "re.fossplant.songrec".into()
     } */
     fn icon_pixmap(&self) -> Vec<ksni::Icon> {
         let img = image::load_from_memory_with_format(
-            include_bytes!("../../packaging/rootfs/usr/share/icons/hicolor/32x32/apps/re.fossplant.songrec-symbolic.png"),
+            include_bytes!("../../packaging/rootfs/usr/share/icons/hicolor/256x256/re.fossplant.songrec.png"),
             image::ImageFormat::Png,
         ).unwrap();
         let (width, height) = img.dimensions();
