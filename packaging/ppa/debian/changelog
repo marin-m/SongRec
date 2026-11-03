@@ -1,3 +1,12 @@
+songrec (0.8.1) bionic; urgency=low
+
+  * Update Czech translation thanks to @Fjuro
+  * Update Slovak translation thanks to @dodog
+  * Update Russian translation thanks to @AlexanderShad
+  * Harmonize the tray icon when running with XDG background portal and with the KSNI backend
+
+ -- Marin <marin-m@users.noreply.github.com>  Tue, 03 Nov 2026 22:34:57 +0100
+
 songrec (0.8.0) bionic; urgency=low
 
   * Add support for Background Apps on the Flatpak target (#339)
