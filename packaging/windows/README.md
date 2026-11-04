@@ -61,10 +61,6 @@ cp -r $GTK_LIBRARY/libexec/glib-* libexec
 rm -f libLLVM* rustc_driver* std-*.dll
 /tmp/resource_hacker/ResourceHacker.exe -open songrec.exe -save songrec.exe -action addoverwrite -res ~/SongRec-main/packaging/windows/songrec.ico -mask ICONGROUP,MAINICON,0 -log CONSOLE
 
-cd $GTK_APP
-mkdir -p ~/windows_release/
-cp -r * ~/windows_release/
-
 # RUST_BACKTRACE=full songrec.exe
 
 # Create a self-extracting and executing 7-Zip based
@@ -90,3 +86,7 @@ cat /tmp/songrec-files.7z >> /tmp/SongRec-standalone.exe
 
 cp /tmp/songrec-files.7z /tmp/SongRec-standalone.exe ~/
 ```
+
+Then, extract `C:\msys64\tmp\songrec-files.7z` to `Z:\songrec-${version}` so that you can run the `build_nsis.sh` script on the Linux host, that will then call the `songrec.nsi` build script that will find the source in the VBox shared folder `/home/marin/win32/songrec-${version}` + the Git tree in `/home/marin/songrec`, and produce a `/home/marin/win32/songrec-${version}-installer.exe` file
+
+The Windows Store APPX bundle can then be updated.

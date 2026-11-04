@@ -17,8 +17,8 @@
   !define MUI_FILE "songrec"
   !define MUI_VERSION "0.8.1"
   !define MUI_BRANDINGTEXT "${MUI_PRODUCT} ${MUI_VERSION}"
-  !define WIN_DIST_DIR "/home/marin/win32/songrec-0.8.1"
-  !define SOURCE_DIR "/home/marin/rust-shazam"
+  !define WIN_ORIG_DIR "/home/marin/win32/songrec-0.8.1"
+  !define SOURCE_DIR "/home/marin/songrec"
   CRCCheck On
  
   ; We should test if we must use an absolute path 
@@ -83,7 +83,7 @@ Section "${MUI_PRODUCT} ${MUI_VERSION}"
   ; Add files
   SetOutPath "$INSTDIR"
  
-  File /r "${WIN_DIST_DIR}/*"
+  File /r "${WIN_ORIG_DIR}/*"
   File "${SOURCE_DIR}/LICENSE"
   File "${SOURCE_DIR}/README.md"
   
