@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: SongRec\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-27 11:53+0100\n"
-"PO-Revision-Date: 2026-08-17 11:36+0000\n"
+"PO-Revision-Date: 2026-11-04 11:53+0000\n"
 "Last-Translator: marcelo cripe <marcelocripe@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://weblate.fossplant.re/projects/"
 "songrec/songrec/pt_BR/>\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 #: src/cli_main.rs:118
 msgid "Available device:"
@@ -69,8 +69,9 @@ msgid "An open-source Shazam client for Linux, written in Rust."
 msgstr ""
 "O ‘SongRec’ é um identificador de músicas gratuito e de código aberto para o "
 "GNU/Linux, semelhante ao ‘Shazam’, que foi escrito com a linguagem de "
-"programação ‘Rust’, permite identificar facilmente as músicas a partir dos "
-"seus alto-falantes, microfone ou arquivos de áudio."
+"programação ‘Rust’, permite identificar facilmente as amostras de áudio "
+"comerciais a partir dos alto-falantes, microfone ou arquivos de áudio por "
+"meio da sua interface gráfica ou da linha de comando."
 
 #: src/main.rs:94
 msgid ""
@@ -198,7 +199,7 @@ msgstr "A ação padrão é de exibir uma interface gráfica do usuário."
 #: src/main.rs:255 src/main.rs:276
 msgid "An optional audio file to recognize on the launch of the application."
 msgstr ""
-"Um arquivo de áudio opcional que será identificado quando você iniciar o "
+"Um arquivo de áudio opcional que será identificado quando você executar o "
 "programa."
 
 #: src/main.rs:267 src/main.rs:288
@@ -210,9 +211,9 @@ msgid ""
 "Launch the GUI, but don't recognize audio through the microphone as soon as "
 "it is launched (rather than expecting the user to click on a button)."
 msgstr ""
-"Iniciar a interface gráfica do usuário, mas não identificar o áudio "
-"detectado por meio do microfone, em vez de esperar que o usuário clique em "
-"um botão."
+"Executar a interface gráfica e identificar o áudio que foi detectado pelo "
+"microfone, ao invés de esperar que o usuário clique em um botão para "
+"identificar o áudio."
 
 #: src/core/http_task.rs:117 src/core/fingerprinting/communication.rs:124
 msgid "Your IP has been rate-limited"
@@ -270,7 +271,7 @@ msgctxt ""
 "Status of the app displayed in the Background Apps section of GNOME system "
 "menu when using Flatpak"
 msgid "Recognizing songs"
-msgstr ""
+msgstr "Identificando as músicas"
 
 #: src/gui/main_window.rs:478
 msgid "Unable to enable notification icon"
@@ -325,8 +326,9 @@ msgid "An open-source Shazam client for Linux, written in Rust"
 msgstr ""
 "O ‘SongRec’ é um identificador de músicas gratuito e de código aberto para o "
 "GNU/Linux, semelhante ao ‘Shazam’, que foi escrito com a linguagem de "
-"programação ‘Rust’, permite identificar facilmente as músicas a partir dos "
-"seus alto-falantes, microfone ou arquivos de áudio."
+"programação ‘Rust’, permite identificar facilmente as amostras de áudio "
+"comerciais a partir dos alto-falantes, microfone ou arquivos de áudio por "
+"meio da sua interface gráfica ou da linha de comando."
 
 #: packaging/freedesktop/re.fossplant.songrec.desktop.in:20
 msgid "Rust;GTK;Shazam;Client;Audio;Song;Recognition;Fingerprinting;"
@@ -467,17 +469,20 @@ msgstr "Ativar o ‘MPRIS’"
 
 #: src/gui/interface.blp:416
 msgid "Background settings"
-msgstr ""
+msgstr "Configurações do programa em segundo plano"
 
 #: src/gui/interface.blp:422
 msgid ""
 "When closing the window, minimize to background (as visible under the system "
 "menu on GNOME) instead of closing the app."
 msgstr ""
+"Ao clicar no ‘X’ para fechar a janela do programa, minimize a janela para o "
+"segundo plano em vez de fechar o programa (conforme pode ser visualizado no "
+"menu do ambiente de área de trabalho do GNOME)."
 
 #: src/gui/interface.blp:424
 msgid "Minimize to background"
-msgstr ""
+msgstr "Minimizar para o segundo plano"
 
 #: src/gui/interface.blp:431
 msgid ""
@@ -499,18 +504,20 @@ msgstr "Minimizar para a bandeja do sistema"
 #: src/gui/interface.blp:438
 msgid "Launch SongRec automatically when launching your desktop session."
 msgstr ""
+"Executar automaticamente o ‘SongRec’ ao iniciar a sessão da sua área de "
+"trabalho."
 
 #: src/gui/interface.blp:439
 msgid "Launch at startup"
-msgstr ""
+msgstr "Executar o programa ao iniciar"
 
 #: src/gui/interface.blp:445
 msgid "Launch the app minimized at startup."
-msgstr ""
+msgstr "Executar o programa minimizado ao iniciar o sistema operacional."
 
 #: src/gui/interface.blp:446
 msgid "Start minimized"
-msgstr ""
+msgstr "Executar o programa minimizado"
 
 #: src/gui/interface.blp:452
 msgid "Network preferences"
