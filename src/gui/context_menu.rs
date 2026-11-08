@@ -64,13 +64,13 @@ impl ContextMenuUtil {
         );
 
         let touch_handler = gtk::GestureClick::new();
-        touch_handler.set_button(1);
+        touch_handler.set_button(gdk::BUTTON_PRIMARY);
         touch_handler.set_touch_only(true);
         touch_handler.connect_pressed(touch_closure.clone());
         label.add_controller(touch_handler);
 
         let click_handler = gtk::GestureClick::new();
-        click_handler.set_button(3);
+        click_handler.set_button(gdk::BUTTON_SECONDARY);
         click_handler.connect_pressed(touch_closure);
         label.add_controller(click_handler);
     }
