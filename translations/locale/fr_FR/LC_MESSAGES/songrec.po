@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-27 11:53+0100\n"
+"POT-Creation-Date: 2026-11-08 05:31+0100\n"
 "PO-Revision-Date: 2026-10-27 07:41+0000\n"
 "Last-Translator: Marin <25437947+marin-m@users.noreply.github.com>\n"
 "Language-Team: French <https://weblate.fossplant.re/projects/songrec/songrec/"
@@ -289,11 +289,11 @@ msgstr ""
 msgid "Error when reading the favorites on the disk:"
 msgstr "Erreur lors de la lecture des favoris sur le disque :"
 
-#: src/plugins/ksni.rs:48
+#: src/plugins/ksni.rs:51
 msgid "Open SongRec"
 msgstr "Ouvrir SongRec"
 
-#: src/plugins/ksni.rs:56
+#: src/plugins/ksni.rs:59
 msgid "Quit..."
 msgstr "Quitter..."
 

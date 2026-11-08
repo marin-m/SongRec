@@ -16,9 +16,12 @@ impl ksni::Tray for SystrayInterface {
     } */
     fn icon_pixmap(&self) -> Vec<ksni::Icon> {
         let img = image::load_from_memory_with_format(
-            include_bytes!("../../packaging/rootfs/usr/share/icons/hicolor/256x256/re.fossplant.songrec.png"),
+            include_bytes!(
+                "../../packaging/rootfs/usr/share/icons/hicolor/256x256/re.fossplant.songrec.png"
+            ),
             image::ImageFormat::Png,
-        ).unwrap();
+        )
+        .unwrap();
         let (width, height) = img.dimensions();
         let mut data = img.into_rgba8().into_vec();
         assert_eq!(data.len() % 4, 0);

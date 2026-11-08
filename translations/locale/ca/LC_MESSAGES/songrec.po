@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-27 11:53+0100\n"
+"POT-Creation-Date: 2026-11-08 05:31+0100\n"
 "PO-Revision-Date: 2024-01-21 20:01+0100\n"
 "Last-Translator: Pau Giuli <pau@giuli.cat>\n"
 "Language-Team: \n"
@@ -269,11 +269,11 @@ msgstr "Error en llegir l'historial de cançons al disc:"
 msgid "Error when reading the favorites on the disk:"
 msgstr "Error en llegir els favorits al disc:"
 
-#: src/plugins/ksni.rs:48
+#: src/plugins/ksni.rs:51
 msgid "Open SongRec"
 msgstr ""
 
-#: src/plugins/ksni.rs:56
+#: src/plugins/ksni.rs:59
 msgid "Quit..."
 msgstr ""
 

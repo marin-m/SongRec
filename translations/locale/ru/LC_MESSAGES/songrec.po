@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-27 11:53+0100\n"
+"POT-Creation-Date: 2026-11-08 05:31+0100\n"
 "PO-Revision-Date: 2026-10-28 16:03+1100\n"
 "Last-Translator: Aleksandr Shamaraev <shad@altlinux.org>\n"
 "Language-Team: Russian <https://weblate.fossplant.re/projects/songrec/"
@@ -279,11 +279,11 @@ msgstr "Ошибка при чтении истории песен на диск
 msgid "Error when reading the favorites on the disk:"
 msgstr "Ошибка при чтении избранного на диске:"
 
-#: src/plugins/ksni.rs:48
+#: src/plugins/ksni.rs:51
 msgid "Open SongRec"
 msgstr "Открыть SongRec"
 
-#: src/plugins/ksni.rs:56
+#: src/plugins/ksni.rs:59
 msgid "Quit..."
 msgstr "Выход..."
 

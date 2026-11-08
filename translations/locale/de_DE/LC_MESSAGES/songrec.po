@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-27 11:53+0100\n"
+"POT-Creation-Date: 2026-11-08 05:31+0100\n"
 "PO-Revision-Date: 2022-10-09 13:27+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -272,11 +272,11 @@ msgstr "Fehler beim Lesen des Song Verlauf auf dem Datenträger:"
 msgid "Error when reading the favorites on the disk:"
 msgstr "Fehler beim Lesen der Favoriten auf dem Datenträger:"
 
-#: src/plugins/ksni.rs:48
+#: src/plugins/ksni.rs:51
 msgid "Open SongRec"
 msgstr ""
 
-#: src/plugins/ksni.rs:56
+#: src/plugins/ksni.rs:59
 msgid "Quit..."
 msgstr ""
 

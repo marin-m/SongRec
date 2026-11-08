@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-27 11:53+0100\n"
+"POT-Creation-Date: 2026-11-08 05:31+0100\n"
 "PO-Revision-Date: 2026-10-27 23:57+0000\n"
 "Last-Translator: Fjuro <fjuro@users.noreply.weblate.fossplant.re>\n"
 "Language-Team: Czech <https://weblate.fossplant.re/projects/songrec/songrec/"
@@ -273,11 +273,11 @@ msgstr "Chyba při čtení historie skladeb z disku:"
 msgid "Error when reading the favorites on the disk:"
 msgstr "Chyba při čtení oblíbených z disku:"
 
-#: src/plugins/ksni.rs:48
+#: src/plugins/ksni.rs:51
 msgid "Open SongRec"
 msgstr "Otevřít SongRec"
 
-#: src/plugins/ksni.rs:56
+#: src/plugins/ksni.rs:59
 msgid "Quit..."
 msgstr "Ukončit…"
 
