@@ -893,6 +893,7 @@ impl App {
         let mpris_setting: adw::SwitchRow = self.builder.object("mpris_setting").unwrap();
 
         let window: adw::ApplicationWindow = self.builder.object("main_window").unwrap();
+        let history_view: gtk::ColumnView = self.builder.object("history_view").unwrap();
         let adw_combo_row: adw::ComboRow = self.builder.object("audio_inputs").unwrap();
         let g_list_store: gio::ListStore = self.builder.object("audio_inputs_model").unwrap();
         let microphone_switch: adw::SwitchRow = self.builder.object("microphone_switch").unwrap();
@@ -1192,6 +1193,9 @@ impl App {
                                 song_history_interface
                                     .borrow_mut()
                                     .add_row_and_save(new_entry);
+                                // The new entry is inserted at the top of the list:
+                                // scroll back up so that it is visible.
+                                history_view.scroll_to(0, None, gtk::ListScrollFlags::NONE, None);
                             }
                         }
                         DevicesList(devices) => {
