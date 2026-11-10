@@ -3,7 +3,7 @@
     <!-- See https://learn.microsoft.com/en-us/windows/msix/packaging-tool/generate-template-file -->
     <Settings AllowTelemetry="false" ApplyAllPrepareComputerFixes="false"
         GenerateCommandLineFile="true" AllowPromptForPassword="true"
-        p4:EnforceMicrosoftStoreRequirements="false" p5:ServerPortNumber="1599"
+        p4:EnforceMicrosoftStoreRequirements="true" p5:ServerPortNumber="1599"
         p6:AddPackageIntegrity="false" p7:SupportedWindowsVersionForMsixCore="None"
         xmlns:p7="http://schemas.microsoft.com/msix/msixpackagingtool/template/2004"
         xmlns:p6="http://schemas.microsoft.com/msix/msixpackagingtool/template/2001"

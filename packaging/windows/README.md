@@ -28,11 +28,11 @@ cd SongRec-main
 ./dist/SongRec-installer.exe # Test installer
 ```
 
-If you want to generate a MSIX bundle for the app, run in PowerShell:
+If you want to generate a MSIX bundle for the app, run in PowerShell (PowerShell needs to be launched as administrator or else will quit immediatly):
 
 ```powershell
 # Depends on having MSIX Installer configured with a
 # signing certificate:
 
-MsixPackagingTool.exe create-package --template 'C:\msys64\home\Nvram\SongRec-main\dist\songrec_msix_template.xml' -v
+MsixPackagingTool.exe create-package --template 'C:\msys64\home\Nvram\SongRec-main\packaging\windows\songrec_msix_template.xml' -v
 ```
