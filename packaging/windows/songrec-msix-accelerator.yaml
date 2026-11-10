@@ -1,8 +1,8 @@
 # MSIX Conversion Accelerator
 
-PackageName: SongRec-0.7.3-installer
+PackageName: SongRec-installer
 
-PublisherName: SongRec-0.7.3-installer
+PublisherName: SongRec-installer
 
 PackageVersion: Unknown
 

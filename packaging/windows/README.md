@@ -28,4 +28,11 @@ cd SongRec-main
 ./dist/SongRec-installer.exe # Test installer
 ```
 
-The Windows Store MSIX bundle can then be updated.
+If you want to generate a MSIX bundle for the app, run in PowerShell:
+
+```powershell
+# Depends on having MSIX Installer configured with a
+# signing certificate:
+
+MsixPackagingTool.exe create-package --template 'C:\msys64\home\Nvram\SongRec-main\dist\songrec_msix_template.xml' -v
+```

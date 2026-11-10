@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<MsixPackagingToolTemplate xmlns="http://schemas.microsoft.com/appx/msixpackagingtool/template/2018">
+    <!-- See https://learn.microsoft.com/en-us/windows/msix/packaging-tool/generate-template-file -->
+    <Settings AllowTelemetry="false" ApplyAllPrepareComputerFixes="false"
+        GenerateCommandLineFile="true" AllowPromptForPassword="true"
+        p4:EnforceMicrosoftStoreRequirements="false" p5:ServerPortNumber="1599"
+        p6:AddPackageIntegrity="false" p7:SupportedWindowsVersionForMsixCore="None"
+        xmlns:p7="http://schemas.microsoft.com/msix/msixpackagingtool/template/2004"
+        xmlns:p6="http://schemas.microsoft.com/msix/msixpackagingtool/template/2001"
+        xmlns:p5="http://schemas.microsoft.com/msix/msixpackagingtool/template/1904"
+        xmlns:p4="http://schemas.microsoft.com/msix/msixpackagingtool/template/2007" />
+    <PrepareComputer DisableWindowsSearchService="true" DisableWindowsUpdateService="true" />
+    <SaveLocation PackagePath="C:\msys64\home\Nvram\SongRec-main\dist\SongRec.msix"
+        TemplatePath="C:\msys64\home\Nvram\SongRec-main\dist\songrec_msix_template.xml" />
+    <Installer
+        Path="C:\msys64\home\Nvram\SongRec-main\dist\SongRec-installer.exe"
+        Arguments="/S"
+        InstallLocation="C:\Program Files\SongRec" />
+    <PackageInformation PackageName="MarinM.Fossplant.re.SongRec" PackageDisplayName="SongRec"
+        PublisherName="CN=955F6148-3F06-42BC-8A8C-16FD9EBBA325"
+        PublisherDisplayName="Marin M. (Fossplant.re)" Version="0.8.1.0"
+        p4:PackageDescription="SongRec allows you to recognize and identify songs easily."
+        xmlns:p4="http://schemas.microsoft.com/msix/msixpackagingtool/template/1910">
+        <Capabilities>
+            <Capability Name="runFullTrust" />
+            <Capability Name="internetClient" />
+            <Capability Name="musicLibrary" />
+            <Capability Name="microphone" />
+        </Capabilities>
+    </PackageInformation>
+</MsixPackagingToolTemplate>
