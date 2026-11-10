@@ -18,7 +18,7 @@ wget -nc https://www.gyan.dev/ffmpeg/builds/ffmpeg-release-full.7z -O dist/ffmpe
 
 cd "${SRC}"
 GTK_APP=dist/windows_release
-GTK_LIBRARY=/mingw64
+GTK_LIBRARY=/ucrt64
 mkdir -p $GTK_APP
 rm -rf $GTK_APP/*
 cp -r translations $GTK_APP
