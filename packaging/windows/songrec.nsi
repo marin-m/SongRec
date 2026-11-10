@@ -17,8 +17,8 @@
   !define MUI_FILE "songrec"
   !define MUI_VERSION "0.8.1"
   !define MUI_BRANDINGTEXT "${MUI_PRODUCT} ${MUI_VERSION}"
-  !define WIN_ORIG_DIR "/home/marin/win32/songrec-0.8.1"
-  !define SOURCE_DIR "/home/marin/songrec"
+  !define WIN_ORIG_DIR "dist/windows_release"
+  !define SOURCE_DIR "."
   CRCCheck On
  
   ; We should test if we must use an absolute path 
@@ -29,7 +29,7 @@
 ; General
 
   Name "${MUI_PRODUCT}"
-  OutFile "/home/marin/win32/${MUI_PRODUCT}-${MUI_VERSION}-installer.exe"
+  OutFile "dist/${MUI_PRODUCT}-installer.exe"
   Unicode True
 
   ShowInstDetails "nevershow"

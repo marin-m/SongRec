@@ -12,81 +12,31 @@ The following references have been used:
 
 In PowerShell, with MSYS2 already installed:
 
-```
+```powershell
 winget install --id Git.Git -e --source winget
 # (restart PowerShell)
 cd C:\msys64\home\*
 git clone https://github.com/marin-m/SongRec.git SongRec-main
+
+# Then, follow instructions for MSYS2 below
 ```
 
 In MSYS2 MINGW64:
 
-```console-session
-pacman -Sy mingw-w64-x86_64-rust mingw-w64-x86_64-blueprint-compiler mingw-w64-x86_64-upx mingw-w64-x86_64-7zip unzip mingw-w64-x86_64-gettext-runtime mingw-w64-x86_64-gcc mingw-w64-x86_64-libadwaita mingw-w64-x86_64-adwaita-icon-theme mingw-w64-x86_64-glib2 mingw-w64-x86_64-gtk4 mingw-w64-x86_64-pkgconf mingw-w64-x86_64-dbus mingw-w64-x86_64-openssl mingw-w64-x86_64-libsoup3
+```bash
+pacman -Sy mingw-w64-ucrt-x86_64-git mingw-w64-x86_64-rust mingw-w64-x86_64-blueprint-compiler mingw-w64-x86_64-upx mingw-w64-x86_64-7zip unzip mingw-w64-x86_64-gettext-runtime mingw-w64-x86_64-gcc mingw-w64-x86_64-libadwaita mingw-w64-x86_64-adwaita-icon-theme mingw-w64-x86_64-glib2 mingw-w64-x86_64-gtk4 mingw-w64-x86_64-pkgconf mingw-w64-x86_64-dbus mingw-w64-x86_64-openssl mingw-w64-x86_64-libsoup3 mingw-w64-x86_64-nsis
 
-cd /tmp
-wget -nc http://www.angusj.com/resourcehacker/resource_hacker.zip
-unzip -d /tmp/resource_hacker resource_hacker.zip
+# Clone repo if you didn't do it outside of MSYS2 already
+git clone https://github.com/marin-m/SongRec.git SongRec-main
+cd SongRec-main
 
-cd ~/SongRec-main/
-export GETTEXT_SYSTEM=1
-cargo build --release --no-default-features -F gui,ffmpeg
+./packaging/windows/build_msys2.sh # Build standalone binary + archive for installer
 
-wget -nc https://www.gyan.dev/ffmpeg/builds/ffmpeg-release-full.7z -O /tmp/ffmpeg-release-full.7z
-7z -y x /tmp/ffmpeg-release-full.7z -o.. -i'r!*ffmpeg.exe'
+./dist/SongRec-standalone.exe # Test standalone binary
 
-cd ~/SongRec-main/
-GTK_APP=/tmp/windows_release
-GTK_LIBRARY=/mingw64
-mkdir -p $GTK_APP
-rm -rf $GTK_APP/*
-cp -r translations $GTK_APP
-cp target/release/songrec.exe $GTK_APP
-cd $GTK_APP
-cp $GTK_LIBRARY/bin/*.dll .
-mkdir -p share/glib-2.0/schemas
-mkdir -p share/locale
-mkdir -p share/icons
-cp $GTK_LIBRARY/share/glib-2.0/schemas/* share/glib-2.0/schemas
-# cp -r $GTK_LIBRARY/share/locale/* share/locale
-glib-compile-schemas share/glib-2.0/schemas/
-cp -r $GTK_LIBRARY/share/icons/Adwaita share/icons/
-rm -rf share/icons/Adwaita/{256x256,512x512,96x96}
-cp $GTK_LIBRARY/bin/gdbus.exe $GTK_LIBRARY/bin/gspawn*.exe .
-mkdir lib libexec
-cp ~/ffmpeg-*-full_build/bin/ffmpeg.exe .
-upx --force ffmpeg.exe libgtk-4-1.dll
-cp -r $GTK_LIBRARY/lib/gdk-pixbuf-2.0 $GTK_LIBRARY/lib/gio lib
-cp -r $GTK_LIBRARY/libexec/glib-* libexec
-rm -f libLLVM* rustc_driver* std-*.dll
-/tmp/resource_hacker/ResourceHacker.exe -open songrec.exe -save songrec.exe -action addoverwrite -res ~/SongRec-main/packaging/windows/songrec.ico -mask ICONGROUP,MAINICON,0 -log CONSOLE
+./packaging/windows/build_nsis.sh # Build installer
 
-# RUST_BACKTRACE=full songrec.exe
-
-# Create a self-extracting and executing 7-Zip based
-# archive (see https://stackoverflow.com/questions/27904532/how-do-i-make-a-self-extract-and-running-installer
-# + https://github.com/phillipp/SevenZipSharp/blob/master/SevenZip/sfx/Configs.xml)
-
-cd $GTK_APP
-rm -rf /tmp/songrec-files.7z
-7z a -m0=Copy /tmp/songrec-files.7z * # -m0=Copy = Do not compress (for self-extraction performance)
-# From http://www.angusj.com/resourcehacker/: use this to add a custom .ICO file to the 7-Zip stub
-/tmp/resource_hacker/ResourceHacker.exe -open ~/SongRec-main/packaging/windows/7zxSD_LZMA2_x64.sfx -save /tmp/SongRec-standalone.exe -action delete -mask ,101, -log CONSOLE
-/tmp/resource_hacker/ResourceHacker.exe -open /tmp/SongRec-standalone.exe -save /tmp/SongRec-standalone.exe -action addoverwrite -res ~/SongRec-main/packaging/windows/songrec.ico -mask ICONGROUP,MAINICON,0 -log CONSOLE
-cd /tmp/
-cat << EOF >> SongRec-standalone.exe
-;!@Install@!UTF-8!
-ExecuteFile="songrec.exe"
-GUIMode="2"
-;!@InstallEnd@!
-EOF
-cat /tmp/songrec-files.7z >> /tmp/SongRec-standalone.exe
-
-/tmp/SongRec-standalone.exe
-
-cp /tmp/songrec-files.7z /tmp/SongRec-standalone.exe ~/
+./dist/SongRec-installer.exe # Test installer
 ```
 
-Then, extract `C:\msys64\tmp\songrec-files.7z` to `Z:\songrec-${version}` so that you can run the `build_nsis.sh` script on the Linux host, that will then call the `songrec.nsi` build script that will find the source in the VBox shared folder `/home/marin/win32/songrec-${version}` + the Git tree in `/home/marin/songrec`, and produce a `/home/marin/win32/songrec-${version}-installer.exe` file
-
-The Windows Store APPX bundle can then be updated.
+The Windows Store MSIX bundle can then be updated.

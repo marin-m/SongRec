@@ -18,6 +18,7 @@ target/
 vendor/
 repo/
 man/
+dist/
 .flatpak-builder/
 .cargo/
 

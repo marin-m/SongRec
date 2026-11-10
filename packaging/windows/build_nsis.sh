@@ -8,6 +8,6 @@
 
 set -ex
 
-cd "$(dirname "$0")"
+cd "$(dirname "$0")/../.."
 
-makensis songrec.nsi
+makensis packaging/windows/songrec.nsi
