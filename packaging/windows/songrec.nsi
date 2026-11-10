@@ -35,8 +35,8 @@
   ShowUninstDetails "nevershow"
   SetCompressor "lzma"
 
-  !define MUI_ICON "songrec.ico"
-  !define MUI_UNICON "songrec.ico"
+  !define MUI_ICON "packaging\windows\songrec.ico"
+  !define MUI_UNICON "packaging\windows\songrec.ico"
  
  
 ;--------------------------------
