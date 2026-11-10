@@ -17,19 +17,19 @@
   !define MUI_FILE "songrec"
   !define MUI_VERSION "0.8.1"
   !define MUI_BRANDINGTEXT "${MUI_PRODUCT} ${MUI_VERSION}"
-  !define WIN_ORIG_DIR "dist/windows_release"
+  !define WIN_ORIG_DIR "dist\windows_release"
   !define SOURCE_DIR "."
   CRCCheck On
  
   ; We should test if we must use an absolute path 
-  !include "${NSISDIR}/Contrib/Modern UI 2/MUI2.nsh"
+  !include "${NSISDIR}\Contrib\Modern UI 2\MUI2.nsh"
  
  
 ;---------------------------------
 ; General
 
   Name "${MUI_PRODUCT}"
-  OutFile "dist/${MUI_PRODUCT}-installer.exe"
+  OutFile "dist\${MUI_PRODUCT}-installer.exe"
   Unicode True
 
   ShowInstDetails "nevershow"
@@ -60,7 +60,7 @@
 ;--------------------------------
 ; Pages
 
-  !insertmacro MUI_PAGE_LICENSE "${SOURCE_DIR}/LICENSE"
+  !insertmacro MUI_PAGE_LICENSE "${SOURCE_DIR}\LICENSE"
   !insertmacro MUI_PAGE_COMPONENTS
   !insertmacro MUI_PAGE_DIRECTORY
 
@@ -83,9 +83,9 @@ Section "${MUI_PRODUCT} ${MUI_VERSION}"
   ; Add files
   SetOutPath "$INSTDIR"
  
-  File /r "${WIN_ORIG_DIR}/*"
-  File "${SOURCE_DIR}/LICENSE"
-  File "${SOURCE_DIR}/README.md"
+  File /r "${WIN_ORIG_DIR}\*"
+  File "${SOURCE_DIR}\LICENSE"
+  File "${SOURCE_DIR}\README.md"
   
   ; Store installation folder
   WriteRegStr HKCU "Software\${MUI_PRODUCT}" "" $INSTDIR
