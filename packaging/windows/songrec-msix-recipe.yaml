@@ -1,0 +1,42 @@
+# MSIX Conversion Accelerator
+
+PackageName: SongRec-0.7.3-installer
+
+PublisherName: SongRec-0.7.3-installer
+
+PackageVersion: Unknown
+
+EligibleForConversion: Yes
+
+ConversionStatus: Package Created. Need Validation
+
+RemediationApproach:
+- SequenceNumber: 1
+  Issue:
+    Description: Capabilities Required
+  Fix:
+    FixType: Capability
+    FixDetails:
+      Capabilities:
+      - Name: internetClient
+        ApplicationIds:
+        - '*'
+      - Name: musicLibrary
+        ApplicationIds:
+        - '*'
+      - Name: microphone
+        ApplicationIds:
+        - '*'
+
+Edition: Microsoft Windows 11 Famille
+
+MinimumOSVersion: 24H2
+
+MinimumOSBuild: 26100.1742
+
+Architecture: 64
+
+MSIXConversionToolVersion: 1.2024.405.0
+
+AcceleratorVersion: 1.0.0
+
