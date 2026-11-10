@@ -12,16 +12,16 @@ env:
 jobs:
   build:
 
-    runs-on: ubuntu-26.04
+    runs-on: macos-latest
 
     steps:
       - uses: actions/checkout@v6
       - name: Install system packages
-        run: sudo apt update && sudo apt install build-essential libasound2-dev libpipewire-0.3-dev libclang-dev libpulse-dev libgtk-4-dev libsoup-3.0-dev libadwaita-1-dev libdbus-1-dev gettext sed blueprint-compiler
+        run: brew install libadwaita blueprint-compiler gtk4 libsoup ffmpeg gettext
       - name: Build binaries
-        run: cargo build
+        run: GETTEXT_DIR=/opt/homebrew cargo build --no-default-features -F gui,ffmpeg
       - name: Run tests
-        run: cargo test
+        run: GETTEXT_DIR=/opt/homebrew cargo test
       - name: Cache
         uses: actions/cache@v5
         with:
