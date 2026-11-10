@@ -10,4 +10,4 @@ set -ex
 
 cd "$(dirname "$0")/../.."
 
-makensis packaging/windows/songrec.nsi
+makensis /NOCD packaging/windows/songrec.nsi
