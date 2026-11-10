@@ -7,13 +7,13 @@ cd "$(dirname "$0")/../.."
 SRC="$(pwd)"
 
 mkdir -p dist/
-wget -nc http://www.angusj.com/resourcehacker/resource_hacker.zip -O dist/resource_hacker.zip
+wget --no-verbose -nc http://www.angusj.com/resourcehacker/resource_hacker.zip -O dist/resource_hacker.zip
 unzip -d dist/resource_hacker dist/resource_hacker.zip
 
 export GETTEXT_SYSTEM=1
 cargo build --release --no-default-features -F gui,ffmpeg
 
-wget -nc https://www.gyan.dev/ffmpeg/builds/ffmpeg-release-full.7z -O dist/ffmpeg-release-full.7z
+wget --no-verbose -nc https://www.gyan.dev/ffmpeg/builds/ffmpeg-release-full.7z -O dist/ffmpeg-release-full.7z
 7z -y x dist/ffmpeg-release-full.7z -odist/ -i'r!*ffmpeg.exe'
 
 cd "${SRC}"
@@ -36,7 +36,7 @@ cp -r $GTK_LIBRARY/share/icons/Adwaita share/icons/
 rm -rf share/icons/Adwaita/{256x256,512x512,96x96}
 cp $GTK_LIBRARY/bin/gdbus.exe $GTK_LIBRARY/bin/gspawn*.exe .
 mkdir lib libexec
-cp dist/ffmpeg-*-full_build/bin/ffmpeg.exe .
+cp "${SRC}"/dist/ffmpeg-*-full_build/bin/ffmpeg.exe .
 upx --force ffmpeg.exe libgtk-4-1.dll
 cp -r $GTK_LIBRARY/lib/gdk-pixbuf-2.0 $GTK_LIBRARY/lib/gio lib
 cp -r $GTK_LIBRARY/libexec/glib-* libexec
