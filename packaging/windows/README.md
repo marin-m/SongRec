@@ -1,6 +1,6 @@
 # Windows compilation
 
-This files gives commands that seem to work in order to compile this application on Windows using MSYS/MINGW64.
+This files gives commands intended to compile this application on Windows using MSYS/UCRTW64.
 
 The following references have been used:
 * https://devinsights.iblogger.org/msys2-environment-differences/
@@ -21,10 +21,10 @@ git clone https://github.com/marin-m/SongRec.git SongRec-main
 # Then, follow instructions for MSYS2 below
 ```
 
-In MSYS2 MINGW64:
+In MSYS2 UCRT64:
 
 ```bash
-pacman -Sy mingw-w64-ucrt-x86_64-git mingw-w64-x86_64-rust mingw-w64-x86_64-blueprint-compiler mingw-w64-x86_64-upx mingw-w64-x86_64-7zip unzip mingw-w64-x86_64-gettext-runtime mingw-w64-x86_64-gcc mingw-w64-x86_64-libadwaita mingw-w64-x86_64-adwaita-icon-theme mingw-w64-x86_64-glib2 mingw-w64-x86_64-gtk4 mingw-w64-x86_64-pkgconf mingw-w64-x86_64-dbus mingw-w64-x86_64-openssl mingw-w64-x86_64-libsoup3 mingw-w64-x86_64-nsis
+pacman -Sy mingw-w64-ucrt-x86_64-git mingw-w64-ucrt-x86_64-rust mingw-w64-ucrt-x86_64-blueprint-compiler mingw-w64-ucrt-x86_64-upx mingw-w64-ucrt-x86_64-7zip unzip mingw-w64-ucrt-x86_64-gettext-runtime mingw-w64-ucrt-x86_64-gcc mingw-w64-ucrt-x86_64-libadwaita mingw-w64-ucrt-x86_64-adwaita-icon-theme mingw-w64-ucrt-x86_64-glib2 mingw-w64-ucrt-x86_64-gtk4 mingw-w64-ucrt-x86_64-pkgconf mingw-w64-ucrt-x86_64-dbus mingw-w64-ucrt-x86_64-openssl mingw-w64-ucrt-x86_64-libsoup3 mingw-w64-ucrt-x86_64-nsis
 
 # Clone repo if you didn't do it outside of MSYS2 already
 git clone https://github.com/marin-m/SongRec.git SongRec-main
