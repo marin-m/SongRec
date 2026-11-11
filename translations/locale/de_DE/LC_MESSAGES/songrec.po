@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-11 12:38+0100\n"
+"POT-Creation-Date: 2026-11-11 13:13+0100\n"
 "PO-Revision-Date: 2022-10-09 13:27+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -45,7 +45,7 @@ msgstr "Warnung: Netzwerk nicht erreichbar"
 
 #: src/cli_main.rs:180 src/core/http_task.rs:54 src/core/http_task.rs:63
 #: src/core/http_task.rs:75 src/core/http_task.rs:110
-#: src/gui/main_window.rs:1044 src/gui/main_window.rs:1056
+#: src/gui/main_window.rs:1111 src/gui/main_window.rs:1123
 msgid "No match for this song"
 msgstr "Keine Übereinstimmung für dieses Lied"
 
@@ -199,17 +199,17 @@ msgstr ""
 msgid "Audio error: No input device available"
 msgstr ""
 
-#: src/core/preferences.rs:67 src/core/preferences.rs:89
+#: src/core/preferences.rs:76 src/core/preferences.rs:102
 #: src/gui/main_window.rs:314 src/gui/interface.blp:123
-#: src/gui/interface.blp:612 src/gui/interface.blp:662
+#: src/gui/interface.blp:618 src/gui/interface.blp:668
 msgid "Search on YouTube"
 msgstr "Suche auf Youtube"
 
-#: src/core/preferences.rs:105
+#: src/core/preferences.rs:121
 msgid "When parsing the preferences file:"
 msgstr "Beim Analysieren der Einstellungsdatei:"
 
-#: src/core/preferences.rs:182
+#: src/core/preferences.rs:210
 msgid "When saving the preferences file:"
 msgstr "Beim Speichern der Einstellungsdatei:"
 
@@ -238,38 +238,38 @@ msgstr ""
 msgid "Network error"
 msgstr ""
 
-#: src/gui/main_window.rs:408
+#: src/gui/main_window.rs:475
 msgctxt ""
 "Status of the app displayed in the Background Apps section of GNOME system "
 "menu when using Flatpak"
 msgid "Recognizing songs"
 msgstr ""
 
-#: src/gui/main_window.rs:478
+#: src/gui/main_window.rs:545
 msgid "Unable to enable notification icon"
 msgstr ""
 
-#: src/gui/main_window.rs:950 src/gui/main_window.rs:1031
+#: src/gui/main_window.rs:1017 src/gui/main_window.rs:1098
 msgid "Unable to enable MPRIS support"
 msgstr "MPRIS Unterstützung kann nicht aktiviert werden"
 
-#: src/gui/main_window.rs:1053
+#: src/gui/main_window.rs:1120
 msgid "_Ok"
 msgstr ""
 
-#: src/gui/main_window.rs:1129
+#: src/gui/main_window.rs:1196
 msgid "Song recognized"
 msgstr "Lied erkannt"
 
-#: src/gui/main_window.rs:1269
+#: src/gui/main_window.rs:1336
 msgid "Are you sure you want to wipe history?"
 msgstr ""
 
-#: src/gui/main_window.rs:1275
+#: src/gui/main_window.rs:1342
 msgid "_Yes"
 msgstr ""
 
-#: src/gui/main_window.rs:1276
+#: src/gui/main_window.rs:1343
 msgid "_Cancel"
 msgstr "_Abbrechen"
 
@@ -381,7 +381,7 @@ msgstr ""
 msgid "Application menu"
 msgstr ""
 
-#: src/gui/interface.blp:374 src/gui/interface.blp:564
+#: src/gui/interface.blp:374 src/gui/interface.blp:570
 msgid "Export to CSV"
 msgstr "Nach CSV exportieren"
 
@@ -397,7 +397,7 @@ msgstr ""
 msgid "Notify when a new song is recognized or network error is encountered"
 msgstr ""
 
-#: src/gui/interface.blp:393 src/gui/interface.blp:519
+#: src/gui/interface.blp:393 src/gui/interface.blp:525
 msgid "Show notifications"
 msgstr ""
 
@@ -411,31 +411,39 @@ msgstr ""
 msgid "No duplicates in history"
 msgstr ""
 
-#: src/gui/interface.blp:408
+#: src/gui/interface.blp:406
+msgid "Remember window dimensions and maximized state across restarts"
+msgstr ""
+
+#: src/gui/interface.blp:407
+msgid "Remember window size"
+msgstr ""
+
+#: src/gui/interface.blp:414
 msgid ""
 "MPRIS will display information about recognized songs in places like the "
 "GNOME or KDE control panel"
 msgstr ""
 
-#: src/gui/interface.blp:410
+#: src/gui/interface.blp:416
 msgid "Enable MPRIS"
 msgstr ""
 
-#: src/gui/interface.blp:416
+#: src/gui/interface.blp:422
 msgid "Background settings"
 msgstr ""
 
-#: src/gui/interface.blp:422
+#: src/gui/interface.blp:428
 msgid ""
 "When closing the window, minimize to background (as visible under the system "
 "menu on GNOME) instead of closing the app."
 msgstr ""
 
-#: src/gui/interface.blp:424
+#: src/gui/interface.blp:430
 msgid "Minimize to background"
 msgstr ""
 
-#: src/gui/interface.blp:431
+#: src/gui/interface.blp:437
 msgid ""
 "When closing the window, minimize to system tray using KSNI instead of "
 "closing the app. Please note that you may have to increase the \"request "
@@ -443,99 +451,99 @@ msgid ""
 "your changes of getting rate-limited."
 msgstr ""
 
-#: src/gui/interface.blp:433
+#: src/gui/interface.blp:439
 msgid "Minimize to system tray"
 msgstr ""
 
-#: src/gui/interface.blp:438
+#: src/gui/interface.blp:444
 msgid "Launch SongRec automatically when launching your desktop session."
 msgstr ""
 
-#: src/gui/interface.blp:439
+#: src/gui/interface.blp:445
 msgid "Launch at startup"
 msgstr ""
 
-#: src/gui/interface.blp:445
+#: src/gui/interface.blp:451
 msgid "Launch the app minimized at startup."
 msgstr ""
 
-#: src/gui/interface.blp:446
+#: src/gui/interface.blp:452
 msgid "Start minimized"
 msgstr ""
 
-#: src/gui/interface.blp:452
+#: src/gui/interface.blp:458
 msgid "Network preferences"
 msgstr ""
 
-#: src/gui/interface.blp:468
+#: src/gui/interface.blp:474
 msgid "By default 8, increase if you are rate-limited"
 msgstr ""
 
-#: src/gui/interface.blp:469
+#: src/gui/interface.blp:475
 msgid "Shazam interval between requests in seconds"
 msgstr ""
 
-#: src/gui/interface.blp:475
+#: src/gui/interface.blp:481
 msgid "Search preferences"
 msgstr ""
 
-#: src/gui/interface.blp:478
+#: src/gui/interface.blp:484
 msgid "Custom search engine action"
 msgstr ""
 
-#: src/gui/interface.blp:483
+#: src/gui/interface.blp:489
 msgid "Custom search engine URL"
 msgstr ""
 
-#: src/gui/interface.blp:494
+#: src/gui/interface.blp:500
 msgid "Settings"
 msgstr ""
 
-#: src/gui/interface.blp:524
+#: src/gui/interface.blp:530
 msgid "_Preferences..."
 msgstr ""
 
-#: src/gui/interface.blp:531
+#: src/gui/interface.blp:537
 msgid "_Keyboard Shortcuts"
 msgstr ""
 
-#: src/gui/interface.blp:536
+#: src/gui/interface.blp:542
 msgid "About..."
 msgstr ""
 
-#: src/gui/interface.blp:569
+#: src/gui/interface.blp:575
 msgid "Delete history"
 msgstr ""
 
-#: src/gui/interface.blp:574
+#: src/gui/interface.blp:580
 msgid "Select a file to recognize"
 msgstr "Wählen Sie eine zu erkennende Datei"
 
-#: src/gui/interface.blp:586 src/gui/interface.blp:636
+#: src/gui/interface.blp:592 src/gui/interface.blp:642
 msgid "Copy artist and track"
 msgstr "Künstler und Titelname kopieren"
 
-#: src/gui/interface.blp:592 src/gui/interface.blp:642
+#: src/gui/interface.blp:598 src/gui/interface.blp:648
 msgid "Copy artist"
 msgstr "Künstler kopieren"
 
-#: src/gui/interface.blp:598 src/gui/interface.blp:648
+#: src/gui/interface.blp:604 src/gui/interface.blp:654
 msgid "Copy track name"
 msgstr "Titelname kopieren"
 
-#: src/gui/interface.blp:604 src/gui/interface.blp:654
+#: src/gui/interface.blp:610 src/gui/interface.blp:660
 msgid "Copy album"
 msgstr "Album kopieren"
 
-#: src/gui/interface.blp:620
+#: src/gui/interface.blp:626
 msgid "Delete from History"
 msgstr ""
 
-#: src/gui/interface.blp:626
+#: src/gui/interface.blp:632
 msgid "Add to Favorites"
 msgstr ""
 
-#: src/gui/interface.blp:670
+#: src/gui/interface.blp:676
 msgid "Remove from Favorites"
 msgstr "Von Favoriten entfernen"
 
