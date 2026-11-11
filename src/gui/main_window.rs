@@ -1,10 +1,11 @@
 use adw::prelude::*;
 #[cfg(target_os = "linux")]
 use ashpd::desktop::background::{BackgroundProxy, BackgroundRequestOptions};
+#[cfg(target_os = "linux")]
 use async_lock::Semaphore;
 use chrono::Local;
-use gettextrs::{gettext, pgettext};
-use log::{debug, error, info, trace, warn};
+use gettextrs::gettext;
+use log::{debug, error, info, trace};
 #[cfg(all(target_os = "linux", feature = "mpris"))]
 use mpris_server::PlaybackStatus;
 use percent_encoding::{NON_ALPHANUMERIC, utf8_percent_encode};
@@ -470,7 +471,7 @@ impl App {
         gui_tx: async_channel::Sender<GUIMessage>,
     ) {
         glib::spawn_future_local(async move {
-            let background_msg = pgettext(
+            let background_msg = gettextrs::pgettext(
                 "Status of the app displayed in the Background Apps section of GNOME system menu when using Flatpak",
                 "Recognizing songs",
             );
@@ -486,14 +487,14 @@ impl App {
                         let options = ashpd::desktop::background::SetStatusOptions::default()
                             .set_message(&background_msg);
                         if let Err(error) = background_proxy.set_status(options).await {
-                            warn!("Error setting background status: {:?}", error);
+                            log::warn!("Error setting background status: {:?}", error);
                         } else {
                             background_setting.set_visible(true);
                             *ctx_background_handle.borrow_mut() = Some(background_proxy);
                         }
                     }
                     Err(error) => {
-                        warn!("Background portal is not reachable: {:?}", error);
+                        log::warn!("Background portal is not reachable: {:?}", error);
                     }
                 };
             }
@@ -1360,10 +1361,12 @@ impl App {
                             );
                         }
 
+                        #[cfg(target_os = "linux")]
                         ShowWindow => {
                             window.present();
                         }
 
+                        #[cfg(target_os = "linux")]
                         QuitApplication => {
                             application.quit();
                         }

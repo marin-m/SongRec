@@ -45,7 +45,9 @@ pub struct DeviceListItem {
 #[derive(Debug)]
 pub enum GUIMessage {
     ErrorMessage(String),
+    #[cfg(target_os = "linux")]
     ShowWindow,
+    #[cfg(target_os = "linux")]
     QuitApplication,
     // A list of audio devices, received from the microphone thread
     // because CPAL can't be called from the same thread as the GUI
