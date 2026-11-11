@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-11-11 14:14+0100\n"
-"PO-Revision-Date: 2026-11-11 16:07+0000\n"
+"PO-Revision-Date: 2026-11-11 16:52+0000\n"
 "Last-Translator: Marin <25437947+marin-m@users.noreply.github.com>\n"
 "Language-Team: French <https://weblate.fossplant.re/projects/songrec/songrec/"
 "fr/>\n"
@@ -198,7 +198,7 @@ msgstr ""
 
 #: src/main.rs:400
 msgid "Error decoding fingerprint:"
-msgstr "Erreur lors d'une décodage de l'empreinte :"
+msgstr "Erreur lors du décodage de l'empreinte :"
 
 #: src/core/http_task.rs:117 src/core/fingerprinting/communication.rs:124
 msgid "Your IP has been rate-limited"
