@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-11 07:02+0100\n"
+"POT-Creation-Date: 2026-11-11 12:38+0100\n"
 "PO-Revision-Date: 2026-10-28 16:03+1100\n"
 "Last-Translator: Aleksandr Shamaraev <shad@altlinux.org>\n"
 "Language-Team: Russian <https://weblate.fossplant.re/projects/songrec/"
@@ -190,6 +190,10 @@ msgstr ""
 "Запустить графический интерфейс, но не распознавать звук через микрофон "
 "сразу после запуска (ожидать, что пользователь нажмет кнопку)."
 
+#: src/main.rs:400
+msgid "Error decoding fingerprint:"
+msgstr ""
+
 #: src/core/http_task.rs:117 src/core/fingerprinting/communication.rs:124
 msgid "Your IP has been rate-limited"
 msgstr "Для вашего IP-адреса установлено ограничение скорости запросов"
@@ -224,7 +228,12 @@ msgstr "Неверная частота дискретизации в декод
 msgid "Invalid frequency band in decoded Shazam packet"
 msgstr "Неверный диапазон частот в декодированном пакете Shazam"
 
-#: src/core/fingerprinting/signature_format.rs:201
+#: src/core/fingerprinting/signature_format.rs:173
+#, c-format
+msgid "A fingerprint must start with \"%s\""
+msgstr ""
+
+#: src/core/fingerprinting/signature_format.rs:203
 msgid "Invalid sample rate passed when encoding Shazam packet"
 msgstr "При кодировании пакета Shazam передана неверная частота дискретизации"
 

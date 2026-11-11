@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: SongRec\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-11 07:02+0100\n"
+"POT-Creation-Date: 2026-11-11 12:38+0100\n"
 "PO-Revision-Date: 2022-07-24 13:29+0200\n"
 "Last-Translator: Ismael Ferreras Morezuelas <swyterzone+songrec@gmail.com>\n"
 "Language-Team: Swyter <swyterzone@gmail.com>\n"
@@ -184,6 +184,10 @@ msgstr ""
 "Mostrar la interfaz, pero no empezar a grabar el audio de forma automática "
 "(hacer clic en un botón para empezar el reconocimiento)."
 
+#: src/main.rs:400
+msgid "Error decoding fingerprint:"
+msgstr ""
+
 #: src/core/http_task.rs:117 src/core/fingerprinting/communication.rs:124
 msgid "Your IP has been rate-limited"
 msgstr ""
@@ -222,7 +226,12 @@ msgstr ""
 "La banda de frecuencia del paquete decodificado de Shazam no parece que sea "
 "correcta"
 
-#: src/core/fingerprinting/signature_format.rs:201
+#: src/core/fingerprinting/signature_format.rs:173
+#, c-format
+msgid "A fingerprint must start with \"%s\""
+msgstr ""
+
+#: src/core/fingerprinting/signature_format.rs:203
 msgid "Invalid sample rate passed when encoding Shazam packet"
 msgstr ""
 "La frecuencia de reproducción  proporcionada para codificar el paquete de "

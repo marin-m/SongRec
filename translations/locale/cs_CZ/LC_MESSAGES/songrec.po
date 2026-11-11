@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-11 07:02+0100\n"
+"POT-Creation-Date: 2026-11-11 12:38+0100\n"
 "PO-Revision-Date: 2026-10-27 23:57+0000\n"
 "Last-Translator: Fjuro <fjuro@users.noreply.weblate.fossplant.re>\n"
 "Language-Team: Czech <https://weblate.fossplant.re/projects/songrec/songrec/"
@@ -184,6 +184,10 @@ msgstr ""
 "Spustit grafické rozhraní, ale nezačít okamžitě po spuštění rozpoznávat zvuk "
 "z mikrofonu (namísto čekání, než uživatel klikne na tlačítko)."
 
+#: src/main.rs:400
+msgid "Error decoding fingerprint:"
+msgstr ""
+
 #: src/core/http_task.rs:117 src/core/fingerprinting/communication.rs:124
 msgid "Your IP has been rate-limited"
 msgstr "Vaše IP byla omezena"
@@ -218,7 +222,12 @@ msgstr "Neplatná vzorkovací frekvence v dekódovaném paketu Shazamu"
 msgid "Invalid frequency band in decoded Shazam packet"
 msgstr "Neplatný rozsah pásem v dekódovaném paketu Shazamu"
 
-#: src/core/fingerprinting/signature_format.rs:201
+#: src/core/fingerprinting/signature_format.rs:173
+#, c-format
+msgid "A fingerprint must start with \"%s\""
+msgstr ""
+
+#: src/core/fingerprinting/signature_format.rs:203
 msgid "Invalid sample rate passed when encoding Shazam packet"
 msgstr "Předána neplatná vzorkovací frekvence při kódování paketu Shazamu"
 

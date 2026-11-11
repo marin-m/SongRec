@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-11 07:02+0100\n"
+"POT-Creation-Date: 2026-11-11 12:38+0100\n"
 "PO-Revision-Date: 2026-07-06 14:05+0000\n"
 "Last-Translator: Arda Aydın <arda.aydin@operationsilkscarf.com>\n"
 "Language-Team: Turkish <https://weblate.fossplant.re/projects/songrec/"
@@ -187,6 +187,10 @@ msgstr ""
 "GUI'yi başlat, ama açıldığı gibi mikrofondan ses tanımayı açma. (Bunun "
 "yerine kullanıcının butona basmasını bekle)"
 
+#: src/main.rs:400
+msgid "Error decoding fingerprint:"
+msgstr ""
+
 #: src/core/http_task.rs:117 src/core/fingerprinting/communication.rs:124
 msgid "Your IP has been rate-limited"
 msgstr "IP'niz hız aşımına yakalanmış"
@@ -221,7 +225,12 @@ msgstr "Çözülen Shazam paketinde geçersiz örnekleme hızı"
 msgid "Invalid frequency band in decoded Shazam packet"
 msgstr "Çözülen Shazam paketinde geçersiz frekans bandı"
 
-#: src/core/fingerprinting/signature_format.rs:201
+#: src/core/fingerprinting/signature_format.rs:173
+#, c-format
+msgid "A fingerprint must start with \"%s\""
+msgstr ""
+
+#: src/core/fingerprinting/signature_format.rs:203
 msgid "Invalid sample rate passed when encoding Shazam packet"
 msgstr "Shazam paketin kodlanırken geçersiz örnekleme hızı verildi"
 

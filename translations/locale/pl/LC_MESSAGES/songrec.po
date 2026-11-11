@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-11 07:02+0100\n"
+"POT-Creation-Date: 2026-11-11 12:38+0100\n"
 "PO-Revision-Date: 2021-12-26 11:36+0100\n"
 "Last-Translator: Rafał Mikrut <qarminkrut@gmail.com>\n"
 "Language-Team: \n"
@@ -177,6 +177,10 @@ msgstr ""
 "uruchomieniu (zamiast tego oczekuj na kliknięcie przez użytkownika "
 "przycisku)."
 
+#: src/main.rs:400
+msgid "Error decoding fingerprint:"
+msgstr ""
+
 #: src/core/http_task.rs:117 src/core/fingerprinting/communication.rs:124
 msgid "Your IP has been rate-limited"
 msgstr ""
@@ -211,7 +215,12 @@ msgstr "Nieprawidłowa częstotliwość próbkowania w zdekodowanym pakiecie Sha
 msgid "Invalid frequency band in decoded Shazam packet"
 msgstr "Nieprawidłowe pasmo częstotliwości w zdekodowanym pakiecie Shazam"
 
-#: src/core/fingerprinting/signature_format.rs:201
+#: src/core/fingerprinting/signature_format.rs:173
+#, c-format
+msgid "A fingerprint must start with \"%s\""
+msgstr ""
+
+#: src/core/fingerprinting/signature_format.rs:203
 msgid "Invalid sample rate passed when encoding Shazam packet"
 msgstr ""
 "Nieprawidłowa częstotliwość próbkowania przekazana podczas kodowania pakietu "

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-11 07:02+0100\n"
+"POT-Creation-Date: 2026-11-11 12:38+0100\n"
 "PO-Revision-Date: 2026-03-09 02:16+0000\n"
 "Last-Translator: Marin <25437947+marin-m@users.noreply.github.com>\n"
 "Language-Team: Dutch <https://weblate.fossplant.re/projects/songrec/songrec/"
@@ -184,6 +184,10 @@ msgid ""
 "it is launched (rather than expecting the user to click on a button)."
 msgstr "Toon het venster, maar wacht met het starten van de muziekherkenning."
 
+#: src/main.rs:400
+msgid "Error decoding fingerprint:"
+msgstr ""
+
 #: src/core/http_task.rs:117 src/core/fingerprinting/communication.rs:124
 msgid "Your IP has been rate-limited"
 msgstr "Je ip-verzoeken zijn afgekapt"
@@ -218,7 +222,12 @@ msgstr "Ongeldige samplesnelheid in gedecodeerd Shazam-pakket"
 msgid "Invalid frequency band in decoded Shazam packet"
 msgstr "Ongeldige frequentieband in gedecodeerd Shazam-pakket"
 
-#: src/core/fingerprinting/signature_format.rs:201
+#: src/core/fingerprinting/signature_format.rs:173
+#, c-format
+msgid "A fingerprint must start with \"%s\""
+msgstr ""
+
+#: src/core/fingerprinting/signature_format.rs:203
 msgid "Invalid sample rate passed when encoding Shazam packet"
 msgstr ""
 "Ongeldige samplesnelheid doorgegeven tijdens encoderen van Shazam-pakket"
