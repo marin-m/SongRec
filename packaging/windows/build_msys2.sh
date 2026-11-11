@@ -12,6 +12,7 @@ unzip -d dist/resource_hacker dist/resource_hacker.zip
 
 export GETTEXT_SYSTEM=1
 cargo build --release --no-default-features -F gui,ffmpeg
+cargo test
 
 wget --no-verbose -nc https://www.gyan.dev/ffmpeg/builds/ffmpeg-release-full.7z -O dist/ffmpeg-release-full.7z
 7z -y x dist/ffmpeg-release-full.7z -odist/ -i'r!*ffmpeg.exe'
