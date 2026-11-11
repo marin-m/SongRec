@@ -73,6 +73,10 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
 
     let main_loop = glib::MainLoop::new(None, false);
     let loop_inner = main_loop.clone();
+    // Set when an error stops the loop, so that the process exits with a
+    // failure status that scripts can check.
+    let failed = std::rc::Rc::new(std::cell::Cell::new(false));
+    let failed_inner = failed.clone();
 
     glib::spawn_future_local(async move {
         // Recognize once if an input file is provided
@@ -135,12 +139,14 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
                         }
                         if !found {
                             error!("{}", gettext("Exiting: audio device not found"));
+                            failed_inner.set(true);
                             break;
                         }
                         dev
                     } else {
                         if device_names.is_empty() {
                             error!("{}", gettext("Exiting: no audio devices found!"));
+                            failed_inner.set(true);
                             break;
                         }
                         &device_names[0].inner_name
@@ -170,6 +176,7 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
                     if !reachable {
                         if input_file_name.is_some() {
                             error!("{}", gettext("Error: Network unreachable"));
+                            failed_inner.set(true);
                             break;
                         } else {
                             warn!("{}", gettext("Warning: Network unreachable"));
@@ -181,6 +188,7 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
                         error!("{} {}", gettext("Error:"), string);
                     }
                     if input_file_name.is_some() {
+                        failed_inner.set(true);
                         break;
                     }
                 }
@@ -209,6 +217,7 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
                             // stop quietly instead of panicking, like other CLI tools.
                             if error.kind() != std::io::ErrorKind::BrokenPipe {
                                 error!("{} {}", gettext("Error:"), error);
+                                failed_inner.set(true);
                             }
                             break;
                         }
@@ -227,6 +236,9 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
 
     main_loop.run();
 
+    if failed.get() {
+        std::process::exit(1);
+    }
     Ok(())
 }
 

@@ -54,6 +54,24 @@ fn missing_file() -> String {
 }
 
 #[test]
+fn recognize_reports_a_missing_file() {
+    assert_reports_an_error(&["recognize", &missing_file()]);
+}
+
+#[test]
+fn recognize_reports_a_file_that_is_not_audio() {
+    let path = std::env::temp_dir().join(format!("songrec-not-audio-{}.mp3", std::process::id()));
+    std::fs::write(&path, "not audio").unwrap();
+    assert_reports_an_error(&["recognize", &path.to_string_lossy()]);
+    let _ = std::fs::remove_file(&path);
+}
+
+#[test]
+fn recognize_reports_an_unknown_audio_device() {
+    assert_reports_an_error(&["recognize", "--audio-device", "songrec-no-such-device"]);
+}
+
+#[test]
 fn audio_file_to_recognized_song_reports_a_missing_file() {
     assert_reports_an_error(&["audio-file-to-recognized-song", &missing_file()]);
 }
