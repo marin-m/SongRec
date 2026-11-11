@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-11-11 14:14+0100\n"
-"PO-Revision-Date: 2026-10-27 07:41+0000\n"
+"PO-Revision-Date: 2026-11-11 16:07+0000\n"
 "Last-Translator: Marin <25437947+marin-m@users.noreply.github.com>\n"
 "Language-Team: French <https://weblate.fossplant.re/projects/songrec/songrec/"
 "fr/>\n"
@@ -198,7 +198,7 @@ msgstr ""
 
 #: src/main.rs:400
 msgid "Error decoding fingerprint:"
-msgstr ""
+msgstr "Erreur lors d'une décodage de l'empreinte :"
 
 #: src/core/http_task.rs:117 src/core/fingerprinting/communication.rs:124
 msgid "Your IP has been rate-limited"
@@ -237,7 +237,7 @@ msgstr "Bande de fréquences invalide au sein du paquet Shazam décodé"
 #: src/core/fingerprinting/signature_format.rs:173
 #, c-format
 msgid "A fingerprint must start with \"%s\""
-msgstr ""
+msgstr "Une empreinte doit commencer par \"%s\""
 
 #: src/core/fingerprinting/signature_format.rs:203
 msgid "Invalid sample rate passed when encoding Shazam packet"
@@ -435,10 +435,12 @@ msgstr "Empêcher les doublons dans l'historique"
 #: src/gui/interface.blp:406
 msgid "Remember window dimensions and maximized state across restarts"
 msgstr ""
+"Se souvenir des dimensions et de l'état de maximisation de la fenêtre lors "
+"du redémarrage"
 
 #: src/gui/interface.blp:407
 msgid "Remember window size"
-msgstr ""
+msgstr "Retenir la taille de la fenêtre"
 
 #: src/gui/interface.blp:414
 msgid ""
