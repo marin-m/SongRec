@@ -72,6 +72,21 @@ pub trait SongRecordInterface {
 
 impl dyn SongRecordInterface {}
 
+/// Write every row of LIST_STORE to CSV_PATH. Saving runs from GUI
+/// callbacks, so a file that cannot be written is reported to the caller
+/// instead of panicking.
+fn write_records(csv_path: &PathBuf, list_store: &gio::ListStore) -> Result<(), Box<dyn Error>> {
+    let mut writer = csv::Writer::from_path(csv_path)?;
+    for item in list_store.iter::<glib::Object>() {
+        let item = item?
+            .downcast::<HistoryEntry>()
+            .map_err(|_| "unexpected item in the list")?;
+        writer.serialize(item.get_song_history_record())?;
+    }
+    writer.flush()?;
+    Ok(())
+}
+
 #[test]
 fn test_item_date() {
     let s = "Sat Aug 17 22:44:43 2024";
@@ -120,10 +135,7 @@ impl SongRecordInterface for RecognitionHistoryInterface {
 
     fn wipe_and_save(&mut self) {
         self.list_store.remove_all();
-
-        let mut writer = csv::Writer::from_path(&self.csv_path).unwrap();
-
-        writer.flush().unwrap();
+        self.save();
     }
 
     fn add_row_and_save(&mut self, record: SongHistoryRecord) {
@@ -133,13 +145,13 @@ impl SongRecordInterface for RecognitionHistoryInterface {
     }
 
     fn save(&mut self) {
-        let mut writer = csv::Writer::from_path(&self.csv_path).unwrap();
-
-        for item in self.list_store.iter::<glib::Object>() {
-            let item = item.unwrap().downcast::<HistoryEntry>().unwrap();
-            writer.serialize(item.get_song_history_record()).unwrap();
+        if let Err(error_info) = write_records(&self.csv_path, &self.list_store) {
+            error!(
+                "{} {}",
+                gettext("Error when saving the song history on the disk:"),
+                error_info
+            );
         }
-        writer.flush().unwrap();
     }
 
     fn remove(&mut self, song_record: SongHistoryRecord) {
@@ -187,9 +199,7 @@ impl SongRecordInterface for FavoritesInterface {
     fn wipe_and_save(&mut self) {
         self.list_store.remove_all();
         self.is_favorite.clear();
-        let mut writer = csv::Writer::from_path(&self.csv_path).unwrap();
-
-        writer.flush().unwrap();
+        self.save();
     }
 
     fn add_row_and_save(&mut self, record: SongHistoryRecord) {
@@ -199,13 +209,13 @@ impl SongRecordInterface for FavoritesInterface {
     }
 
     fn save(&mut self) {
-        let mut writer = csv::Writer::from_path(&self.csv_path).unwrap();
-
-        for item in self.list_store.iter::<glib::Object>() {
-            let item = item.unwrap().downcast::<HistoryEntry>().unwrap();
-            writer.serialize(item.get_song_history_record()).unwrap();
+        if let Err(error_info) = write_records(&self.csv_path, &self.list_store) {
+            error!(
+                "{} {}",
+                gettext("Error when saving the favorites on the disk:"),
+                error_info
+            );
         }
-        writer.flush().unwrap();
     }
 
     fn remove(&mut self, song_record: SongHistoryRecord) {
@@ -219,5 +229,78 @@ impl SongRecordInterface for FavoritesInterface {
 impl FavoritesInterface {
     pub fn is_favorite<T: HasSong>(&self, has_song: T) -> bool {
         self.is_favorite.contains(&has_song.get_song())
+    }
+}
+
+#[cfg(test)]
+mod save_tests {
+    use super::*;
+
+    fn record(song_name: &str) -> SongHistoryRecord {
+        SongHistoryRecord {
+            song_name: song_name.to_string(),
+            album: Some("Album".to_string()),
+            track_key: Some("1".to_string()),
+            release_year: Some("2020".to_string()),
+            genre: Some("Pop".to_string()),
+            recognition_date: "Sat Aug 17 22:44:43 2024".to_string(),
+        }
+    }
+
+    /// A CSV path whose directory does not exist, so writing it fails.
+    fn unwritable_path(name: &str) -> PathBuf {
+        std::env::temp_dir()
+            .join(format!("songrec-missing-dir-{}-{name}", std::process::id()))
+            .join("song_history.csv")
+    }
+
+    #[test]
+    fn history_keeps_working_when_the_csv_cannot_be_written() {
+        let mut history = RecognitionHistoryInterface {
+            csv_path: unwritable_path("history"),
+            list_store: gio::ListStore::new::<HistoryEntry>(),
+        };
+
+        history.add_row_and_save(record("Artist - Title"));
+        history.add_row_and_save(record("Artist - Other"));
+        history.remove(record("Artist - Title"));
+        assert_eq!(history.list_store.n_items(), 1);
+        history.wipe_and_save();
+        assert_eq!(history.list_store.n_items(), 0);
+    }
+
+    #[test]
+    fn favorites_keep_working_when_the_csv_cannot_be_written() {
+        let mut favorites = FavoritesInterface {
+            csv_path: unwritable_path("favorites"),
+            list_store: gio::ListStore::new::<HistoryEntry>(),
+            is_favorite: HashSet::new(),
+        };
+
+        favorites.add_row_and_save(record("Artist - Title"));
+        assert!(favorites.is_favorite(record("Artist - Title").get_song()));
+        favorites.remove(record("Artist - Title"));
+        assert!(!favorites.is_favorite(record("Artist - Title").get_song()));
+        favorites.wipe_and_save();
+        assert_eq!(favorites.list_store.n_items(), 0);
+    }
+
+    #[test]
+    fn history_is_saved_and_loaded_back() {
+        let csv_path =
+            std::env::temp_dir().join(format!("songrec-history-{}.csv", std::process::id()));
+        let mut history = RecognitionHistoryInterface {
+            csv_path: csv_path.clone(),
+            list_store: gio::ListStore::new::<HistoryEntry>(),
+        };
+        history.add_row_and_save(record("Artist - Title"));
+
+        let mut loaded = RecognitionHistoryInterface {
+            csv_path: csv_path.clone(),
+            list_store: gio::ListStore::new::<HistoryEntry>(),
+        };
+        loaded.load().unwrap();
+        assert_eq!(loaded.list_store.n_items(), 1);
+        let _ = std::fs::remove_file(csv_path);
     }
 }
