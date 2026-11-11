@@ -64,7 +64,7 @@ use crate::utils::internationalization::setup_internationalization;
 
 use clap::{Arg, ArgAction, Command, command};
 use gettextrs::gettext;
-use log::debug;
+use log::{debug, error};
 use soup::prelude::SessionExt;
 use std::error::Error;
 
@@ -394,7 +394,13 @@ fn main() -> Result<(), Box<dyn Error>> {
 
             let fingerprint_string = subcommand_args.get_one::<String>("fingerprint").unwrap();
 
-            print_recognized_song(&DecodedSignature::decode_from_uri(fingerprint_string)?)?;
+            match DecodedSignature::decode_from_uri(fingerprint_string) {
+                Ok(signature) => print_recognized_song(&signature)?,
+                Err(error) => {
+                    error!("{} {}", gettext("Error decoding fingerprint:"), error);
+                    std::process::exit(1);
+                }
+            };
         }
         Some("listen") => {
             let subcommand_args = args.subcommand_matches("listen").unwrap();

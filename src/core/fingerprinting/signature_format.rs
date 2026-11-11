@@ -167,13 +167,13 @@ impl DecodedSignature {
     }
 
     pub fn decode_from_uri(uri: &str) -> Result<Self, Box<dyn Error>> {
-        let Some(encoded) = uri.strip_prefix(DATA_URI_PREFIX) else {
-            return Err(gettext("A fingerprint must start with %s")
+        if let Some(encoded) = uri.strip_prefix(DATA_URI_PREFIX) {
+            DecodedSignature::decode_from_binary(&base64::prelude::BASE64_STANDARD.decode(encoded)?)
+        } else {
+            Err(gettext("A fingerprint must start with \"%s\"")
                 .replace("%s", DATA_URI_PREFIX)
-                .into());
-        };
-
-        DecodedSignature::decode_from_binary(&base64::prelude::BASE64_STANDARD.decode(encoded)?)
+                .into())
+        }
     }
 
     pub fn encode_to_binary(&self) -> Result<Vec<u8>, Box<dyn Error>> {
