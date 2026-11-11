@@ -41,7 +41,7 @@ fn obtain_data_directory() -> Result<PathBuf, Box<dyn Error>> {
             #[cfg(not(windows))]
             symlink(old_dir, data_dir)?;
             #[cfg(windows)]
-            fs_extra::dir::copy(old_dir, data_dir, &fs_extra::dir::CopyOptions::new());
+            fs_extra::dir::copy(old_dir, data_dir, &fs_extra::dir::CopyOptions::new()).ok();
         } else {
             create_dir_all(data_dir)?;
         }
