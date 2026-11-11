@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-11 14:14+0100\n"
+"POT-Creation-Date: 2026-11-12 00:09+0100\n"
 "PO-Revision-Date: 2026-10-28 16:03+1100\n"
 "Last-Translator: Aleksandr Shamaraev <shad@altlinux.org>\n"
 "Language-Team: Russian <https://weblate.fossplant.re/projects/songrec/"
@@ -21,42 +21,42 @@ msgstr ""
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Poedit 3.9\n"
 
-#: src/cli_main.rs:119
+#: src/cli_main.rs:123
 msgid "Available device:"
 msgstr "Доступное устройство:"
 
-#: src/cli_main.rs:137
+#: src/cli_main.rs:141
 msgid "Exiting: audio device not found"
 msgstr "Выход: аудиоустройство не найдено"
 
-#: src/cli_main.rs:143
+#: src/cli_main.rs:148
 msgid "Exiting: no audio devices found!"
 msgstr "Выход: аудиоустройства не найдены!"
 
-#: src/cli_main.rs:148
+#: src/cli_main.rs:154
 #, c-format
 msgid "Using device %s"
 msgstr "Используется устройство %s"
 
-#: src/cli_main.rs:172
+#: src/cli_main.rs:178
 msgid "Error: Network unreachable"
 msgstr "Ошибка: Сеть недоступна"
 
-#: src/cli_main.rs:175
+#: src/cli_main.rs:182
 msgid "Warning: Network unreachable"
 msgstr "Предупреждение: сеть недоступна"
 
-#: src/cli_main.rs:180 src/core/http_task.rs:54 src/core/http_task.rs:63
+#: src/cli_main.rs:187 src/core/http_task.rs:54 src/core/http_task.rs:63
 #: src/core/http_task.rs:75 src/core/http_task.rs:110
 #: src/gui/main_window.rs:1112 src/gui/main_window.rs:1124
 msgid "No match for this song"
 msgstr "Нет совпадений для этой песни"
 
-#: src/cli_main.rs:181 src/cli_main.rs:211
+#: src/cli_main.rs:188 src/cli_main.rs:219
 msgid "Error:"
 msgstr "Ошибка:"
 
-#: src/cli_main.rs:188
+#: src/cli_main.rs:196
 msgid "Recording started!"
 msgstr "Запись началась!"
 
@@ -208,7 +208,7 @@ msgstr "Аудиоошибка: Нет доступного устройства
 
 #: src/core/preferences.rs:76 src/core/preferences.rs:102
 #: src/gui/main_window.rs:315 src/gui/interface.blp:123
-#: src/gui/interface.blp:618 src/gui/interface.blp:668
+#: src/gui/interface.blp:617 src/gui/interface.blp:667
 msgid "Search on YouTube"
 msgstr "Поиск на YouTube"
 
@@ -220,20 +220,24 @@ msgstr "При анализе файла настроек:"
 msgid "When saving the preferences file:"
 msgstr "При сохранении файла настроек:"
 
-#: src/core/fingerprinting/signature_format.rs:84
+#: src/core/fingerprinting/signature_format.rs:43
+msgid "Invalid Shazam signature"
+msgstr ""
+
+#: src/core/fingerprinting/signature_format.rs:95
 msgid "Invalid sample rate in decoded Shazam packet"
 msgstr "Неверная частота дискретизации в декодированном пакете Shazam"
 
-#: src/core/fingerprinting/signature_format.rs:125
+#: src/core/fingerprinting/signature_format.rs:140
 msgid "Invalid frequency band in decoded Shazam packet"
 msgstr "Неверный диапазон частот в декодированном пакете Shazam"
 
-#: src/core/fingerprinting/signature_format.rs:173
+#: src/core/fingerprinting/signature_format.rs:189
 #, c-format
 msgid "A fingerprint must start with \"%s\""
 msgstr ""
 
-#: src/core/fingerprinting/signature_format.rs:203
+#: src/core/fingerprinting/signature_format.rs:219
 msgid "Invalid sample rate passed when encoding Shazam packet"
 msgstr "При кодировании пакета Shazam передана неверная частота дискретизации"
 
@@ -280,13 +284,21 @@ msgstr "_Да"
 msgid "_Cancel"
 msgstr "_Отменить"
 
-#: src/gui/song_history_interface.rs:95
+#: src/gui/song_history_interface.rs:110
 msgid "Error when reading the song history on the disk:"
 msgstr "Ошибка при чтении истории песен на диске:"
 
-#: src/gui/song_history_interface.rs:165
+#: src/gui/song_history_interface.rs:151
+msgid "Error while saving the song history on the disk:"
+msgstr ""
+
+#: src/gui/song_history_interface.rs:177
 msgid "Error when reading the favorites on the disk:"
 msgstr "Ошибка при чтении избранного на диске:"
+
+#: src/gui/song_history_interface.rs:215
+msgid "Error while saving the favorites on the disk:"
+msgstr ""
 
 #: src/plugins/ksni.rs:51
 msgid "Open SongRec"
@@ -388,7 +400,7 @@ msgstr "Посмотреть избранное"
 msgid "Application menu"
 msgstr "Меню приложения"
 
-#: src/gui/interface.blp:374 src/gui/interface.blp:570
+#: src/gui/interface.blp:374 src/gui/interface.blp:569
 msgid "Export to CSV"
 msgstr "Экспорт в CSV"
 
@@ -404,7 +416,7 @@ msgstr "Общие предпочтения"
 msgid "Notify when a new song is recognized or network error is encountered"
 msgstr "Уведомлять о появлении новой песни или возникновении сетевой ошибки"
 
-#: src/gui/interface.blp:393 src/gui/interface.blp:525
+#: src/gui/interface.blp:393 src/gui/interface.blp:524
 msgid "Show notifications"
 msgstr "Показывать уведомления"
 
@@ -518,51 +530,51 @@ msgstr "Пользовательский URL поисковой системы"
 msgid "Settings"
 msgstr "Настройки"
 
-#: src/gui/interface.blp:530
+#: src/gui/interface.blp:529
 msgid "_Preferences..."
 msgstr "_Настройки..."
 
-#: src/gui/interface.blp:537
+#: src/gui/interface.blp:536
 msgid "_Keyboard Shortcuts"
 msgstr "_Сочетания клавиш"
 
-#: src/gui/interface.blp:542
+#: src/gui/interface.blp:541
 msgid "About..."
 msgstr "О SongRec..."
 
-#: src/gui/interface.blp:575
+#: src/gui/interface.blp:574
 msgid "Delete history"
 msgstr "Удалить историю"
 
-#: src/gui/interface.blp:580
+#: src/gui/interface.blp:579
 msgid "Select a file to recognize"
 msgstr "Выберите файл для распознавания"
 
-#: src/gui/interface.blp:592 src/gui/interface.blp:642
+#: src/gui/interface.blp:591 src/gui/interface.blp:641
 msgid "Copy artist and track"
 msgstr "Копировать исполнителя и трек"
 
-#: src/gui/interface.blp:598 src/gui/interface.blp:648
+#: src/gui/interface.blp:597 src/gui/interface.blp:647
 msgid "Copy artist"
 msgstr "Копировать исполнителя"
 
-#: src/gui/interface.blp:604 src/gui/interface.blp:654
+#: src/gui/interface.blp:603 src/gui/interface.blp:653
 msgid "Copy track name"
 msgstr "Копировать название трека"
 
-#: src/gui/interface.blp:610 src/gui/interface.blp:660
+#: src/gui/interface.blp:609 src/gui/interface.blp:659
 msgid "Copy album"
 msgstr "Копировать альбом"
 
-#: src/gui/interface.blp:626
+#: src/gui/interface.blp:625
 msgid "Delete from History"
 msgstr "Удалить из истории"
 
-#: src/gui/interface.blp:632
+#: src/gui/interface.blp:631
 msgid "Add to Favorites"
 msgstr "Добавить в Избранное"
 
-#: src/gui/interface.blp:676
+#: src/gui/interface.blp:675
 msgid "Remove from Favorites"
 msgstr "Удалить из Избранного"
 

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: SongRec\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-11 14:14+0100\n"
+"POT-Creation-Date: 2026-11-12 00:09+0100\n"
 "PO-Revision-Date: 2026-11-04 11:53+0000\n"
 "Last-Translator: marcelo cripe <marcelocripe@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://weblate.fossplant.re/projects/"
@@ -22,45 +22,45 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Weblate 2026.8.1\n"
 
-#: src/cli_main.rs:119
+#: src/cli_main.rs:123
 msgid "Available device:"
 msgstr "Dispositivo que está disponível:"
 
-#: src/cli_main.rs:137
+#: src/cli_main.rs:141
 msgid "Exiting: audio device not found"
 msgstr ""
 "O programa será fechado, porque o dispositivo de áudio que você selecionou "
 "não foi encontrado"
 
-#: src/cli_main.rs:143
+#: src/cli_main.rs:148
 msgid "Exiting: no audio devices found!"
 msgstr ""
 "O programa será fechado, porque nenhum dispositivo de áudio foi encontrado."
 
-#: src/cli_main.rs:148
+#: src/cli_main.rs:154
 #, c-format
 msgid "Using device %s"
 msgstr "Utilizando o dispositivo %s"
 
-#: src/cli_main.rs:172
+#: src/cli_main.rs:178
 msgid "Error: Network unreachable"
 msgstr "Ocorreu um erro, porque não há conexão com a internet"
 
-#: src/cli_main.rs:175
+#: src/cli_main.rs:182
 msgid "Warning: Network unreachable"
 msgstr "Atenção! Não há conexão com a internet"
 
-#: src/cli_main.rs:180 src/core/http_task.rs:54 src/core/http_task.rs:63
+#: src/cli_main.rs:187 src/core/http_task.rs:54 src/core/http_task.rs:63
 #: src/core/http_task.rs:75 src/core/http_task.rs:110
 #: src/gui/main_window.rs:1112 src/gui/main_window.rs:1124
 msgid "No match for this song"
 msgstr "A música não pôde ser identificada"
 
-#: src/cli_main.rs:181 src/cli_main.rs:211
+#: src/cli_main.rs:188 src/cli_main.rs:219
 msgid "Error:"
 msgstr "Ocorreu um erro:"
 
-#: src/cli_main.rs:188
+#: src/cli_main.rs:196
 msgid "Recording started!"
 msgstr "A gravação foi iniciada!"
 
@@ -237,7 +237,7 @@ msgstr ""
 
 #: src/core/preferences.rs:76 src/core/preferences.rs:102
 #: src/gui/main_window.rs:315 src/gui/interface.blp:123
-#: src/gui/interface.blp:618 src/gui/interface.blp:668
+#: src/gui/interface.blp:617 src/gui/interface.blp:667
 msgid "Search on YouTube"
 msgstr "Pesquisar no YouTube"
 
@@ -249,20 +249,24 @@ msgstr "Ao analisar o arquivo das configurações:"
 msgid "When saving the preferences file:"
 msgstr "Ao salvar o arquivo das configurações:"
 
-#: src/core/fingerprinting/signature_format.rs:84
+#: src/core/fingerprinting/signature_format.rs:43
+msgid "Invalid Shazam signature"
+msgstr ""
+
+#: src/core/fingerprinting/signature_format.rs:95
 msgid "Invalid sample rate in decoded Shazam packet"
 msgstr "A taxa da amostragem ao decodificar o pacote do ‘Shazam’ não é válida"
 
-#: src/core/fingerprinting/signature_format.rs:125
+#: src/core/fingerprinting/signature_format.rs:140
 msgid "Invalid frequency band in decoded Shazam packet"
 msgstr "A banda da frequência ao decodificar o pacote do ‘Shazam’ não é válida"
 
-#: src/core/fingerprinting/signature_format.rs:173
+#: src/core/fingerprinting/signature_format.rs:189
 #, c-format
 msgid "A fingerprint must start with \"%s\""
 msgstr ""
 
-#: src/core/fingerprinting/signature_format.rs:203
+#: src/core/fingerprinting/signature_format.rs:219
 msgid "Invalid sample rate passed when encoding Shazam packet"
 msgstr ""
 "A taxa da amostragem passada ao codificar o pacote do ‘Shazam’ não é válida"
@@ -310,13 +314,21 @@ msgstr "_Sim"
 msgid "_Cancel"
 msgstr "_Cancelar"
 
-#: src/gui/song_history_interface.rs:95
+#: src/gui/song_history_interface.rs:110
 msgid "Error when reading the song history on the disk:"
 msgstr "Ocorreu um erro ao ler o histórico das músicas salvas:"
 
-#: src/gui/song_history_interface.rs:165
+#: src/gui/song_history_interface.rs:151
+msgid "Error while saving the song history on the disk:"
+msgstr ""
+
+#: src/gui/song_history_interface.rs:177
 msgid "Error when reading the favorites on the disk:"
 msgstr "Ocorreu um erro ao ler os favoritos salvos:"
+
+#: src/gui/song_history_interface.rs:215
+msgid "Error while saving the favorites on the disk:"
+msgstr ""
 
 #: src/plugins/ksni.rs:51
 msgid "Open SongRec"
@@ -430,7 +442,7 @@ msgstr "Exibir os favoritos"
 msgid "Application menu"
 msgstr "Menu do programa"
 
-#: src/gui/interface.blp:374 src/gui/interface.blp:570
+#: src/gui/interface.blp:374 src/gui/interface.blp:569
 msgid "Export to CSV"
 msgstr "Exportar para o formato ‘CSV’"
 
@@ -448,7 +460,7 @@ msgstr ""
 "Notificar quando uma nova música for reconhecida ou quando ocorrer um erro "
 "na conexão com a internet"
 
-#: src/gui/interface.blp:393 src/gui/interface.blp:525
+#: src/gui/interface.blp:393 src/gui/interface.blp:524
 msgid "Show notifications"
 msgstr "Exibir as notificações"
 
@@ -566,51 +578,51 @@ msgstr "Endereço do URL do mecanismo da pesquisa personalizada"
 msgid "Settings"
 msgstr "Configurações"
 
-#: src/gui/interface.blp:530
+#: src/gui/interface.blp:529
 msgid "_Preferences..."
 msgstr "_Preferências..."
 
-#: src/gui/interface.blp:537
+#: src/gui/interface.blp:536
 msgid "_Keyboard Shortcuts"
 msgstr "_Atalhos do teclado"
 
-#: src/gui/interface.blp:542
+#: src/gui/interface.blp:541
 msgid "About..."
 msgstr "Sobre..."
 
-#: src/gui/interface.blp:575
+#: src/gui/interface.blp:574
 msgid "Delete history"
 msgstr "Excluir o histórico"
 
-#: src/gui/interface.blp:580
+#: src/gui/interface.blp:579
 msgid "Select a file to recognize"
 msgstr "Escolha um arquivo de áudio que você quer identificar"
 
-#: src/gui/interface.blp:592 src/gui/interface.blp:642
+#: src/gui/interface.blp:591 src/gui/interface.blp:641
 msgid "Copy artist and track"
 msgstr "Copiar o nome do artista e o título da música"
 
-#: src/gui/interface.blp:598 src/gui/interface.blp:648
+#: src/gui/interface.blp:597 src/gui/interface.blp:647
 msgid "Copy artist"
 msgstr "Copiar o nome do artista"
 
-#: src/gui/interface.blp:604 src/gui/interface.blp:654
+#: src/gui/interface.blp:603 src/gui/interface.blp:653
 msgid "Copy track name"
 msgstr "Copiar o título da música"
 
-#: src/gui/interface.blp:610 src/gui/interface.blp:660
+#: src/gui/interface.blp:609 src/gui/interface.blp:659
 msgid "Copy album"
 msgstr "Copiar o nome do álbum"
 
-#: src/gui/interface.blp:626
+#: src/gui/interface.blp:625
 msgid "Delete from History"
 msgstr "Excluir do histórico"
 
-#: src/gui/interface.blp:632
+#: src/gui/interface.blp:631
 msgid "Add to Favorites"
 msgstr "Adicionar aos favoritos"
 
-#: src/gui/interface.blp:676
+#: src/gui/interface.blp:675
 msgid "Remove from Favorites"
 msgstr "Remover dos favoritos"
 

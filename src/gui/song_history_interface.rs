@@ -148,7 +148,7 @@ impl SongRecordInterface for RecognitionHistoryInterface {
         if let Err(error_info) = write_records(&self.csv_path, &self.list_store) {
             error!(
                 "{} {}",
-                gettext("Error when saving the song history on the disk:"),
+                gettext("Error while saving the song history on the disk:"),
                 error_info
             );
         }
@@ -212,7 +212,7 @@ impl SongRecordInterface for FavoritesInterface {
         if let Err(error_info) = write_records(&self.csv_path, &self.list_store) {
             error!(
                 "{} {}",
-                gettext("Error when saving the favorites on the disk:"),
+                gettext("Error while saving the favorites on the disk:"),
                 error_info
             );
         }

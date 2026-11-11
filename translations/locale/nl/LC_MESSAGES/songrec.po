@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-11 14:14+0100\n"
+"POT-Creation-Date: 2026-11-12 00:09+0100\n"
 "PO-Revision-Date: 2026-03-09 02:16+0000\n"
 "Last-Translator: Marin <25437947+marin-m@users.noreply.github.com>\n"
 "Language-Team: Dutch <https://weblate.fossplant.re/projects/songrec/songrec/"
@@ -18,42 +18,42 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.15.2\n"
 
-#: src/cli_main.rs:119
+#: src/cli_main.rs:123
 msgid "Available device:"
 msgstr "Beschikbaar apparaat:"
 
-#: src/cli_main.rs:137
+#: src/cli_main.rs:141
 msgid "Exiting: audio device not found"
 msgstr "Geen audioapparaat aangetroffen"
 
-#: src/cli_main.rs:143
+#: src/cli_main.rs:148
 msgid "Exiting: no audio devices found!"
 msgstr "Geen audioapparaten aangetroffen!"
 
-#: src/cli_main.rs:148
+#: src/cli_main.rs:154
 #, c-format
 msgid "Using device %s"
 msgstr ""
 
-#: src/cli_main.rs:172
+#: src/cli_main.rs:178
 msgid "Error: Network unreachable"
 msgstr "Foutmelding: geen internetverbinding"
 
-#: src/cli_main.rs:175
+#: src/cli_main.rs:182
 msgid "Warning: Network unreachable"
 msgstr "Waarschuwing: geen internetverbinding"
 
-#: src/cli_main.rs:180 src/core/http_task.rs:54 src/core/http_task.rs:63
+#: src/cli_main.rs:187 src/core/http_task.rs:54 src/core/http_task.rs:63
 #: src/core/http_task.rs:75 src/core/http_task.rs:110
 #: src/gui/main_window.rs:1112 src/gui/main_window.rs:1124
 msgid "No match for this song"
 msgstr "Er is geen overeenkomst gevonden"
 
-#: src/cli_main.rs:181 src/cli_main.rs:211
+#: src/cli_main.rs:188 src/cli_main.rs:219
 msgid "Error:"
 msgstr "Foutmelding:"
 
-#: src/cli_main.rs:188
+#: src/cli_main.rs:196
 msgid "Recording started!"
 msgstr "De opname is gestart!"
 
@@ -202,7 +202,7 @@ msgstr ""
 
 #: src/core/preferences.rs:76 src/core/preferences.rs:102
 #: src/gui/main_window.rs:315 src/gui/interface.blp:123
-#: src/gui/interface.blp:618 src/gui/interface.blp:668
+#: src/gui/interface.blp:617 src/gui/interface.blp:667
 msgid "Search on YouTube"
 msgstr "Opzoeken op YouTube"
 
@@ -214,20 +214,24 @@ msgstr "Tijdens verwerken van instellingenbestand:"
 msgid "When saving the preferences file:"
 msgstr "Tijdens opslaan van instellingenbestand:"
 
-#: src/core/fingerprinting/signature_format.rs:84
+#: src/core/fingerprinting/signature_format.rs:43
+msgid "Invalid Shazam signature"
+msgstr ""
+
+#: src/core/fingerprinting/signature_format.rs:95
 msgid "Invalid sample rate in decoded Shazam packet"
 msgstr "Ongeldige samplesnelheid in gedecodeerd Shazam-pakket"
 
-#: src/core/fingerprinting/signature_format.rs:125
+#: src/core/fingerprinting/signature_format.rs:140
 msgid "Invalid frequency band in decoded Shazam packet"
 msgstr "Ongeldige frequentieband in gedecodeerd Shazam-pakket"
 
-#: src/core/fingerprinting/signature_format.rs:173
+#: src/core/fingerprinting/signature_format.rs:189
 #, c-format
 msgid "A fingerprint must start with \"%s\""
 msgstr ""
 
-#: src/core/fingerprinting/signature_format.rs:203
+#: src/core/fingerprinting/signature_format.rs:219
 msgid "Invalid sample rate passed when encoding Shazam packet"
 msgstr ""
 "Ongeldige samplesnelheid doorgegeven tijdens encoderen van Shazam-pakket"
@@ -275,13 +279,21 @@ msgstr "_Ja"
 msgid "_Cancel"
 msgstr "_Annuleren"
 
-#: src/gui/song_history_interface.rs:95
+#: src/gui/song_history_interface.rs:110
 msgid "Error when reading the song history on the disk:"
 msgstr "De nummergeschiedenis op de schijf kan niet worden uitgelezen:"
 
-#: src/gui/song_history_interface.rs:165
+#: src/gui/song_history_interface.rs:151
+msgid "Error while saving the song history on the disk:"
+msgstr ""
+
+#: src/gui/song_history_interface.rs:177
 msgid "Error when reading the favorites on the disk:"
 msgstr "De favorieten op de schijf kunnen niet worden uitgelezen:"
+
+#: src/gui/song_history_interface.rs:215
+msgid "Error while saving the favorites on the disk:"
+msgstr ""
 
 #: src/plugins/ksni.rs:51
 msgid "Open SongRec"
@@ -384,7 +396,7 @@ msgstr "Favorieten bekijken"
 msgid "Application menu"
 msgstr "Programmamenu"
 
-#: src/gui/interface.blp:374 src/gui/interface.blp:570
+#: src/gui/interface.blp:374 src/gui/interface.blp:569
 msgid "Export to CSV"
 msgstr "Exporteren naar csv-bestand"
 
@@ -402,7 +414,7 @@ msgstr ""
 "Toon een melding na het herkennen van een nummer of als er een netwerfout "
 "optreedt"
 
-#: src/gui/interface.blp:393 src/gui/interface.blp:525
+#: src/gui/interface.blp:393 src/gui/interface.blp:524
 msgid "Show notifications"
 msgstr "Meldingen tonen"
 
@@ -511,51 +523,51 @@ msgstr ""
 msgid "Settings"
 msgstr "Instellingen"
 
-#: src/gui/interface.blp:530
+#: src/gui/interface.blp:529
 msgid "_Preferences..."
 msgstr "_Instellingen…"
 
-#: src/gui/interface.blp:537
+#: src/gui/interface.blp:536
 msgid "_Keyboard Shortcuts"
 msgstr ""
 
-#: src/gui/interface.blp:542
+#: src/gui/interface.blp:541
 msgid "About..."
 msgstr "Over…"
 
-#: src/gui/interface.blp:575
+#: src/gui/interface.blp:574
 msgid "Delete history"
 msgstr "Geschiedenis wissen"
 
-#: src/gui/interface.blp:580
+#: src/gui/interface.blp:579
 msgid "Select a file to recognize"
 msgstr "Kies een te herkennen bestand"
 
-#: src/gui/interface.blp:592 src/gui/interface.blp:642
+#: src/gui/interface.blp:591 src/gui/interface.blp:641
 msgid "Copy artist and track"
 msgstr "Artiest- en nummernaam kopiëren"
 
-#: src/gui/interface.blp:598 src/gui/interface.blp:648
+#: src/gui/interface.blp:597 src/gui/interface.blp:647
 msgid "Copy artist"
 msgstr "Artiestnaam kopiëren"
 
-#: src/gui/interface.blp:604 src/gui/interface.blp:654
+#: src/gui/interface.blp:603 src/gui/interface.blp:653
 msgid "Copy track name"
 msgstr "Nummernaam kopiëren"
 
-#: src/gui/interface.blp:610 src/gui/interface.blp:660
+#: src/gui/interface.blp:609 src/gui/interface.blp:659
 msgid "Copy album"
 msgstr "Albumnaam kopiëren"
 
-#: src/gui/interface.blp:626
+#: src/gui/interface.blp:625
 msgid "Delete from History"
 msgstr "Wissen uit geschiedenis"
 
-#: src/gui/interface.blp:632
+#: src/gui/interface.blp:631
 msgid "Add to Favorites"
 msgstr "Toevoegen aan favorieten"
 
-#: src/gui/interface.blp:676
+#: src/gui/interface.blp:675
 msgid "Remove from Favorites"
 msgstr "Verwijderen uit favorieten"
 

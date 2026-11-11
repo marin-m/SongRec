@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-11 14:14+0100\n"
+"POT-Creation-Date: 2026-11-12 00:09+0100\n"
 "PO-Revision-Date: 2026-10-27 23:57+0000\n"
 "Last-Translator: Fjuro <fjuro@users.noreply.weblate.fossplant.re>\n"
 "Language-Team: Czech <https://weblate.fossplant.re/projects/songrec/songrec/"
@@ -19,42 +19,42 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Generator: Weblate 2026.8.1\n"
 
-#: src/cli_main.rs:119
+#: src/cli_main.rs:123
 msgid "Available device:"
 msgstr "Dostupné zařízení:"
 
-#: src/cli_main.rs:137
+#: src/cli_main.rs:141
 msgid "Exiting: audio device not found"
 msgstr "Ukončování: zvukové zařízení nenalezeno"
 
-#: src/cli_main.rs:143
+#: src/cli_main.rs:148
 msgid "Exiting: no audio devices found!"
 msgstr "Ukončování: žádná zvuková zařízení nenalezena!"
 
-#: src/cli_main.rs:148
+#: src/cli_main.rs:154
 #, c-format
 msgid "Using device %s"
 msgstr "Používání zařízení %s"
 
-#: src/cli_main.rs:172
+#: src/cli_main.rs:178
 msgid "Error: Network unreachable"
 msgstr "Chyba: síť není dostupná"
 
-#: src/cli_main.rs:175
+#: src/cli_main.rs:182
 msgid "Warning: Network unreachable"
 msgstr "Varování: síť není dostupná"
 
-#: src/cli_main.rs:180 src/core/http_task.rs:54 src/core/http_task.rs:63
+#: src/cli_main.rs:187 src/core/http_task.rs:54 src/core/http_task.rs:63
 #: src/core/http_task.rs:75 src/core/http_task.rs:110
 #: src/gui/main_window.rs:1112 src/gui/main_window.rs:1124
 msgid "No match for this song"
 msgstr "Nenalezena žádná shoda s touto skladbou"
 
-#: src/cli_main.rs:181 src/cli_main.rs:211
+#: src/cli_main.rs:188 src/cli_main.rs:219
 msgid "Error:"
 msgstr "Chyba:"
 
-#: src/cli_main.rs:188
+#: src/cli_main.rs:196
 msgid "Recording started!"
 msgstr "Nahrávání spuštěno!"
 
@@ -202,7 +202,7 @@ msgstr "Chyba zvuku: Není dostupné žádné vstupní zařízení"
 
 #: src/core/preferences.rs:76 src/core/preferences.rs:102
 #: src/gui/main_window.rs:315 src/gui/interface.blp:123
-#: src/gui/interface.blp:618 src/gui/interface.blp:668
+#: src/gui/interface.blp:617 src/gui/interface.blp:667
 msgid "Search on YouTube"
 msgstr "Vyhledat na YouTube"
 
@@ -214,20 +214,24 @@ msgstr "Při zpracování souboru předvoleb:"
 msgid "When saving the preferences file:"
 msgstr "Při ukládání souboru předvoleb:"
 
-#: src/core/fingerprinting/signature_format.rs:84
+#: src/core/fingerprinting/signature_format.rs:43
+msgid "Invalid Shazam signature"
+msgstr ""
+
+#: src/core/fingerprinting/signature_format.rs:95
 msgid "Invalid sample rate in decoded Shazam packet"
 msgstr "Neplatná vzorkovací frekvence v dekódovaném paketu Shazamu"
 
-#: src/core/fingerprinting/signature_format.rs:125
+#: src/core/fingerprinting/signature_format.rs:140
 msgid "Invalid frequency band in decoded Shazam packet"
 msgstr "Neplatný rozsah pásem v dekódovaném paketu Shazamu"
 
-#: src/core/fingerprinting/signature_format.rs:173
+#: src/core/fingerprinting/signature_format.rs:189
 #, c-format
 msgid "A fingerprint must start with \"%s\""
 msgstr ""
 
-#: src/core/fingerprinting/signature_format.rs:203
+#: src/core/fingerprinting/signature_format.rs:219
 msgid "Invalid sample rate passed when encoding Shazam packet"
 msgstr "Předána neplatná vzorkovací frekvence při kódování paketu Shazamu"
 
@@ -274,13 +278,21 @@ msgstr "_Ano"
 msgid "_Cancel"
 msgstr "_Zrušit"
 
-#: src/gui/song_history_interface.rs:95
+#: src/gui/song_history_interface.rs:110
 msgid "Error when reading the song history on the disk:"
 msgstr "Chyba při čtení historie skladeb z disku:"
 
-#: src/gui/song_history_interface.rs:165
+#: src/gui/song_history_interface.rs:151
+msgid "Error while saving the song history on the disk:"
+msgstr ""
+
+#: src/gui/song_history_interface.rs:177
 msgid "Error when reading the favorites on the disk:"
 msgstr "Chyba při čtení oblíbených z disku:"
+
+#: src/gui/song_history_interface.rs:215
+msgid "Error while saving the favorites on the disk:"
+msgstr ""
 
 #: src/plugins/ksni.rs:51
 msgid "Open SongRec"
@@ -382,7 +394,7 @@ msgstr "Zobrazit oblíbené"
 msgid "Application menu"
 msgstr "Nabídka aplikace"
 
-#: src/gui/interface.blp:374 src/gui/interface.blp:570
+#: src/gui/interface.blp:374 src/gui/interface.blp:569
 msgid "Export to CSV"
 msgstr "Exportovat do CSV"
 
@@ -398,7 +410,7 @@ msgstr "Obecné předvolby"
 msgid "Notify when a new song is recognized or network error is encountered"
 msgstr "Oznámit při rozpoznání nové skladby nebo objevení chyby"
 
-#: src/gui/interface.blp:393 src/gui/interface.blp:525
+#: src/gui/interface.blp:393 src/gui/interface.blp:524
 msgid "Show notifications"
 msgstr "Zobrazit oznámení"
 
@@ -510,51 +522,51 @@ msgstr "Vlastní adresa vyhledávače"
 msgid "Settings"
 msgstr "Nastavení"
 
-#: src/gui/interface.blp:530
+#: src/gui/interface.blp:529
 msgid "_Preferences..."
 msgstr "_Předvolby…"
 
-#: src/gui/interface.blp:537
+#: src/gui/interface.blp:536
 msgid "_Keyboard Shortcuts"
 msgstr "_Klávesové zkratky"
 
-#: src/gui/interface.blp:542
+#: src/gui/interface.blp:541
 msgid "About..."
 msgstr "O aplikaci…"
 
-#: src/gui/interface.blp:575
+#: src/gui/interface.blp:574
 msgid "Delete history"
 msgstr "Smazat historii"
 
-#: src/gui/interface.blp:580
+#: src/gui/interface.blp:579
 msgid "Select a file to recognize"
 msgstr "Vyberte soubor k rozpoznání"
 
-#: src/gui/interface.blp:592 src/gui/interface.blp:642
+#: src/gui/interface.blp:591 src/gui/interface.blp:641
 msgid "Copy artist and track"
 msgstr "Kopírovat umělce a skladbu"
 
-#: src/gui/interface.blp:598 src/gui/interface.blp:648
+#: src/gui/interface.blp:597 src/gui/interface.blp:647
 msgid "Copy artist"
 msgstr "Kopírovat umělce"
 
-#: src/gui/interface.blp:604 src/gui/interface.blp:654
+#: src/gui/interface.blp:603 src/gui/interface.blp:653
 msgid "Copy track name"
 msgstr "Kopírovat název skladby"
 
-#: src/gui/interface.blp:610 src/gui/interface.blp:660
+#: src/gui/interface.blp:609 src/gui/interface.blp:659
 msgid "Copy album"
 msgstr "Kopírovat album"
 
-#: src/gui/interface.blp:626
+#: src/gui/interface.blp:625
 msgid "Delete from History"
 msgstr "Odstranit z historie"
 
-#: src/gui/interface.blp:632
+#: src/gui/interface.blp:631
 msgid "Add to Favorites"
 msgstr "Přidat do oblíbených"
 
-#: src/gui/interface.blp:676
+#: src/gui/interface.blp:675
 msgid "Remove from Favorites"
 msgstr "Odstranit z oblíbených"
 
