@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-08 05:31+0100\n"
+"POT-Creation-Date: 2026-11-11 07:02+0100\n"
 "PO-Revision-Date: 2026-03-09 02:16+0000\n"
 "Last-Translator: Marin <25437947+marin-m@users.noreply.github.com>\n"
 "Language-Team: Dutch <https://weblate.fossplant.re/projects/songrec/songrec/"
@@ -18,42 +18,42 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.15.2\n"
 
-#: src/cli_main.rs:118
+#: src/cli_main.rs:119
 msgid "Available device:"
 msgstr "Beschikbaar apparaat:"
 
-#: src/cli_main.rs:136
+#: src/cli_main.rs:137
 msgid "Exiting: audio device not found"
 msgstr "Geen audioapparaat aangetroffen"
 
-#: src/cli_main.rs:142
+#: src/cli_main.rs:143
 msgid "Exiting: no audio devices found!"
 msgstr "Geen audioapparaten aangetroffen!"
 
-#: src/cli_main.rs:147
+#: src/cli_main.rs:148
 #, c-format
 msgid "Using device %s"
 msgstr ""
 
-#: src/cli_main.rs:171
+#: src/cli_main.rs:172
 msgid "Error: Network unreachable"
 msgstr "Foutmelding: geen internetverbinding"
 
-#: src/cli_main.rs:174
+#: src/cli_main.rs:175
 msgid "Warning: Network unreachable"
 msgstr "Waarschuwing: geen internetverbinding"
 
-#: src/cli_main.rs:179 src/core/http_task.rs:54 src/core/http_task.rs:63
+#: src/cli_main.rs:180 src/core/http_task.rs:54 src/core/http_task.rs:63
 #: src/core/http_task.rs:75 src/core/http_task.rs:110
-#: src/gui/main_window.rs:1043 src/gui/main_window.rs:1055
+#: src/gui/main_window.rs:1044 src/gui/main_window.rs:1056
 msgid "No match for this song"
 msgstr "Er is geen overeenkomst gevonden"
 
-#: src/cli_main.rs:180
+#: src/cli_main.rs:181 src/cli_main.rs:211
 msgid "Error:"
 msgstr "Foutmelding:"
 
-#: src/cli_main.rs:187
+#: src/cli_main.rs:188
 msgid "Recording started!"
 msgstr "De opname is gestart!"
 
@@ -242,27 +242,27 @@ msgstr ""
 msgid "Unable to enable notification icon"
 msgstr "Het systeemvakpictogram kan niet worden ingeschakeld"
 
-#: src/gui/main_window.rs:949 src/gui/main_window.rs:1030
+#: src/gui/main_window.rs:950 src/gui/main_window.rs:1031
 msgid "Unable to enable MPRIS support"
 msgstr "De MPRIS-ondersteuning kan niet worden ingeschakeld"
 
-#: src/gui/main_window.rs:1052
+#: src/gui/main_window.rs:1053
 msgid "_Ok"
 msgstr "_Ok"
 
-#: src/gui/main_window.rs:1128
+#: src/gui/main_window.rs:1129
 msgid "Song recognized"
 msgstr "Het nummer is herkend"
 
-#: src/gui/main_window.rs:1265
+#: src/gui/main_window.rs:1269
 msgid "Are you sure you want to wipe history?"
 msgstr "Weet je zeker dat je de geschiedenis wilt wissen?"
 
-#: src/gui/main_window.rs:1271
+#: src/gui/main_window.rs:1275
 msgid "_Yes"
 msgstr "_Ja"
 
-#: src/gui/main_window.rs:1272
+#: src/gui/main_window.rs:1276
 msgid "_Cancel"
 msgstr "_Annuleren"
 

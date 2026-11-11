@@ -51,6 +51,7 @@ app_dirs = { version = "1.2.1" } # For obtaining and creating either the %APPDAT
 soup3 = { version = "0.9.0", features = [ "v3_4" ] }
 image = { version = "0.25.9", default-features = false, features = ["png"] }
 async-lock = "3.4.2"
+fs_extra = "1.3.0"
 
 [build-dependencies]
 gettext-sys = { version = "0.27.0", features = ["gettext-system"] }

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-08 05:31+0100\n"
+"POT-Creation-Date: 2026-11-11 07:02+0100\n"
 "PO-Revision-Date: 2023-12-30 23:42+0900\n"
 "Last-Translator: 이정희 <daemul72@gmail.com>\n"
 "Language-Team: \n"
@@ -17,42 +17,42 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.4.1\n"
 
-#: src/cli_main.rs:118
+#: src/cli_main.rs:119
 msgid "Available device:"
 msgstr ""
 
-#: src/cli_main.rs:136
+#: src/cli_main.rs:137
 msgid "Exiting: audio device not found"
 msgstr "종료 중: 오디오 장치를 찾을 수 없습니다"
 
-#: src/cli_main.rs:142
+#: src/cli_main.rs:143
 msgid "Exiting: no audio devices found!"
 msgstr "종료 중: 오디오 장치를 찾을 수 없습니다!"
 
-#: src/cli_main.rs:147
+#: src/cli_main.rs:148
 #, c-format
 msgid "Using device %s"
 msgstr ""
 
-#: src/cli_main.rs:171
+#: src/cli_main.rs:172
 msgid "Error: Network unreachable"
 msgstr "오류: 네트워크에 연결할 수 없음"
 
-#: src/cli_main.rs:174
+#: src/cli_main.rs:175
 msgid "Warning: Network unreachable"
 msgstr "경고: 네트워크에 연결할 수 없음"
 
-#: src/cli_main.rs:179 src/core/http_task.rs:54 src/core/http_task.rs:63
+#: src/cli_main.rs:180 src/core/http_task.rs:54 src/core/http_task.rs:63
 #: src/core/http_task.rs:75 src/core/http_task.rs:110
-#: src/gui/main_window.rs:1043 src/gui/main_window.rs:1055
+#: src/gui/main_window.rs:1044 src/gui/main_window.rs:1056
 msgid "No match for this song"
 msgstr "이 노래와 일치하는 항목이 없습니다"
 
-#: src/cli_main.rs:180
+#: src/cli_main.rs:181 src/cli_main.rs:211
 msgid "Error:"
 msgstr "오류:"
 
-#: src/cli_main.rs:187
+#: src/cli_main.rs:188
 msgid "Recording started!"
 msgstr "녹음이 시작되었습니다!"
 
@@ -229,27 +229,27 @@ msgstr ""
 msgid "Unable to enable notification icon"
 msgstr ""
 
-#: src/gui/main_window.rs:949 src/gui/main_window.rs:1030
+#: src/gui/main_window.rs:950 src/gui/main_window.rs:1031
 msgid "Unable to enable MPRIS support"
 msgstr "MPRIS 지원을 활성화할 수 없습니다"
 
-#: src/gui/main_window.rs:1052
+#: src/gui/main_window.rs:1053
 msgid "_Ok"
 msgstr ""
 
-#: src/gui/main_window.rs:1128
+#: src/gui/main_window.rs:1129
 msgid "Song recognized"
 msgstr "인식된 노래"
 
-#: src/gui/main_window.rs:1265
+#: src/gui/main_window.rs:1269
 msgid "Are you sure you want to wipe history?"
 msgstr ""
 
-#: src/gui/main_window.rs:1271
+#: src/gui/main_window.rs:1275
 msgid "_Yes"
 msgstr ""
 
-#: src/gui/main_window.rs:1272
+#: src/gui/main_window.rs:1276
 msgid "_Cancel"
 msgstr "취소하기(_C)"
 

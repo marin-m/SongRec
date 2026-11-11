@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: SongRec\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-08 05:31+0100\n"
+"POT-Creation-Date: 2026-11-11 07:02+0100\n"
 "PO-Revision-Date: 2026-11-04 11:53+0000\n"
 "Last-Translator: marcelo cripe <marcelocripe@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://weblate.fossplant.re/projects/"
@@ -22,45 +22,45 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Weblate 2026.8.1\n"
 
-#: src/cli_main.rs:118
+#: src/cli_main.rs:119
 msgid "Available device:"
 msgstr "Dispositivo que está disponível:"
 
-#: src/cli_main.rs:136
+#: src/cli_main.rs:137
 msgid "Exiting: audio device not found"
 msgstr ""
 "O programa será fechado, porque o dispositivo de áudio que você selecionou "
 "não foi encontrado"
 
-#: src/cli_main.rs:142
+#: src/cli_main.rs:143
 msgid "Exiting: no audio devices found!"
 msgstr ""
 "O programa será fechado, porque nenhum dispositivo de áudio foi encontrado."
 
-#: src/cli_main.rs:147
+#: src/cli_main.rs:148
 #, c-format
 msgid "Using device %s"
 msgstr "Utilizando o dispositivo %s"
 
-#: src/cli_main.rs:171
+#: src/cli_main.rs:172
 msgid "Error: Network unreachable"
 msgstr "Ocorreu um erro, porque não há conexão com a internet"
 
-#: src/cli_main.rs:174
+#: src/cli_main.rs:175
 msgid "Warning: Network unreachable"
 msgstr "Atenção! Não há conexão com a internet"
 
-#: src/cli_main.rs:179 src/core/http_task.rs:54 src/core/http_task.rs:63
+#: src/cli_main.rs:180 src/core/http_task.rs:54 src/core/http_task.rs:63
 #: src/core/http_task.rs:75 src/core/http_task.rs:110
-#: src/gui/main_window.rs:1043 src/gui/main_window.rs:1055
+#: src/gui/main_window.rs:1044 src/gui/main_window.rs:1056
 msgid "No match for this song"
 msgstr "A música não pôde ser identificada"
 
-#: src/cli_main.rs:180
+#: src/cli_main.rs:181 src/cli_main.rs:211
 msgid "Error:"
 msgstr "Ocorreu um erro:"
 
-#: src/cli_main.rs:187
+#: src/cli_main.rs:188
 msgid "Recording started!"
 msgstr "A gravação foi iniciada!"
 
@@ -277,27 +277,27 @@ msgstr "Identificando as músicas"
 msgid "Unable to enable notification icon"
 msgstr "Não foi possível ativar o ícone das notificações"
 
-#: src/gui/main_window.rs:949 src/gui/main_window.rs:1030
+#: src/gui/main_window.rs:950 src/gui/main_window.rs:1031
 msgid "Unable to enable MPRIS support"
 msgstr "A funcionalidade do ‘MPRIS’ não pôde ser ativada"
 
-#: src/gui/main_window.rs:1052
+#: src/gui/main_window.rs:1053
 msgid "_Ok"
 msgstr "_Ok"
 
-#: src/gui/main_window.rs:1128
+#: src/gui/main_window.rs:1129
 msgid "Song recognized"
 msgstr "A música foi identificada"
 
-#: src/gui/main_window.rs:1265
+#: src/gui/main_window.rs:1269
 msgid "Are you sure you want to wipe history?"
 msgstr "Você tem certeza de que quer apagar a histórico?"
 
-#: src/gui/main_window.rs:1271
+#: src/gui/main_window.rs:1275
 msgid "_Yes"
 msgstr "_Sim"
 
-#: src/gui/main_window.rs:1272
+#: src/gui/main_window.rs:1276
 msgid "_Cancel"
 msgstr "_Cancelar"
 

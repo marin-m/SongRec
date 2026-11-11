@@ -4,8 +4,6 @@ use std::error::Error;
 use std::fs::create_dir_all;
 #[cfg(not(windows))]
 use std::os::unix::fs::symlink;
-#[cfg(windows)]
-use std::os::windows::fs::symlink_dir;
 use std::path::PathBuf;
 use std::sync::LazyLock;
 
@@ -39,10 +37,11 @@ fn obtain_data_directory() -> Result<PathBuf, Box<dyn Error>> {
     if !data_dir.exists() {
         let old_dir = get_old_data_dir_path()?;
         if old_dir.exists() {
+            create_dir_all(data_dir.parent().unwrap_or(data_dir))?;
             #[cfg(not(windows))]
             symlink(old_dir, data_dir)?;
             #[cfg(windows)]
-            symlink_dir(old_dir, data_dir)?;
+            fs_extra::dir::copy(old_dir, data_dir, &fs_extra::dir::CopyOptions::new());
         } else {
             create_dir_all(data_dir)?;
         }

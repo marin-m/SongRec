@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-08 05:31+0100\n"
+"POT-Creation-Date: 2026-11-11 07:02+0100\n"
 "PO-Revision-Date: 2026-10-26 17:08+0000\n"
 "Last-Translator: albanobattistella <albano_battistella@hotmail.com>\n"
 "Language-Team: Italian <https://weblate.fossplant.re/projects/songrec/"
@@ -21,42 +21,42 @@ msgstr ""
 "Translator: Albano Battistella <albano_battistella@hotmail.com>\n"
 "X-Generator: Weblate 2026.8.1\n"
 
-#: src/cli_main.rs:118
+#: src/cli_main.rs:119
 msgid "Available device:"
 msgstr "Dispositivo disponibile:"
 
-#: src/cli_main.rs:136
+#: src/cli_main.rs:137
 msgid "Exiting: audio device not found"
 msgstr "In uscita: dispositivo audio non trovato"
 
-#: src/cli_main.rs:142
+#: src/cli_main.rs:143
 msgid "Exiting: no audio devices found!"
 msgstr "In uscita: nessun dispositivo audio trovato!"
 
-#: src/cli_main.rs:147
+#: src/cli_main.rs:148
 #, c-format
 msgid "Using device %s"
 msgstr "Utilizzo del dispositivo %s"
 
-#: src/cli_main.rs:171
+#: src/cli_main.rs:172
 msgid "Error: Network unreachable"
 msgstr "Errore: rete irraggiungibile"
 
-#: src/cli_main.rs:174
+#: src/cli_main.rs:175
 msgid "Warning: Network unreachable"
 msgstr "Avviso: rete irraggiungibile"
 
-#: src/cli_main.rs:179 src/core/http_task.rs:54 src/core/http_task.rs:63
+#: src/cli_main.rs:180 src/core/http_task.rs:54 src/core/http_task.rs:63
 #: src/core/http_task.rs:75 src/core/http_task.rs:110
-#: src/gui/main_window.rs:1043 src/gui/main_window.rs:1055
+#: src/gui/main_window.rs:1044 src/gui/main_window.rs:1056
 msgid "No match for this song"
 msgstr "Nessuna corrispondenza per questo brano"
 
-#: src/cli_main.rs:180
+#: src/cli_main.rs:181 src/cli_main.rs:211
 msgid "Error:"
 msgstr "Errore:"
 
-#: src/cli_main.rs:187
+#: src/cli_main.rs:188
 msgid "Recording started!"
 msgstr "Registrazione iniziata!"
 
@@ -252,27 +252,27 @@ msgstr ""
 msgid "Unable to enable notification icon"
 msgstr "Impossibile abilitare l'icona di notifica"
 
-#: src/gui/main_window.rs:949 src/gui/main_window.rs:1030
+#: src/gui/main_window.rs:950 src/gui/main_window.rs:1031
 msgid "Unable to enable MPRIS support"
 msgstr "Impossibile abilitare il supporto MPRIS"
 
-#: src/gui/main_window.rs:1052
+#: src/gui/main_window.rs:1053
 msgid "_Ok"
 msgstr "_Ok"
 
-#: src/gui/main_window.rs:1128
+#: src/gui/main_window.rs:1129
 msgid "Song recognized"
 msgstr "Brano riconosciuto"
 
-#: src/gui/main_window.rs:1265
+#: src/gui/main_window.rs:1269
 msgid "Are you sure you want to wipe history?"
 msgstr "Sei sicuro di voler cancellare la cronologia?"
 
-#: src/gui/main_window.rs:1271
+#: src/gui/main_window.rs:1275
 msgid "_Yes"
 msgstr "_Sì"
 
-#: src/gui/main_window.rs:1272
+#: src/gui/main_window.rs:1276
 msgid "_Cancel"
 msgstr "A_nnulla"
 
