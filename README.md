@@ -96,19 +96,13 @@ Under Archlinux:
 sudo pacman -S cargo rust
 ```
 
-With MSYS2 (MINGW64, Windows XP+):
-
-```bash
-pacman -S mingw-w64-x86_64-rust
-```
-
 With MSYS2 (UCRT64, Windows 10+):
 
 ```bash
 pacman -S mingw-w64-ucrt-x86_64-rust
 ```
 
-Using MacPorts (macOS):
+Using MacPorts (macOS, legacy):
 
 ```bash
 sudo port install rust cargo
@@ -138,43 +132,39 @@ As of today, SongRec requires `libadwaita` 1.8 or higher to build the GUI.
 Debian and Ubuntu:
 
 ```bash
-sudo apt install build-essential libasound2-dev libpipewire-0.3-dev libclang-dev libpulse-dev libgtk-4-dev libsoup-3.0-dev libadwaita-1-dev blueprint-compiler libdbus-1-dev gettext sed grep
+sudo apt install build-essential libasound2-dev libpipewire-0.3-dev libclang-dev \
+    libpulse-dev libgtk-4-dev libsoup-3.0-dev libadwaita-1-dev blueprint-compiler \
+    libdbus-1-dev gettext sed grep
 ```
 
 Archlinux:
 
 ```bash
-sudo pacman -S pkgconf blueprint-compiler git gtk4 libadwaita libsoup3 alsa-lib libpulse libpipewire clang openssl ffmpeg gettext sed grep
+sudo pacman -S pkgconf blueprint-compiler git gtk4 libadwaita libsoup3 alsa-lib \
+    libpulse libpipewire clang openssl ffmpeg gettext sed grep
 ```
 
 Fedora Linux:
 
 ```shell
 sudo dnf group install development-tools
-sudo dnf install alsa-lib-devel blueprint-compiler pipewire-devel clang-devel pulseaudio-libs-devel pkgconf-pkg-config glib gtk4-devel libsoup3-devel libadwaita-devel dbus-devel openssl-devel gettext sed grep
-```
-
-MSYS2 with MINGW64 (Windows XP+):
-
-```bash
-# Obtain source:
-# In PowerShell:
-#   winget install --id Git.Git -e --source winget
-# (restart PowerShell)
-#   cd C:\msys64\home\*
-#   git clone https://github.com/marin-m/SongRec.git SongRec-main
-pacman -Sy unzip grep sed mingw-w64-x86_64-gettext-runtime mingw-w64-x86_64-blueprint-compiler mingw-w64-x86_64-gcc mingw-w64-x86_64-libadwaita mingw-w64-x86_64-adwaita-icon-theme mingw-w64-x86_64-glib2 mingw-w64-x86_64-gtk4 mingw-w64-x86_64-pkgconf mingw-w64-x86_64-dbus mingw-w64-x86_64-openssl mingw-w64-x86_64-libsoup3 mingw-w64-x86_64-ffmpeg
+sudo dnf install alsa-lib-devel blueprint-compiler pipewire-devel clang-devel \
+    pulseaudio-libs-devel pkgconf-pkg-config glib gtk4-devel libsoup3-devel \
+    libadwaita-devel dbus-devel openssl-devel gettext sed grep
 ```
 
 MSYS2 with UCRT64 (Windows 10+):
 
 ```bash
-pacman -Sy unzip grep sed mingw-w64-ucrt-x86_64-gettext-runtime mingw-w64-ucrt-x86_64-blueprint-compiler mingw-w64-ucrt-x86_64-gcc mingw-w64-ucrt-x86_64-libadwaita mingw-w64-ucrt-x86_64-adwaita-icon-theme mingw-w64-ucrt-x86_64-glib2 mingw-w64-ucrt-x86_64-gtk4 mingw-w64-ucrt-x86_64-pkgconf mingw-w64-ucrt-x86_64-dbus mingw-w64-ucrt-x86_64-openssl mingw-w64-ucrt-x86_64-libsoup3 mingw-w64-ucrt-x86_64-ffmpeg
+A="mingw-w64-ucrt-x86_64-"
+pacman -Sy ${A}git ${A}blueprint-compiler ${A}upx ${A}7zip unzip \
+    grep ${A}sed ${A}gettext-runtime ${A}gcc ${A}libadwaita ${A}adwaita-icon-theme \
+    ${A}glib2 ${A}gtk4 ${A}pkgconf ${A}dbus ${A}openssl ${A}libsoup3 ${A}nsis
 ```
 
 NOTE: macOS is not officially supported. You may have to first install [XQuartz](https://www.xquartz.org/), export the `GSK_RENDERER=cairo` environment variable, and other tricks to have the application working.
 
-MacPorts (macOS):
+MacPorts (macOS, legacy):
 
 ```bash
 sudo port install libadwaita blueprint-compiler gtk4 libsoup ffmpeg gmake cctools +xcode
@@ -193,13 +183,17 @@ export GETTEXT_DIR=/opt/homebrew
 Void Linux (libressl):
 
 ```shell
-sudo xbps-install base-devel blueprint-compiler alsa-lib-devel pipewire-devel clang-devel pulseaudio-devel gtk4-devel libsoup3-devel libadwaita-devel dbus-devel libressl-devel sed grep
+sudo xbps-install base-devel blueprint-compiler alsa-lib-devel pipewire-devel \
+    clang-devel pulseaudio-devel gtk4-devel libsoup3-devel libadwaita-devel \
+    dbus-devel libressl-devel sed grep
 ```
 
 Void Linux (openssl):
 
 ```shell
-sudo xbps-install base-devel blueprint-compiler alsa-lib-devel pipewire-devel clang-devel pulseaudio-devel gtk4-devel libsoup3-devel libadwaita-devel dbus-devel openssl-devel sed grep
+sudo xbps-install base-devel blueprint-compiler alsa-lib-devel pipewire-devel \
+    clang-devel pulseaudio-devel gtk4-devel libsoup3-devel libadwaita-devel \
+    dbus-devel openssl-devel sed grep
 ```
 
 ### Compiling the project
@@ -287,7 +281,7 @@ The following subcommands will do the same with an intermediary step, manipulati
 Please note that if you have installed the application through Flathub, you will need to use the `--file-forwarding` flag in order to use the command line with data on the filesystem (which doesn't go through the same Flatpak/XDG portals as the GUI):
 
 ```
-flatpak run --file-forwarding re.fossplant.songrec audio-file-to-fingerprint @@ sound_file.mp3 @@
+flatpak run --file-forwarding re.fossplant.songrec recognize -c @@ sound_file.mp3 @@
 ```
 
 When using the application, you may notice that certain information will be saved to `~/.local/share/songrec` and `~/.config/songrec` (or an equivalent directory depending on your operating system), including the CSV-format list of the last recognized songs and the last selected microphone input device (so that it is chosen back when restarting the app). You may want to delete these directories in case of persistent issues.
