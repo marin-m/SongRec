@@ -167,11 +167,13 @@ impl DecodedSignature {
     }
 
     pub fn decode_from_uri(uri: &str) -> Result<Self, Box<dyn Error>> {
-        assert!(uri.starts_with(DATA_URI_PREFIX));
-
-        DecodedSignature::decode_from_binary(
-            &base64::prelude::BASE64_STANDARD.decode(&uri[DATA_URI_PREFIX.len()..])?,
-        )
+        if let Some(encoded) = uri.strip_prefix(DATA_URI_PREFIX) {
+            DecodedSignature::decode_from_binary(&base64::prelude::BASE64_STANDARD.decode(encoded)?)
+        } else {
+            Err(gettext("A fingerprint must start with \"%s\"")
+                .replace("%s", DATA_URI_PREFIX)
+                .into())
+        }
     }
 
     pub fn encode_to_binary(&self) -> Result<Vec<u8>, Box<dyn Error>> {
@@ -274,5 +276,24 @@ impl DecodedSignature {
             DATA_URI_PREFIX,
             base64::prelude::BASE64_STANDARD.encode(self.encode_to_binary()?)
         ))
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn decoding_a_uri_without_the_data_uri_prefix_is_an_error() {
+        let error = DecodedSignature::decode_from_uri("not a fingerprint")
+            .err()
+            .unwrap();
+        assert!(error.to_string().contains(DATA_URI_PREFIX));
+    }
+
+    #[test]
+    fn decoding_invalid_base64_after_the_prefix_is_an_error() {
+        let uri = format!("{}not base64!", DATA_URI_PREFIX);
+        assert!(DecodedSignature::decode_from_uri(&uri).is_err());
     }
 }
