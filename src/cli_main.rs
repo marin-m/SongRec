@@ -1,5 +1,6 @@
 use log::{error, info, warn};
 use std::error::Error;
+use std::io::Write;
 use std::sync::{Arc, Mutex};
 
 use chrono::Local;
@@ -12,7 +13,7 @@ use crate::core::http_task::http_task;
 use crate::core::microphone_thread::microphone_thread;
 use crate::core::processing_thread::processing_thread;
 use crate::core::thread_messages::{
-    GUIMessage, MicrophoneMessage, ProcessingMessage, spawn_big_thread,
+    GUIMessage, MicrophoneMessage, ProcessingMessage, SongRecognizedMessage, spawn_big_thread,
 };
 
 use crate::core::preferences::{Preferences, PreferencesInterface};
@@ -188,7 +189,6 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
                 }
                 GUIMessage::SongRecognized(message) => {
                     let track_key = Some(message.track_key.clone());
-                    let song_name = format!("{} - {}", message.artist_name, message.song_name);
 
                     if last_track != track_key {
                         // TODO re-implement this with new lib
@@ -198,29 +198,20 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
                         }
 
                         last_track = track_key;
-                        match parameters.output_type {
-                            CLIOutputType::JSON => {
-                                println!("{}", message.shazam_json);
+                        if let Err(error) = write_recognized_song(
+                            &mut std::io::stdout(),
+                            &mut csv_writer,
+                            &parameters.output_type,
+                            *message,
+                            Local::now().format("%c").to_string(),
+                        ) {
+                            // The reader closed the pipe early (`songrec ... | head`):
+                            // stop quietly instead of panicking, like other CLI tools.
+                            if error.kind() != std::io::ErrorKind::BrokenPipe {
+                                error!("{} {}", gettext("Error:"), error);
                             }
-                            CLIOutputType::CSV => {
-                                csv_writer
-                                    .serialize(SongHistoryRecord {
-                                        song_name,
-                                        album: Some(message.album_name.unwrap_or_default()),
-                                        track_key: Some(message.track_key),
-                                        release_year: Some(
-                                            message.release_year.unwrap_or_default(),
-                                        ),
-                                        genre: Some(message.genre.unwrap_or_default()),
-                                        recognition_date: Local::now().format("%c").to_string(),
-                                    })
-                                    .unwrap();
-                                csv_writer.flush().unwrap();
-                            }
-                            CLIOutputType::SongName => {
-                                println!("{}", song_name);
-                            }
-                        };
+                            break;
+                        }
                     }
                     if do_recognize_once {
                         break;
@@ -237,4 +228,107 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
     main_loop.run();
 
     Ok(())
+}
+
+/// Write one recognized song to the standard output, in the requested format.
+fn write_recognized_song(
+    stdout: &mut impl Write,
+    csv_writer: &mut csv::Writer<impl Write>,
+    output_type: &CLIOutputType,
+    message: SongRecognizedMessage,
+    recognition_date: String,
+) -> std::io::Result<()> {
+    let song_name = format!("{} - {}", message.artist_name, message.song_name);
+    match output_type {
+        CLIOutputType::JSON => writeln!(stdout, "{}", message.shazam_json),
+        CLIOutputType::SongName => writeln!(stdout, "{}", song_name),
+        CLIOutputType::CSV => {
+            csv_writer.serialize(SongHistoryRecord {
+                song_name,
+                album: Some(message.album_name.unwrap_or_default()),
+                track_key: Some(message.track_key),
+                release_year: Some(message.release_year.unwrap_or_default()),
+                genre: Some(message.genre.unwrap_or_default()),
+                recognition_date,
+            })?;
+            csv_writer.flush()
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn message() -> SongRecognizedMessage {
+        SongRecognizedMessage {
+            artist_name: "Artist".to_string(),
+            album_name: Some("Album".to_string()),
+            song_name: "Title".to_string(),
+            cover_image: None,
+            track_key: "123".to_string(),
+            release_year: Some("2020".to_string()),
+            genre: Some("Pop".to_string()),
+            shazam_json: r#"{"track":{}}"#.to_string(),
+        }
+    }
+
+    fn output(output_type: CLIOutputType) -> String {
+        let mut stdout = Vec::new();
+        let mut csv_writer = csv::Writer::from_writer(Vec::new());
+        write_recognized_song(
+            &mut stdout,
+            &mut csv_writer,
+            &output_type,
+            message(),
+            "date".to_string(),
+        )
+        .unwrap();
+        stdout.extend(csv_writer.into_inner().unwrap());
+        String::from_utf8(stdout).unwrap()
+    }
+
+    #[test]
+    fn writes_each_output_format() {
+        assert_eq!(output(CLIOutputType::SongName), "Artist - Title\n");
+        assert_eq!(output(CLIOutputType::JSON), "{\"track\":{}}\n");
+        assert_eq!(
+            output(CLIOutputType::CSV),
+            "song_name,album,track_key,release_year,genre,recognition_date\n\
+             Artist - Title,Album,123,2020,Pop,date\n"
+        );
+    }
+
+    /// Stands for a standard output whose reader has exited, as in `songrec ... | head`.
+    struct ClosedPipe;
+
+    impl Write for ClosedPipe {
+        fn write(&mut self, _: &[u8]) -> std::io::Result<usize> {
+            Err(std::io::ErrorKind::BrokenPipe.into())
+        }
+
+        fn flush(&mut self) -> std::io::Result<()> {
+            Ok(())
+        }
+    }
+
+    #[test]
+    fn closed_pipe_is_reported_instead_of_panicking() {
+        for output_type in [
+            CLIOutputType::SongName,
+            CLIOutputType::JSON,
+            CLIOutputType::CSV,
+        ] {
+            let mut csv_writer = csv::Writer::from_writer(ClosedPipe);
+            let error = write_recognized_song(
+                &mut ClosedPipe,
+                &mut csv_writer,
+                &output_type,
+                message(),
+                "date".to_string(),
+            )
+            .unwrap_err();
+            assert_eq!(error.kind(), std::io::ErrorKind::BrokenPipe);
+        }
+    }
 }
