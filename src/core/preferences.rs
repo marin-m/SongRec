@@ -17,6 +17,7 @@ pub struct Preferences {
     pub start_minimized: Option<bool>,
     pub enable_mpris: Option<bool>, // Legacy, before setting default to true
     pub enable_mpris_v2: Option<bool>,
+    pub remember_window_state: Option<bool>,
     pub no_duplicates: Option<bool>,
     pub buffer_size_secs: Option<u64>,         // Removed in 0.7.3
     pub request_interval_secs: Option<u64>,    // Legacy, before increasing default from 4 to 10
@@ -40,6 +41,7 @@ impl Preferences {
             start_minimized: None,
             enable_mpris: None,
             enable_mpris_v2: None,
+            remember_window_state: None,
             no_duplicates: None,
             buffer_size_secs: None,
             request_interval_secs: None,
@@ -63,6 +65,7 @@ impl Preferences {
             start_minimized: Some(false),
             enable_mpris: None,
             enable_mpris_v2: Some(true),
+            remember_window_state: Some(false),
             no_duplicates: Some(false),
             buffer_size_secs: None,
             request_interval_secs: None,
@@ -88,6 +91,7 @@ impl Default for Preferences {
             start_minimized: Some(false),
             enable_mpris: None,
             enable_mpris_v2: Some(true),
+            remember_window_state: Some(false),
             no_duplicates: Some(false),
             buffer_size_secs: None,
             request_interval_secs: None,
@@ -161,6 +165,9 @@ impl PreferencesInterface {
             start_minimized: update_preferences
                 .start_minimized
                 .or(current_preferences.start_minimized),
+            remember_window_state: update_preferences
+                .remember_window_state
+                .or(current_preferences.remember_window_state),
             no_duplicates: update_preferences
                 .no_duplicates
                 .or(current_preferences.no_duplicates),
@@ -240,6 +247,7 @@ mod tests {
             window_width: Some(700),
             window_height: Some(420),
             window_maximized: Some(true),
+            remember_window_state: Some(true),
             ..Default::default()
         };
 
@@ -248,6 +256,7 @@ mod tests {
         assert_eq!(read.window_width, Some(700));
         assert_eq!(read.window_height, Some(420));
         assert_eq!(read.window_maximized, Some(true));
+        assert_eq!(read.remember_window_state, Some(true));
     }
 
     #[test]
@@ -258,11 +267,13 @@ mod tests {
         new_preference.window_width = Some(700);
         new_preference.window_height = Some(420);
         new_preference.window_maximized = Some(false);
+        new_preference.remember_window_state = Some(true);
         interface.update(new_preference);
 
         assert_eq!(interface.preferences.window_width, Some(700));
         assert_eq!(interface.preferences.window_height, Some(420));
         assert_eq!(interface.preferences.window_maximized, Some(false));
+        assert_eq!(interface.preferences.remember_window_state, Some(true));
         assert_eq!(interface.preferences.enable_notifications, Some(true));
         assert_eq!(interface.preferences.request_interval_secs_v3, Some(8));
     }
@@ -272,6 +283,8 @@ mod tests {
         let preferences = Preferences {
             window_width: Some(700),
             window_height: Some(420),
+            remember_window_state: Some(true),
+
             window_maximized: Some(true),
             ..Default::default()
         };

@@ -472,6 +472,13 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
                           </object>
                         </child>
                         <child>
+                          <object class="AdwSwitchRow" id="remember_window_size">
+                            <property name="action-name">win.remember-window-state</property>
+                            <property name="subtitle" translatable="yes">Remember window dimensions and maximized state across restarts</property>
+                            <property name="title" translatable="yes">Remember window size</property>
+                          </object>
+                        </child>
+                        <child>
                           <object class="AdwSwitchRow" id="mpris_setting">
                             <property name="action-name">win.mpris-setting</property>
                             <property name="has-tooltip">true</property>

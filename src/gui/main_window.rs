@@ -388,15 +388,19 @@ impl App {
     }
 
     fn restore_window_size(&self, window: &adw::ApplicationWindow) {
-        if let (Some(width), Some(height)) = (
+        if let (Some(width), Some(height), Some(remember_state)) = (
             self.old_preferences.window_width,
             self.old_preferences.window_height,
+            self.old_preferences.remember_window_state,
         ) && width > 0
             && height > 0
+            && remember_state
         {
             window.set_default_size(width, height);
         }
-        if self.old_preferences.window_maximized == Some(true) {
+        if self.old_preferences.remember_window_state == Some(true)
+            && self.old_preferences.window_maximized == Some(true)
+        {
             window.maximize();
         }
     }
@@ -414,7 +418,14 @@ impl App {
         ) {
             // A window that was never shown (when starting minimized) does
             // not report whether it is maximized yet
-            if !window.is_visible() {
+            if !window.is_visible()
+                || preferences_interface
+                    .lock()
+                    .unwrap()
+                    .preferences
+                    .remember_window_state
+                    != Some(true)
+            {
                 return;
             }
             let (width, height) = window.default_size();
@@ -1840,6 +1851,29 @@ impl App {
 
         let gui_tx = self.gui_tx.clone();
 
+        let action_remember_window_state = gio::ActionEntry::builder("remember-window-state")
+            .state(
+                self.old_preferences
+                    .remember_window_state
+                    .unwrap()
+                    .to_variant(),
+            )
+            .activate(move |_, action, _| {
+                let state = action.state().unwrap();
+                let action_state: bool = state.get().unwrap();
+                let new_state = !action_state; // toggle
+                action.set_state(&new_state.to_variant());
+
+                let mut new_preference: Preferences = Preferences::new();
+                new_preference.remember_window_state = Some(new_state);
+                gui_tx
+                    .try_send(GUIMessage::UpdatePreference(new_preference))
+                    .unwrap();
+            })
+            .build();
+
+        let gui_tx = self.gui_tx.clone();
+
         let action_no_dupes_setting = gio::ActionEntry::builder("no-dupes-setting")
             .state(self.old_preferences.no_duplicates.unwrap().to_variant())
             .activate(move |_, action, _| {
@@ -1901,6 +1935,7 @@ impl App {
             action_autostart_setting,
             #[cfg(target_os = "linux")]
             action_start_minimized_setting,
+            action_remember_window_state,
             action_no_dupes_setting,
             action_refresh_devices,
             action_close,

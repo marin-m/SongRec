@@ -401,6 +401,12 @@ Adw.ApplicationWindow main_window {
               title: _("No duplicates in history");
             }
 
+            Adw.SwitchRow remember_window_size {
+              action-name: "win.remember-window-state";
+              subtitle: _("Remember window dimensions and maximized state across restarts");
+              title: _("Remember window size");
+            }
+
             Adw.SwitchRow mpris_setting {
               action-name: "win.mpris-setting";
               has-tooltip: true;
