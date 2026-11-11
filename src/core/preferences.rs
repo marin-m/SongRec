@@ -25,6 +25,9 @@ pub struct Preferences {
     pub current_device_name: Option<String>,
     pub website_search_url: Option<String>,
     pub website_search_text: Option<String>,
+    pub window_width: Option<i32>,
+    pub window_height: Option<i32>,
+    pub window_maximized: Option<bool>,
 }
 
 impl Preferences {
@@ -45,6 +48,9 @@ impl Preferences {
             current_device_name: None,
             website_search_url: None,
             website_search_text: None,
+            window_width: None,
+            window_height: None,
+            window_maximized: None,
         }
     }
 
@@ -65,6 +71,9 @@ impl Preferences {
             current_device_name: None,
             website_search_url: Some("https://www.youtube.com/results?search_query=".to_string()),
             website_search_text: Some(gettext("Search on YouTube".to_string())),
+            window_width: None,
+            window_height: None,
+            window_maximized: None,
         }
     }
 }
@@ -87,6 +96,9 @@ impl Default for Preferences {
             current_device_name: None,
             website_search_url: Some("https://www.youtube.com/results?search_query=".to_string()),
             website_search_text: Some(gettext("Search on YouTube".to_string())),
+            window_width: None,
+            window_height: None,
+            window_maximized: None,
         }
     }
 }
@@ -177,6 +189,15 @@ impl PreferencesInterface {
             website_search_text: update_preferences
                 .website_search_text
                 .or_else(|| current_preferences.website_search_text.clone()),
+            window_width: update_preferences
+                .window_width
+                .or(current_preferences.window_width),
+            window_height: update_preferences
+                .window_height
+                .or(current_preferences.window_height),
+            window_maximized: update_preferences
+                .window_maximized
+                .or(current_preferences.window_maximized),
         };
         if let Err(error) = self.write() {
             error!("{} {}", gettext("When saving the preferences file:"), error);
@@ -189,5 +210,80 @@ impl PreferencesInterface {
             std::fs::write(preferences_file_path, contents)?;
         }
         Ok(())
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn interface_without_file(preferences: Preferences) -> PreferencesInterface {
+        PreferencesInterface {
+            preferences_file_path: None,
+            preferences,
+        }
+    }
+
+    #[test]
+    fn window_size_is_unset_in_older_preference_files() {
+        let preferences: Preferences =
+            toml::from_str("enable_notifications = true\nrequest_interval_secs_v3 = 8\n").unwrap();
+
+        assert_eq!(preferences.window_width, None);
+        assert_eq!(preferences.window_height, None);
+        assert_eq!(preferences.window_maximized, None);
+    }
+
+    #[test]
+    fn window_size_survives_a_round_trip_through_the_file() {
+        let preferences = Preferences {
+            window_width: Some(700),
+            window_height: Some(420),
+            window_maximized: Some(true),
+            ..Default::default()
+        };
+
+        let read: Preferences = toml::from_str(&toml::to_string(&preferences).unwrap()).unwrap();
+
+        assert_eq!(read.window_width, Some(700));
+        assert_eq!(read.window_height, Some(420));
+        assert_eq!(read.window_maximized, Some(true));
+    }
+
+    #[test]
+    fn updating_the_window_size_keeps_the_other_preferences() {
+        let mut interface = interface_without_file(Preferences::default());
+
+        let mut new_preference = Preferences::new();
+        new_preference.window_width = Some(700);
+        new_preference.window_height = Some(420);
+        new_preference.window_maximized = Some(false);
+        interface.update(new_preference);
+
+        assert_eq!(interface.preferences.window_width, Some(700));
+        assert_eq!(interface.preferences.window_height, Some(420));
+        assert_eq!(interface.preferences.window_maximized, Some(false));
+        assert_eq!(interface.preferences.enable_notifications, Some(true));
+        assert_eq!(interface.preferences.request_interval_secs_v3, Some(8));
+    }
+
+    #[test]
+    fn updating_other_preferences_keeps_the_window_size() {
+        let preferences = Preferences {
+            window_width: Some(700),
+            window_height: Some(420),
+            window_maximized: Some(true),
+            ..Default::default()
+        };
+        let mut interface = interface_without_file(preferences);
+
+        let mut new_preference = Preferences::new();
+        new_preference.no_duplicates = Some(true);
+        interface.update(new_preference);
+
+        assert_eq!(interface.preferences.no_duplicates, Some(true));
+        assert_eq!(interface.preferences.window_width, Some(700));
+        assert_eq!(interface.preferences.window_height, Some(420));
+        assert_eq!(interface.preferences.window_maximized, Some(true));
     }
 }

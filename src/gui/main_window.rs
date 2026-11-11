@@ -347,6 +347,9 @@ impl App {
         let window: adw::ApplicationWindow = self.builder.object("main_window").unwrap();
         window.set_application(Some(application));
 
+        self.restore_window_size(&window);
+        self.save_window_size_on_close(application, &window);
+
         #[cfg(target_os = "linux")]
         {
             let background_enabled = self.old_preferences.enable_background == Some(true);
@@ -382,6 +385,59 @@ impl App {
         }
         #[cfg(not(target_os = "linux"))]
         window.present();
+    }
+
+    fn restore_window_size(&self, window: &adw::ApplicationWindow) {
+        if let (Some(width), Some(height)) = (
+            self.old_preferences.window_width,
+            self.old_preferences.window_height,
+        ) && width > 0
+            && height > 0
+        {
+            window.set_default_size(width, height);
+        }
+        if self.old_preferences.window_maximized == Some(true) {
+            window.maximize();
+        }
+    }
+
+    /// Remember the window size and state when it is closed or hidden, and
+    /// when the app quits while it is shown (e.g. from the notification icon)
+    fn save_window_size_on_close(
+        &self,
+        application: &adw::Application,
+        window: &adw::ApplicationWindow,
+    ) {
+        fn save_window_size(
+            window: &adw::ApplicationWindow,
+            preferences_interface: &Mutex<PreferencesInterface>,
+        ) {
+            // A window that was never shown (when starting minimized) does
+            // not report whether it is maximized yet
+            if !window.is_visible() {
+                return;
+            }
+            let (width, height) = window.default_size();
+            let mut new_preference = Preferences::new();
+            new_preference.window_width = Some(width);
+            new_preference.window_height = Some(height);
+            new_preference.window_maximized = Some(window.is_maximized());
+            preferences_interface.lock().unwrap().update(new_preference);
+        }
+
+        let preferences_interface = self.preferences_interface.clone();
+        window.connect_close_request(move |window| {
+            save_window_size(window, &preferences_interface);
+            glib::Propagation::Proceed
+        });
+
+        let preferences_interface = self.preferences_interface.clone();
+        let window = window.downgrade();
+        application.connect_shutdown(move |_| {
+            if let Some(window) = window.upgrade() {
+                save_window_size(&window, &preferences_interface);
+            }
+        });
     }
 
     #[cfg(target_os = "linux")]
