@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-11 13:13+0100\n"
+"POT-Creation-Date: 2026-11-11 14:14+0100\n"
 "PO-Revision-Date: 2021-08-23 21:02+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -45,7 +45,7 @@ msgstr ""
 
 #: src/cli_main.rs:180 src/core/http_task.rs:54 src/core/http_task.rs:63
 #: src/core/http_task.rs:75 src/core/http_task.rs:110
-#: src/gui/main_window.rs:1111 src/gui/main_window.rs:1123
+#: src/gui/main_window.rs:1112 src/gui/main_window.rs:1124
 msgid "No match for this song"
 msgstr "曲が認識されませんでした"
 
@@ -181,7 +181,7 @@ msgid "Audio error: No input device available"
 msgstr ""
 
 #: src/core/preferences.rs:76 src/core/preferences.rs:102
-#: src/gui/main_window.rs:314 src/gui/interface.blp:123
+#: src/gui/main_window.rs:315 src/gui/interface.blp:123
 #: src/gui/interface.blp:618 src/gui/interface.blp:668
 msgid "Search on YouTube"
 msgstr "YouTubeで検索"
@@ -211,46 +211,46 @@ msgstr ""
 msgid "Invalid sample rate passed when encoding Shazam packet"
 msgstr ""
 
-#: src/gui/main_window.rs:272
+#: src/gui/main_window.rs:273
 msgid "Application error"
 msgstr ""
 
-#: src/gui/main_window.rs:293
+#: src/gui/main_window.rs:294
 msgid "Network error"
 msgstr ""
 
-#: src/gui/main_window.rs:475
+#: src/gui/main_window.rs:476
 msgctxt ""
 "Status of the app displayed in the Background Apps section of GNOME system "
 "menu when using Flatpak"
 msgid "Recognizing songs"
 msgstr ""
 
-#: src/gui/main_window.rs:545
+#: src/gui/main_window.rs:546
 msgid "Unable to enable notification icon"
 msgstr ""
 
-#: src/gui/main_window.rs:1017 src/gui/main_window.rs:1098
+#: src/gui/main_window.rs:1018 src/gui/main_window.rs:1099
 msgid "Unable to enable MPRIS support"
 msgstr ""
 
-#: src/gui/main_window.rs:1120
+#: src/gui/main_window.rs:1121
 msgid "_Ok"
 msgstr ""
 
-#: src/gui/main_window.rs:1196
+#: src/gui/main_window.rs:1197
 msgid "Song recognized"
 msgstr "曲が認識されました"
 
-#: src/gui/main_window.rs:1336
+#: src/gui/main_window.rs:1337
 msgid "Are you sure you want to wipe history?"
 msgstr ""
 
-#: src/gui/main_window.rs:1342
+#: src/gui/main_window.rs:1343
 msgid "_Yes"
 msgstr ""
 
-#: src/gui/main_window.rs:1343
+#: src/gui/main_window.rs:1344
 msgid "_Cancel"
 msgstr "_キャンセル"
 
