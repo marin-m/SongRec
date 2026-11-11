@@ -305,6 +305,19 @@ macro_rules! app {
     };
 }
 
+/// Ask Shazam to recognize a signature and print its response. Errors are
+/// returned instead of unwrapped inside a future spawned on a GLib main
+/// loop, where a panic would leave the loop, and the program, running forever.
+fn print_recognized_song(signature: &DecodedSignature) -> Result<(), Box<dyn Error>> {
+    let session = soup::Session::new();
+    session.set_timeout(20);
+
+    let response = glib::MainContext::default()
+        .block_on(recognize_song_from_signature(&session, signature))?;
+    println!("{}", serde_json::to_string_pretty(&response)?);
+    Ok(())
+}
+
 fn main() -> Result<(), Box<dyn Error>> {
     // Set up the translation/internationalization part
 
@@ -356,33 +369,11 @@ fn main() -> Result<(), Box<dyn Error>> {
                 .subcommand_matches("audio-file-to-recognized-song")
                 .unwrap();
 
-            let session = soup::Session::new();
-            session.set_timeout(20);
+            let input_file_string = subcommand_args.get_one::<String>("input_file").unwrap();
 
-            let input_file_string = subcommand_args
-                .get_one::<String>("input_file")
-                .unwrap()
-                .clone();
-
-            let main_loop = glib::MainLoop::new(None, false);
-            let main_loop_inner = main_loop.clone();
-            glib::spawn_future_local(async move {
-                println!(
-                    "{}",
-                    serde_json::to_string_pretty(
-                        &recognize_song_from_signature(
-                            &session,
-                            &SignatureGenerator::make_signature_from_file(&input_file_string)
-                                .unwrap()
-                        )
-                        .await
-                        .unwrap()
-                    )
-                    .unwrap()
-                );
-                main_loop_inner.quit();
-            });
-            main_loop.run();
+            print_recognized_song(&SignatureGenerator::make_signature_from_file(
+                input_file_string,
+            )?)?;
         }
         Some("audio-file-to-fingerprint") => {
             let subcommand_args = args
@@ -401,32 +392,9 @@ fn main() -> Result<(), Box<dyn Error>> {
                 .subcommand_matches("fingerprint-to-recognized-song")
                 .unwrap();
 
-            let fingerprint_string = subcommand_args
-                .get_one::<String>("fingerprint")
-                .unwrap()
-                .clone();
+            let fingerprint_string = subcommand_args.get_one::<String>("fingerprint").unwrap();
 
-            let session = soup::Session::new();
-            session.set_timeout(20);
-
-            let main_loop = glib::MainLoop::new(None, false);
-            let main_loop_inner = main_loop.clone();
-            glib::spawn_future_local(async move {
-                println!(
-                    "{}",
-                    serde_json::to_string_pretty(
-                        &recognize_song_from_signature(
-                            &session,
-                            &DecodedSignature::decode_from_uri(&fingerprint_string).unwrap()
-                        )
-                        .await
-                        .unwrap()
-                    )
-                    .unwrap()
-                );
-                main_loop_inner.quit();
-            });
-            main_loop.run();
+            print_recognized_song(&DecodedSignature::decode_from_uri(fingerprint_string)?)?;
         }
         Some("listen") => {
             let subcommand_args = args.subcommand_matches("listen").unwrap();
