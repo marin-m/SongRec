@@ -75,3 +75,11 @@ fn fingerprint_to_recognized_song_reports_an_invalid_base64_fingerprint() {
         "data:audio/vnd.shazam.sig;base64,not base64!",
     ]);
 }
+
+#[test]
+fn fingerprint_to_recognized_song_reports_a_fingerprint_that_is_not_a_signature() {
+    assert_reports_an_error(&[
+        "fingerprint-to-recognized-song",
+        "data:audio/vnd.shazam.sig;base64,AAAA",
+    ]);
+}

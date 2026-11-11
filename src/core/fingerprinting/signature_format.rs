@@ -39,9 +39,17 @@ pub struct DecodedSignature {
     pub frequency_band_to_sound_peaks: [Vec<FrequencyPeak>; 4],
 }
 
+fn invalid_signature(reason: &str) -> Box<dyn Error> {
+    format!("{} ({reason})", gettext("Invalid Shazam signature")).into()
+}
+
 impl DecodedSignature {
     pub fn decode_from_binary(data: &[u8]) -> Result<Self, Box<dyn Error>> {
-        assert!(data.len() > 48 + 8);
+        // A signature comes from the command line or a file, so every check
+        // returns an error instead of panicking.
+        if data.len() <= 48 + 8 {
+            return Err(invalid_signature("too short"));
+        }
 
         let mut cursor = Cursor::new(data);
 
@@ -66,10 +74,15 @@ impl DecodedSignature {
 
         let mut hasher = Hasher::new();
         hasher.update(&data[8..]);
-        assert_eq!(header.magic1, 0xcafe2580);
-        assert_eq!(header.size_minus_header as usize, data.len() - 48);
-        assert_eq!(header.crc32, hasher.finalize());
-        assert_eq!(header.magic2, 0x94119c00);
+        if header.magic1 != 0xcafe2580 || header.magic2 != 0x94119c00 {
+            return Err(invalid_signature("wrong magic number"));
+        }
+        if header.size_minus_header as usize != data.len() - 48 {
+            return Err(invalid_signature("wrong size"));
+        }
+        if header.crc32 != hasher.finalize() {
+            return Err(invalid_signature("wrong checksum"));
+        }
 
         let sample_rate_hz: u32 = match header.shifted_sample_rate_id >> 27 {
             1 => 8000,
@@ -79,23 +92,25 @@ impl DecodedSignature {
             5 => 44100,
             6 => 48000,
             _ => {
-                panic!(
-                    "{}",
-                    gettext("Invalid sample rate in decoded Shazam packet")
-                );
+                return Err(gettext("Invalid sample rate in decoded Shazam packet").into());
             }
         };
 
-        let number_samples: u32 =
-            header.number_samples_plus_divided_sample_rate - (sample_rate_hz as f32 * 0.24) as u32;
+        let number_samples: u32 = header
+            .number_samples_plus_divided_sample_rate
+            .checked_sub((sample_rate_hz as f32 * 0.24) as u32)
+            .ok_or_else(|| invalid_signature("wrong number of samples"))?;
 
         // Read the type-length-value sequence that follows the header
 
         // The first chunk is fixed and has no value, but instead just repeats
         // the length of the message size minus the header:
 
-        assert_eq!(cursor.read_u32::<LittleEndian>()?, 0x40000000);
-        assert_eq!(cursor.read_u32::<LittleEndian>()? as usize, data.len() - 48);
+        if cursor.read_u32::<LittleEndian>()? != 0x40000000
+            || cursor.read_u32::<LittleEndian>()? as usize != data.len() - 48
+        {
+            return Err(invalid_signature("wrong first chunk"));
+        }
 
         // Then, lists of frequency peaks for respective bands follow
 
@@ -107,23 +122,22 @@ impl DecodedSignature {
 
             let frequency_peaks_padding = (4 - frequency_peaks_size % 4) % 4;
 
-            let mut frequency_peaks_cursor = Cursor::new(
-                &data[cursor.position() as usize
-                    ..(cursor.position() as u32 + frequency_peaks_size) as usize],
-            );
+            let peaks_start = cursor.position() as usize;
+            let peaks = peaks_start
+                .checked_add(frequency_peaks_size as usize)
+                .and_then(|peaks_end| data.get(peaks_start..peaks_end))
+                .ok_or_else(|| invalid_signature("frequency peaks past the end"))?;
+            let mut frequency_peaks_cursor = Cursor::new(peaks);
 
             // Decode frequency peaks
 
-            let frequency_band = match frequency_band_id - 0x60030040 {
+            let frequency_band = match frequency_band_id.wrapping_sub(0x60030040) {
                 0 => FrequencyBand::_250_520,
                 1 => FrequencyBand::_520_1450,
                 2 => FrequencyBand::_1450_3500,
                 3 => FrequencyBand::_3500_5500,
                 _ => {
-                    panic!(
-                        "{}",
-                        gettext("Invalid frequency band in decoded Shazam packet")
-                    );
+                    return Err(gettext("Invalid frequency band in decoded Shazam packet").into());
                 }
             };
 
@@ -137,7 +151,9 @@ impl DecodedSignature {
                         fft_pass_number = frequency_peaks_cursor.read_u32::<LittleEndian>()?;
                     }
                     _ => {
-                        fft_pass_number += fft_pass_offset as u32;
+                        fft_pass_number = fft_pass_number
+                            .checked_add(fft_pass_offset as u32)
+                            .ok_or_else(|| invalid_signature("FFT pass number overflow"))?;
 
                         frequency_band_to_sound_peaks[frequency_band as usize].push(
                             FrequencyPeak {
@@ -153,7 +169,7 @@ impl DecodedSignature {
             }
 
             cursor.seek(SeekFrom::Current(
-                (frequency_peaks_size + frequency_peaks_padding) as i64,
+                frequency_peaks_size as i64 + frequency_peaks_padding as i64,
             ))?;
         }
 
@@ -282,6 +298,112 @@ impl DecodedSignature {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    fn sample_signature() -> DecodedSignature {
+        let peak = |fft_pass_number, peak_magnitude, corrected_peak_frequency_bin| FrequencyPeak {
+            fft_pass_number,
+            peak_magnitude,
+            corrected_peak_frequency_bin,
+        };
+        DecodedSignature {
+            sample_rate_hz: 16000,
+            number_samples: 16000 * 3,
+            frequency_band_to_sound_peaks: [
+                vec![peak(1, 100, 30), peak(300, 200, 40)],
+                vec![peak(2, 110, 60)],
+                vec![],
+                vec![peak(5, 120, 900), peak(6, 130, 901)],
+            ],
+        }
+    }
+
+    /// Recompute the CRC that covers everything after the first 8 bytes, so
+    /// that a modified signature reaches the checks after the header.
+    fn with_valid_crc(mut data: Vec<u8>) -> Vec<u8> {
+        if data.len() >= 8 {
+            let mut hasher = Hasher::new();
+            hasher.update(&data[8..]);
+            data[4..8].copy_from_slice(&hasher.finalize().to_le_bytes());
+        }
+        data
+    }
+
+    #[test]
+    fn a_signature_survives_a_round_trip_through_binary() {
+        let data = sample_signature().encode_to_binary().unwrap();
+        let decoded = DecodedSignature::decode_from_binary(&data).unwrap();
+
+        assert_eq!(decoded.sample_rate_hz, 16000);
+        assert_eq!(decoded.number_samples, 16000 * 3);
+        assert_eq!(decoded.frequency_band_to_sound_peaks[0].len(), 2);
+        assert_eq!(
+            decoded.frequency_band_to_sound_peaks[3][1].corrected_peak_frequency_bin,
+            901
+        );
+    }
+
+    #[test]
+    fn truncated_signatures_are_errors() {
+        let data = sample_signature().encode_to_binary().unwrap();
+        for length in 0..data.len() {
+            assert!(
+                DecodedSignature::decode_from_binary(&data[..length]).is_err(),
+                "length {length}"
+            );
+            // Fixing the CRC reaches the size checks.
+            let truncated = with_valid_crc(data[..length].to_vec());
+            assert!(
+                DecodedSignature::decode_from_binary(&truncated).is_err(),
+                "length {length} with a valid CRC"
+            );
+        }
+    }
+
+    #[test]
+    fn corrupted_signatures_never_panic() {
+        let data = sample_signature().encode_to_binary().unwrap();
+        for index in 0..data.len() {
+            for value in [0x00, 0x01, 0x7f, 0x80, 0xfe, 0xff] {
+                let mut corrupted = data.clone();
+                corrupted[index] = value;
+                // Without and with a matching CRC: either way, decoding
+                // returns a result instead of panicking.
+                let _ = DecodedSignature::decode_from_binary(&corrupted);
+                let _ = DecodedSignature::decode_from_binary(&with_valid_crc(corrupted));
+            }
+        }
+    }
+
+    #[test]
+    fn each_header_check_is_an_error() {
+        let data = sample_signature().encode_to_binary().unwrap();
+        let set_u32 = |offset: usize, value: u32| {
+            let mut changed = data.clone();
+            changed[offset..offset + 4].copy_from_slice(&value.to_le_bytes());
+            with_valid_crc(changed)
+        };
+        for (what, changed) in [
+            ("magic1", set_u32(0, 0)),
+            ("size", set_u32(8, 1)),
+            ("magic2", set_u32(12, 0)),
+            ("sample rate", set_u32(28, 7 << 27)),
+            ("number of samples", set_u32(40, 0)),
+            ("first chunk type", set_u32(48, 0)),
+            ("first chunk size", set_u32(52, 0)),
+            ("frequency band", set_u32(56, 0x60030040 + 4)),
+            ("frequency band below the first", set_u32(56, 0)),
+            ("frequency peaks size", set_u32(60, u32::MAX)),
+        ] {
+            assert!(
+                DecodedSignature::decode_from_binary(&changed).is_err(),
+                "{what}"
+            );
+        }
+        // A wrong CRC on otherwise valid data.
+        let mut wrong_crc = data.clone();
+        wrong_crc[4] ^= 1;
+        assert!(DecodedSignature::decode_from_binary(&wrong_crc).is_err());
+    }
 
     #[test]
     fn decoding_a_uri_without_the_data_uri_prefix_is_an_error() {
