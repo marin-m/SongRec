@@ -82,17 +82,22 @@ pub async fn update_song(
         let process_uid = std::fs::metadata("/proc/self")
             .map(|message| message.uid())
             .unwrap_or(0);
-        let mut tmp = obtain_cache_directory().unwrap();
         let timestamp = SystemTime::now()
             .duration_since(SystemTime::UNIX_EPOCH)
             .unwrap()
             .as_secs();
-        tmp.push(format!(
-            "songrec_cover_{}_{}.{}",
-            process_uid, timestamp, mime_ext
-        ));
-        debug!("Writing cover file to {:?}", tmp);
-        if fs::write(&tmp, buf).is_ok() {
+        let cover_path = obtain_cache_directory().ok().map(|mut tmp| {
+            tmp.push(format!(
+                "songrec_cover_{}_{}.{}",
+                process_uid, timestamp, mime_ext
+            ));
+            tmp
+        });
+        debug!("Writing cover file to {:?}", cover_path);
+        // Without a cache directory, fall back to a data URI as when writing fails
+        if let Some(tmp) = cover_path
+            && fs::write(&tmp, buf).is_ok()
+        {
             // Use file:// URL for better compatibility with MPRIS clients
             match file_uri(&tmp) {
                 Ok(uri) => metadata = metadata.art_url(uri),
