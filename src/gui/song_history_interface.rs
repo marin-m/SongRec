@@ -3,6 +3,7 @@
 /// GTK-rs GUI of SongRec and the filesystem while using the GUI.
 use crate::gui::history_entry::HistoryEntry;
 use crate::utils::csv_song_history::{HasSong, Song, SongHistoryRecord};
+use crate::utils::filesystem_operations::write_atomically;
 use gettextrs::gettext;
 use gtk::prelude::*;
 use log::error;
@@ -76,15 +77,17 @@ impl dyn SongRecordInterface {}
 /// callbacks, so a file that cannot be written is reported to the caller
 /// instead of panicking.
 fn write_records(csv_path: &PathBuf, list_store: &gio::ListStore) -> Result<(), Box<dyn Error>> {
-    let mut writer = csv::Writer::from_path(csv_path)?;
-    for item in list_store.iter::<glib::Object>() {
-        let item = item?
-            .downcast::<HistoryEntry>()
-            .map_err(|_| "unexpected item in the list")?;
-        writer.serialize(item.get_song_history_record())?;
-    }
-    writer.flush()?;
-    Ok(())
+    write_atomically(csv_path, |file| {
+        let mut writer = csv::Writer::from_writer(file);
+        for item in list_store.iter::<glib::Object>() {
+            let item = item?
+                .downcast::<HistoryEntry>()
+                .map_err(|_| "unexpected item in the list")?;
+            writer.serialize(item.get_song_history_record())?;
+        }
+        writer.flush()?;
+        Ok(())
+    })
 }
 
 /// Return the record of a CSV row, or log why it is invalid (a row cut

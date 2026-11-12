@@ -5,7 +5,7 @@ use serde::Serialize;
 use std::error::Error;
 use std::path::PathBuf;
 
-use crate::utils::filesystem_operations::obtain_preferences_file_path;
+use crate::utils::filesystem_operations::{obtain_preferences_file_path, write_atomically};
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
 #[serde(default)]
@@ -214,7 +214,10 @@ impl PreferencesInterface {
     fn write(&mut self) -> Result<(), Box<dyn Error>> {
         if let Some(preferences_file_path) = &self.preferences_file_path {
             let contents: String = toml::to_string(&self.preferences)?;
-            std::fs::write(preferences_file_path, contents)?;
+            write_atomically(preferences_file_path, |file| {
+                std::io::Write::write_all(file, contents.as_bytes())?;
+                Ok(())
+            })?;
         }
         Ok(())
     }
