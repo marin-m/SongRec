@@ -64,10 +64,7 @@ async fn try_recognize_song(
                 )));
             }
         },
-        cover_image: match &json_object["track"]["images"]["coverart"] {
-            Value::String(string) => Some(obtain_raw_cover_image(session, string).await?),
-            _ => None,
-        },
+        cover_image: obtain_cover_image(session, &json_object).await,
         track_key: match &json_object["track"]["key"] {
             Value::String(string) => string.to_string(),
             _ => {
@@ -83,6 +80,22 @@ async fn try_recognize_song(
         },
         shazam_json: serde_json::to_string(&json_object).unwrap(),
     })
+}
+
+/// Download the cover art of a recognized song, if it has one. The song was
+/// matched already, so a cover that can't be downloaded is logged and left
+/// out rather than turning the match into an error.
+async fn obtain_cover_image(session: &soup::Session, json_object: &Value) -> Option<Vec<u8>> {
+    let Value::String(url) = &json_object["track"]["images"]["coverart"] else {
+        return None;
+    };
+    match obtain_raw_cover_image(session, url).await {
+        Ok(cover_image) => Some(cover_image),
+        Err(error) => {
+            log::warn!("Could not download the cover art from {}: {}", url, error);
+            None
+        }
+    }
 }
 
 pub async fn http_task(
@@ -129,5 +142,70 @@ pub async fn http_task(
                     .unwrap();
             }
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use serde_json::json;
+    use std::io::{Read, Write};
+    use std::net::TcpListener;
+
+    /// Serve one HTTP response with `status` and `body` on a local port, and
+    /// return its URL
+    fn serve_once(status: &'static str, body: &'static [u8]) -> String {
+        let listener = TcpListener::bind("127.0.0.1:0").unwrap();
+        let url = format!("http://{}/cover.jpg", listener.local_addr().unwrap());
+        std::thread::spawn(move || {
+            let (mut stream, _) = listener.accept().unwrap();
+            let mut request = [0; 4096];
+            let _ = stream.read(&mut request);
+            let header = format!(
+                "HTTP/1.1 {status}\r\nContent-Length: {}\r\nConnection: close\r\n\r\n",
+                body.len()
+            );
+            stream.write_all(header.as_bytes()).unwrap();
+            stream.write_all(body).unwrap();
+        });
+        url
+    }
+
+    /// A URL on a local port that nothing listens on
+    fn refused_url() -> String {
+        let listener = TcpListener::bind("127.0.0.1:0").unwrap();
+        format!("http://{}/cover.jpg", listener.local_addr().unwrap())
+    }
+
+    fn cover_for(url: Option<String>) -> Option<Vec<u8>> {
+        let track = match url {
+            Some(url) => json!({"track": {"images": {"coverart": url}}}),
+            None => json!({"track": {}}),
+        };
+        // A main context of its own, so that tests running in parallel don't
+        // compete for the default one
+        let context = glib::MainContext::new();
+        context
+            .with_thread_default(|| {
+                let session = soup::Session::new();
+                session.set_timeout(5);
+                context.block_on(obtain_cover_image(&session, &track))
+            })
+            .unwrap()
+    }
+
+    #[test]
+    fn a_cover_that_cannot_be_downloaded_is_left_out() {
+        assert_eq!(
+            cover_for(Some(serve_once("200 OK", b"image"))),
+            Some(b"image".to_vec())
+        );
+        assert_eq!(cover_for(None), None);
+        assert_eq!(cover_for(Some(refused_url())), None);
+        assert_eq!(
+            cover_for(Some(serve_once("404 Not Found", b"<html>"))),
+            None
+        );
+        assert_eq!(cover_for(Some("not a url".to_string())), None);
     }
 }
