@@ -9,7 +9,7 @@ use std::fs;
 use mpris_server::{Metadata, PlaybackStatus, Player};
 
 use crate::core::thread_messages::SongRecognizedMessage;
-use crate::utils::filesystem_operations::obtain_cache_directory;
+use crate::utils::filesystem_operations::{file_uri, obtain_cache_directory};
 use std::os::unix::fs::MetadataExt;
 use std::time::SystemTime;
 
@@ -94,7 +94,10 @@ pub async fn update_song(
         debug!("Writing cover file to {:?}", tmp);
         if fs::write(&tmp, buf).is_ok() {
             // Use file:// URL for better compatibility with MPRIS clients
-            metadata = metadata.art_url(format!("file://{}", tmp.display()));
+            match file_uri(&tmp) {
+                Ok(uri) => metadata = metadata.art_url(uri),
+                Err(error) => error!("Could not make a URI for {}: {}", tmp.display(), error),
+            }
             *last_cover_path = Some(tmp);
         } else {
             // Fallback to data URI (ensure we use the correct mime type)
