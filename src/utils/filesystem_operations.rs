@@ -86,15 +86,32 @@ fn obtain_preferences_directory() -> Result<PathBuf, Box<dyn Error>> {
 }
 
 pub fn obtain_cache_directory() -> Result<PathBuf, Box<dyn Error>> {
-    let cache_path = PROJECT_DIRS.cache_dir();
-    if !cache_path.exists() {
-        create_dir_all(cache_path)?;
+    create_directory(PROJECT_DIRS.cache_dir())
+}
+
+fn create_directory(path: &Path) -> Result<PathBuf, Box<dyn Error>> {
+    if !path.exists() {
+        create_dir_all(path)?;
     }
-    Ok(cache_path.to_path_buf())
+    Ok(path.to_path_buf())
 }
 
 pub fn clear_cache() {
-    if let Ok(contents) = std::fs::read_dir(obtain_cache_directory().unwrap()) {
+    clear_cache_directory(obtain_cache_directory());
+}
+
+/// Remove the cover files that MPRIS left in CACHE_DIR. This runs at startup,
+/// so a cache directory that can't be created (for example when ~/.cache
+/// belongs to another user) is only logged.
+fn clear_cache_directory(cache_dir: Result<PathBuf, Box<dyn Error>>) {
+    let cache_dir = match cache_dir {
+        Ok(cache_dir) => cache_dir,
+        Err(error) => {
+            log::warn!("Could not open the cache directory: {}", error);
+            return;
+        }
+    };
+    if let Ok(contents) = std::fs::read_dir(cache_dir) {
         for entry in contents.flatten() {
             if entry
                 .file_name()
@@ -157,6 +174,38 @@ mod tests {
             "nested"
         );
         assert!(!data_dir.join("SongRec").exists());
+    }
+
+    /// A path under a regular file, so no directory can be created there
+    fn uncreatable_directory(root: &Path) -> PathBuf {
+        let file = root.join("file");
+        fs::write(&file, "").unwrap();
+        file.join("cache")
+    }
+
+    #[test]
+    fn clearing_the_cache_removes_only_cached_covers() {
+        let root = scratch_directory("cache");
+        fs::write(root.join("songrec_cover_1000_1.jpg"), "cover").unwrap();
+        fs::write(root.join("other.txt"), "other").unwrap();
+
+        clear_cache_directory(Ok(root.clone()));
+
+        assert!(!root.join("songrec_cover_1000_1.jpg").exists());
+        assert!(root.join("other.txt").exists());
+        fs::remove_dir_all(root).unwrap();
+    }
+
+    #[test]
+    fn a_cache_directory_that_cannot_be_created_is_an_error() {
+        let root = scratch_directory("cache-uncreatable");
+        let cache_dir = uncreatable_directory(&root);
+
+        let result = create_directory(&cache_dir);
+        assert!(result.is_err());
+        // Clearing it is logged instead of panicking
+        clear_cache_directory(result);
+        fs::remove_dir_all(root).unwrap();
     }
 
     #[test]
