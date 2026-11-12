@@ -149,6 +149,12 @@ pub async fn obtain_raw_cover_image(
     let resp_header = format!("{:?}...", &response[..response.len().min(32)]);
     log_response(&message, &resp_header);
 
+    // An error page is not a cover
+    let status = message.status_code();
+    if !(200..300).contains(&status) {
+        return Err(format!("HTTP status {}", status).into());
+    }
+
     Ok(response[..].to_vec())
 }
 
