@@ -91,7 +91,7 @@ fn write_records(csv_path: &PathBuf, list_store: &gio::ListStore) -> Result<(), 
 /// short, for example) and skip it, so that one bad row neither hides the
 /// others nor gets them overwritten by the next save.
 fn valid_record(row: csv::Result<SongHistoryRecord>) -> Option<SongHistoryRecord> {
-    row.map_err(|error| error!("{} {}", gettext("Skipping an invalid CSV row:"), error))
+    row.map_err(|error| error!("{} {}", gettext("Skipping an invalid CSV entry:"), error))
         .ok()
 }
 

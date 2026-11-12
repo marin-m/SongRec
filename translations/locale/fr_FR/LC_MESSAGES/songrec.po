@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-12 00:09+0100\n"
+"POT-Creation-Date: 2026-11-12 09:28+0100\n"
 "PO-Revision-Date: 2026-11-11 16:52+0000\n"
 "Last-Translator: Marin <25437947+marin-m@users.noreply.github.com>\n"
 "Language-Team: French <https://weblate.fossplant.re/projects/songrec/songrec/"
@@ -292,21 +292,25 @@ msgstr "_Oui"
 msgid "_Cancel"
 msgstr "_Annuler"
 
-#: src/gui/song_history_interface.rs:110
+#: src/gui/song_history_interface.rs:94
+msgid "Skipping an invalid CSV entry:"
+msgstr ""
+
+#: src/gui/song_history_interface.rs:118
 msgid "Error when reading the song history on the disk:"
 msgstr ""
 "Erreur lors de la lecture de l'historique des chansons reconnues sur le "
 "disque :"
 
-#: src/gui/song_history_interface.rs:151
+#: src/gui/song_history_interface.rs:159
 msgid "Error while saving the song history on the disk:"
 msgstr ""
 
-#: src/gui/song_history_interface.rs:177
+#: src/gui/song_history_interface.rs:185
 msgid "Error when reading the favorites on the disk:"
 msgstr "Erreur lors de la lecture des favoris sur le disque :"
 
-#: src/gui/song_history_interface.rs:215
+#: src/gui/song_history_interface.rs:222
 msgid "Error while saving the favorites on the disk:"
 msgstr ""
 

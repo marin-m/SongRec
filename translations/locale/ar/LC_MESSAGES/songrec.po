@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-12 00:09+0100\n"
+"POT-Creation-Date: 2026-11-12 09:28+0100\n"
 "PO-Revision-Date: 2026-03-09 12:56+0000\n"
 "Last-Translator: Mu7ammed Basha "
 "<mu7basha@users.noreply.weblate.fossplant.re>\n"
@@ -276,19 +276,23 @@ msgstr "_نعم"
 msgid "_Cancel"
 msgstr ""
 
-#: src/gui/song_history_interface.rs:110
+#: src/gui/song_history_interface.rs:94
+msgid "Skipping an invalid CSV entry:"
+msgstr ""
+
+#: src/gui/song_history_interface.rs:118
 msgid "Error when reading the song history on the disk:"
 msgstr "حدث خطأ أثناء قراءة سجل الأغاني على القرص:"
 
-#: src/gui/song_history_interface.rs:151
+#: src/gui/song_history_interface.rs:159
 msgid "Error while saving the song history on the disk:"
 msgstr ""
 
-#: src/gui/song_history_interface.rs:177
+#: src/gui/song_history_interface.rs:185
 msgid "Error when reading the favorites on the disk:"
 msgstr "حدث خطأ أثناء قراءة المفضلات على القرص:"
 
-#: src/gui/song_history_interface.rs:215
+#: src/gui/song_history_interface.rs:222
 msgid "Error while saving the favorites on the disk:"
 msgstr ""
 
