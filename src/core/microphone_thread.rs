@@ -133,9 +133,9 @@ pub fn microphone_thread(
 
         let device_names: Vec<DeviceListItem> = backend.list_devices(&host);
 
-        gui_tx
-            .try_send(GUIMessage::DevicesList(device_names))
-            .unwrap();
+        if let Err(_) = gui_tx.try_send(GUIMessage::DevicesList(device_names)) {
+            return;
+        }
 
         // Process ingress inter-thread messages (stopping or starting
         // recording from the microphone, and knowing from which device
