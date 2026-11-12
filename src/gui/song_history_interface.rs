@@ -87,6 +87,14 @@ fn write_records(csv_path: &PathBuf, list_store: &gio::ListStore) -> Result<(), 
     Ok(())
 }
 
+/// Return the record of a CSV row, or log why it is invalid (a row cut
+/// short, for example) and skip it, so that one bad row neither hides the
+/// others nor gets them overwritten by the next save.
+fn valid_record(row: csv::Result<SongHistoryRecord>) -> Option<SongHistoryRecord> {
+    row.map_err(|error| error!("{} {}", gettext("Skipping an invalid CSV row:"), error))
+        .ok()
+}
+
 #[test]
 fn test_item_date() {
     let s = "Sat Aug 17 22:44:43 2024";
@@ -126,8 +134,8 @@ impl SongRecordInterface for RecognitionHistoryInterface {
                 chrono::NaiveDateTime::parse_from_str(s, "%c").ok()
             }
             read.sort_by_cached_key(item_date);
-            for result in read {
-                self.list_store.add_song_history_record(&result?)
+            for record in read.into_iter().filter_map(valid_record) {
+                self.list_store.add_song_history_record(&record)
             }
         }
         Ok(())
@@ -187,8 +195,7 @@ impl SongRecordInterface for FavoritesInterface {
             .flexible(true)
             .from_path(&self.csv_path)
         {
-            for result in reader.deserialize() {
-                let record = result?;
+            for record in reader.deserialize().filter_map(valid_record) {
                 self.list_store.add_song_history_record(&record);
                 self.is_favorite.insert(record.get_song());
             }
@@ -301,6 +308,74 @@ mod save_tests {
         };
         loaded.load().unwrap();
         assert_eq!(loaded.list_store.n_items(), 1);
+        let _ = std::fs::remove_file(csv_path);
+    }
+
+    /// A history file in which the second of three rows was cut short, as
+    /// when SongRec stops while writing it
+    fn csv_with_a_truncated_row(name: &str) -> PathBuf {
+        let csv_path = std::env::temp_dir().join(format!(
+            "songrec-truncated-{}-{name}.csv",
+            std::process::id()
+        ));
+        std::fs::write(
+            &csv_path,
+            "song_name,album,track_key,release_year,genre,recognition_date\n\
+             Artist - First,Album,1,2020,Pop,Sat Aug 17 22:44:43 2024\n\
+             Artist - Truncated,Alb\n\
+             Artist - Last,Album,3,2020,Pop,Sun Aug 18 22:44:43 2024\n",
+        )
+        .unwrap();
+        csv_path
+    }
+
+    fn song_names(list_store: &gio::ListStore) -> Vec<String> {
+        list_store
+            .iter::<HistoryEntry>()
+            .map(|item| item.unwrap().get_song_history_record().song_name)
+            .collect()
+    }
+
+    #[test]
+    fn history_loads_the_valid_rows_around_an_invalid_one() {
+        let csv_path = csv_with_a_truncated_row("history");
+        let mut history = RecognitionHistoryInterface {
+            csv_path: csv_path.clone(),
+            list_store: gio::ListStore::new::<HistoryEntry>(),
+        };
+        history.load().unwrap();
+        assert_eq!(
+            song_names(&history.list_store),
+            ["Artist - Last", "Artist - First"]
+        );
+
+        // Saving the next recognized song keeps the valid rows on the disk
+        history.add_row_and_save(record("Artist - New"));
+        let mut reloaded = RecognitionHistoryInterface {
+            csv_path: csv_path.clone(),
+            list_store: gio::ListStore::new::<HistoryEntry>(),
+        };
+        reloaded.load().unwrap();
+        assert_eq!(reloaded.list_store.n_items(), 3);
+        let _ = std::fs::remove_file(csv_path);
+    }
+
+    #[test]
+    fn favorites_load_the_valid_rows_around_an_invalid_one() {
+        let csv_path = csv_with_a_truncated_row("favorites");
+        let mut favorites = FavoritesInterface {
+            csv_path: csv_path.clone(),
+            list_store: gio::ListStore::new::<HistoryEntry>(),
+            is_favorite: HashSet::new(),
+        };
+        favorites.load().unwrap();
+        assert_eq!(
+            song_names(&favorites.list_store),
+            ["Artist - Last", "Artist - First"]
+        );
+        let mut first = record("Artist - First");
+        first.track_key = Some("1".to_string());
+        assert!(favorites.is_favorite(first));
         let _ = std::fs::remove_file(csv_path);
     }
 }
