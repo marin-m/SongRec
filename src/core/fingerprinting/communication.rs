@@ -61,6 +61,29 @@ fn log_response(message: &soup::Message, response: &str) {
     }
 }
 
+/// The JSON body of a recognition request for SIGNATURE, recorded at
+/// TIMESTAMP_MS milliseconds since the Unix epoch
+fn request_body(
+    signature: &DecodedSignature,
+    timestamp_ms: u128,
+) -> Result<String, Box<dyn Error>> {
+    Ok(json!({
+        "geolocation": {
+            "altitude": 300,
+            "latitude": 45,
+            "longitude": 2
+        },
+        "signature": {
+            "samplems": (signature.number_samples as f32 / signature.sample_rate_hz as f32 * 1000.) as u32,
+            "timestamp": timestamp_ms as u64,
+            "uri": signature.encode_to_uri()?
+        },
+        "timestamp": timestamp_ms as u64,
+        "timezone": "Europe/Paris"
+    })
+    .to_string())
+}
+
 pub async fn recognize_song_from_signature(
     session: &soup::Session,
     signature: &DecodedSignature,
@@ -71,20 +94,7 @@ pub async fn recognize_song_from_signature(
         .duration_since(SystemTime::UNIX_EPOCH)?
         .as_millis();
 
-    let post_data = json!({
-        "geolocation": {
-            "altitude": 300,
-            "latitude": 45,
-            "longitude": 2
-        },
-        "signature": {
-            "samplems": (signature.number_samples as f32 / signature.sample_rate_hz as f32 * 1000.) as u32,
-            "timestamp": timestamp_ms as u32,
-            "uri": signature.encode_to_uri()?
-        },
-        "timestamp": timestamp_ms as u32,
-        "timezone": "Europe/Paris"
-    }).to_string();
+    let post_data = request_body(signature, timestamp_ms)?;
 
     let uuid_1 = Uuid::new_v4().hyphenated().to_string().to_uppercase();
     let uuid_2 = Uuid::new_v4().hyphenated().to_string();
@@ -191,6 +201,22 @@ mod tests {
     }
 
     // A single test, as each one would take the default main context.
+    #[test]
+    fn the_request_carries_the_whole_timestamp_in_milliseconds() {
+        let signature = DecodedSignature {
+            sample_rate_hz: 16000,
+            number_samples: 3 * 16000,
+            frequency_band_to_sound_peaks: Default::default(),
+        };
+        // 2024-11-12 08:26:40 UTC, past what fits in 32 bits of milliseconds
+        let body: Value =
+            serde_json::from_str(&request_body(&signature, 1_731_400_000_000).unwrap()).unwrap();
+
+        assert_eq!(body["timestamp"], 1_731_400_000_000_u64);
+        assert_eq!(body["signature"]["timestamp"], 1_731_400_000_000_u64);
+        assert_eq!(body["signature"]["samplems"], 3000);
+    }
+
     #[test]
     fn cover_responses_are_returned_whole_whatever_their_length() {
         // Shorter than the 32 bytes logged with the response
