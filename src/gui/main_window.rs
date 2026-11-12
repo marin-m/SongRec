@@ -1047,7 +1047,7 @@ impl App {
                                 "artist_name": msg.artist_name,
                                 "album_name": msg.album_name,
                                 "song_name": msg.song_name,
-                                "cover_image": msg.cover_image.as_ref().map(|data| format!("{:02x?}...", &data[..16])),
+                                "cover_image": msg.cover_image.as_ref().map(|data| format!("{:02x?}...", &data[..data.len().min(16)])),
                                 "track_key": msg.track_key,
                                 "release_year": msg.release_year,
                                 "genre": msg.genre,

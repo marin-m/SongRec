@@ -146,8 +146,51 @@ pub async fn obtain_raw_cover_image(
         .send_and_read_future(&message, Priority::DEFAULT)
         .await?;
 
-    let resp_header = format!("{:?}...", &response[..32]);
+    let resp_header = format!("{:?}...", &response[..response.len().min(32)]);
     log_response(&message, &resp_header);
 
     Ok(response[..].to_vec())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::io::{Read, Write};
+    use std::net::TcpListener;
+
+    /// Serve one HTTP response with `body` on a local port, and return its URL
+    fn serve_once(body: &'static [u8]) -> String {
+        let listener = TcpListener::bind("127.0.0.1:0").unwrap();
+        let url = format!("http://{}/cover.jpg", listener.local_addr().unwrap());
+        std::thread::spawn(move || {
+            let (mut stream, _) = listener.accept().unwrap();
+            let mut request = [0; 4096];
+            let _ = stream.read(&mut request);
+            let header = format!(
+                "HTTP/1.1 200 OK\r\nContent-Length: {}\r\nConnection: close\r\n\r\n",
+                body.len()
+            );
+            stream.write_all(header.as_bytes()).unwrap();
+            stream.write_all(body).unwrap();
+        });
+        url
+    }
+
+    fn fetch_cover(body: &'static [u8]) -> Vec<u8> {
+        let url = serve_once(body);
+        let session = soup::Session::new();
+        glib::MainContext::default()
+            .block_on(obtain_raw_cover_image(&session, &url))
+            .unwrap()
+    }
+
+    // A single test, as each one would take the default main context.
+    #[test]
+    fn cover_responses_are_returned_whole_whatever_their_length() {
+        // Shorter than the 32 bytes logged with the response
+        assert_eq!(fetch_cover(b""), b"");
+        assert_eq!(fetch_cover(b"short"), b"short");
+        let body: &'static [u8] = &[7; 100];
+        assert_eq!(fetch_cover(body), body);
+    }
 }
