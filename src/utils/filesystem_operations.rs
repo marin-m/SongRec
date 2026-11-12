@@ -108,6 +108,13 @@ pub fn clear_cache() {
     }
 }
 
+/// The file:// URI of PATH, with the characters that URIs reserve, such as
+/// spaces, `#` and `%`, percent-encoded so that clients read the same path
+#[cfg(any(all(target_os = "linux", feature = "mpris"), test))]
+pub fn file_uri(path: &Path) -> Result<String, Box<dyn Error>> {
+    Ok(glib::filename_to_uri(path, None)?.to_string())
+}
+
 // Backwards compatibility
 fn get_old_data_dir_path() -> Result<PathBuf, Box<dyn Error>> {
     let app_info = AppInfo {
@@ -157,6 +164,23 @@ mod tests {
             "nested"
         );
         assert!(!data_dir.join("SongRec").exists());
+    }
+
+    #[test]
+    fn file_uris_read_back_as_the_same_path() {
+        for path in ["/tmp/plain.jpg", "/tmp/a b#c%d.jpg", "/tmp/\u{e9}.jpg"] {
+            let uri = file_uri(Path::new(path)).unwrap();
+            assert!(uri.starts_with("file:///"), "{uri}");
+            let (read_back, _) = glib::filename_from_uri(&uri).unwrap();
+            assert_eq!(read_back, Path::new(path));
+        }
+        assert_eq!(
+            file_uri(Path::new("/tmp/a b#c%d.jpg")).unwrap(),
+            "file:///tmp/a%20b%23c%25d.jpg"
+        );
+        // Without the encoding, the path stopped at `#`
+        let (read_back, _) = glib::filename_from_uri("file:///tmp/a b#c%d.jpg").unwrap();
+        assert_eq!(read_back, Path::new("/tmp/a b"));
     }
 
     #[test]
