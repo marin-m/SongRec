@@ -152,7 +152,7 @@ pub async fn obtain_raw_cover_image(
     // An error page is not a cover
     let status = message.status_code();
     if !(200..300).contains(&status) {
-        return Err(format!("HTTP status {}", status).into());
+        return Err(format!("HTTP error while fetching song cover: {}", status).into());
     }
 
     Ok(response[..].to_vec())
