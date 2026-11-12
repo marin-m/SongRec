@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-12 09:28+0100\n"
+"POT-Creation-Date: 2026-11-12 13:18+0100\n"
 "PO-Revision-Date: 2026-07-06 14:05+0000\n"
 "Last-Translator: Arda Aydın <arda.aydin@operationsilkscarf.com>\n"
 "Language-Team: Turkish <https://weblate.fossplant.re/projects/songrec/"
@@ -44,7 +44,7 @@ msgid "Warning: Network unreachable"
 msgstr "Uyarı: Ağa ulaşılamıyor"
 
 #: src/cli_main.rs:187 src/core/http_task.rs:54 src/core/http_task.rs:63
-#: src/core/http_task.rs:75 src/core/http_task.rs:110
+#: src/core/http_task.rs:72 src/core/http_task.rs:123
 #: src/gui/main_window.rs:1112 src/gui/main_window.rs:1124
 msgid "No match for this song"
 msgstr "Bu şarkı için eşleşme yok"
@@ -191,7 +191,7 @@ msgstr ""
 msgid "Error decoding fingerprint:"
 msgstr ""
 
-#: src/core/http_task.rs:117 src/core/fingerprinting/communication.rs:124
+#: src/core/http_task.rs:130 src/core/fingerprinting/communication.rs:124
 msgid "Your IP has been rate-limited"
 msgstr "IP'niz hız aşımına yakalanmış"
 

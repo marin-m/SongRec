@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-12 09:28+0100\n"
+"POT-Creation-Date: 2026-11-12 13:18+0100\n"
 "PO-Revision-Date: 2026-03-09 12:56+0000\n"
 "Last-Translator: Mu7ammed Basha "
 "<mu7basha@users.noreply.weblate.fossplant.re>\n"
@@ -48,7 +48,7 @@ msgid "Warning: Network unreachable"
 msgstr "تحذير: تعذر الاتصال بالشبكة"
 
 #: src/cli_main.rs:187 src/core/http_task.rs:54 src/core/http_task.rs:63
-#: src/core/http_task.rs:75 src/core/http_task.rs:110
+#: src/core/http_task.rs:72 src/core/http_task.rs:123
 #: src/gui/main_window.rs:1112 src/gui/main_window.rs:1124
 msgid "No match for this song"
 msgstr "لم يُعثر على أغنية مُطابِقة"
@@ -186,7 +186,7 @@ msgstr ""
 msgid "Error decoding fingerprint:"
 msgstr ""
 
-#: src/core/http_task.rs:117 src/core/fingerprinting/communication.rs:124
+#: src/core/http_task.rs:130 src/core/fingerprinting/communication.rs:124
 msgid "Your IP has been rate-limited"
 msgstr "تم تقييد استخدام عنوان IP خاصتك"
 

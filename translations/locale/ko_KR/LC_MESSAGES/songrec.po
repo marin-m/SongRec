@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-12 09:28+0100\n"
+"POT-Creation-Date: 2026-11-12 13:18+0100\n"
 "PO-Revision-Date: 2023-12-30 23:42+0900\n"
 "Last-Translator: 이정희 <daemul72@gmail.com>\n"
 "Language-Team: \n"
@@ -43,7 +43,7 @@ msgid "Warning: Network unreachable"
 msgstr "경고: 네트워크에 연결할 수 없음"
 
 #: src/cli_main.rs:187 src/core/http_task.rs:54 src/core/http_task.rs:63
-#: src/core/http_task.rs:75 src/core/http_task.rs:110
+#: src/core/http_task.rs:72 src/core/http_task.rs:123
 #: src/gui/main_window.rs:1112 src/gui/main_window.rs:1124
 msgid "No match for this song"
 msgstr "이 노래와 일치하는 항목이 없습니다"
@@ -176,7 +176,7 @@ msgstr ""
 msgid "Error decoding fingerprint:"
 msgstr ""
 
-#: src/core/http_task.rs:117 src/core/fingerprinting/communication.rs:124
+#: src/core/http_task.rs:130 src/core/fingerprinting/communication.rs:124
 msgid "Your IP has been rate-limited"
 msgstr ""
 
