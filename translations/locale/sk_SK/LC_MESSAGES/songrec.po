@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: SongRec v0.6.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-11-12 13:18+0100\n"
-"PO-Revision-Date: 2026-10-27 21:14+0000\n"
+"PO-Revision-Date: 2026-11-12 14:13+0000\n"
 "Last-Translator: Jozef Gaal <preklady@mayday.sk>\n"
 "Language-Team: Slovak <https://weblate.fossplant.re/projects/songrec/songrec/"
 "sk/>\n"
@@ -190,7 +190,7 @@ msgstr ""
 
 #: src/main.rs:400
 msgid "Error decoding fingerprint:"
-msgstr ""
+msgstr "Chyba pri dekódovaní odtlačku:"
 
 #: src/core/http_task.rs:130 src/core/fingerprinting/communication.rs:124
 msgid "Your IP has been rate-limited"
@@ -220,7 +220,7 @@ msgstr "Pri ukladaná súboru predvolieb:"
 
 #: src/core/fingerprinting/signature_format.rs:43
 msgid "Invalid Shazam signature"
-msgstr ""
+msgstr "Neplatný podpis Shazam"
 
 #: src/core/fingerprinting/signature_format.rs:95
 msgid "Invalid sample rate in decoded Shazam packet"
@@ -233,7 +233,7 @@ msgstr "Neplatné frekvenčné pásmo v dekódovanom pakete Shazam"
 #: src/core/fingerprinting/signature_format.rs:189
 #, c-format
 msgid "A fingerprint must start with \"%s\""
-msgstr ""
+msgstr "Odtlačok musí začínať znakom „%s“"
 
 #: src/core/fingerprinting/signature_format.rs:219
 msgid "Invalid sample rate passed when encoding Shazam packet"
@@ -285,7 +285,7 @@ msgstr "_Zrušiť"
 
 #: src/gui/song_history_interface.rs:94
 msgid "Skipping an invalid CSV entry:"
-msgstr ""
+msgstr "Preskočenie neplatného záznamu v súbore CSV:"
 
 #: src/gui/song_history_interface.rs:118
 msgid "Error when reading the song history on the disk:"
@@ -293,7 +293,7 @@ msgstr "Chyba pri čítaní histórie skladieb z disku:"
 
 #: src/gui/song_history_interface.rs:159
 msgid "Error while saving the song history on the disk:"
-msgstr ""
+msgstr "Chyba pri ukladaní histórie skladieb na disk:"
 
 #: src/gui/song_history_interface.rs:185
 msgid "Error when reading the favorites on the disk:"
@@ -301,7 +301,7 @@ msgstr "Chyba pri čítaní obľúbených položiek z disku:"
 
 #: src/gui/song_history_interface.rs:222
 msgid "Error while saving the favorites on the disk:"
-msgstr ""
+msgstr "Chyba pri ukladaní obľúbených položiek na disk:"
 
 #: src/plugins/ksni.rs:51
 msgid "Open SongRec"
@@ -440,10 +440,12 @@ msgstr "Nezobrazovať duplikáty v histórii"
 #: src/gui/interface.blp:406
 msgid "Remember window dimensions and maximized state across restarts"
 msgstr ""
+"Zapamätať si rozmery okna a to, či je okno po reštartovaní zobrazené v "
+"maximálnej veľkosti"
 
 #: src/gui/interface.blp:407
 msgid "Remember window size"
-msgstr ""
+msgstr "Zapamätať veľkosť okna"
 
 #: src/gui/interface.blp:414
 msgid ""
