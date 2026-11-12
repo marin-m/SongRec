@@ -116,7 +116,7 @@ SongRec {version}
                         .short('i')
                         .long("request-interval")
                         .default_value("10")
-                        .value_parser(clap::value_parser!(u64))
+                        .value_parser(clap::value_parser!(u64).range(1..))
                         .help(gettext("Shazam interval between requests in seconds (increase if you are rate-limited)"))
                 )
                 .arg(
@@ -163,7 +163,7 @@ SongRec {version}
                         .short('i')
                         .long("request-interval")
                         .default_value("10")
-                        .value_parser(clap::value_parser!(u64))
+                        .value_parser(clap::value_parser!(u64).range(1..))
                         .help(gettext("Shazam interval between requests in seconds (increase if you are rate-limited)"))
                 )
                 .arg(
@@ -217,7 +217,7 @@ SongRec {version}
                         .short('i')
                         .long("request-interval")
                         .default_value("10")
-                        .value_parser(clap::value_parser!(u64))
+                        .value_parser(clap::value_parser!(u64).range(1..))
                         .help(gettext("Shazam interval between requests in seconds (increase if you are rate-limited)"))
                 )
         )
@@ -513,4 +513,28 @@ fn main() -> Result<(), Box<dyn Error>> {
     }
 
     Ok(())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn request_interval(subcommand: &str, value: &str) -> Result<u64, clap::Error> {
+        let args = app!().try_get_matches_from(["songrec", subcommand, "-i", value])?;
+        Ok(*args
+            .subcommand_matches(subcommand)
+            .unwrap()
+            .get_one::<u64>("request-interval")
+            .unwrap())
+    }
+
+    #[test]
+    fn request_interval_must_be_at_least_one_second() {
+        for subcommand in ["listen", "recognize", "microphone-to-recognized-song"] {
+            assert_eq!(request_interval(subcommand, "1").unwrap(), 1);
+            assert_eq!(request_interval(subcommand, "30").unwrap(), 30);
+            let error = request_interval(subcommand, "0").unwrap_err();
+            assert_eq!(error.kind(), clap::error::ErrorKind::ValueValidation);
+        }
+    }
 }
