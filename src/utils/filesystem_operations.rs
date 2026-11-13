@@ -144,7 +144,18 @@ pub fn write_atomically(
         Some(parent) if !parent.as_os_str().is_empty() => parent,
         _ => Path::new("."),
     };
-    let mut file = tempfile::NamedTempFile::new_in(directory)?;
+    let mut builder = tempfile::Builder::new();
+    // tempfile creates files as 0o600. Give the new file the mode PATH has,
+    // or the 0o666 that `File::create` uses, so that the umask still decides
+    #[cfg(unix)]
+    {
+        use std::os::unix::fs::PermissionsExt;
+        builder.permissions(match std::fs::metadata(path) {
+            Ok(metadata) => metadata.permissions(),
+            Err(_) => std::fs::Permissions::from_mode(0o666),
+        });
+    }
+    let mut file = builder.tempfile_in(directory)?;
     write(file.as_file_mut())?;
     file.as_file().sync_all()?;
     file.persist(path)?;
@@ -266,6 +277,38 @@ mod tests {
 
         assert_eq!(fs::read_to_string(&path).unwrap(), "new");
         assert_eq!(fs::read_dir(&root).unwrap().count(), 1);
+        fs::remove_dir_all(root).unwrap();
+    }
+
+    #[cfg(unix)]
+    #[test]
+    fn an_atomic_write_keeps_the_permissions_a_direct_write_would_give() {
+        use std::os::unix::fs::PermissionsExt;
+        let mode = |path: &Path| fs::metadata(path).unwrap().permissions().mode() & 0o777;
+        let write = |path: &Path| {
+            write_atomically(path, |file| {
+                use std::io::Write;
+                file.write_all(b"new")?;
+                Ok(())
+            })
+            .unwrap()
+        };
+        let root = scratch_directory("atomic-permissions");
+
+        // A new file gets the same mode as one created by `fs::write`, that is
+        // 0o666 restricted by the umask
+        let reference = root.join("reference.csv");
+        fs::write(&reference, "").unwrap();
+        let new_file = root.join("new.csv");
+        write(&new_file);
+        assert_eq!(mode(&new_file), mode(&reference));
+
+        // An existing file keeps its mode
+        let existing = root.join("existing.csv");
+        fs::write(&existing, "old").unwrap();
+        fs::set_permissions(&existing, fs::Permissions::from_mode(0o640)).unwrap();
+        write(&existing);
+        assert_eq!(mode(&existing), 0o640);
         fs::remove_dir_all(root).unwrap();
     }
 
