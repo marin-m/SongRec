@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-13 15:15+0100\n"
+"POT-Creation-Date: 2026-11-13 23:33+0100\n"
 "PO-Revision-Date: 2023-12-30 23:42+0900\n"
 "Last-Translator: 이정희 <daemul72@gmail.com>\n"
 "Language-Team: \n"
@@ -17,42 +17,42 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.4.1\n"
 
-#: src/cli_main.rs:126
+#: src/cli_main.rs:127
 msgid "Available device:"
 msgstr ""
 
-#: src/cli_main.rs:144
+#: src/cli_main.rs:138
 msgid "Exiting: audio device not found"
 msgstr "종료 중: 오디오 장치를 찾을 수 없습니다"
 
-#: src/cli_main.rs:151
+#: src/cli_main.rs:145
 msgid "Exiting: no audio devices found!"
 msgstr "종료 중: 오디오 장치를 찾을 수 없습니다!"
 
-#: src/cli_main.rs:157
+#: src/cli_main.rs:151
 #, c-format
 msgid "Using device %s"
 msgstr ""
 
-#: src/cli_main.rs:181
+#: src/cli_main.rs:175
 msgid "Error: Network unreachable"
 msgstr "오류: 네트워크에 연결할 수 없음"
 
-#: src/cli_main.rs:185
+#: src/cli_main.rs:179
 msgid "Warning: Network unreachable"
 msgstr "경고: 네트워크에 연결할 수 없음"
 
-#: src/cli_main.rs:190 src/core/http_task.rs:54 src/core/http_task.rs:63
+#: src/cli_main.rs:184 src/core/http_task.rs:54 src/core/http_task.rs:63
 #: src/core/http_task.rs:72 src/core/http_task.rs:123
-#: src/gui/main_window.rs:1112 src/gui/main_window.rs:1124
+#: src/gui/main_window.rs:1113 src/gui/main_window.rs:1125
 msgid "No match for this song"
 msgstr "이 노래와 일치하는 항목이 없습니다"
 
-#: src/cli_main.rs:191 src/cli_main.rs:222
+#: src/cli_main.rs:185 src/cli_main.rs:216
 msgid "Error:"
 msgstr "오류:"
 
-#: src/cli_main.rs:199
+#: src/cli_main.rs:193
 msgid "Recording started!"
 msgstr "녹음이 시작되었습니다!"
 
@@ -76,15 +76,15 @@ msgstr ""
 "명령줄 프로그램으로 실행하여 마이크를 수신하고 인식된 곡을 스탯아웃에 인쇄하"
 "여 MPRIS를 통해 현재 곡 정보를 노출합니다"
 
-#: src/main.rs:106 src/main.rs:152 src/main.rs:207
+#: src/main.rs:106 src/main.rs:152 src/main.rs:209
 msgid "List available audio devices and quit"
 msgstr ""
 
-#: src/main.rs:112 src/main.rs:159 src/main.rs:213
+#: src/main.rs:112 src/main.rs:159 src/main.rs:215
 msgid "Specify the audio device to use"
 msgstr "사용할 오디오 장치 지정하기"
 
-#: src/main.rs:120 src/main.rs:167 src/main.rs:221
+#: src/main.rs:120 src/main.rs:167 src/main.rs:223
 msgid ""
 "Shazam interval between requests in seconds (increase if you are rate-"
 "limited)"
@@ -98,7 +98,7 @@ msgstr "JSON으로 전체 노래 정보 인쇄 활성화"
 msgid "Enable printing full song info in the CSV format"
 msgstr "CSV 형식으로 전체 노래 정보 인쇄 활성화"
 
-#: src/main.rs:141 src/main.rs:261 src/main.rs:282
+#: src/main.rs:141 src/main.rs:265 src/main.rs:287
 msgid "Disable MPRIS support"
 msgstr "MPRIS 지원 비활성화"
 
@@ -107,22 +107,22 @@ msgid "Recognize one song from a sound file or microphone and print its info."
 msgstr ""
 "사운드 파일이나 마이크에서 노래 하나를 인식하고 해당 정보를 인쇄합니다."
 
-#: src/main.rs:187
+#: src/main.rs:188
 msgid "Recognize a file instead of using mic input"
 msgstr "마이크 입력을 사용하는 대신 파일 인식"
 
-#: src/main.rs:192
+#: src/main.rs:193
 msgid ""
 "Generate a Shazam fingerprint from a sound file, perform song recognition "
 "towards Shazam's servers and print obtained information to the standard "
 "output."
 msgstr "사용할 오디오 장치 지정하기"
 
-#: src/main.rs:196
+#: src/main.rs:198
 msgid "The audio file to recognize."
 msgstr "인식할 오디오 파일입니다."
 
-#: src/main.rs:201
+#: src/main.rs:203
 msgid ""
 "Recognize a currently playing song using the microphone and print obtained "
 "information to the standard output"
@@ -130,17 +130,17 @@ msgstr ""
 "마이크를 사용하여 현재 재생 중인 노래를 인식하고 얻은 정보를 표준 출력으로 인"
 "쇄합니다."
 
-#: src/main.rs:226
+#: src/main.rs:228
 msgid ""
 "Generate a Shazam fingerprint from a sound file, and print it to the "
 "standard output."
 msgstr "사운드 파일에서 Shazam 지문을 생성하고 표준 출력으로 인쇄합니다."
 
-#: src/main.rs:230
+#: src/main.rs:233
 msgid "The .WAV or .MP3 file to generate an audio fingerprint for."
 msgstr "오디오 지문을 생성할 .WAV 또는 .MP3 파일입니다."
 
-#: src/main.rs:235
+#: src/main.rs:238
 msgid ""
 "Take a data-URI Shazam fingerprint, perform song recognition towards "
 "Shazam's servers and print obtained information to the standard output."
@@ -148,23 +148,23 @@ msgstr ""
 "data-URI Shazam 지문을 가져와 Shazam 서버에 대한 노래 인식을 수행하고 얻은 정"
 "보를 표준 출력으로 인쇄합니다."
 
-#: src/main.rs:239
+#: src/main.rs:242
 msgid "The data-URI Shazam fingerprint to recognize."
 msgstr "인식할 데이터 URI Shazam 지문입니다."
 
-#: src/main.rs:251
+#: src/main.rs:254
 msgid "The default action. Display a GUI."
 msgstr "기본 동작입니다. GUI를 표시합니다."
 
-#: src/main.rs:255 src/main.rs:276
+#: src/main.rs:259 src/main.rs:281
 msgid "An optional audio file to recognize on the launch of the application."
 msgstr "애플리케이션 실행 시 인식할 선택적 오디오 파일입니다."
 
-#: src/main.rs:267 src/main.rs:288
+#: src/main.rs:271 src/main.rs:293
 msgid "Disable PipeWire native support"
 msgstr ""
 
-#: src/main.rs:272
+#: src/main.rs:276
 msgid ""
 "Launch the GUI, but don't recognize audio through the microphone as soon as "
 "it is launched (rather than expecting the user to click on a button)."
@@ -172,7 +172,7 @@ msgstr ""
 "GUI를 실행하되, (사용자가 버튼을 클릭할 것으로 예상하지 않고) 실행하자마자 마"
 "이크를 통해 오디오를 인식하지 않도록 합니다."
 
-#: src/main.rs:400
+#: src/main.rs:409
 msgid "Error decoding fingerprint:"
 msgstr ""
 
@@ -189,7 +189,7 @@ msgid "Audio error: No input device available"
 msgstr ""
 
 #: src/core/preferences.rs:76 src/core/preferences.rs:102
-#: src/gui/main_window.rs:315 src/gui/interface.blp:123
+#: src/gui/main_window.rs:316 src/gui/interface.blp:123
 #: src/gui/interface.blp:617 src/gui/interface.blp:667
 msgid "Search on YouTube"
 msgstr "YouTube에서 검색하기"
@@ -223,46 +223,46 @@ msgstr ""
 msgid "Invalid sample rate passed when encoding Shazam packet"
 msgstr "Shazam 패킷을 인코딩할 때 잘못된 샘플 속도가 전달되었습니다"
 
-#: src/gui/main_window.rs:273
+#: src/gui/main_window.rs:274
 msgid "Application error"
 msgstr ""
 
-#: src/gui/main_window.rs:294
+#: src/gui/main_window.rs:295
 msgid "Network error"
 msgstr ""
 
-#: src/gui/main_window.rs:476
+#: src/gui/main_window.rs:477
 msgctxt ""
 "Status of the app displayed in the Background Apps section of GNOME system "
 "menu when using Flatpak"
 msgid "Recognizing songs"
 msgstr ""
 
-#: src/gui/main_window.rs:546
+#: src/gui/main_window.rs:547
 msgid "Unable to enable notification icon"
 msgstr ""
 
-#: src/gui/main_window.rs:1018 src/gui/main_window.rs:1099
+#: src/gui/main_window.rs:1019 src/gui/main_window.rs:1100
 msgid "Unable to enable MPRIS support"
 msgstr "MPRIS 지원을 활성화할 수 없습니다"
 
-#: src/gui/main_window.rs:1121
+#: src/gui/main_window.rs:1122
 msgid "_Ok"
 msgstr ""
 
-#: src/gui/main_window.rs:1197
+#: src/gui/main_window.rs:1198
 msgid "Song recognized"
 msgstr "인식된 노래"
 
-#: src/gui/main_window.rs:1337
+#: src/gui/main_window.rs:1338
 msgid "Are you sure you want to wipe history?"
 msgstr ""
 
-#: src/gui/main_window.rs:1343
+#: src/gui/main_window.rs:1344
 msgid "_Yes"
 msgstr ""
 
-#: src/gui/main_window.rs:1344
+#: src/gui/main_window.rs:1345
 msgid "_Cancel"
 msgstr "취소하기(_C)"
 
@@ -286,11 +286,11 @@ msgstr ""
 msgid "Error while saving the favorites on the disk:"
 msgstr ""
 
-#: src/plugins/ksni.rs:51
+#: src/plugins/ksni.rs:43
 msgid "Open SongRec"
 msgstr ""
 
-#: src/plugins/ksni.rs:59
+#: src/plugins/ksni.rs:51
 msgid "Quit..."
 msgstr ""
 

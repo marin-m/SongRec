@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-13 15:15+0100\n"
+"POT-Creation-Date: 2026-11-13 23:33+0100\n"
 "PO-Revision-Date: 2026-11-12 14:13+0000\n"
 "Last-Translator: Marin <25437947+marin-m@users.noreply.github.com>\n"
 "Language-Team: French <https://weblate.fossplant.re/projects/songrec/songrec/"
@@ -21,42 +21,42 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
 "X-Generator: Weblate 2026.8.1\n"
 
-#: src/cli_main.rs:126
+#: src/cli_main.rs:127
 msgid "Available device:"
 msgstr "Périphérique disponible :"
 
-#: src/cli_main.rs:144
+#: src/cli_main.rs:138
 msgid "Exiting: audio device not found"
 msgstr "Fin de l'exécution : périphérique audio introuvable"
 
-#: src/cli_main.rs:151
+#: src/cli_main.rs:145
 msgid "Exiting: no audio devices found!"
 msgstr "Fin de l'exécution : aucun périphérique audio disponible !"
 
-#: src/cli_main.rs:157
+#: src/cli_main.rs:151
 #, c-format
 msgid "Using device %s"
 msgstr "Utilisation du périphérique %s"
 
-#: src/cli_main.rs:181
+#: src/cli_main.rs:175
 msgid "Error: Network unreachable"
 msgstr "Erreur : aucune connexion réseau"
 
-#: src/cli_main.rs:185
+#: src/cli_main.rs:179
 msgid "Warning: Network unreachable"
 msgstr "Avertissement : Pas de connexion réseau"
 
-#: src/cli_main.rs:190 src/core/http_task.rs:54 src/core/http_task.rs:63
+#: src/cli_main.rs:184 src/core/http_task.rs:54 src/core/http_task.rs:63
 #: src/core/http_task.rs:72 src/core/http_task.rs:123
-#: src/gui/main_window.rs:1112 src/gui/main_window.rs:1124
+#: src/gui/main_window.rs:1113 src/gui/main_window.rs:1125
 msgid "No match for this song"
 msgstr "Chanson non reconnue"
 
-#: src/cli_main.rs:191 src/cli_main.rs:222
+#: src/cli_main.rs:185 src/cli_main.rs:216
 msgid "Error:"
 msgstr "Erreur :"
 
-#: src/cli_main.rs:199
+#: src/cli_main.rs:193
 msgid "Recording started!"
 msgstr "Enregistrement en cours..."
 
@@ -87,15 +87,15 @@ msgstr ""
 "diffusant également les informations concernant la dernière chanson détectée "
 "par MPRIS"
 
-#: src/main.rs:106 src/main.rs:152 src/main.rs:207
+#: src/main.rs:106 src/main.rs:152 src/main.rs:209
 msgid "List available audio devices and quit"
 msgstr "Énumérer les périphériques audio disponibles et quitter"
 
-#: src/main.rs:112 src/main.rs:159 src/main.rs:213
+#: src/main.rs:112 src/main.rs:159 src/main.rs:215
 msgid "Specify the audio device to use"
 msgstr "Choisir l'entrée audio à utiliser"
 
-#: src/main.rs:120 src/main.rs:167 src/main.rs:221
+#: src/main.rs:120 src/main.rs:167 src/main.rs:223
 msgid ""
 "Shazam interval between requests in seconds (increase if you are rate-"
 "limited)"
@@ -114,7 +114,7 @@ msgid "Enable printing full song info in the CSV format"
 msgstr ""
 "Utiliser le format CSV pour afficher des informations à propos de la chanson"
 
-#: src/main.rs:141 src/main.rs:261 src/main.rs:282
+#: src/main.rs:141 src/main.rs:265 src/main.rs:287
 msgid "Disable MPRIS support"
 msgstr "Désactiver le support de MPRIS"
 
@@ -124,11 +124,11 @@ msgstr ""
 "Reconnaît une seule chanson depuis un fichier son ou depuis l'entrée audio, "
 "et afficher les informations la concernant."
 
-#: src/main.rs:187
+#: src/main.rs:188
 msgid "Recognize a file instead of using mic input"
 msgstr "Identifier le morceau à partir d'un fichier plutôt que de l'entrée son"
 
-#: src/main.rs:192
+#: src/main.rs:193
 msgid ""
 "Generate a Shazam fingerprint from a sound file, perform song recognition "
 "towards Shazam's servers and print obtained information to the standard "
@@ -138,11 +138,11 @@ msgstr ""
 "détection de la chanson auprès des serveurs de Shazam puis envoie les "
 "informations obtenues vers la sortie standard."
 
-#: src/main.rs:196
+#: src/main.rs:198
 msgid "The audio file to recognize."
 msgstr "Le fichier audio à reconnaître."
 
-#: src/main.rs:201
+#: src/main.rs:203
 msgid ""
 "Recognize a currently playing song using the microphone and print obtained "
 "information to the standard output"
@@ -150,7 +150,7 @@ msgstr ""
 "Reconnaît un morceau en train d'être joué à partir de l'entrée son et "
 "affiche les informations correspondantes par la sortie standard"
 
-#: src/main.rs:226
+#: src/main.rs:228
 msgid ""
 "Generate a Shazam fingerprint from a sound file, and print it to the "
 "standard output."
@@ -158,11 +158,11 @@ msgstr ""
 "Génère une empreinte Shazam à partir d'un fichier audio, avant de l'envoyer "
 "vers la sortie standard."
 
-#: src/main.rs:230
+#: src/main.rs:233
 msgid "The .WAV or .MP3 file to generate an audio fingerprint for."
 msgstr "Le fichier .WAV ou .MP3 pour lequel générer une empreinte sonore."
 
-#: src/main.rs:235
+#: src/main.rs:238
 msgid ""
 "Take a data-URI Shazam fingerprint, perform song recognition towards "
 "Shazam's servers and print obtained information to the standard output."
@@ -171,23 +171,23 @@ msgstr ""
 "morceau auprès des serveurs de Shazam puis envoie les informations obtenues "
 "vers la sortie standard."
 
-#: src/main.rs:239
+#: src/main.rs:242
 msgid "The data-URI Shazam fingerprint to recognize."
 msgstr "L'empreinte Shazam au format data-URI à reconnaître."
 
-#: src/main.rs:251
+#: src/main.rs:254
 msgid "The default action. Display a GUI."
 msgstr "L'action par défaut. Affiche l'interface graphique."
 
-#: src/main.rs:255 src/main.rs:276
+#: src/main.rs:259 src/main.rs:281
 msgid "An optional audio file to recognize on the launch of the application."
 msgstr "Un éventuel fichier audio à reconnaître au lancement de l'application."
 
-#: src/main.rs:267 src/main.rs:288
+#: src/main.rs:271 src/main.rs:293
 msgid "Disable PipeWire native support"
 msgstr "Désactiver le support natif de PipeWire"
 
-#: src/main.rs:272
+#: src/main.rs:276
 msgid ""
 "Launch the GUI, but don't recognize audio through the microphone as soon as "
 "it is launched (rather than expecting the user to click on a button)."
@@ -196,7 +196,7 @@ msgstr ""
 "microphone dès que celle-ci est lancée (au lieu de cela, attendre que "
 "l'utilisateur clique sur un bouton)."
 
-#: src/main.rs:400
+#: src/main.rs:409
 msgid "Error decoding fingerprint:"
 msgstr "Erreur lors du décodage de l'empreinte :"
 
@@ -213,7 +213,7 @@ msgid "Audio error: No input device available"
 msgstr "Erreur audio : pas de périphérique d'entrée disponible"
 
 #: src/core/preferences.rs:76 src/core/preferences.rs:102
-#: src/gui/main_window.rs:315 src/gui/interface.blp:123
+#: src/gui/main_window.rs:316 src/gui/interface.blp:123
 #: src/gui/interface.blp:617 src/gui/interface.blp:667
 msgid "Search on YouTube"
 msgstr "Rechercher sur YouTube"
@@ -249,46 +249,46 @@ msgstr ""
 "Fréquence d'échantillonnage invalide passée lors de l'encodage du paquet "
 "Shazam"
 
-#: src/gui/main_window.rs:273
+#: src/gui/main_window.rs:274
 msgid "Application error"
 msgstr "Erreur de l'application"
 
-#: src/gui/main_window.rs:294
+#: src/gui/main_window.rs:295
 msgid "Network error"
 msgstr "Erreur réseau"
 
-#: src/gui/main_window.rs:476
+#: src/gui/main_window.rs:477
 msgctxt ""
 "Status of the app displayed in the Background Apps section of GNOME system "
 "menu when using Flatpak"
 msgid "Recognizing songs"
 msgstr "Reconnaissance de chansons"
 
-#: src/gui/main_window.rs:546
+#: src/gui/main_window.rs:547
 msgid "Unable to enable notification icon"
 msgstr "Impossible d'activer l'icône de notification"
 
-#: src/gui/main_window.rs:1018 src/gui/main_window.rs:1099
+#: src/gui/main_window.rs:1019 src/gui/main_window.rs:1100
 msgid "Unable to enable MPRIS support"
 msgstr "Impossible d'activer le support de MRPIS"
 
-#: src/gui/main_window.rs:1121
+#: src/gui/main_window.rs:1122
 msgid "_Ok"
 msgstr "_Ok"
 
-#: src/gui/main_window.rs:1197
+#: src/gui/main_window.rs:1198
 msgid "Song recognized"
 msgstr "Chanson identifiée"
 
-#: src/gui/main_window.rs:1337
+#: src/gui/main_window.rs:1338
 msgid "Are you sure you want to wipe history?"
 msgstr "Êtes-vous sûr⋅e de vouloir supprimer l'historique ?"
 
-#: src/gui/main_window.rs:1343
+#: src/gui/main_window.rs:1344
 msgid "_Yes"
 msgstr "_Oui"
 
-#: src/gui/main_window.rs:1344
+#: src/gui/main_window.rs:1345
 msgid "_Cancel"
 msgstr "_Annuler"
 
@@ -314,11 +314,11 @@ msgstr "Erreur lors de la lecture des favoris sur le disque :"
 msgid "Error while saving the favorites on the disk:"
 msgstr "Impossible de sauvegarder les favoris sur le disque :"
 
-#: src/plugins/ksni.rs:51
+#: src/plugins/ksni.rs:43
 msgid "Open SongRec"
 msgstr "Ouvrir SongRec"
 
-#: src/plugins/ksni.rs:59
+#: src/plugins/ksni.rs:51
 msgid "Quit..."
 msgstr "Quitter..."
 

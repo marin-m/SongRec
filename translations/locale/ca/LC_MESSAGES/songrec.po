@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-13 15:15+0100\n"
+"POT-Creation-Date: 2026-11-13 23:33+0100\n"
 "PO-Revision-Date: 2024-01-21 20:01+0100\n"
 "Last-Translator: Pau Giuli <pau@giuli.cat>\n"
 "Language-Team: \n"
@@ -18,42 +18,42 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.0.1\n"
 
-#: src/cli_main.rs:126
+#: src/cli_main.rs:127
 msgid "Available device:"
 msgstr ""
 
-#: src/cli_main.rs:144
+#: src/cli_main.rs:138
 msgid "Exiting: audio device not found"
 msgstr "Sortint: dispositiu d'àudio no trobat"
 
-#: src/cli_main.rs:151
+#: src/cli_main.rs:145
 msgid "Exiting: no audio devices found!"
 msgstr "Sortint: no s'han trobat dispositius d'àudio!"
 
-#: src/cli_main.rs:157
+#: src/cli_main.rs:151
 #, c-format
 msgid "Using device %s"
 msgstr ""
 
-#: src/cli_main.rs:181
+#: src/cli_main.rs:175
 msgid "Error: Network unreachable"
 msgstr "Error: Xarxa no connectada"
 
-#: src/cli_main.rs:185
+#: src/cli_main.rs:179
 msgid "Warning: Network unreachable"
 msgstr "Avís: Xarxa no connectada"
 
-#: src/cli_main.rs:190 src/core/http_task.rs:54 src/core/http_task.rs:63
+#: src/cli_main.rs:184 src/core/http_task.rs:54 src/core/http_task.rs:63
 #: src/core/http_task.rs:72 src/core/http_task.rs:123
-#: src/gui/main_window.rs:1112 src/gui/main_window.rs:1124
+#: src/gui/main_window.rs:1113 src/gui/main_window.rs:1125
 msgid "No match for this song"
 msgstr "No hi ha coincidències per aquesta cançó"
 
-#: src/cli_main.rs:191 src/cli_main.rs:222
+#: src/cli_main.rs:185 src/cli_main.rs:216
 msgid "Error:"
 msgstr "Error:"
 
-#: src/cli_main.rs:199
+#: src/cli_main.rs:193
 msgid "Recording started!"
 msgstr "Enregistrament iniciat!"
 
@@ -77,15 +77,15 @@ msgstr ""
 "Executar com a programa de terminal enregistrant el micròfon i retornant les "
 "cançons reconegudes a stdout, mostrant la cançó actual per MPRIS"
 
-#: src/main.rs:106 src/main.rs:152 src/main.rs:207
+#: src/main.rs:106 src/main.rs:152 src/main.rs:209
 msgid "List available audio devices and quit"
 msgstr ""
 
-#: src/main.rs:112 src/main.rs:159 src/main.rs:213
+#: src/main.rs:112 src/main.rs:159 src/main.rs:215
 msgid "Specify the audio device to use"
 msgstr "Selecciona el dispositiu d'àudio a utilitzar"
 
-#: src/main.rs:120 src/main.rs:167 src/main.rs:221
+#: src/main.rs:120 src/main.rs:167 src/main.rs:223
 msgid ""
 "Shazam interval between requests in seconds (increase if you are rate-"
 "limited)"
@@ -99,7 +99,7 @@ msgstr "Activar retorn d'informació completa de cançó en JSON"
 msgid "Enable printing full song info in the CSV format"
 msgstr "Activar retorn d'informació completa de cançó en format CSV"
 
-#: src/main.rs:141 src/main.rs:261 src/main.rs:282
+#: src/main.rs:141 src/main.rs:265 src/main.rs:287
 msgid "Disable MPRIS support"
 msgstr "Desactivar suport per a MPRIS"
 
@@ -108,11 +108,11 @@ msgid "Recognize one song from a sound file or microphone and print its info."
 msgstr ""
 "Reconèixer una cançó des d'un arxiu de so o micròfon i mostrar la informació."
 
-#: src/main.rs:187
+#: src/main.rs:188
 msgid "Recognize a file instead of using mic input"
 msgstr "Reconèixer un arxiu en compte d'utilitzar l'entrada de micròfon"
 
-#: src/main.rs:192
+#: src/main.rs:193
 msgid ""
 "Generate a Shazam fingerprint from a sound file, perform song recognition "
 "towards Shazam's servers and print obtained information to the standard "
@@ -122,11 +122,11 @@ msgstr ""
 "reconeixement de cançons als servidors de Shazam i retornar la informació "
 "obtinguda a la sortida estàndard."
 
-#: src/main.rs:196
+#: src/main.rs:198
 msgid "The audio file to recognize."
 msgstr "L'arxiu d'àudio a reconèixer."
 
-#: src/main.rs:201
+#: src/main.rs:203
 msgid ""
 "Recognize a currently playing song using the microphone and print obtained "
 "information to the standard output"
@@ -134,7 +134,7 @@ msgstr ""
 "Reconèixer una cançó que es reprodueix actualment utilitzant el micròfon i "
 "retornar la informació obtinguda a la sortida estàndard"
 
-#: src/main.rs:226
+#: src/main.rs:228
 msgid ""
 "Generate a Shazam fingerprint from a sound file, and print it to the "
 "standard output."
@@ -142,11 +142,11 @@ msgstr ""
 "Genereu una empremta digital de Shazam a partir d'un fitxer de so i retornar-"
 "la a la sortida estàndard."
 
-#: src/main.rs:230
+#: src/main.rs:233
 msgid "The .WAV or .MP3 file to generate an audio fingerprint for."
 msgstr "El fitxer .WAV o .MP3 a generar una empremta digital d'àudio."
 
-#: src/main.rs:235
+#: src/main.rs:238
 msgid ""
 "Take a data-URI Shazam fingerprint, perform song recognition towards "
 "Shazam's servers and print obtained information to the standard output."
@@ -155,24 +155,24 @@ msgstr ""
 "vers els servidors de Shazam i retorna la informació obtinguda a la sortida "
 "estàndard."
 
-#: src/main.rs:239
+#: src/main.rs:242
 msgid "The data-URI Shazam fingerprint to recognize."
 msgstr "L'empremta Shazam data-URI a reconèixer."
 
-#: src/main.rs:251
+#: src/main.rs:254
 msgid "The default action. Display a GUI."
 msgstr "L'acció per defecte. Mostrar una interfície d'usuari."
 
-#: src/main.rs:255 src/main.rs:276
+#: src/main.rs:259 src/main.rs:281
 msgid "An optional audio file to recognize on the launch of the application."
 msgstr ""
 "Un arxiu d'àudio opcional a reconèixer en el llançament de l'aplicació."
 
-#: src/main.rs:267 src/main.rs:288
+#: src/main.rs:271 src/main.rs:293
 msgid "Disable PipeWire native support"
 msgstr ""
 
-#: src/main.rs:272
+#: src/main.rs:276
 msgid ""
 "Launch the GUI, but don't recognize audio through the microphone as soon as "
 "it is launched (rather than expecting the user to click on a button)."
@@ -180,7 +180,7 @@ msgstr ""
 "Inicia la interfície d'usuari, però no reconeix àudio a través del micròfon "
 "en engegar-la (en comptes d'esperar que l'usuari premi un botó)"
 
-#: src/main.rs:400
+#: src/main.rs:409
 msgid "Error decoding fingerprint:"
 msgstr ""
 
@@ -197,7 +197,7 @@ msgid "Audio error: No input device available"
 msgstr ""
 
 #: src/core/preferences.rs:76 src/core/preferences.rs:102
-#: src/gui/main_window.rs:315 src/gui/interface.blp:123
+#: src/gui/main_window.rs:316 src/gui/interface.blp:123
 #: src/gui/interface.blp:617 src/gui/interface.blp:667
 msgid "Search on YouTube"
 msgstr "Cerca a YouTube"
@@ -231,46 +231,46 @@ msgstr ""
 msgid "Invalid sample rate passed when encoding Shazam packet"
 msgstr "Freqüència de mostreig invàlida en codificar el paquet Shazam"
 
-#: src/gui/main_window.rs:273
+#: src/gui/main_window.rs:274
 msgid "Application error"
 msgstr ""
 
-#: src/gui/main_window.rs:294
+#: src/gui/main_window.rs:295
 msgid "Network error"
 msgstr ""
 
-#: src/gui/main_window.rs:476
+#: src/gui/main_window.rs:477
 msgctxt ""
 "Status of the app displayed in the Background Apps section of GNOME system "
 "menu when using Flatpak"
 msgid "Recognizing songs"
 msgstr ""
 
-#: src/gui/main_window.rs:546
+#: src/gui/main_window.rs:547
 msgid "Unable to enable notification icon"
 msgstr ""
 
-#: src/gui/main_window.rs:1018 src/gui/main_window.rs:1099
+#: src/gui/main_window.rs:1019 src/gui/main_window.rs:1100
 msgid "Unable to enable MPRIS support"
 msgstr "No s'ha pogut activar el suport per MPRIS"
 
-#: src/gui/main_window.rs:1121
+#: src/gui/main_window.rs:1122
 msgid "_Ok"
 msgstr ""
 
-#: src/gui/main_window.rs:1197
+#: src/gui/main_window.rs:1198
 msgid "Song recognized"
 msgstr "Cançó reconeguda"
 
-#: src/gui/main_window.rs:1337
+#: src/gui/main_window.rs:1338
 msgid "Are you sure you want to wipe history?"
 msgstr "Esteu segur que voleu esborrar l'historial?"
 
-#: src/gui/main_window.rs:1343
+#: src/gui/main_window.rs:1344
 msgid "_Yes"
 msgstr "_Sí"
 
-#: src/gui/main_window.rs:1344
+#: src/gui/main_window.rs:1345
 msgid "_Cancel"
 msgstr "_Cancel·lar"
 
@@ -294,11 +294,11 @@ msgstr "Error en llegir els favorits al disc:"
 msgid "Error while saving the favorites on the disk:"
 msgstr ""
 
-#: src/plugins/ksni.rs:51
+#: src/plugins/ksni.rs:43
 msgid "Open SongRec"
 msgstr ""
 
-#: src/plugins/ksni.rs:59
+#: src/plugins/ksni.rs:51
 msgid "Quit..."
 msgstr ""
 

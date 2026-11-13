@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: SongRec v0.6.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-13 15:15+0100\n"
+"POT-Creation-Date: 2026-11-13 23:33+0100\n"
 "PO-Revision-Date: 2026-11-12 14:13+0000\n"
 "Last-Translator: Jozef Gaal <preklady@mayday.sk>\n"
 "Language-Team: Slovak <https://weblate.fossplant.re/projects/songrec/songrec/"
@@ -18,42 +18,42 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Generator: Weblate 2026.8.1\n"
 
-#: src/cli_main.rs:126
+#: src/cli_main.rs:127
 msgid "Available device:"
 msgstr "Dostupné zariadenie:"
 
-#: src/cli_main.rs:144
+#: src/cli_main.rs:138
 msgid "Exiting: audio device not found"
 msgstr "Ukončenie: zvukové zariadenie nebolo nájdené"
 
-#: src/cli_main.rs:151
+#: src/cli_main.rs:145
 msgid "Exiting: no audio devices found!"
 msgstr "Ukončenie: neboli nájdené žiadne zvukové zariadenia!"
 
-#: src/cli_main.rs:157
+#: src/cli_main.rs:151
 #, c-format
 msgid "Using device %s"
 msgstr "Používa sa zariadenie %s"
 
-#: src/cli_main.rs:181
+#: src/cli_main.rs:175
 msgid "Error: Network unreachable"
 msgstr "Chyba: Sieť nedostupná"
 
-#: src/cli_main.rs:185
+#: src/cli_main.rs:179
 msgid "Warning: Network unreachable"
 msgstr "Upozornenie: Sieť nedostupná"
 
-#: src/cli_main.rs:190 src/core/http_task.rs:54 src/core/http_task.rs:63
+#: src/cli_main.rs:184 src/core/http_task.rs:54 src/core/http_task.rs:63
 #: src/core/http_task.rs:72 src/core/http_task.rs:123
-#: src/gui/main_window.rs:1112 src/gui/main_window.rs:1124
+#: src/gui/main_window.rs:1113 src/gui/main_window.rs:1125
 msgid "No match for this song"
 msgstr "Žiadna zhoda pre túto skladbu"
 
-#: src/cli_main.rs:191 src/cli_main.rs:222
+#: src/cli_main.rs:185 src/cli_main.rs:216
 msgid "Error:"
 msgstr "Chyba:"
 
-#: src/cli_main.rs:199
+#: src/cli_main.rs:193
 msgid "Recording started!"
 msgstr "Nahrávanie spustené!"
 
@@ -84,15 +84,15 @@ msgstr ""
 "rozpoznané skladby na stdout, pričom zobrazuje aktuálne informácie o skladbe "
 "prostredníctvom MPRIS"
 
-#: src/main.rs:106 src/main.rs:152 src/main.rs:207
+#: src/main.rs:106 src/main.rs:152 src/main.rs:209
 msgid "List available audio devices and quit"
 msgstr "Zobraziť dostupné zvukové zariadenia a ukončiť"
 
-#: src/main.rs:112 src/main.rs:159 src/main.rs:213
+#: src/main.rs:112 src/main.rs:159 src/main.rs:215
 msgid "Specify the audio device to use"
 msgstr "Zadajte zvukové zariadenie, ktoré sa má použiť"
 
-#: src/main.rs:120 src/main.rs:167 src/main.rs:221
+#: src/main.rs:120 src/main.rs:167 src/main.rs:223
 msgid ""
 "Shazam interval between requests in seconds (increase if you are rate-"
 "limited)"
@@ -108,7 +108,7 @@ msgstr "Zapnúť tlač úplných informácií o skladbe v JSON"
 msgid "Enable printing full song info in the CSV format"
 msgstr "Zapnúť tlač úplných informácií o skladbe v CSV formáte"
 
-#: src/main.rs:141 src/main.rs:261 src/main.rs:282
+#: src/main.rs:141 src/main.rs:265 src/main.rs:287
 msgid "Disable MPRIS support"
 msgstr "Vypnúť podporu MPRIS"
 
@@ -118,11 +118,11 @@ msgstr ""
 "Rozpoznať jednu skladbu zo zvukového súboru alebo mikrofónu a vypísať jej "
 "informácie."
 
-#: src/main.rs:187
+#: src/main.rs:188
 msgid "Recognize a file instead of using mic input"
 msgstr "Rozpoznať súbor namiesto použitia vstupu z mikrofónu"
 
-#: src/main.rs:192
+#: src/main.rs:193
 msgid ""
 "Generate a Shazam fingerprint from a sound file, perform song recognition "
 "towards Shazam's servers and print obtained information to the standard "
@@ -131,11 +131,11 @@ msgstr ""
 "Generovať odtlačok Shazam zo zvukového súboru, vykonať rozpoznanie skladby "
 "voči serverom Shazam a vypísať získané informácie na štandardný výstup."
 
-#: src/main.rs:196
+#: src/main.rs:198
 msgid "The audio file to recognize."
 msgstr "Zvukový súbor na rozpoznanie."
 
-#: src/main.rs:201
+#: src/main.rs:203
 msgid ""
 "Recognize a currently playing song using the microphone and print obtained "
 "information to the standard output"
@@ -143,7 +143,7 @@ msgstr ""
 "Rozpoznať aktuálne prehrávanú skladbu pomocou mikrofónu a vypísať získané "
 "informácie na štandardný výstup"
 
-#: src/main.rs:226
+#: src/main.rs:228
 msgid ""
 "Generate a Shazam fingerprint from a sound file, and print it to the "
 "standard output."
@@ -151,11 +151,11 @@ msgstr ""
 "Vygenerovať odtlačok Shazam zo zvukového súboru a vypísať ho na štandardný "
 "výstup."
 
-#: src/main.rs:230
+#: src/main.rs:233
 msgid "The .WAV or .MP3 file to generate an audio fingerprint for."
 msgstr "Súbor .WAV alebo .MP3 na vytvorenie zvukového odtlačku."
 
-#: src/main.rs:235
+#: src/main.rs:238
 msgid ""
 "Take a data-URI Shazam fingerprint, perform song recognition towards "
 "Shazam's servers and print obtained information to the standard output."
@@ -163,23 +163,23 @@ msgstr ""
 "Prevziať data-URI odtlačok Shazam, vykonať rozpoznanie skladby voči serverom "
 "Shazam a vypísať získané informácie na štandardný výstup."
 
-#: src/main.rs:239
+#: src/main.rs:242
 msgid "The data-URI Shazam fingerprint to recognize."
 msgstr "Data-URI odtlačok Shazam na rozpoznanie."
 
-#: src/main.rs:251
+#: src/main.rs:254
 msgid "The default action. Display a GUI."
 msgstr "Predvolená akcia. Zobrazenie grafického rozhrania."
 
-#: src/main.rs:255 src/main.rs:276
+#: src/main.rs:259 src/main.rs:281
 msgid "An optional audio file to recognize on the launch of the application."
 msgstr "Voliteľný zvukový súbor, ktorý sa rozpozná pri spustení aplikácie."
 
-#: src/main.rs:267 src/main.rs:288
+#: src/main.rs:271 src/main.rs:293
 msgid "Disable PipeWire native support"
 msgstr "Vypnúť natívnu podporu PipeWire"
 
-#: src/main.rs:272
+#: src/main.rs:276
 msgid ""
 "Launch the GUI, but don't recognize audio through the microphone as soon as "
 "it is launched (rather than expecting the user to click on a button)."
@@ -188,7 +188,7 @@ msgstr ""
 "hneď po spustení (namiesto toho, aby ste očakávali, že používateľ klikne na "
 "tlačidlo)."
 
-#: src/main.rs:400
+#: src/main.rs:409
 msgid "Error decoding fingerprint:"
 msgstr "Chyba pri dekódovaní odtlačku:"
 
@@ -205,7 +205,7 @@ msgid "Audio error: No input device available"
 msgstr "Chyba zvuku: Nie je k dispozícii žiadne vstupné zariadenie"
 
 #: src/core/preferences.rs:76 src/core/preferences.rs:102
-#: src/gui/main_window.rs:315 src/gui/interface.blp:123
+#: src/gui/main_window.rs:316 src/gui/interface.blp:123
 #: src/gui/interface.blp:617 src/gui/interface.blp:667
 msgid "Search on YouTube"
 msgstr "Vyhľadať na YouTube"
@@ -240,46 +240,46 @@ msgid "Invalid sample rate passed when encoding Shazam packet"
 msgstr ""
 "Pri kódovaní paketu Shazam bola odovzdaná nesprávna vzorkovacia frekvencia"
 
-#: src/gui/main_window.rs:273
+#: src/gui/main_window.rs:274
 msgid "Application error"
 msgstr "Chyba aplikácie"
 
-#: src/gui/main_window.rs:294
+#: src/gui/main_window.rs:295
 msgid "Network error"
 msgstr "Chyba siete"
 
-#: src/gui/main_window.rs:476
+#: src/gui/main_window.rs:477
 msgctxt ""
 "Status of the app displayed in the Background Apps section of GNOME system "
 "menu when using Flatpak"
 msgid "Recognizing songs"
 msgstr "Rozpoznávanie skladieb"
 
-#: src/gui/main_window.rs:546
+#: src/gui/main_window.rs:547
 msgid "Unable to enable notification icon"
 msgstr "Nie je možné aktivovať ikonu upozornenia"
 
-#: src/gui/main_window.rs:1018 src/gui/main_window.rs:1099
+#: src/gui/main_window.rs:1019 src/gui/main_window.rs:1100
 msgid "Unable to enable MPRIS support"
 msgstr "Nie je možné zapnúť podporu MPRIS"
 
-#: src/gui/main_window.rs:1121
+#: src/gui/main_window.rs:1122
 msgid "_Ok"
 msgstr "_Ok"
 
-#: src/gui/main_window.rs:1197
+#: src/gui/main_window.rs:1198
 msgid "Song recognized"
 msgstr "Skladba rozpoznaná"
 
-#: src/gui/main_window.rs:1337
+#: src/gui/main_window.rs:1338
 msgid "Are you sure you want to wipe history?"
 msgstr "Naozaj chcete vymazať históriu?"
 
-#: src/gui/main_window.rs:1343
+#: src/gui/main_window.rs:1344
 msgid "_Yes"
 msgstr "_Áno"
 
-#: src/gui/main_window.rs:1344
+#: src/gui/main_window.rs:1345
 msgid "_Cancel"
 msgstr "_Zrušiť"
 
@@ -303,11 +303,11 @@ msgstr "Chyba pri čítaní obľúbených položiek z disku:"
 msgid "Error while saving the favorites on the disk:"
 msgstr "Chyba pri ukladaní obľúbených položiek na disk:"
 
-#: src/plugins/ksni.rs:51
+#: src/plugins/ksni.rs:43
 msgid "Open SongRec"
 msgstr "Otvoriť SongRec"
 
-#: src/plugins/ksni.rs:59
+#: src/plugins/ksni.rs:51
 msgid "Quit..."
 msgstr "Ukončiť..."
 
