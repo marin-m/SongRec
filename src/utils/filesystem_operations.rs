@@ -132,6 +132,36 @@ pub fn file_uri(path: &Path) -> Result<String, Box<dyn Error>> {
     Ok(glib::filename_to_uri(path, None)?.to_string())
 }
 
+/// Write PATH through WRITE, into a temporary file of the same directory that
+/// replaces PATH only once it is complete. Writing PATH directly truncates it
+/// first, so an error or a crash midway would leave the history, the
+/// favorites or the preferences cut short.
+pub fn write_atomically(
+    path: &Path,
+    write: impl FnOnce(&mut std::fs::File) -> Result<(), Box<dyn Error>>,
+) -> Result<(), Box<dyn Error>> {
+    let directory = match path.parent() {
+        Some(parent) if !parent.as_os_str().is_empty() => parent,
+        _ => Path::new("."),
+    };
+    let mut builder = tempfile::Builder::new();
+    // tempfile creates files as 0o600. Give the new file the mode PATH has,
+    // or the 0o666 that `File::create` uses, so that the umask still decides
+    #[cfg(unix)]
+    {
+        use std::os::unix::fs::PermissionsExt;
+        builder.permissions(match std::fs::metadata(path) {
+            Ok(metadata) => metadata.permissions(),
+            Err(_) => std::fs::Permissions::from_mode(0o666),
+        });
+    }
+    let mut file = builder.tempfile_in(directory)?;
+    write(file.as_file_mut())?;
+    file.as_file().sync_all()?;
+    file.persist(path)?;
+    Ok(())
+}
+
 // Backwards compatibility
 fn get_old_data_dir_path() -> Result<PathBuf, Box<dyn Error>> {
     let app_info = AppInfo {
@@ -230,6 +260,75 @@ mod tests {
         // Without the encoding, the path stopped at `#`
         let (read_back, _) = glib::filename_from_uri("file:///tmp/a b#c%d.jpg").unwrap();
         assert_eq!(read_back, Path::new("/tmp/a b"));
+    }
+
+    #[test]
+    fn an_atomic_write_replaces_the_file_once_complete() {
+        let root = scratch_directory("atomic");
+        let path = root.join("song_history.csv");
+        fs::write(&path, "old").unwrap();
+
+        write_atomically(&path, |file| {
+            use std::io::Write;
+            file.write_all(b"new")?;
+            Ok(())
+        })
+        .unwrap();
+
+        assert_eq!(fs::read_to_string(&path).unwrap(), "new");
+        assert_eq!(fs::read_dir(&root).unwrap().count(), 1);
+        fs::remove_dir_all(root).unwrap();
+    }
+
+    #[cfg(unix)]
+    #[test]
+    fn an_atomic_write_keeps_the_permissions_a_direct_write_would_give() {
+        use std::os::unix::fs::PermissionsExt;
+        let mode = |path: &Path| fs::metadata(path).unwrap().permissions().mode() & 0o777;
+        let write = |path: &Path| {
+            write_atomically(path, |file| {
+                use std::io::Write;
+                file.write_all(b"new")?;
+                Ok(())
+            })
+            .unwrap()
+        };
+        let root = scratch_directory("atomic-permissions");
+
+        // A new file gets the same mode as one created by `fs::write`, that is
+        // 0o666 restricted by the umask
+        let reference = root.join("reference.csv");
+        fs::write(&reference, "").unwrap();
+        let new_file = root.join("new.csv");
+        write(&new_file);
+        assert_eq!(mode(&new_file), mode(&reference));
+
+        // An existing file keeps its mode
+        let existing = root.join("existing.csv");
+        fs::write(&existing, "old").unwrap();
+        fs::set_permissions(&existing, fs::Permissions::from_mode(0o640)).unwrap();
+        write(&existing);
+        assert_eq!(mode(&existing), 0o640);
+        fs::remove_dir_all(root).unwrap();
+    }
+
+    #[test]
+    fn a_failed_atomic_write_keeps_the_previous_file() {
+        let root = scratch_directory("atomic-failed");
+        let path = root.join("song_history.csv");
+        fs::write(&path, "old").unwrap();
+
+        let result = write_atomically(&path, |file| {
+            use std::io::Write;
+            file.write_all(b"partial")?;
+            Err("serialization failed".into())
+        });
+
+        assert!(result.is_err());
+        assert_eq!(fs::read_to_string(&path).unwrap(), "old");
+        // The temporary file is removed too
+        assert_eq!(fs::read_dir(&root).unwrap().count(), 1);
+        fs::remove_dir_all(root).unwrap();
     }
 
     #[test]
