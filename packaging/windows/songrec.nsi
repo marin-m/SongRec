@@ -15,7 +15,7 @@
  
   !define MUI_PRODUCT "SongRec"
   !define MUI_FILE "songrec"
-  !define MUI_VERSION "0.8.1"
+  !define MUI_VERSION "0.8.2"
   !define MUI_BRANDINGTEXT "${MUI_PRODUCT} ${MUI_VERSION}"
   !define WIN_ORIG_DIR "dist\windows_release"
   CRCCheck On

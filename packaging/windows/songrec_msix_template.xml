@@ -18,7 +18,7 @@
         InstallLocation="C:\Program Files\SongRec" />
     <PackageInformation PackageName="MarinM.Fossplant.re.SongRec" PackageDisplayName="SongRec"
         PublisherName="CN=955F6148-3F06-42BC-8A8C-16FD9EBBA325"
-        PublisherDisplayName="Marin M. (Fossplant.re)" Version="0.8.1.0"
+        PublisherDisplayName="Marin M. (Fossplant.re)" Version="0.8.2.0"
         p4:PackageDescription="SongRec allows you to recognize and identify songs easily."
         xmlns:p4="http://schemas.microsoft.com/msix/msixpackagingtool/template/1910">
         <Capabilities>

@@ -144,6 +144,22 @@ https://hughsie.github.io/oars/index.html
 -->
   <content_rating type="oars-1.1"/>
   <releases>
+    <release version="0.8.2" date="2026-11-14">
+      <description>
+        <ul>
+          <li>Update Slovak translation thanks to @dodog</li>
+          <li>Update Portuguese translation thanks to @marcelocripe</li>
+          <li>Add CI for the macOS and MSYS2 targets</li>
+          <li>Avoid panic on broken output pipe (#209, PR #353)</li>
+          <li>Don't have the app window briefly show when starting in background mode (#363)</li>
+          <li>Fix migration from old SongRec versions on Windows (#355, PR #356)</li>
+          <li>Add GUI option to retain window size across restarts (#160, PR #357)</li>
+          <li>Fix sanitizing history and preferences files on disk operations (PR #366, #362, #371)</li>
+          <li>Support for systems with non UTF-8 paths thanks to @HarpeLm</li>
+          <li>QA, unit tests, safety checks, thanks to @HarpeLm</li>
+        </ul>
+      </description>
+    </release>
     <release version="0.8.1" date="2026-11-03">
       <description>
         <ul>
