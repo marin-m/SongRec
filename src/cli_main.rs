@@ -13,7 +13,8 @@ use crate::core::http_task::http_task;
 use crate::core::microphone_thread::microphone_thread;
 use crate::core::processing_thread::processing_thread;
 use crate::core::thread_messages::{
-    GUIMessage, MicrophoneMessage, ProcessingMessage, SongRecognizedMessage, spawn_big_thread,
+    DeviceListItem, GUIMessage, MicrophoneMessage, ProcessingMessage, SongRecognizedMessage,
+    spawn_big_thread,
 };
 
 use crate::core::preferences::{Preferences, PreferencesInterface};
@@ -133,19 +134,12 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
                         break;
                     }
                     let dev_name = if let Some(dev) = &audio_dev_name {
-                        let mut found: bool = false;
-                        for device in device_names.iter() {
-                            if &device.inner_name == dev || &device.display_name == dev {
-                                found = true;
-                                break;
-                            }
-                        }
-                        if !found {
+                        let Some(inner_name) = find_device(&device_names, dev) else {
                             error!("{}", gettext("Exiting: audio device not found"));
                             failed_inner.set(true);
                             break;
-                        }
-                        dev
+                        };
+                        inner_name
                     } else {
                         if device_names.is_empty() {
                             error!("{}", gettext("Exiting: no audio devices found!"));
@@ -245,6 +239,16 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
     Ok(())
 }
 
+/// The inner name of the device that `--audio-device REQUESTED` names, by its inner or its
+/// displayed name. The microphone thread looks devices up by their inner name only, and falls
+/// back to the default device otherwise.
+fn find_device<'a>(devices: &'a [DeviceListItem], requested: &str) -> Option<&'a str> {
+    devices
+        .iter()
+        .find(|device| device.inner_name == requested || device.display_name == requested)
+        .map(|device| device.inner_name.as_str())
+}
+
 /// Write one recognized song to the standard output, in the requested format.
 fn write_recognized_song(
     stdout: &mut impl Write,
@@ -301,6 +305,27 @@ mod tests {
         .unwrap();
         stdout.extend(csv_writer.into_inner().unwrap());
         String::from_utf8(stdout).unwrap()
+    }
+
+    #[test]
+    fn audio_devices_are_found_by_either_name_and_passed_by_inner_name() {
+        let device = |inner_name: &str, display_name: &str| DeviceListItem {
+            inner_name: inner_name.to_string(),
+            display_name: display_name.to_string(),
+            is_monitor: false,
+        };
+        let devices = [
+            device("coreaudio:BuiltIn", "MacBook Air Microphone (input)"),
+            device("alsa:hw:1", "USB Audio (input)"),
+        ];
+
+        // The microphone thread looks devices up by their inner name only.
+        assert_eq!(find_device(&devices, "alsa:hw:1"), Some("alsa:hw:1"));
+        assert_eq!(
+            find_device(&devices, "USB Audio (input)"),
+            Some("alsa:hw:1")
+        );
+        assert_eq!(find_device(&devices, "Missing"), None);
     }
 
     #[test]
