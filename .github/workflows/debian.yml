@@ -17,12 +17,14 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - name: Install system packages
-        run: sudo apt update && sudo apt install build-essential libasound2-dev libpipewire-0.3-dev libclang-dev libpulse-dev libgtk-4-dev libsoup-3.0-dev libadwaita-1-dev libdbus-1-dev appstream coreutils gettext sed rustup findutils dput debhelper devscripts desktop-file-utils blueprint-compiler
+        run: sudo apt update && sudo apt install build-essential libasound2-dev libpipewire-0.3-dev libclang-dev libpulse-dev libgtk-4-dev libsoup-3.0-dev libadwaita-1-dev libdbus-1-dev appstream coreutils gettext sed cargo rustc findutils dput debhelper devscripts desktop-file-utils blueprint-compiler
       - name: Ensure metainfo.xml validity
         run: appstreamcli validate packaging/rootfs/usr/share/metainfo/re.fossplant.songrec.metainfo.xml
       - name: Ensure desktop file validity
         run: desktop-file-validate packaging/rootfs/usr/share/applications/re.fossplant.songrec.desktop
       - name: Build Debian package
-        run: "bash -c 'rustup update && echo Using: $(rustup which cargo) / $(ls -l $(which cargo)) && ./packaging/ppa/build_binary_package.sh'"
+        run: "bash -c 'echo Using: $(which cargo) / $(ls -l $(which cargo)) && ./packaging/ppa/build_binary_package.sh'"
+      - name: Run platform-specific tests
+        run: "cargo test"
       - name: Ensure Debian package validity
         run: "lintian /tmp/*.deb"
