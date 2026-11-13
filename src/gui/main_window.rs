@@ -1521,67 +1521,14 @@ impl App {
             .build();
 
         let action_export_to_csv = gio::ActionEntry::builder("export-to-csv")
-            .activate(move |_window: &adw::ApplicationWindow, _action, _obj| {
-                #[cfg(not(windows))]
-                {
-                    let window = _window.clone();
-
-                    glib::spawn_future_local(async move {
-                        let launch_path = obtain_recognition_history_csv_path().unwrap();
-                        info!("Launching file: {}", launch_path.display());
-                        let launch_file = gio::File::for_path(&launch_path);
-                        if let Err(err) = gtk::FileLauncher::new(Some(&launch_file))
-                            .launch_future(Some(&window))
-                            .await
-                        {
-                            error!("Could not launch file {}: {:?}", launch_path.display(), err);
-                        }
-                    });
-                }
-
-                #[cfg(windows)]
-                std::process::Command::new("cmd")
-                    .args(&[
-                        "/c",
-                        &format!(
-                            "start {}",
-                            obtain_recognition_history_csv_path().unwrap().display()
-                        ),
-                    ])
-                    .creation_flags(0x00000008) // Set "CREATE_NO_WINDOW" on Windows
-                    .output()
-                    .ok();
+            .activate(move |window: &adw::ApplicationWindow, _action, _obj| {
+                launch_data_file(window, obtain_recognition_history_csv_path());
             })
             .build();
 
         let action_export_favorites_to_csv = gio::ActionEntry::builder("export-favorites-to-csv")
-            .activate(move |_window: &adw::ApplicationWindow, _action, _obj| {
-                #[cfg(not(windows))]
-                {
-                    let window = _window.clone();
-
-                    glib::spawn_future_local(async move {
-                        let launch_path = obtain_favorites_csv_path().unwrap();
-                        info!("Launching file: {}", launch_path.display());
-                        let launch_file = gio::File::for_path(&launch_path);
-                        if let Err(err) = gtk::FileLauncher::new(Some(&launch_file))
-                            .launch_future(Some(&window))
-                            .await
-                        {
-                            error!("Could not launch file {}: {:?}", launch_path.display(), err);
-                        }
-                    });
-                }
-
-                #[cfg(windows)]
-                std::process::Command::new("cmd")
-                    .args(&[
-                        "/c",
-                        &format!("start {}", obtain_favorites_csv_path().unwrap().display()),
-                    ])
-                    .creation_flags(0x00000008) // Set "CREATE_NO_WINDOW" on Windows
-                    .output()
-                    .ok();
+            .activate(move |window: &adw::ApplicationWindow, _action, _obj| {
+                launch_data_file(window, obtain_favorites_csv_path());
             })
             .build();
 
@@ -1958,5 +1905,67 @@ impl App {
         application
             .set_accels_for_action("win.show-preferences", &["<Primary>comma", "<Primary>P"]);
         application.set_accels_for_action("win.show-menu", &["F10"]);
+    }
+}
+
+/// Open the history or favorites CSV file with the default application, or
+/// log why it can't be opened
+fn launch_data_file(
+    _window: &adw::ApplicationWindow,
+    path: Result<std::path::PathBuf, Box<dyn Error>>,
+) {
+    let launch_path = match path {
+        Ok(path) => path,
+        Err(error) => {
+            error!("Could not find the file to open: {}", error);
+            return;
+        }
+    };
+    info!("Launching file: {}", launch_path.display());
+
+    #[cfg(not(windows))]
+    {
+        let window = _window.clone();
+        glib::spawn_future_local(async move {
+            let launch_file = gio::File::for_path(&launch_path);
+            if let Err(err) = gtk::FileLauncher::new(Some(&launch_file))
+                .launch_future(Some(&window))
+                .await
+            {
+                error!("Could not launch file {}: {:?}", launch_path.display(), err);
+            }
+        });
+    }
+
+    #[cfg(windows)]
+    if let Err(err) = windows_open_command(&launch_path)
+        .creation_flags(0x00000008) // Set "CREATE_NO_WINDOW" on Windows
+        .spawn()
+    {
+        error!("Could not launch file {}: {:?}", launch_path.display(), err);
+    }
+}
+
+/// The command opening PATH with its default application on Windows. The path
+/// is its own argument: `cmd /c start PATH` split it at its first space, as in
+/// `C:\Users\Jane Doe\AppData\...`, and treated `&` as a command separator.
+#[cfg(any(windows, test))]
+fn windows_open_command(path: &std::path::Path) -> std::process::Command {
+    let mut command = std::process::Command::new("explorer.exe");
+    command.arg(path);
+    command
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn the_windows_open_command_keeps_the_path_whole() {
+        let path = std::path::Path::new(r"C:\Users\Jane Doe & Co\AppData\song_history.csv");
+        let command = windows_open_command(path);
+
+        assert_eq!(command.get_program(), "explorer.exe");
+        assert_eq!(command.get_args().collect::<Vec<_>>(), [path.as_os_str()]);
     }
 }
