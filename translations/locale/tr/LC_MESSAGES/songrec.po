@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-12 13:18+0100\n"
+"POT-Creation-Date: 2026-11-13 15:15+0100\n"
 "PO-Revision-Date: 2026-07-06 14:05+0000\n"
 "Last-Translator: Arda Aydın <arda.aydin@operationsilkscarf.com>\n"
 "Language-Team: Turkish <https://weblate.fossplant.re/projects/songrec/"
@@ -18,42 +18,42 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.15.2\n"
 
-#: src/cli_main.rs:123
+#: src/cli_main.rs:126
 msgid "Available device:"
 msgstr "Kullanılabilr cihaz:"
 
-#: src/cli_main.rs:141
+#: src/cli_main.rs:144
 msgid "Exiting: audio device not found"
 msgstr "Çıkılıyor: Ses cihazı bulunamadı"
 
-#: src/cli_main.rs:148
+#: src/cli_main.rs:151
 msgid "Exiting: no audio devices found!"
 msgstr "Çıkılıyor: Hiçbir ses cihazı bulunamadı!"
 
-#: src/cli_main.rs:154
+#: src/cli_main.rs:157
 #, c-format
 msgid "Using device %s"
 msgstr "%s cihazı kullanılıyor"
 
-#: src/cli_main.rs:178
+#: src/cli_main.rs:181
 msgid "Error: Network unreachable"
 msgstr "Hata: Ağa ulaşılamıyor"
 
-#: src/cli_main.rs:182
+#: src/cli_main.rs:185
 msgid "Warning: Network unreachable"
 msgstr "Uyarı: Ağa ulaşılamıyor"
 
-#: src/cli_main.rs:187 src/core/http_task.rs:54 src/core/http_task.rs:63
+#: src/cli_main.rs:190 src/core/http_task.rs:54 src/core/http_task.rs:63
 #: src/core/http_task.rs:72 src/core/http_task.rs:123
 #: src/gui/main_window.rs:1112 src/gui/main_window.rs:1124
 msgid "No match for this song"
 msgstr "Bu şarkı için eşleşme yok"
 
-#: src/cli_main.rs:188 src/cli_main.rs:219
+#: src/cli_main.rs:191 src/cli_main.rs:222
 msgid "Error:"
 msgstr "Hata:"
 
-#: src/cli_main.rs:196
+#: src/cli_main.rs:199
 msgid "Recording started!"
 msgstr "Kayıt başladı!"
 
@@ -191,7 +191,7 @@ msgstr ""
 msgid "Error decoding fingerprint:"
 msgstr ""
 
-#: src/core/http_task.rs:130 src/core/fingerprinting/communication.rs:124
+#: src/core/http_task.rs:130 src/core/fingerprinting/communication.rs:134
 msgid "Your IP has been rate-limited"
 msgstr "IP'niz hız aşımına yakalanmış"
 
@@ -209,7 +209,7 @@ msgstr "Ses hatası: Mevcut bir giriş cihazı yok"
 msgid "Search on YouTube"
 msgstr "YouTube'da ara"
 
-#: src/core/preferences.rs:121
+#: src/core/preferences.rs:121 src/core/preferences.rs:238
 msgid "When parsing the preferences file:"
 msgstr "Seçenekler dosyası okunurken şu oldu:"
 
@@ -281,23 +281,23 @@ msgstr "_Evet"
 msgid "_Cancel"
 msgstr ""
 
-#: src/gui/song_history_interface.rs:94
+#: src/gui/song_history_interface.rs:97
 msgid "Skipping an invalid CSV entry:"
 msgstr ""
 
-#: src/gui/song_history_interface.rs:118
+#: src/gui/song_history_interface.rs:121
 msgid "Error when reading the song history on the disk:"
 msgstr "Şarkı geçmişini okurken bir hata oldu:"
 
-#: src/gui/song_history_interface.rs:159
+#: src/gui/song_history_interface.rs:162
 msgid "Error while saving the song history on the disk:"
 msgstr ""
 
-#: src/gui/song_history_interface.rs:185
+#: src/gui/song_history_interface.rs:188
 msgid "Error when reading the favorites on the disk:"
 msgstr "Favoriler dosyasını okurken bir hata oldu:"
 
-#: src/gui/song_history_interface.rs:222
+#: src/gui/song_history_interface.rs:225
 msgid "Error while saving the favorites on the disk:"
 msgstr ""
 

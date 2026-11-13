@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-12 13:18+0100\n"
+"POT-Creation-Date: 2026-11-13 15:15+0100\n"
 "PO-Revision-Date: 2023-12-30 23:42+0900\n"
 "Last-Translator: 이정희 <daemul72@gmail.com>\n"
 "Language-Team: \n"
@@ -17,42 +17,42 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.4.1\n"
 
-#: src/cli_main.rs:123
+#: src/cli_main.rs:126
 msgid "Available device:"
 msgstr ""
 
-#: src/cli_main.rs:141
+#: src/cli_main.rs:144
 msgid "Exiting: audio device not found"
 msgstr "종료 중: 오디오 장치를 찾을 수 없습니다"
 
-#: src/cli_main.rs:148
+#: src/cli_main.rs:151
 msgid "Exiting: no audio devices found!"
 msgstr "종료 중: 오디오 장치를 찾을 수 없습니다!"
 
-#: src/cli_main.rs:154
+#: src/cli_main.rs:157
 #, c-format
 msgid "Using device %s"
 msgstr ""
 
-#: src/cli_main.rs:178
+#: src/cli_main.rs:181
 msgid "Error: Network unreachable"
 msgstr "오류: 네트워크에 연결할 수 없음"
 
-#: src/cli_main.rs:182
+#: src/cli_main.rs:185
 msgid "Warning: Network unreachable"
 msgstr "경고: 네트워크에 연결할 수 없음"
 
-#: src/cli_main.rs:187 src/core/http_task.rs:54 src/core/http_task.rs:63
+#: src/cli_main.rs:190 src/core/http_task.rs:54 src/core/http_task.rs:63
 #: src/core/http_task.rs:72 src/core/http_task.rs:123
 #: src/gui/main_window.rs:1112 src/gui/main_window.rs:1124
 msgid "No match for this song"
 msgstr "이 노래와 일치하는 항목이 없습니다"
 
-#: src/cli_main.rs:188 src/cli_main.rs:219
+#: src/cli_main.rs:191 src/cli_main.rs:222
 msgid "Error:"
 msgstr "오류:"
 
-#: src/cli_main.rs:196
+#: src/cli_main.rs:199
 msgid "Recording started!"
 msgstr "녹음이 시작되었습니다!"
 
@@ -176,7 +176,7 @@ msgstr ""
 msgid "Error decoding fingerprint:"
 msgstr ""
 
-#: src/core/http_task.rs:130 src/core/fingerprinting/communication.rs:124
+#: src/core/http_task.rs:130 src/core/fingerprinting/communication.rs:134
 msgid "Your IP has been rate-limited"
 msgstr ""
 
@@ -194,7 +194,7 @@ msgstr ""
 msgid "Search on YouTube"
 msgstr "YouTube에서 검색하기"
 
-#: src/core/preferences.rs:121
+#: src/core/preferences.rs:121 src/core/preferences.rs:238
 msgid "When parsing the preferences file:"
 msgstr "환경설정 파일을 구문 분석하는 경우:"
 
@@ -266,23 +266,23 @@ msgstr ""
 msgid "_Cancel"
 msgstr "취소하기(_C)"
 
-#: src/gui/song_history_interface.rs:94
+#: src/gui/song_history_interface.rs:97
 msgid "Skipping an invalid CSV entry:"
 msgstr ""
 
-#: src/gui/song_history_interface.rs:118
+#: src/gui/song_history_interface.rs:121
 msgid "Error when reading the song history on the disk:"
 msgstr "디스크에서 노래 기록을 읽는 동안 오류 발생:"
 
-#: src/gui/song_history_interface.rs:159
+#: src/gui/song_history_interface.rs:162
 msgid "Error while saving the song history on the disk:"
 msgstr ""
 
-#: src/gui/song_history_interface.rs:185
+#: src/gui/song_history_interface.rs:188
 msgid "Error when reading the favorites on the disk:"
 msgstr ""
 
-#: src/gui/song_history_interface.rs:222
+#: src/gui/song_history_interface.rs:225
 msgid "Error while saving the favorites on the disk:"
 msgstr ""
 

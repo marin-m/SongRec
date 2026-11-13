@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-12 13:18+0100\n"
+"POT-Creation-Date: 2026-11-13 15:15+0100\n"
 "PO-Revision-Date: 2026-03-09 02:16+0000\n"
 "Last-Translator: Marin <25437947+marin-m@users.noreply.github.com>\n"
 "Language-Team: Dutch <https://weblate.fossplant.re/projects/songrec/songrec/"
@@ -18,42 +18,42 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.15.2\n"
 
-#: src/cli_main.rs:123
+#: src/cli_main.rs:126
 msgid "Available device:"
 msgstr "Beschikbaar apparaat:"
 
-#: src/cli_main.rs:141
+#: src/cli_main.rs:144
 msgid "Exiting: audio device not found"
 msgstr "Geen audioapparaat aangetroffen"
 
-#: src/cli_main.rs:148
+#: src/cli_main.rs:151
 msgid "Exiting: no audio devices found!"
 msgstr "Geen audioapparaten aangetroffen!"
 
-#: src/cli_main.rs:154
+#: src/cli_main.rs:157
 #, c-format
 msgid "Using device %s"
 msgstr ""
 
-#: src/cli_main.rs:178
+#: src/cli_main.rs:181
 msgid "Error: Network unreachable"
 msgstr "Foutmelding: geen internetverbinding"
 
-#: src/cli_main.rs:182
+#: src/cli_main.rs:185
 msgid "Warning: Network unreachable"
 msgstr "Waarschuwing: geen internetverbinding"
 
-#: src/cli_main.rs:187 src/core/http_task.rs:54 src/core/http_task.rs:63
+#: src/cli_main.rs:190 src/core/http_task.rs:54 src/core/http_task.rs:63
 #: src/core/http_task.rs:72 src/core/http_task.rs:123
 #: src/gui/main_window.rs:1112 src/gui/main_window.rs:1124
 msgid "No match for this song"
 msgstr "Er is geen overeenkomst gevonden"
 
-#: src/cli_main.rs:188 src/cli_main.rs:219
+#: src/cli_main.rs:191 src/cli_main.rs:222
 msgid "Error:"
 msgstr "Foutmelding:"
 
-#: src/cli_main.rs:196
+#: src/cli_main.rs:199
 msgid "Recording started!"
 msgstr "De opname is gestart!"
 
@@ -188,7 +188,7 @@ msgstr "Toon het venster, maar wacht met het starten van de muziekherkenning."
 msgid "Error decoding fingerprint:"
 msgstr ""
 
-#: src/core/http_task.rs:130 src/core/fingerprinting/communication.rs:124
+#: src/core/http_task.rs:130 src/core/fingerprinting/communication.rs:134
 msgid "Your IP has been rate-limited"
 msgstr "Je ip-verzoeken zijn afgekapt"
 
@@ -206,7 +206,7 @@ msgstr ""
 msgid "Search on YouTube"
 msgstr "Opzoeken op YouTube"
 
-#: src/core/preferences.rs:121
+#: src/core/preferences.rs:121 src/core/preferences.rs:238
 msgid "When parsing the preferences file:"
 msgstr "Tijdens verwerken van instellingenbestand:"
 
@@ -279,23 +279,23 @@ msgstr "_Ja"
 msgid "_Cancel"
 msgstr "_Annuleren"
 
-#: src/gui/song_history_interface.rs:94
+#: src/gui/song_history_interface.rs:97
 msgid "Skipping an invalid CSV entry:"
 msgstr ""
 
-#: src/gui/song_history_interface.rs:118
+#: src/gui/song_history_interface.rs:121
 msgid "Error when reading the song history on the disk:"
 msgstr "De nummergeschiedenis op de schijf kan niet worden uitgelezen:"
 
-#: src/gui/song_history_interface.rs:159
+#: src/gui/song_history_interface.rs:162
 msgid "Error while saving the song history on the disk:"
 msgstr ""
 
-#: src/gui/song_history_interface.rs:185
+#: src/gui/song_history_interface.rs:188
 msgid "Error when reading the favorites on the disk:"
 msgstr "De favorieten op de schijf kunnen niet worden uitgelezen:"
 
-#: src/gui/song_history_interface.rs:222
+#: src/gui/song_history_interface.rs:225
 msgid "Error while saving the favorites on the disk:"
 msgstr ""
 

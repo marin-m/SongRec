@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: SongRec\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-12 13:18+0100\n"
+"POT-Creation-Date: 2026-11-13 15:15+0100\n"
 "PO-Revision-Date: 2026-11-04 11:53+0000\n"
 "Last-Translator: marcelo cripe <marcelocripe@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://weblate.fossplant.re/projects/"
@@ -22,45 +22,45 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Weblate 2026.8.1\n"
 
-#: src/cli_main.rs:123
+#: src/cli_main.rs:126
 msgid "Available device:"
 msgstr "Dispositivo que está disponível:"
 
-#: src/cli_main.rs:141
+#: src/cli_main.rs:144
 msgid "Exiting: audio device not found"
 msgstr ""
 "O programa será fechado, porque o dispositivo de áudio que você selecionou "
 "não foi encontrado"
 
-#: src/cli_main.rs:148
+#: src/cli_main.rs:151
 msgid "Exiting: no audio devices found!"
 msgstr ""
 "O programa será fechado, porque nenhum dispositivo de áudio foi encontrado."
 
-#: src/cli_main.rs:154
+#: src/cli_main.rs:157
 #, c-format
 msgid "Using device %s"
 msgstr "Utilizando o dispositivo %s"
 
-#: src/cli_main.rs:178
+#: src/cli_main.rs:181
 msgid "Error: Network unreachable"
 msgstr "Ocorreu um erro, porque não há conexão com a internet"
 
-#: src/cli_main.rs:182
+#: src/cli_main.rs:185
 msgid "Warning: Network unreachable"
 msgstr "Atenção! Não há conexão com a internet"
 
-#: src/cli_main.rs:187 src/core/http_task.rs:54 src/core/http_task.rs:63
+#: src/cli_main.rs:190 src/core/http_task.rs:54 src/core/http_task.rs:63
 #: src/core/http_task.rs:72 src/core/http_task.rs:123
 #: src/gui/main_window.rs:1112 src/gui/main_window.rs:1124
 msgid "No match for this song"
 msgstr "A música não pôde ser identificada"
 
-#: src/cli_main.rs:188 src/cli_main.rs:219
+#: src/cli_main.rs:191 src/cli_main.rs:222
 msgid "Error:"
 msgstr "Ocorreu um erro:"
 
-#: src/cli_main.rs:196
+#: src/cli_main.rs:199
 msgid "Recording started!"
 msgstr "A gravação foi iniciada!"
 
@@ -219,7 +219,7 @@ msgstr ""
 msgid "Error decoding fingerprint:"
 msgstr ""
 
-#: src/core/http_task.rs:130 src/core/fingerprinting/communication.rs:124
+#: src/core/http_task.rs:130 src/core/fingerprinting/communication.rs:134
 msgid "Your IP has been rate-limited"
 msgstr ""
 "O seu endereço IP (Internet Protocol ou Protocolo da Internet) foi limitado "
@@ -241,7 +241,7 @@ msgstr ""
 msgid "Search on YouTube"
 msgstr "Pesquisar no YouTube"
 
-#: src/core/preferences.rs:121
+#: src/core/preferences.rs:121 src/core/preferences.rs:238
 msgid "When parsing the preferences file:"
 msgstr "Ao analisar o arquivo das configurações:"
 
@@ -314,23 +314,23 @@ msgstr "_Sim"
 msgid "_Cancel"
 msgstr "_Cancelar"
 
-#: src/gui/song_history_interface.rs:94
+#: src/gui/song_history_interface.rs:97
 msgid "Skipping an invalid CSV entry:"
 msgstr ""
 
-#: src/gui/song_history_interface.rs:118
+#: src/gui/song_history_interface.rs:121
 msgid "Error when reading the song history on the disk:"
 msgstr "Ocorreu um erro ao ler o histórico das músicas salvas:"
 
-#: src/gui/song_history_interface.rs:159
+#: src/gui/song_history_interface.rs:162
 msgid "Error while saving the song history on the disk:"
 msgstr ""
 
-#: src/gui/song_history_interface.rs:185
+#: src/gui/song_history_interface.rs:188
 msgid "Error when reading the favorites on the disk:"
 msgstr "Ocorreu um erro ao ler os favoritos salvos:"
 
-#: src/gui/song_history_interface.rs:222
+#: src/gui/song_history_interface.rs:225
 msgid "Error while saving the favorites on the disk:"
 msgstr ""
 
