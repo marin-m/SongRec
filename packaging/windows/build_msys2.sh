@@ -7,8 +7,8 @@ cd "$(dirname "$0")/../.."
 SRC="$(pwd)"
 
 mkdir -p dist/
-wget --no-verbose -nc http://www.angusj.com/resourcehacker/resource_hacker.zip -O dist/resource_hacker.zip
-unzip -d dist/resource_hacker dist/resource_hacker.zip
+# wget --no-verbose -nc http://www.angusj.com/resourcehacker/resource_hacker.zip -O dist/resource_hacker.zip
+unzip -d dist/resource_hacker packaging/windows/tools/resource_hacker.zip
 
 export GETTEXT_SYSTEM=1
 cargo build --release --no-default-features -F gui,ffmpeg
@@ -55,7 +55,7 @@ rm -rf "${SRC}"/dist/songrec-files.7z
 
 cd "${SRC}"/dist
 # From http://www.angusj.com/resourcehacker/: use this to add a custom .ICO file to the 7-Zip stub
-resource_hacker/ResourceHacker.exe -open ../packaging/windows/7zxSD_LZMA2_x64.sfx -save SongRec-standalone.exe -action delete -mask ,101, -log CONSOLE
+resource_hacker/ResourceHacker.exe -open ../packaging/windows/tools/7zxSD_LZMA2_x64.sfx -save SongRec-standalone.exe -action delete -mask ,101, -log CONSOLE
 resource_hacker/ResourceHacker.exe -open SongRec-standalone.exe -save SongRec-standalone.exe -action addoverwrite -res ../packaging/windows/songrec.ico -mask ICONGROUP,MAINICON,0 -log CONSOLE
 
 cat << EOF >> SongRec-standalone.exe
