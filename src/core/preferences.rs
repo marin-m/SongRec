@@ -1,5 +1,5 @@
 use gettextrs::gettext;
-use log::{debug, error};
+use log::{debug, error, warn};
 use serde::Deserialize;
 use serde::Serialize;
 use std::error::Error;
@@ -130,7 +130,7 @@ impl PreferencesInterface {
     fn load() -> Result<PreferencesInterface, Box<dyn Error>> {
         let preferences_file_path = obtain_preferences_file_path()?;
         let contents = std::fs::read_to_string(&preferences_file_path).unwrap_or_default();
-        let preferences: Preferences = toml::from_str(&contents)?;
+        let preferences = parse_preferences(&contents)?;
         debug!(
             "Loaded preferences from {}: {:?}",
             preferences_file_path.display(),
@@ -223,6 +223,35 @@ impl PreferencesInterface {
     }
 }
 
+/// Parse the preferences file. A value of the wrong type, as a hand edit can
+/// leave, only resets that preference: rejecting the whole file would reset
+/// every preference, and the next save would then overwrite them.
+fn parse_preferences(contents: &str) -> Result<Preferences, Box<dyn Error>> {
+    let error = match toml::from_str(contents) {
+        Ok(preferences) => return Ok(preferences),
+        Err(error) => error,
+    };
+    // Not TOML at all: there is nothing to keep
+    let table: toml::Table = contents.parse()?;
+    warn!(
+        "{} {}",
+        gettext("When parsing the preferences file:"),
+        error
+    );
+
+    let mut valid = toml::Table::new();
+    for (key, value) in table {
+        let mut single = toml::Table::new();
+        single.insert(key.clone(), value.clone());
+        if toml::Value::Table(single).try_into::<Preferences>().is_ok() {
+            valid.insert(key, value);
+        } else {
+            warn!("Ignoring the invalid preference {}: {}", key, value);
+        }
+    }
+    Ok(toml::Value::Table(valid).try_into()?)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -232,6 +261,28 @@ mod tests {
             preferences_file_path: None,
             preferences,
         }
+    }
+
+    #[test]
+    fn an_invalid_value_only_resets_that_preference() {
+        let preferences = parse_preferences(
+            "enable_notifications = false\n\
+             request_interval_secs_v3 = \"fast\"\n\
+             window_width = 700\n\
+             no_duplicates = 1\n",
+        )
+        .unwrap();
+
+        assert_eq!(preferences.enable_notifications, Some(false));
+        assert_eq!(preferences.window_width, Some(700));
+        // The two invalid values fall back to their defaults
+        assert_eq!(preferences.request_interval_secs_v3, Some(8));
+        assert_eq!(preferences.no_duplicates, Some(false));
+    }
+
+    #[test]
+    fn a_file_that_is_not_toml_is_still_an_error() {
+        assert!(parse_preferences("enable_notifications = = true").is_err());
     }
 
     #[test]
