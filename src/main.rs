@@ -347,7 +347,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     match i18n_folder {
         Some(path) => {
-            debug!("Translations folder found at: {}", path.to_str().unwrap());
+            debug!("Translations folder found at: {}", path.display());
         }
         None => {
             debug!("Translations folder set to system default");
