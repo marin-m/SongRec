@@ -102,7 +102,10 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
         let audio_dev_name = parameters.audio_device.as_ref().map(|dev| dev.to_string());
         let input_file_name = parameters.input_file.as_ref().map(|dev| dev.to_string());
 
-        if let Some(ref filename) = parameters.input_file {
+        // `--list-devices` lists the devices and quits, even with a file
+        if let Some(ref filename) = parameters.input_file
+            && !parameters.list_devices
+        {
             processing_tx
                 .try_send(ProcessingMessage::ProcessAudioFile(filename.to_string()))
                 .unwrap();
@@ -114,7 +117,7 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
             match gui_message {
                 GUIMessage::DevicesList(device_names) => {
                     // no need to start a microphone if recognizing from file
-                    if input_file_name.is_some() {
+                    if input_file_name.is_some() && !parameters.list_devices {
                         continue;
                     }
                     for device in device_names.iter() {
