@@ -10,7 +10,7 @@ use std::process::Command;
 /// This function used to decode a file with FFMpeg, if it is installed on
 /// the system, in the case where Rodio can't decode the concerned format
 /// (for example with .WMA, .M4A, etc.).
-pub fn decode_with_ffmpeg(file_path: &str) -> Option<rodio::Decoder<BufReader<std::fs::File>>> {
+pub fn decode_with_ffmpeg(file_path: &Path) -> Option<rodio::Decoder<BufReader<std::fs::File>>> {
     // Find the path for FFMpeg, in the case where it is installed
 
     // Paths are kept as `Path`, as the directory of SongRec may not be UTF-8
@@ -96,10 +96,11 @@ pub fn decode_with_ffmpeg(file_path: &str) -> Option<rodio::Decoder<BufReader<st
     None
 }
 
-/// The FFMpeg command converting FILE_PATH to a .WAV file at SINK_PATH
-fn ffmpeg_command(ffmpeg_path: &Path, file_path: &str, sink_path: &Path) -> Command {
+/// The FFMpeg command converting FILE_PATH to a .WAV file at SINK_PATH. Paths
+/// are passed as they are, as they may not be UTF-8 on Linux
+fn ffmpeg_command(ffmpeg_path: &Path, file_path: &Path, sink_path: &Path) -> Command {
     let mut command = Command::new(ffmpeg_path);
-    command.args(["-y", "-i", file_path]).arg(sink_path);
+    command.args(["-y", "-i"]).arg(file_path).arg(sink_path);
     command
 }
 
@@ -115,7 +116,9 @@ mod tests {
         let sink_path = Path::new(OsStr::from_bytes(b"/tmp/caf\xe9/sink.wav"));
         let ffmpeg_path = Path::new(OsStr::from_bytes(b"/opt/caf\xe9/ffmpeg"));
 
-        let command = ffmpeg_command(ffmpeg_path, "input.m4a", sink_path);
+        let input_path = Path::new(OsStr::from_bytes(b"/home/caf\xe9/input.m4a"));
+
+        let command = ffmpeg_command(ffmpeg_path, input_path, sink_path);
 
         assert_eq!(command.get_program(), ffmpeg_path.as_os_str());
         assert_eq!(
@@ -123,7 +126,7 @@ mod tests {
             [
                 OsStr::new("-y"),
                 OsStr::new("-i"),
-                OsStr::new("input.m4a"),
+                input_path.as_os_str(),
                 sink_path.as_os_str()
             ]
         );

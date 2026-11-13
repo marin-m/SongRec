@@ -5,6 +5,7 @@ use rustfft::num_complex::Complex;
 use rustfft::num_traits::Zero;
 use std::error::Error;
 use std::io::BufReader;
+use std::path::Path;
 
 use crate::core::fingerprinting::hanning::HANNING_WINDOW_2048_MULTIPLIERS;
 use crate::core::fingerprinting::signature_format::{
@@ -60,7 +61,7 @@ pub struct SignatureGenerator {
 }
 
 impl SignatureGenerator {
-    pub fn make_signature_from_file(file_path: &str) -> Result<DecodedSignature, Box<dyn Error>> {
+    pub fn make_signature_from_file(file_path: &Path) -> Result<DecodedSignature, Box<dyn Error>> {
         // Decode the .WAV, .MP3, .OGG or .FLAC file
 
         #[cfg(not(feature = "ffmpeg"))]

@@ -45,7 +45,7 @@ use std::os::windows::process::CommandExt;
 pub fn gui_main(
     log_object: Logging,
     recording: bool,
-    input_file: Option<String>,
+    input_file: Option<std::path::PathBuf>,
     enable_mpris_cli: bool,
     enable_pipewire_cli: bool,
 ) -> Result<(), Box<dyn Error>> {
@@ -198,7 +198,7 @@ impl App {
         set_recording: bool,
         enable_mpris_cli: bool,
         enable_pipewire_cli: bool,
-        input_file: Option<String>,
+        input_file: Option<std::path::PathBuf>,
     ) {
         let application = adw::Application::new(
             glib::prgname().as_deref(), // Set the DBus ID of the program.
@@ -217,10 +217,8 @@ impl App {
         application.connect_open(move |_application, files, _hint| {
             if !files.is_empty() {
                 if let Some(file_path) = files[0].path() {
-                    let file_path_string = file_path.into_os_string().into_string().unwrap();
-
                     processing_tx
-                        .try_send(ProcessingMessage::ProcessAudioFile(file_path_string))
+                        .try_send(ProcessingMessage::ProcessAudioFile(file_path))
                         .unwrap();
                 }
             }
@@ -251,8 +249,11 @@ impl App {
             );
         });
 
-        if let Some(input_file_string) = input_file {
-            application.run_with_args(&["songrec".to_string(), input_file_string]);
+        if let Some(input_file) = input_file {
+            // GApplication takes its arguments as strings: a file URI keeps
+            // paths that aren't UTF-8, and `open` gets the same file back
+            let input_file_uri = gio::File::for_path(input_file).uri().to_string();
+            application.run_with_args(&["songrec".to_string(), input_file_uri]);
         } else {
             application.run_with_args(&["songrec".to_string()]);
         }
@@ -1468,13 +1469,17 @@ impl App {
                     move |file| match file {
                         Ok(gio_file) => {
                             info!("Picked file: {:?}", gio_file.path());
-                            let path_str = gio_file.path().unwrap().to_string_lossy().into_owned();
+                            // A file that has no local path can't be decoded
+                            let Some(path) = gio_file.path() else {
+                                error!("Error picking file: {} has no local path", gio_file.uri());
+                                return;
+                            };
 
                             recognize_file_row.set_sensitive(false);
                             spinner_row.set_visible(true);
 
                             processing_tx
-                                .try_send(ProcessingMessage::ProcessAudioFile(path_str))
+                                .try_send(ProcessingMessage::ProcessAudioFile(path))
                                 .unwrap();
                         }
                         Err(error) => {

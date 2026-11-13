@@ -75,7 +75,7 @@ pub enum MicrophoneMessage {
 }
 
 pub enum ProcessingMessage {
-    ProcessAudioFile(String),
+    ProcessAudioFile(std::path::PathBuf),
     ProcessAudioSamples(Vec<f32>), // Prefer to use heap across threads to avoid stack overflow
 }
 
