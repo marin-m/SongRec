@@ -584,7 +584,7 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
     </property>
     <property name="default-height">570</property>
     <property name="default-width">977</property>
-    <property name="icon-name">re.fossplant.songrec</property>
+    <property name="icon-name">re.fossplant.songrec-rainbow</property>
     <property name="startup-id">re.fossplant.songrec</property>
     <property name="title">SongRec</property>
     <child>
@@ -618,7 +618,7 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
     </section>
   </menu>
   <object class="AdwAboutDialog" id="about_dialog">
-    <property name="application-icon">custom_icon</property>
+    <property name="application-icon">re.fossplant.songrec-rainbow</property>
     <property name="application-name">SongRec</property>
     <property name="debug-info-filename">songrec-debug-info.txt</property>
     <property name="developer-name">Marin Moulinier - Fossplant.re</property>
