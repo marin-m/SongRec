@@ -183,6 +183,7 @@ SongRec {version}
                 )
                 .arg(
                     Arg::new("input_file")
+                        .value_parser(clap::value_parser!(std::path::PathBuf))
                         .required(false)
                         .help(gettext("Recognize a file instead of using mic input"))
                 )
@@ -192,6 +193,7 @@ SongRec {version}
                 .about(gettext("Generate a Shazam fingerprint from a sound file, perform song recognition towards Shazam's servers and print obtained information to the standard output."))
                 .arg(
                     Arg::new("input_file")
+                        .value_parser(clap::value_parser!(std::path::PathBuf))
                         .required(true)
                         .help(gettext("The audio file to recognize."))
                 )
@@ -226,6 +228,7 @@ SongRec {version}
                 .about(gettext("Generate a Shazam fingerprint from a sound file, and print it to the standard output."))
                 .arg(
                     Arg::new("input_file")
+                        .value_parser(clap::value_parser!(std::path::PathBuf))
                         .required(true)
                         .help(gettext("The .WAV or .MP3 file to generate an audio fingerprint for."))
                 )
@@ -251,6 +254,7 @@ macro_rules! gui_app {
                 .about(gettext("The default action. Display a GUI."))
                 .arg(
                     Arg::new("input_file")
+                        .value_parser(clap::value_parser!(std::path::PathBuf))
                         .required(false)
                         .help(gettext("An optional audio file to recognize on the launch of the application."))
                 )
@@ -272,6 +276,7 @@ macro_rules! gui_app {
                 .about(gettext("Launch the GUI, but don't recognize audio through the microphone as soon as it is launched (rather than expecting the user to click on a button)."))
                 .arg(
                     Arg::new("input_file")
+                        .value_parser(clap::value_parser!(std::path::PathBuf))
                         .required(false)
                         .help(gettext("An optional audio file to recognize on the launch of the application."))
                 )
@@ -369,7 +374,9 @@ fn main() -> Result<(), Box<dyn Error>> {
                 .subcommand_matches("audio-file-to-recognized-song")
                 .unwrap();
 
-            let input_file_string = subcommand_args.get_one::<String>("input_file").unwrap();
+            let input_file_string = subcommand_args
+                .get_one::<std::path::PathBuf>("input_file")
+                .unwrap();
 
             print_recognized_song(&SignatureGenerator::make_signature_from_file(
                 input_file_string,
@@ -380,7 +387,9 @@ fn main() -> Result<(), Box<dyn Error>> {
                 .subcommand_matches("audio-file-to-fingerprint")
                 .unwrap();
 
-            let input_file_string = subcommand_args.get_one::<String>("input_file").unwrap();
+            let input_file_string = subcommand_args
+                .get_one::<std::path::PathBuf>("input_file")
+                .unwrap();
 
             println!(
                 "{}",
@@ -432,7 +441,9 @@ fn main() -> Result<(), Box<dyn Error>> {
             let list_devices = subcommand_args.get_flag("list-devices");
             let audio_device = subcommand_args.get_one::<String>("audio-device").cloned();
             let request_interval = *subcommand_args.get_one::<u64>("request-interval").unwrap();
-            let input_file = subcommand_args.get_one::<String>("input_file").cloned();
+            let input_file = subcommand_args
+                .get_one::<std::path::PathBuf>("input_file")
+                .cloned();
             let enable_json = subcommand_args.get_flag("json");
             let enable_csv = subcommand_args.get_flag("csv");
 
@@ -478,7 +489,9 @@ fn main() -> Result<(), Box<dyn Error>> {
             gui_main(
                 log_object,
                 false,
-                subcommand_args.get_one::<String>("input_file").cloned(),
+                subcommand_args
+                    .get_one::<std::path::PathBuf>("input_file")
+                    .cloned(),
                 !subcommand_args.get_flag("disable-mpris"),
                 !subcommand_args.get_flag("disable-pipewire"),
             )?;
@@ -489,7 +502,9 @@ fn main() -> Result<(), Box<dyn Error>> {
                 gui_main(
                     log_object,
                     true,
-                    subcommand_args.get_one::<String>("input_file").cloned(),
+                    subcommand_args
+                        .get_one::<std::path::PathBuf>("input_file")
+                        .cloned(),
                     !subcommand_args.get_flag("disable-mpris"),
                     !subcommand_args.get_flag("disable-pipewire"),
                 )?;
@@ -535,6 +550,34 @@ mod tests {
             assert_eq!(request_interval(subcommand, "30").unwrap(), 30);
             let error = request_interval(subcommand, "0").unwrap_err();
             assert_eq!(error.kind(), clap::error::ErrorKind::ValueValidation);
+        }
+    }
+
+    #[cfg(unix)]
+    #[test]
+    fn input_files_can_have_paths_that_are_not_utf8() {
+        use std::ffi::OsStr;
+        use std::os::unix::ffi::OsStrExt;
+        use std::path::PathBuf;
+
+        let path = OsStr::from_bytes(b"/tmp/caf\xe9.m4a");
+        for subcommand in [
+            "recognize",
+            "audio-file-to-recognized-song",
+            "audio-file-to-fingerprint",
+        ] {
+            let args = app!()
+                .try_get_matches_from([OsStr::new("songrec"), OsStr::new(subcommand), path])
+                .unwrap();
+            assert_eq!(
+                args.subcommand_matches(subcommand)
+                    .unwrap()
+                    .get_one::<PathBuf>("input_file")
+                    .unwrap()
+                    .as_os_str(),
+                path,
+                "{subcommand}"
+            );
         }
     }
 }

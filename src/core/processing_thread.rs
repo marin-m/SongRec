@@ -9,8 +9,8 @@ pub fn processing_thread(
 ) {
     while let Ok(message) = processing_rx.recv_blocking() {
         let signature = match message {
-            ProcessAudioFile(input_file_string) => {
-                SignatureGenerator::make_signature_from_file(&input_file_string)
+            ProcessAudioFile(input_file) => {
+                SignatureGenerator::make_signature_from_file(&input_file)
             }
             ProcessAudioSamples(audio_samples) => Ok(
                 SignatureGenerator::make_signature_from_buffer(&audio_samples),

@@ -33,7 +33,7 @@ pub struct CLIParameters {
     pub recognize_once: bool,
     pub audio_device: Option<String>,
     pub request_interval: u64,
-    pub input_file: Option<String>,
+    pub input_file: Option<std::path::PathBuf>,
     pub output_type: CLIOutputType,
 }
 
@@ -100,14 +100,14 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
         let mut last_track: Option<String> = None;
 
         let audio_dev_name = parameters.audio_device.as_ref().map(|dev| dev.to_string());
-        let input_file_name = parameters.input_file.as_ref().map(|dev| dev.to_string());
+        let input_file_name = parameters.input_file.clone();
 
         // `--list-devices` lists the devices and quits, even with a file
         if let Some(ref filename) = parameters.input_file
             && !parameters.list_devices
         {
             processing_tx
-                .try_send(ProcessingMessage::ProcessAudioFile(filename.to_string()))
+                .try_send(ProcessingMessage::ProcessAudioFile(filename.clone()))
                 .unwrap();
         }
 
