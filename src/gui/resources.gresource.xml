@@ -11,5 +11,6 @@
     <file compressed="true" alias="re.fossplant.songrec.png">custom_icon.png</file>
     <file compressed="true" alias="256x256/apps/re.fossplant.songrec.png">custom_icon.png</file>
     <file compressed="true">custom_icon.png</file>
+    <file compressed="true">tray_icon.raw</file>
   </gresource>
 </gresources>

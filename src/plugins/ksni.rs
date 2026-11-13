@@ -17,7 +17,13 @@ impl ksni::Tray for SystrayInterface {
         vec![ksni::Icon {
             width: 256,
             height: 256,
-            data: include_bytes!("../gui/tray_icon.raw").to_vec(),
+            data: gio::resources_lookup_data(
+                "/re/fossplant/songrec/tray_icon.raw",
+                gio::ResourceLookupFlags::NONE,
+            )
+            .unwrap()
+            .into_data()
+            .to_vec(),
         }]
     }
     fn activate(&mut self, _x: i32, _y: i32) {
