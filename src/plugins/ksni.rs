@@ -1,6 +1,5 @@
 use crate::core::thread_messages::GUIMessage;
 use gettextrs::gettext;
-use image::GenericImageView;
 use ksni::TrayMethods;
 
 pub struct SystrayInterface {
@@ -15,23 +14,10 @@ impl ksni::Tray for SystrayInterface {
         "re.fossplant.songrec".into()
     } */
     fn icon_pixmap(&self) -> Vec<ksni::Icon> {
-        let img = image::load_from_memory_with_format(
-            include_bytes!(
-                "../../packaging/rootfs/usr/share/icons/hicolor/256x256/re.fossplant.songrec.png"
-            ),
-            image::ImageFormat::Png,
-        )
-        .unwrap();
-        let (width, height) = img.dimensions();
-        let mut data = img.into_rgba8().into_vec();
-        assert_eq!(data.len() % 4, 0);
-        for pixel in data.as_chunks_mut::<4>().0 {
-            pixel.rotate_right(1) // rgba to argb
-        }
         vec![ksni::Icon {
-            width: width as i32,
-            height: height as i32,
-            data,
+            width: 256,
+            height: 256,
+            data: include_bytes!("../gui/tray_icon.raw").to_vec(),
         }]
     }
     fn activate(&mut self, _x: i32, _y: i32) {

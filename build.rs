@@ -342,6 +342,27 @@ troubleshoot the error"
         }
     }
 
+    // Prebuild the KSNI ARGB8-BE tray icon from PNG
+
+    let out_path = std::path::PathBuf::from(".")
+        .join("src")
+        .join("gui")
+        .join("tray_icon.raw");
+
+    let img = image::load_from_memory_with_format(
+        include_bytes!("packaging/rootfs/usr/share/icons/hicolor/256x256/re.fossplant.songrec.png"),
+        image::ImageFormat::Png,
+    )
+    .unwrap();
+    let mut data = img.into_rgba8().into_vec();
+    assert_eq!(data.len() % 4, 0);
+    for pixel in data.as_chunks_mut::<4>().0 {
+        pixel.rotate_right(1) // rgba to argb
+    }
+
+    let mut out_file = std::fs::File::create(out_path).unwrap();
+    out_file.write_all(&data).unwrap();
+
     // Mode the modified or added man pages to the source tree
 
     for in_path in std::fs::read_dir(temp_out_dir.path()).unwrap() {
