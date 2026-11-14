@@ -17,6 +17,20 @@ use crate::core::preferences::PreferencesInterface;
 use crate::gui::history_entry::HistoryEntry;
 use crate::gui::song_history_interface::{RecognitionHistoryInterface, SongRecordInterface};
 
+/// The URL searching SONG_NAME on the website set in the preferences, or on
+/// YouTube when none is set. A search URL field that was emptied in the
+/// preferences counts as unset, as appending the song to an empty string
+/// gives a URL that can't be opened.
+pub fn website_search_url_for(custom_search_url: Option<&str>, song_name: &str) -> String {
+    let search_url = custom_search_url
+        .filter(|url| !url.trim().is_empty())
+        .unwrap_or("https://www.youtube.com/results?search_query=");
+    let encoded_search_term = utf8_percent_encode(song_name, NON_ALPHANUMERIC)
+        .to_string()
+        .replace("%20", "+");
+    format!("{}{}", search_url, encoded_search_term)
+}
+
 pub struct ContextMenuUtil;
 
 impl ContextMenuUtil {
@@ -226,23 +240,14 @@ impl ContextMenuUtil {
                 window,
                 move |_, _, _| {
                     if let Some(entry) = &*item.borrow() {
-                        let results_label = entry.song_name();
-
-                        let mut encoded_search_term =
-                            utf8_percent_encode(results_label.as_str(), NON_ALPHANUMERIC)
-                                .to_string();
-                        encoded_search_term = encoded_search_term.replace("%20", "+");
-
                         let website_search_url = {
                             let lock = preferences.lock().unwrap();
                             lock.preferences.website_search_url.clone()
                         };
-
-                        // If a custom search URL was provided, use it instead of YouTube;
-                        // attach the search term at the end of the provided string.
-                        let mut search_url = website_search_url
-                            .unwrap_or("https://www.youtube.com/results?search_query=".to_string());
-                        search_url = format!("{}{}", search_url, encoded_search_term);
+                        let search_url = website_search_url_for(
+                            website_search_url.as_deref(),
+                            &entry.song_name(),
+                        );
 
                         glib::spawn_future_local(async move {
                             info!("Launching URL: {}", search_url);
@@ -316,4 +321,24 @@ impl ContextMenuUtil {
     // https://github.com/shartrec/kelpie-flight-planner/blob/a5575a5/src/window/airport_view.rs#L266 (right click)
     // https://github.com/shartrec/kelpie-flight-planner/blob/a5575a5/src/window/airport_view.rs#L349 (context menu key)
     // https://discourse.gnome.org/t/adding-a-context-menu-to-a-listview-using-gtk4-rs/19995/5
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn songs_are_searched_on_youtube_unless_a_search_url_is_set() {
+        let youtube = "https://www.youtube.com/results?search_query=Artist+%2D+Title%21";
+        assert_eq!(website_search_url_for(None, "Artist - Title!"), youtube);
+        assert_eq!(website_search_url_for(Some(""), "Artist - Title!"), youtube);
+        assert_eq!(
+            website_search_url_for(Some("  "), "Artist - Title!"),
+            youtube
+        );
+        assert_eq!(
+            website_search_url_for(Some("https://example.com/?q="), "Artist - Title!"),
+            "https://example.com/?q=Artist+%2D+Title%21"
+        );
+    }
 }

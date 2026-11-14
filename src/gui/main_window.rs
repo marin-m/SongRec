@@ -8,7 +8,6 @@ use gettextrs::gettext;
 use log::{debug, error, info, trace};
 #[cfg(all(target_os = "linux", feature = "mpris"))]
 use mpris_server::PlaybackStatus;
-use percent_encoding::{NON_ALPHANUMERIC, utf8_percent_encode};
 use serde_json::json;
 use std::cell::RefCell;
 use std::error::Error;
@@ -35,7 +34,7 @@ use crate::utils::filesystem_operations::{
 
 use crate::core::preferences::{Preferences, PreferencesInterface};
 
-use crate::gui::context_menu::ContextMenuUtil;
+use crate::gui::context_menu::{ContextMenuUtil, website_search_url_for};
 use crate::gui::history_entry::HistoryEntry;
 use crate::gui::listed_device::ListedDevice;
 
@@ -1503,22 +1502,12 @@ impl App {
             .activate(move |window: &adw::ApplicationWindow, _, _| {
                 let window = window.clone();
 
-                let results_label = results_label.text();
-
-                let mut encoded_search_term =
-                    utf8_percent_encode(results_label.as_str(), NON_ALPHANUMERIC).to_string();
-                encoded_search_term = encoded_search_term.replace("%20", "+");
-
                 let website_search_url = {
                     let lock = preferences_interface_ptr.lock().unwrap();
                     lock.preferences.website_search_url.clone()
                 };
-
-                // If a custom search URL was provided, use it instead of YouTube;
-                // attach the search term at the end of the provided string.
-                let mut search_url = website_search_url
-                    .unwrap_or("https://www.youtube.com/results?search_query=".to_string());
-                search_url = format!("{}{}", search_url, encoded_search_term);
+                let search_url =
+                    website_search_url_for(website_search_url.as_deref(), &results_label.text());
 
                 glib::spawn_future_local(async move {
                     info!("Launching URL: {}", search_url);
