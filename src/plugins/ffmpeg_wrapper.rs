@@ -52,9 +52,7 @@ pub fn decode_with_ffmpeg(file_path: &Path) -> Option<rodio::Decoder<BufReader<s
     if let Some(ffmpeg_path) = actual_ffmpeg_path {
         // Create a sink file for FFMpeg
 
-        let sink_file = tempfile::Builder::new().suffix(".wav").tempfile().unwrap();
-
-        let sink_file_path = sink_file.into_temp_path();
+        let sink_file_path = create_sink_file(&std::env::temp_dir())?;
 
         // Try to convert the input video or audio file to a standard
         // .WAV s16le PCM file using FFMpeg, and pass it to Rodio
@@ -96,12 +94,51 @@ pub fn decode_with_ffmpeg(file_path: &Path) -> Option<rodio::Decoder<BufReader<s
     None
 }
 
+/// A temporary .WAV file in DIRECTORY for FFMpeg to write to. The directory
+/// may be missing or read-only (a wrong TMPDIR, for example), in which case
+/// the error is logged and the file is reported as not decodable, instead of
+/// panicking in the processing thread, which would leave the CLI waiting.
+fn create_sink_file(directory: &Path) -> Option<tempfile::TempPath> {
+    match tempfile::Builder::new()
+        .suffix(".wav")
+        .tempfile_in(directory)
+    {
+        Ok(sink_file) => Some(sink_file.into_temp_path()),
+        Err(error) => {
+            error!(
+                "Could not create a temporary file for ffmpeg in {}: {}",
+                directory.display(),
+                error
+            );
+            None
+        }
+    }
+}
+
 /// The FFMpeg command converting FILE_PATH to a .WAV file at SINK_PATH. Paths
 /// are passed as they are, as they may not be UTF-8 on Linux
 fn ffmpeg_command(ffmpeg_path: &Path, file_path: &Path, sink_path: &Path) -> Command {
     let mut command = Command::new(ffmpeg_path);
     command.args(["-y", "-i"]).arg(file_path).arg(sink_path);
     command
+}
+
+#[cfg(test)]
+mod sink_file_tests {
+    use super::*;
+
+    #[test]
+    fn a_missing_temporary_directory_is_reported_instead_of_panicking() {
+        let missing = std::env::temp_dir().join(format!(
+            "songrec-missing-tmpdir-{}/nested",
+            std::process::id()
+        ));
+        assert!(create_sink_file(&missing).is_none());
+
+        let sink = create_sink_file(&std::env::temp_dir()).unwrap();
+        assert!(sink.exists());
+        assert_eq!(sink.extension(), Some(std::ffi::OsStr::new("wav")));
+    }
 }
 
 #[cfg(all(test, unix))]
