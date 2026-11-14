@@ -17,6 +17,12 @@ use crate::core::preferences::PreferencesInterface;
 use crate::gui::history_entry::HistoryEntry;
 use crate::gui::song_history_interface::{RecognitionHistoryInterface, SongRecordInterface};
 
+/// Whether the pressed key is the copy shortcut: Ctrl+C, or Cmd+C on macOS
+pub fn is_copy_shortcut(key: Key, modifier: ModifierType) -> bool {
+    (key == Key::C || key == Key::c)
+        && modifier.intersects(ModifierType::CONTROL_MASK | ModifierType::META_MASK)
+}
+
 /// The URL searching SONG_NAME on the website set in the preferences, or on
 /// YouTube when none is set. A search URL field that was emptied in the
 /// preferences counts as unset, as appending the song to an empty string
@@ -143,18 +149,17 @@ impl ContextMenuUtil {
                         popover_menu.popup();
                     }
                     Propagation::Stop
-                } else if (key_val == Key::C || key_val == Key::c)
-                    && (modifier.contains(ModifierType::CONTROL_MASK)
-                        || modifier.contains(ModifierType::META_MASK))
+                } else if is_copy_shortcut(key_val, modifier)
+                    && let Some(record) = selection.selected_item()
                 {
-                    if let Some(display) = gdk::Display::default()
-                        && let Some(record) = selection.selected_item()
-                    {
+                    if let Some(display) = gdk::Display::default() {
                         let record = record.downcast::<HistoryEntry>().unwrap();
                         display.clipboard().set(&record.song_name());
                     }
                     Propagation::Stop
                 } else {
+                    // With no row selected, let the window copy the last
+                    // recognized song instead
                     Propagation::Proceed
                 }
             }
@@ -317,6 +322,36 @@ impl ContextMenuUtil {
         window.insert_action_group("history-menu", Some(&actions));
     }
 
+    /// Copy the last recognized song with the copy shortcut when the key
+    /// press wasn't handled by a focused widget (a selected history or
+    /// favorites row, a text selection or a text field)
+    pub fn connect_copy_recognized_song(
+        window: adw::ApplicationWindow,
+        results_section: adw::PreferencesGroup,
+        results_label: gtk::Label,
+    ) {
+        let controller = gtk::EventControllerKey::new();
+
+        controller.connect_key_pressed(clone!(
+            #[weak]
+            results_section,
+            #[weak]
+            results_label,
+            #[upgrade_or]
+            Propagation::Proceed,
+            move |_event, key_val, _key_code, modifier| {
+                if !is_copy_shortcut(key_val, modifier) || !results_section.is_visible() {
+                    return Propagation::Proceed;
+                }
+                if let Some(display) = gdk::Display::default() {
+                    display.clipboard().set(&results_label.text().as_str());
+                }
+                Propagation::Stop
+            }
+        ));
+        window.add_controller(controller);
+    }
+
     // See:
     // https://github.com/shartrec/kelpie-flight-planner/blob/a5575a5/src/window/airport_view.rs#L266 (right click)
     // https://github.com/shartrec/kelpie-flight-planner/blob/a5575a5/src/window/airport_view.rs#L349 (context menu key)
@@ -326,6 +361,23 @@ impl ContextMenuUtil {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn ctrl_c_and_cmd_c_are_the_copy_shortcut() {
+        for key in [Key::c, Key::C] {
+            assert!(is_copy_shortcut(key, ModifierType::CONTROL_MASK));
+            assert!(is_copy_shortcut(key, ModifierType::META_MASK));
+            assert!(is_copy_shortcut(
+                key,
+                ModifierType::CONTROL_MASK | ModifierType::SHIFT_MASK
+            ));
+            assert!(!is_copy_shortcut(key, ModifierType::empty()));
+            assert!(!is_copy_shortcut(key, ModifierType::SHIFT_MASK));
+            assert!(!is_copy_shortcut(key, ModifierType::ALT_MASK));
+        }
+        assert!(!is_copy_shortcut(Key::v, ModifierType::CONTROL_MASK));
+        assert!(!is_copy_shortcut(Key::x, ModifierType::META_MASK));
+    }
 
     #[test]
     fn songs_are_searched_on_youtube_unless_a_search_url_is_set() {
