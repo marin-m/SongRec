@@ -42,6 +42,16 @@ use crate::gui::listed_device::ListedDevice;
 #[cfg(windows)]
 use std::os::windows::process::CommandExt;
 
+/// Whether MESSAGE is the answer to a recognition request, after which the
+/// "Recognize from file" button can be used again. When Shazam answers 429,
+/// the HTTP task sends only `RateLimitState(true)`.
+fn ends_file_recognition(message: &GUIMessage) -> bool {
+    matches!(
+        message,
+        ErrorMessage(_) | NetworkStatus(_) | SongRecognized(_) | RateLimitState(true)
+    )
+}
+
 pub fn gui_main(
     log_object: Logging,
     recording: bool,
@@ -1059,12 +1069,9 @@ impl App {
                         debug!("Received GUI message: {:?}", gui_message);
                     }
 
-                    match gui_message {
-                        ErrorMessage(_) | NetworkStatus(_) | SongRecognized(_) => {
-                            recognize_file_row.set_sensitive(true);
-                            spinner_row.set_visible(false);
-                        }
-                        _ => {}
+                    if ends_file_recognition(&gui_message) {
+                        recognize_file_row.set_sensitive(true);
+                        spinner_row.set_visible(false);
                     }
 
                     match gui_message {
@@ -1972,5 +1979,18 @@ mod tests {
 
         assert_eq!(command.get_program(), "explorer.exe");
         assert_eq!(command.get_args().collect::<Vec<_>>(), [path.as_os_str()]);
+    }
+
+    #[test]
+    fn file_recognition_ends_on_every_answer_including_rate_limiting() {
+        assert!(ends_file_recognition(&ErrorMessage("error".to_string())));
+        assert!(ends_file_recognition(&NetworkStatus(false)));
+        assert!(ends_file_recognition(&NetworkStatus(true)));
+        assert!(ends_file_recognition(&RateLimitState(true)));
+
+        // Sent along with the answers above, or by the microphone thread
+        assert!(!ends_file_recognition(&RateLimitState(false)));
+        assert!(!ends_file_recognition(&MicrophoneRecording));
+        assert!(!ends_file_recognition(&MicrophoneVolumePercent(0.0)));
     }
 }
