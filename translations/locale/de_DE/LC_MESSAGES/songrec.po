@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-13 23:33+0100\n"
+"POT-Creation-Date: 2026-11-14 17:16+0100\n"
 "PO-Revision-Date: 2022-10-09 13:27+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -43,17 +43,22 @@ msgstr "Fehler: Netzwerk nicht erreichbar"
 msgid "Warning: Network unreachable"
 msgstr "Warnung: Netzwerk nicht erreichbar"
 
-#: src/cli_main.rs:184 src/core/http_task.rs:54 src/core/http_task.rs:63
-#: src/core/http_task.rs:72 src/core/http_task.rs:123
-#: src/gui/main_window.rs:1113 src/gui/main_window.rs:1125
-msgid "No match for this song"
-msgstr "Keine Übereinstimmung für dieses Lied"
-
-#: src/cli_main.rs:185 src/cli_main.rs:216
+#: src/cli_main.rs:189 src/cli_main.rs:200 src/cli_main.rs:231
 msgid "Error:"
 msgstr "Fehler:"
 
-#: src/cli_main.rs:193
+#: src/cli_main.rs:190 src/cli_main.rs:195 src/core/http_task.rs:130
+#: src/core/fingerprinting/communication.rs:134
+msgid "Your IP has been rate-limited"
+msgstr ""
+
+#: src/cli_main.rs:199 src/core/http_task.rs:54 src/core/http_task.rs:63
+#: src/core/http_task.rs:72 src/core/http_task.rs:123
+#: src/gui/main_window.rs:1119 src/gui/main_window.rs:1131
+msgid "No match for this song"
+msgstr "Keine Übereinstimmung für dieses Lied"
+
+#: src/cli_main.rs:208
 msgid "Recording started!"
 msgstr "Aufnahme aktiv!"
 
@@ -187,10 +192,6 @@ msgstr ""
 msgid "Error decoding fingerprint:"
 msgstr ""
 
-#: src/core/http_task.rs:130 src/core/fingerprinting/communication.rs:134
-msgid "Your IP has been rate-limited"
-msgstr ""
-
 #: src/core/microphone_thread.rs:68
 msgid "Audio error:"
 msgstr ""
@@ -200,7 +201,7 @@ msgid "Audio error: No input device available"
 msgstr ""
 
 #: src/core/preferences.rs:76 src/core/preferences.rs:102
-#: src/gui/main_window.rs:316 src/gui/interface.blp:123
+#: src/gui/main_window.rs:325 src/gui/interface.blp:123
 #: src/gui/interface.blp:617 src/gui/interface.blp:667
 msgid "Search on YouTube"
 msgstr "Suche auf Youtube"
@@ -234,46 +235,46 @@ msgstr ""
 msgid "Invalid sample rate passed when encoding Shazam packet"
 msgstr "Ungültige Abtastrate bei der Codierung des Shazam Pakets übergeben"
 
-#: src/gui/main_window.rs:274
+#: src/gui/main_window.rs:283
 msgid "Application error"
 msgstr ""
 
-#: src/gui/main_window.rs:295
+#: src/gui/main_window.rs:304
 msgid "Network error"
 msgstr ""
 
-#: src/gui/main_window.rs:477
+#: src/gui/main_window.rs:486
 msgctxt ""
 "Status of the app displayed in the Background Apps section of GNOME system "
 "menu when using Flatpak"
 msgid "Recognizing songs"
 msgstr ""
 
-#: src/gui/main_window.rs:547
+#: src/gui/main_window.rs:556
 msgid "Unable to enable notification icon"
 msgstr ""
 
-#: src/gui/main_window.rs:1019 src/gui/main_window.rs:1100
+#: src/gui/main_window.rs:1028 src/gui/main_window.rs:1106
 msgid "Unable to enable MPRIS support"
 msgstr "MPRIS Unterstützung kann nicht aktiviert werden"
 
-#: src/gui/main_window.rs:1122
+#: src/gui/main_window.rs:1128
 msgid "_Ok"
 msgstr ""
 
-#: src/gui/main_window.rs:1198
+#: src/gui/main_window.rs:1204
 msgid "Song recognized"
 msgstr "Lied erkannt"
 
-#: src/gui/main_window.rs:1338
+#: src/gui/main_window.rs:1344
 msgid "Are you sure you want to wipe history?"
 msgstr ""
 
-#: src/gui/main_window.rs:1344
+#: src/gui/main_window.rs:1350
 msgid "_Yes"
 msgstr ""
 
-#: src/gui/main_window.rs:1345
+#: src/gui/main_window.rs:1351
 msgid "_Cancel"
 msgstr "_Abbrechen"
 
