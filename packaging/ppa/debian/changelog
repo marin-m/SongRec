@@ -1,3 +1,18 @@
+songrec (0.8.2) bionic; urgency=low
+
+  * Update Slovak translation thanks to @dodog
+  * Update Portuguese translation thanks to @marcelocripe
+  * Add CI for the macOS and MSYS2 targets
+  * Avoid panic on broken output pipe (#209, PR #353)
+  * Don't have the app window briefly show when starting in background mode (#363)
+  * Fix migration from old SongRec versions on Windows (#355, PR #356)
+  * Add GUI option to retain window size across restarts (#160, PR #357)
+  * Fix sanitizing history and preferences files on disk operations (PR #366, #362, #371)
+  * Support for systems with non UTF-8 paths thanks to @HarpeLm
+  * QA, unit tests, safety checks, thanks to @HarpeLm
+
+ -- Marin <marin-m@users.noreply.github.com>  Sat, 14 Nov 2026 05:41:23 +0100
+
 songrec (0.8.1) bionic; urgency=low
 
   * Update Czech translation thanks to @Fjuro
