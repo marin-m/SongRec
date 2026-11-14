@@ -180,6 +180,21 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
                         }
                     }
                 }
+                // The HTTP task sends only this message when Shazam answers
+                // 429, so a file recognition would otherwise wait forever.
+                GUIMessage::RateLimitState(true) => {
+                    if input_file_name.is_some() {
+                        error!(
+                            "{} {}",
+                            gettext("Error:"),
+                            gettext("Your IP has been rate-limited")
+                        );
+                        failed_inner.set(true);
+                        break;
+                    } else {
+                        warn!("{}", gettext("Your IP has been rate-limited"));
+                    }
+                }
                 GUIMessage::ErrorMessage(string) => {
                     if string != gettext("No match for this song") || input_file_name.is_some() {
                         error!("{} {}", gettext("Error:"), string);
