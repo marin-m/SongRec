@@ -162,6 +162,46 @@ pub fn write_atomically(
     Ok(())
 }
 
+/// The audio file that a command line subcommand reads: the given file, or a
+/// temporary copy of the standard input when the file is `-`. The decoders
+/// seek in their input, which a pipe doesn't allow, hence the copy.
+pub struct AudioInput {
+    path: PathBuf,
+    // Deletes the copy of the standard input when dropped
+    _stdin_copy: Option<tempfile::TempPath>,
+}
+
+impl AudioInput {
+    pub fn new(input_file: &Path) -> std::io::Result<AudioInput> {
+        if input_file != Path::new("-") {
+            return Ok(AudioInput {
+                path: input_file.to_path_buf(),
+                _stdin_copy: None,
+            });
+        }
+        let stdin_copy = copy_to_temp_file(std::io::stdin().lock(), &std::env::temp_dir())?;
+        Ok(AudioInput {
+            path: stdin_copy.to_path_buf(),
+            _stdin_copy: Some(stdin_copy),
+        })
+    }
+
+    pub fn path(&self) -> &Path {
+        &self.path
+    }
+}
+
+fn copy_to_temp_file(
+    mut reader: impl std::io::Read,
+    directory: &Path,
+) -> std::io::Result<tempfile::TempPath> {
+    let mut file = tempfile::Builder::new()
+        .prefix("songrec-stdin-")
+        .tempfile_in(directory)?;
+    std::io::copy(&mut reader, &mut file)?;
+    Ok(file.into_temp_path())
+}
+
 // Backwards compatibility
 fn get_old_data_dir_path() -> Result<PathBuf, Box<dyn Error>> {
     let app_info = AppInfo {
@@ -371,6 +411,39 @@ mod tests {
         let data_dir = root.join("SongRec");
 
         assert!(copy_directory_contents(&root.join("missing"), &data_dir).is_err());
+        fs::remove_dir_all(root).unwrap();
+    }
+
+    #[test]
+    fn audio_inputs_other_than_a_dash_are_read_as_they_are() {
+        let input = AudioInput::new(Path::new("song.mp3")).unwrap();
+        assert_eq!(input.path(), Path::new("song.mp3"));
+        let input = AudioInput::new(Path::new("./-")).unwrap();
+        assert_eq!(input.path(), Path::new("./-"));
+    }
+
+    #[test]
+    fn the_standard_input_copy_holds_all_of_it_and_is_deleted_when_dropped() {
+        let root = scratch_directory("stdin-copy");
+        // Bigger than the buffer of `io::copy`
+        let contents: Vec<u8> = (0..100_000u32).map(|i| i as u8).collect();
+
+        let copy = copy_to_temp_file(&contents[..], &root).unwrap();
+        let path = copy.to_path_buf();
+        assert!(path.starts_with(&root));
+        assert_eq!(fs::read(&path).unwrap(), contents);
+
+        drop(copy);
+        assert!(!path.exists());
+        fs::remove_dir_all(root).unwrap();
+    }
+
+    #[test]
+    fn an_empty_standard_input_gives_an_empty_copy() {
+        let root = scratch_directory("stdin-empty");
+        let copy = copy_to_temp_file(std::io::empty(), &root).unwrap();
+        assert_eq!(fs::read(&copy).unwrap(), b"");
+        drop(copy);
         fs::remove_dir_all(root).unwrap();
     }
 }
