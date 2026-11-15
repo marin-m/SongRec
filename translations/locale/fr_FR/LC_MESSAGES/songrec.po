@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-11-15 08:10+0100\n"
-"PO-Revision-Date: 2026-11-12 14:13+0000\n"
+"PO-Revision-Date: 2026-11-15 10:07+0000\n"
 "Last-Translator: Marin <25437947+marin-m@users.noreply.github.com>\n"
 "Language-Team: French <https://weblate.fossplant.re/projects/songrec/songrec/"
 "fr/>\n"
@@ -252,7 +252,7 @@ msgstr ""
 
 #: src/gui/context_menu.rs:348
 msgid "Song name copied to the clipboard"
-msgstr ""
+msgstr "Nom de la chanson copié dans le presse-papiers"
 
 #: src/gui/main_window.rs:283
 msgid "Application error"
