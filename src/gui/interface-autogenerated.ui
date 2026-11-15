@@ -9,14 +9,14 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
   <object class="AdwApplicationWindow" id="main_window">
     <property name="accessible-role">79</property>
     <property name="content">
-      <object class="AdwToastOverlay" id="toast_overlay">
-        <property name="child">
-          <object class="AdwNavigationView" id="main_window_pages">
-            <child>
-              <object class="AdwNavigationPage" id="main_page">
-                <property name="child">
-                  <object class="AdwToolbarView">
-                    <property name="content">
+      <object class="AdwNavigationView" id="main_window_pages">
+        <child>
+          <object class="AdwNavigationPage" id="main_page">
+            <property name="child">
+              <object class="AdwToolbarView">
+                <property name="content">
+                  <object class="AdwToastOverlay" id="toast_overlay">
+                    <property name="child">
                       <object class="GtkScrolledWindow" id="main_scrollview">
                         <property name="child">
                           <object class="GtkBox" id="layout_box">
@@ -332,258 +332,259 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
                         </property>
                       </object>
                     </property>
-                    <child type="top">
-                      <object class="AdwHeaderBar" id="title_bar">
-                        <child type="end">
-                          <object class="GtkMenuButton" id="menu_button">
-                            <property name="accessible-role">34</property>
-                            <property name="has-tooltip">true</property>
-                            <property name="icon-name">open-menu-symbolic</property>
-                            <property name="menu-model">main_menu_model</property>
-                            <property name="primary">true</property>
-                            <property name="tooltip-text" translatable="yes">Application menu</property>
-                          </object>
-                        </child>
-                      </object>
-                    </child>
-                    <child type="bottom">
-                      <object class="GtkActionBar">
-                        <property name="visible">false</property>
-                        <child>
-                          <object class="GtkButton">
-                            <property name="action-name">navigation.push</property>
-                            <property name="action-target">"settings_tag"</property>
-                            <property name="label">DEBUG: Show preferences</property>
-                          </object>
-                        </child>
+                  </object>
+                </property>
+                <child type="top">
+                  <object class="AdwHeaderBar" id="title_bar">
+                    <child type="end">
+                      <object class="GtkMenuButton" id="menu_button">
+                        <property name="accessible-role">34</property>
+                        <property name="has-tooltip">true</property>
+                        <property name="icon-name">open-menu-symbolic</property>
+                        <property name="menu-model">main_menu_model</property>
+                        <property name="primary">true</property>
+                        <property name="tooltip-text" translatable="yes">Application menu</property>
                       </object>
                     </child>
                   </object>
-                </property>
-                <property name="title">SongRec</property>
+                </child>
+                <child type="bottom">
+                  <object class="GtkActionBar">
+                    <property name="visible">false</property>
+                    <child>
+                      <object class="GtkButton">
+                        <property name="action-name">navigation.push</property>
+                        <property name="action-target">"settings_tag"</property>
+                        <property name="label">DEBUG: Show preferences</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
               </object>
-            </child>
-            <child>
-              <object class="AdwNavigationPage" id="favorites_page">
-                <property name="child">
-                  <object class="AdwToolbarView">
-                    <property name="content">
-                      <object class="GtkScrolledWindow">
-                        <property name="child">favorites_view</property>
+            </property>
+            <property name="tag">main_page</property>
+            <property name="title">SongRec</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwNavigationPage" id="favorites_page">
+            <property name="child">
+              <object class="AdwToolbarView">
+                <property name="content">
+                  <object class="GtkScrolledWindow">
+                    <property name="child">favorites_view</property>
+                    <child>
+                      <object class="GtkColumnView" id="favorites_view">
+                        <property name="accessible-role">26</property>
+                        <property name="css-classes">column_view</property>
+                        <property name="model">
+                          <object class="GtkSingleSelection" id="favorites_selection">
+                            <property name="autoselect">false</property>
+                            <property name="can-unselect">true</property>
+                          </object>
+                        </property>
+                        <property name="show-column-separators">true</property>
+                        <property name="show-row-separators">true</property>
                         <child>
-                          <object class="GtkColumnView" id="favorites_view">
-                            <property name="accessible-role">26</property>
-                            <property name="css-classes">column_view</property>
-                            <property name="model">
-                              <object class="GtkSingleSelection" id="favorites_selection">
-                                <property name="autoselect">false</property>
-                                <property name="can-unselect">true</property>
+                          <object class="GtkColumnViewColumn" id="favorites_song_name_cell">
+                            <property name="factory">
+                              <object class="GtkSignalListItemFactory">
+                                <signal name="bind" handler="history_cell_bind_cb" object="favorites_song_name_cell"/>
+                                <signal name="setup" handler="history_cell_setup_cb" object="favorites_song_name_cell"/>
                               </object>
                             </property>
-                            <property name="show-column-separators">true</property>
-                            <property name="show-row-separators">true</property>
-                            <child>
-                              <object class="GtkColumnViewColumn" id="favorites_song_name_cell">
-                                <property name="factory">
-                                  <object class="GtkSignalListItemFactory">
-                                    <signal name="bind" handler="history_cell_bind_cb" object="favorites_song_name_cell"/>
-                                    <signal name="setup" handler="history_cell_setup_cb" object="favorites_song_name_cell"/>
-                                  </object>
-                                </property>
-                                <property name="id">song_name</property>
-                                <property name="resizable">true</property>
-                                <property name="title" translatable="yes">Song name</property>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkColumnViewColumn" id="favorites_album_cell">
-                                <property name="factory">
-                                  <object class="GtkSignalListItemFactory">
-                                    <signal name="bind" handler="history_cell_bind_cb" object="favorites_album_cell"/>
-                                    <signal name="setup" handler="history_cell_setup_cb" object="favorites_album_cell"/>
-                                  </object>
-                                </property>
-                                <property name="id">album</property>
-                                <property name="resizable">true</property>
-                                <property name="title" translatable="yes">Album</property>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkColumnViewColumn" id="favorites_recognition_date_cell">
-                                <property name="expand">true</property>
-                                <property name="factory">
-                                  <object class="GtkSignalListItemFactory">
-                                    <signal name="bind" handler="history_cell_bind_cb" object="favorites_recognition_date_cell"/>
-                                    <signal name="setup" handler="history_cell_setup_cb" object="favorites_recognition_date_cell"/>
-                                  </object>
-                                </property>
-                                <property name="id">recognition_date</property>
-                                <property name="resizable">true</property>
-                                <property name="title" translatable="yes">Recognition date</property>
-                              </object>
-                            </child>
+                            <property name="id">song_name</property>
+                            <property name="resizable">true</property>
+                            <property name="title" translatable="yes">Song name</property>
                           </object>
                         </child>
-                      </object>
-                    </property>
-                    <child type="top">
-                      <object class="AdwHeaderBar" id="favorites_titlebar"></object>
-                    </child>
-                    <child type="bottom">
-                      <object class="GtkActionBar" id="favorites_actions">
                         <child>
-                          <object class="GtkButton" id="favorites_export_csv">
-                            <property name="action-name">win.export-favorites-to-csv</property>
-                            <child>
-                              <object class="AdwButtonContent">
-                                <property name="icon-name">x-office-spreadsheet-symbolic</property>
-                                <property name="label" translatable="yes">Export to CSV</property>
+                          <object class="GtkColumnViewColumn" id="favorites_album_cell">
+                            <property name="factory">
+                              <object class="GtkSignalListItemFactory">
+                                <signal name="bind" handler="history_cell_bind_cb" object="favorites_album_cell"/>
+                                <signal name="setup" handler="history_cell_setup_cb" object="favorites_album_cell"/>
                               </object>
-                            </child>
+                            </property>
+                            <property name="id">album</property>
+                            <property name="resizable">true</property>
+                            <property name="title" translatable="yes">Album</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkColumnViewColumn" id="favorites_recognition_date_cell">
+                            <property name="expand">true</property>
+                            <property name="factory">
+                              <object class="GtkSignalListItemFactory">
+                                <signal name="bind" handler="history_cell_bind_cb" object="favorites_recognition_date_cell"/>
+                                <signal name="setup" handler="history_cell_setup_cb" object="favorites_recognition_date_cell"/>
+                              </object>
+                            </property>
+                            <property name="id">recognition_date</property>
+                            <property name="resizable">true</property>
+                            <property name="title" translatable="yes">Recognition date</property>
                           </object>
                         </child>
                       </object>
                     </child>
                   </object>
                 </property>
-                <property name="tag">favorites_tag</property>
-                <property name="title" translatable="yes">Favorites</property>
-              </object>
-            </child>
-            <child>
-              <object class="AdwNavigationPage" id="settings_page">
-                <property name="child">
-                  <object class="AdwToolbarView">
-                    <property name="content">
-                      <object class="AdwPreferencesPage">
+                <child type="top">
+                  <object class="AdwHeaderBar" id="favorites_titlebar"></object>
+                </child>
+                <child type="bottom">
+                  <object class="GtkActionBar" id="favorites_actions">
+                    <child>
+                      <object class="GtkButton" id="favorites_export_csv">
+                        <property name="action-name">win.export-favorites-to-csv</property>
                         <child>
-                          <object class="AdwPreferencesGroup" id="general_preferences">
-                            <property name="title" translatable="yes">General preferences</property>
-                            <child>
-                              <object class="AdwSwitchRow" id="notification_setting">
-                                <property name="action-name">win.notification-setting</property>
-                                <property name="subtitle" translatable="yes">Notify when a new song is recognized or network error is encountered</property>
-                                <property name="title" translatable="yes">Show notifications</property>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="AdwSwitchRow" id="no_dupes_setting">
-                                <property name="action-name">win.no-dupes-setting</property>
-                                <property name="subtitle" translatable="yes">Bump a song to the top of the history list and remove the former entry when the same song is detected multiple times</property>
-                                <property name="title" translatable="yes">No duplicates in history</property>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="AdwSwitchRow" id="remember_window_size">
-                                <property name="action-name">win.remember-window-state</property>
-                                <property name="subtitle" translatable="yes">Remember window dimensions and maximized state across restarts</property>
-                                <property name="title" translatable="yes">Remember window size</property>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="AdwSwitchRow" id="mpris_setting">
-                                <property name="action-name">win.mpris-setting</property>
-                                <property name="has-tooltip">true</property>
-                                <property name="subtitle" translatable="yes">MPRIS will display information about recognized songs in places like the GNOME or KDE control panel</property>
-                                <property name="title" translatable="yes">Enable MPRIS</property>
-                                <property name="visible">false</property>
-                              </object>
-                            </child>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="AdwPreferencesGroup" id="background_settings">
-                            <property name="title" translatable="yes">Background settings</property>
-                            <property name="visible">false</property>
-                            <child>
-                              <object class="AdwSwitchRow" id="background_setting">
-                                <property name="action-name">win.background-setting</property>
-                                <property name="subtitle" translatable="yes">When closing the window, minimize to background (as visible under the system menu on GNOME) instead of closing the app.</property>
-                                <property name="title" translatable="yes">Minimize to background</property>
-                                <property name="visible">false</property>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="AdwSwitchRow" id="systray_setting">
-                                <property name="action-name">win.systray-setting</property>
-                                <property name="subtitle" translatable="yes">When closing the window, minimize to system tray using KSNI instead of closing the app. Please note that you may have to increase the "request interval" setting when leaving SongRec running in the background to reduce your changes of getting rate-limited.</property>
-                                <property name="title" translatable="yes">Minimize to system tray</property>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="AdwSwitchRow" id="autostart_setting">
-                                <property name="action-name">win.autostart-setting</property>
-                                <property name="subtitle" translatable="yes">Launch SongRec automatically when launching your desktop session.</property>
-                                <property name="title" translatable="yes">Launch at startup</property>
-                                <property name="visible">false</property>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="AdwSwitchRow" id="start_minimized_setting">
-                                <property name="action-name">win.start-minimized-setting</property>
-                                <property name="subtitle" translatable="yes">Launch the app minimized at startup.</property>
-                                <property name="title" translatable="yes">Start minimized</property>
-                                <property name="visible">false</property>
-                              </object>
-                            </child>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="AdwPreferencesGroup" id="network_preferences">
-                            <property name="title" translatable="yes">Network preferences</property>
-                            <child>
-                              <object class="AdwSpinRow" id="interval_setting">
-                                <property name="adjustment">
-                                  <object class="GtkAdjustment" id="interval_value">
-                                    <property name="lower">1</property>
-                                    <property name="page-increment">1</property>
-                                    <property name="page-size">1</property>
-                                    <property name="step-increment">1</property>
-                                    <property name="upper">513</property>
-                                    <property name="value">8</property>
-                                    <signal name="value-changed" handler="interval_changed"/>
-                                  </object>
-                                </property>
-                                <property name="climb-rate">1</property>
-                                <property name="numeric">true</property>
-                                <property name="snap-to-ticks">true</property>
-                                <property name="subtitle" translatable="yes">By default 8, increase if you are rate-limited</property>
-                                <property name="title" translatable="yes">Shazam interval between requests in seconds</property>
-                                <property name="update-policy">1</property>
-                              </object>
-                            </child>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="AdwPreferencesGroup" id="search_preferences">
-                            <property name="title" translatable="yes">Search preferences</property>
-                            <child>
-                              <object class="AdwEntryRow" id="search_engine_name">
-                                <property name="title" translatable="yes">Custom search engine action</property>
-                                <signal name="changed" handler="search_engine_action_changed"/>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="AdwEntryRow" id="search_engine_url">
-                                <property name="title" translatable="yes">Custom search engine URL</property>
-                                <signal name="changed" handler="search_engine_url_changed"/>
-                              </object>
-                            </child>
+                          <object class="AdwButtonContent">
+                            <property name="icon-name">x-office-spreadsheet-symbolic</property>
+                            <property name="label" translatable="yes">Export to CSV</property>
                           </object>
                         </child>
                       </object>
-                    </property>
-                    <child type="top">
-                      <object class="AdwHeaderBar"></object>
                     </child>
                   </object>
-                </property>
-                <property name="tag">settings_tag</property>
-                <property name="title" translatable="yes">Settings</property>
+                </child>
               </object>
-            </child>
+            </property>
+            <property name="tag">favorites_tag</property>
+            <property name="title" translatable="yes">Favorites</property>
           </object>
-        </property>
+        </child>
+        <child>
+          <object class="AdwNavigationPage" id="settings_page">
+            <property name="child">
+              <object class="AdwToolbarView">
+                <property name="content">
+                  <object class="AdwPreferencesPage">
+                    <child>
+                      <object class="AdwPreferencesGroup" id="general_preferences">
+                        <property name="title" translatable="yes">General preferences</property>
+                        <child>
+                          <object class="AdwSwitchRow" id="notification_setting">
+                            <property name="action-name">win.notification-setting</property>
+                            <property name="subtitle" translatable="yes">Notify when a new song is recognized or network error is encountered</property>
+                            <property name="title" translatable="yes">Show notifications</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="AdwSwitchRow" id="no_dupes_setting">
+                            <property name="action-name">win.no-dupes-setting</property>
+                            <property name="subtitle" translatable="yes">Bump a song to the top of the history list and remove the former entry when the same song is detected multiple times</property>
+                            <property name="title" translatable="yes">No duplicates in history</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="AdwSwitchRow" id="remember_window_size">
+                            <property name="action-name">win.remember-window-state</property>
+                            <property name="subtitle" translatable="yes">Remember window dimensions and maximized state across restarts</property>
+                            <property name="title" translatable="yes">Remember window size</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="AdwSwitchRow" id="mpris_setting">
+                            <property name="action-name">win.mpris-setting</property>
+                            <property name="has-tooltip">true</property>
+                            <property name="subtitle" translatable="yes">MPRIS will display information about recognized songs in places like the GNOME or KDE control panel</property>
+                            <property name="title" translatable="yes">Enable MPRIS</property>
+                            <property name="visible">false</property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="AdwPreferencesGroup" id="background_settings">
+                        <property name="title" translatable="yes">Background settings</property>
+                        <property name="visible">false</property>
+                        <child>
+                          <object class="AdwSwitchRow" id="background_setting">
+                            <property name="action-name">win.background-setting</property>
+                            <property name="subtitle" translatable="yes">When closing the window, minimize to background (as visible under the system menu on GNOME) instead of closing the app.</property>
+                            <property name="title" translatable="yes">Minimize to background</property>
+                            <property name="visible">false</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="AdwSwitchRow" id="systray_setting">
+                            <property name="action-name">win.systray-setting</property>
+                            <property name="subtitle" translatable="yes">When closing the window, minimize to system tray using KSNI instead of closing the app. Please note that you may have to increase the "request interval" setting when leaving SongRec running in the background to reduce your changes of getting rate-limited.</property>
+                            <property name="title" translatable="yes">Minimize to system tray</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="AdwSwitchRow" id="autostart_setting">
+                            <property name="action-name">win.autostart-setting</property>
+                            <property name="subtitle" translatable="yes">Launch SongRec automatically when launching your desktop session.</property>
+                            <property name="title" translatable="yes">Launch at startup</property>
+                            <property name="visible">false</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="AdwSwitchRow" id="start_minimized_setting">
+                            <property name="action-name">win.start-minimized-setting</property>
+                            <property name="subtitle" translatable="yes">Launch the app minimized at startup.</property>
+                            <property name="title" translatable="yes">Start minimized</property>
+                            <property name="visible">false</property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="AdwPreferencesGroup" id="network_preferences">
+                        <property name="title" translatable="yes">Network preferences</property>
+                        <child>
+                          <object class="AdwSpinRow" id="interval_setting">
+                            <property name="adjustment">
+                              <object class="GtkAdjustment" id="interval_value">
+                                <property name="lower">1</property>
+                                <property name="page-increment">1</property>
+                                <property name="page-size">1</property>
+                                <property name="step-increment">1</property>
+                                <property name="upper">513</property>
+                                <property name="value">8</property>
+                                <signal name="value-changed" handler="interval_changed"/>
+                              </object>
+                            </property>
+                            <property name="climb-rate">1</property>
+                            <property name="numeric">true</property>
+                            <property name="snap-to-ticks">true</property>
+                            <property name="subtitle" translatable="yes">By default 8, increase if you are rate-limited</property>
+                            <property name="title" translatable="yes">Shazam interval between requests in seconds</property>
+                            <property name="update-policy">1</property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="AdwPreferencesGroup" id="search_preferences">
+                        <property name="title" translatable="yes">Search preferences</property>
+                        <child>
+                          <object class="AdwEntryRow" id="search_engine_name">
+                            <property name="title" translatable="yes">Custom search engine action</property>
+                            <signal name="changed" handler="search_engine_action_changed"/>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="AdwEntryRow" id="search_engine_url">
+                            <property name="title" translatable="yes">Custom search engine URL</property>
+                            <signal name="changed" handler="search_engine_url_changed"/>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </property>
+                <child type="top">
+                  <object class="AdwHeaderBar"></object>
+                </child>
+              </object>
+            </property>
+            <property name="tag">settings_tag</property>
+            <property name="title" translatable="yes">Settings</property>
+          </object>
+        </child>
       </object>
     </property>
     <property name="default-height">570</property>

@@ -103,8 +103,6 @@ impl ContextMenuUtil {
         ctx_selected_item: Rc<RefCell<Option<HistoryEntry>>>,
         favorites: Rc<RefCell<FavoritesInterface>>,
     ) {
-        // WIP BIND THE CONTEXT KEY + CTRL+C CLOSURES
-
         let controller = gtk::EventControllerKey::new();
 
         let selection: gtk::SingleSelection = column_view
@@ -124,6 +122,7 @@ impl ContextMenuUtil {
             Propagation::Proceed,
             move |_event, key_val, _key_code, modifier| {
                 // gesture.set_state(gtk::EventSequenceState::Claimed);
+
                 if key_val == Key::Menu {
                     if let Some(record) = selection.selected_item() {
                         let record = record.downcast::<HistoryEntry>().unwrap();
@@ -166,14 +165,6 @@ impl ContextMenuUtil {
             }
         ));
         column_view.add_controller(controller);
-
-        /* selection.connect_selection_changed(move |selection, _, _| {
-            if let Some(item) = selection.selected_item() {
-                history_interface.borrow_mut().set_hovered_record(
-                    item.downcast::<HistoryEntry>().unwrap()
-                );
-            }
-        }); */
     }
 
     pub fn bind_actions(
@@ -329,6 +320,7 @@ impl ContextMenuUtil {
     /// saying so, as nothing selected tells what gets copied
     pub fn connect_copy_recognized_song(
         window: adw::ApplicationWindow,
+        navigation_view: adw::NavigationView,
         toast_overlay: adw::ToastOverlay,
         results_section: adw::PreferencesGroup,
         results_label: gtk::Label,
@@ -345,16 +337,21 @@ impl ContextMenuUtil {
             #[upgrade_or]
             Propagation::Proceed,
             move |_event, key_val, _key_code, modifier| {
-                if !is_copy_shortcut(key_val, modifier) || !results_section.is_visible() {
-                    return Propagation::Proceed;
+                if let Some(tag) = navigation_view.visible_page_tag() {
+                    if tag.as_str() == "main_page"
+                        && is_copy_shortcut(key_val, modifier)
+                        && results_section.is_visible()
+                    {
+                        if let Some(display) = gdk::Display::default() {
+                            display.clipboard().set(&results_label.text().as_str());
+                            toast_overlay.add_toast(adw::Toast::new(&gettext(
+                                "Song name copied to the clipboard",
+                            )));
+                        }
+                        return Propagation::Stop;
+                    }
                 }
-                if let Some(display) = gdk::Display::default() {
-                    display.clipboard().set(&results_label.text().as_str());
-                    toast_overlay.add_toast(adw::Toast::new(&gettext(
-                        "Recognized song copied to the clipboard",
-                    )));
-                }
-                Propagation::Stop
+                Propagation::Proceed
             }
         ));
         window.add_controller(controller);

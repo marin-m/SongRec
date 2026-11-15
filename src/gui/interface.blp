@@ -5,11 +5,11 @@ using Gio 2.0;
 Adw.ApplicationWindow main_window {
   accessible-role: application;
 
-  content: Adw.ToastOverlay toast_overlay {
-    child: Adw.NavigationView main_window_pages {
-      Adw.NavigationPage main_page {
-        child: Adw.ToolbarView {
-          content: ScrolledWindow main_scrollview {
+  content: Adw.NavigationView main_window_pages {
+    Adw.NavigationPage main_page {
+      child: Adw.ToolbarView {
+        content: Adw.ToastOverlay toast_overlay {
+          child: ScrolledWindow main_scrollview {
             child: Box layout_box {
               homogeneous: true;
               margin-bottom: 15;
@@ -276,231 +276,232 @@ Adw.ApplicationWindow main_window {
               }
             };
           };
-
-          [top]
-          Adw.HeaderBar title_bar {
-            [end]
-            MenuButton menu_button {
-              accessible-role: menu;
-              has-tooltip: true;
-              icon-name: "open-menu-symbolic";
-              menu-model: main_menu_model;
-              primary: true;
-              tooltip-text: _("Application menu");
-            }
-          }
-
-          [bottom]
-          ActionBar {
-            visible: false;
-
-            Button {
-              action-name: "navigation.push";
-              action-target: "\"settings_tag\"";
-              label: "DEBUG: Show preferences";
-            }
-          }
         };
 
-        title: "SongRec";
-      }
+        [top]
+        Adw.HeaderBar title_bar {
+          [end]
+          MenuButton menu_button {
+            accessible-role: menu;
+            has-tooltip: true;
+            icon-name: "open-menu-symbolic";
+            menu-model: main_menu_model;
+            primary: true;
+            tooltip-text: _("Application menu");
+          }
+        }
 
-      Adw.NavigationPage favorites_page {
-        child: Adw.ToolbarView {
-          content: ScrolledWindow {
-            child: favorites_view;
+        [bottom]
+        ActionBar {
+          visible: false;
 
-            ColumnView favorites_view {
-              accessible-role: list;
+          Button {
+            action-name: "navigation.push";
+            action-target: "\"settings_tag\"";
+            label: "DEBUG: Show preferences";
+          }
+        }
+      };
 
-              css-classes: [
-                "column_view",
-              ];
+      tag: "main_page";
+      title: "SongRec";
+    }
 
-              model: SingleSelection favorites_selection {
-                autoselect: false;
-                can-unselect: true;
+    Adw.NavigationPage favorites_page {
+      child: Adw.ToolbarView {
+        content: ScrolledWindow {
+          child: favorites_view;
+
+          ColumnView favorites_view {
+            accessible-role: list;
+
+            css-classes: [
+              "column_view",
+            ];
+
+            model: SingleSelection favorites_selection {
+              autoselect: false;
+              can-unselect: true;
+            };
+
+            show-column-separators: true;
+            show-row-separators: true;
+
+            ColumnViewColumn favorites_song_name_cell {
+              factory: SignalListItemFactory {
+                bind => $history_cell_bind_cb(favorites_song_name_cell);
+                setup => $history_cell_setup_cb(favorites_song_name_cell);
               };
 
-              show-column-separators: true;
-              show-row-separators: true;
-
-              ColumnViewColumn favorites_song_name_cell {
-                factory: SignalListItemFactory {
-                  bind => $history_cell_bind_cb(favorites_song_name_cell);
-                  setup => $history_cell_setup_cb(favorites_song_name_cell);
-                };
-
-                id: "song_name";
-                resizable: true;
-                title: _("Song name");
-              }
-
-              ColumnViewColumn favorites_album_cell {
-                factory: SignalListItemFactory {
-                  bind => $history_cell_bind_cb(favorites_album_cell);
-                  setup => $history_cell_setup_cb(favorites_album_cell);
-                };
-
-                id: "album";
-                resizable: true;
-                title: _("Album");
-              }
-
-              ColumnViewColumn favorites_recognition_date_cell {
-                expand: true;
-
-                factory: SignalListItemFactory {
-                  bind => $history_cell_bind_cb(favorites_recognition_date_cell);
-                  setup => $history_cell_setup_cb(favorites_recognition_date_cell);
-                };
-
-                id: "recognition_date";
-                resizable: true;
-                title: _("Recognition date");
-              }
+              id: "song_name";
+              resizable: true;
+              title: _("Song name");
             }
-          };
 
-          [top]
-          Adw.HeaderBar favorites_titlebar {}
+            ColumnViewColumn favorites_album_cell {
+              factory: SignalListItemFactory {
+                bind => $history_cell_bind_cb(favorites_album_cell);
+                setup => $history_cell_setup_cb(favorites_album_cell);
+              };
 
-          [bottom]
-          ActionBar favorites_actions {
-            Button favorites_export_csv {
-              action-name: "win.export-favorites-to-csv";
+              id: "album";
+              resizable: true;
+              title: _("Album");
+            }
 
-              Adw.ButtonContent {
-                icon-name: "x-office-spreadsheet-symbolic";
-                label: _("Export to CSV");
-              }
+            ColumnViewColumn favorites_recognition_date_cell {
+              expand: true;
+
+              factory: SignalListItemFactory {
+                bind => $history_cell_bind_cb(favorites_recognition_date_cell);
+                setup => $history_cell_setup_cb(favorites_recognition_date_cell);
+              };
+
+              id: "recognition_date";
+              resizable: true;
+              title: _("Recognition date");
             }
           }
         };
 
-        tag: "favorites_tag";
-        title: _("Favorites");
-      }
+        [top]
+        Adw.HeaderBar favorites_titlebar {}
 
-      Adw.NavigationPage settings_page {
-        child: Adw.ToolbarView {
-          content: Adw.PreferencesPage {
-            Adw.PreferencesGroup general_preferences {
-              title: _("General preferences");
+        [bottom]
+        ActionBar favorites_actions {
+          Button favorites_export_csv {
+            action-name: "win.export-favorites-to-csv";
 
-              Adw.SwitchRow notification_setting {
-                action-name: "win.notification-setting";
-                subtitle: _("Notify when a new song is recognized or network error is encountered");
-                title: _("Show notifications");
-              }
+            Adw.ButtonContent {
+              icon-name: "x-office-spreadsheet-symbolic";
+              label: _("Export to CSV");
+            }
+          }
+        }
+      };
 
-              Adw.SwitchRow no_dupes_setting {
-                action-name: "win.no-dupes-setting";
-                subtitle: _(
-                  "Bump a song to the top of the history list and remove the former entry when the same song is detected multiple times"
-                );
-                title: _("No duplicates in history");
-              }
+      tag: "favorites_tag";
+      title: _("Favorites");
+    }
 
-              Adw.SwitchRow remember_window_size {
-                action-name: "win.remember-window-state";
-                subtitle: _("Remember window dimensions and maximized state across restarts");
-                title: _("Remember window size");
-              }
+    Adw.NavigationPage settings_page {
+      child: Adw.ToolbarView {
+        content: Adw.PreferencesPage {
+          Adw.PreferencesGroup general_preferences {
+            title: _("General preferences");
 
-              Adw.SwitchRow mpris_setting {
-                action-name: "win.mpris-setting";
-                has-tooltip: true;
-                subtitle: _(
-                  "MPRIS will display information about recognized songs in places like the GNOME or KDE control panel"
-                );
-                title: _("Enable MPRIS");
-                visible: false;
-              }
+            Adw.SwitchRow notification_setting {
+              action-name: "win.notification-setting";
+              subtitle: _("Notify when a new song is recognized or network error is encountered");
+              title: _("Show notifications");
             }
 
-            Adw.PreferencesGroup background_settings {
-              title: _("Background settings");
+            Adw.SwitchRow no_dupes_setting {
+              action-name: "win.no-dupes-setting";
+              subtitle: _(
+                "Bump a song to the top of the history list and remove the former entry when the same song is detected multiple times"
+              );
+              title: _("No duplicates in history");
+            }
+
+            Adw.SwitchRow remember_window_size {
+              action-name: "win.remember-window-state";
+              subtitle: _("Remember window dimensions and maximized state across restarts");
+              title: _("Remember window size");
+            }
+
+            Adw.SwitchRow mpris_setting {
+              action-name: "win.mpris-setting";
+              has-tooltip: true;
+              subtitle: _(
+                "MPRIS will display information about recognized songs in places like the GNOME or KDE control panel"
+              );
+              title: _("Enable MPRIS");
               visible: false;
+            }
+          }
 
-              Adw.SwitchRow background_setting {
-                action-name: "win.background-setting";
-                subtitle: _(
-                  "When closing the window, minimize to background (as visible under the system menu on GNOME) instead of closing the app."
-                );
-                title: _("Minimize to background");
-                visible: false;
-              }
+          Adw.PreferencesGroup background_settings {
+            title: _("Background settings");
+            visible: false;
 
-              Adw.SwitchRow systray_setting {
-                action-name: "win.systray-setting";
-                subtitle: _(
-                  "When closing the window, minimize to system tray using KSNI instead of closing the app. Please note that you may have to increase the \"request interval\" setting when leaving SongRec running in the background to reduce your changes of getting rate-limited."
-                );
-                title: _("Minimize to system tray");
-              }
-
-              Adw.SwitchRow autostart_setting {
-                action-name: "win.autostart-setting";
-                subtitle: _("Launch SongRec automatically when launching your desktop session.");
-                title: _("Launch at startup");
-                visible: false;
-              }
-
-              Adw.SwitchRow start_minimized_setting {
-                action-name: "win.start-minimized-setting";
-                subtitle: _("Launch the app minimized at startup.");
-                title: _("Start minimized");
-                visible: false;
-              }
+            Adw.SwitchRow background_setting {
+              action-name: "win.background-setting";
+              subtitle: _(
+                "When closing the window, minimize to background (as visible under the system menu on GNOME) instead of closing the app."
+              );
+              title: _("Minimize to background");
+              visible: false;
             }
 
-            Adw.PreferencesGroup network_preferences {
-              title: _("Network preferences");
-
-              Adw.SpinRow interval_setting {
-                adjustment: Adjustment interval_value {
-                  lower: 1;
-                  page-increment: 1;
-                  page-size: 1;
-                  step-increment: 1;
-                  upper: 513;
-                  value: 8;
-                  value-changed => $interval_changed();
-                };
-
-                climb-rate: 1;
-                numeric: true;
-                snap-to-ticks: true;
-                subtitle: _("By default 8, increase if you are rate-limited");
-                title: _("Shazam interval between requests in seconds");
-                update-policy: if_valid;
-              }
+            Adw.SwitchRow systray_setting {
+              action-name: "win.systray-setting";
+              subtitle: _(
+                "When closing the window, minimize to system tray using KSNI instead of closing the app. Please note that you may have to increase the \"request interval\" setting when leaving SongRec running in the background to reduce your changes of getting rate-limited."
+              );
+              title: _("Minimize to system tray");
             }
 
-            Adw.PreferencesGroup search_preferences {
-              title: _("Search preferences");
-
-              Adw.EntryRow search_engine_name {
-                title: _("Custom search engine action");
-                changed => $search_engine_action_changed();
-              }
-
-              Adw.EntryRow search_engine_url {
-                title: _("Custom search engine URL");
-                changed => $search_engine_url_changed();
-              }
+            Adw.SwitchRow autostart_setting {
+              action-name: "win.autostart-setting";
+              subtitle: _("Launch SongRec automatically when launching your desktop session.");
+              title: _("Launch at startup");
+              visible: false;
             }
-          };
 
-          [top]
-          Adw.HeaderBar {}
+            Adw.SwitchRow start_minimized_setting {
+              action-name: "win.start-minimized-setting";
+              subtitle: _("Launch the app minimized at startup.");
+              title: _("Start minimized");
+              visible: false;
+            }
+          }
+
+          Adw.PreferencesGroup network_preferences {
+            title: _("Network preferences");
+
+            Adw.SpinRow interval_setting {
+              adjustment: Adjustment interval_value {
+                lower: 1;
+                page-increment: 1;
+                page-size: 1;
+                step-increment: 1;
+                upper: 513;
+                value: 8;
+                value-changed => $interval_changed();
+              };
+
+              climb-rate: 1;
+              numeric: true;
+              snap-to-ticks: true;
+              subtitle: _("By default 8, increase if you are rate-limited");
+              title: _("Shazam interval between requests in seconds");
+              update-policy: if_valid;
+            }
+          }
+
+          Adw.PreferencesGroup search_preferences {
+            title: _("Search preferences");
+
+            Adw.EntryRow search_engine_name {
+              title: _("Custom search engine action");
+              changed => $search_engine_action_changed();
+            }
+
+            Adw.EntryRow search_engine_url {
+              title: _("Custom search engine URL");
+              changed => $search_engine_url_changed();
+            }
+          }
         };
 
-        tag: "settings_tag";
-        title: _("Settings");
-      }
-    };
+        [top]
+        Adw.HeaderBar {}
+      };
+
+      tag: "settings_tag";
+      title: _("Settings");
+    }
   };
 
   default-height: 570;
