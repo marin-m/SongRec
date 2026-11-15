@@ -144,18 +144,20 @@ pub fn write_atomically(
         Some(parent) if !parent.as_os_str().is_empty() => parent,
         _ => Path::new("."),
     };
-    let mut builder = tempfile::Builder::new();
     // tempfile creates files as 0o600. Give the new file the mode PATH has,
     // or the 0o666 that `File::create` uses, so that the umask still decides
     #[cfg(unix)]
-    {
+    let mut file = {
         use std::os::unix::fs::PermissionsExt;
-        builder.permissions(match std::fs::metadata(path) {
-            Ok(metadata) => metadata.permissions(),
-            Err(_) => std::fs::Permissions::from_mode(0o666),
-        });
-    }
-    let mut file = builder.tempfile_in(directory)?;
+        tempfile::Builder::new()
+            .permissions(match std::fs::metadata(path) {
+                Ok(metadata) => metadata.permissions(),
+                Err(_) => std::fs::Permissions::from_mode(0o666),
+            })
+            .tempfile_in(directory)?
+    };
+    #[cfg(not(unix))]
+    let mut file = tempfile::NamedTempFile::new_in(directory)?;
     write(file.as_file_mut())?;
     file.as_file().sync_all()?;
     file.persist(path)?;
