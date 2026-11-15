@@ -8,271 +8,273 @@ Adw.ApplicationWindow main_window {
   content: Adw.NavigationView main_window_pages {
     Adw.NavigationPage main_page {
       child: Adw.ToolbarView {
-        content: ScrolledWindow main_scrollview {
-          child: Box layout_box {
-            homogeneous: true;
-            margin-bottom: 15;
-            margin-end: 15;
-            margin-start: 15;
-            margin-top: 15;
-            spacing: 15;
-
-            [primary]
-            Box left_column {
-              orientation: vertical;
+        content: Adw.ToastOverlay toast_overlay {
+          child: ScrolledWindow main_scrollview {
+            child: Box layout_box {
+              homogeneous: true;
+              margin-bottom: 15;
+              margin-end: 15;
+              margin-start: 15;
+              margin-top: 15;
               spacing: 15;
 
-              Adw.PreferencesGroup identify_section {
-                title: _("Recognize songs");
+              [primary]
+              Box left_column {
+                orientation: vertical;
+                spacing: 15;
 
-                Adw.ActionRow recognize_file_row {
-                  activatable: true;
-                  activatable-widget: recognize_file_button;
-                  selectable: false;
-                  title: _("Recognize from file");
+                Adw.PreferencesGroup identify_section {
+                  title: _("Recognize songs");
 
-                  Button recognize_file_button {
-                    action-name: "win.recognize-file";
+                  Adw.ActionRow recognize_file_row {
+                    activatable: true;
+                    activatable-widget: recognize_file_button;
+                    selectable: false;
+                    title: _("Recognize from file");
 
-                    child: Adw.ButtonContent {
-                      icon-name: "folder-new-symbolic";
-                      label: _("Pick a file...");
-                    };
+                    Button recognize_file_button {
+                      action-name: "win.recognize-file";
+
+                      child: Adw.ButtonContent {
+                        icon-name: "folder-new-symbolic";
+                        label: _("Pick a file...");
+                      };
+                    }
                   }
-                }
 
-                Adw.PreferencesRow spinner_row {
-                  activatable: false;
-                  margin-end: 7;
-                  margin-start: 7;
-                  margin-top: 7;
-                  selectable: false;
-                  visible: false;
-
-                  Spinner {
-                    margin-bottom: 7;
-                    spinning: true;
-                  }
-                }
-
-                Adw.SwitchRow microphone_switch {
-                  activatable: true;
-                  selectable: false;
-                  title: _("Recognize from microphone");
-                  visible: false;
-                  notify::active => $microphone_option_switched();
-                }
-
-                Adw.SwitchRow loopback_switch {
-                  activatable: true;
-                  selectable: false;
-                  title: _("Recognize from my speakers");
-                  visible: false;
-                  notify::active => $loopback_options_switched();
-                }
-
-                Label no_network_message {
-                  attributes: "0 -1 weight medium, 0 -1 foreground #a4a400000000";
-                  label: _("Shazam servers are not reachable, are you connected?");
-                  margin-top: 5;
-                  visible: false;
-                }
-
-                Label rate_limited_message {
-                  attributes: "0 -1 weight bold, 0 -1 foreground #a4a400000000";
-                  label: _("ERROR: Your IP has been rate-limited");
-                  margin-top: 5;
-                  visible: false;
-                }
-              }
-
-              Adw.PreferencesGroup results_section {
-                title: _("Recognition results");
-                visible: false;
-
-                Adw.PreferencesRow results_row {
-                  activatable: false;
-                  selectable: false;
-
-                  Box {
-                    margin-bottom: 7;
+                  Adw.PreferencesRow spinner_row {
+                    activatable: false;
                     margin-end: 7;
                     margin-start: 7;
                     margin-top: 7;
-                    orientation: vertical;
-                    spacing: 7;
+                    selectable: false;
+                    visible: false;
 
-                    Label results_label {
-                      attributes: "0 -1 weight bold";
-                      ellipsize: end;
-                      label: "Artist - Song name";
-                      natural-wrap-mode: word;
-                      selectable: true;
+                    Spinner {
+                      margin-bottom: 7;
+                      spinning: true;
                     }
+                  }
 
-                    Image results_image {
-                      pixel-size: 160;
+                  Adw.SwitchRow microphone_switch {
+                    activatable: true;
+                    selectable: false;
+                    title: _("Recognize from microphone");
+                    visible: false;
+                    notify::active => $microphone_option_switched();
+                  }
+
+                  Adw.SwitchRow loopback_switch {
+                    activatable: true;
+                    selectable: false;
+                    title: _("Recognize from my speakers");
+                    visible: false;
+                    notify::active => $loopback_options_switched();
+                  }
+
+                  Label no_network_message {
+                    attributes: "0 -1 weight medium, 0 -1 foreground #a4a400000000";
+                    label: _("Shazam servers are not reachable, are you connected?");
+                    margin-top: 5;
+                    visible: false;
+                  }
+
+                  Label rate_limited_message {
+                    attributes: "0 -1 weight bold, 0 -1 foreground #a4a400000000";
+                    label: _("ERROR: Your IP has been rate-limited");
+                    margin-top: 5;
+                    visible: false;
+                  }
+                }
+
+                Adw.PreferencesGroup results_section {
+                  title: _("Recognition results");
+                  visible: false;
+
+                  Adw.PreferencesRow results_row {
+                    activatable: false;
+                    selectable: false;
+
+                    Box {
+                      margin-bottom: 7;
+                      margin-end: 7;
+                      margin-start: 7;
+                      margin-top: 7;
+                      orientation: vertical;
+                      spacing: 7;
+
+                      Label results_label {
+                        attributes: "0 -1 weight bold";
+                        ellipsize: end;
+                        label: "Artist - Song name";
+                        natural-wrap-mode: word;
+                        selectable: true;
+                      }
+
+                      Image results_image {
+                        pixel-size: 160;
+                      }
+                    }
+                  }
+
+                  Adw.ActionRow search_youtube_row {
+                    activatable: true;
+                    activatable-widget: search_youtube_button;
+                    selectable: false;
+                    title: _("Search on YouTube");
+
+                    Button search_youtube_button {
+                      action-name: "win.search-youtube";
+
+                      child: Adw.ButtonContent {
+                        icon-name: "search-symbolic";
+                        label: _("Search...");
+                      };
+                    }
+                  }
+                }
+              }
+
+              [secondary]
+              Box right_column {
+                orientation: vertical;
+                spacing: 15;
+
+                Adw.PreferencesGroup input_device_section {
+                  header-suffix: Button refresh_devices {
+                    action-name: "win.refresh-devices";
+                    icon-name: "view-refresh-symbolic";
+                    tooltip-text: _("Refresh available devices");
+                  };
+
+                  title: _("Audio input");
+                  visible: false;
+
+                  Adw.ComboRow audio_inputs {
+                    factory: BuilderListItemFactory audio_inputs_factory {
+                      template ListItem {
+                        child: Label {
+                          xalign: 0;
+                          ellipsize: end;
+                          label: bind template.item as <$ListedDevice>.display_name;
+                        };
+                      }
+                    };
+
+                    model: Gio.ListStore audio_inputs_model {};
+
+                    title: _("Device");
+                    title-lines: 1;
+                    notify::selected-item => $input_device_switched();
+                  }
+
+                  Adw.PreferencesRow volume_row {
+                    activatable: false;
+                    selectable: false;
+
+                    Box {
+                      margin-bottom: 15;
+                      margin-end: 15;
+                      margin-start: 15;
+                      margin-top: 15;
+                      spacing: 15;
+
+                      Label volume_label {
+                        label: _("Volume:");
+                      }
+
+                      ProgressBar volume_gauge {
+                        hexpand: true;
+                        valign: center;
+                      }
                     }
                   }
                 }
 
-                Adw.ActionRow search_youtube_row {
-                  activatable: true;
-                  activatable-widget: search_youtube_button;
-                  selectable: false;
-                  title: _("Search on YouTube");
+                Adw.PreferencesGroup history_section {
+                  header-suffix: MenuButton history_params {
+                    has-tooltip: true;
+                    icon-name: "preferences-system";
+                    menu-model: history_menu_model;
+                    tooltip-text: _("History options...");
+                  };
 
-                  Button search_youtube_button {
-                    action-name: "win.search-youtube";
+                  title: _("Recognition history");
 
-                    child: Adw.ButtonContent {
-                      icon-name: "search-symbolic";
-                      label: _("Search...");
+                  Adw.PreferencesRow history_row {
+                    child: ScrolledWindow {
+                      child: history_view;
+
+                      ColumnView history_view {
+                        accessible-role: list;
+
+                        css-classes: [
+                          "column_view",
+                        ];
+
+                        model: SingleSelection history_selection {
+                          autoselect: false;
+                          can-unselect: true;
+                        };
+
+                        show-column-separators: true;
+                        show-row-separators: true;
+
+                        ColumnViewColumn song_name_cell {
+                          factory: SignalListItemFactory {
+                            setup => $history_cell_setup_cb(song_name_cell);
+                            bind => $history_cell_bind_cb(song_name_cell);
+                          };
+
+                          id: "song_name";
+                          resizable: true;
+                          title: _("Song name");
+                        }
+
+                        ColumnViewColumn album_cell {
+                          factory: SignalListItemFactory {
+                            bind => $history_cell_bind_cb(album_cell);
+                            setup => $history_cell_setup_cb(album_cell);
+                          };
+
+                          id: "album";
+                          resizable: true;
+                          title: _("Album");
+                        }
+
+                        ColumnViewColumn recognition_date_cell {
+                          expand: true;
+
+                          factory: SignalListItemFactory {
+                            bind => $history_cell_bind_cb(recognition_date_cell);
+                            setup => $history_cell_setup_cb(recognition_date_cell);
+                          };
+
+                          id: "recognition_date";
+                          resizable: true;
+                          title: _("Recognition date");
+                        }
+                      }
+                    };
+
+                    height-request: 200;
+                  }
+
+                  Adw.PreferencesRow favorites_button {
+                    accessible-role: button;
+                    action-name: "navigation.push";
+                    action-target: "'favorites_tag'";
+
+                    child: Label {
+                      attributes: "0 -1 weight medium";
+                      label: _("View favorites");
+                      margin-bottom: 10;
+                      margin-top: 10;
                     };
                   }
                 }
               }
-            }
-
-            [secondary]
-            Box right_column {
-              orientation: vertical;
-              spacing: 15;
-
-              Adw.PreferencesGroup input_device_section {
-                header-suffix: Button refresh_devices {
-                  action-name: "win.refresh-devices";
-                  icon-name: "view-refresh-symbolic";
-                  tooltip-text: _("Refresh available devices");
-                };
-
-                title: _("Audio input");
-                visible: false;
-
-                Adw.ComboRow audio_inputs {
-                  factory: BuilderListItemFactory audio_inputs_factory {
-                    template ListItem {
-                      child: Label {
-                        xalign: 0;
-                        ellipsize: end;
-                        label: bind template.item as <$ListedDevice>.display_name;
-                      };
-                    }
-                  };
-
-                  model: Gio.ListStore audio_inputs_model {};
-
-                  title: _("Device");
-                  title-lines: 1;
-                  notify::selected-item => $input_device_switched();
-                }
-
-                Adw.PreferencesRow volume_row {
-                  activatable: false;
-                  selectable: false;
-
-                  Box {
-                    margin-bottom: 15;
-                    margin-end: 15;
-                    margin-start: 15;
-                    margin-top: 15;
-                    spacing: 15;
-
-                    Label volume_label {
-                      label: _("Volume:");
-                    }
-
-                    ProgressBar volume_gauge {
-                      hexpand: true;
-                      valign: center;
-                    }
-                  }
-                }
-              }
-
-              Adw.PreferencesGroup history_section {
-                header-suffix: MenuButton history_params {
-                  has-tooltip: true;
-                  icon-name: "preferences-system";
-                  menu-model: history_menu_model;
-                  tooltip-text: _("History options...");
-                };
-
-                title: _("Recognition history");
-
-                Adw.PreferencesRow history_row {
-                  child: ScrolledWindow {
-                    child: history_view;
-
-                    ColumnView history_view {
-                      accessible-role: list;
-
-                      css-classes: [
-                        "column_view",
-                      ];
-
-                      model: SingleSelection history_selection {
-                        autoselect: false;
-                        can-unselect: true;
-                      };
-
-                      show-column-separators: true;
-                      show-row-separators: true;
-
-                      ColumnViewColumn song_name_cell {
-                        factory: SignalListItemFactory {
-                          setup => $history_cell_setup_cb(song_name_cell);
-                          bind => $history_cell_bind_cb(song_name_cell);
-                        };
-
-                        id: "song_name";
-                        resizable: true;
-                        title: _("Song name");
-                      }
-
-                      ColumnViewColumn album_cell {
-                        factory: SignalListItemFactory {
-                          bind => $history_cell_bind_cb(album_cell);
-                          setup => $history_cell_setup_cb(album_cell);
-                        };
-
-                        id: "album";
-                        resizable: true;
-                        title: _("Album");
-                      }
-
-                      ColumnViewColumn recognition_date_cell {
-                        expand: true;
-
-                        factory: SignalListItemFactory {
-                          bind => $history_cell_bind_cb(recognition_date_cell);
-                          setup => $history_cell_setup_cb(recognition_date_cell);
-                        };
-
-                        id: "recognition_date";
-                        resizable: true;
-                        title: _("Recognition date");
-                      }
-                    }
-                  };
-
-                  height-request: 200;
-                }
-
-                Adw.PreferencesRow favorites_button {
-                  accessible-role: button;
-                  action-name: "navigation.push";
-                  action-target: "'favorites_tag'";
-
-                  child: Label {
-                    attributes: "0 -1 weight medium";
-                    label: _("View favorites");
-                    margin-bottom: 10;
-                    margin-top: 10;
-                  };
-                }
-              }
-            }
+            };
           };
         };
 
@@ -301,6 +303,7 @@ Adw.ApplicationWindow main_window {
         }
       };
 
+      tag: "main_page";
       title: "SongRec";
     }
 

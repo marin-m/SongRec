@@ -607,6 +607,14 @@ impl App {
             self.favorites_interface.clone(),
         );
 
+        ContextMenuUtil::connect_copy_recognized_song(
+            self.builder.object("main_window").unwrap(),
+            self.builder.object("main_window_pages").unwrap(),
+            self.builder.object("toast_overlay").unwrap(),
+            self.builder.object("results_section").unwrap(),
+            self.builder.object("results_label").unwrap(),
+        );
+
         ContextMenuUtil::bind_actions(
             self.builder.object("main_window").unwrap(),
             self.builder.object("history_context_menu").unwrap(),
