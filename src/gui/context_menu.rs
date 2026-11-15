@@ -4,6 +4,7 @@ use glib::Propagation;
 use gtk::glib::clone;
 use gtk::prelude::*;
 
+use gettextrs::gettext;
 use log::{debug, error, info};
 use percent_encoding::{NON_ALPHANUMERIC, utf8_percent_encode};
 use std::cell::RefCell;
@@ -324,9 +325,11 @@ impl ContextMenuUtil {
 
     /// Copy the last recognized song with the copy shortcut when the key
     /// press wasn't handled by a focused widget (a selected history or
-    /// favorites row, a text selection or a text field)
+    /// favorites row, a text selection or a text field), and show a toast
+    /// saying so, as nothing selected tells what gets copied
     pub fn connect_copy_recognized_song(
         window: adw::ApplicationWindow,
+        toast_overlay: adw::ToastOverlay,
         results_section: adw::PreferencesGroup,
         results_label: gtk::Label,
     ) {
@@ -337,6 +340,8 @@ impl ContextMenuUtil {
             results_section,
             #[weak]
             results_label,
+            #[weak]
+            toast_overlay,
             #[upgrade_or]
             Propagation::Proceed,
             move |_event, key_val, _key_code, modifier| {
@@ -345,6 +350,9 @@ impl ContextMenuUtil {
                 }
                 if let Some(display) = gdk::Display::default() {
                     display.clipboard().set(&results_label.text().as_str());
+                    toast_overlay.add_toast(adw::Toast::new(&gettext(
+                        "Recognized song copied to the clipboard",
+                    )));
                 }
                 Propagation::Stop
             }

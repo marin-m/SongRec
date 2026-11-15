@@ -609,6 +609,7 @@ impl App {
 
         ContextMenuUtil::connect_copy_recognized_song(
             self.builder.object("main_window").unwrap(),
+            self.builder.object("toast_overlay").unwrap(),
             self.builder.object("results_section").unwrap(),
             self.builder.object("results_label").unwrap(),
         );
