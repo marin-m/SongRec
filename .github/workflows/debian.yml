@@ -25,6 +25,6 @@ jobs:
       - name: Build Debian package
         run: "bash -c 'echo Using: $(which cargo) / $(ls -l $(which cargo)) && ./packaging/ppa/build_binary_package.sh'"
       - name: Run platform-specific tests
-        run: "cargo test"
+        run: "RUST_BACKTRACE=full cargo test --release"
       - name: Ensure Debian package validity
         run: "lintian /tmp/*.deb"
