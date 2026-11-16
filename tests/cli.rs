@@ -185,7 +185,11 @@ fn audio_file_to_fingerprint_reads_the_standard_input_for_a_dash() {
     std::fs::write(&path, &wav).unwrap();
     let from_file = run_songrec(&["audio-file-to-fingerprint", &path.to_string_lossy()]);
     let _ = std::fs::remove_file(&path);
-    assert!(from_file.status.success());
+    assert!(
+        from_file.status.success(),
+        "songrec did not succeed: {}",
+        String::from_utf8_lossy(&from_file.stderr)
+    );
 
     let temp_dir = empty_temp_dir("fingerprint");
     let args = ["audio-file-to-fingerprint", "-"];
