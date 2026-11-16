@@ -60,6 +60,7 @@ use crate::cli_main::{CLIOutputType, CLIParameters, cli_main};
 use crate::core::logging::Logging;
 #[cfg(feature = "gui")]
 use crate::gui::main_window::gui_main;
+use crate::utils::filesystem_operations::AudioInput;
 use crate::utils::internationalization::setup_internationalization;
 
 use clap::{Arg, ArgAction, Command, command};
@@ -323,6 +324,14 @@ fn print_recognized_song(signature: &DecodedSignature) -> Result<(), Box<dyn Err
     Ok(())
 }
 
+/// Exit with a failure status, that scripts can check, when the command line
+/// interface stopped on an error
+fn exit_on_failure(succeeded: bool) {
+    if !succeeded {
+        std::process::exit(1);
+    }
+}
+
 fn main() -> Result<(), Box<dyn Error>> {
     // Set up the translation/internationalization part
 
@@ -374,26 +383,28 @@ fn main() -> Result<(), Box<dyn Error>> {
                 .subcommand_matches("audio-file-to-recognized-song")
                 .unwrap();
 
-            let input_file_string = subcommand_args
-                .get_one::<std::path::PathBuf>("input_file")
-                .unwrap();
+            let input = AudioInput::new(
+                subcommand_args
+                    .get_one::<std::path::PathBuf>("input_file")
+                    .unwrap(),
+            )?;
 
-            print_recognized_song(&SignatureGenerator::make_signature_from_file(
-                input_file_string,
-            )?)?;
+            print_recognized_song(&SignatureGenerator::make_signature_from_file(input.path())?)?;
         }
         Some("audio-file-to-fingerprint") => {
             let subcommand_args = args
                 .subcommand_matches("audio-file-to-fingerprint")
                 .unwrap();
 
-            let input_file_string = subcommand_args
-                .get_one::<std::path::PathBuf>("input_file")
-                .unwrap();
+            let input = AudioInput::new(
+                subcommand_args
+                    .get_one::<std::path::PathBuf>("input_file")
+                    .unwrap(),
+            )?;
 
             println!(
                 "{}",
-                SignatureGenerator::make_signature_from_file(input_file_string)?.encode_to_uri()?
+                SignatureGenerator::make_signature_from_file(input.path())?.encode_to_uri()?
             );
         }
         Some("fingerprint-to-recognized-song") => {
@@ -420,7 +431,7 @@ fn main() -> Result<(), Box<dyn Error>> {
             let enable_json = subcommand_args.get_flag("json");
             let enable_csv = subcommand_args.get_flag("csv");
 
-            cli_main(CLIParameters {
+            exit_on_failure(cli_main(CLIParameters {
                 enable_mpris,
                 list_devices,
                 recognize_once: false,
@@ -434,20 +445,28 @@ fn main() -> Result<(), Box<dyn Error>> {
                 } else {
                     CLIOutputType::SongName
                 },
-            })?;
+            })?);
         }
         Some("recognize") => {
             let subcommand_args = args.subcommand_matches("recognize").unwrap();
             let list_devices = subcommand_args.get_flag("list-devices");
             let audio_device = subcommand_args.get_one::<String>("audio-device").cloned();
             let request_interval = *subcommand_args.get_one::<u64>("request-interval").unwrap();
-            let input_file = subcommand_args
-                .get_one::<std::path::PathBuf>("input_file")
-                .cloned();
+            let input_file = subcommand_args.get_one::<std::path::PathBuf>("input_file");
+            // Kept until `cli_main` returns, as it deletes the copy of the
+            // standard input. `--list-devices` doesn't read the input.
+            let input = match input_file {
+                Some(input_file) if !list_devices => Some(AudioInput::new(input_file)?),
+                _ => None,
+            };
+            let input_file = match &input {
+                Some(input) => Some(input.path().to_path_buf()),
+                None => input_file.cloned(),
+            };
             let enable_json = subcommand_args.get_flag("json");
             let enable_csv = subcommand_args.get_flag("csv");
 
-            cli_main(CLIParameters {
+            let succeeded = cli_main(CLIParameters {
                 enable_mpris: false,
                 list_devices,
                 recognize_once: true,
@@ -463,6 +482,9 @@ fn main() -> Result<(), Box<dyn Error>> {
                     CLIOutputType::SongName
                 },
             })?;
+            // `exit` skips destructors
+            drop(input);
+            exit_on_failure(succeeded);
         }
         Some("microphone-to-recognized-song") => {
             let subcommand_args = args
@@ -472,7 +494,7 @@ fn main() -> Result<(), Box<dyn Error>> {
             let audio_device = subcommand_args.get_one::<String>("audio-device").cloned();
             let request_interval = *subcommand_args.get_one::<u64>("request-interval").unwrap();
 
-            cli_main(CLIParameters {
+            exit_on_failure(cli_main(CLIParameters {
                 enable_mpris: false,
                 list_devices,
                 recognize_once: true,
@@ -480,7 +502,7 @@ fn main() -> Result<(), Box<dyn Error>> {
                 request_interval,
                 input_file: None,
                 output_type: CLIOutputType::JSON,
-            })?;
+            })?);
         }
         #[cfg(feature = "gui")]
         Some("gui-norecording") => {
@@ -514,7 +536,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         }
         #[cfg(not(feature = "gui"))]
         None => {
-            cli_main(CLIParameters {
+            exit_on_failure(cli_main(CLIParameters {
                 enable_mpris: true,
                 list_devices: false,
                 recognize_once: false,
@@ -522,7 +544,7 @@ fn main() -> Result<(), Box<dyn Error>> {
                 request_interval: 10,
                 input_file: None,
                 output_type: CLIOutputType::SongName,
-            })?;
+            })?);
         }
         _ => unreachable!(),
     }

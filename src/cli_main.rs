@@ -38,7 +38,9 @@ pub struct CLIParameters {
     pub output_type: CLIOutputType,
 }
 
-pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
+/// Run the command line interface, and return whether it stopped without an
+/// error
+pub fn cli_main(parameters: CLIParameters) -> Result<bool, Box<dyn Error>> {
     let (gui_tx, gui_rx) = async_channel::unbounded();
     let (microphone_tx, microphone_rx) = async_channel::unbounded();
     let (processing_tx, processing_rx) = async_channel::unbounded();
@@ -248,10 +250,7 @@ pub fn cli_main(parameters: CLIParameters) -> Result<(), Box<dyn Error>> {
 
     main_loop.run();
 
-    if failed.get() {
-        std::process::exit(1);
-    }
-    Ok(())
+    Ok(!failed.get())
 }
 
 /// The inner name of the device that `--audio-device REQUESTED` names, by its inner or its
