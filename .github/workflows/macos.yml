@@ -19,9 +19,9 @@ jobs:
       - name: Install system packages
         run: brew install libadwaita blueprint-compiler gtk4 libsoup ffmpeg gettext
       - name: Build binaries
-        run: GETTEXT_DIR=/opt/homebrew cargo build --no-default-features -F gui,ffmpeg
+        run: GETTEXT_DIR=/opt/homebrew cargo build --release --no-default-features -F gui,ffmpeg
       - name: Run tests
-        run: GETTEXT_DIR=/opt/homebrew cargo test
+        run: RUST_BACKTRACE=full GETTEXT_DIR=/opt/homebrew cargo test --release
       - name: Cache
         uses: actions/cache@v5
         with:

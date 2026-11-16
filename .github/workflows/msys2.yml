@@ -23,7 +23,7 @@ jobs:
 
       - name: Run tests
         run: |
-          cargo test
+          RUST_BACKTRACE=full cargo test --release
 
       - name: CI Build
         run: |
