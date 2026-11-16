@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: SongRec\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-11-15 08:10+0100\n"
-"PO-Revision-Date: 2026-11-04 11:53+0000\n"
+"PO-Revision-Date: 2026-11-16 23:18+0000\n"
 "Last-Translator: marcelo cripe <marcelocripe@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://weblate.fossplant.re/projects/"
 "songrec/songrec/pt_BR/>\n"
@@ -224,7 +224,7 @@ msgstr ""
 
 #: src/main.rs:409
 msgid "Error decoding fingerprint:"
-msgstr ""
+msgstr "Ocorreu um erro ao tentar decodificar a impressão digital do áudio."
 
 #: src/core/microphone_thread.rs:68
 msgid "Audio error:"
@@ -252,7 +252,7 @@ msgstr "Ao salvar o arquivo das configurações:"
 
 #: src/core/fingerprinting/signature_format.rs:43
 msgid "Invalid Shazam signature"
-msgstr ""
+msgstr "A assinatura do Shazam não é válida"
 
 #: src/core/fingerprinting/signature_format.rs:95
 msgid "Invalid sample rate in decoded Shazam packet"
@@ -265,7 +265,7 @@ msgstr "A banda da frequência ao decodificar o pacote do ‘Shazam’ não é v
 #: src/core/fingerprinting/signature_format.rs:189
 #, c-format
 msgid "A fingerprint must start with \"%s\""
-msgstr ""
+msgstr "Uma impressão digital de um áudio deve iniciar com ‘%s’"
 
 #: src/core/fingerprinting/signature_format.rs:219
 msgid "Invalid sample rate passed when encoding Shazam packet"
@@ -274,7 +274,7 @@ msgstr ""
 
 #: src/gui/context_menu.rs:348
 msgid "Song name copied to the clipboard"
-msgstr ""
+msgstr "O nome da música do áudio foi copiado para a área de transferência"
 
 #: src/gui/main_window.rs:283
 msgid "Application error"
@@ -321,23 +321,31 @@ msgstr "_Cancelar"
 
 #: src/gui/song_history_interface.rs:97
 msgid "Skipping an invalid CSV entry:"
-msgstr ""
+msgstr "A entrada CSV que não é válida será ignorada:"
 
 #: src/gui/song_history_interface.rs:121
 msgid "Error when reading the song history on the disk:"
-msgstr "Ocorreu um erro ao ler o histórico das músicas salvas:"
+msgstr ""
+"Ocorreu um erro ao tentar ler o histórico das músicas que foram salvas no "
+"dispositivo de armazenamento:"
 
 #: src/gui/song_history_interface.rs:162
 msgid "Error while saving the song history on the disk:"
 msgstr ""
+"Ocorreu um erro ao tentar salvar o histórico das músicas no dispositivo de "
+"armazenamento:"
 
 #: src/gui/song_history_interface.rs:188
 msgid "Error when reading the favorites on the disk:"
-msgstr "Ocorreu um erro ao ler os favoritos salvos:"
+msgstr ""
+"Ocorreu um erro ao tentar ler os favoritos que foram salvos no dispositivo "
+"de armazenamento:"
 
 #: src/gui/song_history_interface.rs:225
 msgid "Error while saving the favorites on the disk:"
 msgstr ""
+"Ocorreu um erro ao tentar salvar os favoritos no dispositivo de "
+"armazenamento:"
 
 #: src/plugins/ksni.rs:43
 msgid "Open SongRec"
@@ -488,10 +496,12 @@ msgstr "Não há duplicatas no histórico"
 #: src/gui/interface.blp:409
 msgid "Remember window dimensions and maximized state across restarts"
 msgstr ""
+"Memorizar as dimensões da janela e o estado maximizado entre as "
+"reinicializações do programa"
 
 #: src/gui/interface.blp:410
 msgid "Remember window size"
-msgstr ""
+msgstr "Memorizar as dimensões da janela"
 
 #: src/gui/interface.blp:417
 msgid ""
