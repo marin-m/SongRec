@@ -24,6 +24,29 @@ pub fn is_copy_shortcut(key: Key, modifier: ModifierType) -> bool {
         && modifier.intersects(ModifierType::CONTROL_MASK | ModifierType::META_MASK)
 }
 
+/// Give the search item of the history context MENU the label LABEL, the
+/// website name set in the preferences. The item is found by its action in
+/// the sections of MENU, and keeps its position, action and icon.
+pub fn set_search_item_label(menu: &gio::Menu, label: &str) {
+    for position in 0..menu.n_items() {
+        if let Some(section) = menu.item_link(position, gio::MENU_LINK_SECTION) {
+            if let Ok(section) = section.downcast::<gio::Menu>() {
+                set_search_item_label(&section, label);
+            }
+        } else if menu
+            .item_attribute_value(position, gio::MENU_ATTRIBUTE_ACTION, None)
+            .and_then(|action| action.get::<String>())
+            .as_deref()
+            == Some("history-menu.search-on-youtube")
+        {
+            let item = gio::MenuItem::from_model(menu, position);
+            item.set_label(Some(label));
+            menu.remove(position);
+            menu.insert_item(position, &item);
+        }
+    }
+}
+
 /// The URL searching SONG_NAME on the website set in the preferences, or on
 /// YouTube when none is set. A search URL field that was emptied in the
 /// preferences counts as unset, as appending the song to an empty string
@@ -366,6 +389,81 @@ impl ContextMenuUtil {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    /// The structure of `history_context_model` in interface.blp
+    fn history_menu() -> gio::Menu {
+        let menu = gio::Menu::new();
+        let copy = gio::Menu::new();
+        copy.append(Some("Copy artist"), Some("history-menu.copy-artist"));
+        copy.append(Some("Copy album"), Some("history-menu.copy-album"));
+        menu.append_section(None, &copy);
+        let search = gio::Menu::new();
+        let item = gio::MenuItem::new(
+            Some("Search on YouTube"),
+            Some("history-menu.search-on-youtube"),
+        );
+        item.set_icon(&gio::ThemedIcon::new("search-symbolic"));
+        search.append_item(&item);
+        menu.append_section(None, &search);
+        let manage = gio::Menu::new();
+        manage.append(
+            Some("Delete from History"),
+            Some("history-menu.remove-from-history"),
+        );
+        menu.append_section(None, &manage);
+        menu
+    }
+
+    fn section(menu: &gio::Menu, position: i32) -> gio::MenuModel {
+        menu.item_link(position, gio::MENU_LINK_SECTION).unwrap()
+    }
+
+    fn attribute(menu: &gio::MenuModel, position: i32, name: &str) -> Option<String> {
+        menu.item_attribute_value(position, name, None)
+            .and_then(|value| value.get::<String>())
+    }
+
+    #[test]
+    fn the_search_item_takes_the_website_name() {
+        let menu = history_menu();
+
+        set_search_item_label(&menu, "Search on Bandcamp");
+
+        let search = section(&menu, 1);
+        assert_eq!(search.n_items(), 1);
+        assert_eq!(
+            attribute(&search, 0, gio::MENU_ATTRIBUTE_LABEL).as_deref(),
+            Some("Search on Bandcamp")
+        );
+        assert_eq!(
+            attribute(&search, 0, gio::MENU_ATTRIBUTE_ACTION).as_deref(),
+            Some("history-menu.search-on-youtube")
+        );
+        assert!(
+            search
+                .item_attribute_value(0, gio::MENU_ATTRIBUTE_ICON, None)
+                .is_some()
+        );
+
+        // The other items are left as they are
+        let copy = section(&menu, 0);
+        assert_eq!(copy.n_items(), 2);
+        assert_eq!(
+            attribute(&copy, 1, gio::MENU_ATTRIBUTE_LABEL).as_deref(),
+            Some("Copy album")
+        );
+        assert_eq!(
+            attribute(&section(&menu, 2), 0, gio::MENU_ATTRIBUTE_LABEL).as_deref(),
+            Some("Delete from History")
+        );
+
+        // Changing the name again relabels the same item
+        set_search_item_label(&menu, "Search on YouTube");
+        assert_eq!(
+            attribute(&section(&menu, 1), 0, gio::MENU_ATTRIBUTE_LABEL).as_deref(),
+            Some("Search on YouTube")
+        );
+    }
 
     #[test]
     fn ctrl_c_and_cmd_c_are_the_copy_shortcut() {

@@ -34,7 +34,7 @@ use crate::utils::filesystem_operations::{
 
 use crate::core::preferences::{Preferences, PreferencesInterface};
 
-use crate::gui::context_menu::{ContextMenuUtil, website_search_url_for};
+use crate::gui::context_menu::{ContextMenuUtil, set_search_item_label, website_search_url_for};
 use crate::gui::history_entry::HistoryEntry;
 use crate::gui::listed_device::ListedDevice;
 
@@ -309,7 +309,6 @@ impl App {
     }
 
     fn update_website_search_text(&self) {
-        let search_row: adw::ActionRow = self.builder.object("search_youtube_row").unwrap();
         let search_name_row: adw::EntryRow = self.builder.object("search_engine_name").unwrap();
         let search_url_row: adw::EntryRow = self.builder.object("search_engine_url").unwrap();
 
@@ -331,7 +330,7 @@ impl App {
         search_name_row.set_text(&label);
         search_url_row.set_text(&url);
 
-        search_row.set_title(&label);
+        show_website_search_label(&self.builder, &label);
     }
 
     fn on_startup(
@@ -646,8 +645,7 @@ impl App {
         builder_scope.add_callback("search_engine_action_changed", move |values| {
             let entry_row = values[0].get::<adw::EntryRow>().unwrap();
 
-            let search_row: adw::ActionRow = builder.object("search_youtube_row").unwrap();
-            search_row.set_title(&entry_row.text());
+            show_website_search_label(&builder, &entry_row.text());
 
             let lock = preferences.lock().unwrap();
             if lock.preferences.website_search_text != Some(entry_row.text().to_string()) {
@@ -1914,6 +1912,18 @@ impl App {
         application
             .set_accels_for_action("win.show-preferences", &["<Primary>comma", "<Primary>P"]);
         application.set_accels_for_action("win.show-menu", &["F10"]);
+    }
+}
+
+/// Show LABEL, the website name set in the preferences, on the search row of
+/// the main window and on the search item of the history context menus
+fn show_website_search_label(builder: &gtk::Builder, label: &str) {
+    let search_row: adw::ActionRow = builder.object("search_youtube_row").unwrap();
+    search_row.set_title(label);
+
+    for menu in ["history_context_model", "history_context_model_faved"] {
+        let menu: gio::Menu = builder.object(menu).unwrap();
+        set_search_item_label(&menu, label);
     }
 }
 
