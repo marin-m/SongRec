@@ -24,12 +24,14 @@ pub fn is_copy_shortcut(key: Key, modifier: ModifierType) -> bool {
         && modifier.intersects(ModifierType::CONTROL_MASK | ModifierType::META_MASK)
 }
 
-/// Give the search item of the history context MENU the label LABEL, the
-/// website name set in the preferences. The item is found by its action in
-/// the sections of MENU, and keeps its position, action and icon.
+/// Give the search action in the history context menu to the
+/// search website name set in the preferences.
+/// The item is found by its action ID in the sections of
+/// the menu, and keeps its position, action and icon.
 pub fn set_search_item_label(menu: &gio::Menu, label: &str) {
     for position in 0..menu.n_items() {
         if let Some(section) = menu.item_link(position, gio::MENU_LINK_SECTION) {
+            // Recurse into section
             if let Ok(section) = section.downcast::<gio::Menu>() {
                 set_search_item_label(&section, label);
             }
@@ -39,6 +41,7 @@ pub fn set_search_item_label(menu: &gio::Menu, label: &str) {
             .as_deref()
             == Some("history-menu.search-on-youtube")
         {
+            // Process context menu item
             let item = gio::MenuItem::from_model(menu, position);
             item.set_label(Some(label));
             menu.remove(position);
@@ -47,17 +50,20 @@ pub fn set_search_item_label(menu: &gio::Menu, label: &str) {
     }
 }
 
-/// The URL searching SONG_NAME on the website set in the preferences, or on
-/// YouTube when none is set. A search URL field that was emptied in the
-/// preferences counts as unset, as appending the song to an empty string
-/// gives a URL that can't be opened.
+/// Return the URL for searching a given song name on the search website
+/// set in the preferences, or on YouTube when none is set. A search
+/// URL field that was emptied in the preferences counts as unset,
+/// as appending the song to an empty string gives a URL that can't
+/// be opened.
 pub fn website_search_url_for(custom_search_url: Option<&str>, song_name: &str) -> String {
     let search_url = custom_search_url
         .filter(|url| !url.trim().is_empty())
         .unwrap_or("https://www.youtube.com/results?search_query=");
+
     let encoded_search_term = utf8_percent_encode(song_name, NON_ALPHANUMERIC)
         .to_string()
         .replace("%20", "+");
+
     format!("{}{}", search_url, encoded_search_term)
 }
 
