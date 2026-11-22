@@ -1915,16 +1915,18 @@ impl App {
     }
 }
 
-/// Show LABEL, the website name set in the preferences, on the search row of
-/// the main window and on the search item of the history context menus
+/// Set the search website name specified in the preferences on the search
+/// button contained in the main panel, and on the search action in the
+/// history context menu
 fn show_website_search_label(builder: &gtk::Builder, label: &str) {
     let search_row: adw::ActionRow = builder.object("search_youtube_row").unwrap();
     search_row.set_title(label);
 
-    for menu in ["history_context_model", "history_context_model_faved"] {
-        let menu: gio::Menu = builder.object(menu).unwrap();
-        set_search_item_label(&menu, label);
-    }
+    let history_menu: gio::Menu = builder.object("history_context_model").unwrap();
+    let history_menu_faved: gio::Menu = builder.object("history_context_model_faved").unwrap();
+
+    set_search_item_label(&history_menu, label);
+    set_search_item_label(&history_menu_faved, label);
 }
 
 /// Open the history or favorites CSV file with the default application, or
