@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-15 08:10+0100\n"
+"POT-Creation-Date: 2026-11-22 21:52+0100\n"
 "PO-Revision-Date: 2026-07-06 14:05+0000\n"
 "Last-Translator: Arda Aydın <arda.aydin@operationsilkscarf.com>\n"
 "Language-Team: Turkish <https://weblate.fossplant.re/projects/songrec/"
@@ -18,55 +18,55 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.15.2\n"
 
-#: src/cli_main.rs:127
+#: src/cli_main.rs:129
 msgid "Available device:"
 msgstr "Kullanılabilr cihaz:"
 
-#: src/cli_main.rs:138
+#: src/cli_main.rs:140
 msgid "Exiting: audio device not found"
 msgstr "Çıkılıyor: Ses cihazı bulunamadı"
 
-#: src/cli_main.rs:145
+#: src/cli_main.rs:147
 msgid "Exiting: no audio devices found!"
 msgstr "Çıkılıyor: Hiçbir ses cihazı bulunamadı!"
 
-#: src/cli_main.rs:151
+#: src/cli_main.rs:153
 #, c-format
 msgid "Using device %s"
 msgstr "%s cihazı kullanılıyor"
 
-#: src/cli_main.rs:175
+#: src/cli_main.rs:177
 msgid "Error: Network unreachable"
 msgstr "Hata: Ağa ulaşılamıyor"
 
-#: src/cli_main.rs:179
+#: src/cli_main.rs:181
 msgid "Warning: Network unreachable"
 msgstr "Uyarı: Ağa ulaşılamıyor"
 
-#: src/cli_main.rs:189 src/cli_main.rs:200 src/cli_main.rs:231
+#: src/cli_main.rs:191 src/cli_main.rs:202 src/cli_main.rs:233
 msgid "Error:"
 msgstr "Hata:"
 
-#: src/cli_main.rs:190 src/cli_main.rs:195 src/core/http_task.rs:130
+#: src/cli_main.rs:192 src/cli_main.rs:197 src/core/http_task.rs:130
 #: src/core/fingerprinting/communication.rs:134
 msgid "Your IP has been rate-limited"
 msgstr "IP'niz hız aşımına yakalanmış"
 
-#: src/cli_main.rs:199 src/core/http_task.rs:54 src/core/http_task.rs:63
+#: src/cli_main.rs:201 src/core/http_task.rs:54 src/core/http_task.rs:63
 #: src/core/http_task.rs:72 src/core/http_task.rs:123
-#: src/gui/main_window.rs:1127 src/gui/main_window.rs:1139
+#: src/gui/main_window.rs:1125 src/gui/main_window.rs:1137
 msgid "No match for this song"
 msgstr "Bu şarkı için eşleşme yok"
 
-#: src/cli_main.rs:208
+#: src/cli_main.rs:210
 msgid "Recording started!"
 msgstr "Kayıt başladı!"
 
-#: src/main.rs:74
+#: src/main.rs:75
 msgid "An open-source Shazam client for Linux, written in Rust."
 msgstr "Rust ile yazılmış, Linux için açık-kaynak bir Shazam istemcisi."
 
-#: src/main.rs:94
+#: src/main.rs:95
 msgid ""
 "-v: Set the log level to DEBUG instead of INFO for SongRec-related messages\n"
 "-vv: Set the log level to DEBUG for SongRec-related messages and INFO for "
@@ -79,7 +79,7 @@ msgstr ""
 "ayıklama) ve kütüphane ile alakalı mesajlar için INFO (bilgi) yap\n"
 "-vvv: Kayıt seviyesini TRACE (izleme) yap"
 
-#: src/main.rs:100
+#: src/main.rs:101
 msgid ""
 "Run as a command-line program listening the microphone and printing "
 "recognized songs to stdout, exposing current song info via MPRIS"
@@ -88,15 +88,15 @@ msgstr ""
 "şarkıları stdout'a yazdıracak ve MPRIS ile şu anki şarkı bilgilerini "
 "gösterecek."
 
-#: src/main.rs:106 src/main.rs:152 src/main.rs:209
+#: src/main.rs:107 src/main.rs:153 src/main.rs:210
 msgid "List available audio devices and quit"
 msgstr "Kullanılabilir ses cihazlarını listele ve çık"
 
-#: src/main.rs:112 src/main.rs:159 src/main.rs:215
+#: src/main.rs:113 src/main.rs:160 src/main.rs:216
 msgid "Specify the audio device to use"
 msgstr "Kullanılacak ses cihazını belirt"
 
-#: src/main.rs:120 src/main.rs:167 src/main.rs:223
+#: src/main.rs:121 src/main.rs:168 src/main.rs:224
 msgid ""
 "Shazam interval between requests in seconds (increase if you are rate-"
 "limited)"
@@ -104,28 +104,28 @@ msgstr ""
 "Shazam istekleri arasında kaç saniye olacak (eğer hız aşımına "
 "yakalanıyorsanız bunur arttırın)"
 
-#: src/main.rs:128 src/main.rs:175
+#: src/main.rs:129 src/main.rs:176
 msgid "Enable printing full song info in JSON"
 msgstr "Şarkının tüm verisini JSON olarak yazmayı aç"
 
-#: src/main.rs:135 src/main.rs:182
+#: src/main.rs:136 src/main.rs:183
 msgid "Enable printing full song info in the CSV format"
 msgstr "Şarkının tüm verisini CSV olarak yazmayı aç"
 
-#: src/main.rs:141 src/main.rs:265 src/main.rs:287
+#: src/main.rs:142 src/main.rs:266 src/main.rs:288
 msgid "Disable MPRIS support"
 msgstr "MPRIS desteğini kapat"
 
-#: src/main.rs:146
+#: src/main.rs:147
 msgid "Recognize one song from a sound file or microphone and print its info."
 msgstr ""
 "Bir ses dosyası veya mikrofondan bir şarkı tanı ve onun bilgilerini yazdır."
 
-#: src/main.rs:188
+#: src/main.rs:189
 msgid "Recognize a file instead of using mic input"
 msgstr "Mikrofonunu kullanmak yerine bir dosyadan tanı"
 
-#: src/main.rs:193
+#: src/main.rs:194
 msgid ""
 "Generate a Shazam fingerprint from a sound file, perform song recognition "
 "towards Shazam's servers and print obtained information to the standard "
@@ -135,11 +135,11 @@ msgstr ""
 "sunucularında parmak izinden şarkı tanı ve elde ettiğin bilgileri standart "
 "çıkışa yazdır."
 
-#: src/main.rs:198
+#: src/main.rs:199
 msgid "The audio file to recognize."
 msgstr "Tanılacak ses dosyası."
 
-#: src/main.rs:203
+#: src/main.rs:204
 msgid ""
 "Recognize a currently playing song using the microphone and print obtained "
 "information to the standard output"
@@ -147,18 +147,18 @@ msgstr ""
 "Şu anda çalan bir şarkıyı mikrofonundan tanı ve elde ettiğin bilgiyi "
 "standart çıkışa yaz"
 
-#: src/main.rs:228
+#: src/main.rs:229
 msgid ""
 "Generate a Shazam fingerprint from a sound file, and print it to the "
 "standard output."
 msgstr ""
 "Bir ses dosyasından Shazam parmak izi oluştur ve bunu standart çıkışa yazdır."
 
-#: src/main.rs:233
+#: src/main.rs:234
 msgid "The .WAV or .MP3 file to generate an audio fingerprint for."
 msgstr "Ses parmak izi oluşturulacak .WAV veya .MP3 dosyası."
 
-#: src/main.rs:238
+#: src/main.rs:239
 msgid ""
 "Take a data-URI Shazam fingerprint, perform song recognition towards "
 "Shazam's servers and print obtained information to the standard output."
@@ -166,25 +166,25 @@ msgstr ""
 "Data URI biçimindeki bir Shazam parmak izini al, Shazam sunucularında "
 "tanımaya çalış ve elde ettiğin bilgileri standart çıkışa yazdır."
 
-#: src/main.rs:242
+#: src/main.rs:243
 msgid "The data-URI Shazam fingerprint to recognize."
 msgstr "Tanılacak data URI halindeki Shazam parmak izi."
 
-#: src/main.rs:254
+#: src/main.rs:255
 msgid "The default action. Display a GUI."
 msgstr "Varsayılan eylem. Bir GUI (ekran) gösterir."
 
-#: src/main.rs:259 src/main.rs:281
+#: src/main.rs:260 src/main.rs:282
 msgid "An optional audio file to recognize on the launch of the application."
 msgstr ""
 "Uygulama başladığında tanınmak üzere belirtilmiş bir ses dosyası. İsteğe "
 "bağlıdır."
 
-#: src/main.rs:271 src/main.rs:293
+#: src/main.rs:272 src/main.rs:294
 msgid "Disable PipeWire native support"
 msgstr "PipeWire desteğini kapa"
 
-#: src/main.rs:276
+#: src/main.rs:277
 msgid ""
 "Launch the GUI, but don't recognize audio through the microphone as soon as "
 "it is launched (rather than expecting the user to click on a button)."
@@ -192,7 +192,7 @@ msgstr ""
 "GUI'yi başlat, ama açıldığı gibi mikrofondan ses tanımayı açma. (Bunun "
 "yerine kullanıcının butona basmasını bekle)"
 
-#: src/main.rs:409
+#: src/main.rs:420
 msgid "Error decoding fingerprint:"
 msgstr ""
 
@@ -205,7 +205,7 @@ msgid "Audio error: No input device available"
 msgstr "Ses hatası: Mevcut bir giriş cihazı yok"
 
 #: src/core/preferences.rs:76 src/core/preferences.rs:102
-#: src/gui/main_window.rs:325 src/gui/interface.blp:124
+#: src/gui/main_window.rs:324 src/gui/interface.blp:124
 #: src/gui/interface.blp:620 src/gui/interface.blp:670
 msgid "Search on YouTube"
 msgstr "YouTube'da ara"
@@ -239,7 +239,7 @@ msgstr ""
 msgid "Invalid sample rate passed when encoding Shazam packet"
 msgstr "Shazam paketin kodlanırken geçersiz örnekleme hızı verildi"
 
-#: src/gui/context_menu.rs:348
+#: src/gui/context_menu.rs:377
 msgid "Song name copied to the clipboard"
 msgstr ""
 
@@ -251,38 +251,38 @@ msgstr "Uygulama hatası"
 msgid "Network error"
 msgstr "Ağ hatası"
 
-#: src/gui/main_window.rs:486
+#: src/gui/main_window.rs:485
 msgctxt ""
 "Status of the app displayed in the Background Apps section of GNOME system "
 "menu when using Flatpak"
 msgid "Recognizing songs"
 msgstr ""
 
-#: src/gui/main_window.rs:556
+#: src/gui/main_window.rs:555
 msgid "Unable to enable notification icon"
 msgstr "Bildirim ikonu etkinleştirilemedi"
 
-#: src/gui/main_window.rs:1036 src/gui/main_window.rs:1114
+#: src/gui/main_window.rs:1034 src/gui/main_window.rs:1112
 msgid "Unable to enable MPRIS support"
 msgstr "MPRIS desteği etkinleştirilemedi"
 
-#: src/gui/main_window.rs:1136
+#: src/gui/main_window.rs:1134
 msgid "_Ok"
 msgstr "_Tamam"
 
-#: src/gui/main_window.rs:1212
+#: src/gui/main_window.rs:1210
 msgid "Song recognized"
 msgstr "Şarkı tanındı"
 
-#: src/gui/main_window.rs:1352
+#: src/gui/main_window.rs:1350
 msgid "Are you sure you want to wipe history?"
 msgstr "Geçmişi temizlemek istediğinizden emin misiniz?"
 
-#: src/gui/main_window.rs:1358
+#: src/gui/main_window.rs:1356
 msgid "_Yes"
 msgstr "_Evet"
 
-#: src/gui/main_window.rs:1359
+#: src/gui/main_window.rs:1357
 msgid "_Cancel"
 msgstr ""
 
