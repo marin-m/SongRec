@@ -317,7 +317,7 @@ Generative AI-based tools may be tolerated in assisting producing code, but:
 * Ensure meaningful comments, variable names, function names
 * Even though they may be useful in fixing edge cases and producing unit tests, avoid totally needless tests
 * Please explictly specify that you used these when submitting a pull request
-* Don't use the `Co-Authored-By:` headers in commits, LLMs these are not humans
+* Don't use the `Co-Authored-By:` headers in commits, LLMs are not humans
 
 ## Legal
 
