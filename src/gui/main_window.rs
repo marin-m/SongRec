@@ -34,7 +34,7 @@ use crate::utils::filesystem_operations::{
 
 use crate::core::preferences::{Preferences, PreferencesInterface};
 
-use crate::gui::context_menu::{ContextMenuUtil, website_search_url_for};
+use crate::gui::context_menu::{ContextMenuUtil, set_search_item_label, website_search_url_for};
 use crate::gui::history_entry::HistoryEntry;
 use crate::gui::listed_device::ListedDevice;
 
@@ -308,8 +308,7 @@ impl App {
         }
     }
 
-    fn update_website_search_text(&self) {
-        let search_row: adw::ActionRow = self.builder.object("search_youtube_row").unwrap();
+    fn setup_website_search_text(&self) {
         let search_name_row: adw::EntryRow = self.builder.object("search_engine_name").unwrap();
         let search_url_row: adw::EntryRow = self.builder.object("search_engine_url").unwrap();
 
@@ -331,7 +330,7 @@ impl App {
         search_name_row.set_text(&label);
         search_url_row.set_text(&url);
 
-        search_row.set_title(&label);
+        show_website_search_label(&self.builder, &label);
     }
 
     fn on_startup(
@@ -353,7 +352,7 @@ impl App {
         self.setup_actions(application, enable_mpris_cli);
 
         self.setup_context_menus();
-        self.update_website_search_text();
+        self.setup_website_search_text();
 
         let window: adw::ApplicationWindow = self.builder.object("main_window").unwrap();
         window.set_application(Some(application));
@@ -646,8 +645,7 @@ impl App {
         builder_scope.add_callback("search_engine_action_changed", move |values| {
             let entry_row = values[0].get::<adw::EntryRow>().unwrap();
 
-            let search_row: adw::ActionRow = builder.object("search_youtube_row").unwrap();
-            search_row.set_title(&entry_row.text());
+            show_website_search_label(&builder, &entry_row.text());
 
             let lock = preferences.lock().unwrap();
             if lock.preferences.website_search_text != Some(entry_row.text().to_string()) {
@@ -1915,6 +1913,20 @@ impl App {
             .set_accels_for_action("win.show-preferences", &["<Primary>comma", "<Primary>P"]);
         application.set_accels_for_action("win.show-menu", &["F10"]);
     }
+}
+
+/// Set the search website name specified in the preferences on the search
+/// button contained in the main panel, and on the search action in the
+/// history context menu
+fn show_website_search_label(builder: &gtk::Builder, label: &str) {
+    let search_row: adw::ActionRow = builder.object("search_youtube_row").unwrap();
+    search_row.set_title(label);
+
+    let history_menu: gio::Menu = builder.object("history_context_model").unwrap();
+    let history_menu_faved: gio::Menu = builder.object("history_context_model_faved").unwrap();
+
+    set_search_item_label(&history_menu, label);
+    set_search_item_label(&history_menu_faved, label);
 }
 
 /// Open the history or favorites CSV file with the default application, or
