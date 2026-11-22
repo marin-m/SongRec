@@ -308,7 +308,7 @@ impl App {
         }
     }
 
-    fn update_website_search_text(&self) {
+    fn setup_website_search_text(&self) {
         let search_name_row: adw::EntryRow = self.builder.object("search_engine_name").unwrap();
         let search_url_row: adw::EntryRow = self.builder.object("search_engine_url").unwrap();
 
@@ -352,7 +352,7 @@ impl App {
         self.setup_actions(application, enable_mpris_cli);
 
         self.setup_context_menus();
-        self.update_website_search_text();
+        self.setup_website_search_text();
 
         let window: adw::ApplicationWindow = self.builder.object("main_window").unwrap();
         window.set_application(Some(application));
