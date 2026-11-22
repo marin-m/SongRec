@@ -310,6 +310,15 @@ See: https://github.com/marin-m/SongRec/issues/265 + https://github.com/RustAudi
 
 Please follow the [GNOME Code of conduct](https://conduct.gnome.org/) when interacting within the boundaries of the project.
 
+Generative AI-based tools may be tolerated in assisting producing code, but:
+* Keep in mind that frontier models are produced by ethically bad companies, harm the planet and degrade trust
+* Don't use these instead of your brain
+* In order to ensure quality, always review *all* their output
+* Ensure meaningful comments, variable names, function names
+* Even though they may be useful in fixing edge cases and producing unit tests, avoid totally needless tests
+* Please explictly specify that you used these when submitting a pull request
+* Don't use the `Co-Authored-By:` headers in commits, LLMs these are not humans
+
 ## Legal
 
 This software is released under the [GNU GPL v3](https://www.gnu.org/licenses/gpl-3.0.html) license. It was created with the intent of providing interoperability between the remote Shazam services and Linux-based deskop systems.
