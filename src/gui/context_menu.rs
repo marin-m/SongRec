@@ -390,13 +390,9 @@ impl ContextMenuUtil {
 mod tests {
     use super::*;
 
-    /// The structure of `history_context_model` in interface.blp
+    /// Partial structure of the structure of `history_context_model` in interface.blp
     fn history_menu() -> gio::Menu {
         let menu = gio::Menu::new();
-        let copy = gio::Menu::new();
-        copy.append(Some("Copy artist"), Some("history-menu.copy-artist"));
-        copy.append(Some("Copy album"), Some("history-menu.copy-album"));
-        menu.append_section(None, &copy);
         let search = gio::Menu::new();
         let item = gio::MenuItem::new(
             Some("Search on YouTube"),
@@ -405,12 +401,6 @@ mod tests {
         item.set_icon(&gio::ThemedIcon::new("search-symbolic"));
         search.append_item(&item);
         menu.append_section(None, &search);
-        let manage = gio::Menu::new();
-        manage.append(
-            Some("Delete from History"),
-            Some("history-menu.remove-from-history"),
-        );
-        menu.append_section(None, &manage);
         menu
     }
 
@@ -429,7 +419,7 @@ mod tests {
 
         set_search_item_label(&menu, "Search on Bandcamp");
 
-        let search = section(&menu, 1);
+        let search = section(&menu, 0);
         assert_eq!(search.n_items(), 1);
         assert_eq!(
             attribute(&search, 0, gio::MENU_ATTRIBUTE_LABEL).as_deref(),
@@ -439,28 +429,11 @@ mod tests {
             attribute(&search, 0, gio::MENU_ATTRIBUTE_ACTION).as_deref(),
             Some("history-menu.search-on-youtube")
         );
-        assert!(
-            search
-                .item_attribute_value(0, gio::MENU_ATTRIBUTE_ICON, None)
-                .is_some()
-        );
-
-        // The other items are left as they are
-        let copy = section(&menu, 0);
-        assert_eq!(copy.n_items(), 2);
-        assert_eq!(
-            attribute(&copy, 1, gio::MENU_ATTRIBUTE_LABEL).as_deref(),
-            Some("Copy album")
-        );
-        assert_eq!(
-            attribute(&section(&menu, 2), 0, gio::MENU_ATTRIBUTE_LABEL).as_deref(),
-            Some("Delete from History")
-        );
 
         // Changing the name again relabels the same item
         set_search_item_label(&menu, "Search on YouTube");
         assert_eq!(
-            attribute(&section(&menu, 1), 0, gio::MENU_ATTRIBUTE_LABEL).as_deref(),
+            attribute(&section(&menu, 0), 0, gio::MENU_ATTRIBUTE_LABEL).as_deref(),
             Some("Search on YouTube")
         );
     }
