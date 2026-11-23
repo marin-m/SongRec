@@ -15,7 +15,9 @@
 
 
 %:
-	dh $@
+	dh $@ --buildsystem=meson
+
+# ⚠️ TODO the following will need to disappear
 
 override_dh_auto_build:
 	cargo --offline fetch --verbose
