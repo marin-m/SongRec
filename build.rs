@@ -356,13 +356,13 @@ troubleshoot the error"
     let mut data = img.into_rgba8().into_vec();
     assert_eq!(data.len() % 4, 0);
     for pixel in data.as_chunks_mut::<4>().0 {
-        pixel.rotate_right(1) // rgba to argb
+        pixel.rotate_right(1) // RGBA to ARGB
     }
 
     let mut out_file = std::fs::File::create(out_path).unwrap();
     out_file.write_all(&data).unwrap();
 
-    // Mode the modified or added man pages to the source tree
+    // Move the modified or added man pages to the source tree
 
     for in_path in std::fs::read_dir(temp_out_dir.path()).unwrap() {
         if let Ok(in_path) = in_path {
