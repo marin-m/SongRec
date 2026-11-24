@@ -1,6 +1,6 @@
 pkgname=songrec-git
 _pkgname=songrec
-pkgver=r1214.7ecaed3
+pkgver=r1200.792469b
 pkgrel=1
 provides=('songrec')
 conflicts=('songrec')
@@ -19,7 +19,7 @@ pkgver() {
 }
 
 build() {
-  arch-meson $pkgname build
+  meson setup --prefix /usr $_pkgname build
   meson compile -C build
 }
 
