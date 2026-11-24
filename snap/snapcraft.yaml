@@ -94,7 +94,7 @@ parts:
 
   alsa-mixin:
     plugin: dump
-    source: packaging/rootfs-snap/
+    source: snap/rootfs/
     source-type: local
 
     stage-packages:
