@@ -79,20 +79,18 @@ parts:
 
   ffmpeg:
     plugin: dump
-    source: packaging/ffmpeg/linux/
-    source-type: local
+    source: https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-${CRAFT_ARCH_BUILD_FOR}-static.tar.xz
+    source-type: tar
 
     override-pull: |
-      craftctl default
+      if [ "${CRAFT_ARCH_BUILD_FOR}" != "riscv64" ]; then
+        craftctl default
+      fi
 
-      mkdir -p bin
-      if [ "$SNAP_ARCH" == "amd64" ]; then
-        mv ffmpeg-*-amd64 bin/ffmpeg
-      fi
-      if [ "$SNAP_ARCH" == "arm64" ]; then
-        mv ffmpeg-*-arm64 bin/ffmpeg
-      fi
-      rm -f ffmpeg-* README.md
+    organize:
+      ffmpeg: usr/bin/
+    stage:
+      - usr/
 
   alsa-mixin:
     plugin: dump

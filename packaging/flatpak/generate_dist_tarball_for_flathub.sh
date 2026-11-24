@@ -26,6 +26,6 @@ rm -rf python-version/.ruff_cache python-version/.venv .ruff_cache
 mkdir -p .cargo
 cargo vendor --locked vendor | sed 's/^directory = ".*"/directory = "vendor"/g' > .cargo/config.toml
 
-rm -rf .git packaging/ffmpeg/linux/
+rm -rf .git
 
 tar zcvf ../songrec_tarball_"$1"_for_flathub_build.tar.gz .
