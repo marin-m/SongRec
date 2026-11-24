@@ -66,7 +66,6 @@ default = ["gui", "ffmpeg", "pulse", "mpris", "pipewire" ]
 gui = ["gtk", "adw", "gdk", "gio", "percent-encoding", "ashpd", "ksni"]
 pulse = [ "pulsectl-rs", "libpulse-binding" ]
 mpris = [ "mpris-server" ]
-manpages = []
 pipewire = []
 ffmpeg = []
 

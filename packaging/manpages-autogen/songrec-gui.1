@@ -1,0 +1,22 @@
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.TH songrec-gui 1  "gui " 
+.SH NAME
+songrec\-gui \- The default action. Display a GUI.
+.SH SYNOPSIS
+\fBsongrec gui\fR [\fB\-\-disable\-mpris\fR] [\fB\-\-disable\-pipewire\fR] [\fB\-h\fR|\fB\-\-help\fR] [\fIinput_file\fR] 
+.SH DESCRIPTION
+The default action. Display a GUI.
+.SH OPTIONS
+.TP
+\fB\-\-disable\-mpris\fR
+Disable MPRIS support
+.TP
+\fB\-\-disable\-pipewire\fR
+Disable PipeWire native support
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Print help
+.TP
+[\fIinput_file\fR]
+An optional audio file to recognize on the launch of the application.
