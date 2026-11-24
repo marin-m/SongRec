@@ -58,7 +58,7 @@ parts:
       sed -i -e 's|re.fossplant.songrec.desktop|com.github.marinm.songrec.desktop|g' usr/share/metainfo/re.fossplant.songrec.metainfo.xml
       sed -i -e 's|Icon=re.fossplant.songrec|Icon=/usr/share/icons/hicolor/scalable/apps/re.fossplant.songrec.svg|g' usr/share/applications/com.github.marinm.songrec.desktop
   
-    after: [share, alsa-mixin, rust-deps]
+    after: [alsa-mixin, rust-deps]
 
   rust-deps:
     plugin: nil
