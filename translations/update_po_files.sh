@@ -43,13 +43,23 @@ else
     rm "translations/songrec.pot.new"
 fi
 
-for locale in translations/locale/*; do
-    msgmerge --no-fuzzy-matching --update ${locale}/LC_MESSAGES/songrec.po translations/songrec.pot
+# Update .po templates based on .pot
+
+for locale in $(cat translations/po/LINGUAS); do
+    msgmerge --no-fuzzy-matching \
+        --update translations/po/${locale}.po \
+        translations/songrec.pot
+    
+    # Keep binary ".mo" files synced with the ".po" files,
+    # as needed, if a tool like "poedit" didn't already
+    # do it automatically
+
+    mkdir -p translations/locale/${locale}/LC_MESSAGES/
+    msgfmt translations/po/${locale}.po \
+        -o translations/locale/${locale}/LC_MESSAGES/songrec.mo
 done
 
-# Keep binary ".mo" files synched with the ".po" files,
-# as needed, if a tool like "poedit" didn't already
-# do it automatically
+# Regenerate desktop and metainfo.xml files
 
 cp packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in \
     packaging/rootfs/usr/share/metainfo/re.fossplant.songrec.metainfo.xml
@@ -57,23 +67,19 @@ cp packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in \
 cp packaging/freedesktop/re.fossplant.songrec.desktop.in \
     packaging/rootfs/usr/share/applications/re.fossplant.songrec.desktop
 
-for locale in translations/locale/*; do
-    msgfmt ${locale}/LC_MESSAGES/songrec.po -o ${locale}/LC_MESSAGES/songrec.mo
+msgfmt --xml -d translations/po \
+    --template packaging/rootfs/usr/share/metainfo/re.fossplant.songrec.metainfo.xml \
+    -o packaging/rootfs/usr/share/metainfo/re.fossplant.songrec.metainfo.xml.new
 
-    msgfmt --xml ${locale}/LC_MESSAGES/songrec.po -l "$(basename ${locale} | cut -c1-2)" \
-        --template packaging/rootfs/usr/share/metainfo/re.fossplant.songrec.metainfo.xml \
-        -o packaging/rootfs/usr/share/metainfo/re.fossplant.songrec.metainfo.xml.new
+mv packaging/rootfs/usr/share/metainfo/re.fossplant.songrec.metainfo.xml.new \
+    packaging/rootfs/usr/share/metainfo/re.fossplant.songrec.metainfo.xml
 
-    mv packaging/rootfs/usr/share/metainfo/re.fossplant.songrec.metainfo.xml.new \
-        packaging/rootfs/usr/share/metainfo/re.fossplant.songrec.metainfo.xml
+msgfmt --desktop -d translations/po \
+    --template packaging/rootfs/usr/share/applications/re.fossplant.songrec.desktop \
+    -o packaging/rootfs/usr/share/applications/re.fossplant.songrec.desktop.new
 
-    msgfmt --desktop ${locale}/LC_MESSAGES/songrec.po -l "$(basename ${locale})" \
-        --template packaging/rootfs/usr/share/applications/re.fossplant.songrec.desktop \
-        -o packaging/rootfs/usr/share/applications/re.fossplant.songrec.desktop.new
-
-    mv packaging/rootfs/usr/share/applications/re.fossplant.songrec.desktop.new \
-        packaging/rootfs/usr/share/applications/re.fossplant.songrec.desktop
-done
+mv packaging/rootfs/usr/share/applications/re.fossplant.songrec.desktop.new \
+    packaging/rootfs/usr/share/applications/re.fossplant.songrec.desktop
 
 sed -i '2i <!-- NOTE: ⚠️ This file was generated when building with cargo, please do not edit directly.\n     Find the original *.in file in packaging/freedesktop/ -->' packaging/rootfs/usr/share/metainfo/re.fossplant.songrec.metainfo.xml
 
