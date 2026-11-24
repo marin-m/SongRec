@@ -21,14 +21,14 @@ xgettext --c++ -kgettext -kpgettext --from-code utf-8 -o translations/songrec.po
 
 xgettext --join-existing -L desktop -o translations/songrec.pot.new \
     -k -kComment -kKeywords \
-    packaging/freedesktop/re.fossplant.songrec.desktop.in
+    packaging/freedesktop/re.fossplant.songrec.desktop
 
 xgettext --join-existing --from-code=UTF-8 --add-comments \
     --keyword=_ --keyword=C_:1c,2 -o translations/songrec.pot.new \
     src/gui/*.blp
 
 xgettext --join-existing --its translations/songrec.its -o translations/songrec.pot.new \
-    packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in
+    packaging/freedesktop/re.fossplant.songrec.metainfo.xml
 
 newPotDate=`grep "POT-Creation-Date:" translations/songrec.pot.new | sed 's/.\{3\}$//'`
 oldPotDate=`grep "POT-Creation-Date:" translations/songrec.pot | sed 's/.\{3\}$//'`

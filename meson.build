@@ -40,7 +40,7 @@ gnome = import('gnome')
 # Cf. https://docs.flatpak.org/en/latest/flatpak-devel.html#buildsystem-handling
 
 i18n.merge_file(
-    input: 'packaging/freedesktop/re.fossplant.songrec.desktop.in',
+    input: 'packaging/freedesktop/re.fossplant.songrec.desktop',
     output: 're.fossplant.songrec.desktop',
     type: 'desktop',
     po_dir: 'translations/po',
@@ -49,7 +49,7 @@ i18n.merge_file(
 )
 
 appstream_file = i18n.merge_file(
-    input: 'packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in',
+    input: 'packaging/freedesktop/re.fossplant.songrec.metainfo.xml',
     output: 're.fossplant.songrec.metainfo.xml',
     type: 'xml',
     po_dir: 'translations/po',
@@ -66,6 +66,19 @@ if appstreamcli.found()
         workdir: meson.current_build_dir()
     )
 endif
+
+install_man(
+    'packaging/manpages-autogen/songrec.1.gz',
+    'packaging/manpages-autogen/songrec-audio-file-to-fingerprint.1.gz',
+    'packaging/manpages-autogen/songrec-audio-file-to-recognized-song.1.gz',
+    'packaging/manpages-autogen/songrec-fingerprint-to-recognized-song.1.gz',
+    'packaging/manpages-autogen/songrec-gui.1.gz',
+    'packaging/manpages-autogen/songrec-gui-norecording.1.gz',
+    'packaging/manpages-autogen/songrec-listen.1.gz',
+    'packaging/manpages-autogen/songrec-microphone-to-recognized-song.1.gz',
+    'packaging/manpages-autogen/songrec-recognize.1.gz',
+    install_dir: usrdir / 'share' / 'man' / 'man1'
+)
 
 dependency('gtk4', version: '>= 4.14')
 dependency('libadwaita-1', version: '>= 1.8')

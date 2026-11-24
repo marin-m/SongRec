@@ -232,11 +232,6 @@ macro_rules! app {
 }
 
 fn main() {
-    // Lint source code
-
-    #[cfg(target_os = "linux")]
-    std::process::Command::new("cargo").arg("fmt").status().ok();
-
     // Regenerate .po, .mo, .pot translation
     // files from the source tree
 
@@ -314,11 +309,7 @@ troubleshoot the error"
 
     let real_out_dir = std::path::PathBuf::from(".")
         .join("packaging")
-        .join("rootfs")
-        .join("usr")
-        .join("share")
-        .join("man")
-        .join("man1");
+        .join("manpages-autogen");
 
     std::fs::create_dir_all(&real_out_dir).unwrap();
 

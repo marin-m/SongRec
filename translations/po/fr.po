@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-24 17:35+0100\n"
+"POT-Creation-Date: 2026-11-24 18:38+0100\n"
 "PO-Revision-Date: 2026-11-15 10:07+0000\n"
 "Last-Translator: Marin <25437947+marin-m@users.noreply.github.com>\n"
 "Language-Team: French <https://weblate.fossplant.re/projects/songrec/songrec/"
@@ -327,11 +327,11 @@ msgstr "Ouvrir SongRec"
 msgid "Quit..."
 msgstr "Quitter..."
 
-#: packaging/freedesktop/re.fossplant.songrec.desktop.in:18
+#: packaging/freedesktop/re.fossplant.songrec.desktop:18
 msgid "An open-source Shazam client for Linux, written in Rust"
 msgstr "Un client Shazam open-source pour Linux, écrit en Rust"
 
-#: packaging/freedesktop/re.fossplant.songrec.desktop.in:20
+#: packaging/freedesktop/re.fossplant.songrec.desktop:20
 msgid "Rust;GTK;Shazam;Client;Audio;Song;Recognition;Fingerprinting;"
 msgstr "Rust;GTK;Shazam;Client;Audio;Chanson;Morceau;Reconnaissance;Fingerprinting;"
 
@@ -627,11 +627,11 @@ msgctxt "In the shortcuts window"
 msgid "Show menu"
 msgstr "Afficher le menu"
 
-#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:11
+#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml:11
 msgid "Recognize songs from audio easily"
 msgstr "Identifier des chansons à partir d'audio facilement"
 
-#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:13
+#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml:13
 msgid ""
 "SongRec is an unofficial Shazam client for Linux, written in Rust. It allows "
 "you to easily recognize songs from your speakers, microphone or audio files."
@@ -640,30 +640,30 @@ msgstr ""
 "permet de reconnaître facilement des chansons à partir de vos hauts-"
 "parleurs, d'un microphone ou de fichiers audio."
 
-#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:14
+#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml:14
 msgid "Features:"
 msgstr "Il vous permet aussi de :"
 
-#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:15
+#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml:15
 msgid "- Recognize tracks from an arbitrary audio file."
 msgstr "- Reconnaître des chansons à partir d'un fichier audio arbitraire."
 
-#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:16
+#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml:16
 msgid "- Recognize audio from the microphone."
 msgstr "- Reconnaître des chansons à partir du microphone."
 
-#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:17
+#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml:17
 msgid "- Usage from both GUI and command line."
 msgstr "- Utilisable en mode graphique et depuis la ligne de commande."
 
-#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:18
+#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml:18
 msgid ""
 "- Provide an history of the recognized songs on the GUI, exportable to CSV."
 msgstr ""
 "- Visualiser un historique des chansons reconnues via l'interface graphique, "
 "exportable au format CSV."
 
-#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:19
+#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml:19
 msgid ""
 "- Continuous song detection from the microphone, with the ability to choose "
 "your input device."
@@ -671,22 +671,22 @@ msgstr ""
 "- Reconnaître en continu de l'audio à partir du microphone, avec la "
 "possibilité de choisir votre périphérique d'entrée."
 
-#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:20
+#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml:20
 msgid ""
 "- Ability to recognize songs from your speakers rather than your microphone."
 msgstr ""
 "- Reconnaître les chansons à partir de vos hauts-parleurs plutôt que votre "
 "microphone."
 
-#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:25
+#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml:25
 msgid "SongRec's main window"
 msgstr "La fenêtre principale de SongRec"
 
-#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:29
+#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml:29
 msgid "SongRec's favourites window"
 msgstr "La fenêtre des favoris de SongRec"
 
-#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:33
+#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml:33
 msgid "SongRec's main window, on GNOME in dark mode"
 msgstr "La fenêtre principale de SongRec, avec GNOME en mode sombre"
 
