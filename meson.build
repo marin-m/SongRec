@@ -10,7 +10,7 @@ project(
         'version',
         check: true,
     ).stdout(),
-    meson_version: '>=0.57',
+    meson_version: '>=1.1',
 )
 
 # etc = get_option('prefix') / get_option('sysconfdir')

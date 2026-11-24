@@ -31,12 +31,9 @@
     "modules": [
         {
             "name": "songrec",
-            "buildsystem": "simple",
-            "build-commands": [
-                "cargo build --release --verbose --no-default-features -F gui,ffmpeg,pulse,mpris",
-                "install -Dm755 ./target/release/songrec -t /app/bin/",
-                "cp -r ./packaging/rootfs/usr/share /app/",
-                "cp -r ./translations/locale /app/share/"
+            "buildsystem": "meson",
+            "config-opts": [
+                "-Dpipewire=disabled"
             ],
             "sources": [
                 {
