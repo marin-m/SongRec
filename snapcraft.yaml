@@ -33,27 +33,33 @@ slots:
 
 parts:
   songrec:
-    plugin: rust
-    rust-no-default-features: true
-    rust-features:
-      - gui
-      - mpris
-      - pulse
-      - ffmpeg
-    rust-use-global-lto: true
+    plugin: meson
     source: .
+    meson-parameters:
+      - "-Dpipewire=disabled"
 
     build-packages:
+      - meson
       - libpipewire-0.3-dev
       - libclang-dev
       - libasound2-dev
+
     stage-packages:
       - libdrm-common
+
+    parse-info: [usr/share/metainfo/re.fossplant.songrec.metainfo.xml]
+    source-type: local
+
+    override-prime: |
+      craftctl default
+
+      # Point icon to the correct location
+      mv usr/share/applications/re.fossplant.songrec.desktop usr/share/applications/com.github.marinm.songrec.desktop
+      sed -i -e 's|re.fossplant.songrec.desktop|com.github.marinm.songrec.desktop|g' usr/share/metainfo/re.fossplant.songrec.metainfo.xml
+      sed -i -e 's|Icon=re.fossplant.songrec|Icon=/usr/share/icons/hicolor/scalable/apps/re.fossplant.songrec.svg|g' usr/share/applications/com.github.marinm.songrec.desktop
   
     after: [share, alsa-mixin, rust-deps]
 
-  # Bootstraps rustup manually - needed because
-  #  https://github.com/canonical/snapcraft/issues/6330
   rust-deps:
     plugin: nil
     build-packages:
@@ -64,19 +70,6 @@ parts:
       ln -sf "$HOME/.cargo/bin/cargo" /usr/local/bin/cargo
       ln -sf "$HOME/.cargo/bin/rustc" /usr/local/bin/rustc
       ln -sf "$HOME/.cargo/bin/rustup" /usr/local/bin/rustup
-
-  translations:
-    plugin: dump
-    source: translations/
-    source-type: local
-
-    override-pull: |
-      craftctl default
-
-      mkdir -p bin/translations
-      rm -rf bin/translations/locale
-      mv locale bin/translations/
-      rm -f README.md songrec.pot songrec.its update_po_files.sh
 
   ffmpeg:
     plugin: dump
@@ -94,20 +87,6 @@ parts:
         mv ffmpeg-*-arm64 bin/ffmpeg
       fi
       rm -f ffmpeg-* README.md
-
-  share:
-    plugin: dump
-    source: packaging/rootfs/
-    parse-info: [usr/share/metainfo/re.fossplant.songrec.metainfo.xml]
-    source-type: local
-
-    override-pull: |
-      craftctl default
-
-      # Point icon to the correct location
-      mv usr/share/applications/re.fossplant.songrec.desktop usr/share/applications/com.github.marinm.songrec.desktop
-      sed -i -e 's|re.fossplant.songrec.desktop|com.github.marinm.songrec.desktop|g' usr/share/metainfo/re.fossplant.songrec.metainfo.xml
-      sed -i -e 's|Icon=re.fossplant.songrec|Icon=/usr/share/icons/hicolor/scalable/apps/re.fossplant.songrec.svg|g' usr/share/applications/com.github.marinm.songrec.desktop
 
   alsa-mixin:
     plugin: dump
