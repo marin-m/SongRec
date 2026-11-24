@@ -25,6 +25,7 @@ usrdir = get_option('prefix') / get_option('datadir')
 cargo_env = {
   'CARGO_HOME': meson.project_build_root() / 'cargo',
   'LOCALEDIR': get_option('prefix') / get_option('localedir'),
+  'RUST_BACKTRACE': 'full'
 }
 
 cargo_options = [
@@ -83,6 +84,18 @@ custom_target(
         target_dir / 'release' / meson.project_name(),
         '@OUTPUT@',
     ],
+)
+
+test(
+  'cargo-test',
+  cargo_bin,
+  args: [
+    'test',
+    cargo_options,
+  ],
+  env: cargo_env,
+  is_parallel: false,
+  timeout: 1800,
 )
 
 

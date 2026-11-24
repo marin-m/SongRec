@@ -19,10 +19,6 @@
 
 # ⚠️ TODO the following will need to disappear
 
-override_dh_auto_build:
-	cargo --offline fetch --verbose
-	cargo --offline build --release --verbose
-
 override_dh_auto_install:
 	mkdir -p $(CURDIR)/debian/songrec
 	cp -ra $(CURDIR)/packaging/rootfs/usr $(CURDIR)/debian/songrec/
@@ -31,5 +27,5 @@ override_dh_auto_install:
 	cp -ra $(CURDIR)/translations/locale $(CURDIR)/debian/songrec/usr/share/
 	
 	mkdir -p $(CURDIR)/debian/songrec/usr/bin
-	cp -ra $(CURDIR)/target/release/songrec $(CURDIR)/debian/songrec/usr/bin/
+	cp -ra $(CURDIR)/build/target/release/songrec $(CURDIR)/debian/songrec/usr/bin/
 

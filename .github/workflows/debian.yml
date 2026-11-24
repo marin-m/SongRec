@@ -24,7 +24,5 @@ jobs:
         run: desktop-file-validate packaging/rootfs/usr/share/applications/re.fossplant.songrec.desktop
       - name: Build Debian package
         run: "bash -c 'echo Using: $(which cargo) / $(ls -l $(which cargo)) && ./packaging/ppa/build_binary_package.sh'"
-      - name: Run platform-specific tests
-        run: "RUST_BACKTRACE=full cargo test --release"
       - name: Ensure Debian package validity
         run: "lintian /tmp/*.deb"
