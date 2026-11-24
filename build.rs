@@ -367,7 +367,11 @@ troubleshoot the error"
     for in_path in std::fs::read_dir(temp_out_dir.path()).unwrap() {
         if let Ok(in_path) = in_path {
             let out_path = real_out_dir.join(in_path.file_name());
-            std::fs::copy(in_path.path(), out_path).unwrap();
+
+            let mut out_file = std::fs::File::create(out_path).unwrap();
+            out_file
+                .write_all(&std::fs::read(&in_path.path()).unwrap())
+                .unwrap();
         }
     }
 }
