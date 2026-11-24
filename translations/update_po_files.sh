@@ -20,6 +20,7 @@ xgettext --c++ -kgettext -kpgettext --from-code utf-8 -o translations/songrec.po
     src/utils/*.rs \
 
 xgettext --join-existing -L desktop -o translations/songrec.pot.new \
+    -k -kComment -kKeywords \
     packaging/freedesktop/re.fossplant.songrec.desktop.in
 
 xgettext --join-existing --from-code=UTF-8 --add-comments \
@@ -58,36 +59,3 @@ for locale in $(cat translations/po/LINGUAS); do
     msgfmt translations/po/${locale}.po \
         -o translations/locale/${locale}/LC_MESSAGES/songrec.mo
 done
-
-# Regenerate desktop and metainfo.xml files
-
-cp packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in \
-    packaging/rootfs/usr/share/metainfo/re.fossplant.songrec.metainfo.xml
-
-cp packaging/freedesktop/re.fossplant.songrec.desktop.in \
-    packaging/rootfs/usr/share/applications/re.fossplant.songrec.desktop
-
-msgfmt --xml -d translations/po \
-    --template packaging/rootfs/usr/share/metainfo/re.fossplant.songrec.metainfo.xml \
-    -o packaging/rootfs/usr/share/metainfo/re.fossplant.songrec.metainfo.xml.new
-
-mv packaging/rootfs/usr/share/metainfo/re.fossplant.songrec.metainfo.xml.new \
-    packaging/rootfs/usr/share/metainfo/re.fossplant.songrec.metainfo.xml
-
-msgfmt --desktop -d translations/po \
-    --template packaging/rootfs/usr/share/applications/re.fossplant.songrec.desktop \
-    -o packaging/rootfs/usr/share/applications/re.fossplant.songrec.desktop.new
-
-mv packaging/rootfs/usr/share/applications/re.fossplant.songrec.desktop.new \
-    packaging/rootfs/usr/share/applications/re.fossplant.songrec.desktop
-
-sed -i '2i <!-- NOTE: ⚠️ This file was generated when building with cargo, please do not edit directly.\n     Find the original *.in file in packaging/freedesktop/ -->' packaging/rootfs/usr/share/metainfo/re.fossplant.songrec.metainfo.xml
-
-sed -i '2i # NOTE: ⚠️ This file was generated when building with cargo, please do not edit directly.\n# Find the original *.in file in packaging/freedesktop/\n' packaging/rootfs/usr/share/applications/re.fossplant.songrec.desktop
-
-sed -z 's/  <name xml:[^\n]*\n//g' \
-    packaging/rootfs/usr/share/metainfo/re.fossplant.songrec.metainfo.xml > \
-    packaging/rootfs/usr/share/metainfo/re.fossplant.songrec.metainfo.xml.new
-
-mv packaging/rootfs/usr/share/metainfo/re.fossplant.songrec.metainfo.xml.new \
-    packaging/rootfs/usr/share/metainfo/re.fossplant.songrec.metainfo.xml

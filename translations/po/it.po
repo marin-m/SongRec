@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-22 21:52+0100\n"
+"POT-Creation-Date: 2026-11-24 17:35+0100\n"
 "PO-Revision-Date: 2026-10-26 17:08+0000\n"
 "Last-Translator: albanobattistella <albano_battistella@hotmail.com>\n"
 "Language-Team: Italian <https://weblate.fossplant.re/projects/songrec/"
@@ -321,10 +321,6 @@ msgstr "Apri SongRec"
 #: src/plugins/ksni.rs:51
 msgid "Quit..."
 msgstr "Esci.."
-
-#: packaging/freedesktop/re.fossplant.songrec.desktop.in:16
-msgid "SongRec"
-msgstr "SongRec"
 
 #: packaging/freedesktop/re.fossplant.songrec.desktop.in:18
 msgid "An open-source Shazam client for Linux, written in Rust"
@@ -691,6 +687,9 @@ msgstr "Finestra dei preferiti di SongRec"
 #: packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in:33
 msgid "SongRec's main window, on GNOME in dark mode"
 msgstr "Finestra principale di SongRec, su GNOME in modalità scura"
+
+#~ msgid "SongRec"
+#~ msgstr "SongRec"
 
 #~ msgid "_No"
 #~ msgstr "_No"

@@ -37,6 +37,36 @@ cargo_options = [
 i18n = import('i18n')
 gnome = import('gnome')
 
+# Cf. https://docs.flatpak.org/en/latest/flatpak-devel.html#buildsystem-handling
+
+i18n.merge_file(
+    input: 'packaging/freedesktop/re.fossplant.songrec.desktop.in',
+    output: 're.fossplant.songrec.desktop',
+    type: 'desktop',
+    po_dir: 'translations/po',
+    install: true,
+    install_dir: usrdir / 'applications',
+)
+
+appstream_file = i18n.merge_file(
+    input: 'packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in',
+    output: 're.fossplant.songrec.metainfo.xml',
+    type: 'xml',
+    po_dir: 'translations/po',
+    install: true,
+    install_dir: usrdir / 'metainfo',
+)
+
+appstreamcli = find_program('appstreamcli', required: false)
+if appstreamcli.found()
+    test(
+        'Validate metainfo file',
+        appstreamcli,
+        args: ['validate', '--no-net', '--explain', appstream_file],
+        workdir: meson.current_build_dir()
+    )
+endif
+
 dependency('gtk4', version: '>= 4.14')
 dependency('libadwaita-1', version: '>= 1.8')
 dependency('libsoup-3.0', version: '>= 3.4')

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-22 21:52+0100\n"
+"POT-Creation-Date: 2026-11-24 17:35+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -288,10 +288,6 @@ msgstr ""
 
 #: src/plugins/ksni.rs:51
 msgid "Quit..."
-msgstr ""
-
-#: packaging/freedesktop/re.fossplant.songrec.desktop.in:16
-msgid "SongRec"
 msgstr ""
 
 #: packaging/freedesktop/re.fossplant.songrec.desktop.in:18
