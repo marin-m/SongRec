@@ -17,13 +17,3 @@
 %:
 	dh $@ --buildsystem=meson
 
-# ⚠️ TODO the following will need to disappear
-
-override_dh_auto_install:
-	mkdir -p $(CURDIR)/debian/songrec/usr/share
-
-	cp -ra $(CURDIR)/packaging/icons $(CURDIR)/debian/songrec/usr/share/
-	cp -ra $(CURDIR)/translations/locale $(CURDIR)/debian/songrec/usr/share/
-
-	$(DH_OVERRIDDEN_COMMAND)
-

@@ -67,6 +67,9 @@ if appstreamcli.found()
     )
 endif
 
+install_subdir('packaging/icons', install_dir : usrdir / 'share')
+install_subdir('translations/locale', install_dir : usrdir / 'share')
+
 install_man(
     'packaging/manpages-autogen/songrec.1',
     'packaging/manpages-autogen/songrec-audio-file-to-fingerprint.1',
