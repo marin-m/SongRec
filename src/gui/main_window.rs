@@ -1420,7 +1420,7 @@ impl App {
 
                 about_dialog.set_release_notes_version(
                     include_str!(
-                        "../../packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in"
+                        "../../packaging/freedesktop/re.fossplant.songrec.metainfo.xml"
                     )
                     .split("<release version=\"")
                     .collect::<Vec<_>>()[1]
@@ -1430,7 +1430,7 @@ impl App {
 
                 about_dialog.set_release_notes(
                     include_str!(
-                        "../../packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in"
+                        "../../packaging/freedesktop/re.fossplant.songrec.metainfo.xml"
                     )
                     .split("<release ")
                     .collect::<Vec<_>>()[1]

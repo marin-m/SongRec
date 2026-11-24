@@ -1,0 +1,50 @@
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.TH songrec 1  "songrec 0.8.2" 
+.SH NAME
+songrec \- An open\-source Shazam client for Linux, written in Rust.
+.SH SYNOPSIS
+\fBsongrec\fR [\fB\-v\fR|\fB\-\-verbose\fR]... [\fB\-h\fR|\fB\-\-help\fR] [\fB\-V\fR|\fB\-\-version\fR] [\fIsubcommands\fR]
+.SH DESCRIPTION
+An open\-source Shazam client for Linux, written in Rust.
+.SH OPTIONS
+.TP
+\fB\-v\fR, \fB\-\-verbose\fR
+\-v: Set the log level to DEBUG instead of INFO for SongRec\-related messages
+\-vv: Set the log level to DEBUG for SongRec\-related messages and INFO for library\-related messages
+\-vvv: Set the log level to TRACE
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Print help
+.TP
+\fB\-V\fR, \fB\-\-version\fR
+Print version
+.SH SUBCOMMANDS
+.TP
+songrec\-listen(1)
+Run as a command\-line program listening the microphone and printing recognized songs to stdout, exposing current song info via MPRIS
+.TP
+songrec\-recognize(1)
+Recognize one song from a sound file or microphone and print its info.
+.TP
+songrec\-audio\-file\-to\-recognized\-song(1)
+Generate a Shazam fingerprint from a sound file, perform song recognition towards Shazam\*(Aqs servers and print obtained information to the standard output.
+.TP
+songrec\-microphone\-to\-recognized\-song(1)
+Recognize a currently playing song using the microphone and print obtained information to the standard output
+.TP
+songrec\-audio\-file\-to\-fingerprint(1)
+Generate a Shazam fingerprint from a sound file, and print it to the standard output.
+.TP
+songrec\-fingerprint\-to\-recognized\-song(1)
+Take a data\-URI Shazam fingerprint, perform song recognition towards Shazam\*(Aqs servers and print obtained information to the standard output.
+.TP
+songrec\-gui(1)
+The default action. Display a GUI.
+.TP
+songrec\-gui\-norecording(1)
+Launch the GUI, but don\*(Aqt recognize audio through the microphone as soon as it is launched (rather than expecting the user to click on a button).
+.SH VERSION
+v0.8.2
+.SH AUTHORS
+Marin M. \- Fossplant.re

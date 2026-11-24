@@ -1,6 +1,4 @@
 use clap::{Arg, ArgAction, Command, command};
-use flate2::Compression;
-use flate2::GzBuilder;
 use gettextrs::gettext;
 use std::io::prelude::*;
 
@@ -315,24 +313,6 @@ troubleshoot the error"
 
     clap_mangen::generate_to(app!(), temp_out_dir.path()).unwrap();
 
-    // Compress the man pages
-
-    for path in std::fs::read_dir(temp_out_dir.path()).unwrap() {
-        let path_str = path.unwrap().path().display().to_string();
-
-        if path_str.ends_with(".1") {
-            let out_file = std::fs::File::create(format!("{}.gz", path_str)).unwrap();
-
-            let mut gzipper = GzBuilder::new().write(out_file, Compression::best());
-            gzipper
-                .write_all(&std::fs::read(&path_str).unwrap())
-                .unwrap();
-            gzipper.finish().unwrap();
-
-            std::fs::remove_file(path_str).unwrap();
-        }
-    }
-
     // Prebuild the KSNI ARGB8-BE tray icon from PNG
 
     let out_path = std::path::PathBuf::from(".")
@@ -341,7 +321,7 @@ troubleshoot the error"
         .join("tray_icon.raw");
 
     let img = image::open(
-        "packaging/rootfs/usr/share/icons/hicolor/256x256/apps/re.fossplant.songrec.png",
+        "packaging/icons/hicolor/256x256/apps/re.fossplant.songrec.png",
     )
     .unwrap();
     let mut data = img.into_rgba8().into_vec();

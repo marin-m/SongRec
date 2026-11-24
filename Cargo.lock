@@ -2531,7 +2531,6 @@ dependencies = [
  "csv",
  "directories",
  "fern",
- "flate2",
  "fs_extra",
  "gdk4",
  "gettext-rs",

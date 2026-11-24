@@ -1,0 +1,31 @@
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.TH songrec-recognize 1  "recognize " 
+.SH NAME
+songrec\-recognize \- Recognize one song from a sound file or microphone and print its info.
+.SH SYNOPSIS
+\fBsongrec recognize\fR [\fB\-l\fR|\fB\-\-list\-devices\fR] [\fB\-d\fR|\fB\-\-audio\-device\fR] [\fB\-i\fR|\fB\-\-request\-interval\fR] [\fB\-j\fR|\fB\-\-json\fR] [\fB\-c\fR|\fB\-\-csv\fR] [\fB\-h\fR|\fB\-\-help\fR] [\fIinput_file\fR] 
+.SH DESCRIPTION
+Recognize one song from a sound file or microphone and print its info.
+.SH OPTIONS
+.TP
+\fB\-l\fR, \fB\-\-list\-devices\fR
+List available audio devices and quit
+.TP
+\fB\-d\fR, \fB\-\-audio\-device\fR
+Specify the audio device to use
+.TP
+\fB\-i\fR, \fB\-\-request\-interval\fR [default: 10]
+Shazam interval between requests in seconds (increase if you are rate\-limited)
+.TP
+\fB\-j\fR, \fB\-\-json\fR
+Enable printing full song info in JSON
+.TP
+\fB\-c\fR, \fB\-\-csv\fR
+Enable printing full song info in the CSV format
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Print help
+.TP
+[\fIinput_file\fR]
+Recognize a file instead of using mic input

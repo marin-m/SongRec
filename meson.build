@@ -68,15 +68,15 @@ if appstreamcli.found()
 endif
 
 install_man(
-    'packaging/manpages-autogen/songrec.1.gz',
-    'packaging/manpages-autogen/songrec-audio-file-to-fingerprint.1.gz',
-    'packaging/manpages-autogen/songrec-audio-file-to-recognized-song.1.gz',
-    'packaging/manpages-autogen/songrec-fingerprint-to-recognized-song.1.gz',
-    'packaging/manpages-autogen/songrec-gui.1.gz',
-    'packaging/manpages-autogen/songrec-gui-norecording.1.gz',
-    'packaging/manpages-autogen/songrec-listen.1.gz',
-    'packaging/manpages-autogen/songrec-microphone-to-recognized-song.1.gz',
-    'packaging/manpages-autogen/songrec-recognize.1.gz',
+    'packaging/manpages-autogen/songrec.1',
+    'packaging/manpages-autogen/songrec-audio-file-to-fingerprint.1',
+    'packaging/manpages-autogen/songrec-audio-file-to-recognized-song.1',
+    'packaging/manpages-autogen/songrec-fingerprint-to-recognized-song.1',
+    'packaging/manpages-autogen/songrec-gui.1',
+    'packaging/manpages-autogen/songrec-gui-norecording.1',
+    'packaging/manpages-autogen/songrec-listen.1',
+    'packaging/manpages-autogen/songrec-microphone-to-recognized-song.1',
+    'packaging/manpages-autogen/songrec-recognize.1',
     install_dir: usrdir / 'share' / 'man' / 'man1'
 )
 

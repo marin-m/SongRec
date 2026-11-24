@@ -1,0 +1,22 @@
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.TH songrec-gui-norecording 1  "gui-norecording " 
+.SH NAME
+songrec\-gui\-norecording \- Launch the GUI, but don\*(Aqt recognize audio through the microphone as soon as it is launched (rather than expecting the user to click on a button).
+.SH SYNOPSIS
+\fBsongrec gui\-norecording\fR [\fB\-\-disable\-mpris\fR] [\fB\-\-disable\-pipewire\fR] [\fB\-h\fR|\fB\-\-help\fR] [\fIinput_file\fR] 
+.SH DESCRIPTION
+Launch the GUI, but don\*(Aqt recognize audio through the microphone as soon as it is launched (rather than expecting the user to click on a button).
+.SH OPTIONS
+.TP
+\fB\-\-disable\-mpris\fR
+Disable MPRIS support
+.TP
+\fB\-\-disable\-pipewire\fR
+Disable PipeWire native support
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Print help
+.TP
+[\fIinput_file\fR]
+An optional audio file to recognize on the launch of the application.
