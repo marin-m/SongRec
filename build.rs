@@ -306,24 +306,12 @@ troubleshoot the error"
         "compiled.gresource",
     );
 
-    // Generate manpages
-
-    let temp_out_dir = tempfile::tempdir().unwrap();
-
-    let real_out_dir = std::path::PathBuf::from(".")
-        .join("packaging")
-        .join("manpages-autogen");
-
-    std::fs::create_dir_all(&real_out_dir).unwrap();
-
-    clap_mangen::generate_to(app!(), temp_out_dir.path()).unwrap();
-
     // Prebuild the KSNI ARGB8-BE tray icon from PNG
 
     let out_path = std::path::PathBuf::from(".")
-        .join("src")
-        .join("gui")
-        .join("tray_icon.raw");
+    .join("src")
+    .join("gui")
+    .join("tray_icon.raw");
 
     let img = image::open("packaging/icons/hicolor/256x256/apps/re.fossplant.songrec.png").unwrap();
     let mut data = img.into_rgba8().into_vec();
@@ -335,16 +323,31 @@ troubleshoot the error"
     let mut out_file = std::fs::File::create(out_path).unwrap();
     out_file.write_all(&data).unwrap();
 
-    // Move the modified or added man pages to the source tree
+    #[cfg(feature = "manpages")]
+    {
+        // Generate manpages
 
-    for in_path in std::fs::read_dir(temp_out_dir.path()).unwrap() {
-        if let Ok(in_path) = in_path {
-            let out_path = real_out_dir.join(in_path.file_name());
+        let temp_out_dir = tempfile::tempdir().unwrap();
 
-            let mut out_file = std::fs::File::create(out_path).unwrap();
-            out_file
-                .write_all(&std::fs::read(&in_path.path()).unwrap())
-                .unwrap();
+        let real_out_dir = std::path::PathBuf::from(".")
+            .join("packaging")
+            .join("manpages-autogen");
+
+        std::fs::create_dir_all(&real_out_dir).unwrap();
+
+        clap_mangen::generate_to(app!(), temp_out_dir.path()).unwrap();
+
+        // Move the modified or added man pages to the source tree
+
+        for in_path in std::fs::read_dir(temp_out_dir.path()).unwrap() {
+            if let Ok(in_path) = in_path {
+                let out_path = real_out_dir.join(in_path.file_name());
+
+                let mut out_file = std::fs::File::create(out_path).unwrap();
+                out_file
+                    .write_all(&std::fs::read(&in_path.path()).unwrap())
+                    .unwrap();
+            }
         }
     }
 }

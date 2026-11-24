@@ -18,6 +18,7 @@ target/
 vendor/
 repo/
 man/
+manpages-autogen/
 dist/
 .flatpak-builder/
 .cargo/
