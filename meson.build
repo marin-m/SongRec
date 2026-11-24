@@ -93,6 +93,7 @@ test(
     'test',
     cargo_options,
   ],
+  protocol: 'rust',
   env: cargo_env,
   is_parallel: false,
   timeout: 1800,
