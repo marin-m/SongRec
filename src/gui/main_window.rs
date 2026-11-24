@@ -1419,21 +1419,17 @@ impl App {
                 about_dialog.set_debug_info(&ctx_buffered_log.borrow());
 
                 about_dialog.set_release_notes_version(
-                    include_str!(
-                        "../../packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in"
-                    )
-                    .split("<release version=\"")
-                    .collect::<Vec<_>>()[1]
+                    include_str!("../../packaging/freedesktop/re.fossplant.songrec.metainfo.xml")
+                        .split("<release version=\"")
+                        .collect::<Vec<_>>()[1]
                         .split("\"")
                         .collect::<Vec<_>>()[0],
                 );
 
                 about_dialog.set_release_notes(
-                    include_str!(
-                        "../../packaging/freedesktop/re.fossplant.songrec.metainfo.xml.in"
-                    )
-                    .split("<release ")
-                    .collect::<Vec<_>>()[1]
+                    include_str!("../../packaging/freedesktop/re.fossplant.songrec.metainfo.xml")
+                        .split("<release ")
+                        .collect::<Vec<_>>()[1]
                         .split("<description>")
                         .collect::<Vec<_>>()[1]
                         .split("</description>")

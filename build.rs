@@ -1,6 +1,4 @@
 use clap::{Arg, ArgAction, Command, command};
-use flate2::Compression;
-use flate2::GzBuilder;
 use gettextrs::gettext;
 use std::io::prelude::*;
 
@@ -314,33 +312,11 @@ troubleshoot the error"
 
     let real_out_dir = std::path::PathBuf::from(".")
         .join("packaging")
-        .join("rootfs")
-        .join("usr")
-        .join("share")
-        .join("man")
-        .join("man1");
+        .join("manpages-autogen");
 
     std::fs::create_dir_all(&real_out_dir).unwrap();
 
     clap_mangen::generate_to(app!(), temp_out_dir.path()).unwrap();
-
-    // Compress the man pages
-
-    for path in std::fs::read_dir(temp_out_dir.path()).unwrap() {
-        let path_str = path.unwrap().path().display().to_string();
-
-        if path_str.ends_with(".1") {
-            let out_file = std::fs::File::create(format!("{}.gz", path_str)).unwrap();
-
-            let mut gzipper = GzBuilder::new().write(out_file, Compression::best());
-            gzipper
-                .write_all(&std::fs::read(&path_str).unwrap())
-                .unwrap();
-            gzipper.finish().unwrap();
-
-            std::fs::remove_file(path_str).unwrap();
-        }
-    }
 
     // Prebuild the KSNI ARGB8-BE tray icon from PNG
 
@@ -349,10 +325,7 @@ troubleshoot the error"
         .join("gui")
         .join("tray_icon.raw");
 
-    let img = image::open(
-        "packaging/rootfs/usr/share/icons/hicolor/256x256/apps/re.fossplant.songrec.png",
-    )
-    .unwrap();
+    let img = image::open("packaging/icons/hicolor/256x256/apps/re.fossplant.songrec.png").unwrap();
     let mut data = img.into_rgba8().into_vec();
     assert_eq!(data.len() % 4, 0);
     for pixel in data.as_chunks_mut::<4>().0 {
@@ -367,7 +340,11 @@ troubleshoot the error"
     for in_path in std::fs::read_dir(temp_out_dir.path()).unwrap() {
         if let Ok(in_path) = in_path {
             let out_path = real_out_dir.join(in_path.file_name());
-            std::fs::copy(in_path.path(), out_path).unwrap();
+
+            let mut out_file = std::fs::File::create(out_path).unwrap();
+            out_file
+                .write_all(&std::fs::read(&in_path.path()).unwrap())
+                .unwrap();
         }
     }
 }

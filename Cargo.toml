@@ -59,7 +59,6 @@ gettext-rs = { version = "0.8.0" }
 tempfile = "3.27.0"
 clap_mangen = "0.3.0"
 clap = { version = "4.5.56", features = ["cargo"] }
-flate2 = "1.1.9"
 glib-build-tools = "0.22.8"
 
 [features]

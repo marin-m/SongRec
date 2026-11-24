@@ -134,14 +134,14 @@ Debian and Ubuntu:
 ```bash
 sudo apt install build-essential libasound2-dev libpipewire-0.3-dev libclang-dev \
     libpulse-dev libgtk-4-dev libsoup-3.0-dev libadwaita-1-dev blueprint-compiler \
-    libdbus-1-dev gettext sed grep
+    libdbus-1-dev meson ninja-build gettext sed grep
 ```
 
 Archlinux:
 
 ```bash
 sudo pacman -S pkgconf blueprint-compiler git gtk4 libadwaita libsoup3 alsa-lib \
-    libpulse libpipewire clang openssl ffmpeg gettext sed grep
+    libpulse libpipewire clang openssl ffmpeg meson ninja gettext sed grep
 ```
 
 Fedora Linux:
@@ -150,7 +150,7 @@ Fedora Linux:
 sudo dnf group install development-tools
 sudo dnf install alsa-lib-devel blueprint-compiler pipewire-devel clang-devel \
     pulseaudio-libs-devel pkgconf-pkg-config glib gtk4-devel libsoup3-devel \
-    libadwaita-devel dbus-devel openssl-devel gettext sed grep
+    libadwaita-devel dbus-devel openssl-devel gettext meson ninja-build sed grep
 ```
 
 MSYS2 with UCRT64 (Windows 10+):

@@ -39,7 +39,6 @@ mv packaging/ppa/debian .
 
 sed -ri "s/\) bionic/staging) resolute/g" debian/changelog
 
-RUST_BACKTRACE=full cargo test --release
 debuild -b -us -uc
 
 mv ../*.tar* ../../ || :

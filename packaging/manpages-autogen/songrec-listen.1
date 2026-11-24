@@ -1,0 +1,31 @@
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.TH songrec-listen 1  "listen " 
+.SH NAME
+songrec\-listen \- Run as a command\-line program listening the microphone and printing recognized songs to stdout, exposing current song info via MPRIS
+.SH SYNOPSIS
+\fBsongrec listen\fR [\fB\-l\fR|\fB\-\-list\-devices\fR] [\fB\-d\fR|\fB\-\-audio\-device\fR] [\fB\-i\fR|\fB\-\-request\-interval\fR] [\fB\-j\fR|\fB\-\-json\fR] [\fB\-c\fR|\fB\-\-csv\fR] [\fB\-\-disable\-mpris\fR] [\fB\-h\fR|\fB\-\-help\fR] 
+.SH DESCRIPTION
+Run as a command\-line program listening the microphone and printing recognized songs to stdout, exposing current song info via MPRIS
+.SH OPTIONS
+.TP
+\fB\-l\fR, \fB\-\-list\-devices\fR
+List available audio devices and quit
+.TP
+\fB\-d\fR, \fB\-\-audio\-device\fR
+Specify the audio device to use
+.TP
+\fB\-i\fR, \fB\-\-request\-interval\fR [default: 10]
+Shazam interval between requests in seconds (increase if you are rate\-limited)
+.TP
+\fB\-j\fR, \fB\-\-json\fR
+Enable printing full song info in JSON
+.TP
+\fB\-c\fR, \fB\-\-csv\fR
+Enable printing full song info in the CSV format
+.TP
+\fB\-\-disable\-mpris\fR
+Disable MPRIS support
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Print help

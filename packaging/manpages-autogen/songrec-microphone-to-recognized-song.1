@@ -1,0 +1,22 @@
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.TH songrec-microphone-to-recognized-song 1  "microphone-to-recognized-song " 
+.SH NAME
+songrec\-microphone\-to\-recognized\-song \- Recognize a currently playing song using the microphone and print obtained information to the standard output
+.SH SYNOPSIS
+\fBsongrec microphone\-to\-recognized\-song\fR [\fB\-l\fR|\fB\-\-list\-devices\fR] [\fB\-d\fR|\fB\-\-audio\-device\fR] [\fB\-i\fR|\fB\-\-request\-interval\fR] [\fB\-h\fR|\fB\-\-help\fR] 
+.SH DESCRIPTION
+Recognize a currently playing song using the microphone and print obtained information to the standard output
+.SH OPTIONS
+.TP
+\fB\-l\fR, \fB\-\-list\-devices\fR
+List available audio devices and quit
+.TP
+\fB\-d\fR, \fB\-\-audio\-device\fR
+Specify the audio device to use
+.TP
+\fB\-i\fR, \fB\-\-request\-interval\fR [default: 10]
+Shazam interval between requests in seconds (increase if you are rate\-limited)
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Print help

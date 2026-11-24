@@ -27,8 +27,8 @@ function run {
 }
 
 APP_ID="re.fossplant.songrec"
-METAINFO="packaging/rootfs/usr/share/metainfo/${APP_ID}.metainfo.xml"
-DESKTOP="packaging/rootfs/usr/share/applications/${APP_ID}.desktop"
+METAINFO="packaging/freedesktop/re.fossplant.songrec.metainfo.xml"
+DESKTOP="packaging/freedesktop/re.fossplant.songrec.desktop"
 
 git diff --cached --quiet "${METAINFO}"
 if [ "$?" -ne "0" ]; then
