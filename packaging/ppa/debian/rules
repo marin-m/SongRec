@@ -25,7 +25,6 @@ override_dh_auto_install:
 	
 	mkdir -p $(CURDIR)/debian/songrec/usr/share/songrec
 	cp -ra $(CURDIR)/translations/locale $(CURDIR)/debian/songrec/usr/share/
-	
-	mkdir -p $(CURDIR)/debian/songrec/usr/bin
-	cp -ra $(CURDIR)/build/target/release/songrec $(CURDIR)/debian/songrec/usr/bin/
+
+	$(DH_OVERRIDDEN_COMMAND)
 
