@@ -4,7 +4,7 @@ project(
     version: run_command(
         find_program(
             meson.project_source_root() /
-            'packaging/build-aux/meson-cargo-manifest.py'
+            'packaging/meson-helper/meson-cargo-manifest.py'
         ),
         'package',
         'version',
@@ -30,8 +30,8 @@ endif
 subdir('src')
 subdir('packaging/freedesktop')
 
-install_subdir('packaging/icons', install_dir : share)
-install_subdir('translations/locale', install_dir : share)
+install_subdir('packaging/icons', install_dir: share)
+install_subdir('translations/locale', install_dir: share)
 
 install_man(
     'packaging/manpages-autogen/songrec.1',
@@ -46,5 +46,5 @@ install_man(
     install_dir: share / 'man' / 'man1'
 )
 
-# meson.add_dist_script('build-aux/meson-dist-vendor.sh')
+# meson.add_dist_script('meson-helper/meson-dist-vendor.sh')
 
