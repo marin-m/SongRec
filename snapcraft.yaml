@@ -1,5 +1,5 @@
 name: songrec # you probably want to 'snapcraft register <name>'
-adopt-info: share
+adopt-info: songrec
 title: SongRec
 license: GPL-3.0+
 base: core26 # the base snap is the execution environment for this snap
@@ -10,7 +10,7 @@ confinement: strict # use 'strict' once you have the right plugs and slots
 
 apps:
   songrec:
-    command: bin/songrec
+    command: usr/bin/songrec
     command-chain:
     - snap/command-chain/alsa-launch
     desktop: usr/share/applications/com.github.marinm.songrec.desktop
@@ -36,6 +36,7 @@ parts:
     plugin: meson
     source: .
     meson-parameters:
+      - "--prefix=/usr"
       - "-Dpipewire=disabled"
 
     build-packages:
@@ -54,9 +55,14 @@ parts:
       craftctl default
 
       # Point icon to the correct location
-      mv usr/share/applications/re.fossplant.songrec.desktop usr/share/applications/com.github.marinm.songrec.desktop
-      sed -i -e 's|re.fossplant.songrec.desktop|com.github.marinm.songrec.desktop|g' usr/share/metainfo/re.fossplant.songrec.metainfo.xml
-      sed -i -e 's|Icon=re.fossplant.songrec|Icon=/usr/share/icons/hicolor/scalable/apps/re.fossplant.songrec.svg|g' usr/share/applications/com.github.marinm.songrec.desktop
+      mv ${CRAFT_PRIME}/usr/share/applications/re.fossplant.songrec.desktop \
+        ${CRAFT_PRIME}/usr/share/applications/com.github.marinm.songrec.desktop
+
+      sed -i -e 's|re.fossplant.songrec.desktop|com.github.marinm.songrec.desktop|g' \
+        ${CRAFT_PRIME}/usr/share/metainfo/re.fossplant.songrec.metainfo.xml
+
+      sed -i -e 's|Icon=re.fossplant.songrec|Icon=/usr/share/icons/hicolor/scalable/apps/re.fossplant.songrec.svg|g' \
+        ${CRAFT_PRIME}/usr/share/applications/com.github.marinm.songrec.desktop
   
     after: [alsa-mixin, rust-deps]
 
