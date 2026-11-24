@@ -230,6 +230,11 @@ macro_rules! app {
 }
 
 fn main() {
+    // Lint source code
+
+    #[cfg(target_os = "linux")]
+    std::process::Command::new("cargo").arg("fmt").status().ok();
+
     // Regenerate .po, .mo, .pot translation
     // files from the source tree
 
@@ -320,10 +325,7 @@ troubleshoot the error"
         .join("gui")
         .join("tray_icon.raw");
 
-    let img = image::open(
-        "packaging/icons/hicolor/256x256/apps/re.fossplant.songrec.png",
-    )
-    .unwrap();
+    let img = image::open("packaging/icons/hicolor/256x256/apps/re.fossplant.songrec.png").unwrap();
     let mut data = img.into_rgba8().into_vec();
     assert_eq!(data.len() % 4, 0);
     for pixel in data.as_chunks_mut::<4>().0 {
