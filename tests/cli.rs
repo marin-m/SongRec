@@ -235,7 +235,7 @@ fn reading_the_standard_input_reports_an_input_that_is_not_audio() {
             );
             // The error is about the audio, not about a file named "-"
             assert!(
-                !stderr.contains("No such file") && !stderr.contains("os error 2"),
+                !stderr.contains("os error 2"),
                 "songrec {:?} looked for a file named -: {}",
                 args,
                 stderr

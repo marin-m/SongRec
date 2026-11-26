@@ -1,3 +1,9 @@
+songrec (0.8.3+1) bionic; urgency=low
+
+  * Prevent PulseAudio-related errors to have CI tests fail
+
+ -- Marin <marin-m@users.noreply.github.com>  Thu, 26 Nov 2026 22:43:21 +0100
+
 songrec (0.8.3) bionic; urgency=low
 
   * Add Meson as a build system, for when installing the app system-wide on Linux
