@@ -87,6 +87,11 @@ parts:
         craftctl default
       fi
 
+    override-stage: |
+      if [ "${CRAFT_ARCH_BUILD_FOR}" != "riscv64" ]; then
+        craftctl default
+      fi
+
     organize:
       ffmpeg: usr/bin/
     stage:
