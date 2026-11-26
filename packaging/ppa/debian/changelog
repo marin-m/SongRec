@@ -1,3 +1,13 @@
+songrec (0.8.3) bionic; urgency=low
+
+  * Add Meson as a build system, for when installing the app system-wide on Linux
+  * Handle rate-limiting on CLI (PR #379)
+  * Minor fixes thanks to @HarpeLm
+  * Update Slovak translation thanks to @dodog
+  * Update Portuguese translation thanks to @marcelocripe
+
+ -- Marin <marin-m@users.noreply.github.com>  Thu, 26 Nov 2026 21:57:51 +0100
+
 songrec (0.8.2) bionic; urgency=low
 
   * Update Slovak translation thanks to @dodog

@@ -58,6 +58,17 @@ https://hughsie.github.io/oars/index.html
 -->
   <content_rating type="oars-1.1"/>
   <releases>
+    <release version="0.8.3" date="2026-11-26">
+      <description>
+        <ul>
+          <li>Add Meson as a build system, for when installing the app system-wide on Linux</li>
+          <li>Handle rate-limiting on CLI (PR #379)</li>
+          <li>Minor fixes thanks to @HarpeLm</li>
+          <li>Update Slovak translation thanks to @dodog</li>
+          <li>Update Portuguese translation thanks to @marcelocripe</li>
+        </ul>
+      </description>
+    </release>
     <release version="0.8.2" date="2026-11-14">
       <description>
         <ul>
