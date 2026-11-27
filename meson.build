@@ -48,7 +48,12 @@ subdir('src')
 ###############
 
 subdir('packaging')
-install_subdir('translations/locale', install_dir: get_option('localedir'))
+
+install_subdir(
+    'translations/locale',
+    install_dir: get_option('localedir'),
+    strip_directory: true
+)
 
 # meson.add_dist_script('meson-helper/meson-dist-vendor.sh')
 
