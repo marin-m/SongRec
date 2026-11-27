@@ -27,7 +27,12 @@ dependency('libadwaita-1', version: '>= 1.8')
 dependency('libsoup-3.0', version: '>= 3.4')
 
 if host_machine.system() == 'linux'
-    dependency('libpipewire-0.3')
+    get_option('pipewire').enable_auto_if(
+        dependency(
+            'libpipewire-0.3',
+            required: get_option('pipewire')
+        ).found()
+    )
     dependency('alsa')
     dependency('dbus-1')
     dependency('libpulse')

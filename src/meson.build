@@ -11,10 +11,21 @@ cargo_env = {
 target_dir = meson.project_build_root() / 'target'
 manifest = meson.project_source_root() / 'Cargo.toml'
 
-feature_list = 'gui,ffmpeg,pulse,mpris'
-if get_option('pipewire').enabled()
-    feature_list += ',pipewire'
+options = []
+if get_option('gui').enabled()
+    options += ['gui']
 endif
+if get_option('ffmpeg').enabled()
+    options += ['ffmpeg']
+endif
+if host_machine.system() == 'linux'
+    options += ['pulse', 'mpris']
+    if get_option('pipewire').enabled()
+        options += ['pipewire']
+    endif
+endif
+
+feature_list = ','.join(options)
 
 cargo_options = [
   '--target-dir', target_dir,

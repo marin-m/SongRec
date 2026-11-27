@@ -1,1 +1,3 @@
-option('pipewire', type : 'feature', value : 'enabled')
+option('pipewire', type : 'feature', value : 'auto')
+option('gui', type : 'feature', value : 'enabled')
+option('ffmpeg', type : 'feature', value : 'enabled')
