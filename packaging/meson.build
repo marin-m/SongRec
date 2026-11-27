@@ -1,4 +1,4 @@
-share = get_option('prefix') / get_option('datadir')
+share = get_option('datadir')
 
 subdir('freedesktop')
 
@@ -13,8 +13,7 @@ install_man(
     'manpages-autogen/songrec-gui-norecording.1',
     'manpages-autogen/songrec-listen.1',
     'manpages-autogen/songrec-microphone-to-recognized-song.1',
-    'manpages-autogen/songrec-recognize.1',
-    install_dir: share / 'man' / 'man1'
+    'manpages-autogen/songrec-recognize.1'
 )
 
 # meson.add_dist_script('meson-helper/meson-dist-vendor.sh')

@@ -1,6 +1,6 @@
 i18n = import('i18n')
 
-share = get_option('prefix') / get_option('datadir')
+share = get_option('datadir')
 
 # Cf. https://docs.flatpak.org/en/latest/flatpak-devel.html#buildsystem-handling
 

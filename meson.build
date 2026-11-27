@@ -15,8 +15,7 @@ project(
     meson_version: '>=1.1',
 )
 
-share = get_option('prefix') / get_option('datadir')
-# etc = get_option('prefix') / get_option('sysconfdir')
+gnome = import('gnome')
 
 ##################
 ## DEPENDENCIES ##
@@ -49,7 +48,9 @@ subdir('src')
 ###############
 
 subdir('packaging')
-install_subdir('translations/locale', install_dir: share)
+install_subdir('translations/locale', install_dir: get_option('localedir'))
 
 # meson.add_dist_script('meson-helper/meson-dist-vendor.sh')
+
+gnome.post_install()
 

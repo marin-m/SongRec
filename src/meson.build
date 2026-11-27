@@ -1,6 +1,6 @@
 cargo_bin = find_program('cargo')
 
-bindir = get_option('prefix') / get_option('bindir')
+bindir = get_option('bindir')
 
 cargo_env = {
   'CARGO_HOME': meson.project_build_root() / 'cargo',
