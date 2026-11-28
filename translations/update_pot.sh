@@ -29,14 +29,15 @@ xgettext --join-existing --its translations/songrec.its -o translations/songrec.
 
 newPotDate=`grep "POT-Creation-Date:" translations/songrec.pot.new | sed 's/.\{3\}$//'`
 oldPotDate=`grep "POT-Creation-Date:" translations/songrec.pot | sed 's/.\{3\}$//'`
-sed -i 's/'"${newPotDate}"'/'"${oldPotDate}"'/' "translations/songrec.pot.new"
+sed -i.bak 's/'"${newPotDate}"'/'"${oldPotDate}"'/' "translations/songrec.pot.new"
 set +x
 changes=`diff "translations/songrec.pot" "translations/songrec.pot.new" || true`
 if [ ! -z "$changes" ]; then
     set -x
-    sed -i 's/'"${oldPotDate}"'/'"${newPotDate}"'/' "translations/songrec.pot.new"
+    sed -i.bak 's/'"${oldPotDate}"'/'"${newPotDate}"'/' "translations/songrec.pot.new"
     mv "translations/songrec.pot.new" "translations/songrec.pot"
 else
     set -x
     rm "translations/songrec.pot.new"
 fi
+rm "translations/songrec.pot.new.bak"
