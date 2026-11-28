@@ -4,9 +4,6 @@ set -ex # Exit on error, print commands
 
 cd "$(dirname "$0")/.."
 
-# See here for the source of most commands:
-# https://stackoverflow.com/questions/55981602/internationalize-python-project-using-pygtk3-and-glade
-
 # Dependencies:
 # sudo apt install gettext sed
 
@@ -43,19 +40,3 @@ else
     set -x
     rm "translations/songrec.pot.new"
 fi
-
-# Update .po templates based on .pot
-
-for locale in $(cat translations/po/LINGUAS); do
-    msgmerge --no-fuzzy-matching \
-        --update translations/po/${locale}.po \
-        translations/songrec.pot
-    
-    # Keep binary ".mo" files synced with the ".po" files,
-    # as needed, if a tool like "poedit" didn't already
-    # do it automatically
-
-    mkdir -p translations/locale/${locale}/LC_MESSAGES/
-    msgfmt translations/po/${locale}.po \
-        -o translations/locale/${locale}/LC_MESSAGES/songrec.mo
-done

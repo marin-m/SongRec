@@ -232,21 +232,21 @@ macro_rules! app {
 fn main() {
     // Lint source code
 
-    #[cfg(target_os = "linux")]
+    #[cfg(unix)]
     std::process::Command::new("cargo").arg("fmt").status().ok();
 
     // Regenerate .po, .mo, .pot translation
     // files from the source tree
 
-    #[cfg(target_os = "linux")]
-    if !std::process::Command::new("./update_po_files.sh")
+    #[cfg(unix)]
+    if !std::process::Command::new("./update_pot.sh")
         .current_dir("translations")
         .status()
         .unwrap()
         .success()
     {
         println!(
-            "cargo:warning=Running \"./translations/./update_po_files.sh\" \
+            "cargo:warning=Running \"./translations/update_pot.sh\" \
 did not succeed, please think about running it yourself in order to \
 troubleshoot the error"
         );
@@ -255,7 +255,7 @@ troubleshoot the error"
     // Regenerate GTK Builder .ui files from
     // GNOME Builder .blp files
 
-    #[cfg(target_os = "linux")]
+    #[cfg(unix)]
     if let Ok(output) = std::process::Command::new("blueprint-compiler")
         .current_dir("src/gui")
         .args([
@@ -275,7 +275,7 @@ troubleshoot the error"
         }
     }
 
-    #[cfg(target_os = "linux")]
+    #[cfg(unix)]
     if let Ok(output) = std::process::Command::new("blueprint-compiler")
         .current_dir("src/gui")
         .args([

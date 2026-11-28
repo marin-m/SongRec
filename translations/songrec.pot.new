@@ -1,0 +1,235 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-28 06:49+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/cli_main.rs:129
+msgid "Available device:"
+msgstr ""
+
+#: src/cli_main.rs:140
+msgid "Exiting: audio device not found"
+msgstr ""
+
+#: src/cli_main.rs:147
+msgid "Exiting: no audio devices found!"
+msgstr ""
+
+#: src/cli_main.rs:153
+msgid "Using device %s"
+msgstr ""
+
+#: src/cli_main.rs:177
+msgid "Error: Network unreachable"
+msgstr ""
+
+#: src/cli_main.rs:181
+msgid "Warning: Network unreachable"
+msgstr ""
+
+#: src/cli_main.rs:191 src/cli_main.rs:202 src/cli_main.rs:233
+msgid "Error:"
+msgstr ""
+
+#: src/cli_main.rs:192 src/cli_main.rs:197 src/core/http_task.rs:130
+#: src/core/fingerprinting/communication.rs:134
+msgid "Your IP has been rate-limited"
+msgstr ""
+
+#: src/cli_main.rs:201 src/core/http_task.rs:54 src/core/http_task.rs:63
+#: src/core/http_task.rs:72 src/core/http_task.rs:123
+#: src/gui/main_window.rs:1125 src/gui/main_window.rs:1137
+msgid "No match for this song"
+msgstr ""
+
+#: src/cli_main.rs:210
+msgid "Recording started!"
+msgstr ""
+
+#: src/main.rs:420
+msgid "Error decoding fingerprint:"
+msgstr ""
+
+#: src/core/microphone_thread.rs:68
+msgid "Audio error:"
+msgstr ""
+
+#: src/core/microphone_thread.rs:159 src/core/microphone_thread.rs:164
+msgid "Audio error: No input device available"
+msgstr ""
+
+#: src/core/preferences.rs:121 src/core/preferences.rs:238
+msgid "When parsing the preferences file:"
+msgstr ""
+
+#: src/core/preferences.rs:210
+msgid "When saving the preferences file:"
+msgstr ""
+
+#: src/core/fingerprinting/signature_format.rs:43
+msgid "Invalid Shazam signature"
+msgstr ""
+
+#: src/core/fingerprinting/signature_format.rs:95
+msgid "Invalid sample rate in decoded Shazam packet"
+msgstr ""
+
+#: src/core/fingerprinting/signature_format.rs:140
+msgid "Invalid frequency band in decoded Shazam packet"
+msgstr ""
+
+#: src/core/fingerprinting/signature_format.rs:189
+msgid "A fingerprint must start with \"%s\""
+msgstr ""
+
+#: src/core/fingerprinting/signature_format.rs:219
+msgid "Invalid sample rate passed when encoding Shazam packet"
+msgstr ""
+
+#: src/gui/context_menu.rs:377
+msgid "Song name copied to the clipboard"
+msgstr ""
+
+#: src/gui/main_window.rs:283
+msgid "Application error"
+msgstr ""
+
+#: src/gui/main_window.rs:304
+msgid "Network error"
+msgstr ""
+
+#: src/gui/main_window.rs:324
+msgid "Search on YouTube"
+msgstr ""
+
+#: src/gui/main_window.rs:555
+msgid "Unable to enable notification icon"
+msgstr ""
+
+#: src/gui/main_window.rs:1034 src/gui/main_window.rs:1112
+msgid "Unable to enable MPRIS support"
+msgstr ""
+
+#: src/gui/main_window.rs:1134
+msgid "_Ok"
+msgstr ""
+
+#: src/gui/main_window.rs:1210
+msgid "Song recognized"
+msgstr ""
+
+#: src/gui/main_window.rs:1350
+msgid "Are you sure you want to wipe history?"
+msgstr ""
+
+#: src/gui/main_window.rs:1356
+msgid "_Yes"
+msgstr ""
+
+#: src/gui/main_window.rs:1357
+msgid "_Cancel"
+msgstr ""
+
+#: src/gui/song_history_interface.rs:97
+msgid "Skipping an invalid CSV entry:"
+msgstr ""
+
+#: src/gui/song_history_interface.rs:121
+msgid "Error when reading the song history on the disk:"
+msgstr ""
+
+#: src/gui/song_history_interface.rs:162
+msgid "Error while saving the song history on the disk:"
+msgstr ""
+
+#: src/gui/song_history_interface.rs:188
+msgid "Error when reading the favorites on the disk:"
+msgstr ""
+
+#: src/gui/song_history_interface.rs:225
+msgid "Error while saving the favorites on the disk:"
+msgstr ""
+
+#: src/plugins/ksni.rs:43
+msgid "Open SongRec"
+msgstr ""
+
+#: src/plugins/ksni.rs:51
+msgid "Quit..."
+msgstr ""
+
+#: packaging/freedesktop/re.fossplant.songrec.desktop:18
+msgid "An open-source Shazam client for Linux, written in Rust"
+msgstr ""
+
+#: packaging/freedesktop/re.fossplant.songrec.desktop:20
+msgid "Rust;GTK;Shazam;Client;Audio;Song;Recognition;Fingerprinting;"
+msgstr ""
+
+#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml:11
+msgid "Recognize songs from audio easily"
+msgstr ""
+
+#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml:13
+msgid ""
+"SongRec is an unofficial Shazam client for Linux, written in Rust. It allows "
+"you to easily recognize songs from your speakers, microphone or audio files."
+msgstr ""
+
+#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml:14
+msgid "Features:"
+msgstr ""
+
+#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml:15
+msgid "- Recognize tracks from an arbitrary audio file."
+msgstr ""
+
+#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml:16
+msgid "- Recognize audio from the microphone."
+msgstr ""
+
+#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml:17
+msgid "- Usage from both GUI and command line."
+msgstr ""
+
+#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml:18
+msgid ""
+"- Provide an history of the recognized songs on the GUI, exportable to CSV."
+msgstr ""
+
+#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml:19
+msgid ""
+"- Continuous song detection from the microphone, with the ability to choose "
+"your input device."
+msgstr ""
+
+#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml:20
+msgid ""
+"- Ability to recognize songs from your speakers rather than your microphone."
+msgstr ""
+
+#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml:25
+msgid "SongRec's main window"
+msgstr ""
+
+#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml:29
+msgid "SongRec's favourites window"
+msgstr ""
+
+#: packaging/freedesktop/re.fossplant.songrec.metainfo.xml:33
+msgid "SongRec's main window, on GNOME in dark mode"
+msgstr ""
