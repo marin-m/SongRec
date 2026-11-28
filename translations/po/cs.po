@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-11-24 18:38+0100\n"
-"PO-Revision-Date: 2026-11-28 00:24+0000\n"
+"PO-Revision-Date: 2026-11-28 03:07+0000\n"
 "Last-Translator: Fjuro <fjuro@users.noreply.weblate.fossplant.re>\n"
 "Language-Team: Czech <https://weblate.fossplant.re/projects/songrec/songrec/"
 "cs/>\n"
@@ -238,7 +238,7 @@ msgstr "Předána neplatná vzorkovací frekvence při kódování paketu Shazam
 
 #: src/gui/context_menu.rs:377
 msgid "Song name copied to the clipboard"
-msgstr ""
+msgstr "Název skladby zkopírován do schránky"
 
 #: src/gui/main_window.rs:283
 msgid "Application error"
@@ -285,7 +285,7 @@ msgstr "_Zrušit"
 
 #: src/gui/song_history_interface.rs:97
 msgid "Skipping an invalid CSV entry:"
-msgstr ""
+msgstr "Překakuji neplatný záznam CSV:"
 
 #: src/gui/song_history_interface.rs:121
 msgid "Error when reading the song history on the disk:"
@@ -293,7 +293,7 @@ msgstr "Chyba při čtení historie skladeb z disku:"
 
 #: src/gui/song_history_interface.rs:162
 msgid "Error while saving the song history on the disk:"
-msgstr ""
+msgstr "Chyba při ukládání historie skladby na disk:"
 
 #: src/gui/song_history_interface.rs:188
 msgid "Error when reading the favorites on the disk:"
@@ -301,7 +301,7 @@ msgstr "Chyba při čtení oblíbených z disku:"
 
 #: src/gui/song_history_interface.rs:225
 msgid "Error while saving the favorites on the disk:"
-msgstr ""
+msgstr "Chyba při ukládání oblíbených na disk:"
 
 #: src/plugins/ksni.rs:43
 msgid "Open SongRec"
@@ -433,11 +433,11 @@ msgstr "Žádné duplicitní záznamy v historii"
 
 #: src/gui/interface.blp:409
 msgid "Remember window dimensions and maximized state across restarts"
-msgstr ""
+msgstr "Zapamatovat si rozměry okna a stav maximalizace napříč restarty"
 
 #: src/gui/interface.blp:410
 msgid "Remember window size"
-msgstr ""
+msgstr "Zapamatovat si velikost okna"
 
 #: src/gui/interface.blp:417
 msgid ""
